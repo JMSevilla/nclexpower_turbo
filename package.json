@@ -2,10 +2,11 @@
   "name": "nclexpower",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev:simulator": "turbo run dev --filter=simulator"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

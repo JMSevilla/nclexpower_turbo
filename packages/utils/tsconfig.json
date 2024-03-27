@@ -1,0 +1,12 @@
+{
+    "extends": "@repo/typescript-config/react-library.json",
+    "compilerOptions": {
+      "lib": [
+        "DOM",
+        "DOM.Iterable"
+      ]
+    },
+    "include": ["."],
+    "exclude": ["node_modules", "dist"]
+}
+  
