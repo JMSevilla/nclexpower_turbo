@@ -29,18 +29,14 @@ export const ParseContents: React.FC<Props> = ({
           return <h3>SATA Q</h3>;
         // <SATAQuestion data={deserializeContents} />;
 
-
-
-
         case "MCQ":
-          return <MCQQuestion data={deserializeContents} />
-        // <h3>MCQ Q</h3>;
-
+          return <h3>MCQ Q</h3>;
+        // <MCQQuestion data={deserializeContents} />
 
 
         case "MCQGroup":
-          return <h3>MCQ Group</h3>;
-        // <MCQGroupQuestion data={deserializeContents} />
+          return <MCQGroupQuestion data={deserializeContents} />
+        // <h3>MCQ Group</h3>;
 
         default:
           return <h3>No questionaire Loaded</h3>;
