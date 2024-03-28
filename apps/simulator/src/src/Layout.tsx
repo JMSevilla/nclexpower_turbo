@@ -25,7 +25,7 @@ export const Layout: React.FC<Props> = ({ header, questionaire }) => {
           <PageContainer questionaire={questionaire}>
             <div className="min-h-[100dvh] flex flex-col justify-between">
               <LoadablePageContent loading={loading}>
-                <ParseContents questionaire={questionaire} questionKey="MCQ" />
+                <ParseContents questionaire={questionaire} questionKey="SATA" />
               </LoadablePageContent>
             </div>
           </PageContainer>
