@@ -26,14 +26,16 @@ export const ParseContents: React.FC<Props> = ({
       //
       switch (QuestionType) {
         case "SATA":
-          return <SATAQuestion data={deserializeContents} />;
-        // <h3>SATA Q</h3>;
+          return <h3>SATA Q</h3>;
+        // <SATAQuestion data={deserializeContents} />;
+
 
 
 
         case "MCQ":
-          return <h3>MCQ Q</h3>;
-        // <MCQQuestion data={deserializeContents} />
+          return <MCQQuestion data={deserializeContents} />
+        // <h3>MCQ Q</h3>;
+
 
 
         case "MCQGroup":
