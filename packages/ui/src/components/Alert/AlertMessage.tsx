@@ -12,7 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useResolution } from "@repo/utils/hooks";
-import { MessageType, messageRole } from "@repo/utils/types";
+import { MessageType, messageRole } from "./alert";
 import React from "react";
 
 interface Props {
