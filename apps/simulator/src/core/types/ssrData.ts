@@ -45,6 +45,8 @@ type HeaderButtonsEntity = {
   value: string;
 };
 
+
+
 export type SsrMockQuestionaire = {
   qId: number;
   hasContainer: boolean;
@@ -62,7 +64,7 @@ type SsrMockTabsUIQuestionaire = {
   content: string;
 };
 
-type SsrMockQuestionaireAnswer = {
+export type SsrMockQuestionaireAnswer = {
   answerId: number;
   qId: number;
   answerType: string;
@@ -71,4 +73,5 @@ type SsrMockQuestionaireAnswer = {
   columns: string[];
   rows: any;
   note: string;
+  choices: []
 };

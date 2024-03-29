@@ -20,7 +20,7 @@ export const Layout: React.FC<Props> = ({ header, questionaire }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
-        <div className="h-fit min-h-[100dvh]">
+        <div className="h-fit min-h-[100dvh] bg-slate-100">
           <Header header={header} />
           <PageContainer questionaire={questionaire}>
             <div className="min-h-[100dvh] flex flex-col justify-between">

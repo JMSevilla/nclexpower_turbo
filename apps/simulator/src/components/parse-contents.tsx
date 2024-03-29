@@ -1,13 +1,12 @@
-import MCQQuestion from '@/components/block/CaseStudy/MCQNoGroup/MCQQuestion';
-import MCQGroupQuestion from '@/components/block/CaseStudy/MCQWithGroup/MCQGroupQuestion';
-import SATAQuestion from '@/components/block/CaseStudy/SATA/SATAQuestion';
+import CaseStudyContainer from '@/components/blocks/CaseStudy/CaseStudyContainer';
+import SATAQuestion from '@/components/blocks/RegularQuestion/SATA/SATAQuestion';
+
 import { SsrMockQuestionaire, SsrMockQuestionaireAnswer } from "@/core/types/ssrData";
 import React from "react";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
   questionKey: string;
-  answer: SsrMockQuestionaireAnswer[];
 }
 
 export const ParseContents: React.FC<Props> = ({
@@ -21,22 +20,12 @@ export const ParseContents: React.FC<Props> = ({
         return cms.QType === questionKey;
       });
     if (questionaire) {
-      const { QType: QuestionType, qId }: SsrMockQuestionaire =
+      const { QType: QuestionType }: SsrMockQuestionaire =
         deserializeContents;
       //
       switch (QuestionType) {
         case "SATA":
-          return <h3>SATA Q</h3>;
-        // <SATAQuestion data={deserializeContents} />;
-
-        case "MCQ":
-          return <h3>MCQ Q</h3>;
-        // <MCQQuestion data={deserializeContents} />
-
-
-        case "MCQGroup":
-          return <MCQGroupQuestion data={deserializeContents} />
-        // <h3>MCQ Group</h3>;
+          return <SATAQuestion question={deserializeContents} />
 
         default:
           return <h3>No questionaire Loaded</h3>;

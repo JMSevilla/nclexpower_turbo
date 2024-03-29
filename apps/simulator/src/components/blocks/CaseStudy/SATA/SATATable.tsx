@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
+
+interface TableRow {
+    "title": string;
+    "details": string;
+}
 
 interface TableData {
-    headers: [],
-    data: [],
-    value: string
+    headers: string[],
+    data: TableRow[],
+    value: string[]
 
 
 }

@@ -2,7 +2,7 @@ import { Checkbox } from '@mui/material'
 import React from 'react'
 
 interface TableData {
-    columns: [],
+    columns: string[],
     data: [],
     value: string
 
@@ -14,7 +14,6 @@ interface Props {
 }
 
 export const MCQAnswerTable: React.FC<Props> = ({ table }) => {
-    console.log("TABLE : ", table)
     return (
         <div className='w-full flex flex-col gap-5 text-sm leading-4'>
             {table && table.map((tableItem, tableIndex) => (
