@@ -124,6 +124,38 @@
                             "note": ""
                         }
                     ]
+                },
+                {
+                    "qId": 2,
+                    "hasContainer": true,
+                    "QType": "DDC",
+                    "question": "",
+                    "questionUI": "Tabs",
+                    "tabs": [],
+                    "answer": [
+                        {
+                            "answerId": 1,
+                            "qId": 1,
+                            "answerType": "DDC",
+                            "answerInstruction": "Complete the following sentence by choosing from the list of options.",
+                            "DDCAnswer": "The client is at <strong>highest</strong> rish for developing [[selectFieldKey:Sepsis]] qeqweqweqweqweger;lmgerlmbrelmberkbmrklm [[selectFieldKey:Appendicitis]]",
+                            "answerUI": "unknown",
+                            "columns": [],
+                            "rows": [],
+                            "note": ""
+                        }
+                    ],
+                    "selectFieldKey": ["Sepsis", "Appendicitis"],
+                    "selectField": {
+                        "selectFieldId": 1,
+                        "Sepsis": [],
+                        "Appendicitis": [
+                            {
+                                "label": "",
+                                "value": ""
+                            }
+                        ]
+                    }
                 }
             ]
         }
