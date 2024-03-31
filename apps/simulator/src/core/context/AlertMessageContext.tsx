@@ -2,16 +2,16 @@ import {
     createContext, useContext
 } from 'react'
 
-import { AlertProps, Alert, AlertTitle } from '@mui/material'
+import { AlertProps, Alert, AlertTitle, Paper } from '@mui/material'
 
 interface Props {
     severity: AlertProps['severity'];
     title: string;
-    description?: string | undefined
+    description?: string | undefined;
 }
 
 type AlertContext = {
-    alertMessage(props: Props): void
+    AlertMessage(props: Props): React.ReactNode
 }
 
 const context = createContext<AlertContext>({} as any)
@@ -19,29 +19,34 @@ const context = createContext<AlertContext>({} as any)
 export const AlertMessageV2Provider: React.FC<React.PropsWithChildren<{}>> = ({
     children
 }) => {
-    function alertMessage(props: Props) {
+    function AlertMessage(props: Props) {
         const { severity, title, description } = props;
         switch(severity){
             case "info":
                 return (
-                    <Alert severity={severity}>
+                    <Paper elevation={2} style={{margin: "10px 24px 0 24px"}}>
+                     <Alert severity={severity}>
                         <AlertTitle>{title}</AlertTitle>
                         {description}
-                    </Alert>
+                    </Alert>                       
+                    </Paper>
+
                 )
             default:
                 return (
-                    <Alert severity={severity}>
-                        <AlertTitle>{title}</AlertTitle>
-                        {description}
-                    </Alert>
+                    <Paper elevation={2} style={{margin: "10px 20px 0 20px"}}>
+                        <Alert severity={severity}>
+                            <AlertTitle>{title}</AlertTitle>
+                            {description}
+                        </Alert>                        
+                    </Paper>
                 )
         }
     }
 
     return (
         <context.Provider value={{
-            alertMessage
+            AlertMessage
         }}>{children}</context.Provider>
     )
 }

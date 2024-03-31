@@ -6,7 +6,7 @@ import PauseIcon from "@mui/icons-material/Pause";
 
 export const Footer: React.FC = () => {
   return (
-    <div className="h-fit w-full bg-[#007ab7] text-white sticky bottom-0">
+    <div className="h-fit w-full bg-[#007ab7] text-white">
       <Toolbar disableGutters>
         <Box sx={{ height: "100%", width: "100%" }}>
           <Button

@@ -3,6 +3,7 @@ export type QuestionaireProps = {
   QType: string;
   question: string;
   questionUI: string;
+  hasAlert: boolean;
   tabs: Array<{
     tabsId: number;
     tabsTitle: string;
@@ -11,7 +12,7 @@ export type QuestionaireProps = {
   }>;
 };
 
-type AnswerProps = {
+export type AnswerProps = {
   answerId: number;
   qId: number;
   answerType: string;
@@ -49,7 +50,7 @@ export type SsrMockQuestionaire = {
   qId: number;
   hasContainer: boolean;
   QType: string;
-  question: string;
+  questions: QuestionaireProps[];
   questionUI: string;
   tabs: SsrMockTabsUIQuestionaire[];
   answer: SsrMockQuestionaireAnswer[];
@@ -62,7 +63,7 @@ type SsrMockTabsUIQuestionaire = {
   content: string;
 };
 
-type SsrMockQuestionaireAnswer = {
+export type SsrMockQuestionaireAnswer = {
   answerId: number;
   qId: number;
   answerType: string;
@@ -72,3 +73,7 @@ type SsrMockQuestionaireAnswer = {
   rows: any;
   note: string;
 };
+
+export type CaseStudyProps = {
+  questionaire: QuestionaireProps[];
+}
