@@ -24,7 +24,11 @@ export const useFormSubmissionBindingHooks = ({
   }, [callbackAdded, isDirty, ...initDependencies]);
 
   useEffect(() => {
-    formSubmission.toggleCallback;
+    formSubmission.toggleCallback({
+      key,
+      enabled: isValid,
+      unchanged: !isDirty,
+    });
   }, [isValid, isDirty]);
 
   useEffect(() => formSubmission.reset, [key]);

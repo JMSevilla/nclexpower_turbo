@@ -3,8 +3,13 @@ import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PauseIcon from "@mui/icons-material/Pause";
+import { useCustomAction } from "@repo/utils/hooks";
 
 export const Footer: React.FC = () => {
+  const action = useCustomAction({
+    actionKey: "mrsn-form-submission:mrsn",
+  });
+
   return (
     <div className="h-fit w-full bg-[#007ab7] text-white">
       <Toolbar disableGutters>
@@ -81,6 +86,7 @@ export const Footer: React.FC = () => {
               color: "#FFFFFF",
               gap: 1,
             }}
+            onClick={action?.execute}
           >
             Next{" "}
             <ArrowForwardIcon style={{ fontSize: "20px", marginTop: "2px" }} />

@@ -164,27 +164,33 @@
                             "rows": [
                                 {
                                     "label": "vital signs",
-                                    "value": 1
+                                    "value": false,
+                                    "xvalue": 1
                                 },
                                 {
                                     "label": "lung sounds",
-                                    "value": 2
+                                    "value": false,
+                                    "xvalue": 2
                                 },
                                 {
                                     "label": "capillary refill",
-                                    "value": 3
+                                    "value": false,
+                                    "xvalue": 3
                                 },
                                 {
                                     "label": "client orientaion",
-                                    "value": 4
+                                    "value": false,
+                                    "xvalue": 4
                                 },
                                 {
                                     "label": "radial pulse characteristics",
-                                    "value": 5
+                                    "value": false,
+                                    "xvalue": 5
                                 },
                                 {
                                     "label": "characteristic of cough",
-                                    "value": 6
+                                    "value": false,
+                                    "xvalue": 6
                                 }
                             ],
                             "note": ""
