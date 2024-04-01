@@ -98,51 +98,12 @@
             "hasContainer": true,
             "QType": "CaseStudy",
             "questions": [
+               
                 {
-                    "qId":1,
-                    "hasContainer": true,
-                    "QType": "SATA",
-                    "question": "",
-                    "questionUI": "Tabs",
-                    "tabs": [
-                        {
-                            "tabsId":1,
-                            "tabsTitle": "Nurses' Notes",
-                            "contentTitle": "Emergency Department",
-                            "content": "..."
-                        }
-                    ],
-                    "answer": [
-                        {
-                            "answerId":1,
-                            "qId":1,
-                            "answerType": "SATA",
-                            "answerInstruction": "",
-                            "answerUI": "Table",
-                            "columns": ["Assessment Findings", "Bowel Obstruction", "Appendicitis", "Ruptured Spleen"],
-                            "rows": [
-                                {
-                                    "AF": "appetite",
-                                    "BO": false,
-                                    "APT": false,
-                                    "RS": false
-                                },
-                                {
-                                    "AF": "pain level",
-                                    "BO": false,
-                                    "APT": false,
-                                    "RS": false
-                                }
-                            ],
-                            "note": ""
-                        }
-                    ]
-                },
-                {
-                    "qId":2,
+                    "qId":3,
                     "hasContainer": true,
                     "hasAlert": true,
-                    "QType": "MRSN",
+                    "QType": "HCP",
                     "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                     "questionUI": "Tabs",
                     "tabs": [
@@ -150,18 +111,28 @@
                             "tabsId":2,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
-                            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                            "content": [
+                                {
+                                    "contentId": 1000,
+                                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                                },
+                                {
+                                    "contentId": 1200,
+                                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus"
+                                }
+                            ]
                         }
                     ],
                     "answer": [
                         {
                             "answerId":2,
                             "qId":2,
-                            "answerType": "MRSN",
-                            "answerInstruction": "Select 4 findings that require <strong>immediate</strong> follow-up",
+                            "answerType": "HCP",
+                            "answerInstruction": "Click to highlight the orders that the nurse should consider a <strong>priority.</strong>",
                             "answerUI": "SATA",
                             "columns": [],
-                            "rows": [
+                            "rows": [],
+                            "tabs": [
                                 {
                                     "label": "vital signs",
                                     "value": false,

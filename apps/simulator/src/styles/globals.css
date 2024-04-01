@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+
+ul {
+  list-style-type: disc; /* You can use 'circle', 'square', etc. based on your preference */
+}

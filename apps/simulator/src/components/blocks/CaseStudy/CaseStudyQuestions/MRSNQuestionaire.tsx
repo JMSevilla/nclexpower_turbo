@@ -1,4 +1,4 @@
-import { SsrData } from "@/core/types/ssrData";
+import { SsrData, SsrQuestionaireContentProps } from "@/core/types/ssrData";
 import React from "react";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Paper, Grid } from "@mui/material";
@@ -116,7 +116,33 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                                   {tab.tabsId} :
                                 </p>
                                 <div className="leading-6 text-sm">
-                                  {tab.content}
+                                  {typeof tab.content === "string" ? (
+                                    <>{tab.content}</>
+                                  ) : (
+                                    <>
+                                      {tab.content?.length > 0 &&
+                                        tab.content.map(
+                                          (
+                                            contentItem: SsrQuestionaireContentProps,
+                                            contentItemIdx
+                                          ) => (
+                                            <React.Fragment
+                                              key={contentItemIdx}
+                                            >
+                                              <p className="min-w-[50px] inline-block">
+                                                <span>
+                                                  <strong>
+                                                    {contentItem.contentId}
+                                                  </strong>
+                                                </span>{" "}
+                                                : {contentItem.content}
+                                              </p>
+                                              <br />
+                                            </React.Fragment>
+                                          )
+                                        )}
+                                    </>
+                                  )}
                                 </div>
                               </div>
                             </Paper>
