@@ -1,8 +1,7 @@
-import CaseStudyContainer from '@/components/blocks/CaseStudy/CaseStudyContainer';
-import SATAQuestion from '@/components/blocks/RegularQuestion/SATA/SATAQuestion';
 
 import { SsrMockQuestionaire, SsrMockQuestionaireAnswer } from "@/core/types/ssrData";
 import React from "react";
+import { McqQuestion, RegularSATAQuestion, CaseStudyContainer } from "./blocks";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -16,17 +15,20 @@ export const ParseContents: React.FC<Props> = ({
   if (questionaire.length > 0) {
     const deserializeContents: any =
       questionaire?.length > 0 &&
-      questionaire?.find((cms: SsrMockQuestionaire) => {
+      questionaire?.filter((cms: SsrMockQuestionaire) => {
         return cms.QType === questionKey;
       });
     if (questionaire) {
-      const { QType: QuestionType }: SsrMockQuestionaire =
-        deserializeContents;
-      //
+      const { QType: QuestionType, questions, answer }: SsrMockQuestionaire =
+        deserializeContents?.[0];
+
       switch (QuestionType) {
         case "SATA":
-          return <SATAQuestion question={deserializeContents} />
-
+          return <RegularSATAQuestion questionaire={deserializeContents} />
+        case "MCQ":
+          return <McqQuestion questionaire={deserializeContents} answer={answer} />;
+        case "CaseStudy":
+          return <CaseStudyContainer questionaire={questions} />;
         default:
           return <h3>No questionaire Loaded</h3>;
       }

@@ -3,15 +3,17 @@ export type QuestionaireProps = {
   QType: string;
   question: string;
   questionUI: string;
+  hasAlert: boolean;
   tabs: Array<{
     tabsId: number;
     tabsTitle: string;
     contentTitle: string;
     content: string;
   }>;
+  answer?: AnswerProps[]
 };
 
-type AnswerProps = {
+export type AnswerProps = {
   answerId: number;
   qId: number;
   answerType: string;
@@ -45,13 +47,11 @@ type HeaderButtonsEntity = {
   value: string;
 };
 
-
-
 export type SsrMockQuestionaire = {
   qId: number;
   hasContainer: boolean;
   QType: string;
-  question: string;
+  questions: QuestionaireProps[];
   questionUI: string;
   tabs: SsrMockTabsUIQuestionaire[];
   answer: SsrMockQuestionaireAnswer[];
@@ -75,3 +75,52 @@ export type SsrMockQuestionaireAnswer = {
   note: string;
   choices: []
 };
+
+export type CaseStudyProps = {
+  questionaire: QuestionaireProps[];
+}
+
+
+export type QuestionaireWithAnswerProps = {
+  qId: number;
+  QType: string;
+  question: string;
+  questionUI: string;
+  displayType?: string;
+  tabs: Array<{
+    tabsId: number;
+    tabsTitle: string;
+    contentTitle: string;
+    content: string;
+    contentUI: string;
+  }>;
+  answer?: AnswerProps[]
+}
+
+
+export type RegularSATA = {
+  questionaire: QuestionaireWithAnswerProps[]
+}
+
+export type RegularSATATableData = {
+  table: AnswerProps[]
+}
+
+export type CaseStudyMCQ = {
+  questionaire: QuestionaireProps[]
+}
+export type CaseStudyMCQNoGroup = {
+  table: AnswerProps
+}
+
+export type MCQTable = {
+  table: Array<{
+    rows: Array<{}>
+  }> | any
+}
+
+export interface Row {
+  rowTitle: string;
+  [key: string]: number | string;
+
+}
