@@ -1,9 +1,11 @@
 import React from "react";
 import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
-import { useAlertMessageV2 } from "@/core/context/AlertMessageContext";
+import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
 import { MRSNQuestion } from "..";
 
-export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) => {
+export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
+  questionaire,
+}) => {
   const { AlertMessage } = useAlertMessageV2();
 
   if (questionaire.length > 0) {
@@ -13,8 +15,12 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
         return cms.QType === "MRSN";
       });
     if (questionaire) {
-      const { QType: QuestionType, answer, hasAlert, qId } =
-        deserializeContents?.[0];
+      const {
+        QType: QuestionType,
+        answer,
+        hasAlert,
+        qId,
+      } = deserializeContents?.[0];
 
       if (hasAlert) {
         return (
@@ -32,16 +38,22 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
       }
     }
   }
-  
+
   return <h3>No questionaire Loaded</h3>;
 };
 
-function renderSwitch(QuestionType: string, deserializeContents: any, answer: any) {
+function renderSwitch(
+  QuestionType: string,
+  deserializeContents: any,
+  answer: any
+) {
   switch (QuestionType) {
     case "SATA":
       return <h3>SATA Q</h3>;
     case "MRSN":
-      return <MRSNQuestion questionaire={deserializeContents} answer={answer} />;
+      return (
+        <MRSNQuestion questionaire={deserializeContents} answer={answer} />
+      );
     default:
       return <h3>No questionaire Loaded</h3>;
   }

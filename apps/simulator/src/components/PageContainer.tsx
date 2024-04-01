@@ -11,9 +11,9 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
   questionaire,
 }) => {
   const hasContainer =
-    questionaire.length > 0 && questionaire.some((item) => item.hasContainer === false );
+    questionaire.length > 0 &&
+    questionaire.some((item) => item.hasContainer === false);
 
-    console.log(hasContainer)
   return (
     <>
       {hasContainer ? (
