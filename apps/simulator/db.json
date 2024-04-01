@@ -44,56 +44,69 @@
             "qId": 2,
             "hasContainer": true,
             "QType": "MCQ",
-            "question": "",
+            "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
             "questionUI": "Tabs",
             "tabs": [
                 {
-                    "tabsId": 1,
+                    "tabsId":2,
                     "tabsTitle": "Nurses' Notes",
                     "contentTitle": "Emergency Department",
-                    "content": "..."
+                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
                 }
             ],
             "answer": [
                 {
-                    "answerId": 1,
-                    "qId": 1,
-                    "answerType": "SATA",
-                    "answerInstruction": "",
+                    "answerId":2,
+                    "qId":2,
+                    "answerType": "MCQ",
+                    "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                     "answerUI": "Table",
-                    "columns": ["Assessment Findings", "Bowel Obstruction", "Appendicitis", "Ruptured Spleen"],
+                    "columns": ["Potential Nursing Interventions", "Indicate", "Not Indicate"],
                     "rows": [
                         {
-                            "AF": "appetite",
-                            "BO": false,
-                            "APT": false,
-                            "RS": false
+                            "NRI": "Prepare the client for defibrillation",
+                            "ID": false,
+                            "NID": false
                         },
                         {
-                            "AF": "pain level",
-                            "BO": false,
-                            "APT": false,
-                            "RS": false
+                            "NRI": "Place client in a semi-Fowler's position",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Request an order to increase oxygen flow rate.",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Request an order to insert an additional peripheral VAD",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Request an order to administer an intravenous fluid IDlus",
+                            "ID": false,
+                            "NID": false
                         }
                     ],
-                    "note": ""
+                    "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
                 }
             ]
         },
         {
-            "qId": 3,
+            "qId": 4,
             "hasContainer": true,
             "QType": "CaseStudy",
             "questions": [
                 {
-                    "qId": 1,
+                    "qId":1,
                     "hasContainer": true,
                     "QType": "SATA",
                     "question": "",
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId": 1,
+                            "tabsId":1,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
                             "content": "..."
@@ -101,8 +114,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId": 1,
-                            "qId": 1,
+                            "answerId":1,
+                            "qId":1,
                             "answerType": "SATA",
                             "answerInstruction": "",
                             "answerUI": "Table",
@@ -126,36 +139,57 @@
                     ]
                 },
                 {
-                    "qId": 2,
+                    "qId":2,
                     "hasContainer": true,
-                    "QType": "DDC",
-                    "question": "",
+                    "hasAlert": true,
+                    "QType": "MRSN",
+                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                     "questionUI": "Tabs",
-                    "tabs": [],
-                    "answer": [
+                    "tabs": [
                         {
-                            "answerId": 1,
-                            "qId": 1,
-                            "answerType": "DDC",
-                            "answerInstruction": "Complete the following sentence by choosing from the list of options.",
-                            "DDCAnswer": "The client is at <strong>highest</strong> rish for developing [[selectFieldKey:Sepsis]] qeqweqweqweqweger;lmgerlmbrelmberkbmrklm [[selectFieldKey:Appendicitis]]",
-                            "answerUI": "unknown",
-                            "columns": [],
-                            "rows": [],
-                            "note": ""
+                            "tabsId":2,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
                         }
                     ],
-                    "selectFieldKey": ["Sepsis", "Appendicitis"],
-                    "selectField": {
-                        "selectFieldId": 1,
-                        "Sepsis": [],
-                        "Appendicitis": [
-                            {
-                                "label": "",
-                                "value": ""
-                            }
-                        ]
-                    }
+                    "answer": [
+                        {
+                            "answerId":2,
+                            "qId":2,
+                            "answerType": "MRSN",
+                            "answerInstruction": "Select 4 findings that require <strong>immediate</strong> follow-up",
+                            "answerUI": "SATA",
+                            "columns": [],
+                            "rows": [
+                                {
+                                    "label": "vital signs",
+                                    "value": 1
+                                },
+                                {
+                                    "label": "lung sounds",
+                                    "value": 2
+                                },
+                                {
+                                    "label": "capillary refill",
+                                    "value": 3
+                                },
+                                {
+                                    "label": "client orientaion",
+                                    "value": 4
+                                },
+                                {
+                                    "label": "radial pulse characteristics",
+                                    "value": 5
+                                },
+                                {
+                                    "label": "characteristic of cough",
+                                    "value": 6
+                                }
+                            ],
+                            "note": ""
+                        }
+                    ]
                 }
             ]
         }
