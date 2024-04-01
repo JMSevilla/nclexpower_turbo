@@ -1,3 +1,15 @@
+export type SsrQuestionaireContentProps = {
+  contentId: number;
+  content: string;
+};
+
+export type SsrAnswerTabsProps = {
+  tabsId: number;
+  tabsTitle: string;
+  contentTitle: string;
+  content: string | string[];
+};
+
 export type QuestionaireProps = {
   qId: number;
   QType: string;
@@ -8,7 +20,7 @@ export type QuestionaireProps = {
     tabsId: number;
     tabsTitle: string;
     contentTitle: string;
-    content: string;
+    content: string | SsrQuestionaireContentProps[];
   }>;
 };
 
@@ -21,6 +33,7 @@ export type AnswerProps = {
   columns: Array<string>;
   rows: any;
   note: string;
+  tabs: SsrAnswerTabsProps[];
 };
 
 export type SsrData = {
@@ -76,4 +89,4 @@ export type SsrMockQuestionaireAnswer = {
 
 export type CaseStudyProps = {
   questionaire: QuestionaireProps[];
-}
+};
