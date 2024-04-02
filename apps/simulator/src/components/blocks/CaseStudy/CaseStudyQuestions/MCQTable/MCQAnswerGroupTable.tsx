@@ -1,7 +1,7 @@
 import { Checkbox, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react'
-import { Row, MCQTable } from '@/core/types/ssrData';
+import { Row, MCQTable, AnswerProps } from '@/core/types/ssrData';
 
 
 
@@ -38,8 +38,8 @@ export const MCQAnswerGroupTable: React.FC<MCQTable> = ({ table }) => {
     return (
         <Grid item xs={12} sm={6} md={6}>
             <div className='h-full w-full font-sans'>
-                {table &&
-                    table.map((answerItem: any, answerIndex: number) => (
+                {table.length > 0 &&
+                    table.map((answerItem: AnswerProps, answerIndex: number) => (
                         <div key={answerItem.answerId} className='w-full'>
                             <div className='w-full text-sm mb-4 pr-5'>
                                 <div className='w-full text-sm mb-4 pr-5'>
@@ -59,7 +59,7 @@ export const MCQAnswerGroupTable: React.FC<MCQTable> = ({ table }) => {
                                         <Table>
                                             <TableHead>
                                                 <TableRow>
-                                                    {answerItem.columns.map((columnName: any, index: number) => (
+                                                    {answerItem.columns.length > 0 && answerItem.columns.map((columnName: any, index: number) => (
                                                         <TableCell key={index} align="center" className='text-sm bg-[#E6F2FF] font-semibold border border-[#D4D7DA]' sx={{ width: '80px' }}>{columnName}</TableCell>
                                                     ))}
                                                 </TableRow>
