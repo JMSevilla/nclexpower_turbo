@@ -132,6 +132,7 @@
                             "answerType": "SATA",
                             "answerInstruction": " MCQ NO GROUPINS INSTRUCTION HERE",
                             "answerUI": "Table",
+                            "QType": "Group",
                             "columns": [
                                 "Assessment Findings",
                                 "Bowel Obstruction",

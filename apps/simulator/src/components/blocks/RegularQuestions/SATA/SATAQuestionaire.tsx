@@ -3,7 +3,7 @@
 import { Checkbox, Grid } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react'
-import { AnswerProps, QuestionaireProps, QuestionaireWithAnswerProps, RegularSATA, SsrData } from '@/core/types/ssrData';
+import { AnswerProps, QuestionaireWithAnswerProps, RegularSATA } from '@/core/types/ssrData';
 
 export const SATAQuestionaire: React.FC<RegularSATA> = ({ questionaire }) => {
 

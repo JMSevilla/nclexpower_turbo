@@ -29,7 +29,7 @@ export const Layout: React.FC<Props> = ({ header, questionaire }) => {
                 <LoadablePageContent loading={loading}>
                   <ParseContents
                     questionaire={questionaire}
-                    questionKey="SATA"
+                    questionKey="CaseStudy"
                   />
                 </LoadablePageContent>
               </div>

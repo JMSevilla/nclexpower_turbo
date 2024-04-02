@@ -1,4 +1,4 @@
-import { Checkbox, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Checkbox, Grid, Paper, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react'
 import { Row, MCQTable, AnswerProps } from '@/core/types/ssrData';
@@ -35,6 +35,30 @@ export const MCQAnswerGroupTable: React.FC<MCQTable> = ({ table }) => {
         );
     };
 
+    const handleRadioChange = (rowIndex: number, optionIndex: number) => {
+        const newSelectedValues = selectedValues.map((row, index) =>
+            index === rowIndex ? row.map((value, i) => (i === optionIndex ? 1 : 0)) : row
+        );
+        setSelectedValues(newSelectedValues);
+    };
+
+    const renderRadioButtons = (row: Row, rowIndex: number) => {
+        const chKeys = Object.keys(row).filter(key => key.startsWith('ch'));
+        return (
+            <>
+                {chKeys.slice(0, 3).map((chKey, chIndex) => (
+                    <TableCell key={chIndex} align="center" className='border border-[#D4D7DA]'>
+                        <Radio
+                            checked={selectedValues[rowIndex][chIndex] === 1}
+                            onChange={() => handleRadioChange(rowIndex, chIndex)}
+                        />
+                    </TableCell>
+                ))}
+            </>
+        );
+    };
+
+
     return (
         <Grid item xs={12} sm={6} md={6}>
             <div className='h-full w-full font-sans'>
@@ -68,7 +92,13 @@ export const MCQAnswerGroupTable: React.FC<MCQTable> = ({ table }) => {
                                                 {answerItem.rows.map((row: Row, index: number) => (
                                                     <TableRow key={index}>
                                                         <TableCell align="left" className='border border-[#D4D7DA] px-4 py-2 w-40'>{row.rowTitle}</TableCell>
-                                                        {renderCheckboxes(row, index)}
+                                                        {answerItem?.QType === "Group" ?
+                                                            renderCheckboxes(row, index)
+                                                            : answerItem?.QType === "NoGroup" ?
+                                                                renderRadioButtons(row, index)
+                                                                :
+                                                                <p>Group Type not found</p>
+                                                        }
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
