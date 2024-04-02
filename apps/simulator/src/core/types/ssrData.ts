@@ -35,7 +35,6 @@ export type AnswerProps = {
   rows: any;
   note: string;
   tabs: SsrAnswerTabsProps[];
-  QType?: string
 };
 
 export type SsrData = {
