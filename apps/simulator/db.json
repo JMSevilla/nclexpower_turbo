@@ -252,31 +252,31 @@
                             "rows": [
                                 {
                                     "label": "Label 1",
-                                    "value": "1"
+                                    "value": 1
                                 },
                                 {
                                     "label": "Label 2",
-                                    "value": "2"
+                                    "value": 2
                                 },
                                 {
                                     "label": "Label 3",
-                                    "value": "3"
+                                    "value": 3
                                 },
                                 {
                                     "label": "Label 4",
-                                    "value": "4"
+                                    "value": 4
                                 },
                                 {
                                     "label": "Label 5",
-                                    "value": "5"
+                                    "value": 5
                                 },
                                 {
                                     "label": "Label 6",
-                                    "value": "6"
+                                    "value": 6
                                 },
                                 {
                                     "label": "Label 7",
-                                    "value": "7"
+                                    "value": 7
                                 }
                             ],
                             "note": ""
