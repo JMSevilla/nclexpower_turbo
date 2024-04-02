@@ -94,16 +94,34 @@
                             "rows": [],
                             "tabs": [
                                 {
-                                    "tabsId": 1215,
-                                    "tabsTitle": "Orders",
-                                    "contentTitle": "Orders",
-                                    "content": [
-                                        "insert an indwelling urethral catheter",
-                                        "vancomycin 1 g, IV, every 12 hours",
-                                        "computed tomography (CT) scan of the chest",
-                                        "0.9% sodium chloride (normal saline) 500 mL, IV, once",
-                                        "laboratory test: blood culture and sensitivity"
-                                    ]
+                                    "label": "vital signs",
+                                    "value": false,
+                                    "xvalue": 1
+                                },
+                                {
+                                    "label": "lung sounds",
+                                    "value": false,
+                                    "xvalue": 2
+                                },
+                                {
+                                    "label": "capillary refill",
+                                    "value": false,
+                                    "xvalue": 3
+                                },
+                                {
+                                    "label": "client orientaion",
+                                    "value": false,
+                                    "xvalue": 4
+                                },
+                                {
+                                    "label": "radial pulse characteristics",
+                                    "value": false,
+                                    "xvalue": 5
+                                },
+                                {
+                                    "label": "characteristic of cough",
+                                    "value": false,
+                                    "xvalue": 6
                                 }
                             ],
                             "note": ""
