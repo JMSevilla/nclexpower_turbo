@@ -1,7 +1,9 @@
 import React from "react";
 import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
 import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
-import { MCQGroupQuestion, MRSNQuestion, MCQQuestion, SATAQuestion } from "..";
+import { MRSNQuestion } from "..";
+import { HCPQuestion } from "./CaseStudyQuestions/HCPQuestionaire";
+import { SATAQuestionaire } from '@/components/blocks/RegularQuestions/SATA/SATAQuestionaire';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
   questionaire,
@@ -12,30 +14,29 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === "MCQGroup";
+        return cms.QType === "HCP";
       });
-    if (questionaire) {
-      const {
-        QType: QuestionType,
-        answer,
-        hasAlert,
-        qId,
-      } = deserializeContents?.[0];
 
-      if (hasAlert) {
-        return (
-          <>
-            <AlertMessage
-              severity="info"
-              title={`Case Study: Item ${qId}`}
-              description=""
-            />
-            {renderSwitch(QuestionType, deserializeContents, answer)}
-          </>
-        );
-      } else {
-        return renderSwitch(QuestionType, deserializeContents, answer);
-      }
+    const {
+      QType: QuestionType,
+      answer,
+      hasAlert,
+      qId,
+    } = deserializeContents?.[0];
+
+    if (hasAlert) {
+      return (
+        <>
+          <AlertMessage
+            severity="info"
+            title={`Case Study: Item ${qId}`}
+            description=""
+          />
+          {renderSwitch(QuestionType, deserializeContents, answer)}
+        </>
+      );
+    } else {
+      return renderSwitch(QuestionType, deserializeContents, answer);
     }
   }
 
@@ -49,19 +50,15 @@ function renderSwitch(
 ) {
   switch (QuestionType) {
 
-    case "MCQGroup":
-      return <MCQGroupQuestion questionaire={deserializeContents} />
-
-    case "MCQNoGroup":
-      return <MCQQuestion questionaire={deserializeContents} />
-
     case "SATA":
-      return <SATAQuestion questionaire={deserializeContents} />
+      return <SATAQuestionaire questionaire={deserializeContents} />
 
     case "MRSN":
       return (
         <MRSNQuestion questionaire={deserializeContents} answer={answer} />
       );
+    case "HCP":
+      return <HCPQuestion questionaire={deserializeContents} answer={answer} />;
     default:
       return <h3>No questionaire Loaded</h3>;
   }

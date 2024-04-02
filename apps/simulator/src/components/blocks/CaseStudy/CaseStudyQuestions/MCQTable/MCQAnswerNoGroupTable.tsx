@@ -35,10 +35,17 @@ export const MCQAnswerTable: React.FC<MCQTable> = ({ table }) => {
             <div className='h-full w-full font-sans'>
                 <form>
                     {table &&
-                        table.map((answerItem: any) => (
+                        table.map((answerItem: any, answerIndex: number) => (
                             <div key={answerItem.answerId} className='w-full'>
                                 <div className='w-full text-sm mb-4 pr-5'>
-                                    <p><NearMeIcon className='h-6 rotate-45 text-[#86BCEA] mr-2 pb-1' />{answerItem.answerInstruction}</p>
+                                    <p className="flex" key={answerIndex}>
+                                        <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: answerItem.answerInstruction,
+                                            }}
+                                        />
+                                    </p>
                                 </div>
                                 <div className="w-full">
                                     <Paper elevation={3}>

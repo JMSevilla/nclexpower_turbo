@@ -1,7 +1,7 @@
 
-import { SsrMockQuestionaire, SsrMockQuestionaireAnswer } from "@/core/types/ssrData";
+import { SsrMockQuestionaire, AnswerProps } from "@/core/types/ssrData";
 import React from "react";
-import { McqQuestion, RegularSATAQuestion, CaseStudyContainer } from "./blocks";
+import { McqQuestion, CaseStudyContainer, SATAQuestionaire } from "./blocks";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -19,14 +19,21 @@ export const ParseContents: React.FC<Props> = ({
         return cms.QType === questionKey;
       });
     if (questionaire) {
-      const { QType: QuestionType, questions, answer }: SsrMockQuestionaire =
-        deserializeContents?.[0];
-
+      const {
+        QType: QuestionType,
+        questions,
+        answer,
+      } = deserializeContents?.[0];
       switch (QuestionType) {
         case "SATA":
-          return <RegularSATAQuestion questionaire={deserializeContents} />
+          return <SATAQuestionaire questionaire={deserializeContents} />
         case "MCQ":
-          return <McqQuestion questionaire={deserializeContents} answer={answer} />;
+          return (
+            <McqQuestion
+              questionaire={deserializeContents}
+              answer={answer as AnswerProps[]}
+            />
+          );
         case "CaseStudy":
           return <CaseStudyContainer questionaire={questions} />;
         default:
