@@ -3,6 +3,7 @@ import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
 import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
 import { MRSNQuestion } from "..";
 import { HCPQuestion } from "./CaseStudyQuestions/HCPQuestionaire";
+import { SATAQuestionaire } from '@/components/blocks/RegularQuestions/SATA/SATAQuestionaire';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
   questionaire,
@@ -48,8 +49,10 @@ function renderSwitch(
   answer: any
 ) {
   switch (QuestionType) {
+
     case "SATA":
-      return <h3>SATA Q</h3>;
+      return <SATAQuestionaire questionaire={deserializeContents} />
+
     case "MRSN":
       return (
         <MRSNQuestion questionaire={deserializeContents} answer={answer} />

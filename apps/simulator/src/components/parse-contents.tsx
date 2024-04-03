@@ -1,6 +1,7 @@
-import { AnswerProps, SsrMockQuestionaire } from "@/core/types/ssrData";
+
+import { SsrMockQuestionaire, AnswerProps } from "@/core/types/ssrData";
 import React from "react";
-import { McqQuestion, CaseStudyContainer } from "./blocks";
+import { McqQuestion, CaseStudyContainer, SATAQuestionaire } from "./blocks";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -22,11 +23,10 @@ export const ParseContents: React.FC<Props> = ({
         QType: QuestionType,
         questions,
         answer,
-      }: SsrMockQuestionaire = deserializeContents?.[0];
-      console.log(deserializeContents);
+      } = deserializeContents?.[0];
       switch (QuestionType) {
         case "SATA":
-          return <h3>SATA Q</h3>;
+          return <SATAQuestionaire questionaire={deserializeContents} />
         case "MCQ":
           return (
             <McqQuestion

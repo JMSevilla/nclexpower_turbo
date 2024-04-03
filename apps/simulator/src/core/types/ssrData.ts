@@ -22,6 +22,7 @@ export type QuestionaireProps = {
     contentTitle: string;
     content: string | SsrQuestionaireContentProps[];
   }>;
+  answer?: AnswerProps[]
 };
 
 export type AnswerProps = {
@@ -85,8 +86,44 @@ export type SsrMockQuestionaireAnswer = {
   columns: string[];
   rows: any;
   note: string;
+  choices: []
 };
+
+export type RegularSATA = {
+  questionaire: QuestionaireWithAnswerProps[]
+}
+
+
+export type MCQTable = {
+  table: Array<{
+    rows: Array<{}>
+  }> | any
+}
+
+export interface Row {
+  rowTitle: string;
+  [key: string]: number | string;
+
+}
+
+export type QuestionaireWithAnswerProps = {
+  qId: number;
+  QType: string;
+  question: string;
+  questionUI: string;
+  displayType?: string;
+  tabs: Array<{
+    tabsId: number;
+    tabsTitle: string;
+    contentTitle: string;
+    content: string;
+    contentUI: string;
+  }>;
+  answer?: AnswerProps[]
+}
 
 export type CaseStudyProps = {
   questionaire: QuestionaireProps[];
 };
+
+
