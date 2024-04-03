@@ -80,7 +80,7 @@ export const FormSubmissionContextProvider: React.FC<
   const submitFn = async () => {
     if (!state.callbacks) {
       throw new Error(
-        "No form bound to form-submission-action found in this page."
+        "No form bound to form-submission-action found in this page"
       );
     }
     setLoading(true);
@@ -117,7 +117,7 @@ export const FormSubmissionContextProvider: React.FC<
 
 export const useFormSubmissionContext = () => {
   if (!context) {
-    throw new Error("FormSubmissionProviderContext should be used.");
+    throw new Error("FormSubmissionContextProvider should be used");
   }
   return useContext(context);
 };

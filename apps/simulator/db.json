@@ -1,17 +1,17 @@
 {
     "questionaire": [
         {
-            "qId": 1,
-            "hasContainer": true,
+            "qId": 2,
+            "hasContainer": false,
             "QType": "SATA",
-            "question": "",
+            "question": "Recent medical findings suggest that regular consumption of green tea may lower the risk of developing cardiovascular diseases due to its antioxidant properties.",
             "questionUI": "Tabs",
             "tabs": [
                 {
-                    "tabsId": 1,
+                    "tabsId": 2,
                     "tabsTitle": "Nurses' Notes",
                     "contentTitle": "Emergency Department",
-                    "content": "..."
+                    "content": "A groundbreaking study revealed a potential link between gut microbiota composition and the development of autoimmune disorders, shedding light on new avenues for treatment. Researchers have identified a novel genetic mutation associated with an increased susceptibility to certain types of cancer, paving the way for personalized screening and prevention strategies. Preliminary findings from a large-scale epidemiological study indicate that exposure to air pollution during pregnancy may be correlated with adverse birth outcomes, emphasizing the importance of environmental regulations in safeguarding maternal and infant health."
                 }
             ],
             "answer": [
@@ -19,77 +19,38 @@
                     "answerId": 1,
                     "qId": 1,
                     "answerType": "SATA",
-                    "answerInstruction": "",
-                    "answerUI": "Table",
-                    "columns": ["Assessment Findings", "Bowel Obstruction", "Appendicitis", "Ruptured Spleen"],
+                    "answerInstruction": "Recent medical findings suggest that regular consumption of green tea may lower the risk of developing cardiovascular diseases due to its antioxidant properties.",
                     "rows": [
                         {
-                            "AF": "appetite",
-                            "BO": false,
-                            "APT": false,
-                            "RS": false
+                            "label": "Label 1",
+                            "value": 1
                         },
                         {
-                            "AF": "pain level",
-                            "BO": false,
-                            "APT": false,
-                            "RS": false
+                            "label": "Label 2",
+                            "value": 2
+                        },
+                        {
+                            "label": "Label 3",
+                            "value": 3
+                        },
+                        {
+                            "label": "Label 4",
+                            "value": 4
+                        },
+                        {
+                            "label": "Label 5",
+                            "value": 5
+                        },
+                        {
+                            "label": "Label 6",
+                            "value": 6
+                        },
+                        {
+                            "label": "Label 7",
+                            "value": 7
                         }
                     ],
                     "note": ""
-                }
-            ]
-        },
-        {
-            "qId": 2,
-            "hasContainer": true,
-            "QType": "MCQ",
-            "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
-            "questionUI": "Tabs",
-            "tabs": [
-                {
-                    "tabsId":2,
-                    "tabsTitle": "Nurses' Notes",
-                    "contentTitle": "Emergency Department",
-                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
-                }
-            ],
-            "answer": [
-                {
-                    "answerId":2,
-                    "qId":2,
-                    "answerType": "MCQ",
-                    "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
-                    "answerUI": "Table",
-                    "columns": ["Potential Nursing Interventions", "Indicate", "Not Indicate"],
-                    "rows": [
-                        {
-                            "NRI": "Prepare the client for defibrillation",
-                            "ID": false,
-                            "NID": false
-                        },
-                        {
-                            "NRI": "Place client in a semi-Fowler's position",
-                            "ID": false,
-                            "NID": false
-                        },
-                        {
-                            "NRI": "Request an order to increase oxygen flow rate.",
-                            "ID": false,
-                            "NID": false
-                        },
-                        {
-                            "NRI": "Request an order to insert an additional peripheral VAD",
-                            "ID": false,
-                            "NID": false
-                        },
-                        {
-                            "NRI": "Request an order to administer an intravenous fluid IDlus",
-                            "ID": false,
-                            "NID": false
-                        }
-                    ],
-                    "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
                 }
             ]
         },
@@ -99,39 +60,68 @@
             "QType": "CaseStudy",
             "questions": [
                 {
-                    "qId":1,
+                    "qId": 3,
                     "hasContainer": true,
-                    "QType": "SATA",
-                    "question": "",
+                    "hasAlert": true,
+                    "QType": "HCP",
+                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId":1,
+                            "tabsId": 2,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
-                            "content": "..."
+                            "content": [
+                                {
+                                    "contentId": 1000,
+                                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                                },
+                                {
+                                    "contentId": 1200,
+                                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus"
+                                }
+                            ]
                         }
                     ],
                     "answer": [
                         {
-                            "answerId":1,
-                            "qId":1,
-                            "answerType": "SATA",
-                            "answerInstruction": "",
-                            "answerUI": "Table",
-                            "columns": ["Assessment Findings", "Bowel Obstruction", "Appendicitis", "Ruptured Spleen"],
-                            "rows": [
+                            "answerId": 2,
+                            "qId": 2,
+                            "answerType": "HCP",
+                            "answerInstruction": "Click to highlight the orders that the nurse should consider a <strong>priority.</strong>",
+                            "answerUI": "SATA",
+                            "columns": [],
+                            "rows": [],
+                            "tabs": [
                                 {
-                                    "AF": "appetite",
-                                    "BO": false,
-                                    "APT": false,
-                                    "RS": false
+                                    "label": "vital signs",
+                                    "value": false,
+                                    "xvalue": 1
                                 },
                                 {
-                                    "AF": "pain level",
-                                    "BO": false,
-                                    "APT": false,
-                                    "RS": false
+                                    "label": "lung sounds",
+                                    "value": false,
+                                    "xvalue": 2
+                                },
+                                {
+                                    "label": "capillary refill",
+                                    "value": false,
+                                    "xvalue": 3
+                                },
+                                {
+                                    "label": "client orientaion",
+                                    "value": false,
+                                    "xvalue": 4
+                                },
+                                {
+                                    "label": "radial pulse characteristics",
+                                    "value": false,
+                                    "xvalue": 5
+                                },
+                                {
+                                    "label": "characteristic of cough",
+                                    "value": false,
+                                    "xvalue": 6
                                 }
                             ],
                             "note": ""
@@ -139,52 +129,172 @@
                     ]
                 },
                 {
-                    "qId":2,
-                    "hasContainer": true,
+                    "qId": 1,
+                    "hasContainer": false,
                     "hasAlert": true,
-                    "QType": "MRSN",
-                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                    "QType": "MCQGroup",
+                    "question": "MCQ QUESTION",
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId":2,
+                            "tabsId": 1,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
-                            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                            "content": "..."
                         }
                     ],
                     "answer": [
                         {
-                            "answerId":2,
-                            "qId":2,
-                            "answerType": "MRSN",
-                            "answerInstruction": "Select 4 findings that require <strong>immediate</strong> follow-up",
-                            "answerUI": "SATA",
-                            "columns": [],
+                            "answerId": 1,
+                            "qId": 1,
+                            "answerType": "SATA",
+                            "answerInstruction": " MCQ NO GROUPINS INSTRUCTION HERE",
+                            "answerUI": "Table",
+                            "QType": "Group",
+                            "columns": [
+                                "Assessment Findings",
+                                "Bowel Obstruction",
+                                "Appendicitis",
+                                "Ruptured Spleen"
+                            ],
                             "rows": [
                                 {
-                                    "label": "vital signs",
+                                    "rowTitle": "appetite",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                },
+                                {
+                                    "rowTitle": "pain level",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                },
+                                {
+                                    "rowTitle": "appetite",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                },
+                                {
+                                    "rowTitle": "pain level",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                }
+                            ],
+                            "note": ""
+                        }
+                    ]
+                },
+                {
+                    "qId": 1,
+                    "hasContainer": false,
+                    "hasAlert": true,
+                    "QType": "MCQNoGroup",
+                    "question": "MCQ NO QUESTION",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId": 1,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "..."
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 1,
+                            "qId": 1,
+                            "answerType": "SATA",
+                            "answerInstruction": " MCQ NO GROUPINS INSTRUCTION HERE",
+                            "answerUI": "Table",
+                            "columns": [
+                                "Assessment Findings",
+                                "Bowel Obstruction",
+                                "Appendicitis",
+                                "Ruptured Spleen"
+                            ],
+                            "rows": [
+                                {
+                                    "rowTitle": "appetite",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                },
+                                {
+                                    "rowTitle": "pain level",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                },
+                                {
+                                    "rowTitle": "appetite",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                },
+                                {
+                                    "rowTitle": "pain level",
+                                    "chOne": 0,
+                                    "chTwo": 0,
+                                    "chThree": 0
+                                }
+                            ],
+                            "note": ""
+                        }
+                    ]
+                },
+                {
+                    "qId": 1,
+                    "hasContainer": false,
+                    "hasAlert": true,
+                    "QType": "SATA",
+                    "question": "SATA QUESTION",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId": 1,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "A groundbreaking study revealed a potential link between gut microbiota composition and the development of autoimmune disorders, shedding light on new avenues for treatment. Clinical trials have demonstrated the efficacy of mindfulness meditation in reducing symptoms of anxiety and depression, offering a promising non-pharmacological approach to mental health management."
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 1,
+                            "qId": 1,
+                            "answerType": "SATA",
+                            "answerInstruction": "Recent medical findings suggest that regular consumption of green tea may lower the risk of developing cardiovascular diseases due to its antioxidant properties.",
+                            "answerUI": "Table",
+                            "rows": [
+                                {
+                                    "label": "Label 1",
                                     "value": 1
                                 },
                                 {
-                                    "label": "lung sounds",
+                                    "label": "Label 2",
                                     "value": 2
                                 },
                                 {
-                                    "label": "capillary refill",
+                                    "label": "Label 3",
                                     "value": 3
                                 },
                                 {
-                                    "label": "client orientaion",
+                                    "label": "Label 4",
                                     "value": 4
                                 },
                                 {
-                                    "label": "radial pulse characteristics",
+                                    "label": "Label 5",
                                     "value": 5
                                 },
                                 {
-                                    "label": "characteristic of cough",
+                                    "label": "Label 6",
                                     "value": 6
+                                },
+                                {
+                                    "label": "Label 7",
+                                    "value": 7
                                 }
                             ],
                             "note": ""
