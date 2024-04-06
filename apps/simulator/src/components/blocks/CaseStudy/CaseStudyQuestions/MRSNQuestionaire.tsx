@@ -16,44 +16,15 @@ import { useAtom } from "jotai";
 import { useFormSubmissionBindingHooks } from "@repo/utils/hooks/useFormSubmissionBindingHooks";
 
 export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
-  //   console.log(answer);
+  const foundAnswer = answer.find(answer => answer.answerId);
+  const rows = foundAnswer ? foundAnswer.rows : [];
+  
   const [mrsnAtom, setMrsnAtom] = useAtom(MrsnValidationAtom);
   const form = useForm<MrsnValidationType>({
     mode: "all",
     resolver: zodResolver(RowSchema),
     defaultValues: {
-      mrsn: [
-        {
-          label: "vital signs",
-          value: false,
-          xvalue: 1,
-        },
-        {
-          label: "lung sounds",
-          value: false,
-          xvalue: 2,
-        },
-        {
-          label: "capillary refill",
-          value: false,
-          xvalue: 3,
-        },
-        {
-          label: "client orientaion",
-          value: false,
-          xvalue: 4,
-        },
-        {
-          label: "radial pulse characteristics",
-          value: false,
-          xvalue: 5,
-        },
-        {
-          label: "characteristic of cough",
-          value: false,
-          xvalue: 6,
-        },
-      ],
+      mrsn: rows
     },
   });
 
@@ -178,7 +149,7 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                       <div className="w-full h-fit text-sm">
                         {fields?.length > 0 &&
                           fields.map((choices: any, idx) => (
-                            <ol className="flex items-center p-3">
+                            <ol className="flex items-center">
                               <ControlledCheckbox
                                 control={control}
                                 name={`mrsn.${idx}.value`}

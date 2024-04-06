@@ -4,6 +4,8 @@ import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
 import { MRSNQuestion } from "..";
 import { HCPQuestion } from "./CaseStudyQuestions/HCPQuestionaire";
 import { SATAQuestionaire } from '@/components/blocks/RegularQuestions/SATA/SATAQuestionaire';
+import { DDCQuestion } from "..";
+import { DDTQuestion } from "..";
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
   questionaire,
@@ -14,7 +16,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === "HCP";
+        return cms.QType === "DDT";
       });
 
     const {
@@ -39,7 +41,6 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
       return renderSwitch(QuestionType, deserializeContents, answer);
     }
   }
-
   return <h3>No questionaire Loaded</h3>;
 };
 
@@ -52,13 +53,15 @@ function renderSwitch(
 
     case "SATA":
       return <SATAQuestionaire questionaire={deserializeContents} />
-
-    case "MRSN":
-      return (
-        <MRSNQuestion questionaire={deserializeContents} answer={answer} />
-      );
     case "HCP":
-      return <HCPQuestion questionaire={deserializeContents} answer={answer} />;
+      return <HCPQuestion questionaire={deserializeContents} answer={answer} />
+    case "MRSN":
+      return <MRSNQuestion questionaire={deserializeContents} answer={answer} />
+    case "DDC":
+      return <DDCQuestion questionaire={deserializeContents} answer={answer} />
+    case "DDT":
+      return <DDTQuestion questionaire={deserializeContents} answer={answer} />
+
     default:
       return <h3>No questionaire Loaded</h3>;
   }

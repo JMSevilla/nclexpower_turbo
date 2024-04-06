@@ -35,6 +35,9 @@ export type AnswerProps = {
   rows: any;
   note: string;
   tabs: SsrAnswerTabsProps[];
+  DDCAnswer: string;
+  selectFieldKey:string[];
+  selectField: any;
 };
 
 export type SsrData = {

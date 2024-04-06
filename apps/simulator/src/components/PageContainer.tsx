@@ -12,7 +12,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
 }) => {
   const hasContainer =
     questionaire.length > 0 &&
-    questionaire.some((item) => item.hasContainer === false);
+    questionaire.some((item) => item.hasContainer);
 
   return (
     <>

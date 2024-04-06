@@ -55,12 +55,65 @@
             ]
         },
         {
-            "qId": 4,
+            "qId": 2,
             "hasContainer": true,
+            "QType": "MCQ",
+            "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+            "questionUI": "Tabs",
+            "tabs": [
+                {
+                    "tabsId":2,
+                    "tabsTitle": "Nurses' Notes",
+                    "contentTitle": "Emergency Department",
+                    "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                }
+            ],
+            "answer": [
+                {
+                    "answerId":2,
+                    "qId":2,
+                    "answerType": "MCQ",
+                    "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                    "answerUI": "Table",
+                    "columns": ["Potential Nursing Interventions", "Indicate", "Not Indicate"],
+                    "rows": [
+                        {
+                            "NRI": "Prepare the client for defibrillation",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Place client in a semi-Fowler's position",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Request an order to increase oxygen flow rate.",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Request an order to insert an additional peripheral VAD",
+                            "ID": false,
+                            "NID": false
+                        },
+                        {
+                            "NRI": "Request an order to administer an intravenous fluid IDlus",
+                            "ID": false,
+                            "NID": false
+                        }
+                    ],
+                    "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
+                }
+            ]
+        },
+        {
+            "qId": 4,
+            "hasContainer": false,
             "QType": "CaseStudy",
             "questions": [
                 {
-                    "qId": 3,
+                    "qId": 1,
                     "hasContainer": true,
                     "hasAlert": true,
                     "QType": "HCP",
@@ -85,8 +138,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId": 2,
-                            "qId": 2,
+                            "answerId": 1,
+                            "qId": 1,
                             "answerType": "HCP",
                             "answerInstruction": "Click to highlight the orders that the nurse should consider a <strong>priority.</strong>",
                             "answerUI": "SATA",
@@ -129,7 +182,66 @@
                     ]
                 },
                 {
-                    "qId": 1,
+                    "qId":2,
+                    "hasContainer": true,
+                    "hasAlert": true,
+                    "QType": "MRSN",
+                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId":2,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId":2,
+                            "qId":2,
+                            "answerType": "MRSN",
+                            "answerInstruction": "Select 4 findings that require <strong>immediate</strong> follow-up",
+                            "answerUI": "SATA",
+                            "columns": [],
+                            "rows": [
+                                {
+                                    "label": "vital signs",
+                                    "value": false,
+                                    "xvalue": 1
+                                  },
+                                  {
+                                    "label": "lung sounds",
+                                    "value": false,
+                                    "xvalue": 2
+                                  },
+                                  {
+                                    "label": "capillary refill",
+                                    "value": false,
+                                    "xvalue": 3
+                                  },
+                                  {
+                                    "label": "client orientaion",
+                                    "value": false,
+                                    "xvalue": 4
+                                  },
+                                  {
+                                    "label": "radial pulse characteristics",
+                                    "value": false,
+                                    "xvalue": 5
+                                  },
+                                  {
+                                    "label": "characteristic of cough",
+                                    "value": false,
+                                    "xvalue": 6
+                                  }
+                            ],
+                            "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
+                        }
+                    ]
+                },
+                {
+                    "qId": 3,
                     "hasContainer": false,
                     "hasAlert": true,
                     "QType": "MCQGroup",
@@ -145,8 +257,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId": 1,
-                            "qId": 1,
+                            "answerId": 3,
+                            "qId": 3,
                             "answerType": "SATA",
                             "answerInstruction": " MCQ NO GROUPINS INSTRUCTION HERE",
                             "answerUI": "Table",
@@ -188,7 +300,7 @@
                     ]
                 },
                 {
-                    "qId": 1,
+                    "qId": 4,
                     "hasContainer": false,
                     "hasAlert": true,
                     "QType": "MCQNoGroup",
@@ -204,8 +316,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId": 1,
-                            "qId": 1,
+                            "answerId": 4,
+                            "qId": 4,
                             "answerType": "SATA",
                             "answerInstruction": " MCQ NO GROUPINS INSTRUCTION HERE",
                             "answerUI": "Table",
@@ -246,7 +358,7 @@
                     ]
                 },
                 {
-                    "qId": 1,
+                    "qId": 5,
                     "hasContainer": false,
                     "hasAlert": true,
                     "QType": "SATA",
@@ -262,8 +374,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId": 1,
-                            "qId": 1,
+                            "answerId": 5,
+                            "qId": 5,
                             "answerType": "SATA",
                             "answerInstruction": "Recent medical findings suggest that regular consumption of green tea may lower the risk of developing cardiovascular diseases due to its antioxidant properties.",
                             "answerUI": "Table",
@@ -298,6 +410,173 @@
                                 }
                             ],
                             "note": ""
+                        }
+                    ]
+                },
+                {
+                    "qId": 6,
+                    "hasContainer": true,
+                    "hasAlert": true,
+                    "QType": "DDC",
+                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId": 1,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "A groundbreaking study revealed a potential link between gut microbiota composition and the development of autoimmune disorders, shedding light on new avenues for treatment. Clinical trials have demonstrated the efficacy of mindfulness meditation in reducing symptoms of anxiety and depression, offering a promising non-pharmacological approach to mental health management."
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 6,
+                            "qId": 6,
+                            "answerType": "DDC",
+                            "answerInstruction": "Complete the following sentence by choosing from the list of options.",
+                            "DDCAnswer": "The nurse should insert [[selectFieldKey:first]] It would be a <strong>priority</strong> for the nurse to request a prescription for an [[selectFieldKey:second]] The nurse should prepare the client surgery for [[selectFieldKey:third]]",
+                            "answerUI": "unknown",
+                            "columns": [],
+                            "rows": [],
+                            "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint",
+                            "selectFieldKey": ["first", "second", "third"],
+                            "selectField": {
+                                "selectFieldId": 1,
+                                "first": [
+                                    {
+                                        "label": "a rectal tube",
+                                        "value": "a rectal tube",
+                                        "xvalue": 1
+                                    },
+                                    {
+                                        "label": "a nasograstic (NG) tube",
+                                        "value": "a nasograstic (NG) tube",
+                                        "xvalue": 2
+                                    },
+                                    {
+                                        "label": "an indwelling urethral catheter",
+                                        "value": "an indwelling urethral catheter",
+                                        "xvalue": 3
+                                    }
+                                ],
+                                "second": [
+                                    {
+                                        "label": "analgesic medication",
+                                        "value": "analgesic medication",
+                                        "xvalue": 1
+                                    },
+                                    {
+                                        "label": "antipyretic medication",
+                                        "value": "antipyretic medication",
+                                        "xvalue": 2
+                                    },
+                                    {
+                                        "label": "anti-infective medication",
+                                        "value": "anti-infective medication",
+                                        "xvalue": 3
+                                    }
+                                ],
+                                "third": [
+                                    {
+                                        "label": "6 hours",
+                                        "value": "6 hours",
+                                        "xvalue": 1
+                                    },
+                                    {
+                                        "label": "8 hours",
+                                        "value": "8 hours",
+                                        "xvalue": 2
+                                    },
+                                    {
+                                        "label": "24 hours",
+                                        "value": "24 hours",
+                                        "xvalue": 3
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "qId": 7,
+                    "hasContainer": false,
+                    "hasAlert": true,
+                    "QType": "DDT",
+                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId":2,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 7,
+                            "qId": 7,
+                            "answerType": "DDT",
+                            "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                            "answerUI": "Table",
+                            "columns": ["Body System", "Potential Nursing Interventions"],
+                            "rows": [],                            
+                            "selectFieldKey": ["Neurologic", "Respiratory", "Cardiovascular"],
+                            "selectField": {
+                                "selectFieldId": 2,
+                                "Neurologic": [
+                                    {
+                                        "label": "Neurologic1",
+                                        "value": "Neurologic1",
+                                        "xvalue": 1
+                                    },
+                                    {
+                                        "label": "Neurologic2",
+                                        "value": "Neurologic2",
+                                        "xvalue": 2
+                                    },
+                                    {
+                                        "label": "Neurologic3",
+                                        "value": "Neurologic3",
+                                        "xvalue": 3
+                                    }
+                                ],
+                                "Respiratory": [
+                                    {
+                                        "label": "Respiratory1",
+                                        "value": "Respiratory1",
+                                        "xvalue": 1
+                                    },
+                                    {
+                                        "label": "Respiratory2",
+                                        "value": "Respiratory2",
+                                        "xvalue": 2
+                                    },
+                                    {
+                                        "label": "Respiratory3",
+                                        "value": "Respiratory3",
+                                        "xvalue": 3
+                                    }
+                                ],
+                                "Cardiovascular": [
+                                    {
+                                        "label": "Cardiovascular1",
+                                        "value": "Cardiovascular1",
+                                        "xvalue": 1
+                                    },
+                                    {
+                                        "label": "Cardiovascular2",
+                                        "value": "Cardiovascular2",
+                                        "xvalue": 2
+                                    },
+                                    {
+                                        "label": "Cardiovascular3",
+                                        "value": "Cardiovascular3",
+                                        "xvalue": 3
+                                    }
+                                ]
+                            },
+                            "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
                         }
                     ]
                 }
