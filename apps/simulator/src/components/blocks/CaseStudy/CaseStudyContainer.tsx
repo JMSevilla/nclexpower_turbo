@@ -1,12 +1,11 @@
 import React from "react";
 import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
 import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
-import { MRSNQuestion } from "..";
-import { HCPQuestion } from "./CaseStudyQuestions/HCPQuestionaire";
-import { SATAQuestionaire } from '@/components/blocks/RegularQuestions/SATA/SATAQuestionaire';
-import { DDCQuestion } from "..";
-import { DDTQuestion } from "..";
+import { HCPQuestion, MRSNQuestion, DDCQuestion, DDTQuestion } from "./CaseStudyQuestions";
 
+
+
+import { SATAQuestionaire } from "../RegularQuestions/SATA/SATAQuestionaire";
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
   questionaire,
 }) => {
@@ -16,7 +15,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === "DDT";
+        return cms.QType === "DDC";
       });
 
     const {

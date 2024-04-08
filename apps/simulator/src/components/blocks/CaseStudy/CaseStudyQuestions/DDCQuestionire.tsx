@@ -1,18 +1,33 @@
 import { Paper, Grid, TextField, MenuItem } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { SsrData, QuestionaireProps, AnswerProps } from "@/core/types/ssrData";
+import { SsrData, QuestionaireProps, AnswerProps, OptionType } from "@/core/types/ssrData";
+
+interface SelectedValuesType {
+    [key: string]: string; 
+}
 
 export const DDCQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
 
-    const renderDropdown = (options: any[], name: string) => {
+    const [selectedValues, setSelectedValues] = useState<SelectedValuesType>({});
+    
+    const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedValues({
+            ...selectedValues,
+            [event.target.name]: event.target.value
+        });
+    };
 
+    const renderDropdown = (options: OptionType[], selectFieldKey: string) => {
         return (
             <TextField
                 select
                 label="select"
                 variant='standard'
                 size='small'
+                name={selectFieldKey}
+                value={selectedValues[selectFieldKey] || ''}
+                onChange={handleSelectChange} 
                 style={{ minWidth: '200px', height: '70px', color: "gray", margin: "-20px 10px 0 10px", textAlign: "center" }}
             >
                 {options.map((option: any) => (

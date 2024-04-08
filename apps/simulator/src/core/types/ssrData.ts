@@ -129,4 +129,8 @@ export type CaseStudyProps = {
   questionaire: QuestionaireProps[];
 };
 
-
+export type OptionType = {
+  label: string;
+  value: string;
+  xvalue: number;
+};

@@ -16,7 +16,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
 
   return (
     <>
-      {hasContainer ? (
+      {!hasContainer ? (
         <Container
           sx={{
             pt: 2,

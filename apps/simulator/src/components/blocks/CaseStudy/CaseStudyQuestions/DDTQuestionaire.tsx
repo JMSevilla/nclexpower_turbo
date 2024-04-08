@@ -20,6 +20,7 @@ import {
 
 export const DDTQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
     const [selectedValues, setSelectedValues] = useState<SelectedValuesType>({});
+    console.log(selectedValues)
     const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedValues({
             ...selectedValues,
@@ -27,7 +28,6 @@ export const DDTQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
         });
     };
 
-    
   return (
         <div className="p-2 py-2 min-h-[100dvh]">
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -93,7 +93,7 @@ export const DDTQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {answerItem.selectFieldKey.map((selectFieldKey: any, index: number) => (
+                                                {answerItem.selectFieldKey.map((selectFieldKey: string, index: number) => (
                                                     <TableRow key={index}>
                                                         <TableCell
                                                             align="center"
