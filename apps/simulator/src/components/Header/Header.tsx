@@ -40,12 +40,15 @@ export const Header: React.FC<Props> = ({ header }) => {
                 fontWeight="bold"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
+                Time Remaining : 
                 {headerTimeRemaining}
               </Typography>
               <Typography
                 fontSize={14}
+                fontWeight="bold"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
+                Duration :
                 {duration} |
               </Typography>
             </Box>

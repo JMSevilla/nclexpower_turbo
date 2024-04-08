@@ -35,6 +35,9 @@ export type AnswerProps = {
   rows: any;
   note: string;
   tabs: SsrAnswerTabsProps[];
+  DDCAnswer: string;
+  selectFieldKey:string[];
+  selectField: any;
 };
 
 export type SsrData = {
@@ -126,4 +129,8 @@ export type CaseStudyProps = {
   questionaire: QuestionaireProps[];
 };
 
-
+export type OptionType = {
+  label: string;
+  value: string;
+  xvalue: number;
+};
