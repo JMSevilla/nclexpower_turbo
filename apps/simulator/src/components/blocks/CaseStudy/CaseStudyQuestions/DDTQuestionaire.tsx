@@ -20,7 +20,7 @@ import {
 
 export const DDTQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
     const [selectedValues, setSelectedValues] = useState<SelectedValuesType>({});
-    console.log(selectedValues)
+
     const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedValues({
             ...selectedValues,
