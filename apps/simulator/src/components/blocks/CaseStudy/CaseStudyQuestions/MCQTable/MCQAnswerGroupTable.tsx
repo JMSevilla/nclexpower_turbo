@@ -98,11 +98,11 @@ export const MCQAnswerGroupTable: React.FC<MCQTable> = ({ table }) => {
                                                     answerContainer.rows.length > 0 && answerContainer.rows.map((row: Row, index: number) =>
                                                         <TableRow key={index}>
                                                             <TableCell align="left" className='border border-[#D4D7DA] px-4 py-2 w-40'>{row.rowTitle}</TableCell>
-                                                            {table.length > 0 && table.map((tableItem: QuestionaireProps) => (
+                                                            {/* {table.length > 0 && table.map((tableItem: AnswerProps) => (
                                                                 tableItem.QType === "Group" ?
                                                                     renderCheckboxes(row, index)
                                                                     : renderRadioButtons(row, index)
-                                                            ))}
+                                                            ))} */}
                                                         </TableRow>
 
                                                     ))}

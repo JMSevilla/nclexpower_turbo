@@ -20,7 +20,8 @@ export type QuestionaireProps = {
     tabsId: number;
     tabsTitle: string;
     contentTitle: string;
-    content: string | SsrQuestionaireContentProps[];
+    content: string;
+    contentUI: string // this is if the display is a table or not
   }>;
   answer?: AnswerProps[]
 };
@@ -36,8 +37,14 @@ export type AnswerProps = {
   note: string;
   tabs: SsrAnswerTabsProps[];
   DDCAnswer: string;
-  selectFieldKey:string[];
+  selectFieldKey: string[];
   selectField: any;
+  DNDAnswer?: string;
+  DND1?: {
+    DND1WordChoices?: string[]
+  };
+
+
 };
 
 export type SsrData = {
@@ -99,7 +106,9 @@ export type RegularSATA = {
 
 export type MCQTable = {
   table: Array<{
-    rows: Array<{}>
+    rows: Array<{
+
+    }>
   }> | any
 }
 
@@ -128,6 +137,46 @@ export type QuestionaireWithAnswerProps = {
 export type CaseStudyProps = {
   questionaire: QuestionaireProps[];
 };
+
+export type DND1 = {
+  questionaire: QuestionaireProps[];
+  tasks?: string | string[]
+  status?: string
+  placeholder?: string
+}
+
+export type DND1Column = {
+  addItemToSection: any;
+  setTasks: any;
+  tasks?: string[] | any;
+  status: string;
+  placeholder?: string;
+
+}
+export type DND1Task = {
+  task: string;
+  id: number
+}
+
+export type DND1 = {
+  questionaire: QuestionaireProps[];
+  tasks?: string | string[]
+  status?: string
+  placeholder?: string
+}
+
+export type DND1Column = {
+  addItemToSection: any;
+  setTasks: any;
+  tasks?: string[] | any;
+  status: string;
+  placeholder?: string;
+
+}
+export type DND1Task = {
+  task: string;
+  id: number
+}
 
 export type OptionType = {
   label: string;

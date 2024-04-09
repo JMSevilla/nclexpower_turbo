@@ -62,7 +62,7 @@
             "questionUI": "Tabs",
             "tabs": [
                 {
-                    "tabsId":2,
+                    "tabsId": 2,
                     "tabsTitle": "Nurses' Notes",
                     "contentTitle": "Emergency Department",
                     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
@@ -70,12 +70,16 @@
             ],
             "answer": [
                 {
-                    "answerId":2,
-                    "qId":2,
+                    "answerId": 2,
+                    "qId": 2,
                     "answerType": "MCQ",
                     "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                     "answerUI": "Table",
-                    "columns": ["Potential Nursing Interventions", "Indicate", "Not Indicate"],
+                    "columns": [
+                        "Potential Nursing Interventions",
+                        "Indicate",
+                        "Not Indicate"
+                    ],
                     "rows": [
                         {
                             "NRI": "Prepare the client for defibrillation",
@@ -182,7 +186,7 @@
                     ]
                 },
                 {
-                    "qId":2,
+                    "qId": 2,
                     "hasContainer": true,
                     "hasAlert": true,
                     "QType": "MRSN",
@@ -190,7 +194,7 @@
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId":2,
+                            "tabsId": 2,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
                             "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
@@ -198,8 +202,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId":2,
-                            "qId":2,
+                            "answerId": 2,
+                            "qId": 2,
                             "answerType": "MRSN",
                             "answerInstruction": "Select 4 findings that require <strong>immediate</strong> follow-up",
                             "answerUI": "SATA",
@@ -209,32 +213,32 @@
                                     "label": "vital signs",
                                     "value": false,
                                     "xvalue": 1
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "lung sounds",
                                     "value": false,
                                     "xvalue": 2
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "capillary refill",
                                     "value": false,
                                     "xvalue": 3
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "client orientaion",
                                     "value": false,
                                     "xvalue": 4
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "radial pulse characteristics",
                                     "value": false,
                                     "xvalue": 5
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "characteristic of cough",
                                     "value": false,
                                     "xvalue": 6
-                                  }
+                                }
                             ],
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
                         }
@@ -439,7 +443,11 @@
                             "columns": [],
                             "rows": [],
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint",
-                            "selectFieldKey": ["first", "second", "third"],
+                            "selectFieldKey": [
+                                "first",
+                                "second",
+                                "third"
+                            ],
                             "selectField": {
                                 "selectFieldId": 1,
                                 "first": [
@@ -506,7 +514,7 @@
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId":2,
+                            "tabsId": 2,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
                             "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
@@ -519,9 +527,16 @@
                             "answerType": "DDT",
                             "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                             "answerUI": "Table",
-                            "columns": ["Body System", "Potential Nursing Interventions"],
-                            "rows": [],                            
-                            "selectFieldKey": ["Neurologic", "Respiratory", "Cardiovascular"],
+                            "columns": [
+                                "Body System",
+                                "Potential Nursing Interventions"
+                            ],
+                            "rows": [],
+                            "selectFieldKey": [
+                                "Neurologic",
+                                "Respiratory",
+                                "Cardiovascular"
+                            ],
                             "selectField": {
                                 "selectFieldId": 2,
                                 "Neurologic": [
@@ -577,6 +592,49 @@
                                 ]
                             },
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
+                        }
+                    ]
+                },
+                {
+                    "qId": 1,
+                    "hasContainer": false,
+                    "hasAlert": true,
+                    "QType": "DND1",
+                    "question": "DND QUESTION",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId": 1,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "A groundbreaking study revealed a potential link between gut microbiota composition and the development of autoimmune disorders, shedding light on new avenues for treatment. Clinical trials have demonstrated the efficacy of mindfulness meditation in reducing symptoms of anxiety and depression, offering a promising non-pharmacological approach to mental health management."
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 1,
+                            "qId": 1,
+                            "answerType": "DND1",
+                            "answerInstruction": "Drag each word choice from below to fill in each blank in the following sentence.",
+                            "answerUI": "DND",
+                            "DNDAnswer": "The nurse should recognize that the client is potentially experiencing [[DND1:WordChoice1]] and [[DND1:WordChoice2]]",
+                            "DNDKey": [
+                                "WordChoice1",
+                                "WordChoice2"
+                            ],
+                            "DND1": {
+                                "DNDID": 1,
+                                "DND1WordChoice1": [],
+                                "DND1WordChoice2": [],
+                                "DND1WordChoices": [
+                                    "an infection",
+                                    "urinary retention",
+                                    "a fecal impaction",
+                                    "autonomic dysreflexia"
+                                ]
+                            },
+                            "rows": [],
+                            "note": "The nurse has reviewed the collected data from the Nurses’ Notes at with the registered nurse."
                         }
                     ]
                 }

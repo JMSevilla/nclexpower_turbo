@@ -11,6 +11,9 @@ import {
   FormSubmissionContextProvider,
   ToastProvider,
 } from "@repo/utils/contexts";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 interface Props {
   header: SsrHeader;
   questionaire: SsrMockQuestionaire[];
@@ -32,10 +35,12 @@ export const Layout: React.FC<Props> = ({ header, questionaire }) => {
                 <PageContainer questionaire={questionaire}>
                   <div className="min-h-[100dvh] flex flex-col justify-between">
                     <LoadablePageContent loading={loading}>
-                      <ParseContents
-                        questionaire={questionaire}
-                        questionKey="CaseStudy"
-                      />
+                      <DndProvider backend={HTML5Backend}>
+                        <ParseContents
+                          questionaire={questionaire}
+                          questionKey="CaseStudy"
+                        />
+                      </DndProvider>
                     </LoadablePageContent>
                   </div>
                 </PageContainer>
