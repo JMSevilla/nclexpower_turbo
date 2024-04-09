@@ -6,6 +6,8 @@ import { WebApi } from "../api/web/web-api";
 import Http, { HttpOptions } from "../http-client";
 import { getItem } from "../session-storage";
 import { config } from "../config";
+import { SsrApi } from "../ssr-api";
+import { ServerSideApi } from "../api/ssr/ServerSide";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
@@ -25,6 +27,22 @@ const HTTP_OPTIONS: HttpOptions = {
   },
 };
 
+const SELF_HTTP_OPTIONS: HttpOptions = {
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": config.value.XApiKey,
+  },
+  onRequest: (req) => {
+    const accessToken = getItem<string | undefined>("AT");
+    if (req.headers && accessToken)
+      req.headers.Authorization = `Bearer ${accessToken}`;
+  },
+};
+
+export const selfHttpClient = new Http({
+  ...SELF_HTTP_OPTIONS,
+  baseURL: "http://localhost:3002",
+});
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL: "http://localhost:5281/api",
@@ -66,9 +84,41 @@ export const useApiCallback = <R, A extends unknown>(
   });
 };
 
+// secured api hook
+export const useSecuredApi = <R, D extends unknown[]>(
+  asyncFn: (api: SsrApi) => Promise<R>,
+  deps?: D
+) => {
+  return useAsync(async () => {
+    try {
+      const api = secureCreateApi(selfHttpClient.client);
+      return await asyncFn(api);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }, [selfHttpClient, ...(deps || [])]);
+};
+
+export const useSecuredApiCallback = <R, A extends unknown>(
+  asyncFn: (api: SsrApi, args: A) => Promise<R>
+) => {
+  return useAsyncCallback(async (args?: A) => {
+    try {
+      const api = secureCreateApi(selfHttpClient.client);
+      return await asyncFn(api, args as A);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  });
+};
+
 function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
     new CalculationApi(client, httpSsrClient),
     new WebApi(client, httpSsrClient)
   );
+}
+
+function secureCreateApi(client: AxiosInstance) {
+  return new SsrApi(new ServerSideApi(client));
 }
