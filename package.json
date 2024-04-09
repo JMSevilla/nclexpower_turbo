@@ -23,6 +23,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "iron-session": "^8.0.1"
+    "iron-session": "^8.0.1",
+    "react-toastify": "^10.0.5"
   }
 }
