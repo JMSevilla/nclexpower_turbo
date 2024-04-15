@@ -40,12 +40,15 @@ export const Header: React.FC<Props> = ({ header }) => {
                 fontWeight="bold"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
+                Time Remaining : 
                 {headerTimeRemaining}
               </Typography>
               <Typography
                 fontSize={14}
+                fontWeight="bold"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
+                Duration :
                 {duration} |
               </Typography>
             </Box>
@@ -75,12 +78,12 @@ export const Header: React.FC<Props> = ({ header }) => {
         </div>
         <Box display={"flex"} height={35} pl={7} gap={5} bgcolor={"#86BCEA"}>
           <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
-            <CalculateIcon fontSize="medium" sx={buttonStyle.IconStyle} />
+            <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
             Calculator
           </Button>
 
           <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
-            <FormatClearIcon fontSize="medium" sx={buttonStyle.IconStyle} />
+            <FormatClearIcon fontSize="large" sx={buttonStyle.IconStyle} />
             Clear
           </Button>
         </Box>
