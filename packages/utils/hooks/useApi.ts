@@ -45,7 +45,7 @@ export const selfHttpClient = new Http({
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: "http://localhost:5281/api",
+  baseURL: process.env.NODE_ENV === "development" ? "http://localhost:5281/api" : config.value.Devenv,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
