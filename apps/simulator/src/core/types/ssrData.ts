@@ -1,17 +1,31 @@
+export type SsrQuestionaireContentProps = {
+  contentId: number;
+  content: string;
+};
+
+export type SsrAnswerTabsProps = {
+  tabsId: number;
+  tabsTitle: string;
+  contentTitle: string;
+  content: string | string[];
+};
+
 export type QuestionaireProps = {
   qId: number;
   QType: string;
   question: string;
   questionUI: string;
+  hasAlert: boolean;
   tabs: Array<{
     tabsId: number;
     tabsTitle: string;
     contentTitle: string;
-    content: string;
+    content: string | SsrQuestionaireContentProps[];
   }>;
+  answer?: AnswerProps[]
 };
 
-type AnswerProps = {
+export type AnswerProps = {
   answerId: number;
   qId: number;
   answerType: string;
@@ -20,6 +34,10 @@ type AnswerProps = {
   columns: Array<string>;
   rows: any;
   note: string;
+  tabs: SsrAnswerTabsProps[];
+  DDCAnswer: string;
+  selectFieldKey:string[];
+  selectField: any;
 };
 
 export type SsrData = {
@@ -49,7 +67,7 @@ export type SsrMockQuestionaire = {
   qId: number;
   hasContainer: boolean;
   QType: string;
-  question: string;
+  questions: QuestionaireProps[];
   questionUI: string;
   tabs: SsrMockTabsUIQuestionaire[];
   answer: SsrMockQuestionaireAnswer[];
@@ -62,7 +80,7 @@ type SsrMockTabsUIQuestionaire = {
   content: string;
 };
 
-type SsrMockQuestionaireAnswer = {
+export type SsrMockQuestionaireAnswer = {
   answerId: number;
   qId: number;
   answerType: string;
@@ -71,4 +89,48 @@ type SsrMockQuestionaireAnswer = {
   columns: string[];
   rows: any;
   note: string;
+  choices: []
+};
+
+export type RegularSATA = {
+  questionaire: QuestionaireWithAnswerProps[]
+}
+
+
+export type MCQTable = {
+  table: Array<{
+    rows: Array<{}>
+  }> | any
+}
+
+export interface Row {
+  rowTitle: string;
+  [key: string]: number | string;
+
+}
+
+export type QuestionaireWithAnswerProps = {
+  qId: number;
+  QType: string;
+  question: string;
+  questionUI: string;
+  displayType?: string;
+  tabs: Array<{
+    tabsId: number;
+    tabsTitle: string;
+    contentTitle: string;
+    content: string;
+    contentUI: string;
+  }>;
+  answer?: AnswerProps[]
+}
+
+export type CaseStudyProps = {
+  questionaire: QuestionaireProps[];
+};
+
+export type OptionType = {
+  label: string;
+  value: string;
+  xvalue: number;
 };
