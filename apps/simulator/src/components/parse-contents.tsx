@@ -2,6 +2,7 @@
 import { SsrMockQuestionaire, AnswerProps } from "@/core/types/ssrData";
 import React from "react";
 import { McqQuestion, CaseStudyContainer, SATAQuestionaire } from "./blocks";
+import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -12,6 +13,8 @@ export const ParseContents: React.FC<Props> = ({
   questionaire,
   questionKey,
 }) => {
+  /* use this contents to get the content data */
+  const { contents } = useSimulatorGlobals()
   if (questionaire.length > 0) {
     const deserializeContents: any =
       questionaire?.length > 0 &&
