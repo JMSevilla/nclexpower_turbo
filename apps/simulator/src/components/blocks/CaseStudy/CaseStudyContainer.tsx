@@ -15,7 +15,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === "MCQNoGroup";
+        return cms.QType === "MRSN";
       });
 
     const {
