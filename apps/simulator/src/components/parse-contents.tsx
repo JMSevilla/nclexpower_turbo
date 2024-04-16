@@ -1,7 +1,7 @@
 
 import { SsrMockQuestionaire, AnswerProps } from "@/core/types/ssrData";
 import React from "react";
-import { McqQuestion, CaseStudyContainer, SATAQuestionaire } from "./blocks";
+import { McqQuestion, CaseStudyContainer, SATAQuestionaire, RegularSATA } from "./blocks";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -26,7 +26,7 @@ export const ParseContents: React.FC<Props> = ({
       } = deserializeContents?.[0];
       switch (QuestionType) {
         case "SATA":
-          return <SATAQuestionaire questionaire={deserializeContents} />
+          return <RegularSATA questionaire={deserializeContents} />
         case "MCQ":
           return (
             <McqQuestion

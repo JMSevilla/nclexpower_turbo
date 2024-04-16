@@ -595,6 +595,79 @@
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
                         }
                     ]
+                },
+                {
+                    "qId": 1,
+                    "hasContainer": false,
+                    "hasAlert": true,
+                    "QType": "DND1",
+                    "question": "DND QUESTION",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId": 1,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "A groundbreaking study revealed a potential link between gut microbiota composition and the development of autoimmune disorders, shedding light on new avenues for treatment. Clinical trials have demonstrated the efficacy of mindfulness meditation in reducing symptoms of anxiety and depression, offering a promising non-pharmacological approach to mental health management."
+                        },
+                        {
+                            "tabsId": 1,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "A groundbreaking study redding light on new avenues for treatment. Clinical trials have demonstrated the efficacy of mindfulness meditation in reducing symptoms of anxiety and depression, offering a promising non-pharmacological approach to mental health management."
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 1,
+                            "qId": 1,
+                            "answerType": "DND1",
+                            "answerInstruction": "Drag each word choice from below to fill in each blank in the following sentence.",
+                            "answerUI": "DND",
+                            "DNDAnswer": "The nurse should recognize that the client is potentially experiencing [[DND1:WordChoice1]] and [[DND1:WordChoice2]]",
+                            "DNDKey": [
+                                "WordChoice1",
+                                "WordChoice2"
+                            ],
+                            "DND1": {
+                                "DNDID": 1,
+                                "DND1WordChoice1": [],
+                                "DND1WordChoice2": [],
+                                "DND1WordChoices": [
+                                    {
+                                        "id": 1,
+                                        "text": "Write a cool JS library"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "text": "Make it generic enough"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "text": "Write README"
+                                    },
+                                    {
+                                        "id": 4,
+                                        "text": "Create some examples"
+                                    },
+                                    {
+                                        "id": 5,
+                                        "text": "Spam in Twitter and IRC to promote it"
+                                    },
+                                    {
+                                        "id": 6,
+                                        "text": "???"
+                                    },
+                                    {
+                                        "id": 7,
+                                        "text": "PROFIT"
+                                    }
+                                ]
+                            },
+                            "rows": [],
+                            "note": "The nurse has reviewed the collected data from the Nurses’ Notes at with the registered nurse."
+                        }
+                    ]
                 }
             ]
         }

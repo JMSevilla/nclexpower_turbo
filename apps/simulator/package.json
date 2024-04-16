@@ -29,6 +29,8 @@
     "next-transpile-modules": "^10.0.1",
     "query-string": "^8.2.0",
     "react": "^18",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
     "react-highlight-words": "^0.20.0",
     "react-hook-form": "^7.50.1",
