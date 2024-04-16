@@ -1,7 +1,6 @@
-import { Paper, Grid, TextField, MenuItem } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import NearMeIcon from '@mui/icons-material/NearMe';
-import { QuestionaireProps, CaseStudyQuestionnaire, SsrData } from "@/core/types/ssrData";
+import { Paper, Grid } from '@mui/material';
+import React from 'react';
+import { CaseStudyQuestionnaire } from "@/core/types/ssrData";
 import { MCQAnswerGroupTable } from '@/components/blocks/CaseStudy/CaseStudyQuestions/MCQTable/MCQAnswerGroupTable';
 
 export const MCQCSQuestionnaire: React.FC<CaseStudyQuestionnaire> = ({ questionaire }) => {
