@@ -16,9 +16,10 @@ import { useAtom } from "jotai";
 import { useFormSubmissionBindingHooks } from "@repo/utils/hooks/useFormSubmissionBindingHooks";
 
 export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
-  const foundAnswer = answer.find(answer => answer.answerId);
+
+  const foundAnswer = answer ? answer && answer.find(answer => answer.answerId) : null;
   const rows = foundAnswer ? foundAnswer.rows : [];
-  
+
   const [mrsnAtom, setMrsnAtom] = useAtom(MrsnValidationAtom);
   const form = useForm<MrsnValidationType>({
     mode: "all",
