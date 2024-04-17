@@ -38,8 +38,8 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                     <div className="min-h-[100dvh] flex flex-col justify-between">
                       <LoadablePageContent loading={loading}>
                         <ParseContents
-                          questionaire={questionaire}
-                          questionKey="CaseStudy"
+                          questionKey="SATA"
+                          itemSelected={itemselect}
                         />
                       </LoadablePageContent>
                     </div>

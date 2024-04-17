@@ -15,6 +15,11 @@ export type QuestionContentsPayload = {
   QLNum: string
 }
 
+export type ParsedChoices = {
+  Label: string;
+  Value: number;
+}
+
 type ChoicesItem = {
   Id: string;
   choices: string;
@@ -32,9 +37,9 @@ type AnswerUIItem = {
 }
 
 type QuestionTypeItem = {
-  QLNum: string;
-  QType: string;
-  QTypeDesc: string
+  qlNum: string;
+  qType: string;
+  qTypeDesc: string
 }
 
 export type QuestionContentsResponse = {

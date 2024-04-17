@@ -1,3 +1,5 @@
+import { datatypes } from "@repo/utils";
+
 export type SsrQuestionaireContentProps = {
   contentId: number;
   content: string;
@@ -92,8 +94,11 @@ export type SsrMockQuestionaireAnswer = {
   choices: []
 };
 
+// new types for questionnaire refactoring
+
 export type RegularSATA = {
-  questionaire: QuestionaireWithAnswerProps[]
+  contents: datatypes.QuestionContentsResponse;
+  itemselection: datatypes.CalcItemSelectValues[]
 }
 
 

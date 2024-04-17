@@ -32,7 +32,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-  const execItemSelect = useApi(async (api) => await api.calc.ItemSelect({ accountId: "3fa85f64-5717-4562-b3fc-2c963f66afa6", examGroupId: "3fa85f64-5717-4562-b3fc-2c963f66afa6"}));
+  const execItemSelect = useApi(async (api) => await api.calc.ItemSelect({ accountId: "3FA85F64-5717-4562-B3FC-2C963F66AFA6", examGroupId: "355F6609-B722-4F5C-A240-D5B9705FEA0B"}));
   const itemSelectList = useMemo<datatypes.CalcItemSelectValues[]>(
     () => [
       ...(execItemSelect.result?.data.map<datatypes.CalcItemSelectValues>(item => ({

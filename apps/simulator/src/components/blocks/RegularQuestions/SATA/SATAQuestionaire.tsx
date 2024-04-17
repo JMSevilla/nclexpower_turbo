@@ -4,10 +4,10 @@ import { Checkbox, Grid } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react'
 import { AnswerProps, QuestionaireWithAnswerProps, RegularSATA } from '@/core/types/ssrData';
+import { datatypes } from '@repo/utils';
 
-export const SATAQuestionaire: React.FC<RegularSATA> = ({ questionaire }) => {
+export const SATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselection }) => {
 
-    const [activeTab, setActiveTab] = useState<number>(0);
     const [checkedValues, setCheckedValues] = useState<number[]>([]);
     const handleCheckBoxValues = (value: number) => {
         const isChecked = checkedValues.includes(value);
@@ -20,85 +20,37 @@ export const SATAQuestionaire: React.FC<RegularSATA> = ({ questionaire }) => {
 
 
     return (
-        <div className=' h-full '>
+        <div className=' h-full'>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12} sm={6} md={6}>
-                    <div className='w-full h-full p-5'>
-                        <div className='w-full text-sm mb-4 pr-5'>
-                            {questionaire?.length > 0 && questionaire.map((questionItem: QuestionaireWithAnswerProps, questionIndex: number) => (
-                                <div key={questionIndex} className='w-full text-sm mb-4 pr-5'>
-                                    <p className="flex" >
-                                        <div
-                                            dangerouslySetInnerHTML={{
-                                                __html: questionItem.question,
-                                            }}
-                                        />
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                        <div className='w-full h-full '>
-                            <div className='flex gap-1'>
-                                {questionaire?.length > 0 && questionaire.map((questionItem: QuestionaireWithAnswerProps) =>
-                                    questionItem?.tabs?.length > 0 && questionItem.tabs.map((tab: any, tabIndex) => (
-                                        <div key={tab.tabId} className={` px-5 py-1 rounded-t-md text-sm font-semibold flex items-center cursor-pointer hover:bg-slate-100 ${activeTab === tabIndex ? ' underline bg-white ' : 'bg-slate-200'
-                                            }`}
-                                            onClick={() => setActiveTab(tabIndex)}>
-                                            <p>{tab.tabsTitle}</p>
-                                        </div>
-                                    ))
-                                )}
-
-                            </div>
-                            <div className='rounded-b-md rounded-r-md h-5/6 max-h-[500px] p-5 overflow-y-auto flex flex-col gap-5 shadow-lg bg-white'>
-                                <div className='flex flex-col gap-y-4'>
-                                    {questionaire?.length > 0 && questionaire.map((questionItem: QuestionaireWithAnswerProps) =>
-                                        questionItem?.tabs?.length > 0 && questionItem.tabs.map((tab, tabIndex) => (
-                                            <div key={tab.tabsId} style={{ display: activeTab === tabIndex ? 'block' : 'none' }}>
-                                                {tab.contentUI === "Table" ?
-                                                    <p>TABLE DISPLAY</p>
-                                                    :
-                                                    <div className='flex w-full gap-2'>
-                                                        <p className='font-semibold min-w-[50px]'>{tab.tabsId} :</p>
-                                                        <div className='leading-6 text-sm'>{tab.content}</div>
-                                                    </div>
-                                                }
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
                     <div className="h-full w-full p-4 font-sans tracking-tight">
-                        {questionaire?.length > 0 && questionaire.map((questionItem: QuestionaireWithAnswerProps, questionIndex: number) =>
-                            <div key={questionIndex} >
+                        {itemselection?.length > 0 && itemselection.map((item: datatypes.CalcItemSelectValues, itemIndex) =>
+                            <div key={itemIndex} >
                                 <ol className='w-full text-sm mb-4 pr-5 '>
-                                    <li>{questionItem.answer && questionItem.answer.map((answerItem, answerIndex: number) => (
+                                    <li>
                                         <div className='w-full text-sm mb-4 pr-5'>
-                                            <p className="flex" key={answerIndex}>
-                                                <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
-                                                <div
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: answerItem.answerInstruction,
-                                                    }}
-                                                />
+                                            <p className="flex" key={itemIndex}>
+                                            {item.question}
                                             </p>
                                         </div>
-                                    ))}</li>
+                                    </li>
                                 </ol>
-                                <div className='w-full h-fit shadow-lg p-10 flex flex-col gap-5 rounded-md bg-white'>
-                                    {questionItem.answer && questionItem.answer.map((choiceMap: AnswerProps) =>
-                                        choiceMap.rows && choiceMap.rows.map((answerItem: any, answerIndex: number) => (
-                                            <div className='flex items-center my-2' key={answerIndex}>
-                                                <span>{answerIndex + 1} . </span>
-                                                <span><Checkbox value={answerItem.value} checked={checkedValues.includes(answerItem.value)} onChange={() => handleCheckBoxValues(answerItem.value)} sx={{ height: "20px" }} /></span>
-                                                <p>{answerItem.label}</p>
-                                            </div>
-                                        ))
-                                    )}
+                                <div className='w-full h-fit shadow-lg px-10 py-5 text-sm flex flex-col gap-5 rounded-md bg-white'>
+                                    {contents.choices?.length > 0 && contents.choices.map((choiceMap, choiceIdx) => {
+                                        const parsedChoices: datatypes.ParsedChoices[] = JSON.parse(choiceMap.choices);
+                                        return (
+                                            <React.Fragment key={choiceIdx}>
+                                               {parsedChoices?.length > 0 && parsedChoices.map((parseChoices, parseChoicesIdx) => (
+                                                <div className='flex items-center ' key={parseChoicesIdx}>
+ <span>
+                                                <Checkbox value={parseChoices.Value} checked={checkedValues.includes(parseChoices.Value)} onChange={() => handleCheckBoxValues(parseChoices.Value)} sx={{ height: "20px" }} />
+                                                </span>
+                                                <p>{parseChoices.Label}</p>
+                                                </div>
+                                               ))}
+                                            </React.Fragment>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         )}

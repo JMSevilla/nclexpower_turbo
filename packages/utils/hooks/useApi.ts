@@ -40,13 +40,16 @@ const SELF_HTTP_OPTIONS: HttpOptions = {
   },
 };
 
+const herokuDev = "https://nclexdev-6ecb32719de0.herokuapp.com/api";
+const devEnv = "http://localhost:5281/api";
+
 export const selfHttpClient = new Http({
   ...SELF_HTTP_OPTIONS,
   baseURL: "http://localhost:3002",
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: process.env.NODE_ENV === "development" ? "https://nclexdev-6ecb32719de0.herokuapp.com/api" : config.value.Devenv,
+  baseURL: process.env.NODE_ENV === "development" ? devEnv : config.value.Devenv,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
