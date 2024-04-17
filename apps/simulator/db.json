@@ -62,7 +62,7 @@
             "questionUI": "Tabs",
             "tabs": [
                 {
-                    "tabsId":2,
+                    "tabsId": 2,
                     "tabsTitle": "Nurses' Notes",
                     "contentTitle": "Emergency Department",
                     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
@@ -70,12 +70,16 @@
             ],
             "answer": [
                 {
-                    "answerId":2,
-                    "qId":2,
+                    "answerId": 2,
+                    "qId": 2,
                     "answerType": "MCQ",
                     "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                     "answerUI": "Table",
-                    "columns": ["Potential Nursing Interventions", "Indicate", "Not Indicate"],
+                    "columns": [
+                        "Potential Nursing Interventions",
+                        "Indicate",
+                        "Not Indicate"
+                    ],
                     "rows": [
                         {
                             "NRI": "Prepare the client for defibrillation",
@@ -182,7 +186,7 @@
                     ]
                 },
                 {
-                    "qId":2,
+                    "qId": 2,
                     "hasContainer": true,
                     "hasAlert": true,
                     "QType": "MRSN",
@@ -190,7 +194,7 @@
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId":2,
+                            "tabsId": 2,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
                             "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
@@ -198,8 +202,8 @@
                     ],
                     "answer": [
                         {
-                            "answerId":2,
-                            "qId":2,
+                            "answerId": 2,
+                            "qId": 2,
                             "answerType": "MRSN",
                             "answerInstruction": "Select 4 findings that require <strong>immediate</strong> follow-up",
                             "answerUI": "SATA",
@@ -209,32 +213,32 @@
                                     "label": "vital signs",
                                     "value": false,
                                     "xvalue": 1
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "lung sounds",
                                     "value": false,
                                     "xvalue": 2
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "capillary refill",
                                     "value": false,
                                     "xvalue": 3
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "client orientaion",
                                     "value": false,
                                     "xvalue": 4
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "radial pulse characteristics",
                                     "value": false,
                                     "xvalue": 5
-                                  },
-                                  {
+                                },
+                                {
                                     "label": "characteristic of cough",
                                     "value": false,
                                     "xvalue": 6
-                                  }
+                                }
                             ],
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
                         }
@@ -319,6 +323,7 @@
                             "answerId": 4,
                             "qId": 4,
                             "answerType": "SATA",
+                            "QType": "MCQGroup",
                             "answerInstruction": " MCQ NO GROUPINS INSTRUCTION HERE",
                             "answerUI": "Table",
                             "columns": [
@@ -439,7 +444,11 @@
                             "columns": [],
                             "rows": [],
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint",
-                            "selectFieldKey": ["first", "second", "third"],
+                            "selectFieldKey": [
+                                "first",
+                                "second",
+                                "third"
+                            ],
                             "selectField": {
                                 "selectFieldId": 1,
                                 "first": [
@@ -506,7 +515,7 @@
                     "questionUI": "Tabs",
                     "tabs": [
                         {
-                            "tabsId":2,
+                            "tabsId": 2,
                             "tabsTitle": "Nurses' Notes",
                             "contentTitle": "Emergency Department",
                             "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
@@ -519,9 +528,16 @@
                             "answerType": "DDT",
                             "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
                             "answerUI": "Table",
-                            "columns": ["Body System", "Potential Nursing Interventions"],
-                            "rows": [],                            
-                            "selectFieldKey": ["Neurologic", "Respiratory", "Cardiovascular"],
+                            "columns": [
+                                "Body System",
+                                "Potential Nursing Interventions"
+                            ],
+                            "rows": [],
+                            "selectFieldKey": [
+                                "Neurologic",
+                                "Respiratory",
+                                "Cardiovascular"
+                            ],
                             "selectField": {
                                 "selectFieldId": 2,
                                 "Neurologic": [

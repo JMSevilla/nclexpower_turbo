@@ -38,13 +38,13 @@ export type AnswerProps = {
   note: string;
   tabs: SsrAnswerTabsProps[];
   DDCAnswer: string;
-  selectFieldKey:string[];
+  selectFieldKey: string[];
   selectField: any;
 };
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
+  answer?: AnswerProps[];
 };
 
 // header
@@ -93,6 +93,7 @@ export type SsrMockQuestionaireAnswer = {
   note: string;
   choices: []
 };
+
 
 // new types for questionnaire refactoring
 

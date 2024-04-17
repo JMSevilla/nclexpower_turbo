@@ -1,7 +1,7 @@
 import React from "react";
 import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
 import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
-import { HCPQuestion, MRSNQuestion, DDCQuestion, DDTQuestion } from "./CaseStudyQuestions";
+import { HCPQuestion, MRSNQuestion, DDCQuestion, DDTQuestion, MCQCSQuestionnaire } from "./CaseStudyQuestions";
 
 
 
@@ -15,7 +15,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === "DDC";
+        return cms.QType === "MRSN";
       });
 
     const {
@@ -52,6 +52,9 @@ function renderSwitch(
 
     case "SATA":
       return <SATAQuestionaire questionaire={deserializeContents} />
+    case "MCQNoGroup":
+    case "MCQGroup":
+      return <MCQCSQuestionnaire questionaire={deserializeContents} />
     case "HCP":
       return <HCPQuestion questionaire={deserializeContents} answer={answer} />
     case "MRSN":
