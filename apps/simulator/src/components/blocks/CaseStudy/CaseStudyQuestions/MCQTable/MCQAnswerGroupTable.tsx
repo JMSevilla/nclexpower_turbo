@@ -63,7 +63,7 @@ export const MCQAnswerGroupTable: React.FC<MCQTable> = ({ table }) => {
     };
 
     return (
-        <Grid>
+        <Grid >
             <div className='h-full w-full font-sans'>
                 {table.length > 0 &&
                     table.map((answerItem: SsrData, answerIndex: number) => (

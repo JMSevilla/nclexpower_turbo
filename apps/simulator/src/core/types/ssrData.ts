@@ -10,6 +10,7 @@ export type SsrAnswerTabsProps = {
   tabsTitle: string;
   contentTitle: string;
   content: string | string[];
+  contentUI?: string
 };
 
 export type QuestionaireProps = {

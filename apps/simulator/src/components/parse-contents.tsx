@@ -1,6 +1,6 @@
 
 import React from "react";
-import { McqQuestion, CaseStudyContainer, SATAQuestionaire } from "./blocks";
+import { McqQuestion, CaseStudyContainer, RegularSATAQuestionaire, } from "./blocks";
 import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
 import { datatypes } from "@repo/utils";
 
@@ -15,14 +15,14 @@ export const ParseContents: React.FC<Props> = ({
 }) => {
   /* use this contents to get the content data */
   const { contents } = useSimulatorGlobals()
-  if(contents && contents.answerUI?.length > 0 && contents.choices?.length > 0 && contents.questionType?.length > 0) {
+  if (contents && contents.answerUI?.length > 0 && contents.choices?.length > 0 && contents.questionType?.length > 0) {
     const qKey = contents.questionType.filter(key => key.qType === questionKey);
     const {
       qType: QuestionType
     } = qKey[0];
-    switch(QuestionType) {
+    switch (QuestionType) {
       case "SATA":
-        return <SATAQuestionaire contents={contents} itemselection={itemSelected} />
+        return <RegularSATAQuestionaire contents={contents} itemselection={itemSelected} />
       case "MCQ":
         return <McqQuestion questionaire={[]} answer={[]} />
       case "CaseStudy":
@@ -35,3 +35,4 @@ export const ParseContents: React.FC<Props> = ({
     return <h3>No questionaire Loaded</h3>;
   }
 };
+

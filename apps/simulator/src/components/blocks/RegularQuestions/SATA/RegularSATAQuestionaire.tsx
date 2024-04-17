@@ -1,12 +1,10 @@
 
-
 import { Checkbox, Grid } from '@mui/material'
-import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react'
-import { AnswerProps, QuestionaireWithAnswerProps, RegularSATA } from '@/core/types/ssrData';
+import { RegularSATA } from '@/core/types/ssrData';
 import { datatypes } from '@repo/utils';
 
-export const SATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselection }) => {
+export const RegularSATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselection }) => {
 
     const [checkedValues, setCheckedValues] = useState<number[]>([]);
     const handleCheckBoxValues = (value: number) => {
@@ -30,7 +28,7 @@ export const SATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselectio
                                     <li>
                                         <div className='w-full text-sm mb-4 pr-5'>
                                             <p className="flex" key={itemIndex}>
-                                            {item.question}
+                                                {item.question}
                                             </p>
                                         </div>
                                     </li>
@@ -40,14 +38,14 @@ export const SATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselectio
                                         const parsedChoices: datatypes.ParsedChoices[] = JSON.parse(choiceMap.choices);
                                         return (
                                             <React.Fragment key={choiceIdx}>
-                                               {parsedChoices?.length > 0 && parsedChoices.map((parseChoices, parseChoicesIdx) => (
-                                                <div className='flex items-center ' key={parseChoicesIdx}>
- <span>
-                                                <Checkbox value={parseChoices.Value} checked={checkedValues.includes(parseChoices.Value)} onChange={() => handleCheckBoxValues(parseChoices.Value)} sx={{ height: "20px" }} />
-                                                </span>
-                                                <p>{parseChoices.Label}</p>
-                                                </div>
-                                               ))}
+                                                {parsedChoices?.length > 0 && parsedChoices.map((parseChoices, parseChoicesIdx) => (
+                                                    <div className='flex items-center ' key={parseChoicesIdx}>
+                                                        <span>
+                                                            <Checkbox value={parseChoices.Value} checked={checkedValues.includes(parseChoices.Value)} onChange={() => handleCheckBoxValues(parseChoices.Value)} sx={{ height: "20px" }} />
+                                                        </span>
+                                                        <p>{parseChoices.Label}</p>
+                                                    </div>
+                                                ))}
                                             </React.Fragment>
                                         )
                                     })}
@@ -60,4 +58,3 @@ export const SATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselectio
         </div>
     )
 }
-
