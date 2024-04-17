@@ -1,5 +1,5 @@
 export * from "./RegularQuestions/MCQ/MCQquestionaire";
-export * from "./RegularQuestions/SATA/RegularSATA";
+export * from "./RegularQuestions/SATA/RegularSATAQuestionaire";
 export * from "./CaseStudy/CaseStudyContainer";
 export * from "./CaseStudy/CaseStudyQuestions/MRSNQuestionaire";
 export * from "./CaseStudy/CaseStudyQuestions/DDCQuestionire";

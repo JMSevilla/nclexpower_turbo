@@ -41,7 +41,8 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                         <LoadablePageContent loading={loading}>
                           <DndProvider backend={HTML5Backend}>
                             <ParseContents
-                              questionKey="SATA"
+                              questionaire={questionaire}
+                              questionKey="CaseStudy"
                               itemSelected={itemselect}
                             />
                           </DndProvider>
