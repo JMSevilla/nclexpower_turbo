@@ -1,44 +1,35 @@
 
-import { SsrMockQuestionaire, AnswerProps } from "@/core/types/ssrData";
 import React from "react";
 import { McqQuestion, CaseStudyContainer, SATAQuestionaire, RegularSATA } from "./blocks";
+import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
+import { datatypes } from "@repo/utils";
 
 interface Props {
-  questionaire: SsrMockQuestionaire[];
   questionKey: string;
+  itemSelected: datatypes.CalcItemSelectValues[]
 }
 
 export const ParseContents: React.FC<Props> = ({
-  questionaire,
   questionKey,
+  itemSelected
 }) => {
-  if (questionaire.length > 0) {
-    const deserializeContents: any =
-      questionaire?.length > 0 &&
-      questionaire?.filter((cms: SsrMockQuestionaire) => {
-        return cms.QType === questionKey;
-      });
-    if (questionaire) {
-      const {
-        QType: QuestionType,
-        questions,
-        answer,
-      } = deserializeContents?.[0];
-      switch (QuestionType) {
-        case "SATA":
-          return <RegularSATA questionaire={deserializeContents} />
-        case "MCQ":
-          return (
-            <McqQuestion
-              questionaire={deserializeContents}
-              answer={answer as AnswerProps[]}
-            />
-          );
-        case "CaseStudy":
-          return <CaseStudyContainer questionaire={questions} />;
-        default:
-          return <h3>No questionaire Loaded</h3>;
-      }
+  /* use this contents to get the content data */
+  const { contents } = useSimulatorGlobals()
+  if (contents && contents.answerUI?.length > 0 && contents.choices?.length > 0 && contents.questionType?.length > 0) {
+    const qKey = contents.questionType.filter(key => key.qType === questionKey);
+    const {
+      qType: QuestionType
+    } = qKey[0];
+    switch (QuestionType) {
+      case "SATA":
+        return <SATAQuestionaire contents={contents} itemselection={itemSelected} />
+      case "MCQ":
+        return <McqQuestion questionaire={[]} answer={[]} />
+      case "CaseStudy":
+        return <CaseStudyContainer questionaire={[]} />
+      default:
+        return <h3>No questionaire Loaded</h3>;
+
     }
   } else {
     return <h3>No questionaire Loaded</h3>;

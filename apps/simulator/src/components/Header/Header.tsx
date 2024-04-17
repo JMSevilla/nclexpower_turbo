@@ -9,11 +9,9 @@ import {
 import CalculateIcon from "@mui/icons-material/Calculate";
 import FormatClearIcon from "@mui/icons-material/FormatClear";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import { SsrHeader } from "@/core/types/ssrData";
+import { Header as SsrHeader } from "@/core/types/ssrData";
+import { usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 
-interface Props {
-  header: SsrHeader;
-}
 
 const buttonStyle = {
   backgroundColor: "transparent",
@@ -24,9 +22,10 @@ const buttonStyle = {
   },
 };
 
-export const Header: React.FC<Props> = ({ header }) => {
-  const headerTimeRemaining = header.timeRemaining ?? null;
-  const duration = header.duration ?? null;
+export const Header: React.FC = () => {
+  const { header } = usePreloadedGlobals()
+  const headerTimeRemaining = header[0]?.timeRemaining ?? null;
+  const duration = header[0]?.duration ?? null;
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -57,10 +56,10 @@ export const Header: React.FC<Props> = ({ header }) => {
                 textAlign="center"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
-                QID: {header.qId}
+                QID: {header[0]?.qId}
               </Typography>
               <Typography style={{ fontFamily: "Arial, sans-serif" }}>
-                {header.headerTitle}
+               NCLEX Sample Tutor
               </Typography>
             </Box>
             <Box flexGrow={0}>

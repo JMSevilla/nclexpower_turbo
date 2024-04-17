@@ -11,15 +11,18 @@ import {
   FormSubmissionContextProvider,
   ToastProvider,
 } from "@repo/utils/contexts";
+import { PreloadedGlobalsProvider, usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
+import { SimulatorProvider } from "@/core/context/SimulatorContext";
+
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 interface Props {
-  header: SsrHeader;
   questionaire: SsrMockQuestionaire[];
+  data?: any;
 }
 
-export const Layout: React.FC<Props> = ({ header, questionaire }) => {
-  const { loading } = useApplicationContext();
+export const Layout: React.FC<Props> = ({ questionaire, data }) => {
+  const { loading, itemselect } = useApplicationContext();
   const theme = createTheme();
   const queryClient = new QueryClient({});
   return (
@@ -36,8 +39,8 @@ export const Layout: React.FC<Props> = ({ header, questionaire }) => {
                     <LoadablePageContent loading={loading}>
                       <DndProvider backend={HTML5Backend}>
                         <ParseContents
-                          questionaire={questionaire}
                           questionKey="SATA"
+                          itemSelected={itemselect}
                         />
                       </DndProvider>
                     </LoadablePageContent>

@@ -4,6 +4,7 @@ import { cmsInit } from "@repo/utils";
 import { Layout as LayoutComponent } from "./Layout";
 import { ApplicationProvider } from "@/core/context/AppContext";
 
+
 interface Props {
   data?: any;
   error?: any;
@@ -18,20 +19,23 @@ export const Page: NextPage<Props> = ({ data, error }) => {
   );
   return (
     <ApplicationProvider data={data}>
-      <Layout header={data?.prefetchHeader} questionaire={data?.prefetchQ} />
+      <Layout questionaire={data?.prefetchQ} data={data} />
     </ApplicationProvider>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUrl }) => {
+  const querySlugs = query['slug'];
   try {
+    const slug = querySlugs as string[] || resolvedUrl
     const prefetchQ = await cmsInit.initializedCms();
     const prefetchHeader = await cmsInit.initializedHeader();
     return {
       props: {
         data: {
+          slug,
           prefetchQ,
-          prefetchHeader,
+          prefetchHeader
         },
       },
     };
