@@ -11,11 +11,11 @@ import {
   FormSubmissionContextProvider,
   ToastProvider,
 } from "@repo/utils/contexts";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { PreloadedGlobalsProvider, usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 import { SimulatorProvider } from "@/core/context/SimulatorContext";
 
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend'
 interface Props {
   questionaire: SsrMockQuestionaire[];
   data?: any;
@@ -28,30 +28,34 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ToastProvider>
-        <FormSubmissionContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <div className="h-fit min-h-[100dvh] overflow-auto bg-[#F2F7FF]">
-              <AlertMessageV2Provider>
-                <Header header={header} />
-                <PageContainer questionaire={questionaire}>
-                  <div className="min-h-[100dvh] flex flex-col justify-between">
-                    <LoadablePageContent loading={loading}>
-                      <DndProvider backend={HTML5Backend}>
-                        <ParseContents
-                          questionKey="SATA"
-                          itemSelected={itemselect}
-                        />
-                      </DndProvider>
-                    </LoadablePageContent>
-                  </div>
-                </PageContainer>
-                <Footer />
-              </AlertMessageV2Provider>
-            </div>
-          </QueryClientProvider>
-        </FormSubmissionContextProvider>
-      </ToastProvider>
+      <SimulatorProvider data={itemselect}>
+        <PreloadedGlobalsProvider data={data}>
+          <ToastProvider>
+            <FormSubmissionContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <div className="h-fit min-h-[100dvh] overflow-auto bg-[#F2F7FF]">
+                  <AlertMessageV2Provider>
+                    <Header />
+                    <PageContainer questionaire={questionaire}>
+                      <div className="min-h-[100dvh] flex flex-col justify-between">
+                        <LoadablePageContent loading={loading}>
+                          <DndProvider backend={HTML5Backend}>
+                            <ParseContents
+                              questionKey="SATA"
+                              itemSelected={itemselect}
+                            />
+                          </DndProvider>
+                        </LoadablePageContent>
+                      </div>
+                    </PageContainer>
+                    <Footer />
+                  </AlertMessageV2Provider>
+                </div>
+              </QueryClientProvider>
+            </FormSubmissionContextProvider>
+          </ToastProvider>
+        </PreloadedGlobalsProvider>
+      </SimulatorProvider>
     </ThemeProvider>
   );
 };
