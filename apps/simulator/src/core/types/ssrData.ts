@@ -41,11 +41,12 @@ export type AnswerProps = {
   DDCAnswer: string;
   selectFieldKey: string[];
   selectField: any;
+  ChoicesList: any
 };
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 // header
@@ -141,6 +142,14 @@ export type OptionType = {
   value: string;
   xvalue: number;
 };
+
+
+export type dndObjectValueProps={
+  id: number,
+  text: string,
+  container: string
+}
+
 
 /**
  * All types below is part of code refactor tasks
