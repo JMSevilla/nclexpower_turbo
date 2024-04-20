@@ -24,7 +24,7 @@ export const ParseContents: React.FC<Props> = ({
       case "SATA":
         return <RegularSATAQuestionaire contents={contents} itemselection={itemSelected} />
       case "MCQ":
-        return <McqQuestion questionaire={[]} answer={[]} />
+        return <McqQuestion contents={contents} itemselection={itemSelected} />
       case "CaseStudy":
         return <CaseStudyContainer questionaire={[]} />
       default:

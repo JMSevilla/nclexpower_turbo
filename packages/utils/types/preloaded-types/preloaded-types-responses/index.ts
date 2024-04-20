@@ -26,7 +26,7 @@ type ChoicesItem = {
   numOfChoices: number;
 }
 
-type AnswerUIItem = {
+export type AnswerUIItem = {
   answeringId: string;
   qId: number;
   answerType: string;

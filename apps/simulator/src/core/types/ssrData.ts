@@ -98,7 +98,7 @@ export type SsrMockQuestionaireAnswer = {
 
 // new types for questionnaire refactoring
 
-export type RegularSATA = {
+export type RegularQuestion = {
   contents: datatypes.QuestionContentsResponse;
   itemselection: datatypes.CalcItemSelectValues[]
 }
