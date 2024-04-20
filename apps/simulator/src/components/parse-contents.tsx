@@ -1,6 +1,6 @@
 
 import React from "react";
-import { McqQuestion, CaseStudyContainer, RegularSATAQuestionaire, } from "./blocks";
+import { RegularMCQSSQuestionnaire, CaseStudyContainer, RegularSATAQuestionaire, } from "./blocks";
 import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
 import { datatypes } from "@repo/utils";
 
@@ -24,7 +24,7 @@ export const ParseContents: React.FC<Props> = ({
       case "SATA":
         return <RegularSATAQuestionaire contents={contents} itemselection={itemSelected} />
       case "MCQ":
-        return <McqQuestion contents={contents} itemselection={itemSelected} />
+        return <RegularMCQSSQuestionnaire contents={contents} itemselection={itemSelected} />
       case "CaseStudy":
         return <CaseStudyContainer questionaire={[]} />
       default:
