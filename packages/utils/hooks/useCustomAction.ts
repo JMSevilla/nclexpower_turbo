@@ -13,6 +13,8 @@ export const useCustomAction = ({
   switch (actionName) {
     case "mrsn-form-submission":
       return useFormSubmissionAction();
+    case "mcqss-form-submission":
+      return useFormSubmissionAction();
     default:
       break;
   }
