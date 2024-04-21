@@ -693,12 +693,12 @@
                                 "answerUI": "Table",
                                 "columns": ["Body System", "Potential Nursing Interventions"],
                                 "rows": [],                            
-                                "selectFieldKey": [
+                                "choicesListKey": [
                                     "Action To Take",
                                     "Potential Condition",
                                     "Parameters To Monitor"
                                   ],
-                                 "ChoicesList": {
+                                 "choicesList": {
                                     "Action To Take": [
                                       {
                                         "id": 1,

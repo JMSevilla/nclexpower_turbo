@@ -41,7 +41,8 @@ export type AnswerProps = {
   DDCAnswer: string;
   selectFieldKey: string[];
   selectField: any;
-  ChoicesList: any
+  choicesListKey: string[]
+  choicesList: choicesListProps[]
 };
 
 export type SsrData = {
@@ -149,6 +150,12 @@ export type dndObjectValueProps={
   text: string,
   container: string
 }
+
+export type choicesListProps = {
+  "Action To Take": dndObjectValueProps[];
+  "Potential Condition": dndObjectValueProps[];
+  "Parameters To Monitor": dndObjectValueProps[];
+};
 
 
 /**

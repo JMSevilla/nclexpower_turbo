@@ -13,7 +13,8 @@ type Props = {
     handleRemove: () => void
 }
 
-export const DroppableContainer: React.FC<Props> = ({accept, text, bg, onDrop, droppedValue, handleRemove }) => {
+export const DroppableContainer: React.FC<Props> = ({ droppedValue, handleRemove, ...rest }) => {
+    const { accept, text, bg, onDrop} = rest
     const [{ isOver }, drop] = useDrop(() => ({
         accept,
         drop: onDrop,

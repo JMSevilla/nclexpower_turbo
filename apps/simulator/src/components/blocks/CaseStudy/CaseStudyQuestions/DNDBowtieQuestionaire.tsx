@@ -3,44 +3,28 @@ import { Grid, Paper, Typography } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { DroppableContainer } from './DNDBowtieComponent/Droppable';
 import { DraggableCard } from './DNDBowtieComponent/DraggableCard';
-import itemTypes from './DNDBowtieComponent/ItemTypes';
-import { dndObjectValueProps, SsrData } from '@/core/types/ssrData';
-
-
-const initialContainerState= {
-  "first": [],
-  "second": [],
-  "third": [],
-  "fourth": [],
-  "fifth": []
-};
+import { dropContainers, initialContainerState } from '@/core/constant/dndStateConstant';
+import { dndObjectValueProps, SsrData, choicesListProps } from '@/core/types/ssrData';
 
 export const DNDBowtieQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
 
-    const foundAnswer = answer ? answer && answer.find(answers => answers.answerId) : null;
-    const choicesList = foundAnswer ? foundAnswer.ChoicesList : [];
+const foundAnswer = answer ? answer && answer.find(answers => answers.answerId) : null;
+const choicesLists: choicesListProps[] = foundAnswer ? foundAnswer.choicesList : [];
 
-const [answerLists, setAnswerList] = useState<Record<string, dndObjectValueProps[]>>(choicesList);
+const [answerLists, setAnswerList] = useState<choicesListProps[]>(choicesLists);
   const [droppedValue, setDroppedValue] = useState<Record<string, dndObjectValueProps[]>>(initialContainerState);
-  const [dropContainer] = useState([
-    { accepts: [itemTypes.FIRST], text: "Action To Take", container: "first" },
-    { accepts: [itemTypes.FIRST], text: "Action To Take", container: "second" },
-    { accepts: [itemTypes.SECOND], text: "Condition Most Likely Experiencing", container: "third" },
-    { accepts: [itemTypes.Third], text: "Parameter To Monitor", container: "fourth" },
-    { accepts: [itemTypes.Third], text: "Parameter To Monitor", container: "fifth" },
-  ]);
+  const [dropContainer] = useState(dropContainers);
 
-  const removeValue = (id: number, containerName: string, setState:any ) => {
+  const removeValue = (id: number, containerName: string, setState: any ) => {
     setState((prevState:any) => {
-        const updatedState: Record<string, dndObjectValueProps[]> = { ...prevState };
-        updatedState[containerName] = updatedState[containerName].filter(block => block.id !== id);
+        const updatedState = { ...prevState };
+        updatedState[containerName] = updatedState[containerName].filter((block: { id: number; }) => block.id !== id);
         return updatedState;
       });
   }
-
   const addValue = (value: dndObjectValueProps) => {
-    setAnswerList(prevState => {
-        const updatedState: Record<string, dndObjectValueProps[]> = { ...prevState };
+    setAnswerList((prevState: any) => {
+        const updatedState = { ...prevState };
         if (!updatedState[value.container]?.some((i: dndObjectValueProps) => i.id === value.id)) {
           updatedState[value.container] = updatedState[value.container] ? [...updatedState[value.container], value] : [value];
         }
@@ -162,16 +146,16 @@ const [answerLists, setAnswerList] = useState<Record<string, dndObjectValueProps
                     <Paper elevation={3} className="p-1 overflow-auto flex flex-col">
                       <div className="flex justify-evenly items-start">
                         <div className="flex gap-1">
-                          {answerItem.selectFieldKey.map((key: string, index: number) => (
+                          {answerItem.choicesListKey.map((listKey: any, index: number) => (
                             <div key={index} className="min-w-[180px] bg-[#E6F2FF]">
-                              {/* <h3 className="text-center p-2">{key}</h3> */}
-                              <Typography variant='subtitle1' sx={{color: ""}}>{key}</Typography>
+                              <Typography variant='subtitle1' sx={{color: "#1f1f1f", textAlign: "center", padding: "8px" }}>{listKey}</Typography>
                               <div className="flex flex-col gap-2 p-2">
-                                {answerLists[key] && answerLists[key].map((item: dndObjectValueProps) => (
+                                {answerLists[listKey] && answerLists[listKey].map((item: dndObjectValueProps) => (
                                   <DraggableCard
                                     key={item.id}
                                     answer={item}
                                     type={item.container}
+                                    icon={false}
                                   />
                                 ))}
                               </div>

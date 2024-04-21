@@ -8,12 +8,13 @@ type Props = {
     onClick?: (() => void) | undefined
     answer: dndObjectValueProps, 
     bg?: any,
-    icon?: boolean | undefined
+    icon: boolean
     type: string
 }
 
-export const DraggableCard: React.FC<Props> = ({ onClick, answer, bg, icon, type}) => {
-
+export const DraggableCard: React.FC<Props> = ({ onClick, answer,...rest}) => {
+  
+  const { icon, type, bg } = rest
     const [{ isDragging }, drag] = useDrag(() => ({
       type,
       item: { id: answer.id, container: answer.container, text: answer.text,},
