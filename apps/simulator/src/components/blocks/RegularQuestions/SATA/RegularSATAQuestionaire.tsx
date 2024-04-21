@@ -1,10 +1,10 @@
 
 import { Checkbox, Grid } from '@mui/material'
 import React, { useState } from 'react'
-import { RegularSATA } from '@/core/types/ssrData';
+import { RegularQuestion } from '@/core/types/ssrData';
 import { datatypes } from '@repo/utils';
 
-export const RegularSATAQuestionaire: React.FC<RegularSATA> = ({ contents, itemselection }) => {
+export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, itemselection }) => {
 
     const [checkedValues, setCheckedValues] = useState<number[]>([]);
     const handleCheckBoxValues = (value: number) => {
