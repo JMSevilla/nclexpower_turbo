@@ -7,7 +7,7 @@ type ToastProps = {
     hideProgressBar: boolean
 }
 
-const ControlledToast: React.FC<ToastProps> = ({
+export const ControlledToast: React.FC<ToastProps> = ({
     position,
     autoClose,
     hideProgressBar,
@@ -22,5 +22,3 @@ const ControlledToast: React.FC<ToastProps> = ({
         />
     )
 }
-
-export default ControlledToast

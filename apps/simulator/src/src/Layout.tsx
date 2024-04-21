@@ -15,7 +15,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { PreloadedGlobalsProvider, usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 import { SimulatorProvider } from "@/core/context/SimulatorContext";
-import ControlledToast from "@/components/Toastify";
+import { ControlledToast } from "@repo/ui";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
