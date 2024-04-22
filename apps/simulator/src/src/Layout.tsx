@@ -15,6 +15,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { PreloadedGlobalsProvider, usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 import { SimulatorProvider } from "@/core/context/SimulatorContext";
+import { ControlledToast } from "@repo/ui";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -40,6 +41,10 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                       <div className="min-h-[100dvh] flex flex-col justify-between">
                         <LoadablePageContent loading={loading}>
                           <DndProvider backend={HTML5Backend}>
+                          <ControlledToast
+                              autoClose={5000}
+                              hideProgressBar={false}
+                              />
                             <ParseContents
                               questionaire={questionaire}
                               questionKey="CaseStudy"
