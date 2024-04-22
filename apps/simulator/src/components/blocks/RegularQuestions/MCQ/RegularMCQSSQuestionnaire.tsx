@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import { Grid, Paper } from "@mui/material";
 import { RegularQuestion, SsrData } from "@/core/types/ssrData";
 import React from "react";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { useForm, useFormState } from 'react-hook-form'
+=======
+import React from "react";
+import { Grid, Paper } from "@mui/material";
+import { RegularQuestion } from "@/core/types/ssrData";
+import NearMeIcon from "@mui/icons-material/NearMe";
+import { FormProvider, useForm, useFormState } from 'react-hook-form'
+>>>>>>> 33060a670d6e3d4c23942cf4c10974d2c42fe6b2
 import { ControlledRadioGroup } from '@/components/Radio';
 import { datatypes } from '@repo/utils';
 import { McqSsValidationType, RowSchema } from '@/core/schema/mcq/validation';
@@ -38,6 +46,7 @@ export const RegularMCQSSQuestionnaire: React.FC<RegularQuestion> = ({ contents,
 
 	return (
 		<div className="p-2 h-full tracking-tight">
+<<<<<<< HEAD
 			<Grid container rowSpacing={1} justifyContent={"center"} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
 				<Paper>
 
@@ -72,5 +81,42 @@ export const RegularMCQSSQuestionnaire: React.FC<RegularQuestion> = ({ contents,
 
 			</Grid>
 		</div>
+=======
+			<FormProvider {...form}>
+				<Grid container rowSpacing={1} justifyContent={"center"} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+					<Paper sx={{ width: '70%' }} >
+						<div className='h-full w-full p-4'>
+							{itemselection && itemselection.length > 0 && itemselection.map((item: datatypes.CalcItemSelectValues, idx) =>
+								<div key={item.qId}>
+									<div>
+										{contents && contents.answerUI.length > 0 && contents.answerUI.map((answerMap: datatypes.AnswerUIItem) =>
+											<React.Fragment>
+												<div className='p-2'>{answerMap.answerInstruction}</div>
+											</React.Fragment>
+										)}
+									</div>
+
+									<div><NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />{item.question}</div>
+
+									<div className="p-5">
+										{contents.choices?.length > 0 && contents.choices.map((choiceMap, choiceIndex) => {
+											const parsedChoice: datatypes.ParsedChoices[] = JSON.parse(choiceMap.choices)
+											return (
+												<React.Fragment key={choiceIndex}>
+													<ControlledRadioGroup radio={parsedChoice} control={control} name={`mcqss`} />
+												</React.Fragment>
+											)
+										})}
+									</div>
+
+								</div>
+							)}
+						</div>
+					</Paper>
+
+				</Grid>
+			</FormProvider>
+		</div >
+>>>>>>> 33060a670d6e3d4c23942cf4c10974d2c42fe6b2
 	);
 };
