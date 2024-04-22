@@ -6,4 +6,5 @@ export * from './MCQCSQuestionnaire'
 export * from './MCQCSQuestionnaire'
 export * from './DNDQuestionaire'
 export * from './MCQTable/MCQAnswerGroupTable'
+export * from './DNDBowtieQuestionaire'
 
