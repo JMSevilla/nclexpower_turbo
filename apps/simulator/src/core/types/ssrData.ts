@@ -152,6 +152,7 @@ export type dndObjectValueProps={
 }
 
 export type choicesListProps = {
+  map(arg0: (item: dndObjectValueProps) => import("react").JSX.Element): import("react").ReactNode;
   "Action To Take": dndObjectValueProps[];
   "Potential Condition": dndObjectValueProps[];
   "Parameters To Monitor": dndObjectValueProps[];

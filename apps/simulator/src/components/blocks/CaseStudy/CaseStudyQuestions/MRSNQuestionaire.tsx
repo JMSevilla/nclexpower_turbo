@@ -1,5 +1,5 @@
 import { SsrData, SsrQuestionaireContentProps } from "@/core/types/ssrData";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Paper, Grid } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,9 +16,15 @@ import { useAtom } from "jotai";
 import { useFormSubmissionBindingHooks } from "@repo/utils/hooks/useFormSubmissionBindingHooks";
 
 export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
+  const [state, setState] = useState([])
+  console.log("container",state)
 
   const foundAnswer = answer ? answer && answer.find(answer => answer.answerId) : null;
   const rows = foundAnswer ? foundAnswer.rows : [];
+
+  useEffect(() => {
+    setState(rows)
+  },[setState])
 
   const [mrsnAtom, setMrsnAtom] = useAtom(MrsnValidationAtom);
   const form = useForm<MrsnValidationType>({
@@ -52,7 +58,7 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
   }
 
   return (
-    <div className="p-2 py-2 min-h-[100dvh]">
+    <div className="p-2 py-2 h-full">
       <FormProvider {...form}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12} sm={6} md={6}>
