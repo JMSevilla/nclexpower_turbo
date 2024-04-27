@@ -11,7 +11,7 @@ interface UseTourOptions {
 }
 
 export const TourComponent:React.FC<UseTourOptions> = ({ steps }) => {
-  const [isTourOpen, setIsTourOpen] = useState(true);
+  const [isTourOpen, setIsTourOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
   const closeTour = () => {

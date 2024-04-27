@@ -16,6 +16,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { PreloadedGlobalsProvider, usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 import { SimulatorProvider } from "@/core/context/SimulatorContext";
 import { ControlledToast } from "@repo/ui";
+import { TourComponent } from "@/components/tourComponent";
+import { TourSteps } from "@/core/constant/tourStep";
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
@@ -24,6 +26,7 @@ interface Props {
 
 export const Layout: React.FC<Props> = ({ questionaire, data }) => {
   const { loading, itemselect } = useApplicationContext();
+
   const theme = createTheme();
   const queryClient = new QueryClient({});
   return (
@@ -34,27 +37,30 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
           <ToastProvider>
             <FormSubmissionContextProvider>
               <QueryClientProvider client={queryClient}>
-                <div className="h-fit min-h-[100dvh] overflow-auto bg-[#F2F7FF]">
+                <div className="h-screen overflow-auto bg-[#F2F7FF flex flex-col justify-between">
                   <AlertMessageV2Provider>
+                  <TourComponent steps={TourSteps} />
                     <Header />
-                    <PageContainer questionaire={questionaire}>
-                      <div className="min-h-[100dvh] flex flex-col justify-between">
-                        <LoadablePageContent loading={loading}>
-                          <DndProvider backend={HTML5Backend}>
-                          <ControlledToast
-                              autoClose={5000}
-                              hideProgressBar={false}
-                              />
-                            <ParseContents
-                              questionaire={questionaire}
-                              questionKey="CaseStudy"
-                              itemSelected={itemselect}
-                            />
-                          </DndProvider>
-                        </LoadablePageContent>
-                      </div>
-                    </PageContainer>
-                    <Footer />
+                      <PageContainer questionaire={questionaire}>
+                        <div className="h-fit">
+                          <LoadablePageContent loading={loading}>
+                            <DndProvider backend={HTML5Backend}>
+                            <ControlledToast
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                />
+                                <div className="questionnaire-step-8">
+                                <ParseContents
+                                  questionaire={questionaire}
+                                  questionKey="CaseStudy"
+                                  itemSelected={itemselect}
+                                />                                
+                                </div>
+                            </DndProvider>
+                          </LoadablePageContent>
+                        </div>
+                      </PageContainer>
+                      <Footer />                      
                   </AlertMessageV2Provider>
                 </div>
               </QueryClientProvider>
