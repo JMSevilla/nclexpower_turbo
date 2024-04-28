@@ -631,8 +631,6 @@
                             ],
                             "DND1": {
                                 "DNDID": 1,
-                                "DND1WordChoice1": [],
-                                "DND1WordChoice2": [],
                                 "DND1WordChoices": [
                                     {
                                         "id": 1,
@@ -670,115 +668,118 @@
                     ]
                 },
                 {
-                        "qId":9,
-                        "hasContainer": false,
-                        "hasAlert": true,
-                        "QType":"DNDBowtie",
-                        "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
-                        "questionUI": "Tabs",
-                        "tabs": [
-                            {
-                                "tabsId":2,
-                                "tabsTitle": "Nurses' Notes",
-                                "contentTitle": "Emergency Department",
-                                "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
-                            }
-                        ],
-                        "answer": [
-                            {
-                                "answerId":9,
-                                "qId":9,
-                                "answerType":"DNDBowtie",
-                                "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
-                                "answerUI": "Table",
-                                "columns": ["Body System", "Potential Nursing Interventions"],
-                                "rows": [],                            
-                                "choicesListKey": [
-                                    "Action To Take",
-                                    "Potential Condition",
-                                    "Parameters To Monitor"
-                                  ],
-                                 "choicesList": {
-                                    "Action To Take": [
-                                      {
+                    "qId": 9,
+                    "hasContainer": false,
+                    "hasAlert": true,
+                    "QType": "DNDBowtie",
+                    "question": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                    "questionUI": "Tabs",
+                    "tabs": [
+                        {
+                            "tabsId": 2,
+                            "tabsTitle": "Nurses' Notes",
+                            "contentTitle": "Emergency Department",
+                            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quibusdam voluptates doloribus? Molestiae fugiat, dolorem odit soluta alias ipsa nisi nihil magnam necessitatibus repellendus vitae possimus numquam earum dolor voluptatem!"
+                        }
+                    ],
+                    "answer": [
+                        {
+                            "answerId": 9,
+                            "qId": 9,
+                            "answerType": "DNDBowtie",
+                            "answerInstruction": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi obcaecati laudantium quibusdam aspernatur esse ad totam dolorum?",
+                            "answerUI": "Table",
+                            "columns": [
+                                "Body System",
+                                "Potential Nursing Interventions"
+                            ],
+                            "rows": [],
+                            "choicesListKey": [
+                                "Action To Take",
+                                "Potential Condition",
+                                "Parameters To Monitor"
+                            ],
+                            "choicesList": {
+                                "Action To Take": [
+                                    {
                                         "id": 1,
                                         "container": "Action To Take",
                                         "text": "Change the site dressing"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 2,
                                         "container": "Action To Take",
                                         "text": "Request the wound consoltataion"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 3,
                                         "container": "Action To Take",
                                         "text": "Obtain an electrocardiogram [ECG]"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 4,
                                         "container": "Action To Take",
                                         "text": "Request bolus of intravenous 0.9% sodium chloride(normal saline)"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 5,
                                         "container": "Action To Take",
                                         "text": "reassure parent that the site findings are the normal progression of healing"
-                                      }
-                                    ],
-                                    "Potential Condition": [
-                                      {
+                                    }
+                                ],
+                                "Potential Condition": [
+                                    {
                                         "id": 1,
                                         "container": "Potential Condition",
                                         "text": "refeeding syndrome"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 2,
                                         "container": "Potential Condition",
                                         "text": "infection of the gastrostomy tube site"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 3,
                                         "container": "Potential Condition",
                                         "text": "normal gastrostomy tube site findings"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 4,
                                         "container": "Potential Condition",
                                         "text": "intolerance to gastrostomy feedings"
-                                      }
-                                    ],
-                                    "Parameters To Monitor": [
-                                      {
+                                    }
+                                ],
+                                "Parameters To Monitor": [
+                                    {
                                         "id": 1,
                                         "container": "Parameters To Monitor",
                                         "text": "stool output"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 2,
                                         "container": "Parameters To Monitor",
                                         "text": "skin integrity"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 3,
                                         "container": "Parameters To Monitor",
                                         "text": "feeding tolerance"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 4,
                                         "container": "Parameters To Monitor",
                                         "text": "vital signs every 30 minutes"
-                                      },
-                                      {
+                                    },
+                                    {
                                         "id": 5,
                                         "container": "Parameters To Monitor",
                                         "text": "parent's ability to administer a tube feeding"
-                                      }
-                                    ]
-                                  },
-                                "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
-                            }
-                        ]   
+                                    }
+                                ]
+                            },
+                            "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint"
+                        }
+                    ]
                 }
             ]
         }

@@ -52,8 +52,6 @@ export type DND1WordChoicesUI = {
 
 export type DND1Object = {
   DNDID: number;
-  DND1WordChoice1: Array<any>;
-  DND1WordChoice2: Array<any>;
   DND1WordChoices: DND1WordChoicesUI[]
 }
 
