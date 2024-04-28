@@ -50,8 +50,8 @@ function renderSwitch(
 ) {
   switch (QuestionType) {
 
-    // case "SATA":
-    //   return <SATAQuestionaire questionaire={deserializeContents} />
+    case "SATA":
+      return <SATAQuestionaire questionaire={deserializeContents} />
     case "MCQGroup":
     case "MCQNoGroup":
       return <MCQCSQuestionnaire questionaire={deserializeContents} />

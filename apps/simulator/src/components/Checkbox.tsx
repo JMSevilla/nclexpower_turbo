@@ -33,9 +33,7 @@ export const Checkbox: React.FC<Props> = ({
         control={<MuiCheckbox {...rest} />}
         label={<Typography >{label}</Typography>}
       />
-      {/* {helperText && showErrorMessage && (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
-      )} */}
+
     </div>
   );
 };
@@ -62,8 +60,7 @@ export function ControlledCheckbox<T extends FieldValues>({
           onChange={onChange}
           onBlur={onBlur}
           checked={value ?? false}
-          // error={Boolean(error?.message)}
-          // helperText={error?.message}
+
           {...rest}
         />
       )}
