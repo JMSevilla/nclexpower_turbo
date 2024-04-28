@@ -31,7 +31,7 @@ export type AnswerUIItem = {
   qId: number;
   answerType: string;
   answerInstruction: string;
-  rows: string;
+  rows: string | Array<any>;
   columns: string;
   notes: string;
 }
