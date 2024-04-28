@@ -12,7 +12,9 @@ type Props = {
     onDropped: (item: DND1WordChoicesUI) => void;
 }
 
-export const WordDropContainer: React.FC<Props> = ({ placeholder, name, onDelete, onDropped, setWord }) => {
+export const WordDropContainer: React.FC<Props> = ({ placeholder, name, onDropped, ...rest }) => {
+    const { onDelete, setWord } = rest
+
     const ref = useRef<HTMLDivElement>(null)
     const [item, setItem] = useState<DND1WordChoicesUI | null>()
 
