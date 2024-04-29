@@ -15,7 +15,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === "SATA";
+        return cms.QType === "MCQGroup";
       });
 
     const {
@@ -52,7 +52,8 @@ function renderSwitch(
 
     case "SATA":
       return <SATAQuestionaire questionaire={deserializeContents} />
-    case "MCQGroup" || "MCQNoGroup":
+    case "MCQGroup":
+    case "MCQNoGroup":
       return <MCQCSQuestionnaire questionaire={deserializeContents} />
     case "HCP":
       return <HCPQuestion questionaire={deserializeContents} answer={answer} />
@@ -69,6 +70,4 @@ function renderSwitch(
       return <h3>No questionaire Loaded</h3>;
   }
 }
-
-
 

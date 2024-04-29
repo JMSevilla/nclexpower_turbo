@@ -1,9 +1,9 @@
 import { Paper, Grid } from '@mui/material';
 import React from 'react';
-import { CaseStudyQuestionnaire } from "@/core/types/ssrData";
+import { SsrData } from "@/core/types/ssrData";
 import { MCQAnswerGroupTable } from '@/components/blocks/CaseStudy/CaseStudyQuestions/MCQTable/MCQAnswerGroupTable';
 
-export const MCQCSQuestionnaire: React.FC<CaseStudyQuestionnaire> = ({ questionaire }) => {
+export const MCQCSQuestionnaire: React.FC<SsrData> = ({ questionaire }) => {
     return (
         <div className="p-2 py-2 h-full w-full">
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

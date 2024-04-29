@@ -25,7 +25,7 @@ export const Checkbox: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <Stack gap={1}>
+    <div className='w-full flex flex-col justify-center items-center pl-5'>
       <FormControlLabel
         sx={{
           color: (theme) => (error ? theme.palette.error.main : "CurrentColor"),
@@ -33,10 +33,8 @@ export const Checkbox: React.FC<Props> = ({
         control={<MuiCheckbox {...rest} />}
         label={<Typography >{label}</Typography>}
       />
-      {helperText && showErrorMessage && (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
-      )}
-    </Stack>
+
+    </div>
   );
 };
 
@@ -62,8 +60,7 @@ export function ControlledCheckbox<T extends FieldValues>({
           onChange={onChange}
           onBlur={onBlur}
           checked={value ?? false}
-          error={Boolean(error?.message)}
-          helperText={error?.message}
+
           {...rest}
         />
       )}

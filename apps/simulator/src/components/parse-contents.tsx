@@ -35,4 +35,3 @@ export const ParseContents: React.FC<Props> = ({
     return <h3>No questionaire Loaded</h3>;
   }
 };
-

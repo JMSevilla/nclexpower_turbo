@@ -159,7 +159,14 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                                   ))}
                                 </ul>
                               ) : (
-                                <></>
+                                <Highlighter
+                                  searchWords={highlightedWords}
+                                  autoEscape
+                                  unhighlightStyle={{
+                                    display: "inline", // Ensures the Highlighter is displayed inline
+                                  }}
+                                  textToHighlight={ansTabs.content} //When the answer is not in an array structure
+                                />
                               )}
                             </div>
                           )
