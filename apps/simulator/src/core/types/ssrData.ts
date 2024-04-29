@@ -43,6 +43,7 @@ export type AnswerProps = Partial<DNDAnswerUIItem> & {
   selectField: any;
   choicesListKey: string[]
   choicesList: choicesListProps[]
+  answer: AnswerProps[];
 };
 
 export type DND1WordChoicesUI = {
@@ -70,7 +71,7 @@ export type DNDAnswerUIItem = {
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
+  answer?: AnswerProps[];
 };
 
 // header
