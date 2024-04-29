@@ -631,8 +631,6 @@
                             ],
                             "DND1": {
                                 "DNDID": 1,
-                                "DND1WordChoice1": [],
-                                "DND1WordChoice2": [],
                                 "DND1WordChoices": [
                                     {
                                         "id": 1,

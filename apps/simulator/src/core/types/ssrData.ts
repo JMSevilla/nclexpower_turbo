@@ -28,7 +28,7 @@ export type QuestionaireProps = {
   answer?: AnswerProps[]
 };
 
-export type AnswerProps = {
+export type AnswerProps = Partial<DNDAnswerUIItem> & {
   answerId: number;
   qId: number;
   answerType: string;
@@ -45,6 +45,29 @@ export type AnswerProps = {
   choicesList: choicesListProps[]
   answer: AnswerProps[];
 };
+
+export type DND1WordChoicesUI = {
+  id: number;
+  text: string;
+}
+
+export type DND1Object = {
+  DNDID: number;
+  DND1WordChoices: DND1WordChoicesUI[]
+}
+
+export type DNDAnswerUIItem = {
+  DNDAnswer: string;
+  DNDKey: string[];
+  DND1: DND1Object;
+  answerId: number;
+  answerInstruction: string;
+  answerType: string;
+  answerUI: string;
+  note: string;
+  qId: number;
+  row: Array<any>;
+}
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
