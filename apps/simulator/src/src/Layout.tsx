@@ -37,28 +37,26 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
           <ToastProvider>
             <FormSubmissionContextProvider>
               <QueryClientProvider client={queryClient}>
-                <div className="h-screen overflow-auto bg-[#F2F7FF flex flex-col justify-between">
+                <div className="min-h-screen flex flex-col">
                   <AlertMessageV2Provider>
                   <TourComponent steps={TourSteps} />
                     <Header />
                       <PageContainer questionaire={questionaire}>
-                        <div className="h-fit">
-                          <LoadablePageContent loading={loading}>
+                      <LoadablePageContent loading={loading}>
+                        <div className="min-h-[65vh] questionnaire-step-8">
                             <DndProvider backend={HTML5Backend}>
                             <ControlledToast
                                 autoClose={5000}
                                 hideProgressBar={false}
                                 />
-                                <div className="questionnaire-step-8">
                                 <ParseContents
                                   questionaire={questionaire}
                                   questionKey="CaseStudy"
                                   itemSelected={itemselect}
-                                />                                
-                                </div>
-                            </DndProvider>
-                          </LoadablePageContent>
-                        </div>
+                                />         
+                            </DndProvider>                    
+                      </div>
+                      </LoadablePageContent>    
                       </PageContainer>
                       <Footer />                      
                   </AlertMessageV2Provider>

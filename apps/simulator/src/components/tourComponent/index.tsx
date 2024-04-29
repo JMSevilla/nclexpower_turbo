@@ -50,7 +50,6 @@ export const TourComponent:React.FC<UseTourOptions> = ({ steps }) => {
       maskSpace={1}
       onAfterOpen={handleAfterOpen}
       onBeforeClose={handleBeforeClose}
-      scrollDuration={500}
       prevButton={<button onClick={prevStep}>Previous</button>}
       nextButton={<button onClick={nextStep}>Next</button>}
       lastStepNextButton={<button onClick={closeTour}>Finish</button>}
