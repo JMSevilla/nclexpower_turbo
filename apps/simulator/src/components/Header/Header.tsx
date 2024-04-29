@@ -13,6 +13,7 @@ import { Header as SsrHeader } from "@/core/types/ssrData";
 import { usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 
 
+
 const buttonStyle = {
   backgroundColor: "transparent",
   color: "white",
@@ -22,12 +23,18 @@ const buttonStyle = {
   },
 };
 
+
 export const Header: React.FC = () => {
   const { header } = usePreloadedGlobals()
+
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+
+      <div className="header-step-1">
       <AppBar position="static">
         <div style={{ padding: 10, backgroundColor: "#007AB7" }}>
           <Toolbar
@@ -39,19 +46,26 @@ export const Header: React.FC = () => {
                 fontWeight="bold"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
+                <div className="header-step-2 p-0">
                 Time Remaining : 
-                {headerTimeRemaining}
+                {headerTimeRemaining}                  
+                </div>
+
               </Typography>
               <Typography
                 fontSize={14}
                 fontWeight="bold"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
+                <div className="header-step-3">
                 Duration :
-                {duration} |
+                {duration} |                  
+                </div>
+
               </Typography>
             </Box>
             <Box>
+              <div className="header-step-4">
               <Typography
                 textAlign="center"
                 style={{ fontFamily: "Arial, sans-serif" }}
@@ -60,9 +74,11 @@ export const Header: React.FC = () => {
               </Typography>
               <Typography style={{ fontFamily: "Arial, sans-serif" }}>
                NCLEX Sample Tutor
-              </Typography>
+              </Typography>                
+              </div>
             </Box>
             <Box flexGrow={0}>
+              <div className="header-step-5">
               <Tooltip title="3 of 5 pages">
                 <Button sx={{ color: "white", fontSize: "small" }}>
                   <AutoStoriesIcon
@@ -71,22 +87,28 @@ export const Header: React.FC = () => {
                   />{" "}
                   : 3 of 5
                 </Button>
-              </Tooltip>
+              </Tooltip>                
+              </div>
             </Box>
           </Toolbar>
         </div>
         <Box display={"flex"} height={35} pl={7} gap={5} bgcolor={"#86BCEA"}>
-          <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
-            <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
-            Calculator
-          </Button>
-
-          <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
-            <FormatClearIcon fontSize="large" sx={buttonStyle.IconStyle} />
-            Clear
-          </Button>
+          <div className="header-step-6">
+            <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
+              <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
+              Calculator
+            </Button>
+          </div>
+          <div className="header-step-7">
+            <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
+              <FormatClearIcon fontSize="large" sx={buttonStyle.IconStyle} />
+              Clear
+            </Button>
+          </div>
         </Box>
-      </AppBar>
+      </AppBar>        
+      </div>
+
     </Box>
   );
 };

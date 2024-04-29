@@ -29,7 +29,7 @@ export const DDTQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
     };
 
   return (
-        <div className="p-2 py-2 min-h-[100dvh]">
+    <div className="p-2 py-2 h-full">
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12} sm={6} md={6}>
                         <div className='h-full w-full p-4'>

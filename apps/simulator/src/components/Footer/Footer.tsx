@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
   });
 
   return (
-    <div className="h-fit w-full bg-[#007ab7] text-white">
+    <div className="h-fit w-full bg-[#007ab7] text-white footer-step-9">
       <Toolbar disableGutters>
         <Box sx={{ height: "100%", width: "100%" }}>
           <Button
@@ -39,6 +39,7 @@ export const Footer: React.FC = () => {
             flexDirection: "column",
           }}
         >
+          <div className="footer-step-10">
           <Typography
             variant="h6"
             component="div"
@@ -52,7 +53,8 @@ export const Footer: React.FC = () => {
             sx={{ textAlign: "center", fontSize: "14px" }}
           >
             Patricia Freeman
-          </Typography>
+          </Typography>            
+          </div>
         </Box>
         <Box
           sx={{
@@ -64,6 +66,7 @@ export const Footer: React.FC = () => {
         >
           <Button
             color="inherit"
+            className="footer-step-11"
             sx={{
               width: "32%",
               padding: "1rem",
@@ -75,9 +78,10 @@ export const Footer: React.FC = () => {
           >
             <SettingsIcon style={{ fontSize: "18px" }} />
             Navigator
-          </Button>
+          </Button>     
           <Button
             color="inherit"
+            className="footer-step-12"
             sx={{
               width: "32%",
               padding: "1rem",
