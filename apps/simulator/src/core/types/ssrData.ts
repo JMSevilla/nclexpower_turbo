@@ -43,11 +43,12 @@ export type AnswerProps = {
   selectField: any;
   choicesListKey: string[]
   choicesList: choicesListProps[]
+  answer: AnswerProps[];
 };
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
+  answer?: AnswerProps[];
 };
 
 // header
@@ -145,7 +146,7 @@ export type OptionType = {
 };
 
 
-export type dndObjectValueProps={
+export type dndObjectValueProps = {
   id: number,
   text: string,
   container: string
