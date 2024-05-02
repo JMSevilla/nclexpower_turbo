@@ -1,20 +1,31 @@
 import React from "react";
-import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button as MuiButton,
+} from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PauseIcon from "@mui/icons-material/Pause";
 import { useCustomAction } from "@repo/utils/hooks";
+import { Button } from "@repo/ui";
 
-export const Footer: React.FC = () => {
+interface Props {
+  actionKey: string;
+}
+
+export const Footer: React.FC<Props> = ({ actionKey }) => {
   const action = useCustomAction({
-    actionKey: "mrsn-form-submission:mrsn",
+    actionKey: actionKey,
   });
 
   return (
     <div className="h-fit w-full bg-[#007ab7] text-white footer-step-9">
       <Toolbar disableGutters>
         <Box sx={{ height: "100%", width: "100%" }}>
-          <Button
+          <MuiButton
             disabled
             color="inherit"
             sx={{
@@ -28,7 +39,7 @@ export const Footer: React.FC = () => {
           >
             <PauseIcon style={{ fontSize: "20px" }} />
             Suspend
-          </Button>
+          </MuiButton>
         </Box>
         <Box
           sx={{
@@ -40,20 +51,20 @@ export const Footer: React.FC = () => {
           }}
         >
           <div className="footer-step-10">
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ textAlign: "center", fontSize: "16px" }}
-          >
-            Acme Medical Prep School
-          </Typography>
-          <Typography
-            variant="h6"
-            component="p"
-            sx={{ textAlign: "center", fontSize: "14px" }}
-          >
-            Patricia Freeman
-          </Typography>            
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ textAlign: "center", fontSize: "16px" }}
+            >
+              Acme Medical Prep School
+            </Typography>
+            <Typography
+              variant="h6"
+              component="p"
+              sx={{ textAlign: "center", fontSize: "14px" }}
+            >
+              Patricia Freeman
+            </Typography>
           </div>
         </Box>
         <Box
@@ -64,7 +75,7 @@ export const Footer: React.FC = () => {
             justifyContent: "flex-end",
           }}
         >
-          <Button
+          <MuiButton
             color="inherit"
             className="footer-step-11"
             sx={{
@@ -78,10 +89,8 @@ export const Footer: React.FC = () => {
           >
             <SettingsIcon style={{ fontSize: "18px" }} />
             Navigator
-          </Button>     
+          </MuiButton>
           <Button
-            color="inherit"
-            className="footer-step-12"
             sx={{
               width: "32%",
               padding: "1rem",

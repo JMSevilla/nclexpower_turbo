@@ -9,11 +9,10 @@ export const useCustomAction = ({
   actionKey,
 }: Props): ReturnType<CustomActionHook> | undefined => {
   const [actionName, actionParam] = actionKey?.split(":") || [];
-  //mrsn-form-submission:mrsn
   switch (actionName) {
-    case "mrsn-form-submission":
+    case "sata-form-submission":
       return useFormSubmissionAction();
-    case "mcqss-form-submission":
+    case "mcq-form-submission":
       return useFormSubmissionAction();
     default:
       break;
