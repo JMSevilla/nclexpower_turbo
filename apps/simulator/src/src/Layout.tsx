@@ -11,9 +11,9 @@ import {
   FormSubmissionContextProvider,
   ToastProvider,
 } from "@repo/utils/contexts";
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { PreloadedGlobalsProvider, usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { PreloadedGlobalsProvider } from "@/core/context/PreloadedGlobalsContext";
 import { SimulatorProvider } from "@/core/context/SimulatorContext";
 import { ControlledToast } from "@repo/ui";
 import { TourComponent } from "@/components/tourComponent";
@@ -39,26 +39,35 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
               <QueryClientProvider client={queryClient}>
                 <div className="min-h-screen flex flex-col">
                   <AlertMessageV2Provider>
-                  <TourComponent steps={TourSteps} />
+                    <TourComponent steps={TourSteps} />
                     <Header />
-                      <PageContainer questionaire={questionaire}>
-                      <LoadablePageContent loading={loading}>
-                        <div className="min-h-[65vh] questionnaire-step-8">
-                            <DndProvider backend={HTML5Backend}>
+                    <PageContainer questionaire={questionaire}>
+                      <div className="min-h-[100dvh] flex flex-col justify-between">
+                        <LoadablePageContent loading={loading}>
+                          <DndProvider backend={HTML5Backend}>
                             <ControlledToast
-                                autoClose={5000}
-                                hideProgressBar={false}
-                                />
-                                <ParseContents
-                                  questionaire={questionaire}
-                                  questionKey="CaseStudy"
-                                  itemSelected={itemselect}
-                                />         
-                            </DndProvider>                    
+                              autoClose={5000}
+                              hideProgressBar={false}
+                            />
+                            {/* Code below must be refactored after case study structure development completed. */}
+                            {itemselect.length > 0 && (
+                              <ParseContents
+                                questionKey={itemselect[0].questionUI}
+                                questionType={itemselect[0].questionType}
+                                itemSelected={itemselect}
+                              />
+                            )}
+                          </DndProvider>
+                        </LoadablePageContent>
                       </div>
-                      </LoadablePageContent>    
-                      </PageContainer>
-                      <Footer />                      
+                    </PageContainer>
+                    <Footer
+                      actionKey={
+                        itemselect?.length > 0
+                          ? itemselect[0].actionKey
+                          : "no-action-key"
+                      }
+                    />
                   </AlertMessageV2Provider>
                 </div>
               </QueryClientProvider>

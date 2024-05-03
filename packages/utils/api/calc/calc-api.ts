@@ -8,7 +8,9 @@ export class CalculationApi {
     private readonly ssrAxios: AxiosInstance
   ) {}
   public ItemSelect(props: ItemSelectTypes) {
-    const { accountId, examGroupId } = props;
-    return this.axios.get<CalcItemSelectResponseItem[]>(`/baseAppload/item-select/${accountId}/${examGroupId}`)
+    const { accountId, examGroupId, shouldPresentNextItem } = props;
+    return this.axios.get<CalcItemSelectResponseItem[]>(
+      `/baseAppload/item-select-regular/${accountId}/${examGroupId}/has-next-item/${shouldPresentNextItem}`
+    );
   }
 }
