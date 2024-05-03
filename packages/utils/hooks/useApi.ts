@@ -8,6 +8,7 @@ import { getItem } from "../session-storage";
 import { config } from "../config";
 import { SsrApi } from "../ssr-api";
 import { ServerSideApi } from "../api/ssr/ServerSide";
+import { PreloadedGlobalsApi } from "../api/preloaded/preloaded-globals-api";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
@@ -41,11 +42,14 @@ const SELF_HTTP_OPTIONS: HttpOptions = {
 
 export const selfHttpClient = new Http({
   ...SELF_HTTP_OPTIONS,
-  baseURL: "http://localhost:3002",
+  baseURL: "http://localhost:3000",
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: "http://localhost:5281/api",
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? config.value.Development
+      : config.value.HerokuDev,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
@@ -115,7 +119,8 @@ export const useSecuredApiCallback = <R, A extends unknown>(
 function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
     new CalculationApi(client, httpSsrClient),
-    new WebApi(client, httpSsrClient)
+    new WebApi(client, httpSsrClient),
+    new PreloadedGlobalsApi(client)
   );
 }
 
