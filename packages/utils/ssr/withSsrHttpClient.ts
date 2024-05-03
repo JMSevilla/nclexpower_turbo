@@ -3,6 +3,7 @@ import { IronSession, IronSessionOptions } from "iron-session";
 import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import Http from "../http-client";
+import { config } from "../config";
 
 type Tokens = { accessToken?: string; refreshToken?: string };
 
@@ -29,8 +30,11 @@ const client = (
   session: NextApiRequestWithSession["session"]
 ): Http["client"] =>
   new Http({
-    baseURL: "http://localhost:3001",
-    headers: { "Content-Type": "application/json" },
+    baseURL: config.value.Development,
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": config.value.XApiKey,
+    },
     onError: (error) =>
       console.error(`Error response: ${JSON.stringify(error)}.`),
     onRequest: (req) => {

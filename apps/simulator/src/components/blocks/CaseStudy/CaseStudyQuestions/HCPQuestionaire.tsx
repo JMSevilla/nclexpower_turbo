@@ -29,7 +29,7 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
   }, []);
 
   return (
-    <div className="p-2 py-2 min-h-[100dvh]">
+    <div className="p-2 py-2 h-full">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={12} sm={6} md={6}>
           <div className="h-full w-full p-4">
@@ -159,7 +159,14 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                                   ))}
                                 </ul>
                               ) : (
-                                <></>
+                                <Highlighter
+                                  searchWords={highlightedWords}
+                                  autoEscape
+                                  unhighlightStyle={{
+                                    display: "inline", // Ensures the Highlighter is displayed inline
+                                  }}
+                                  textToHighlight={ansTabs.content} //When the answer is not in an array structure
+                                />
                               )}
                             </div>
                           )

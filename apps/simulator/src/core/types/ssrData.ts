@@ -1,3 +1,5 @@
+import { datatypes } from "@repo/utils";
+
 export type SsrQuestionaireContentProps = {
   contentId: number;
   content: string;
@@ -8,6 +10,7 @@ export type SsrAnswerTabsProps = {
   tabsTitle: string;
   contentTitle: string;
   content: string | string[];
+  contentUI?: string
 };
 
 export type QuestionaireProps = {
@@ -25,7 +28,7 @@ export type QuestionaireProps = {
   answer?: AnswerProps[]
 };
 
-export type AnswerProps = {
+export type AnswerProps = Partial<DNDAnswerUIItem> & {
   answerId: number;
   qId: number;
   answerType: string;
@@ -36,13 +39,39 @@ export type AnswerProps = {
   note: string;
   tabs: SsrAnswerTabsProps[];
   DDCAnswer: string;
-  selectFieldKey:string[];
+  selectFieldKey: string[];
   selectField: any;
+  choicesListKey: string[]
+  choicesList: choicesListProps[]
+  answer: AnswerProps[];
 };
+
+export type DND1WordChoicesUI = {
+  id: number;
+  text: string;
+}
+
+export type DND1Object = {
+  DNDID: number;
+  DND1WordChoices: DND1WordChoicesUI[]
+}
+
+export type DNDAnswerUIItem = {
+  DNDAnswer: string;
+  DNDKey: string[];
+  DND1: DND1Object;
+  answerId: number;
+  answerInstruction: string;
+  answerType: string;
+  answerUI: string;
+  note: string;
+  qId: number;
+  row: Array<any>;
+}
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
+  answer?: AnswerProps[];
 };
 
 // header
@@ -92,8 +121,12 @@ export type SsrMockQuestionaireAnswer = {
   choices: []
 };
 
-export type RegularSATA = {
-  questionaire: QuestionaireWithAnswerProps[]
+
+// new types for questionnaire refactoring
+
+export type RegularQuestion = {
+  contents: datatypes.QuestionContentsResponse;
+  itemselection: datatypes.CalcItemSelectValues[]
 }
 
 
@@ -134,3 +167,32 @@ export type OptionType = {
   value: string;
   xvalue: number;
 };
+
+
+export type dndObjectValueProps = {
+  id: number,
+  text: string,
+  container: string
+}
+
+export type choicesListProps = {
+  map(arg0: (item: dndObjectValueProps) => import("react").JSX.Element): import("react").ReactNode;
+  "Action To Take": dndObjectValueProps[];
+  "Potential Condition": dndObjectValueProps[];
+  "Parameters To Monitor": dndObjectValueProps[];
+};
+
+
+/**
+ * All types below is part of code refactor tasks
+ */
+
+
+export type Header = {
+  headerContentId: string
+  timeRemaining: any
+  duration: any
+  lNum: string
+  qId: number
+  accountId: string
+}

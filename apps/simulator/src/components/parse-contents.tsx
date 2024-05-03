@@ -1,46 +1,78 @@
-
-import { SsrMockQuestionaire, AnswerProps } from "@/core/types/ssrData";
 import React from "react";
-import { McqQuestion, CaseStudyContainer, SATAQuestionaire } from "./blocks";
+import {
+  RegularMCQSSQuestionnaire,
+  CaseStudyContainer,
+  RegularSATAQuestionaire,
+} from "./blocks";
+import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
+import { datatypes } from "@repo/utils";
 
 interface Props {
-  questionaire: SsrMockQuestionaire[];
+  questionType: string;
   questionKey: string;
+  itemSelected: datatypes.CalcItemSelectValues[];
 }
 
 export const ParseContents: React.FC<Props> = ({
-  questionaire,
+  questionType,
   questionKey,
+  itemSelected,
 }) => {
-  if (questionaire.length > 0) {
-    const deserializeContents: any =
-      questionaire?.length > 0 &&
-      questionaire?.filter((cms: SsrMockQuestionaire) => {
-        return cms.QType === questionKey;
-      });
-    if (questionaire) {
-      const {
-        QType: QuestionType,
-        questions,
-        answer,
-      } = deserializeContents?.[0];
-      switch (QuestionType) {
-        case "SATA":
-          return <SATAQuestionaire questionaire={deserializeContents} />
-        case "MCQ":
-          return (
-            <McqQuestion
-              questionaire={deserializeContents}
-              answer={answer as AnswerProps[]}
-            />
-          );
-        case "CaseStudy":
-          return <CaseStudyContainer questionaire={questions} />;
-        default:
-          return <h3>No questionaire Loaded</h3>;
+  /* use this contents to get the content data */
+  const { contents } = useSimulatorGlobals();
+  if (questionType === "RegularQuestion") {
+    if (itemSelected && itemSelected.length > 0) {
+      const regularQKey = itemSelected.filter(
+        (key) => key.questionUI === questionKey
+      );
+      if (regularQKey.length > 0) {
+        const { questionUI } = regularQKey[0];
+        switch (questionUI) {
+          case "SATA":
+            return (
+              <RegularSATAQuestionaire
+                contents={contents}
+                itemselection={itemSelected}
+              />
+            );
+          case "MCQ":
+            return (
+              <RegularMCQSSQuestionnaire
+                contents={contents}
+                itemselection={itemSelected}
+              />
+            );
+          default:
+            return <h3>No questionnaire Loaded</h3>;
+        }
       }
     }
   } else {
-    return <h3>No questionaire Loaded</h3>;
+    if (
+      contents &&
+      contents.answerUI?.length > 0 &&
+      contents.choices?.length > 0 &&
+      contents.questionType?.length > 0
+    ) {
+      const qKey = contents.questionType.filter(
+        (key) => key.qType === questionKey
+      );
+
+      if (qKey.length > 0) {
+        const { qType: QuestionType } = qKey[0];
+        console.log(QuestionType);
+        console.log(qKey[0]);
+        switch (QuestionType) {
+          case "CaseStudy":
+            return <CaseStudyContainer questionaire={[]} />;
+          default:
+            return <h3>No questionnaire Loaded</h3>;
+        }
+      } else {
+        return <h3>No questionnaire Loaded</h3>;
+      }
+    } else {
+      return <h3>No questionnaire Loaded</h3>;
+    }
   }
 };
