@@ -29,6 +29,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
 
   const theme = createTheme();
   const queryClient = new QueryClient({});
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
