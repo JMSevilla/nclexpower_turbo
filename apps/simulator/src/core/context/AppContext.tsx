@@ -16,9 +16,6 @@ type AppContextValue = {
   loading?: boolean;
   setLoader: any;
   itemselect: datatypes.CalcItemSelectValues[];
-  setSelectedQuestion: Dispatch<
-    SetStateAction<datatypes.CalcItemSelectValues[]>
-  >;
 };
 
 type Ssr = {
@@ -39,45 +36,43 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({
   const [selectedQuestion, setSelectedQuestion] = useState<
     datatypes.CalcItemSelectValues[]
   >([]);
-  const [slugs, setSlugs] = useState(data);
+  const [reloadTrigger, setReloadTrigger] = useState(false);
   const [loader, setLoader] = useState<boolean>(true);
-  const [navigationTrigger, setNavigationTrigger] = useState(false);
-  const { useApi } = hooks;
+  const { useApiCallback } = hooks;
   const router = useRouter();
   /**
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-  const goItemSelect = useApi(
+  const itemSelectExec = useApiCallback(
     async (api) =>
       await api.calc.ItemSelect({
         accountId: "3FA85F64-5717-4562-B3FC-2C963F66AFA6",
         examGroupId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        shouldPresentNextItem: slugs.slug[2] ?? false,
+        shouldDisplayNextItem: data.slug[2] ?? false,
       })
   );
 
   useEffect(() => {
-    function calcItemSelection() {
-      goItemSelect
+    function initSelectedQuestion() {
+      itemSelectExec
         .execute()
         .then((res) => setSelectedQuestion(res.data as any));
     }
-    calcItemSelection();
+    initSelectedQuestion();
     const handleRouteChange = () => {
       if (router.pathname === "/next-item") {
-        setNavigationTrigger((prevState) => !prevState);
+        setReloadTrigger((prevState) => !prevState);
       }
     };
-
-    router.events.on("routeChangeComplete", calcItemSelection);
+    router.events.on("routeChangeComplete", initSelectedQuestion);
     router.events.on("routeChangeComplete", handleRouteChange);
 
     return () => {
-      router.events.off("routeChangeComplete", calcItemSelection);
+      router.events.off("routeChangeComplete", initSelectedQuestion);
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, []);
+  }, [reloadTrigger]);
 
   useEffect(() => {
     /* if data receives slug data `/` then check the session if there is an existing
@@ -97,15 +92,14 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({
         }, // this slug can be improved instead of string it should be array of string
       });
     }
-  }, [router]);
+  }, []);
   return (
     <ApplicationContext.Provider
       value={{
         questionaire,
         loading: loader,
         setLoader,
-        itemselect: selectedQuestion,
-        setSelectedQuestion,
+        itemselect: selectedQuestion ?? selectedQuestion,
       }}
     >
       {children}
