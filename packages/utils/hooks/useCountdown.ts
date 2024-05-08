@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 
 type Props = {
-    duration: string
-    timeRemaining?: string
+    duration?: string
+    timeRemaining: string
 }
 
 const convertToTimeValue = (time: string = "00:00:00"): number => {
@@ -25,9 +25,11 @@ const getDuration = (timeValue: number, countdown: number) => {
 };
 
 export const useCountdown = ({ duration, timeRemaining }: Props) => {
-    const timeValue = convertToTimeValue(duration) ?? 18000
-    const [countdown, setCountdown] = useState<number>(timeValue)
-    const timeRemain = getDuration(timeValue, countdown)
+    const timeRemainingValue = convertToTimeValue(timeRemaining)
+    const timeDurationValue = convertToTimeValue(duration)
+    const [countdown, setCountdown] = useState<number>(timeRemainingValue)
+    const startDuration = timeDurationValue ? countdown - timeDurationValue : countdown
+    const timeDuration = getDuration(timeRemainingValue, startDuration)
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -41,5 +43,5 @@ export const useCountdown = ({ duration, timeRemaining }: Props) => {
 
     }, [countdown])
 
-    return { timeRemaining: convertToTimeString(countdown), duration: convertToTimeString(timeRemain) }
+    return { timeRemaining: convertToTimeString(countdown), duration: convertToTimeString(timeDuration) }
 }

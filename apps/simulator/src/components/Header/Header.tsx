@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
 
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
-  const { timeRemaining, duration: timeDuration } = useCountdown({ duration: "05:00:00" })
+  const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: "04:00:00" , duration : "01:00:00" })
 
 
 
