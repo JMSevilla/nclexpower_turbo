@@ -43,7 +43,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                     <TourComponent steps={TourSteps} />
                     <Header />
                     <PageContainer questionaire={questionaire}>
-                      <div className="min-h-[100dvh] flex flex-col justify-between">
+                      <div className="min-h-[65dvh] flex flex-col  justify-between">
                         <LoadablePageContent loading={loading}>
                           <DndProvider backend={HTML5Backend}>
                             <ControlledToast

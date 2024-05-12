@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   RegularMCQSSQuestionnaire,
   CaseStudyContainer,
@@ -6,7 +6,6 @@ import {
 } from "./blocks";
 import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
 import { datatypes } from "@repo/utils";
-import { SkeletonLoader } from '@/components/SkeletonLoader/SkeletonLoader';
 
 interface Props {
   questionType: string;
@@ -21,19 +20,6 @@ export const ParseContents: React.FC<Props> = ({
 }) => {
   /* use this contents to get the content data */
   const { contents } = useSimulatorGlobals();
-  const [loader, setLoader] = useState(true)
-
-  useEffect(() => {
-    setLoader(true)
-    setTimeout(() => {
-      setLoader(false)
-    }, 2000)
-  }, [questionType])
-
-  if (loader) {
-    return <SkeletonLoader QType={questionType} />
-  }
-
 
   if (questionType === "RegularQuestion") {
     if (itemSelected && itemSelected.length > 0) {
@@ -91,5 +77,4 @@ export const ParseContents: React.FC<Props> = ({
     }
   }
 };
-
 
