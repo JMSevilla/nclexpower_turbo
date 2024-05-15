@@ -25,7 +25,7 @@ export const Checkbox: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <div className='w-full flex flex-col justify-center items-center pl-5'>
+    <div className='w-full flex flex-col pl-5'>
       <FormControlLabel
         sx={{
           color: (theme) => (error ? theme.palette.error.main : "CurrentColor"),
@@ -33,7 +33,6 @@ export const Checkbox: React.FC<Props> = ({
         control={<MuiCheckbox {...rest} />}
         label={<Typography >{label}</Typography>}
       />
-
     </div>
   );
 };

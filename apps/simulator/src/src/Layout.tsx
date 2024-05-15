@@ -43,24 +43,24 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                     <TourComponent steps={TourSteps} />
                     <Header />
                     <PageContainer questionaire={questionaire}>
-                      <div className="min-h-[100dvh] flex flex-col justify-between">
                         <LoadablePageContent loading={loading}>
-                          <DndProvider backend={HTML5Backend}>
-                            <ControlledToast
-                              autoClose={5000}
-                              hideProgressBar={false}
-                            />
-                            {/* Code below must be refactored after case study structure development completed. */}
-                            {itemselect.length > 0 && (
-                              <ParseContents
-                                questionKey={itemselect[0].questionUI}
-                                questionType={itemselect[0].questionType}
-                                itemSelected={itemselect}
+                        <div className="min-h-{65dvh] flex flex-col justify-between">
+                            <DndProvider backend={HTML5Backend}>
+                              <ControlledToast
+                                autoClose={5000}
+                                hideProgressBar={false}
                               />
-                            )}
-                          </DndProvider>
+                              {/* Code below must be refactored after case study structure development completed. */}
+                              {itemselect.length > 0 && (
+                                <ParseContents
+                                  questionKey={itemselect[0].questionUI}
+                                  questionType={itemselect[0].questionType}
+                                  itemSelected={itemselect}
+                                />
+                              )}
+                            </DndProvider>
+                          </div>
                         </LoadablePageContent>
-                      </div>
                     </PageContainer>
                     <Footer
                       actionKey={
