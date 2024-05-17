@@ -28,9 +28,8 @@ export const AnimatedBoxSkeleton = styled(Box)<StyledProps>(({ light }) => ({
     height: "100%",
     backgroundRepeat: "no-repeat",
     backgroundImage: `
-        linear-gradient(to right, transparent 10%, ${
-          light ? "white" : "lightcyan"
-        }, transparent)
+        linear-gradient(to right, transparent 10%, ${light ? "white" : "#d1eaff"
+      }, transparent)
         `,
     transform: "translateX(-100%)",
     animationName: `${shineAnimation}`,
