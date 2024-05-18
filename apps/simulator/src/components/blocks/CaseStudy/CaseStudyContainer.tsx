@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
 import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
 import { HCPQuestion, MRSNQuestion, DDCQuestion, DDTQuestion, MCQCSQuestionnaire, DNDQuestionaire } from "./CaseStudyQuestions";
@@ -37,6 +37,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
     } else {
       return renderSwitch(QuestionType, deserializeContents, answer);
     }
+
   }
   return <h3>No questionaire Loaded</h3>;
 };
