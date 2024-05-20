@@ -58,7 +58,6 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                                 itemSelected={itemselect}
                               />
                             )}
-
                           </DndProvider>
                         </LoadablePageContent>
                       </div>

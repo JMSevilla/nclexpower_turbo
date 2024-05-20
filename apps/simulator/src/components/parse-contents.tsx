@@ -21,7 +21,7 @@ export const ParseContents: React.FC<Props> = ({
 }) => {
   /* use this contents to get the content data */
   const { contents } = useSimulatorGlobals();
-  const [isLoading, setIsloading] = useState<boolean>(false) //this is for displaying the Skeleton Loader
+  const [isLoading, setIsloading] = useState<boolean>(true) //this is for displaying the Skeleton Loader
 
   useEffect(() => {
     setIsloading(true)
@@ -32,23 +32,15 @@ export const ParseContents: React.FC<Props> = ({
 
   if (isLoading) {
     return questionType == "RegularQuestion" ?
-      <div className='w-50% h-[300px] flex justify-center items-center'>
-        <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={350} className='opacity-50' />
-      </div>
+      <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={350} className='opacity-50' />
       :
-      <div className='w-50% h-fit flex flex-col justify-center items-center gap-2'>
-        <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={50} className='opacity-50' />
-        <div className='flex w-full gap-2'>
+      <div className='gap-2 flex flex-col opacity-50'>
+        <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={50} />
+        <div className='flex gap-2'>
           {Array.from({ length: 2 }).map((_, idx) => (
             <div key={idx} className='w-1/2 flex flex-col gap-2'>
               {Array.from({ length: 2 }).map((_, subIdx) => (
-                <AnimatedBoxSkeleton
-                  key={subIdx}
-                  borderRadius={2}
-                  boxShadow={1}
-                  height={subIdx === 0 ? 60 : 280}
-                  className='opacity-50'
-                />
+                <AnimatedBoxSkeleton key={subIdx} borderRadius={2} boxShadow={1} height={subIdx === 0 ? 60 : 280} />
               ))}
             </div>
           ))}
