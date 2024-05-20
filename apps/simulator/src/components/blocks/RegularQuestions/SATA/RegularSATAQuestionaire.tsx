@@ -15,8 +15,6 @@ export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, i
             setCheckedValues([...checkedValues, value]);
         }
     };
-
-
     return (
         <div className=' h-full'>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

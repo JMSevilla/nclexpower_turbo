@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   RegularMCQSSQuestionnaire,
   CaseStudyContainer,
@@ -6,6 +6,7 @@ import {
 } from "./blocks";
 import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
 import { datatypes } from "@repo/utils";
+import { AnimatedBoxSkeleton } from '@repo/ui';
 
 interface Props {
   questionType: string;
@@ -20,6 +21,33 @@ export const ParseContents: React.FC<Props> = ({
 }) => {
   /* use this contents to get the content data */
   const { contents } = useSimulatorGlobals();
+  const [isLoading, setIsloading] = useState<boolean>(true) //this is for displaying the Skeleton Loader
+
+  useEffect(() => {
+    setIsloading(true)
+    setTimeout(() => {
+      setIsloading(false)
+    }, 2000)
+  }, [questionKey, questionType])
+
+  if (isLoading) {
+    return questionType == "RegularQuestion" ?
+      <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={350} className='opacity-50' />
+      :
+      <div className='gap-2 flex flex-col opacity-50'>
+        <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={50} />
+        <div className='flex gap-2'>
+          {Array.from({ length: 2 }).map((_, idx) => (
+            <div key={idx} className='w-1/2 flex flex-col gap-2'>
+              {Array.from({ length: 2 }).map((_, subIdx) => (
+                <AnimatedBoxSkeleton key={subIdx} borderRadius={2} boxShadow={1} height={subIdx === 0 ? 60 : 280} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+  }
+
   if (questionType === "RegularQuestion") {
     if (itemSelected && itemSelected.length > 0) {
       const regularQKey = itemSelected.filter(
@@ -57,11 +85,10 @@ export const ParseContents: React.FC<Props> = ({
       const qKey = contents.questionType.filter(
         (key) => key.qType === questionKey
       );
-
       if (qKey.length > 0) {
         const { qType: QuestionType } = qKey[0];
-        console.log(QuestionType);
         console.log(qKey[0]);
+
         switch (QuestionType) {
           case "CaseStudy":
             return <CaseStudyContainer questionaire={[]} />;
@@ -76,3 +103,4 @@ export const ParseContents: React.FC<Props> = ({
     }
   }
 };
+
