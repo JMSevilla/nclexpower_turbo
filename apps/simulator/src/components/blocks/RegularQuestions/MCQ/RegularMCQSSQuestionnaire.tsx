@@ -46,10 +46,9 @@ export const RegularMCQSSQuestionnaire: React.FC<RegularQuestion> = ({
         qType: itemselection[0].questionUI,
         answer: value.mcqss,
       })
-      .then((res: any) => {
+      .then(async (res: any) => {
         if (res.data === 200) {
           setLoader(true);
-          // create a hook for re-routing the application same page.
           router.push({
             pathname: "/next-item",
             query: {
@@ -93,7 +92,6 @@ export const RegularMCQSSQuestionnaire: React.FC<RegularQuestion> = ({
                             )
                           )}
                       </div>
-
                       <div>
                         <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
                         {item.question}
