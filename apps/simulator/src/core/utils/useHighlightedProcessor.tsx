@@ -11,11 +11,9 @@ export const useHighlightedProcessor = ({ highlightedWords, returnHiglighted }: 
         const groupWords = groupedByConsecutiveIndex(highlightedWords);
         const groupWordsWOIndices = groupWords.map((group) => {
             const joinedWords = group.map(word => word.word.replace("&nbsp;", " ")).join(" ");
-            return joinedWords;
+            return joinedWords ?? ' ';
         });
 
-        if (highlightedWords && highlightedWords.length > 0) {
-            returnHiglighted(groupWordsWOIndices);
-        }
+        returnHiglighted(groupWordsWOIndices);
     }, [highlightedWords]);
 };
