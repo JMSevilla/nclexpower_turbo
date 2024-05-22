@@ -96,18 +96,20 @@ export const handleHighlight = (
                 const combinedValues = [...prevValues, ...highlightedValue]
                 const removeDuplication = removeArrayDuplication(combinedValues)
 
-                const removeRehighlighted = prevValues.map((value) => {
-                    const filterByValues =
-                        highlightedValue.map((f) => {
-                            if (f.wordIndex === value.wordIndex) {
-                                return f.wordIndex
-                            }
-                        }).filter((filteredValue) => filteredValue !== undefined).pop()
-                    return filterByValues
-                }).filter((filteredValue) => filteredValue !== undefined)
+                if (prevValues) {
+                    const removeRehighlighted = prevValues.map((value) => {
+                        const filterByValues =
+                            highlightedValue.map((f) => {
+                                if (f.wordIndex === value.wordIndex) {
+                                    return f.wordIndex
+                                }
+                            }).filter((filteredValue) => filteredValue !== undefined).pop()
+                        return filterByValues
+                    }).filter((filteredValue) => filteredValue !== undefined)
 
-                const filterCombinedValues = combinedValues.filter((values) => !removeRehighlighted.includes(values.wordIndex))
-                return filterCombinedValues
+                    const filterCombinedValues = combinedValues.filter((values) => !removeRehighlighted.includes(values.wordIndex))
+                    return filterCombinedValues
+                }
                 return removeDuplication
             })
         }
