@@ -16,10 +16,11 @@ import { RegularSATAValidationType, RegSATASchema } from '@/core/schema/regularS
 import { useAtom } from 'jotai';
 import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
 import { useCustomErrorHandling } from '@repo/utils/hooks';
+import { getParsedChoices } from '@/core/utils/contents';
 
 export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, itemselection }) => {
   
-  const ParsedChoices = JSON.parse(contents.choices[0].choices)
+  const ParsedChoices = getParsedChoices(contents.choices[0].choices)
 
   const [regSataAtom, setRegSataAtom] = useAtom(RegularSATAValidationAtom);
 
@@ -59,7 +60,7 @@ export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, i
 
 
   async function handleSubmit(values: RegularSATAValidationType) {
-      console.log("Submitted value",values.regSata);
+      console.log("Submitted value",values);
       setRegSataAtom(values);
   }
   

@@ -38,7 +38,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
           <ToastProvider>
             <FormSubmissionContextProvider>
               <QueryClientProvider client={queryClient}>
-                <div className="min-h-screen flex flex-col">
+                <div className="min-h-screen flex flex-col bg-slate-100">
                   <AlertMessageV2Provider>
                     <TourComponent steps={TourSteps} />
                     <Header />

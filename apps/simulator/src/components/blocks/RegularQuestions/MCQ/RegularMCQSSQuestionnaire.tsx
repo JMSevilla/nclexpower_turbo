@@ -92,7 +92,6 @@ export const RegularMCQSSQuestionnaire: React.FC<RegularQuestion> = ({
                             )
                           )}
                       </div>
-
                       <div>
                         <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
                         {item.question}
