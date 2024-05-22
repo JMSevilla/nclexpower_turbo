@@ -1,4 +1,6 @@
+import { getHighlightedValues, mergeArrayString, removeArrayDuplication } from '@/core/utils/hcpUtils'
 import { useExtractBracket } from '@/core/utils/useExtractBracket'
+import { useHighlightedProcessor } from '@/core/utils/useHighlightedProcessor'
 import React, { useEffect, useState } from 'react'
 
 
@@ -7,7 +9,7 @@ type Props = {
     textToHighlight: string | string[]
 }
 
-type selectedWordType = {
+export type selectedWordType = {
     word: string
     wordIndex: number
 }
@@ -15,133 +17,66 @@ type selectedWordType = {
 
 export const HCPHighlighter: React.FC<Props> = ({ textToHighlight, highlightedTexts }) => {
     const [highlightedWords, setHighlightedWords] = useState<selectedWordType[]>([]);
-    const mergedText = Array.isArray(textToHighlight) ? textToHighlight.join(' \n \n ') : textToHighlight
-
+    const mergedText = mergeArrayString(textToHighlight)
     const { styledExtractedValue: item } = useExtractBracket(mergedText)
-
 
     const wordsInItem = item.split(' ')
     const highlightedWordIndices = highlightedWords.map((w) => w.wordIndex)
 
-    const groupedByConsecutiveIndex = (words: selectedWordType[]) => {
-        const groupedByConsecutiveIndex: selectedWordType[][] = words.sort((a, b) => a.wordIndex - b.wordIndex).reduce<selectedWordType[][]>((groups, current, index, array) => {
-
-            if (current) {
-                if (index === 0 || (current && current.wordIndex !== (array[index - 1]?.wordIndex ?? -1) + 1)) {
-                    groups.push([current]);
-                } else {
-                    groups[groups.length - 1].push(current);
-                }
-                return groups;
-            }
-            return groups;
-        }, []);
-        const filteredGroups = groupedByConsecutiveIndex
-        return filteredGroups
-    }
-
-    const removeArrayDuplication = (words: selectedWordType[]) => {
-        const removedDuplication = words.filter((ele, ind) => ind === words.findIndex(elem => elem?.wordIndex === ele?.wordIndex)).sort((a, b) => {
-            if (a && b) {
-                return a.wordIndex - b.wordIndex
-            }
-            return 0
-        })
-        return removedDuplication
-    }
-
     useEffect(() => {
-        const handleHighlight = () => {
-            const selectedHighlight = window.getSelection();
-            const ariaLabel = selectedHighlight?.anchorNode?.parentElement?.ariaLabel
-            const parseAriaLabel = parseInt(ariaLabel ?? '')
+        try {
+            const handleHighlight = () => {
+                const highlightedValue = getHighlightedValues(wordsInItem)
+                if (highlightedValue) {
+                    setHighlightedWords((prevValues) => {
+                        const combinedValues = [...prevValues, ...highlightedValue]
+                        const removeDuplication = removeArrayDuplication(combinedValues)
 
-            if (ariaLabel && selectedHighlight && selectedHighlight.toString()) {
-                const selectedWord = selectedHighlight.toString().trim().replace(/\n/g, '')
-                const wordsInSelectedWord = selectedWord.split(' ')
-                const filteredWord = wordsInItem
-                    .map((word, index) =>
-                        wordsInSelectedWord
-                            .map((selectedWord) => {
-                                if (word === selectedWord) {
-                                    return {
-                                        word: word,
-                                        wordIndex: index
-                                    };
-                                }
-                            })
-                            .filter((word) => word !== undefined)
-                            .pop()
-                    )
-                    .filter((word) => word !== undefined)
-                    .sort((a, b) => {
-                        if (a && b) {
-                            return a.wordIndex - b.wordIndex
+                        if (prevValues) {
+                            const removeRehighlighted = prevValues.map((value) => {
+                                const filterByValues =
+                                    highlightedValue.map((f) => {
+                                        if (f.wordIndex === value.wordIndex) {
+                                            return f.wordIndex
+                                        }
+                                    }).filter((filteredValue) => filteredValue !== undefined).pop()
+                                return filterByValues
+                            }).filter((filteredValue) => filteredValue !== undefined)
+
+                            const filterCombinedValues = combinedValues.filter((values) => !removeRehighlighted.includes(values.wordIndex))
+                            return filterCombinedValues
                         }
-                        return 0;
-                    });
-
-
-                const removedDuplication = removeArrayDuplication(filteredWord as selectedWordType[])
-                const wordGroup = groupedByConsecutiveIndex(removedDuplication as selectedWordType[])
-                const filterBySelectedAriaLabel = wordGroup.map((group) => {
-                    const checkIfAriaExist = group.map((g) => g.wordIndex === parseAriaLabel)
-                    if (checkIfAriaExist.includes(true)) {
-                        return group
-                    }
-                }).filter((f) => f !== undefined).pop() ?? []
-
-                setHighlightedWords((prevValues) => {
-                    const combinedValues = [...prevValues, ...filterBySelectedAriaLabel]
-                    const removeDuplication = removeArrayDuplication(combinedValues)
-
-
-                    if (prevValues) {
-                        const removeRehighlighted = prevValues.map((value) => {
-                            const filterByValues =
-                                filterBySelectedAriaLabel.map((f) => {
-                                    if (f.wordIndex === value.wordIndex) {
-                                        return f.wordIndex
-                                    }
-                                }).filter((filteredValue) => filteredValue !== undefined).pop()
-                            return filterByValues
-
-                        }).filter((filteredValue) => filteredValue !== undefined)
-                        const filterCombinedValues = combinedValues.filter((values) => !removeRehighlighted.includes(values.wordIndex))
-                        return filterCombinedValues
-                    }
-                    return removeDuplication
-                })
-
+                        return removeDuplication
+                    })
+                }
             }
+            document.addEventListener("mouseup", handleHighlight);
+            return () => {
+                document.removeEventListener("mouseup", handleHighlight);
+            };
         }
-
-        document.addEventListener("mouseup", handleHighlight);
-        return () => {
-            document.removeEventListener("mouseup", handleHighlight);
-        };
+        catch (error) {
+            console.error(error)
+        }
     }, []);
 
-    useEffect(() => {
-        const groupWords = groupedByConsecutiveIndex(highlightedWords)
-        const groupWordsWOIndices = groupWords.map((group) => {
-            const joinedWords = group.map(word => word.word.replace("&nbsp", " ")).join(" ")
-            return joinedWords
+    useHighlightedProcessor({
+        highlightedWords, returnHiglighted: (values) => {
+            highlightedTexts && highlightedTexts(values)
+        },
+    })
+
+    const renderText = (values: string[]) => {
+        return values.map((word, index) => {
+            const isHighlighted = highlightedWordIndices.includes(index)
+            const convertNewLine = word.replace(/\n/g, '<br/> ')
+            const theObj = { __html: convertNewLine + ' ' }
+
+            return word.includes('<br/>') ? <span key={index} dangerouslySetInnerHTML={theObj} /> : <span key={index} className={`${isHighlighted ? 'bg-yellow-300' : ''}`} aria-label={`${index}`} dangerouslySetInnerHTML={theObj} />
         })
-
-        if (highlightedWords) {
-            highlightedTexts && highlightedTexts(groupWordsWOIndices)
-        }
-
-    }, [highlightedWords])
-
-    const convertNewline = wordsInItem.map((word) => word.replace(/\n/g, '<br/> '))
+    }
 
     return <div>
-        {convertNewline.map((word, index) => {
-            const isHighlighted = highlightedWordIndices.includes(index)
-            const theObj = { __html: word + ' ' }
-            return word.includes('<br/>') ? <span dangerouslySetInnerHTML={theObj} /> : <span className={`${isHighlighted ? 'bg-yellow-300' : ''}`} aria-label={`${index}`} dangerouslySetInnerHTML={theObj} />
-        })}
+        {renderText(wordsInItem)}
     </div >
 }
