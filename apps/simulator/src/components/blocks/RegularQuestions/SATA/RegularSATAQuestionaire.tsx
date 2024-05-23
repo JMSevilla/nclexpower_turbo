@@ -1,6 +1,6 @@
-import { Paper, Button } from '@mui/material';
+import { Paper } from '@mui/material';
 import NearMeIcon from "@mui/icons-material/NearMe";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { RegularQuestion } from '@/core/types/ssrData';
 import { datatypes } from '@repo/utils';
 import { ControlledCheckbox } from '@/components/Checkbox';
@@ -74,7 +74,6 @@ export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, i
                 <div className="">
                 {contents.answerUI?.length > 0 && contents.answerUI.map((answerUImap, answerUIidx) => {
                   return(
-                    <>
                       <div
                           key={answerUIidx}
                           className="w-full"
@@ -88,7 +87,6 @@ export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, i
                             />
                           </p>
                       </div>          
-                    </>
                   )        
                 })}
                 <div className='px-4'>

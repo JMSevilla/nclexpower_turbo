@@ -8,11 +8,6 @@ export const getParsedChoices = (choices: string) => {
         const parsedChoices = JSON.parse(choices);
         return parsedChoices;
     } catch (error) {
-        if (error instanceof Error) {
-            console.error("An error occurred while parsing choices:", error.message);
-        } else {
-            console.error("An unknown error occurred while parsing choices");
-        }
-        return null; 
+            console.error("An error occurred while parsing choices:",(error as Error).message);
     }
 };
