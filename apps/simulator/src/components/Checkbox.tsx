@@ -8,7 +8,6 @@ import {
 
 import { Controller, FieldValues } from "react-hook-form";
 import { ControlledField } from "@repo/utils/types/ControlledField";
-import { FormHelperText } from "./FormHelperText";
 
 type Props = CheckboxProps & {
   label?: string;
@@ -25,7 +24,7 @@ export const Checkbox: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <div className='w-full flex flex-col justify-center items-center pl-5'>
+    <div className='w-full flex flex-col pl-5'>
       <FormControlLabel
         sx={{
           color: (theme) => (error ? theme.palette.error.main : "CurrentColor"),

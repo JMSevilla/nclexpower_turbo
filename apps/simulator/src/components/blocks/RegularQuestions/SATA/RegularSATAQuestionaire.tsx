@@ -1,58 +1,115 @@
-
-import { Checkbox, Grid } from '@mui/material'
-import React, { useState } from 'react'
+import { Paper, Button } from '@mui/material';
+import NearMeIcon from "@mui/icons-material/NearMe";
+import React, { useEffect, useState } from 'react';
 import { RegularQuestion } from '@/core/types/ssrData';
 import { datatypes } from '@repo/utils';
+import { ControlledCheckbox } from '@/components/Checkbox';
+import {
+  useForm,
+  useFieldArray,
+  useFormState,
+  FormProvider
+} from 'react-hook-form';
+import { RegularSATAValidationAtom } from '@/core/schema/useAtomic';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RegularSATAValidationType, RegSATASchema } from '@/core/schema/regularSATA/validation';
+import { useAtom } from 'jotai';
+import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
+import { useCustomErrorHandling } from '@repo/utils/hooks';
+import { getParsedChoices } from '@/core/utils/contents';
 
 export const RegularSATAQuestionaire: React.FC<RegularQuestion> = ({ contents, itemselection }) => {
+  
+  const ParsedChoices = getParsedChoices(contents.choices[0].choices)
 
-    const [checkedValues, setCheckedValues] = useState<number[]>([]);
-    const handleCheckBoxValues = (value: number) => {
-        const isChecked = checkedValues.includes(value);
-        if (isChecked) {
-            setCheckedValues(checkedValues.filter((val) => val !== value));
-        } else {
-            setCheckedValues([...checkedValues, value]);
-        }
-    };
-    return (
-        <div className=' h-full'>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid item xs={12} sm={6} md={6}>
-                    <div className="h-full w-full p-4 font-sans tracking-tight">
-                        {itemselection?.length > 0 && itemselection.map((item: datatypes.CalcItemSelectValues, itemIndex) =>
-                            <div key={itemIndex} >
-                                <ol className='w-full text-sm mb-4 pr-5 '>
-                                    <li>
-                                        <div className='w-full text-sm mb-4 pr-5'>
-                                            <p className="flex" key={itemIndex}>
-                                                {item.question}
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ol>
-                                <div className='w-full h-fit shadow-lg px-10 py-5 text-sm flex flex-col gap-5 rounded-md bg-white'>
-                                    {contents.choices?.length > 0 && contents.choices.map((choiceMap, choiceIdx) => {
-                                        const parsedChoices: datatypes.ParsedChoices[] = JSON.parse(choiceMap.choices);
-                                        return (
-                                            <React.Fragment key={choiceIdx}>
-                                                {parsedChoices?.length > 0 && parsedChoices.map((parseChoices, parseChoicesIdx) => (
-                                                    <div className='flex items-center ' key={parseChoicesIdx}>
-                                                        <span>
-                                                            <Checkbox value={parseChoices.Value} checked={checkedValues.includes(parseChoices.Value)} onChange={() => handleCheckBoxValues(parseChoices.Value)} sx={{ height: "20px" }} />
-                                                        </span>
-                                                        <p>{parseChoices.Label}</p>
-                                                    </div>
-                                                ))}
-                                            </React.Fragment>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Grid>
-            </Grid>
-        </div>
-    )
-}
+  const [regSataAtom, setRegSataAtom] = useAtom(RegularSATAValidationAtom);
+
+  const form = useForm<RegularSATAValidationType>({
+    mode: 'all',
+    resolver: zodResolver(RegSATASchema),
+    defaultValues: {
+      regSata: ParsedChoices,
+    },
+  });
+
+  const { control, setError, clearErrors } = form;
+
+  const { fields } = useFieldArray({
+    name: 'regSata',  
+    control,
+  });
+ 
+
+  const formState = useFormState({ control });
+  
+  const ErrorMessage = useCustomErrorHandling({
+    formState: formState,
+    setError: setError,
+    clearErrors: clearErrors,
+    fieldName: 'regSata',
+    message: 'Choose three option',
+  });
+
+  useFormSubmissionBindingHooks({
+    key: 'SATA',
+    isValid: formState.isValid,
+    isDirty: formState.isDirty,
+    cb: () => form.handleSubmit(handleSubmit)(),
+    initDependencies: [regSataAtom],
+  });
+
+
+  async function handleSubmit(values: RegularSATAValidationType) {
+      console.log("Submitted value",values.regSata);
+      setRegSataAtom(values);
+  }
+  
+  return (
+    <div className='h-full px-10 py-5'>
+      <Paper elevation={3}>
+        <FormProvider {...form}>
+          {itemselection?.length > 0 && itemselection.map((item: datatypes.CalcItemSelectValues, itemIndex) => (
+            <div key={itemIndex} className="py-8 px-16">
+              <p className="p-2 py-4">{item.question}</p>
+                <div className="">
+                {contents.answerUI?.length > 0 && contents.answerUI.map((answerUImap, answerUIidx) => {
+                  return(
+                    <>
+                      <div
+                          key={answerUIidx}
+                          className="w-full"
+                        >
+                          <p className="flex py-3 pt-0">
+                            <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: answerUImap.answerInstruction,
+                              }}
+                            />
+                          </p>
+                      </div>          
+                    </>
+                  )        
+                })}
+                <div className='px-4'>
+                  {fields?.length > 0 &&
+                    fields.map((choices: any, idx: any) => (
+                      <ol key={idx}>
+                        <ControlledCheckbox
+                          control={control}
+                          name={`regSata.${idx}.value`}
+                          label={choices.label}
+                          shouldUnregister={true}
+                        />
+                      </ol>
+                    ))}
+                </div>  
+                </div>
+                <ErrorMessage/>
+            </div>        
+          ))}        
+        </FormProvider>
+      </Paper>
+    </div>
+  );
+};
