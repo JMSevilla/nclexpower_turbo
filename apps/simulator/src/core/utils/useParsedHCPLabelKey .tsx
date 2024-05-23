@@ -11,16 +11,16 @@ interface BracketProps extends replaceMatchesProps {
 }
 
 
-export const useExtractBracket = (input: string) => {
+export const useParsedHCPLabelKey = (input: string) => {
     const [matches, setMatches] = useState<BracketProps[]>([]);
     const [text, setText] = useState<string>(input)
 
     const replaceMatches = (toReplace: replaceMatchesProps) => {
         switch (toReplace.format) {
             case 'bold':
-                return `<b>${toReplace.content.replace(" ", '&nbsp')}</b>`
+                return `<strong>${toReplace.content.replace(" ", '&nbsp')}</strong>`
             case 'label':
-                return `<b>${toReplace.content.replace(" ", '&nbsp')}</b> <br/>`
+                return `<strong>${toReplace.content.replace(" ", '&nbsp')}</strong> <br/>`
             default:
                 return toReplace.content
         }

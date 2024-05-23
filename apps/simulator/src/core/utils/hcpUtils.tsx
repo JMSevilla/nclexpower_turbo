@@ -92,6 +92,7 @@ export const handleHighlight = (
         const highlightedValue = getHighlightedValues(wordsInItem)
 
         if (highlightedValue) {
+
             setHighlightedWords((prevValues) => {
                 const combinedValues = [...prevValues, ...highlightedValue]
                 const removeDuplication = removeArrayDuplication(combinedValues)
@@ -121,6 +122,7 @@ export const handleHighlight = (
 }
 
 export const renderHighlightText = (values: string[], highlightedWords: selectedWordType[]) => {
+
     const highlightedWordIndices = highlightedWords.map((w) => w.wordIndex)
     return values.map((word, index) => {
         const isHighlighted = highlightedWordIndices.includes(index)

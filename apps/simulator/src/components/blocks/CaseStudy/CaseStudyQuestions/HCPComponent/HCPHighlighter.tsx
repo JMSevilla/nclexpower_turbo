@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useExtractBracket } from '@/core/utils/useExtractBracket'
+import { useParsedHCPLabelKey } from '@/core/utils/useParsedHCPLabelKey '
 import { useHighlightedProcessor } from '@/core/utils/useHighlightedProcessor'
 import { handleHighlight, mergeArrayString, renderHighlightText, selectedWordType } from '@/core/utils/hcpUtils'
 
@@ -11,7 +11,7 @@ type Props = {
 export const HCPHighlighter: React.FC<Props> = ({ textToHighlight, highlightedTexts }) => {
     const [highlightedWords, setHighlightedWords] = useState<selectedWordType[]>([]);
     const mergedText = mergeArrayString(textToHighlight)
-    const { styledExtractedValue: item } = useExtractBracket(mergedText)
+    const { styledExtractedValue: item } = useParsedHCPLabelKey(mergedText)
     const wordsInItem = item.split(' ')
 
 
@@ -27,12 +27,9 @@ export const HCPHighlighter: React.FC<Props> = ({ textToHighlight, highlightedTe
 
     useHighlightedProcessor({
         highlightedWords, returnHiglighted: (values) => {
-            console.log(values)
             highlightedTexts && highlightedTexts(values)
         },
     })
-
-    return <div>
-        {renderHighlightText(wordsInItem, highlightedWords)}
-    </div >
+    
+    return renderHighlightText(wordsInItem, highlightedWords)
 }
