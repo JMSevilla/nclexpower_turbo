@@ -126,10 +126,7 @@ export const Header: React.FC = () => {
           </Box>
         </AppBar>
       </div>
-      <div className=''>
-        <LoadingBar color='#0000FF' progress={progress} />
-      </div>
-
+      <LoadingBar color='#0000FF' progress={progress} />
     </Box>
   );
 };
