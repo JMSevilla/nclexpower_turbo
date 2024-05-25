@@ -8,28 +8,52 @@ import {
 import React, { useState, useEffect } from "react";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Paper, Grid } from "@mui/material";
-import Highlighter from "react-highlight-words";
+import { useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation';
+import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
+import { HCPValidationAtom } from '@/core/schema/useAtomic';
+import { useAtom } from 'jotai';
+import { HCPHighlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCPComponent/HCPHighlighter';
+import { FormHelperText } from '@/components/FormHelperText';
 
 export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
-  const [highlightedWords, setHighlightedWords] = useState<any>([]);
+  const [hcpAtom, setHcpAtom] = useAtom(HCPValidationAtom);
+  const [highlightedWords, setHighlightedWords] = useState<string[]>([]);
+
+  const form = useForm<HCPValidationType>({
+    mode: "all",
+    resolver: zodResolver(RowSchema),
+  });
+
+  const { control, setValue } = form;
+
+  const formState = useFormState({ control: control });
+
+  useFormSubmissionBindingHooks({
+    key: "HCP",
+    isValid: formState.isValid,
+    isDirty: formState.isDirty,
+    cb: () => form.handleSubmit(handleSubmit)(),
+    initDependencies: [hcpAtom],
+  });
+
+  const errorMessage = Array.isArray(formState.errors.hcp) ? formState.errors.hcp.map((err) => err?.message).pop() : formState.errors.hcp?.message
+
 
   useEffect(() => {
-    const handleHighlight = () => {
-      const selectedHighlight = window.getSelection();
-      if (selectedHighlight && selectedHighlight.toString()) {
-        const selectedWord = selectedHighlight.toString().trim();
-        setHighlightedWords((prevWords: any) => [...prevWords, selectedWord]);
-      }
-    };
-    document.addEventListener("mouseup", handleHighlight);
+    if (highlightedWords) {
+      setValue("hcp", highlightedWords)
+    }
+  }, [highlightedWords])
 
-    return () => {
-      document.removeEventListener("mouseup", handleHighlight);
-    };
-  }, []);
+  async function handleSubmit(values: HCPValidationType) {
+    console.log("hcpValue", values);
+  }
+
 
   return (
-    <div className="p-2 py-2 h-full">
+    <div className="p-2 py-2 h-full ">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={12} sm={6} md={6}>
           <div className="h-full w-full p-4">
@@ -113,7 +137,7 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <div className="h-full w-full p-5">
-            {answer?.length > 0 &&
+            {answer && answer.length > 0 &&
               answer.map((answerItem: AnswerProps, answerIdx) => (
                 <React.Fragment key={answerIdx}>
                   <div
@@ -139,43 +163,25 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                           (ansTabs: SsrAnswerTabsProps, ansTabsIdx) => (
                             <div key={ansTabsIdx}>
                               <p>
-                                <strong>{ansTabs.tabsId}</strong>:
+                                <strong>{ansTabs.tabsId}</strong>
                               </p>
                               <br />
-                              {Array.isArray(ansTabs.content) ? (
-                                <ul>
-                                  {ansTabs.content.map((item: string, idx) => (
-                                    <li key={idx}>
-                                      •{" "}
-                                      <Highlighter
-                                        searchWords={highlightedWords}
-                                        autoEscape
-                                        unhighlightStyle={{
-                                          display: "inline", // Ensures the Highlighter is displayed inline
-                                        }}
-                                        textToHighlight={item}
-                                      />
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <Highlighter
-                                  searchWords={highlightedWords}
-                                  autoEscape
-                                  unhighlightStyle={{
-                                    display: "inline", // Ensures the Highlighter is displayed inline
-                                  }}
-                                  textToHighlight={ansTabs.content} //When the answer is not in an array structure
+                              <div>
+                                <HCPHighlighter
+                                  textToHighlight={ansTabs.content}
+                                  highlightedTexts={setHighlightedWords}
                                 />
-                              )}
+                              </div>
                             </div>
                           )
                         )}
                     </div>
+                    {errorMessage && <FormHelperText error={true}>{errorMessage}</FormHelperText>}
                   </Paper>
                 </React.Fragment>
               ))}
           </div>
+
         </Grid>
       </Grid>
     </div>
