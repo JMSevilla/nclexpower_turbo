@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  RegularMCQSSQuestionnaire,
   CaseStudyContainer,
+  MCQBlocks,
   RegularSATAQuestionaire,
 } from "./blocks";
 import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
@@ -65,7 +65,7 @@ export const ParseContents: React.FC<Props> = ({
             );
           case "MCQ":
             return (
-              <RegularMCQSSQuestionnaire
+              <MCQBlocks
                 contents={contents}
                 itemselection={itemSelected}
               />
