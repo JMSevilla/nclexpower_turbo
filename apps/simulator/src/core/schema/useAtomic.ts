@@ -3,6 +3,7 @@ import { MrsnValidationType } from "./mrsn/validation";
 import { atom } from "jotai";
 import { DNDValidationType } from '@/core/schema/dnd/validation';
 import { MCQGValidationType } from '@/core/schema/mcqGroup/validation';
+import { RegularSATAValidationType } from './regularSATA/validation';
 
 export const MrsnValidationAtom = atom<MrsnValidationType | undefined>(
   undefined
@@ -19,3 +20,7 @@ export const DNDValidationAtom = atom<DNDValidationType | undefined>(
 export const MCQGValidationAtom = atom<MCQGValidationType | undefined>(
   undefined
 );
+
+export const RegularSATAValidationAtom = atom<RegularSATAValidationType | undefined>(
+  undefined
+)
