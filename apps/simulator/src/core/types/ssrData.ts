@@ -71,7 +71,7 @@ export type DNDAnswerUIItem = {
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 // header
