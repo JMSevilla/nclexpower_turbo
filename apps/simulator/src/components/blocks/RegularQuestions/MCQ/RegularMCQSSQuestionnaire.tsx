@@ -3,7 +3,7 @@ import { Grid, Paper } from "@mui/material";
 import { RegularQuestion } from "@/core/types/ssrData";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { FormProvider, useForm, useFormState } from "react-hook-form";
-import { ControlledRadioGroup } from "@/components/Radio";
+import { ControlledRadioGroup } from "@/components/RadioGroup";
 import { datatypes } from "@repo/utils";
 import { McqSsValidationType, RowSchema } from "@/core/schema/mcq/validation";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -26,6 +26,7 @@ export type QuestionaireProps = {
     content: string | SsrQuestionaireContentProps[];
   }>;
   answer?: AnswerProps[]
+  table?: QuestionaireProps
 };
 
 export type AnswerProps = Partial<DNDAnswerUIItem> & {
