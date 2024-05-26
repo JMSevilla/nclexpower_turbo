@@ -129,6 +129,6 @@ export const renderHighlightText = (values: string[], highlightedWords: selected
         const convertNewLine = word.replace(/\n/g, '<br/> ')
         const theObj = { __html: convertNewLine + ' ' }
 
-        return word.includes('<br/>') ? <span key={index} dangerouslySetInnerHTML={theObj} /> : <span key={index} className={`${isHighlighted ? 'bg-yellow-300' : ''}`} aria-label={`${index}`} dangerouslySetInnerHTML={theObj} />
+        return word.includes('<br/>') ? <span key={index} dangerouslySetInnerHTML={theObj} /> : <span key={index} style={{ background: isHighlighted ? '#ffff00' : '' }} aria-label={`${index}`} dangerouslySetInnerHTML={theObj} />
     })
 }

@@ -14,7 +14,6 @@ export const HCPHighlighter: React.FC<Props> = ({ textToHighlight, highlightedTe
     const { styledExtractedValue: item } = useParsedHCPLabelKey(mergedText)
     const wordsInItem = item.split(' ')
 
-
     useEffect(() => {
         try {
             const handleMouse = handleHighlight(wordsInItem, setHighlightedWords)
@@ -23,6 +22,7 @@ export const HCPHighlighter: React.FC<Props> = ({ textToHighlight, highlightedTe
         catch (error) {
             console.error('There was an error in Highlighting Text', error)
         }
+
     }, []);
 
     useHighlightedProcessor({
@@ -30,6 +30,6 @@ export const HCPHighlighter: React.FC<Props> = ({ textToHighlight, highlightedTe
             highlightedTexts && highlightedTexts(values)
         },
     })
-    
+
     return renderHighlightText(wordsInItem, highlightedWords)
 }
