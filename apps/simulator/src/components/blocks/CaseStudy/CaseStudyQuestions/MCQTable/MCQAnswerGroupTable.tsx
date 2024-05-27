@@ -16,7 +16,6 @@ interface RenderButtonsProps {
     rowIndex: number;
 }
 
-
 export const MCQAnswerGroupTable: React.FC<QuestionaireProps> = ({ table }) => {
     const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
 
