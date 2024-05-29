@@ -155,7 +155,6 @@ export const MCQAnswerGroupTable: React.FC<QuestionaireProps[]> = ({ table }) =>
                     </FormHelperText>
                 )}
 
-
             </div>
         </Grid >
     )

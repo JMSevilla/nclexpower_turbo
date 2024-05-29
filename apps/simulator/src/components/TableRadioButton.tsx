@@ -1,11 +1,10 @@
-
-
 import {
     FormControlLabel,
     Radio as MuiRadio,
     RadioProps,
     Typography,
 } from "@mui/material";
+import React from 'react';
 import { Controller, FieldValues } from "react-hook-form";
 
 type Props = RadioProps & {
@@ -15,7 +14,7 @@ type Props = RadioProps & {
     showErrorMessage?: boolean;
 };
 
-export const RadioButton: React.FC<Props> = ({
+const RadioButton: React.FC<Props> = React.memo(({
     label,
     helperText,
     error,
@@ -31,7 +30,7 @@ export const RadioButton: React.FC<Props> = ({
 
         </div>
     );
-};
+});
 
 type ControlledRadioProps<T extends FieldValues> = {
     control: any;
@@ -41,6 +40,19 @@ type ControlledRadioProps<T extends FieldValues> = {
     setValue: any;
     chKey: string;
 };
+
+const handleChange = (
+    choiceKeys: string[],
+    rowIndex: number,
+    selectedKey: string,
+    setValue: any,
+    onChange: (value: boolean) => void
+) => {
+    choiceKeys.forEach(key => {
+        setValue(`mcqGroup.${rowIndex}.${key}`, key === selectedKey);
+    });
+    onChange(true);
+}
 
 export function ControlledTableRadioButton<T extends FieldValues>({
     control,
@@ -54,17 +66,11 @@ export function ControlledTableRadioButton<T extends FieldValues>({
         <Controller
             control={control}
             name={name}
-            render={({ field: { value, onChange } }) => {
-                const handleChange = (onChange: any, selectedKey: string) => {
-                    choiceKeys.forEach(key => {
-                        setValue(`mcqGroup.${rowIndex}.${key}`, key === selectedKey);
-                    });
-                    onChange(true);
-                };
+            render={({ field: { value, onChange } }: { field: { value: boolean, onChange: (value: boolean) => void } }) => {
                 return <RadioButton
                     name={`mcqGroup.${rowIndex}`}
                     checked={value === true}
-                    onChange={() => handleChange(onChange, chKey)}
+                    onChange={() => handleChange(choiceKeys, rowIndex, chKey, setValue, onChange)}
                 />
             }}
         />
