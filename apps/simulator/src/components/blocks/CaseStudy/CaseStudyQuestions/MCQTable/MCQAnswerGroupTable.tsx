@@ -10,7 +10,7 @@ import { MCQGValidationAtom } from "@/core/schema/useAtomic";
 import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
 import { useAtom } from 'jotai';
 import { FormHelperText } from '@/components/FormHelperText';
-import { ControlledMCQTableRadio } from '@/components/MCQTableRadio';
+import { ControlledTableRadioButton } from '@/components/TableRadioButton';
 
 interface RenderButtonsProps {
     row: MCQGValidationType;
@@ -75,7 +75,7 @@ export const MCQAnswerGroupTable: React.FC<QuestionaireProps[]> = ({ table }) =>
             <>
                 {chKeys.map((chKey, chIndex) => (
                     <TableCell align='center' key={chIndex} className='border border-[#D4D7DA] '>
-                        <ControlledMCQTableRadio
+                        <ControlledTableRadioButton
                             control={control}
                             name={`mcqGroup.${rowIndex}.${chKey}`}
                             choiceKeys={chKeys}

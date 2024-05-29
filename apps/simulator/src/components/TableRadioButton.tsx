@@ -42,7 +42,7 @@ type ControlledRadioProps<T extends FieldValues> = {
     chKey: string;
 };
 
-export function ControlledMCQTableRadio<T extends FieldValues>({
+export function ControlledTableRadioButton<T extends FieldValues>({
     control,
     name,
     choiceKeys,
