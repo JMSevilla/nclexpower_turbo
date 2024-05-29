@@ -4,19 +4,20 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import { AnswerProps, QuestionaireProps } from '@/core/types/ssrData';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { mcqGSchema, MCQGValidationType } from '@/core/schema/mcqGroup/validation';
 import { MCQGValidationAtom } from "@/core/schema/useAtomic";
 import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
 import { useAtom } from 'jotai';
 import { FormHelperText } from '@/components/FormHelperText';
+import { ControlledMCQTableRadio } from '@/components/MCQTableRadio';
 
 interface RenderButtonsProps {
     row: MCQGValidationType;
     rowIndex: number;
 }
 
-export const MCQAnswerGroupTable: React.FC<QuestionaireProps> = ({ table }) => {
+export const MCQAnswerGroupTable: React.FC<QuestionaireProps[]> = ({ table }) => {
     const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
 
     const itemHolder = table ? table.length > 0 && table.map((main: QuestionaireProps) =>
@@ -74,24 +75,13 @@ export const MCQAnswerGroupTable: React.FC<QuestionaireProps> = ({ table }) => {
             <>
                 {chKeys.map((chKey, chIndex) => (
                     <TableCell align='center' key={chIndex} className='border border-[#D4D7DA] '>
-                        <Controller
+                        <ControlledMCQTableRadio
                             control={control}
                             name={`mcqGroup.${rowIndex}.${chKey}`}
-                            render={({ field: { value, onChange } }) => {
-                                const handleChange = (onChange: any, selectedKey: string) => {
-                                    // Set all keys to false except the selected one
-                                    chKeys.forEach(key => {
-                                        setValue(`mcqGroup.${rowIndex}.${key}`, key === selectedKey);
-                                    });
-                                    onChange(true);
-                                };
-                                return <input
-                                    type='radio'
-                                    name={`mcqGroup.${rowIndex}`}
-                                    checked={value === true}
-                                    onChange={() => handleChange(onChange, chKey)}
-                                />
-                            }}
+                            choiceKeys={chKeys}
+                            chKey={chKey}
+                            rowIndex={rowIndex}
+                            setValue={setValue}
                         />
                     </TableCell >
                 ))}
@@ -158,11 +148,14 @@ export const MCQAnswerGroupTable: React.FC<QuestionaireProps> = ({ table }) => {
                             </div>
                         )) : null}
                 </FormProvider>
-                {(formState.errors.mcqGroup && !formState.isValid || (formState.isDirty && !formState.isValid)) && (
+
+                {(!formState.isValid || (formState.isDirty && !formState.isValid)) && (
                     <FormHelperText error={true}>
                         Each row should have at least one selected value
                     </FormHelperText>
                 )}
+
+
             </div>
         </Grid >
     )

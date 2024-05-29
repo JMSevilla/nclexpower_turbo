@@ -16,7 +16,10 @@ export const mcqGSchema = z.object({
             || row.chTwo || row.chThree
             || row.chFour || row.chFive
             || row.chSix || row.chSeven
-            || row.chEight)
+            || row.chEight,
+            ({
+                message: "Each row must have at least one selected choice."
+            }))
     )
 })
 
