@@ -1,5 +1,5 @@
 export * from './DDCQuestionire'
-export * from './DDTable/DDTBlock'
+export * from './DDTable/DDTQuestionaireBlock'
 export * from './HCPQuestionaire'
 export * from './MRSNQuestionaire'
 export * from './MCQCSQuestionnaire'

@@ -1,12 +1,8 @@
-import { SsrData } from "@/core/types/ssrData";
+import { SsrData, SelectedValuesType } from "@/core/types/ssrData";
 import React, { useState } from 'react';
-import { DDTable } from "./DDTable";
+import { DDTableQuestion } from "./DDTQuestion";
 
- interface SelectedValuesType {
-    [key: string]: string; 
-}
-
-export const DDTBlock: React.FC<SsrData> = ({ questionaire, answer }) => {
+export const DDTQuestionaireBlock: React.FC<SsrData> = ({ questionaire, answer }) => {
     const [selectedValues, setSelectedValues] = useState<SelectedValuesType>({});
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +13,7 @@ export const DDTBlock: React.FC<SsrData> = ({ questionaire, answer }) => {
     };
 
   return (
-    <DDTable
+    <DDTableQuestion
         questionaire={questionaire}
         answer={answer}
         handleSelectChange={handleSelectChange}

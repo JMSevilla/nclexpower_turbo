@@ -196,3 +196,24 @@ export type Header = {
   qId: number
   accountId: string
 }
+
+//drop down table props
+
+ export interface SelectedValuesType {
+    [key: string]: string; 
+}
+
+ export type DDTProps = {
+    questionaire: QuestionaireProps[],
+    answer: AnswerProps[],
+    selectedValues: SelectedValuesType,
+    handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+ }
+
+export interface TableProps {
+    columns: string[];
+    selectFieldKeys: string[];
+    selectFieldOptions: { [key: string]: OptionType[] };
+    selectedValues: SelectedValuesType;
+    handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
