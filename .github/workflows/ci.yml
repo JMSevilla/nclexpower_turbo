@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - main
+      - master
       - develop
       - release_v1
       - release_v2
@@ -12,7 +12,7 @@ on:
       - release_v5
   pull_request:
     branches:
-      - main
+      - master
       - develop
       - release_v1
       - release_v2
@@ -22,6 +22,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -29,31 +30,34 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          **/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: |
+        if [ -f "packages/typescript-config/package.json" ]; then
+          echo "Skipping @repo/typescript-config installation"
+        else
+          npm install
+        fi
 
-      - name: Run the tests and generate coverage report
-        run: npm test -- --coverage
+    - name: Run the tests and generate coverage report
+      run: npm test -- --coverage
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
 
-      - name: Build
-        run: npm run build
+    - name: Build
+      run: npm run build
