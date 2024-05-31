@@ -20,7 +20,7 @@ type SsrHttpClient = AxiosInstance;
 
 type SsrApiHandler = (client: SsrHttpClient) => NextIronApiHandler;
 
-const sessionOptions: IronSessionOptions = {
+export const sessionOptions: IronSessionOptions = {
   cookieName: "session",
   password: "complex_password_at_least_32_characters_long",
   cookieOptions: { secure: false },

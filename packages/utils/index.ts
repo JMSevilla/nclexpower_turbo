@@ -4,4 +4,5 @@ export * as context from "./contexts";
 export * as datatypes from "./types";
 export * as sessionStorage from "./session-storage";
 export * from "./ssr/withSsrHttpClient";
-export * from "../../apps/simulator/src/core/approuter/router";
+export * from "./withSsrSession";
+export * from "./ssr";

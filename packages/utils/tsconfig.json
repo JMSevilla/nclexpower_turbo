@@ -8,6 +8,6 @@
     "contexts/AlertMessageContext.tsx",
     "../../apps/simulator/src/core/api",
     "../../apps/simulator/src/core/approuter"
-  ],
+, "../../apps/web-backoffice/src/core/contexts/GlobalContext.tsx", "../../apps/web-backoffice/src/core/contexts/TenantContext.tsx"  ],
   "exclude": ["node_modules", "dist"]
 }

@@ -9,6 +9,8 @@ import { config } from "../config";
 import { SsrApi } from "../ssr-api";
 import { ServerSideApi } from "../api/ssr/ServerSide";
 import { PreloadedGlobalsApi } from "../api/preloaded/preloaded-globals-api";
+import { WebApiBackOffice } from "../api/web/web-api-backoffice";
+import { WebOfficeApi } from "../content-api";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
@@ -51,6 +53,13 @@ export const httpClient = new Http({
       ? config.value.Development
       : config.value.HerokuDev,
 });
+export const mockHttpClient = new Http({
+  ...HTTP_OPTIONS,
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? config.value.Content
+      : config.value.HerokuDev,
+});
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
@@ -81,6 +90,33 @@ export const useApiCallback = <R, A extends unknown>(
   return useAsyncCallback(async (args?: A) => {
     try {
       const api = createApi(httpClient.client, httpSsrClient.client);
+      return await asyncFn(api, args as A);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  });
+};
+
+export const useApiContent = <R, D extends unknown[]>(
+  asyncFn: (api: WebOfficeApi) => Promise<R>,
+  deps?: D
+) => {
+  return useAsync(async () => {
+    try {
+      const api = contentApi(mockHttpClient.client, httpSsrClient.client);
+      return await asyncFn(api);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }, [httpClient, ...(deps || [])]);
+};
+
+export const useContentApiCallback = <R, A extends unknown>(
+  asyncFn: (api: WebOfficeApi, args: A) => Promise<R>
+) => {
+  return useAsyncCallback(async (args?: A) => {
+    try {
+      const api = contentApi(mockHttpClient.client, httpSsrClient.client);
       return await asyncFn(api, args as A);
     } catch (error: any) {
       throw new Error(error);
@@ -120,8 +156,13 @@ function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
     new CalculationApi(client, httpSsrClient),
     new WebApi(client, httpSsrClient),
-    new PreloadedGlobalsApi(client)
+    new PreloadedGlobalsApi(client),
+    new WebApiBackOffice(client, httpSsrClient)
   );
+}
+
+function contentApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
+  return new WebOfficeApi(new WebApiBackOffice(client, httpSsrClient));
 }
 
 function secureCreateApi(client: AxiosInstance) {
