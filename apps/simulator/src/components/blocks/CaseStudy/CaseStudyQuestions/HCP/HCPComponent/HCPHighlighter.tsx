@@ -19,7 +19,9 @@ export const HCPHighlighter: React.FC<HCPHighlighterProps> = ({
   textToHighlight,
   highlightedTexts,
 }) => {
-  const [highlightedWords, setHighlightedWords] = useState<selectedWordType[]>([])
+  const [highlightedWords, setHighlightedWords] = useState<selectedWordType[]>(
+    []
+  )
   const mergedText = mergeArrayString(textToHighlight)
   const { styledExtractedValue: item } = useParsedHCPLabelKey(mergedText)
   const wordsInItem = item.split(' ')
@@ -31,13 +33,13 @@ export const HCPHighlighter: React.FC<HCPHighlighterProps> = ({
     } catch (error) {
       console.error('There was an error in Highlighting Text', error)
     }
-  }, [])
+  }, [wordsInItem])
 
   useHighlightedProcessor({
     highlightedWords,
     returnHiglighted: (values) => {
-      if (highlightedWords.length > 0) {
-        highlightedTexts && highlightedTexts(values)
+      if (highlightedTexts) {
+        highlightedTexts(values)
       }
     },
   })
@@ -63,7 +65,12 @@ export function Highlighter<T extends FieldValues>({
       render={({ field: { onChange }, fieldState: { error } }) => {
         return (
           <div>
-            <HCPHighlighter textToHighlight={content} highlightedTexts={onChange} />
+            {content ? (
+              <HCPHighlighter
+                textToHighlight={content}
+                highlightedTexts={onChange}
+              />
+            ) : null}
           </div>
         )
       }}

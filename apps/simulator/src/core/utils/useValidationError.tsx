@@ -14,25 +14,27 @@ export const useValidationError = <TFieldValues extends FieldValues>({
 
   const ErrorMessage = () => {
     const errorMessages = formState.errors[fieldName]
-    if (errorMessages !== undefined) {
+    if (errorMessages !== undefined && errorMessages) {
       return (
         <div className="px-8 py-4">
           {Array.isArray(errorMessages) ? (
             errorMessages.map(
               (err, index) =>
-                formState.isDirty &&
-                typeof err.message === 'string' && (
+                formState.isDirty && (
                   <FormHelperText error={true} key={index}>
                     {err.message}
                   </FormHelperText>
                 )
             )
           ) : (
-            <FormHelperText error={true}>{errorMessages?.message as string}</FormHelperText>
+            <FormHelperText error={true}>
+              {errorMessages?.message as string}
+            </FormHelperText>
           )}
         </div>
       )
     }
+    return null
   }
 
   return ErrorMessage
