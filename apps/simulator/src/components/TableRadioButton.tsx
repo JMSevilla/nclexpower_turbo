@@ -6,6 +6,9 @@ import {
 } from "@mui/material";
 import React from 'react';
 import { Controller, FieldValues } from "react-hook-form";
+import { ControlledField } from "@repo/utils/types/ControlledField";
+import { ChangeHandler, DataProps } from '@/components/blocks/CaseStudy/CaseStudyQuestions';
+
 
 type Props = RadioProps & {
     label?: string;
@@ -14,7 +17,8 @@ type Props = RadioProps & {
     showErrorMessage?: boolean;
 };
 
-const RadioButton: React.FC<Props> = React.memo(({
+
+const RadioButton: React.FC<Props> = ({
     label,
     helperText,
     error,
@@ -27,50 +31,32 @@ const RadioButton: React.FC<Props> = React.memo(({
                 control={<MuiRadio {...rest} />}
                 label={<Typography>{label}</Typography>}
             />
-
         </div>
     );
-});
-
-type ControlledRadioProps<T extends FieldValues> = {
-    control: any;
-    name: string;
-    rowIndex: number;
-    choiceKeys: Array<string>;
-    setValue: any;
-    chKey: string;
 };
 
-const handleChange = (
-    choiceKeys: string[],
-    rowIndex: number,
-    selectedKey: string,
-    setValue: any,
-    onChange: (value: boolean) => void
-) => {
-    choiceKeys.forEach(key => {
-        setValue(`mcqGroup.${rowIndex}.${key}`, key === selectedKey);
-    });
-    onChange(true);
-}
+const MemoizedRadioButton = React.memo(RadioButton)
+
+type ControlledRadioProps<T extends FieldValues> = ControlledField<T> & {
+    data: DataProps;
+    handleChange: ChangeHandler;
+};
 
 export function ControlledTableRadioButton<T extends FieldValues>({
     control,
     name,
-    choiceKeys,
-    rowIndex,
-    chKey,
-    setValue
+    handleChange,
+    data,
 }: ControlledRadioProps<T>) {
     return (
         <Controller
             control={control}
             name={name}
             render={({ field: { value, onChange } }: { field: { value: boolean, onChange: (value: boolean) => void } }) => {
-                return <RadioButton
-                    name={`mcqGroup.${rowIndex}`}
+                return <MemoizedRadioButton
+                    name={`mcqGroup.${data.rowIndex}`}
                     checked={value === true}
-                    onChange={() => handleChange(choiceKeys, rowIndex, chKey, setValue, onChange)}
+                    onChange={() => handleChange(onChange, data)}
                 />
             }}
         />

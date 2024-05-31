@@ -3,7 +3,7 @@ import { datatypes } from '@repo/utils';
 import React from "react"
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
 import NearMeIcon from "@mui/icons-material/NearMe";
-import { ControlledRadioGroup } from '@/components/Radio';
+import { ControlledRadioGroup } from '@/components/RadioGroup';
 import { RegularQuestion } from '@/core/types/ssrData';
 import { McqSsValidationType, RowSchema } from '@/core/schema/mcq/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
