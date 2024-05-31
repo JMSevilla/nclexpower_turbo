@@ -14,7 +14,7 @@ import { ControlledCheckbox } from "@/components/Checkbox";
 import { MrsnValidationType, RowSchema } from "@/core/schema/mrsn/validation";
 import { useAtom } from "jotai";
 import { useFormSubmissionBindingHooks } from "@repo/utils/hooks/useFormSubmissionBindingHooks";
-import { useCustomErrorHandling } from "@repo/utils/hooks";
+import { useCustomErrorHandling } from "@/core/utils/useCustomErrorhandling"; 
 
 export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
 
