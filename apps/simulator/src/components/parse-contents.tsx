@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   CaseStudyContainer,
   MCQBlocks,
-  RegrSATAQuestionaireBlock,
+  SATABlockQuestionaire,
 } from "./blocks";
 import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
 import { datatypes } from "@repo/utils";
@@ -58,7 +58,7 @@ export const ParseContents: React.FC<Props> = ({
         switch (questionUI) {
           case "SATA":
             return (
-              <RegrSATAQuestionaireBlock
+              <SATABlockQuestionaire
                 contents={contents}
                 itemselection={itemSelected}
               />

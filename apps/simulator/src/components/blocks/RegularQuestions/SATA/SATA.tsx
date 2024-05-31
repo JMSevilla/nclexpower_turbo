@@ -22,7 +22,7 @@ interface Props extends RegularQuestion {
     ParsedChoices: OptionType[]
 }
 
-export const RegSATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, itemselection, contents, ParsedChoices }) => {
+export const SATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, itemselection, contents, ParsedChoices }) => {
 
   const form = useForm<RegularSATAValidationType>({
     mode: 'all',

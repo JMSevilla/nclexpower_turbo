@@ -1,4 +1,4 @@
-export * from "./RegularQuestions/SATA/RegSATABlock";
+export * from "./RegularQuestions/SATA/SATABlock";
 export * from "./RegularQuestions/MCQ/MCQBlocks";
 export * from "./CaseStudy/CaseStudyContainer";
 export * from "./CaseStudy/CaseStudyQuestions/MRSNQuestionaire";
