@@ -164,7 +164,7 @@ export type CaseStudyProps = {
 
 export type OptionType = {
   label: string;
-  value: string;
+  value: boolean;
   xvalue: number;
 };
 
