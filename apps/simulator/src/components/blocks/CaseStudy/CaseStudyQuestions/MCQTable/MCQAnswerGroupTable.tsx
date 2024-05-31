@@ -1,27 +1,44 @@
-import { Checkbox, Grid, Paper, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import React from 'react'
+import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
-import React, { useEffect, useState } from 'react'
-import { Row, AnswerProps } from '@/core/types/ssrData';
+import { AnswerProps, SsrData } from '@/core/types/ssrData';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm, useFormState } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { mcqGSchema, MCQGValidationType } from '@/core/schema/mcqGroup/validation';
 import { MCQGValidationAtom } from "@/core/schema/useAtomic";
 import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
 import { useAtom } from 'jotai';
-import { useExecuteToast } from '@repo/utils/contexts';
+import { FormHelperText } from '@/components/FormHelperText';
+import { ControlledTableRadioButton } from '@/components/TableRadioButton';
+
+type RenderButtonsProps = {
+    row?: MCQGValidationType | any;
+    rowIndex?: number;
+    chKey?: string;
+    chKeys?: string[];
+    handleChange?: ChangeHandler;
+}
+
+export type DataProps = {
+    rowIndex: number | any;
+    chKey: string;
+    chKeys: string[];
+}
+
+export type ChangeHandler = (onChange: (value: boolean) => void, data: DataProps) => void;
 
 
-export const MCQAnswerGroupTable: React.FC<AnswerProps> = ({ table }) => {
-    const { executeToast } = useExecuteToast()
+export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire }) => {
     const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
 
-    const itemHolder = table.length > 0 && table.map((main) =>
-        main?.answer.length > 0 && main?.answer.map((answerItem) =>
+    const itemHolder = questionaire ? questionaire.length > 0 && questionaire.map((main) =>
+        main?.answer ? main?.answer.length > 0 && main?.answer.map((answerItem) =>
             answerItem.rows
-        )
-    )
-    const rows = itemHolder.length > 0 ? itemHolder.pop()[0] : []; // To track down the child array
+        ) : null
+    ) : null
+
+    const rows = itemHolder ? itemHolder.length > 0 ? itemHolder[0]?.pop() : [] : null;
 
     const form = useForm<MCQGValidationType>({
         mode: "all",
@@ -30,16 +47,22 @@ export const MCQAnswerGroupTable: React.FC<AnswerProps> = ({ table }) => {
             mcqGroup: rows,
         },
     })
+    const { control, formState, setValue } = form;
+    const { fields } = useFieldArray({ control, name: "mcqGroup" })
 
-    const { control } = form;
-
-    const formState = useFormState({ control: control });
-
-    useEffect(() => {
-        if (formState?.errors?.mcqGroup?.length > 0) {
-            executeToast("Did not reach the answer expected", "top-right", false)
+    const handleChange: ChangeHandler = (onChange, data) => {
+        const { rowIndex, chKey, chKeys } = data
+        if (!chKey) {
+            console.error('selectedKey is undefined');
+            return;
         }
-    }, [formState.errors])
+        chKeys.forEach(key => {
+            const selectedKey: any = `mcqGroup.${rowIndex}.${key}`
+            setValue(selectedKey, key === chKey);
+        });
+        onChange(true);
+    };
+
 
     useFormSubmissionBindingHooks({
         key: "MCQGroup",
@@ -49,57 +72,47 @@ export const MCQAnswerGroupTable: React.FC<AnswerProps> = ({ table }) => {
         initDependencies: [mcqGAtom],
     });
 
-
     async function handleSubmit(values: MCQGValidationType) {
-        console.log(values);
+        console.log("VALUE : ", values);
         setmcqGAtom(values);
     }
 
-    const initialSelectedValues = table.map((rowItem: any) =>
-        rowItem.answer.map((item: AnswerProps) =>
-            item.rows.map(() => Array(3).fill(0))
-        )
-    );
-    const flattenedInitialValues: number[][] = initialSelectedValues.flat(2);
-
-    const [selectedValues, setSelectedValues] = useState<number[][]>(flattenedInitialValues);
-
-
-
-    const renderCheckboxes = (row: Row, rowIndex: number) => {
+    const RenderCheckboxes = ({ row, rowIndex }: RenderButtonsProps) => {
+        if (!row || rowIndex === undefined) {
+            return null;
+        }
         const chKeys = Object.keys(row).filter(key => key.startsWith('ch'));
         return (
             <>
-                {chKeys.slice(0, 3).map((chKey, chIndex) => (
-                    <TableCell align="center" className='border border-[#D4D7DA]'>
+                {chKeys.map((chKey, chIndex) => {
+                    const selectedKey: any = `mcqGroup.${rowIndex}.${chKey}`;
+                    return (<TableCell align="center" className='border border-[#D4D7DA]'>
                         <ControlledCheckbox
                             control={control}
-                            name={`mcqGroup.${rowIndex}.${chKey}`}
+                            name={selectedKey}
                         />
-                    </TableCell>
-                ))}
+                    </TableCell>)
+                })}
 
             </>
         );
     };
 
-    const handleRadioChange = (rowIndex: number, optionIndex: number) => {
-        const newSelectedValues = selectedValues.map((row, index) =>
-            index === rowIndex ? row.map((value, i) => (i === optionIndex ? 1 : 0)) : row
-        );
-        setSelectedValues(newSelectedValues);
-    };
-
-    const renderRadioButtons = (row: Row, rowIndex: number) => {
-
+    const RenderRadioButtons = ({ row, rowIndex }: RenderButtonsProps) => {
         const chKeys = Object.keys(row).filter(key => key.startsWith('ch'));
         return (
             <>
-                {chKeys.slice(0, 3).map((chKey, chIndex) => (
-                    <TableCell align='center' key={chIndex} className='border border-[#D4D7DA] '>
-                        <Radio checked={selectedValues[rowIndex][chIndex] === 1} onChange={() => handleRadioChange(rowIndex, chIndex)} />
-                    </TableCell>
-                ))}
+                {chKeys.map((chKey, chIndex) => {
+                    const selectedKey: any = `mcqGroup.${rowIndex}.${chKey}`
+                    return <TableCell align='center' key={chIndex} className='border border-[#D4D7DA] '>
+                        <ControlledTableRadioButton
+                            control={control}
+                            name={selectedKey}
+                            handleChange={handleChange}
+                            data={{ rowIndex, chKey, chKeys }}
+                        />
+                    </TableCell >
+                })}
             </>
         );
     };
@@ -108,8 +121,8 @@ export const MCQAnswerGroupTable: React.FC<AnswerProps> = ({ table }) => {
         <Grid >
             <div className='h-full w-full font-sans'>
                 <FormProvider {...form}>
-                    {table.length > 0 &&
-                        table.map((answerItem: AnswerProps, answerIndex: number) => (
+                    {questionaire ? questionaire.length > 0 &&
+                        questionaire.map((answerItem, answerIndex: number) => (
                             <div key={answerIndex} className='w-full'>
                                 <div className='w-full text-sm mb-4 pr-5'>
                                     <div className='w-full text-sm mb-4 pr-5'>
@@ -139,22 +152,27 @@ export const MCQAnswerGroupTable: React.FC<AnswerProps> = ({ table }) => {
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    {answerItem.answer ? answerItem.answer.length > 0 && answerItem.answer.map((answerContainer: AnswerProps) =>
-                                                        answerContainer.rows.length > 0 && answerContainer.rows.map((row: Row, index: number) =>
-                                                            <TableRow key={index}>
-                                                                <TableCell align="left" className='border border-[#D4D7DA] px-4 py-2 w-40 '>{row.rowTitle}</TableCell>
-                                                                {table.length > 0 && table.map((tableItem: any) => (
-                                                                    tableItem.QType === "MCQNoGroup" ?
-                                                                        renderRadioButtons(row, index) :
-                                                                        renderCheckboxes(row, index)
-                                                                ))}
-                                                            </TableRow>
-
-                                                        )) : null}
+                                                    {fields.length > 0 && fields.map((row, index) =>
+                                                        <TableRow key={index}>
+                                                            <TableCell align="left" className='border border-[#D4D7DA] px-4 py-2 w-40 '>{row.rowTitle}</TableCell>
+                                                            {questionaire ? questionaire.length > 0 && questionaire.map((tableItem) => (
+                                                                tableItem.QType === "MCQGroup" ?
+                                                                    <RenderRadioButtons row={row} rowIndex={index} />
+                                                                    :
+                                                                    <RenderCheckboxes row={row} rowIndex={index} />
+                                                            )) : null}
+                                                        </TableRow>)}
                                                 </TableBody>
                                             </Table>
                                         </TableContainer>
                                     </Paper>
+                                    {(formState.errors.mcqGroup && !formState.isValid || (formState.isDirty && !formState.isValid)) && (
+                                        <div className='mt-2'>
+                                            <FormHelperText error={true} >
+                                                Each row should have at least one selected value
+                                            </FormHelperText>
+                                        </div>
+                                    )}
                                     <div className='w-full text-sm mb-4 pr-5 pt-4 flex gap-1'>
                                         <p>Note:</p>
                                         <p>{answerItem.answer ? answerItem.answer.length > 0 && answerItem.answer.map((answerItem: AnswerProps) => (
@@ -163,10 +181,13 @@ export const MCQAnswerGroupTable: React.FC<AnswerProps> = ({ table }) => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )) : null}
                 </FormProvider>
+
+
+
             </div>
-        </Grid>
+        </Grid >
     )
 }
 

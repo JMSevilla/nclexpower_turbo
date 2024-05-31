@@ -68,10 +68,10 @@ export const RadioGroup: React.FC<Props> = ({
             name="radio-buttons-group"
             onChange={(e) => onChange?.(transformValue(e.target.value) ?? e.target.value)}
             value={getValue(value) ?? ''}
-            {...rest}
-        >
-            {radio?.map((item, i) => (
-                <Radio
+            {...rest}>
+
+            {radio?.map((item, i) => {
+                return <Radio
                     key={i}
                     value={item.Value}
                     label={item.Label}
@@ -79,7 +79,7 @@ export const RadioGroup: React.FC<Props> = ({
                     color={color}
                     {...radioContainerProps}
                 />
-            ))}
+            })}
         </MuiRadioGroup>
     );
 };

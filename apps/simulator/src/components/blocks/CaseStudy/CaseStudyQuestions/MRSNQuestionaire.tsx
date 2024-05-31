@@ -14,7 +14,7 @@ import { ControlledCheckbox } from "@/components/Checkbox";
 import { MrsnValidationType, RowSchema } from "@/core/schema/mrsn/validation";
 import { useAtom } from "jotai";
 import { useFormSubmissionBindingHooks } from "@repo/utils/hooks/useFormSubmissionBindingHooks";
-import { useCustomErrorHandling } from "@/core/utils/useCustomErrorhandling"; 
+import { useCustomErrorHandling } from "@/core/utils/useCustomErrorhandling";
 
 export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
 
@@ -39,7 +39,7 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
 
   const formState = useFormState({ control: control });
 
-    const ErrorMessage = useCustomErrorHandling({
+  const ErrorMessage = useCustomErrorHandling({
     formState: formState,
     setError: setError,
     clearErrors: clearErrors,
@@ -167,7 +167,7 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                               />
                             </ol>
                           ))}
-                          <ErrorMessage/>
+                        <ErrorMessage />
                       </div>
                     </Paper>
                     <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
