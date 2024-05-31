@@ -14,11 +14,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { RegularSATAValidationType, RegSATASchema } from '@/core/schema/regularSATA/validation';
 import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
 import { useErrorHandler } from '@/core/utils/useErrorhandler';
+import { OptionType } from '@/core/types/ssrData';
 
 interface Props extends RegularQuestion {
     regSataAtom: RegularSATAValidationType | undefined
     handleSubmit: (value: RegularSATAValidationType) => void
-    ParsedChoices: any
+    ParsedChoices: OptionType[]
 }
 
 export const RegSATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, itemselection, contents, ParsedChoices }) => {
@@ -57,14 +58,14 @@ export const RegSATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, it
     <div className='h-full px-10 py-5'>
       <Paper elevation={3}>
         <FormProvider {...form}>
-          {itemselection?.length > 0 && itemselection.map((item: datatypes.CalcItemSelectValues, itemIndex) => (
-            <div key={itemIndex} className="py-8 px-16">
+          {itemselection?.length > 0 && itemselection.map((item: datatypes.CalcItemSelectValues, index: number) => (
+            <div key={index} className="py-8 px-16">
               <p className="p-2 py-4">{item.question}</p>
                 <div className="">
-                {contents.answerUI?.length > 0 && contents.answerUI.map((answerUImap, answerUIidx) => {
+                {contents.answerUI?.length > 0 && contents.answerUI.map((answerUImap, index: number) => {
                   return(
                       <div
-                          key={answerUIidx}
+                          key={index}
                           className="w-full"
                         >
                           <p className="flex py-3 pt-0">
@@ -80,11 +81,11 @@ export const RegSATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, it
                 })}
                 <div className='px-4'>
                   {fields?.length > 0 &&
-                    fields.map((choices: any, idx: any) => (
-                      <ol key={idx}>
+                    fields.map((choices: OptionType, index: number) => (
+                      <ol key={index}>
                         <ControlledCheckbox
                           control={control}
-                          name={`regSata.${idx}.value`}
+                          name={`regSata.${index}.value`}
                           label={choices.label}
                           shouldUnregister={true}
                         />

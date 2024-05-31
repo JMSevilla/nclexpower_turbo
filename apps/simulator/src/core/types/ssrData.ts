@@ -71,7 +71,7 @@ export type DNDAnswerUIItem = {
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 // header
@@ -164,7 +164,7 @@ export type CaseStudyProps = {
 
 export type OptionType = {
   label: string;
-  value: string;
+  value: boolean;
   xvalue: number;
 };
 

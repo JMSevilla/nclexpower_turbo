@@ -1,6 +1,6 @@
 import React from 'react';
 import { RegularQuestion } from '@/core/types/ssrData';
-import { RegSATAQuestion } from './RegSATAQuestion';
+import { RegSATAQuestion } from './RegSATA';
 import { RegularSATAValidationAtom } from '@/core/schema/useAtomic';
 import { RegularSATAValidationType } from '@/core/schema/regularSATA/validation';
 import { useAtom } from 'jotai';
@@ -20,11 +20,11 @@ export const RegrSATAQuestionaireBlock: React.FC<RegularQuestion> = ({ contents,
   
   return (
     <RegSATAQuestion  
-    handleSubmit={handleSubmit}
-    regSataAtom={regSataAtom}
-    itemselection={itemselection} 
-    contents={contents}
-    ParsedChoices={ParsedChoices}
+      handleSubmit={handleSubmit}
+      regSataAtom={regSataAtom}
+      itemselection={itemselection} 
+      contents={contents}
+      ParsedChoices={ParsedChoices}
     />
   );
 };
