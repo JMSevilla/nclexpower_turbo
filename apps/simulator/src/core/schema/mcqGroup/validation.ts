@@ -6,8 +6,20 @@ export const mcqGSchema = z.object({
             rowTitle: z.string().optional(),
             chOne: z.boolean().optional(),
             chTwo: z.boolean().optional(),
-            chThree: z.boolean().optional()
-        }).refine(row => row.chOne || row.chTwo || row.chThree)
+            chThree: z.boolean().optional(),
+            chFour: z.boolean().optional(),
+            chFive: z.boolean().optional(),
+            chSix: z.boolean().optional(),
+            chSeven: z.boolean().optional(),
+            chEight: z.boolean().optional()
+        }).refine(row => row.chOne
+            || row.chTwo || row.chThree
+            || row.chFour || row.chFive
+            || row.chSix || row.chSeven
+            || row.chEight,
+            ({
+                message: "Each row must have at least one selected choice."
+            }))
     )
 })
 

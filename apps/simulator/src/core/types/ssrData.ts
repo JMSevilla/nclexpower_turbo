@@ -44,6 +44,7 @@ export type AnswerProps = Partial<DNDAnswerUIItem> & {
   choicesListKey: string[]
   choicesList: choicesListProps[]
   answer: AnswerProps[];
+  QType?: string
 };
 
 export type DND1WordChoicesUI = {
@@ -164,7 +165,7 @@ export type CaseStudyProps = {
 
 export type OptionType = {
   label: string;
-  value: string;
+  value: boolean;
   xvalue: number;
 };
 
@@ -195,4 +196,25 @@ export type Header = {
   lNum: string
   qId: number
   accountId: string
+}
+
+//drop down table props
+
+export interface SelectedValuesType {
+  [key: string]: string;
+}
+
+export type DDTProps = {
+  questionaire: QuestionaireProps[],
+  answer: AnswerProps[],
+  selectedValues: SelectedValuesType,
+  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface TableProps {
+  columns: string[];
+  selectFieldKeys: string[];
+  selectFieldOptions: { [key: string]: OptionType[] };
+  selectedValues: SelectedValuesType;
+  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

@@ -8,10 +8,9 @@ const itemSchema = z.object({
 
 export const RegSATASchema = z.object({
   regSata: z.array(itemSchema)
-  .refine(data => data.filter(item => item.value).length === 3, {
-    path: ['regSata'],
-    message: "Select three items",
-  })
+  .refine((data) => data.filter(item => item.value).length > 0, ({
+    message: "must have atleast 1 answer",
+  }))
 });
 
 export type RegularSATAValidationType = z.infer<typeof RegSATASchema>;

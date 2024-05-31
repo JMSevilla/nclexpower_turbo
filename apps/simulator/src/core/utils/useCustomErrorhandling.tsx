@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { FormHelperText } from "../../../apps/simulator/src/components/FormHelperText";
+import { FormHelperText } from "../../components/FormHelperText";
 import { UseFormSetError, UseFormClearErrors, FieldValues, FieldPath, UseFormStateReturn } from 'react-hook-form';
 
 type Props<TFieldValues extends FieldValues> = {
