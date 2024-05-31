@@ -3,7 +3,7 @@ export * from "./RegularQuestions/MCQ/MCQBlocks";
 export * from "./CaseStudy/CaseStudyContainer";
 export * from "./CaseStudy/CaseStudyQuestions/MRSNQuestionaire";
 export * from "./CaseStudy/CaseStudyQuestions/DDCQuestionire";
-export * from "./CaseStudy/CaseStudyQuestions/HCPQuestionaire";
 export * from "./CaseStudy/CaseStudyQuestions/DDCQuestionire";
 export * from "./CaseStudy/CaseStudyQuestions/DDTQuestionaire";
 export * from "./CaseStudy/CaseStudyQuestions/SATAQuestionaire";
+export * from "./CaseStudy/CaseStudyQuestions/HCP/HCPBlock";
