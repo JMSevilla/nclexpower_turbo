@@ -1,6 +1,6 @@
-import { withSsrHttpClient } from "@repo/utils";
+import { withSsrHttpClient } from "@repo/core-library";
 import { NextApiHandler } from "next";
-import { datatypes } from "@repo/utils";
+import { datatypes } from "@repo/core-library";
 
 const handler: NextApiHandler = withSsrHttpClient(
   (client) => async (req, res) => {

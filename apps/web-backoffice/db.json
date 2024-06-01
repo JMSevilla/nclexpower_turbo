@@ -1,0 +1,249 @@
+{
+    "unauthorized-menu": [
+        {
+            "elements": {
+                "link": {
+                    "elementType": "text",
+                    "value": "/return"
+                },
+                "name": {
+                    "elementType": "text",
+                    "value": ""
+                },
+                "openDialog": {},
+                "position": {
+                    "elementType": "optionselection",
+                    "value": {
+                        "label": "Right",
+                        "selection": "Right"
+                    }
+                },
+                "relatedLinks": {
+                    "elementType": "text",
+                    "value": ""
+                },
+                "subMenuItems": {
+                    "elementType": "reference"
+                }
+            },
+            "type": "Header menu item"  
+        }
+    ],
+    "unauthorized-footer": [
+        {
+            "defaultHeaderLabel": {
+                "elementType": "text"
+            },
+            "linkGroups": {
+                "values": [
+                    {
+                        "elements": {
+                            "header": {
+                                "elementType": "text",
+                                "value": "Legal"
+                            },
+                            "items": {
+                                "values": [
+                                    {
+                                        "elements": {
+                                            "content": {
+                                                "elementType": "formattedtext"
+                                            },
+                                            "contentBlockKey": {
+                                                "elementType": "text"
+                                            },
+                                            "dataSourceUrl": {
+                                                "elementType": "text"
+                                            },
+                                            "errorContent": {
+                                                "elementType": "formattedtext"
+                                            },
+                                            "header": {
+                                                "elementType": "text",
+                                                "value": "Terms & Conditions"
+                                            },
+                                            "headerLink": {
+                                                "elementType": "text",
+                                                "value": "/terms"
+                                            },
+                                            "showInAccordion": {
+                                                "elementType": "optionselection"
+                                            },
+                                            "subHeader": {
+                                                "elementType": "text"
+                                            },
+                                            "themeColorForBackround": {
+                                                "elementType": "optionselection"
+                                            }
+                                        },
+                                        "type": "Content HTML block"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "unauthorized-page": [
+        {
+            "elements": {
+                "backPageKey": {
+                    "elementType": "text",
+                    "value": ""
+                },
+                "content": {
+                    "values": [
+                        {
+                            "elements": {
+                                "columns": {
+                                    "values": [
+                                        {
+                                            "alignment": {
+                                                "elementType": "optionselection",
+                                                "value": {
+                                                    "label": "top-left",
+                                                    "selection": "top-left"
+                                                }
+                                            },
+                                            "enablePadding": {
+                                                "elementType": "toggle"
+                                            },
+                                            "themeColorForBackround": {
+                                                "elementType": "optionselection"
+                                            },
+                                            "contentBlocks": {
+                                                "values": [
+                                                    {
+                                                        "elements": {
+                                                            "content": {
+                                                                "elementType": "formattedtext",
+                                                                "value": "Add backoffice description.."
+                                                            },
+                                                            "contentBlockKey": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "header": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "headerLink": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "showInAccordion": {
+                                                                "elementType": "optionselection"
+                                                            },
+                                                            "subHeader": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "themeColorForBackround": {
+                                                                "elementType": "optionselection"
+                                                            }
+                                                        },
+                                                        "type": "Content HTML block"
+                                                    },
+                                                    {
+                                                        "elements": {
+                                                            "formKey": {
+                                                                "elementType": "text",
+                                                                "value": "authentication_form"
+                                                            },
+                                                            "parameters": {
+                                                                "values": [
+                                                                    {
+                                                                        "key": {
+                                                                            "elementType": "text",
+                                                                            "value": "ref_no_selection_link"
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        "type": "Custom form"
+                                                    },
+                                                    {
+                                                        "elements": {
+                                                            "content": {
+                                                                "elementType": "formattedtext",
+                                                                "value": "<p>By accessing the [[token:tenant_name]]\u00A0Digital System Service <a data-key=\"undefined\" href=\"/terms\" rel=\"noopener"
+                                                            },
+                                                            "contentBlockKey": {
+                                                                "elementType": "text",
+                                                                "value": "login_text_below"
+                                                            },
+                                                            "dataSourceUrl": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "errorContent": {
+                                                                "elementType": "formattedtext"
+                                                            },
+                                                            "header": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "headerLink": {
+                                                                "elementType": "text",
+                                                                "value": ""
+                                                            },
+                                                            "showInAccordion": {
+                                                                "elementType": "optionselection"
+                                                            },
+                                                            "subHeader": {
+                                                                "elementType": "text"
+                                                            },
+                                                            "themeColorForBackround": {
+                                                                "elementType": "optionselection"
+                                                            }
+                                                        },
+                                                        "type": "Content HTML block"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "header": {
+                                    "elementType": "text"
+                                },
+                                "layout": {
+                                    "elementType": "optionselection",
+                                    "value": {
+                                        "label": "100",
+                                        "selection": "100"
+                                    }
+                                },
+                                "panelKey": {
+                                    "elementType": "text"
+                                }
+                            },
+                            "type": "Panel"
+                        }
+                    ]
+                },
+                "headerIcon": {
+                    "elementType": "image"
+                },
+                "headerMessages": {
+                    "elementType": "reference"
+                },
+                "heroBlocks": {
+                    "elementType": "reference"
+                },
+                "pageHeader": {
+                    "elementType": "text",
+                    "value": "Welcome to the [[token:project_name1]] Digital Pension Service"
+                },
+                "pageKey": {
+                    "elementType": "text"
+                },
+                "pageMenu": {
+                    "elementType": "reference"
+                },
+                "pageUrl": {
+                    "elementType": "text",
+                    "value": "/login"
+                }
+            },
+            "type": "NCLEX Backoffice Page"
+        }
+    ]
+}

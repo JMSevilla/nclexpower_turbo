@@ -315,27 +315,27 @@
                             "rows": [
                                 {
                                     "rowTitle": "appetite",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 },
                                 {
                                     "rowTitle": "pain level",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 },
                                 {
                                     "rowTitle": "appetite",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 },
                                 {
                                     "rowTitle": "pain level",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 }
                             ],
                             "note": ""
