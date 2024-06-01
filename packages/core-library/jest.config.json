@@ -15,8 +15,11 @@
   "testTimeout": 20000,
   "collectCoverage": true,
   "collectCoverageFrom": [
-    "core-library/tests/**/*.test.tsx",
-    "core-library/tests/**/*.test.ts"
+    "<rootDir>/tests/**/*.{ts,tsx}",
+    "<rootDir>/tests/**/*.test.{ts,tsx}",
+    "!<rootDir>/tests/**/*.d.ts",
+    "!<rootDir>/tests/**/*interfaces.ts",
+    "!<rootDir>/tests/**/*types.ts"
   ],  
   "coverageDirectory": "coverage",
   "coverageReporters": ["html", "text"]
