@@ -1,4 +1,4 @@
-import { datatypes } from "@repo/core-library";
+import { datatypes } from '@repo/core-library';
 
 export type SsrQuestionaireContentProps = {
   contentId: number;
@@ -44,6 +44,7 @@ export type AnswerProps = Partial<DNDAnswerUIItem> & {
   choicesListKey: string[];
   choicesList: choicesListProps[];
   answer: AnswerProps[];
+  QType?: string;
 };
 
 export type DND1WordChoicesUI = {
@@ -163,7 +164,7 @@ export type CaseStudyProps = {
 
 export type OptionType = {
   label: string;
-  value: string;
+  value: boolean;
   xvalue: number;
 };
 
@@ -174,12 +175,10 @@ export type dndObjectValueProps = {
 };
 
 export type choicesListProps = {
-  map(
-    arg0: (item: dndObjectValueProps) => import("react").JSX.Element
-  ): import("react").ReactNode;
-  "Action To Take": dndObjectValueProps[];
-  "Potential Condition": dndObjectValueProps[];
-  "Parameters To Monitor": dndObjectValueProps[];
+  map(arg0: (item: dndObjectValueProps) => import('react').JSX.Element): import('react').ReactNode;
+  'Action To Take': dndObjectValueProps[];
+  'Potential Condition': dndObjectValueProps[];
+  'Parameters To Monitor': dndObjectValueProps[];
 };
 
 /**
@@ -194,3 +193,24 @@ export type Header = {
   qId: number;
   accountId: string;
 };
+
+//drop down table props
+
+export interface SelectedValuesType {
+  [key: string]: string;
+}
+
+export type DDTProps = {
+  questionaire: QuestionaireProps[];
+  answer: AnswerProps[];
+  selectedValues: SelectedValuesType;
+  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export interface TableProps {
+  columns: string[];
+  selectFieldKeys: string[];
+  selectFieldOptions: { [key: string]: OptionType[] };
+  selectedValues: SelectedValuesType;
+  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}

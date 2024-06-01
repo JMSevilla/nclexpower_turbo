@@ -7,40 +7,33 @@ import {
   RadioProps as MuiRadioProps,
   Typography,
   TypographyProps,
-} from "@mui/material";
-import { datatypes } from "@repo/core-library";
-import { ControlledField } from "@repo/core-library/types";
-import { Controller, FieldValues } from "react-hook-form";
+} from '@mui/material';
+import { datatypes } from '@repo/core-library';
+import { ControlledField } from '@repo/core-library/types';
+import { Controller, FieldValues } from 'react-hook-form';
 
-type Props = Pick<RadioGroupProps, "value" | "sx" | "onBlur"> & {
+type Props = Pick<RadioGroupProps, 'value' | 'sx' | 'onBlur'> & {
   radio: datatypes.ParsedChoices[];
   labelProps?: TypographyProps;
-  radioContainerProps?: Pick<FormControlLabelProps, "sx">;
+  radioContainerProps?: Pick<FormControlLabelProps, 'sx'>;
   transformValue?: (value: string) => any | undefined;
   getValue?: (value: any) => string;
   onChange?: (...event: any[]) => void;
-} & Pick<MuiRadioProps, "color">;
+} & Pick<MuiRadioProps, 'color'>;
 
-const sx: MuiRadioProps["sx"] = {
-  color: "black",
-  "&.Mui-checked": {
-    color: "black",
+const sx: MuiRadioProps['sx'] = {
+  color: 'black',
+  '&.Mui-checked': {
+    color: 'black',
   },
 };
 
 export type RadioProps = MuiRadioProps &
-  Pick<Props, "labelProps" | "radioContainerProps"> & {
+  Pick<Props, 'labelProps' | 'radioContainerProps'> & {
     label?: string;
   };
 
-export const Radio: React.FC<RadioProps> = ({
-  value,
-  label,
-  labelProps,
-  color,
-  radioContainerProps,
-  ...rest
-}) => {
+export const Radio: React.FC<RadioProps> = ({ value, label, labelProps, color, radioContainerProps, ...rest }) => {
   return (
     <FormControlLabel
       value={value}
@@ -59,34 +52,33 @@ export const RadioGroup: React.FC<Props> = ({
   radioContainerProps = {},
   color,
   transformValue = (v: string) => v,
-  getValue = (value) => value,
+  getValue = value => value,
   ...rest
 }) => {
   return (
     <MuiRadioGroup
       name="radio-buttons-group"
-      onChange={(e) =>
-        onChange?.(transformValue(e.target.value) ?? e.target.value)
-      }
-      value={getValue(value) ?? ""}
+      onChange={e => onChange?.(transformValue(e.target.value) ?? e.target.value)}
+      value={getValue(value) ?? ''}
       {...rest}
     >
-      {radio?.map((item, i) => (
-        <Radio
-          key={i}
-          value={item.Value}
-          label={item.Label}
-          labelProps={labelProps}
-          color={color}
-          {...radioContainerProps}
-        />
-      ))}
+      {radio?.map((item, i) => {
+        return (
+          <Radio
+            key={i}
+            value={item.Value}
+            label={item.Label}
+            labelProps={labelProps}
+            color={color}
+            {...radioContainerProps}
+          />
+        );
+      })}
     </MuiRadioGroup>
   );
 };
 
-export type ControlledRadioGroupProps<T extends FieldValues> =
-  ControlledField<T> & Props;
+export type ControlledRadioGroupProps<T extends FieldValues> = ControlledField<T> & Props;
 
 export function ControlledRadioGroup<T extends FieldValues>({
   control,
@@ -101,10 +93,7 @@ export function ControlledRadioGroup<T extends FieldValues>({
       control={control}
       name={name}
       shouldUnregister={shouldUnregister}
-      render={({
-        field: { onChange, value, onBlur, ref },
-        fieldState: { error },
-      }) => (
+      render={({ field: { onChange, value, onBlur, ref }, fieldState: { error } }) => (
         <RadioGroup
           {...rest}
           value={value}
