@@ -12,7 +12,9 @@ import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import { Header as SsrHeader } from "@/core/types/ssrData";
 import { usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
 import { useCountdown } from '../../../../../packages/utils/hooks/useCountdown'
-
+import LoadingBar from 'react-top-loading-bar'
+import { useEffect, useState } from 'react';
+import { useProgress } from '@/core/context/ProgressContext';
 
 
 
@@ -28,16 +30,14 @@ const buttonStyle = {
 
 export const Header: React.FC = () => {
   const { header } = usePreloadedGlobals()
+  const { progress } = useProgress()
 
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
-  const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: "04:00:00" , duration : "01:00:00" })
-
-
+  const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: "04:00:00", duration: "01:00:00" })
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-
       <div className="header-step-1">
         <AppBar position="static">
           <div style={{ padding: 10, backgroundColor: "#007AB7" }}>
@@ -116,7 +116,7 @@ export const Header: React.FC = () => {
           </Box>
         </AppBar>
       </div>
-
+      <LoadingBar color='#0000FF' progress={progress} />
     </Box>
   );
 };
