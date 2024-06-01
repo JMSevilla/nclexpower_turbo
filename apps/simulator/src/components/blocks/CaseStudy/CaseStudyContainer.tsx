@@ -1,7 +1,7 @@
 import React from "react";
 import { QuestionaireProps, CaseStudyProps } from "@/core/types/ssrData";
 import { useAlertMessageV2 } from "@repo/utils/contexts/AlertMessageContext";
-import { HCPBlock, MRSNQuestion, DDCQuestion, DDTQuestionaireBlock, MCQCSQuestionnaire, DNDQuestionaire } from "./CaseStudyQuestions";
+import { HCPBlock, DDCQuestion, DDTQuestionaireBlock, MCQCSQuestionnaire, DNDQuestionaire, MRSNBlock } from "./CaseStudyQuestions";
 import { SATAQuestionaire } from "./CaseStudyQuestions/SATAQuestionaire";
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({
@@ -56,7 +56,7 @@ function renderSwitch(
     case "HCP":
       return <HCPBlock questionaire={deserializeContents} answer={answer} />
     case "MRSN":
-      return <MRSNQuestion questionaire={deserializeContents} answer={answer} />
+      return <MRSNBlock questionaire={deserializeContents} answer={answer} />
     case "DDC":
       return <DDCQuestion questionaire={deserializeContents} answer={answer} />
     case "DDT":
@@ -68,4 +68,5 @@ function renderSwitch(
       return <h3>No questionaire Loaded</h3>;
   }
 }
+
 
