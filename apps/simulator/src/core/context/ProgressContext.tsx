@@ -1,4 +1,6 @@
 import React, {
+    Dispatch,
+    SetStateAction,
     createContext,
     useContext,
     useEffect,
@@ -8,6 +10,7 @@ import React, {
 
 type ProgressValues = {
     progress: number,
+    setProgress: Dispatch<SetStateAction<number>>
 }
 
 const ProgressContext = createContext<ProgressValues>(undefined as any);
@@ -32,7 +35,7 @@ export const ProgressProvider: React.FC<React.PropsWithChildren> = ({
 
 
     return (
-        <ProgressContext.Provider value={{ progress }}>
+        <ProgressContext.Provider value={{ progress, setProgress }}>
             {children}
         </ProgressContext.Provider>
     )
