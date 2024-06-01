@@ -9,8 +9,8 @@ import {
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PauseIcon from "@mui/icons-material/Pause";
-import { useCustomAction } from "@repo/utils/hooks";
-import { Button } from "@repo/ui";
+import { useCustomAction } from "@repo/core-library/hooks";
+import { Button } from "@repo/core-library/components";
 
 interface Props {
   actionKey: string;

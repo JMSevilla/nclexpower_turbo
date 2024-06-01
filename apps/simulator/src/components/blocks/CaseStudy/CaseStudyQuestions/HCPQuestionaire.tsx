@@ -8,14 +8,14 @@ import {
 import React, { useState, useEffect } from "react";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { Paper, Grid } from "@mui/material";
-import { useForm, useFormState } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation';
-import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
-import { HCPValidationAtom } from '@/core/schema/useAtomic';
-import { useAtom } from 'jotai';
-import { HCPHighlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCPComponent/HCPHighlighter';
-import { FormHelperText } from '@/components/FormHelperText';
+import { useForm, useFormState } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HCPValidationType, RowSchema } from "@/core/schema/hcp/validation";
+import { useFormSubmissionBindingHooks } from "@repo/core-library/hooks/useFormSubmissionBindingHooks";
+import { HCPValidationAtom } from "@/core/schema/useAtomic";
+import { useAtom } from "jotai";
+import { HCPHighlighter } from "@/components/blocks/CaseStudy/CaseStudyQuestions/HCPComponent/HCPHighlighter";
+import { FormHelperText } from "@/components/FormHelperText";
 
 export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
   const [hcpAtom, setHcpAtom] = useAtom(HCPValidationAtom);
@@ -38,19 +38,19 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
     initDependencies: [hcpAtom],
   });
 
-  const errorMessage = Array.isArray(formState.errors.hcp) ? formState.errors.hcp.map((err) => err?.message).pop() : formState.errors.hcp?.message
-
+  const errorMessage = Array.isArray(formState.errors.hcp)
+    ? formState.errors.hcp.map((err) => err?.message).pop()
+    : formState.errors.hcp?.message;
 
   useEffect(() => {
     if (highlightedWords) {
-      setValue("hcp", highlightedWords)
+      setValue("hcp", highlightedWords);
     }
-  }, [highlightedWords])
+  }, [highlightedWords]);
 
   async function handleSubmit(values: HCPValidationType) {
     console.log("hcpValue", values);
   }
-
 
   return (
     <div className="p-2 py-2 h-full ">
@@ -137,7 +137,8 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <div className="h-full w-full p-5">
-            {answer && answer.length > 0 &&
+            {answer &&
+              answer.length > 0 &&
               answer.map((answerItem: AnswerProps, answerIdx) => (
                 <React.Fragment key={answerIdx}>
                   <div
@@ -176,12 +177,15 @@ export const HCPQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                           )
                         )}
                     </div>
-                    {errorMessage && <FormHelperText error={true}>{errorMessage}</FormHelperText>}
+                    {errorMessage && (
+                      <FormHelperText error={true}>
+                        {errorMessage}
+                      </FormHelperText>
+                    )}
                   </Paper>
                 </React.Fragment>
               ))}
           </div>
-
         </Grid>
       </Grid>
     </div>

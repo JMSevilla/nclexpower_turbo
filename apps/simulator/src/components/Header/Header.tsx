@@ -11,10 +11,7 @@ import FormatClearIcon from "@mui/icons-material/FormatClear";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import { Header as SsrHeader } from "@/core/types/ssrData";
 import { usePreloadedGlobals } from "@/core/context/PreloadedGlobalsContext";
-import { useCountdown } from '../../../../../packages/utils/hooks/useCountdown'
-
-
-
+import { useCountdown } from "@repo/core-library/hooks/useCountdown";
 
 const buttonStyle = {
   backgroundColor: "transparent",
@@ -25,19 +22,18 @@ const buttonStyle = {
   },
 };
 
-
 export const Header: React.FC = () => {
-  const { header } = usePreloadedGlobals()
+  const { header } = usePreloadedGlobals();
 
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
-  const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: "04:00:00" , duration : "01:00:00" })
-
-
+  const { timeRemaining, duration: timeDuration } = useCountdown({
+    timeRemaining: "04:00:00",
+    duration: "01:00:00",
+  });
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-
       <div className="header-step-1">
         <AppBar position="static">
           <div style={{ padding: 10, backgroundColor: "#007AB7" }}>
@@ -56,7 +52,6 @@ export const Header: React.FC = () => {
                       {headerTimeRemaining ?? timeRemaining}
                     </span>
                   </div>
-
                 </Typography>
                 <Typography
                   fontSize={14}
@@ -65,11 +60,8 @@ export const Header: React.FC = () => {
                 >
                   <div className="header-step-3">
                     Duration :
-                    <span className="ml-2">
-                      {duration ?? timeDuration}
-                    </span>
+                    <span className="ml-2">{duration ?? timeDuration}</span>
                   </div>
-
                 </Typography>
               </Box>
               <Box>
@@ -102,13 +94,19 @@ export const Header: React.FC = () => {
           </div>
           <Box display={"flex"} height={35} pl={7} gap={5} bgcolor={"#86BCEA"}>
             <div className="header-step-6">
-              <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
+              <Button
+                sx={buttonStyle}
+                style={{ fontFamily: "Arial, sans-serif" }}
+              >
                 <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
                 Calculator
               </Button>
             </div>
             <div className="header-step-7">
-              <Button sx={buttonStyle} style={{ fontFamily: "Arial, sans-serif" }}>
+              <Button
+                sx={buttonStyle}
+                style={{ fontFamily: "Arial, sans-serif" }}
+              >
                 <FormatClearIcon fontSize="large" sx={buttonStyle.IconStyle} />
                 Clear
               </Button>
@@ -116,7 +114,6 @@ export const Header: React.FC = () => {
           </Box>
         </AppBar>
       </div>
-
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { datatypes } from "@repo/utils";
+import { datatypes } from "@repo/core-library";
 
 export type SsrQuestionaireContentProps = {
   contentId: number;
@@ -10,7 +10,7 @@ export type SsrAnswerTabsProps = {
   tabsTitle: string;
   contentTitle: string;
   content: string | string[];
-  contentUI?: string
+  contentUI?: string;
 };
 
 export type QuestionaireProps = {
@@ -25,7 +25,7 @@ export type QuestionaireProps = {
     contentTitle: string;
     content: string | SsrQuestionaireContentProps[];
   }>;
-  answer?: AnswerProps[]
+  answer?: AnswerProps[];
 };
 
 export type AnswerProps = Partial<DNDAnswerUIItem> & {
@@ -41,20 +41,20 @@ export type AnswerProps = Partial<DNDAnswerUIItem> & {
   DDCAnswer: string;
   selectFieldKey: string[];
   selectField: any;
-  choicesListKey: string[]
-  choicesList: choicesListProps[]
+  choicesListKey: string[];
+  choicesList: choicesListProps[];
   answer: AnswerProps[];
 };
 
 export type DND1WordChoicesUI = {
   id: number;
   text: string;
-}
+};
 
 export type DND1Object = {
   DNDID: number;
-  DND1WordChoices: DND1WordChoicesUI[]
-}
+  DND1WordChoices: DND1WordChoicesUI[];
+};
 
 export type DNDAnswerUIItem = {
   DNDAnswer: string;
@@ -67,7 +67,7 @@ export type DNDAnswerUIItem = {
   note: string;
   qId: number;
   row: Array<any>;
-}
+};
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
@@ -118,28 +118,27 @@ export type SsrMockQuestionaireAnswer = {
   columns: string[];
   rows: any;
   note: string;
-  choices: []
+  choices: [];
 };
-
 
 // new types for questionnaire refactoring
 
 export type RegularQuestion = {
   contents: datatypes.QuestionContentsResponse;
-  itemselection: datatypes.CalcItemSelectValues[]
-}
-
+  itemselection: datatypes.CalcItemSelectValues[];
+};
 
 export type MCQTable = {
-  table: Array<{
-    rows: Array<{}>
-  }> | any
-}
+  table:
+    | Array<{
+        rows: Array<{}>;
+      }>
+    | any;
+};
 
 export interface Row {
   rowTitle: string;
   [key: string]: number | string;
-
 }
 
 export type QuestionaireWithAnswerProps = {
@@ -155,8 +154,8 @@ export type QuestionaireWithAnswerProps = {
     content: string;
     contentUI: string;
   }>;
-  answer?: AnswerProps[]
-}
+  answer?: AnswerProps[];
+};
 
 export type CaseStudyProps = {
   questionaire: QuestionaireProps[];
@@ -168,31 +167,30 @@ export type OptionType = {
   xvalue: number;
 };
 
-
 export type dndObjectValueProps = {
-  id: number,
-  text: string,
-  container: string
-}
+  id: number;
+  text: string;
+  container: string;
+};
 
 export type choicesListProps = {
-  map(arg0: (item: dndObjectValueProps) => import("react").JSX.Element): import("react").ReactNode;
+  map(
+    arg0: (item: dndObjectValueProps) => import("react").JSX.Element
+  ): import("react").ReactNode;
   "Action To Take": dndObjectValueProps[];
   "Potential Condition": dndObjectValueProps[];
   "Parameters To Monitor": dndObjectValueProps[];
 };
 
-
 /**
  * All types below is part of code refactor tasks
  */
 
-
 export type Header = {
-  headerContentId: string
-  timeRemaining: any
-  duration: any
-  lNum: string
-  qId: number
-  accountId: string
-}
+  headerContentId: string;
+  timeRemaining: any;
+  duration: any;
+  lNum: string;
+  qId: number;
+  accountId: string;
+};

@@ -13,12 +13,13 @@ import { MrsnValidationAtom } from "@/core/schema/useAtomic";
 import { ControlledCheckbox } from "@/components/Checkbox";
 import { MrsnValidationType, RowSchema } from "@/core/schema/mrsn/validation";
 import { useAtom } from "jotai";
-import { useFormSubmissionBindingHooks } from "@repo/utils/hooks/useFormSubmissionBindingHooks";
-import { useCustomErrorHandling } from "@repo/utils/hooks";
+import { useFormSubmissionBindingHooks } from "@repo/core-library/hooks/useFormSubmissionBindingHooks";
+// import { useCustomErrorHandling } from "@repo/core-library/hooks";
 
 export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
-
-  const foundAnswer = answer ? answer && answer.find(answer => answer.answerId) : null;
+  const foundAnswer = answer
+    ? answer && answer.find((answer) => answer.answerId)
+    : null;
   const rows = foundAnswer ? foundAnswer.rows : [];
 
   const [mrsnAtom, setMrsnAtom] = useAtom(MrsnValidationAtom);
@@ -26,7 +27,7 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
     mode: "all",
     resolver: zodResolver(RowSchema),
     defaultValues: {
-      mrsn: rows
+      mrsn: rows,
     },
   });
 
@@ -39,13 +40,13 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
 
   const formState = useFormState({ control: control });
 
-    const ErrorMessage = useCustomErrorHandling({
-    formState: formState,
-    setError: setError,
-    clearErrors: clearErrors,
-    fieldName: 'mrsn',
-    message: 'Choose three option',
-  });
+  //   const ErrorMessage = useCustomErrorHandling({
+  //   formState: formState,
+  //   setError: setError,
+  //   clearErrors: clearErrors,
+  //   fieldName: 'mrsn',
+  //   message: 'Choose three option',
+  // });
 
   useFormSubmissionBindingHooks({
     key: "MRSN",
@@ -167,7 +168,7 @@ export const MRSNQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                               />
                             </ol>
                           ))}
-                          <ErrorMessage/>
+                        {/* <ErrorMessage/> */}
                       </div>
                     </Paper>
                     <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">

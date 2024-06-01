@@ -1,15 +1,15 @@
-const withTM = require('next-transpile-modules')(['@repo/ui', '@repo/utils'])
+const withTM = require("next-transpile-modules")(["@repo/core-library"]);
 
 module.exports = withTM({
-    reactStrictMode: true,
-    output: "standalone",
-    staticPageGenerationTimeout: 120,
-    async rewrites() {
-      return [
-        {
-          source: '/:path*',
-          destination: '/',
-        },
-      ];
-    },
+  reactStrictMode: true,
+  output: "standalone",
+  staticPageGenerationTimeout: 120,
+  async rewrites() {
+    return [
+      {
+        source: "/:path*",
+        destination: "/",
+      },
+    ];
+  },
 });
