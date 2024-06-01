@@ -43,7 +43,7 @@ export const MCQCSQuestionnaire: React.FC<SsrData> = ({ questionaire }) => {
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MCQAnswerGroupTable table={questionaire} />
+                    <MCQAnswerGroupTable questionaire={questionaire} />
                 </Grid>
 
             </Grid>

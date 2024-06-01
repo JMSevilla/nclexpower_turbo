@@ -151,34 +151,14 @@
                             "rows": [],
                             "tabs": [
                                 {
-                                    "label": "vital signs",
-                                    "value": false,
-                                    "xvalue": 1
-                                },
-                                {
-                                    "label": "lung sounds",
-                                    "value": false,
-                                    "xvalue": 2
-                                },
-                                {
-                                    "label": "capillary refill",
-                                    "value": false,
-                                    "xvalue": 3
-                                },
-                                {
-                                    "label": "client orientaion",
-                                    "value": false,
-                                    "xvalue": 4
-                                },
-                                {
-                                    "label": "radial pulse characteristics",
-                                    "value": false,
-                                    "xvalue": 5
-                                },
-                                {
-                                    "label": "characteristic of cough",
-                                    "value": false,
-                                    "xvalue": 6
+                                    "contentId": 1000,
+                                    "content": [
+                                        "A 55 y/o female was brought into the ED by her daughter due to severe chest pain, palpitations, and shortness of breath. The client appears to have general weakness, protruding neck veins, and facial grimace while clutching her chest. The client's daughter reports that the client has been having difficulty in finishing chores as she easily gets exhausted and dizzy",
+                                        "[[label:Nurses Note's]] [[bold:@2015]] Client is diaphoretic and has pain on the chest that is 9/10 on the numerical pain scale.",
+                                        "To see how, try this: find an academic piece (such as a textbook or scholarly article) that strikes you as well written and go through part of it reading just the first sentence of each paragraph. You should be able to easily follow the sequence of logic. When you’re writing for professors, it is especially effective to put your key sentences first because they usually convey your own original thinking. It’s a very good sign when your paragraphs are typically composed of a telling key sentence followed by evidence and explanation. ",
+                                        "Daughter admits that her mom likes to eat anything that is fried, fatty, and salty foods such as hamburger, fries, and instant noodles.",
+                                        "V/S: HR 160 RR 41 BP 80/50 Temp 37.8°C 02 Sat 90% on RA CBG: 400 mg/dL CRT: >3 sec"
+                                    ]
                                 }
                             ],
                             "note": ""
@@ -335,27 +315,27 @@
                             "rows": [
                                 {
                                     "rowTitle": "appetite",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 },
                                 {
                                     "rowTitle": "pain level",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 },
                                 {
                                     "rowTitle": "appetite",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 },
                                 {
                                     "rowTitle": "pain level",
-                                    "chOne": 0,
-                                    "chTwo": 0,
-                                    "chThree": 0
+                                    "chOne": false,
+                                    "chTwo": false,
+                                    "chThree": false
                                 }
                             ],
                             "note": ""

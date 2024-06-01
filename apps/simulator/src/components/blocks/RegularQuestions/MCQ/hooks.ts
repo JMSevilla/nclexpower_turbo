@@ -1,5 +1,5 @@
-import { useSecuredApiCallback } from "@repo/utils/hooks";
-import { RegularAnswer } from "@repo/utils/types";
+import { useSecuredApiCallback } from "@repo/core-library/hooks";
+import { RegularAnswer } from "@repo/core-library/types";
 import { useEffect } from "react";
 
 export const useRegularMCQQuestionnaire = () => {

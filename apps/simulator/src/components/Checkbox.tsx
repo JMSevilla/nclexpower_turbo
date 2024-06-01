@@ -7,8 +7,7 @@ import {
 } from "@mui/material";
 
 import { Controller, FieldValues } from "react-hook-form";
-import { ControlledField } from "@repo/utils/types/ControlledField";
-import { FormHelperText } from "./FormHelperText";
+import { ControlledField } from "@repo/core-library/types/ControlledField";
 
 type Props = CheckboxProps & {
   label?: string;
@@ -25,15 +24,14 @@ export const Checkbox: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <div className='w-full flex flex-col justify-center items-center pl-5'>
+    <div className="w-full flex flex-col pl-5">
       <FormControlLabel
         sx={{
           color: (theme) => (error ? theme.palette.error.main : "CurrentColor"),
         }}
         control={<MuiCheckbox {...rest} />}
-        label={<Typography >{label}</Typography>}
+        label={<Typography>{label}</Typography>}
       />
-
     </div>
   );
 };
@@ -60,7 +58,6 @@ export function ControlledCheckbox<T extends FieldValues>({
           onChange={onChange}
           onBlur={onBlur}
           checked={value ?? false}
-
           {...rest}
         />
       )}

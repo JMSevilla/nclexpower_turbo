@@ -1,11 +1,8 @@
-import React from "react";
-import {
-  RegularMCQSSQuestionnaire,
-  CaseStudyContainer,
-  RegularSATAQuestionaire,
-} from "./blocks";
-import { useSimulatorGlobals } from "@/core/context/SimulatorContext";
-import { datatypes } from "@repo/utils";
+import React, { useState, useEffect } from 'react';
+import { MCQBlocks, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
+import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
+import { datatypes } from '@repo/core-library';
+import { AnimatedBoxSkeleton } from '@repo/core-library/components';
 
 interface Props {
   questionType: string;
@@ -13,35 +10,47 @@ interface Props {
   itemSelected: datatypes.CalcItemSelectValues[];
 }
 
-export const ParseContents: React.FC<Props> = ({
-  questionType,
-  questionKey,
-  itemSelected,
-}) => {
+export const ParseContents: React.FC<Props> = ({ questionType, questionKey, itemSelected }) => {
   /* use this contents to get the content data */
   const { contents } = useSimulatorGlobals();
-  if (questionType === "RegularQuestion") {
+  const [isLoading, setIsloading] = useState<boolean>(true); //this is for displaying the Skeleton Loader
+
+  useEffect(() => {
+    setIsloading(true);
+    setTimeout(() => {
+      setIsloading(false);
+    }, 2000);
+  }, [questionKey, questionType]);
+
+  if (isLoading) {
+    return questionType == 'RegularQuestion' ? (
+      <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={350} className="opacity-50" />
+    ) : (
+      <div className="gap-2 flex flex-col opacity-50">
+        <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={50} />
+        <div className="flex gap-2">
+          {Array.from({ length: 2 }).map((_, idx) => (
+            <div key={idx} className="w-1/2 flex flex-col gap-2">
+              {Array.from({ length: 2 }).map((_, subIdx) => (
+                <AnimatedBoxSkeleton key={subIdx} borderRadius={2} boxShadow={1} height={subIdx === 0 ? 60 : 280} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (questionType === 'RegularQuestion') {
     if (itemSelected && itemSelected.length > 0) {
-      const regularQKey = itemSelected.filter(
-        (key) => key.questionUI === questionKey
-      );
+      const regularQKey = itemSelected.filter(key => key.questionUI === questionKey);
       if (regularQKey.length > 0) {
         const { questionUI } = regularQKey[0];
         switch (questionUI) {
-          case "SATA":
-            return (
-              <RegularSATAQuestionaire
-                contents={contents}
-                itemselection={itemSelected}
-              />
-            );
-          case "MCQ":
-            return (
-              <RegularMCQSSQuestionnaire
-                contents={contents}
-                itemselection={itemSelected}
-              />
-            );
+          case 'SATA':
+            return <SATABlockQuestionaire contents={contents} itemselection={itemSelected} />;
+          case 'MCQ':
+            return <MCQBlocks contents={contents} itemselection={itemSelected} />;
           default:
             return <h3>No questionnaire Loaded</h3>;
         }
@@ -54,16 +63,13 @@ export const ParseContents: React.FC<Props> = ({
       contents.choices?.length > 0 &&
       contents.questionType?.length > 0
     ) {
-      const qKey = contents.questionType.filter(
-        (key) => key.qType === questionKey
-      );
-
+      const qKey = contents.questionType.filter(key => key.qType === questionKey);
       if (qKey.length > 0) {
         const { qType: QuestionType } = qKey[0];
-        console.log(QuestionType);
         console.log(qKey[0]);
+
         switch (QuestionType) {
-          case "CaseStudy":
+          case 'CaseStudy':
             return <CaseStudyContainer questionaire={[]} />;
           default:
             return <h3>No questionnaire Loaded</h3>;
