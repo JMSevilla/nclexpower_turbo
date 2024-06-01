@@ -7,7 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --coverage --watchAll",
+    "test-": "is-ci \"test:coverage\" \"test:ci\"",
+    "test:coverage": "node --expose-gc ./node_modules/.bin/jest --coverage --logHeapUsage -w=30% --silent",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
+    "clear:jest": "jest --clearCache",
+    "test:ci": "jest --ci",
+    "test:e2e": "is-ci \"test:e2e:run\" \"test:e2e:dev\"",
+    "pretest:e2e:run": "npm run build",
+    "test:e2e:run": "start-server-and-test start 3000 cy:run",
+    "test:e2e:dev": "start-server-and-test dev 3000 cy:open",
     "audit": "audit-ci --critical --report-type important"
   },
   "dependencies": {

@@ -12,15 +12,5 @@
   "testPathIgnorePatterns": [],
   "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
   "testMatch": ["<rootDir>/tests/**/*.test.ts", "<rootDir>/tests/**/*.test.tsx"],
-  "testTimeout": 20000,
-  "collectCoverage": true,
-  "collectCoverageFrom": [
-    "<rootDir>/tests/**/*.{ts,tsx}",
-    "<rootDir>/tests/**/*.test.{ts,tsx}",
-    "!<rootDir>/tests/**/*.d.ts",
-    "!<rootDir>/tests/**/*interfaces.ts",
-    "!<rootDir>/tests/**/*types.ts"
-  ],  
-  "coverageDirectory": "coverage",
-  "coverageReporters": ["html", "text"]
+  "testTimeout": 20000
 }
