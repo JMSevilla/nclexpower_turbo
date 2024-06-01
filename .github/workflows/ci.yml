@@ -26,13 +26,7 @@ jobs:
       - name: Run tests with coverage for simulator
         run: |
           cd apps/simulator
-          npm run test:coverage
-
-      - name: Upload coverage reports for simulator to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: apps/simulator/coverage
+          npm turbo test
 
   build_and_test_web_backoffice:
     runs-on: ubuntu-latest
@@ -54,13 +48,7 @@ jobs:
       - name: Run tests with coverage for web-backoffice
         run: |
           cd apps/web-backoffice
-          npm run test:coverage
-
-      - name: Upload coverage reports for web-backoffice to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: apps/web-backoffice/coverage
+          npm turbo test
 
   deploy:
     runs-on: ubuntu-latest

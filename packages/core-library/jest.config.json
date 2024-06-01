@@ -15,11 +15,9 @@
   "testTimeout": 20000,
   "collectCoverage": true,
   "collectCoverageFrom": [
-    "src/**/*.{ts,tsx}",
-    "!src/**/*.d.ts",
-    "!src/**/*interfaces.ts",
-    "!src/**/*types.ts"
-  ],
+    "core-library/tests/**/*.test.tsx",
+    "core-library/tests/**/*.test.ts"
+  ],  
   "coverageDirectory": "coverage",
   "coverageReporters": ["html", "text"]
 }

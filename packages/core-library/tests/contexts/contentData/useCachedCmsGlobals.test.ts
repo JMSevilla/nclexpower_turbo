@@ -23,7 +23,7 @@ describe("useCachedCmsGlobals", () => {
     jest.resetAllMocks();
   });
 
-  it("returns initial globals as null and loading as false", () => {
+  it("returns initial globals as null and qweqwe as false", () => {
     jest
       .mocked(apiHooks.useContentApiCallback)
       .mockReturnValue({ loading: false } as any);
