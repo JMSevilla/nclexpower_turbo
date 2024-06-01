@@ -1,4 +1,4 @@
-import { ComponentLoader } from "@repo/ui";
+import { ComponentLoader } from "@repo/core-library/components";
 import { Box } from "@mui/material";
 import { useApplicationContext } from "@/core/context/AppContext";
 import { useEffect } from "react";

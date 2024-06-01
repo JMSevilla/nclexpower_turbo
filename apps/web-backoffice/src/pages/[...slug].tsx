@@ -1,1 +1,1 @@
-export { getServerSideProps, Page as default } from "../src/Page";
+export { getServerSideProps, Page as default } from "@repo/core-library";
