@@ -28,11 +28,15 @@ jobs:
           cd apps/simulator
           npm test -- --coverage
 
+      - name: Debug coverage directory for simulator
+        run: |
+          echo "Contents of apps/simulator/coverage:"
+          ls -la apps/simulator/coverage
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: apps/simulator/coverage
 
   build_and_test_web_backoffice:
     runs-on: ubuntu-latest
@@ -56,11 +60,15 @@ jobs:
           cd apps/web-backoffice
           npm test -- --coverage
 
+      - name: Debug coverage directory for web-backoffice
+        run: |
+          echo "Contents of apps/web-backoffice/coverage:"
+          ls -la apps/web-backoffice/coverage
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: apps/web-backoffice/coverage
 
   deploy:
     runs-on: ubuntu-latest
