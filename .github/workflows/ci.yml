@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: 14
 
+      - name: Remove local dependencies from package.json
+        run: |
+          cd packages/core-library
+          jq 'del(.devDependencies["@repo/eslint-config"]) | del(.devDependencies["@repo/typescript-config"])' package.json > temp.json && mv temp.json package.json
+
       - name: Install dependencies for core-library
         run: |
           cd packages/core-library
