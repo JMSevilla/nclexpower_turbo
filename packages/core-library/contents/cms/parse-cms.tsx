@@ -1,5 +1,5 @@
 import { HeaderTitleBlock, TextBlock, PanelBlock } from "../../components";
-import { appColorsFromPrimary } from "../../core";
+import { appColorsFromPrimary } from "../theme/theme";
 import { Typography } from "@mui/material";
 import { CallToAction } from "../../types/common";
 import {
