@@ -7,14 +7,7 @@
     "scripts": {
         "lint": "eslint \"**/*.ts*\"",
         "generate:component": "turbo gen react-component",
-        "test": "is-ci \"test:coverage\" \"test:ci\"",
-        "test:coverage": "node --expose-gc ./node_modules/.bin/jest --coverage --logHeapUsage -w=30% --silent --testResultsProcessor jest-sonar-reporter",
-        "test:coverage:windows": "node --expose-gc ../../node_modules/jest/bin/jest.js --coverage --silent --testResultsProcessor jest-sonar-reporter",
-        "test:watch": "jest --watch",
-        "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
-        "clear:jest": "jest --clearCache",
-        "test:ci": "jest --ci",
-        "test:e2e": "is-ci \"test:e2e:run\" \"test:e2e:dev\""
+        "test": "jest --watchAll"
     },
     "devDependencies": {
         "@repo/eslint-config": "*",
