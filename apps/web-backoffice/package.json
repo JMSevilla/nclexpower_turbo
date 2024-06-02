@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test-": "is-ci \"test:coverage\" \"test:ci\"",
-    "test:coverage": "node --expose-gc ./node_modules/.bin/jest --coverage --logHeapUsage -w=30% --silent",
+    "test:coverage": "node --expose-gc ./node_modules/.bin/jest --coverage --logHeapUsage -w=30% --silent --testResultsProcessor jest-sonar-reporter",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
     "clear:jest": "jest --clearCache",
