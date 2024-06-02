@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 14
 
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
       - name: Remove local dependencies from package.json
         run: |
           cd packages/core-library
@@ -32,6 +35,14 @@ jobs:
         run: |
           cd packages/core-library
           npm run test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/**/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
 
   deploy:
     runs-on: ubuntu-latest
