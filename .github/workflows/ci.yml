@@ -34,7 +34,7 @@ jobs:
       - name: Run tests with coverage for core-library
         run: |
           cd packages/core-library
-          npm run test
+          npm run test -- --coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1

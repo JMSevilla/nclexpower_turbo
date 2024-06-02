@@ -7,7 +7,7 @@
     "scripts": {
         "lint": "eslint \"**/*.ts*\"",
         "generate:component": "turbo gen react-component",
-        "test": "jest --coverage --watchAll"
+        "test": "jest --coverage"
     },
     "devDependencies": {
         "@repo/typescript-config": "*",
