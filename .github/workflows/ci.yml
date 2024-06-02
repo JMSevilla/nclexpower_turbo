@@ -35,6 +35,7 @@ jobs:
         run: |
           cd packages/core-library
           npm run test
+          echo "Tests completed successfully"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
