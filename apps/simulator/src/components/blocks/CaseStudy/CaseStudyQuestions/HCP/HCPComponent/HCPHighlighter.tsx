@@ -8,7 +8,7 @@ import {
   selectedWordType,
 } from '@/core/utils/hcpUtils'
 import { Controller, FieldValues } from 'react-hook-form'
-import { ControlledField } from '@repo/utils/types'
+import { ControlledField } from '@repo/core-library/types'
 
 type HCPHighlighterProps = {
   highlightedTexts?: (value: string[]) => void

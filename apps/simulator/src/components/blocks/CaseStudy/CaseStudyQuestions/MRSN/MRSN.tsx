@@ -2,12 +2,12 @@ import React from "react";
 import { MrsnValidationType, RowSchema } from '@/core/schema/mrsn/validation';
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { OptionType, SsrData, SsrQuestionaireContentProps } from '@/core/types/ssrData';
-import { useCustomErrorHandling } from '@/core/utils/useCustomErrorhandling';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Paper } from '@mui/material';
-import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks';
+import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index';
 import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { ControlledCheckbox } from '@/components/Checkbox';
+import { useErrorHandler } from '@/core/utils/useErrorhandler';
 
 interface Props extends SsrData {
     handleSubmit: (values: MrsnValidationType) => void
@@ -24,7 +24,7 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
         },
     });
 
-    const { control, setError, clearErrors } = form;
+    const { control } = form;
 
     const { fields } = useFieldArray({
         name: "mrsn",
@@ -33,12 +33,9 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
 
     const formState = useFormState({ control: control });
 
-    const ErrorMessage = useCustomErrorHandling({
-        formState: formState,
-        setError: setError,
-        clearErrors: clearErrors,
-        fieldName: 'mrsn',
-        message: 'Choose four options',
+    const ErrorMessage = useErrorHandler({
+        isValid: formState.isValid,
+        errorMessage: formState.errors?.mrsn?.root?.message || '',
     });
 
     useFormSubmissionBindingHooks({
