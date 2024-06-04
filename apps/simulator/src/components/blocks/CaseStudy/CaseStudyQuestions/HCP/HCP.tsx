@@ -11,7 +11,7 @@ import { Paper, Grid } from '@mui/material'
 import { useForm, useFormState } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation'
-import { useFormSubmissionBindingHooks } from '@repo/utils/hooks/useFormSubmissionBindingHooks'
+import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index'
 import { Highlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCP/HCPComponent/HCPHighlighter'
 import { useValidationError } from '@/core/utils/useValidationError'
 
