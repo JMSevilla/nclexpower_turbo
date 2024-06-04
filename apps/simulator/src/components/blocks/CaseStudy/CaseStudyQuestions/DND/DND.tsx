@@ -74,11 +74,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                 questionaire.map((questionItem, questionIndex: number) => (
                                     <div key={questionIndex} className="w-full text-sm mb-4 pr-5">
                                         <p className="flex">
-                                            <div
-                                                dangerouslySetInnerHTML={{
-                                                    __html: questionItem.question,
-                                                }}
-                                            />
+                                            <div dangerouslySetInnerHTML={{ __html: questionItem.question }} />
                                         </p>
                                     </div>
                                 ))}
@@ -92,10 +88,8 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                             questionItem.tabs.map((tab, tabIndex: number) => (
                                                 <div
                                                     key={tabIndex}
-                                                    className={` px-5 py-1 rounded-t-md text-sm font-semibold flex items-center cursor-pointer hover:bg-slate-100 ${activeTab === tabIndex
-                                                        ? " underline bg-white "
-                                                        : "bg-slate-200"
-                                                        }`}
+                                                    className={` px-5 py-1 rounded-t-md text-sm font-semibold flex items-center cursor-pointer hover:bg-slate-100 
+                                                    ${activeTab === tabIndex ? " underline bg-white " : "bg-slate-200"}`}
                                                     onClick={() => setActiveTab(tabIndex)}
                                                 >
                                                     <p>{tab.tabsTitle}</p>
@@ -112,10 +106,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                                 questionItem.tabs.map((tab, tabIndex: number) => (
                                                     <div
                                                         key={tabIndex}
-                                                        style={{
-                                                            display:
-                                                                activeTab === tabIndex ? "block" : "none",
-                                                        }}>
+                                                        style={{ display: activeTab === tabIndex ? "block" : "none" }}>
                                                         <div className="flex w-full gap-2">
                                                             <p className="font-semibold min-w-[50px]">
                                                                 {tab.tabsId} :
@@ -136,61 +127,47 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                     <div className="h-fit w-full py-4 font-sans tracking-tight">
                         {questionaire?.length > 0 &&
                             questionaire.map((questionItem: QuestionaireProps) =>
-                                questionItem?.answer
-                                    ? questionItem?.answer.length > 0 &&
-                                    questionItem?.answer.map(
-                                        (answerItem: AnswerProps, answerItemIdx: number) => (
-                                            <div key={answerItemIdx} className="h-fit leading-8 ">
-                                                <p className="leading-5 my-2">{answerItem?.note}</p>
-                                                <p className="flex leading-5 my-2">
-                                                    <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pt-2 " />
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: answerItem.answerInstruction,
-                                                        }}
-                                                    />
-                                                </p>
+                                questionItem.answer ? questionItem.answer.length > 0 &&
+                                    questionItem.answer.map((answerItem: AnswerProps, answerItemIdx: number) => (
+                                        <div key={answerItemIdx} className="h-fit leading-8 ">
+                                            <p className="leading-5 my-2">{answerItem?.note}</p>
+                                            <p className="flex leading-5 my-2">
+                                                <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pt-2 " />
+                                                <div dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
+                                            </p>
 
-                                                <div className="w-full flex flex-wrap gap-2">
-                                                    {answerItem.DNDAnswer
-                                                        ? answerItem?.DNDAnswer.split(
-                                                            /\[\[(.*?)\]\]/
-                                                        ).map((part: string, index: number) => {
-                                                            if (index % 2 === 0) {
-                                                                return <span key={index}>{part}</span>;
-                                                            } else {
-                                                                const word = part.split(":")[1].trim();
-                                                                return (
-                                                                    <span
-                                                                        key={index}
-                                                                        className="-mt-2 text-center"
-                                                                    >
-                                                                        {index === 1 ? (
-                                                                            <WordDropContainer
-                                                                                onDelete={handleRemoveWord}
-                                                                                onDropped={handleDroppedItem}
-                                                                                placeholder={word}
-                                                                                setWord={setWordChoiceOne}
-                                                                                name={"wordChoice1"}
-                                                                            />
-                                                                        ) : (
-                                                                            <WordDropContainer
-                                                                                onDelete={handleRemoveWord}
-                                                                                onDropped={handleDroppedItem}
-                                                                                placeholder={word}
-                                                                                setWord={setWordChoiceTwo}
-                                                                                name={"wordChoice2"}
-                                                                            />
-                                                                        )}
-                                                                    </span>
-                                                                );
-                                                            }
-                                                        })
-                                                        : null}
-                                                </div>
+                                            <div className="w-full flex flex-wrap gap-2">
+                                                {answerItem.DNDAnswer ? answerItem?.DNDAnswer
+                                                    .split(/\[\[(.*?)\]\]/)
+                                                    .map((part: string, index: number) => {
+                                                        const word = part.split(":")[1].trim();
+
+                                                        return index % 2 === 0 ?
+                                                            <span key={index}>{part}</span> :
+                                                            <span key={index} className="-mt-2 text-center">
+                                                                {index === 1 ? (
+                                                                    <WordDropContainer
+                                                                        onDelete={handleRemoveWord}
+                                                                        onDropped={handleDroppedItem}
+                                                                        placeholder={word}
+                                                                        setWord={setWordChoiceOne}
+                                                                        name={"wordChoice1"}
+                                                                    />
+                                                                ) : (
+                                                                    <WordDropContainer
+                                                                        onDelete={handleRemoveWord}
+                                                                        onDropped={handleDroppedItem}
+                                                                        placeholder={word}
+                                                                        setWord={setWordChoiceTwo}
+                                                                        name={"wordChoice2"}
+                                                                    />
+                                                                )}
+                                                            </span>
+                                                    })
+                                                    : null}
                                             </div>
-                                        )
-                                    )
+                                        </div>
+                                    ))
                                     : null
                             )}
                     </div>
@@ -200,10 +177,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                 questionItem?.answer
                                     ? questionItem?.answer.length > 0 &&
                                     questionItem?.answer.map((answerItem) => (
-                                        <div
-                                            className="h-fit leading-8"
-                                            key={answerItem.answerId}
-                                        >
+                                        <div className="h-fit leading-8" key={answerItem.answerId}>
                                             <ol className="w-fit flex flex-col gap-2 mt-5 shadow-md rounded-sm py-4 bg-slate-50 px-5">
                                                 <p className="font-bold">Word Choices</p>
                                                 {blockList.map((item: DND1WordChoicesUI) => (
@@ -214,8 +188,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                                     />
                                                 ))}
                                             </ol>
-                                        </div>
-                                    ))
+                                        </div>))
                                     : null
                             )}
                     </div>
