@@ -8,8 +8,8 @@ import {
   MCQCSQuestionnaire,
   DNDQuestionaire,
   MRSNBlock,
+  SATABlock
 } from './CaseStudyQuestions';
-import { SATAQuestionaire } from './CaseStudyQuestions/SATAQuestionaire';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) => {
   const { AlertMessage } = useAlertMessageV2();
@@ -18,7 +18,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === 'DND1';
+        return cms.QType === 'SATA';
       });
 
     const { QType: QuestionType, answer, hasAlert, qId } = deserializeContents?.[0];
@@ -40,7 +40,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
 function renderSwitch(QuestionType: string, deserializeContents: any, answer: any) {
   switch (QuestionType) {
     case 'SATA':
-      return <SATAQuestionaire questionaire={deserializeContents} />;
+      return <SATABlock questionaire={deserializeContents} />;
     case 'MCQGroup':
     case 'MCQNoGroup':
       return <MCQCSQuestionnaire questionaire={deserializeContents} />;

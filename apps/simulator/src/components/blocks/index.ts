@@ -5,5 +5,5 @@ export * from "./CaseStudy/CaseStudyQuestions/DDTable/DDTQuestionaireBlock";
 export * from "./CaseStudy/CaseStudyQuestions/DDCQuestionire";
 export * from "./CaseStudy/CaseStudyQuestions/DDCQuestionire";
 export * from "./CaseStudy/CaseStudyQuestions/MRSN/MRSNBlock";
-export * from "./CaseStudy/CaseStudyQuestions/SATAQuestionaire";
+export * from "./CaseStudy/CaseStudyQuestions/SATA/SATABlock"
 export * from "./CaseStudy/CaseStudyQuestions/HCP/HCPBlock";

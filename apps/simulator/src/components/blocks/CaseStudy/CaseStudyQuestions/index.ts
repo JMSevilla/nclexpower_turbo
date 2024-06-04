@@ -8,5 +8,6 @@ export * from './MCQCSQuestionnaire'
 export * from './DNDQuestionaire'
 export * from './MCQTable/MCQAnswerGroupTable'
 export * from './DNDBowtieQuestionaire'
+export * from './SATA/SATABlock'
 
 
