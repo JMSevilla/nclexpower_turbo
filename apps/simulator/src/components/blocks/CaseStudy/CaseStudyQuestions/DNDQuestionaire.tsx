@@ -10,13 +10,13 @@ import {
   AnswerProps,
   DND1WordChoicesUI,
   QuestionaireProps,
-  SsrData,
+  CaseStudyProps,
 } from "@/core/types/ssrData";
 import { useFormSubmissionBindingHooks } from "@repo/core-library/hooks/useFormSubmissionBindingHooks";
 import { DraggableWord } from "@/components/blocks/CaseStudy/CaseStudyQuestions/DNDComponent/DraggableWord";
 import { WordDropContainer } from "@/components/blocks/CaseStudy/CaseStudyQuestions/DNDComponent/WordDropContainer";
 
-export const DNDQuestionaire: React.FC<SsrData> = ({ questionaire }) => {
+export const DNDQuestionaire: React.FC<CaseStudyProps> = ({ questionaire }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [dndaAtom, setDndAtom] = useAtom(DNDValidationAtom);
   const [blockList, setBlocklist] = useState<DND1WordChoicesUI[]>([]);

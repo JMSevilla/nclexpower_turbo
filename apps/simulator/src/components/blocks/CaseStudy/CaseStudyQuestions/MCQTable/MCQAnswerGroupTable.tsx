@@ -1,6 +1,6 @@
 import { MCQGValidationType, mcqGSchema } from '@/core/schema/mcqGroup/validation';
 import { MCQGValidationAtom } from '@/core/schema/useAtomic';
-import { AnswerProps, SsrData } from '@/core/types/ssrData';
+import { AnswerProps, CaseStudyProps } from '@/core/types/ssrData';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAtom } from 'jotai';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
@@ -29,7 +29,7 @@ export type DataProps = {
 export type ChangeHandler = (onChange: (value: boolean) => void, data: DataProps) => void;
 
 
-export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire }) => {
+export const MCQAnswerGroupTable: React.FC<CaseStudyProps> = ({ questionaire }) => {
     const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
 
     const itemHolder = questionaire ? questionaire.length > 0 && questionaire.map((main) =>

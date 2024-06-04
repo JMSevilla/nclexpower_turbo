@@ -1,4 +1,4 @@
-export * from './DDCQuestionire'
+export * from './DDCloze/DDClozeBlock'
 export * from './DDTable/DDTQuestionaireBlock'
 export * from './HCP/HCPBlock'
 export * from './DDTable/DDTQuestionaireBlock'
