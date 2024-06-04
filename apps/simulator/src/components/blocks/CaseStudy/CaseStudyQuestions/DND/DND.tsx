@@ -2,13 +2,12 @@ import NearMeIcon from "@mui/icons-material/NearMe";
 import React, { useEffect, useState } from 'react'
 import { AnswerProps, DND1WordChoicesUI, QuestionaireProps, SsrData } from '@/core/types/ssrData'
 import { DNDValidationType, RowSchema } from '@/core/schema/dnd/validation';
-import { DraggableWord } from '@/components/blocks/CaseStudy/CaseStudyQuestions/DNDComponent/DraggableWord';
+import { DraggableWord } from '@/components/blocks/CaseStudy/CaseStudyQuestions/DND/DNDComponent/DraggableWord';
 import { Grid } from '@mui/material';
-import { WordDropContainer } from '@/components/blocks/CaseStudy/CaseStudyQuestions/DNDComponent/WordDropContainer';
+import { WordDropContainer } from '@/components/blocks/CaseStudy/CaseStudyQuestions/DND/DNDComponent/WordDropContainer';
 import { useForm, useFormState } from 'react-hook-form';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormSubmissionBindingHooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useErrorHandler } from '@/core/utils/useErrorhandler';
 
 
 type Props = SsrData & {
