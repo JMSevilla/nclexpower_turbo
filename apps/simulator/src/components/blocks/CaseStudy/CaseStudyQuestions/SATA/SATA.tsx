@@ -5,9 +5,9 @@ import { AnswerProps, SsrAnswerTabsProps, QuestionaireProps } from '@/core/types
 
 type Props = {
     questionaire: QuestionaireProps[];
-    setActiveTab: any;
+    setActiveTab: (index:number) => void;
     activeTab: number;
-    checkedValues: any;
+    checkedValues: number[];
     handleCheckBoxValues: (answerItem: number) => void;
 }
 
@@ -89,7 +89,14 @@ export const SATA: React.FC<Props> = ({ questionaire, setActiveTab, ...rest }) =
                                         choiceMap.rows && choiceMap.rows.map((answerItem: any, answerIndex: number) => (
                                             <div className='flex items-center ' key={answerIndex}>
                                                 <span>{answerIndex + 1} . </span>
-                                                <span><Checkbox value={answerItem.value} checked={checkedValues.includes(answerItem.value)} onChange={() => handleCheckBoxValues(answerItem.value)} sx={{ height: "20px" }} /></span>
+                                               <span>
+                                                    <Checkbox
+                                                        value={answerItem.value}
+                                                        checked={checkedValues.includes(answerItem.value)}
+                                                        onChange={() => handleCheckBoxValues(answerItem.value)}
+                                                        sx={{ height: "20px" }}
+                                                    />
+                                                </span>
                                                 <p>{answerItem.label}</p>
                                             </div>
                                         ))
