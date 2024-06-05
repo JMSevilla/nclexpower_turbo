@@ -215,7 +215,7 @@ export interface TableProps {
   handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-interface DropContainerItem {
+export interface DropContainerItem {
   accepts: string[];
   text: string;
   container: string;

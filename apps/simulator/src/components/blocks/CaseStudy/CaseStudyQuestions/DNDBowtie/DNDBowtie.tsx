@@ -3,7 +3,7 @@ import { Grid, Paper, Typography } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { DroppableContainer } from './DNDBowtieComponent/Droppable'; 
 import { DraggableCard } from './DNDBowtieComponent/DraggableCard'; 
-import { dndObjectValueProps, QuestionaireProps, AnswerProps,  choicesListProps, DropContainerType } from '@/core/types/ssrData';
+import { dndObjectValueProps, QuestionaireProps, AnswerProps,  choicesListProps, DropContainerType, DropContainerItem } from '@/core/types/ssrData';
 
 type DropValueType = Record<string, dndObjectValueProps[]>;
 
@@ -70,15 +70,15 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
                   <div className="flex gap-5 flex-col">
                     <div className="flex justify-evenly items-center gap-2">
                         <div className="flex flex-col gap-4">
-                            {dropContainer.slice(0, 2).map((i: any, index: number) => (
+                            {dropContainer.slice(0, 2).map((items: DropContainerItem, index: number) => (
                                 <DroppableContainer
                                     key={index}
-                                    accept={i.accepts}
-                                    text={i.text}
-                                    onDrop={(item: dndObjectValueProps) => dropAnswer(i.container, item)}
-                                    droppedValue={droppedValue[i.container]}
+                                    accept={items.accepts}
+                                    text={items.text}
+                                    onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
+                                    droppedValue={droppedValue[items.container]}
                                     bg="bg-[#BCE4E4]"     
-                                    handleRemove={() => handleRemove(i.container, droppedValue[i.container][0])}
+                                    handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
                                 />
                             ))}
                         </div>
@@ -93,15 +93,15 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
                             />
                         </div>
                         <div className="flex flex-col gap-4">
-                            {dropContainer.slice(3).map((i:any, index: number) => (
+                            {dropContainer.slice(3).map((items: DropContainerItem, index: number) => (
                                 <DroppableContainer
                                     key={index}
-                                    accept={i.accepts}
-                                    text={i.text}
-                                    onDrop={(item: dndObjectValueProps) => dropAnswer(i.container, item)}
-                                    droppedValue={droppedValue[i.container]}
+                                    accept={items.accepts}
+                                    text={items.text}
+                                    onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
+                                    droppedValue={droppedValue[items.container]}
                                     bg="bg-[#E0E0DF]"
-                                    handleRemove={() => handleRemove(i.container, droppedValue[i.container][0])}
+                                    handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
                                 />
                             ))}
                         </div>
