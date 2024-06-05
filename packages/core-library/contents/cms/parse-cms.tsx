@@ -8,6 +8,7 @@ import {
   ThemeBackgroundColorSelection,
 } from "../../types/page";
 import { CmsTenant } from "../../types/tenant";
+import { LoginFormBlock } from '../../components/blocks/LoginBlock/LoginFormBlock';
 
 export const parseContent = (
   contents: PageContentValues[],
@@ -36,10 +37,7 @@ export const parseContent = (
       }
       case "authentication_form": {
         return (
-          <>
-            <h3>Login Form</h3>
-            {/* <LoginFormBlock ... /> */}
-          </>
+          <LoginFormBlock />
         );
       }
       case "Content HTML block": {
