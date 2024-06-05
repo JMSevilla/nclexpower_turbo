@@ -31,7 +31,7 @@ export type ChangeHandler = (onChange: (value: boolean) => void, data: DataProps
 
 export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire, answer }) => {
     const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
-    const rows = answer ? answer?.length > 0 ? answer[0].rows : null : null;
+    const rows = answer && answer?.length > 0 ? answer[0].rows : [];
 
     const form = useForm<MCQGValidationType>({
         mode: "all",
