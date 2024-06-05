@@ -9,7 +9,7 @@ import { useApplicationContext } from "@/core/context/AppContext";
 import { useRouter } from "next/router";
 
 
-export const MCQBlocks: React.FC<RegularQuestion> = ({ contents, itemselection }) => {
+export const MCQBlock: React.FC<RegularQuestion> = ({ contents, itemselection }) => {
 
     const router = useRouter();
     const [mcqAtom, setMcqAtom] = useAtom(McqSsValidationAtom);
