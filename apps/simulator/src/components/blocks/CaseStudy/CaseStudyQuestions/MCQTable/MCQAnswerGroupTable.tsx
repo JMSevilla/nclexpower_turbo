@@ -29,17 +29,10 @@ export type DataProps = {
 export type ChangeHandler = (onChange: (value: boolean) => void, data: DataProps) => void;
 
 
-export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire }) => {
+export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire, answer }) => {
     const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
+    const rows = answer && answer?.length > 0 ? answer[0].rows : [];
 
-    const itemHolder = questionaire ? questionaire.length > 0 && questionaire.map((main) =>
-        main?.answer ? main?.answer.length > 0 && main?.answer.map((answerItem) =>
-            answerItem.rows
-        ) : null
-    ) : null
-
-    const rows: any = itemHolder ? itemHolder.length > 0 ? itemHolder[0] : [] : null;
-    
     const form = useForm<MCQGValidationType>({
         mode: "all",
         resolver: zodResolver(mcqGSchema),

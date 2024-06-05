@@ -6,7 +6,7 @@ import {
   DDCQuestion,
   DDTQuestionaireBlock,
   MCQCSQuestionnaire,
-  DNDQuestionaire,
+  DNDBlock,
   MRSNBlock,
 } from './CaseStudyQuestions';
 import { SATAQuestionaire } from './CaseStudyQuestions/SATAQuestionaire';
@@ -18,7 +18,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === 'DND1';
+        return cms.QType === 'MCQNoGroup';
       });
 
     const { QType: QuestionType, answer, hasAlert, qId } = deserializeContents?.[0];
@@ -43,7 +43,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
       return <SATAQuestionaire questionaire={deserializeContents} />;
     case 'MCQGroup':
     case 'MCQNoGroup':
-      return <MCQCSQuestionnaire questionaire={deserializeContents} />;
+      return <MCQCSQuestionnaire questionaire={deserializeContents} answer={answer} />;
     case 'HCP':
       return <HCPBlock questionaire={deserializeContents} answer={answer} />;
     case 'MRSN':
@@ -53,7 +53,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
     case 'DDT':
       return <DDTQuestionaireBlock questionaire={deserializeContents} answer={answer} />;
     case 'DND1':
-      return <DNDQuestionaire questionaire={deserializeContents} />;
+      return <DNDBlock questionaire={deserializeContents} />;
 
     default:
       return <h3>No questionaire Loaded</h3>;

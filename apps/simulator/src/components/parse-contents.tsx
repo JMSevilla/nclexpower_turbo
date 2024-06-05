@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MCQBlocks, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
+import { MCQBlock, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
 import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
 import { datatypes } from '@repo/core-library';
 import { AnimatedBoxSkeleton } from '@repo/core-library/components';
@@ -56,7 +56,7 @@ export const ParseContents: React.FC<Props> = ({ questionType, questionKey, item
           case 'SATA':
             return <SATABlockQuestionaire contents={contents} itemselection={itemSelected} />;
           case 'MCQ':
-            return <MCQBlocks contents={contents} itemselection={itemSelected} />;
+            return <MCQBlock contents={contents} itemselection={itemSelected} />;
           default:
             return <h3>No questionnaire Loaded</h3>;
         }
