@@ -6,7 +6,7 @@ import {
   DDCQuestion,
   DDTQuestionaireBlock,
   MCQCSQuestionnaire,
-  DNDQuestionaire,
+  DNDBlock,
   MRSNBlock,
 } from './CaseStudyQuestions';
 import { SATAQuestionaire } from './CaseStudyQuestions/SATAQuestionaire';
@@ -53,7 +53,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
     case 'DDT':
       return <DDTQuestionaireBlock questionaire={deserializeContents} answer={answer} />;
     case 'DND1':
-      return <DNDQuestionaire questionaire={deserializeContents} />;
+      return <DNDBlock questionaire={deserializeContents} />;
 
     default:
       return <h3>No questionaire Loaded</h3>;
