@@ -17,12 +17,9 @@ export const ParseContents: React.FC<Props> = ({ questionType, questionKey, item
   const [isLoading, setIsloading] = useState<boolean>(true); //this is for displaying the Skeleton Loader
   const isMobile = useMobileDetection();
 
-
   if (isMobile) {
-
     return <MobileErrorDialog />;
   }
-
 
   useEffect(() => {
     setIsloading(true);
