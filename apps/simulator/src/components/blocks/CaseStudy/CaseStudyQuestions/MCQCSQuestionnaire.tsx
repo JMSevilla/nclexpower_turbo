@@ -43,7 +43,7 @@ export const MCQCSQuestionnaire: React.FC<CaseStudyProps> = ({ questionaire }) =
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MCQAnswerGroupTable questionaire={questionaire} />
+                    <MCQAnswerGroupTable questionaire={questionaire} answer={answer} />
                 </Grid>
 
             </Grid>
