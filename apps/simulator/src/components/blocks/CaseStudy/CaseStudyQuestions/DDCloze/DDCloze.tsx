@@ -54,34 +54,36 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, selected
                                 </p>
                             </div>
                             <Paper elevation={3} className="p-5 overflow-auto flex flex-col gap-5">
-                                <div className="w-full h-fit text-sm p-1">
-                                    {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part: string, index: number) => {
-                                        if (index % 2 === 0) {
-                                        return <span key={index} dangerouslySetInnerHTML={{ __html: part }} />;
-                                        } else {
+                              <div className="w-full h-fit text-sm p-1">
+                                {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part: string, index: number) => (
+                                    index % 2 === 0 ? (
+                                    <span key={index} dangerouslySetInnerHTML={{ __html: part }} />
+                                    ) : (
+                                    <React.Fragment key={index}>
+                                        {(() => {
                                         const key = part.trim();
                                         const options = answerItem.selectField[key] || [];
                                         return (
-                                            <React.Fragment key={index}>
                                             <TextField
-                                                select
-                                                variant="standard"
-                                                size="small"
-                                                name={key}
-                                                value={selectedValues[key] || ''}
-                                                onChange={handleSelectChange}
-                                                style={{ minWidth: '200px', height: '70px', color: 'gray', margin: '-6px 10px 0 10px', textAlign: 'center' }}
+                                            select
+                                            variant="standard"
+                                            size="small"
+                                            name={key}
+                                            value={selectedValues[key] || ''}
+                                            onChange={handleSelectChange}
+                                            style={{ minWidth: '200px', height: '40px', color: 'gray', margin: '-6px 10px 0 10px', textAlign: 'center' }}
                                             >
-                                                {options.map((option: OptionType) => (
+                                            {options.map((option: OptionType) => (
                                                 <MenuItem key={option.value.toString()} value={option.value.toString()}>
-                                                    {option.label}
+                                                {option.label}
                                                 </MenuItem>
-                                                ))}
+                                            ))}
                                             </TextField>
-                                            </React.Fragment>
                                         );
-                                        }
-                                    })}
+                                        })()}
+                                    </React.Fragment>
+                                    )
+                                ))}
                                 </div>
                             </Paper>
                             <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
