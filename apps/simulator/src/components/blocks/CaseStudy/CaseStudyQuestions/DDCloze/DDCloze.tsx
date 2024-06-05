@@ -6,24 +6,6 @@ import { DDClozeProps, QuestionaireProps, AnswerProps, OptionType } from "@/core
 
 
 export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, selectedValues, handleSelectChange }) => {
-        const renderDropdown = (options: OptionType[], selectFieldKey: string) => {
-        return (
-            <TextField
-                select
-                label="select"
-                variant='standard'
-                size='small'
-                name={selectFieldKey}
-                value={selectedValues[selectFieldKey] || ''}
-                onChange={handleSelectChange} 
-                style={{ minWidth: '200px', height: '70px', color: "gray", margin: "-20px 10px 0 10px", textAlign: "center" }}
-            >
-                {options.map((option: OptionType) => (
-                    <MenuItem value={option.value.toString()}>{option.label}</MenuItem>
-                ))}
-            </TextField>
-        );
-    };
 
     return (
         <div className="p-2 py-2 h-full">
@@ -75,15 +57,29 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, selected
                                 <div className="w-full h-fit text-sm p-1">
                                     {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part: string, index: number) => {
                                         if (index % 2 === 0) {
-                                            return <span key={index} dangerouslySetInnerHTML={{ __html: part }} />;
+                                        return <span key={index} dangerouslySetInnerHTML={{ __html: part }} />;
                                         } else {
-                                            const key = part.trim();
-                                            const options = answerItem.selectField[key] || [];
-                                            return (
-                                                <React.Fragment key={index}>
-                                                    {renderDropdown(options, key)}
-                                                </React.Fragment>
-                                            );
+                                        const key = part.trim();
+                                        const options = answerItem.selectField[key] || [];
+                                        return (
+                                            <React.Fragment key={index}>
+                                            <TextField
+                                                select
+                                                variant="standard"
+                                                size="small"
+                                                name={key}
+                                                value={selectedValues[key] || ''}
+                                                onChange={handleSelectChange}
+                                                style={{ minWidth: '200px', height: '70px', color: 'gray', margin: '-6px 10px 0 10px', textAlign: 'center' }}
+                                            >
+                                                {options.map((option: OptionType) => (
+                                                <MenuItem key={option.value.toString()} value={option.value.toString()}>
+                                                    {option.label}
+                                                </MenuItem>
+                                                ))}
+                                            </TextField>
+                                            </React.Fragment>
+                                        );
                                         }
                                     })}
                                 </div>
