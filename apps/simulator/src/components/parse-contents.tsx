@@ -3,7 +3,8 @@ import { MCQBlocks, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
 import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
 import { datatypes } from '@repo/core-library';
 import { AnimatedBoxSkeleton } from '@repo/core-library/components';
-
+import { MobileErrorDialog } from "./Dialog/MobileErrorDialog";
+import { useMobileDetection } from '@repo/core-library/contexts/MobileDetectionContext';
 interface Props {
   questionType: string;
   questionKey: string;
@@ -14,6 +15,14 @@ export const ParseContents: React.FC<Props> = ({ questionType, questionKey, item
   /* use this contents to get the content data */
   const { contents } = useSimulatorGlobals();
   const [isLoading, setIsloading] = useState<boolean>(true); //this is for displaying the Skeleton Loader
+  const isMobile = useMobileDetection();
+
+
+  if (isMobile) {
+
+    return <MobileErrorDialog />;
+  }
+
 
   useEffect(() => {
     setIsloading(true);

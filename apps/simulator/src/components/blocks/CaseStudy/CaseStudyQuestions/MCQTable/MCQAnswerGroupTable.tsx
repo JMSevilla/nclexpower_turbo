@@ -38,8 +38,8 @@ export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire }) => {
         ) : null
     ) : null
 
-    const rows = itemHolder ? itemHolder.length > 0 ? itemHolder[0]?.pop() : [] : null;
-
+    const rows: any = itemHolder ? itemHolder.length > 0 ? itemHolder[0] : [] : null;
+    
     const form = useForm<MCQGValidationType>({
         mode: "all",
         resolver: zodResolver(mcqGSchema),
