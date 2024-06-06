@@ -72,7 +72,7 @@ export type DNDAnswerUIItem = {
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 // header
@@ -214,3 +214,10 @@ export interface TableProps {
   selectedValues: SelectedValuesType;
   handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface DropContainerItem {
+  accepts: string[];
+  text: string;
+  container: string;
+}
+export type DropContainerType = DropContainerItem[];

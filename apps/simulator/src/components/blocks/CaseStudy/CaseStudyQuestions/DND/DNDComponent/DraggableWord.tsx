@@ -21,17 +21,15 @@ export const DraggableWord: React.FC<Props> = ({ id, item }) => {
     drag(ref)
 
     return (
-        <>
-            <div
-                ref={ref}
-                data-id={id}
-                className='shadow-md px-2 rounded-md cursor-grab'
-                style={{
-                    background: isDragging ? '#86bcea' : '0px',
-                }}>
-                <h2>{item?.text}</h2>
-            </div>
-        </>
+        <div
+            ref={ref}
+            data-id={id}
+            className='shadow-md px-2 rounded-md cursor-grab'
+            style={{
+                background: isDragging ? '#86bcea' : '0px',
+            }}>
+            <h2>{item?.text}</h2>
+        </div>
     )
 }
 
