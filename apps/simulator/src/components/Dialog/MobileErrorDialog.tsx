@@ -4,12 +4,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ErrorMobileIcon } from '../icons/ErrorMobileIcon';
-import { useMobileDetection } from '@repo/core-library/contexts/MobileDetectionContext'
+import { MobileDetectionContextValue } from '@repo/core-library/contexts/MobileDetectionContext';
 
-export const MobileErrorDialog: React.FC = () => {
-
-  const isMobile = useMobileDetection();
-
+export const MobileErrorDialog: React.FC<MobileDetectionContextValue> = ({ isMobile }) => {
   return (
     <Dialog
       open={isMobile}

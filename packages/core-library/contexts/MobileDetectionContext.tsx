@@ -1,34 +1,27 @@
-import React, { createContext, useContext, useEffect, useState, FC, PropsWithChildren } from "react";
+import React, { createContext, useContext, useState, FC, PropsWithChildren } from "react";
 import { useResolution } from '@repo/core-library/hooks/useResolution';
-import { useExecuteToast } from '@repo/core-library/contexts';
+import { MobileErrorDialog } from '../../../apps/simulator/src/components/Dialog/MobileErrorDialog'
 
-interface MobileDetectionContextValue {
-  isMobile: boolean
+export interface MobileDetectionContextValue {
+  isMobile: boolean;
 }
 
-export const MobileDetectionContext = createContext<MobileDetectionContextValue | undefined>(undefined);
+export const MobileDetectionContext = createContext<MobileDetectionContextValue>({ isMobile: false });
 
-export const useMobileDetection = (): boolean => {
-  const context = useContext(MobileDetectionContext);
-  if (!context) {
+export const useMobileDetection = () => {
+  if (!MobileDetectionContext) {
     throw new Error("useMobileDetection must be used within a MobileDetectionProvider");
   }
-  return context.isMobile;
+  return useContext(MobileDetectionContext);
 };
 
-export const MobileDetectionProvider: FC<PropsWithChildren> = ({ children }) => {
+export const MobileDetectionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isMobile } = useResolution();
-  const { executeToast } = useExecuteToast();
-
-  useEffect(() => {
-    if (isMobile) {
-      executeToast('The simulator is not available in mobile device. Please use different device.', 'top-right', false);
-    };
-  }, [isMobile]);
-
   return (
     <MobileDetectionContext.Provider value={{ isMobile }}>
       {children}
+      <MobileErrorDialog isMobile={isMobile} />
     </MobileDetectionContext.Provider>
-  )
-}
+  );
+};
+
