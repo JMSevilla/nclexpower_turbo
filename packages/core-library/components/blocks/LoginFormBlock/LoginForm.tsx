@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form'
 import { loginSchema, LoginFormType } from './validation'
 
 type Props = {
-    handleSubmit: (values: LoginFormType) => void,
+    onSubmit: (values: LoginFormType) => void,
     submitLoading?: boolean
 }
 
-export const LoginForm: React.FC<Props> = ({ handleSubmit, submitLoading }) => {
+export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
 
     const form = useForm({
         mode: 'onSubmit',
@@ -18,7 +18,7 @@ export const LoginForm: React.FC<Props> = ({ handleSubmit, submitLoading }) => {
         defaultValues: loginSchema.getDefault(),
     })
 
-    const { control } = form
+    const { control, handleSubmit } = form
 
     return (
         <Grid container direction="column" rowSpacing={4} gap={5}>
@@ -30,7 +30,7 @@ export const LoginForm: React.FC<Props> = ({ handleSubmit, submitLoading }) => {
                 <TextField control={control} label="Password" type='password' name='password' />
             </Grid>
             <Box marginTop={5}>
-                <Button fullWidth onClick={form.handleSubmit(handleSubmit)} variant="contained">Login</Button>
+                <Button fullWidth onClick={handleSubmit(onSubmit)} variant="contained">Login</Button>
             </Box>
         </Grid>
     )

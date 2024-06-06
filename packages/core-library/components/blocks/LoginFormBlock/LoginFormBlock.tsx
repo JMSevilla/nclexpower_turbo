@@ -13,13 +13,13 @@ type Props = {
 export const LoginFormBlock: React.FC<Props> = ({ id, parameters }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    async function handleSubmit(values: LoginFormType) {
+    async function onSubmit(values: LoginFormType) {
         console.log("values : ", values)
     }
 
     return (
         <Box id={id}>
-            <LoginForm handleSubmit={handleSubmit} submitLoading={isLoading} />
+            <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
         </Box>
     )
 }
