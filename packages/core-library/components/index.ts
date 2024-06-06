@@ -19,3 +19,5 @@ export * from "./forms/TextField";
 export * from "./blocks/HeaderTitleBlock";
 export * from "./blocks/PanelBlocks";
 export * from "./blocks/TextBlock";
+
+export * from "./blocks/LoginFormBlock/LoginFormBlock";

@@ -1,4 +1,4 @@
-import { HeaderTitleBlock, TextBlock, PanelBlock } from "../../components";
+import { HeaderTitleBlock, TextBlock, PanelBlock, LoginFormBlock } from "../../components";
 import { appColorsFromPrimary } from "../theme/theme";
 import { Typography } from "@mui/material";
 import { CallToAction } from "../../types/common";
@@ -8,7 +8,6 @@ import {
   ThemeBackgroundColorSelection,
 } from "../../types/page";
 import { CmsTenant } from "../../types/tenant";
-import { LoginFormBlock } from '../../components/blocks/LoginBlock/LoginFormBlock';
 
 export const parseContent = (
   contents: PageContentValues[],
@@ -37,7 +36,7 @@ export const parseContent = (
       }
       case "authentication_form": {
         return (
-          <LoginFormBlock />
+          <LoginFormBlock id={type} parameters={content?.elements?.parameters} />
         );
       }
       case "Content HTML block": {
