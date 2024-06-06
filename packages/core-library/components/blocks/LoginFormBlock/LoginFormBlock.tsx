@@ -2,6 +2,7 @@ import { Box } from '@mui/material'
 import { LoginForm } from './LoginForm'
 import { LoginFormType } from './validation'
 import { Parameters } from '../../../types/page'
+import { useState } from 'react'
 
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 }
 
 export const LoginFormBlock: React.FC<Props> = ({ id, parameters }) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     async function handleSubmit(values: LoginFormType) {
         console.log("values : ", values)
@@ -17,7 +19,7 @@ export const LoginFormBlock: React.FC<Props> = ({ id, parameters }) => {
 
     return (
         <Box id={id}>
-            <LoginForm handleSubmit={handleSubmit} />
+            <LoginForm handleSubmit={handleSubmit} submitLoading={isLoading} />
         </Box>
     )
 }

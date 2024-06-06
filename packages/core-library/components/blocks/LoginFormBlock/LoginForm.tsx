@@ -6,10 +6,11 @@ import { useForm } from 'react-hook-form'
 import { loginSchema, LoginFormType } from './validation'
 
 type Props = {
-    handleSubmit: (values: LoginFormType) => void
+    handleSubmit: (values: LoginFormType) => void,
+    submitLoading?: boolean
 }
 
-export const LoginForm: React.FC<Props> = ({ handleSubmit }) => {
+export const LoginForm: React.FC<Props> = ({ handleSubmit, submitLoading }) => {
 
     const form = useForm({
         mode: 'onSubmit',
