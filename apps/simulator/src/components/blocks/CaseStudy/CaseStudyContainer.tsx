@@ -3,12 +3,13 @@ import { QuestionaireProps, CaseStudyProps } from '@/core/types/ssrData';
 import { useAlertMessageV2 } from '@repo/core-library/contexts/AlertMessageContext';
 import {
   HCPBlock,
-  DDCQuestion,
+  DDClozeBlock,
   DDTQuestionaireBlock,
   MCQCSQuestionnaire,
   DNDBlock,
   MRSNBlock,
-  SATABlock
+  SATABlock,
+  DNDBowtieBlock
 } from './CaseStudyQuestions';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) => {
@@ -49,11 +50,13 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
     case 'MRSN':
       return <MRSNBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDC':
-      return <DDCQuestion questionaire={deserializeContents} answer={answer} />;
+      return <DDClozeBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDT':
       return <DDTQuestionaireBlock questionaire={deserializeContents} answer={answer} />;
     case 'DND1':
       return <DNDBlock questionaire={deserializeContents} />;
+    case 'DNDBowtie':
+      return <DNDBowtieBlock questionaire={deserializeContents} answer={answer}/>;
 
     default:
       return <h3>No questionaire Loaded</h3>;

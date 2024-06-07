@@ -1,4 +1,5 @@
 import { datatypes } from '@repo/core-library';
+import React, { ReactNode } from 'react';
 
 export type SsrQuestionaireContentProps = {
   contentId: number;
@@ -72,7 +73,7 @@ export type DNDAnswerUIItem = {
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 // header
@@ -214,3 +215,16 @@ export interface TableProps {
   selectedValues: SelectedValuesType;
   handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+export type DDClozeProps = {
+    questionaire: QuestionaireProps[],
+    answer: AnswerProps[],
+    selectedValues: SelectedValuesType,
+    handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+export interface DropContainerItem {
+  accepts: string[];
+  text: string;
+  container: string;
+}
+export type DropContainerType = DropContainerItem[];

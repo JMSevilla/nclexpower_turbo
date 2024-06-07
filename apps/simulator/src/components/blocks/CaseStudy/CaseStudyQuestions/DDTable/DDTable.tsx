@@ -63,7 +63,7 @@ export const DDTable: React.FC<TableProps> = ({
                                         onChange={handleSelectChange}
                                     >
                                         {selectFieldOptions[selectFieldKey].map((option, index) => (
-                                            <MenuItem key={index} value={option.value}>
+                                            <MenuItem key={index} value={option.value.toString()}>
                                                 {option.label}
                                             </MenuItem>
                                         ))}
