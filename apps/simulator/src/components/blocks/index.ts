@@ -6,3 +6,4 @@ export * from "./CaseStudy/CaseStudyQuestions/DDCloze/DDClozeBlock";
 export * from "./CaseStudy/CaseStudyQuestions/MRSN/MRSNBlock";
 export * from "./CaseStudy/CaseStudyQuestions/SATAQuestionaire";
 export * from "./CaseStudy/CaseStudyQuestions/HCP/HCPBlock";
+export * from "./CaseStudy/CaseStudyQuestions/DNDBowtie/DNDBowtieBlock"

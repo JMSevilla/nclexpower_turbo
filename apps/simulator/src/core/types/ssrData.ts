@@ -222,3 +222,9 @@ export type DDClozeProps = {
     selectedValues: SelectedValuesType,
     handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
+export interface DropContainerItem {
+  accepts: string[];
+  text: string;
+  container: string;
+}
+export type DropContainerType = DropContainerItem[];
