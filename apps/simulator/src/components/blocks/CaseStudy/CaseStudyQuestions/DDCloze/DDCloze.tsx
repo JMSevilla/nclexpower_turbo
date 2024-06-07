@@ -1,41 +1,11 @@
-import { Paper, Grid, TextField, MenuItem } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Paper, Grid } from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { SsrData, QuestionaireProps, AnswerProps, OptionType } from "@/core/types/ssrData";
+import { DDClozeProps, QuestionaireProps, AnswerProps, OptionType } from "@/core/types/ssrData";
 
-interface SelectedValuesType {
-    [key: string]: string; 
-}
 
-export const DDCQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
-
-    const [selectedValues, setSelectedValues] = useState<SelectedValuesType>({});
-    
-    const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedValues({
-            ...selectedValues,
-            [event.target.name]: event.target.value
-        });
-    };
-
-    const renderDropdown = (options: OptionType[], selectFieldKey: string) => {
-        return (
-            <TextField
-                select
-                label="select"
-                variant='standard'
-                size='small'
-                name={selectFieldKey}
-                value={selectedValues[selectFieldKey] || ''}
-                onChange={handleSelectChange} 
-                style={{ minWidth: '200px', height: '70px', color: "gray", margin: "-20px 10px 0 10px", textAlign: "center" }}
-            >
-                {options.map((option: any) => (
-                    <MenuItem value={option.value}>{option.label}</MenuItem>
-                ))}
-            </TextField>
-        );
-    };
+export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, selectedValues, handleSelectChange }) => {
 
     return (
         <div className="p-2 py-2 h-full">
@@ -84,20 +54,36 @@ export const DDCQuestion: React.FC<SsrData> = ({ questionaire, answer }) => {
                                 </p>
                             </div>
                             <Paper elevation={3} className="p-5 overflow-auto flex flex-col gap-5">
-                                <div className="w-full h-fit text-sm p-1">
-                                    {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part, index) => {
-                                        if (index % 2 === 0) {
-                                            return <span key={index} dangerouslySetInnerHTML={{ __html: part }} />;
-                                        } else {
-                                            const key = part.trim();
-                                            const options = answerItem.selectField[key] || [];
-                                            return (
-                                                <React.Fragment key={index}>
-                                                    {renderDropdown(options, key)}
-                                                </React.Fragment>
-                                            );
-                                        }
-                                    })}
+                              <div className="w-full h-fit text-sm p-1">
+                                {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part: string, index: number) => (
+                                    index % 2 === 0 ? (
+                                    <span key={index} dangerouslySetInnerHTML={{ __html: part }} />
+                                    ) : (
+                                    <React.Fragment key={index}>
+                                        {(() => {
+                                        const key = part.trim();
+                                        const options = answerItem.selectField[key] || [];
+                                        return (
+                                            <TextField
+                                            select
+                                            variant="standard"
+                                            size="small"
+                                            name={key}
+                                            value={selectedValues[key] || ''}
+                                            onChange={handleSelectChange}
+                                            style={{ minWidth: '200px', height: '40px', color: 'gray', margin: '-6px 10px 0 10px', textAlign: 'center' }}
+                                            >
+                                            {options.map((option: OptionType) => (
+                                                <MenuItem key={option.value.toString()} value={option.value.toString()}>
+                                                {option.label}
+                                                </MenuItem>
+                                            ))}
+                                            </TextField>
+                                        );
+                                        })()}
+                                    </React.Fragment>
+                                    )
+                                ))}
                                 </div>
                             </Paper>
                             <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">

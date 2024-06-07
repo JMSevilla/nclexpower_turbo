@@ -3,9 +3,9 @@
 import { Checkbox, Grid } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react'
-import { AnswerProps, SsrAnswerTabsProps, SsrData } from '@/core/types/ssrData';
+import { AnswerProps, SsrAnswerTabsProps, CaseStudyProps } from '@/core/types/ssrData';
 
-export const SATAQuestionaire: React.FC<SsrData> = ({ questionaire }) => {
+export const SATAQuestionaire: React.FC<CaseStudyProps> = ({ questionaire }) => {
 
     const [activeTab, setActiveTab] = useState<number>(0);
     //This is an array of values of each item
