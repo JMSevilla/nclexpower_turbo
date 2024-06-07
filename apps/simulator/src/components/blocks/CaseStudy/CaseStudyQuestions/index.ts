@@ -7,6 +7,7 @@ export * from './MCQCSQuestionnaire'
 export * from './MCQCSQuestionnaire'
 export * from './DND/DNDBlock'
 export * from './MCQTable/MCQAnswerGroupTable'
+export * from './SATA/SATABlock'
 export * from './DNDBowtie/DNDBowtieBlock'
 
 
