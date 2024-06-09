@@ -1,4 +1,4 @@
-import { HeaderTitleBlock, TextBlock, PanelBlock } from "../../components";
+import { HeaderTitleBlock, TextBlock, PanelBlock, LoginFormBlock } from "../../components";
 import { appColorsFromPrimary } from "../theme/theme";
 import { Typography } from "@mui/material";
 import { CallToAction } from "../../types/common";
@@ -36,10 +36,7 @@ export const parseContent = (
       }
       case "authentication_form": {
         return (
-          <>
-            <h3>Login Form</h3>
-            {/* <LoginFormBlock ... /> */}
-          </>
+          <LoginFormBlock id={type} parameters={content?.elements?.parameters} />
         );
       }
       case "Content HTML block": {

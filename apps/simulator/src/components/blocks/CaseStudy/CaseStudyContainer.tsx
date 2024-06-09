@@ -3,14 +3,14 @@ import { QuestionaireProps, CaseStudyProps } from '@/core/types/ssrData';
 import { useAlertMessageV2 } from '@repo/core-library/contexts/AlertMessageContext';
 import {
   HCPBlock,
-  DDCQuestion,
+  DDClozeBlock,
   DDTQuestionaireBlock,
   MCQCSBlock,
   DNDBlock,
   MRSNBlock,
+  SATABlock,
   DNDBowtieBlock
 } from './CaseStudyQuestions';
-import { SATAQuestionaire } from './CaseStudyQuestions/SATAQuestionaire';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) => {
   const { AlertMessage } = useAlertMessageV2();
@@ -19,7 +19,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === 'MCQNoGroup';
+        return cms.QType === 'SATA';
       });
 
     const { QType: QuestionType, answer, hasAlert, qId } = deserializeContents?.[0];
@@ -41,7 +41,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
 function renderSwitch(QuestionType: string, deserializeContents: any, answer: any) {
   switch (QuestionType) {
     case 'SATA':
-      return <SATAQuestionaire questionaire={deserializeContents} />;
+      return <SATABlock questionaire={deserializeContents} />;
     case 'MCQGroup':
     case 'MCQNoGroup':
       return <MCQCSBlock questionaire={deserializeContents} answer={answer} />;
@@ -50,7 +50,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
     case 'MRSN':
       return <MRSNBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDC':
-      return <DDCQuestion questionaire={deserializeContents} answer={answer} />;
+      return <DDClozeBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDT':
       return <DDTQuestionaireBlock questionaire={deserializeContents} answer={answer} />;
     case 'DND1':

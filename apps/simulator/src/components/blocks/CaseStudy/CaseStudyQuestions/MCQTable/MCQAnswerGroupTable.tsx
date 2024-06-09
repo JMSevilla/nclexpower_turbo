@@ -179,4 +179,3 @@ export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire, answer })
         </Grid >
     )
 }
-
