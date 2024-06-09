@@ -18,6 +18,8 @@ export const parseContent = (
   return contents.map((content) => {
     const type = (content?.elements?.formKey?.value || content?.type).trim();
     const elements = content?.elements;
+    const tenantType = (content?.elements?.formKey?.value || content?.type).trim();
+
     /* all blocks should go here.. */
     switch (type) {
       case "Panel": {
@@ -52,17 +54,6 @@ export const parseContent = (
             )}
             insideHeroBlock={isHeroBlockContent(elements, page)}
             html={elements?.content?.value}
-          />
-        );
-      }
-      case "header": {
-        return (
-          <HeaderTitleBlock
-            id={type}
-            isInStickOutPage={page.showAsStickOut?.value}
-            pageHeader={page.pageHeader?.value}
-            icon={page.headerIcon}
-            indicatorExists={contents[0]?.type === "Journey stage indicator"}
           />
         );
       }

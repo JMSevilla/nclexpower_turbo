@@ -22,7 +22,6 @@ export const HeaderLogo: React.FC<Props> = ({ tenant, useRawLogoUrl }) => {
   if (!tenant) {
     return null;
   }
-  console.log("tenant", tenant);
   return (
     <Box
       position="relative"

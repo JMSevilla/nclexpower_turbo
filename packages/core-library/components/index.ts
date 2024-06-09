@@ -21,3 +21,4 @@ export * from "./blocks/PanelBlocks";
 export * from "./blocks/TextBlock";
 
 export * from "./blocks/LoginFormBlock/LoginFormBlock";
+export * from "./blocks/ReusableFooter/FooterBlock";

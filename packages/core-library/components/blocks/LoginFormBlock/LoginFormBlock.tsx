@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { LoginForm } from './LoginForm'
 import { LoginFormType } from './validation'
-import { Parameters } from '../../../types/page'
+import { CmsPage, Parameters } from '../../../types/page'
 import { useState } from 'react'
 
 
