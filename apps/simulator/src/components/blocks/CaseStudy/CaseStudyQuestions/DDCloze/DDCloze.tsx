@@ -82,36 +82,34 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSu
                             </div>
                             <Paper elevation={3} className="p-5 overflow-auto flex flex-col gap-5">
                                 <div className="w-full h-fit text-sm p-1">
-                                    {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part, index) => (
-                                    <div className="inline-block min-w-[150px] my-0 mx-[10px] align-top mt-3" key={index}>
-                                        {index % 2 === 0 ? (
-                                        <span dangerouslySetInnerHTML={{ __html: part }} />
-                                        ) : (
-                                        <>
-                                            {(() => {
-                                            const key = part.trim();
-                                            const options = answerItem.selectField[key] || [];
-                                            return (
+                                    {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part, index) => {
+                                        const key = part.trim();
+                                        const options = answerItem.selectField[key] || [];
+                                        return(
+                                            <div className="inline-block min-w-[150px] my-0 mx-[10px] align-top mt-3" key={index}>
+                                            {index % 2 === 0 ? (
+                                            <span dangerouslySetInnerHTML={{ __html: part }} />
+                                            ) : (
+                                            <>
                                                 <ControlledSelectField
-                                                variant="standard"
-                                                control={control}
-                                                name={key}
-                                                options={options}
-                                                size='small'
-                                                sx={{
-                                                    minWidth: '150px',
-                                                    height: '35px',
-                                                    color: 'gray',
-                                                    margin: '-5px 0 0 5px',
-                                                    textAlign: 'center',
+                                                    variant="standard"
+                                                    control={control}
+                                                    name={key}
+                                                    options={options}
+                                                    size='small'
+                                                    sx={{
+                                                        minWidth: '150px',
+                                                        height: '35px',
+                                                        color: 'gray',
+                                                        margin: '-5px 0 0 5px',
+                                                        textAlign: 'center',
                                                 }}
                                                 />
-                                            );
-                                            })()}
-                                        </>
-                                        )}
-                                    </div>
-                                    ))}
+                                            </>
+                                            )}
+                                            </div>
+                                 )
+                                })}
                                 </div>
                             </Paper>
                             <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
