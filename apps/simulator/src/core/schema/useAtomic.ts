@@ -5,6 +5,7 @@ import { DNDValidationType } from '@/core/schema/dnd/validation';
 import { MCQGValidationType } from '@/core/schema/mcqGroup/validation';
 import { HCPValidationType } from '@/core/schema/hcp/validation';
 import { RegularSATAValidationType } from './regularSATA/validation';
+import { CaseStudySATAValidationType } from "./CSSata/validation";
 
 export const MrsnValidationAtom = atom<MrsnValidationType | undefined>(
   undefined
@@ -27,5 +28,9 @@ export const HCPValidationAtom = atom<HCPValidationType | undefined>(
 );
 
 export const RegularSATAValidationAtom = atom<RegularSATAValidationType | undefined>(
+  undefined
+)
+
+export const CaseStudySataAtom = atom<CaseStudySATAValidationType | undefined>(
   undefined
 )

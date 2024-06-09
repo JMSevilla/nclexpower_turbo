@@ -2,17 +2,59 @@ import { Checkbox, Grid } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React from 'react'
 import { AnswerProps, SsrAnswerTabsProps, QuestionaireProps } from '@/core/types/ssrData';
+import { useErrorHandler } from '@/core/utils/useErrorhandler';
+import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
+import { CaseStudySATAValidationType, CsSATASchema } from '@/core/schema/CSSata/validation';
+import { CaseStudySataAtom } from '@/core/schema/useAtomic';
+import { ControlledCheckbox } from '@/components/Checkbox';
+import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAtom } from "jotai"
+
 
 type Props = {
     questionaire: QuestionaireProps[];
     setActiveTab: (index:number) => void;
     activeTab: number;
-    checkedValues: number[];
-    handleCheckBoxValues: (answerItem: number) => void;
+    csSataAtom: CaseStudySATAValidationType | undefined;
+    handleSubmit: (values: CaseStudySATAValidationType) => void;
 }
 
-export const SATA: React.FC<Props> = ({ questionaire, setActiveTab, ...rest }) => {
-    const { activeTab, checkedValues, handleCheckBoxValues } = rest
+export const SATA: React.FC<Props> = ({ questionaire, handleSubmit, ...rest }) => {
+
+    const ParsedChoices = questionaire ? questionaire[0].answer[0].rows : null
+
+    const { activeTab, setActiveTab, csSataAtom } = rest
+
+        const form = useForm<CaseStudySATAValidationType>({
+        mode: "all",
+        resolver: zodResolver(CsSATASchema),
+        defaultValues: {
+            csSata: ParsedChoices
+        },
+    });
+
+    const { control } = form;
+
+    const { fields } = useFieldArray({
+        name: "csSata",
+        control,
+    });
+
+    const formState = useFormState({ control: control });
+
+    const ErrorMessage = useErrorHandler({
+        isValid: formState.isValid,
+        errorMessage: formState.errors?.csSata?.root?.message || '',
+    });
+
+    useFormSubmissionBindingHooks({
+        key: "SATA",
+        isValid: formState.isValid,
+        isDirty: formState.isDirty,
+        cb: () => form.handleSubmit(handleSubmit)(),
+        initDependencies: [csSataAtom],
+    });
 
     return (
         <div className=' h-full'>
@@ -67,7 +109,7 @@ export const SATA: React.FC<Props> = ({ questionaire, setActiveTab, ...rest }) =
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <div className="h-full w-full p-4 font-sans tracking-tight">
+                    <div className="h-full w-full p-5 font-sans tracking-tight">
                         {questionaire?.length > 0 && questionaire.map((questionItem: QuestionaireProps, questionIndex: number) =>
                             <div key={questionIndex} >
                                 <ol className='w-full text-sm mb-4 pr-5 '>
@@ -84,23 +126,20 @@ export const SATA: React.FC<Props> = ({ questionaire, setActiveTab, ...rest }) =
                                         </div>
                                     ))}</li>
                                 </ol>
-                                <div className='w-full h-fit shadow-lg px-10 py-5 text-sm flex flex-col gap-5 rounded-md bg-white'>
-                                    {questionItem.answer && questionItem.answer.map((choiceMap: AnswerProps) =>
-                                        choiceMap.rows && choiceMap.rows.map((answerItem: any, answerIndex: number) => (
-                                            <div className='flex items-center ' key={answerIndex}>
-                                                <span>{answerIndex + 1} . </span>
+                                <div className='w-full h-fit shadow-lg px-10 py-5 text-sm flex flex-col gap-2 rounded-md bg-white'>
+                                        {fields && fields.map((choices: any, index: number) => (
+                                            <div className='flex items-center ' key={index}>
+                                                <span>{index + 1} . </span>
                                                <span>
-                                                    <Checkbox
-                                                        value={answerItem.value}
-                                                        checked={checkedValues.includes(answerItem.value)}
-                                                        onChange={() => handleCheckBoxValues(answerItem.value)}
-                                                        sx={{ height: "20px" }}
-                                                    />
+                                                <ControlledCheckbox
+                                                    control={control}
+                                                    name={`csSata.${index}.value`}
+                                                    label={choices.label}
+                                                />
                                                 </span>
-                                                <p>{answerItem.label}</p>
                                             </div>
-                                        ))
-                                    )}
+                                        ))}
+                                        <ErrorMessage />
                                 </div>
                             </div>
                         )}
