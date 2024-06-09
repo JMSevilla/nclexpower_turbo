@@ -1,16 +1,43 @@
 import React from 'react';
 import { Paper, Grid } from '@mui/material';
-import { TextField, MenuItem } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { DDClozeProps, QuestionaireProps, AnswerProps, OptionType } from "@/core/types/ssrData";
+import { QuestionaireProps, AnswerProps } from "@/core/types/ssrData";
+import { ControlledSelectField } from '@repo/core-library/components';
+import { useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
+import { DDClozeValidationType, DDClozeSchema } from '@/core/schema/ddcloze/validation'; 
 
+export type DDClozeProps = {
+    questionaire: QuestionaireProps[],
+    answer: AnswerProps[],
+    ddcAtom: DDClozeValidationType | undefined,
+    handleSubmit: (values: DDClozeValidationType) => void
+}
 
-export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, selectedValues, handleSelectChange }) => {
+export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSubmit, ddcAtom}) => {
+
+    const form = useForm<DDClozeValidationType>({
+        mode: "all",
+        resolver: zodResolver(DDClozeSchema),
+    });
+
+    const { control } = form;
+
+    const formState = useFormState({ control: control });
+
+    useFormSubmissionBindingHooks({
+        key: "DDC",
+        isValid: formState.isValid,
+        isDirty: formState.isDirty,
+        cb: () => form.handleSubmit(handleSubmit)(),
+        initDependencies: [ddcAtom],
+    });
 
     return (
         <div className="p-2 py-2 h-full">
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6}>
                     <div className='h-full w-full p-4'>
                         {questionaire.length > 0 &&
                             questionaire.map((questionItem: QuestionaireProps) => (
@@ -54,36 +81,37 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, selected
                                 </p>
                             </div>
                             <Paper elevation={3} className="p-5 overflow-auto flex flex-col gap-5">
-                              <div className="w-full h-fit text-sm p-1">
-                                {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part: string, index: number) => (
-                                    index % 2 === 0 ? (
-                                    <span key={index} dangerouslySetInnerHTML={{ __html: part }} />
-                                    ) : (
-                                    <React.Fragment key={index}>
-                                        {(() => {
-                                        const key = part.trim();
-                                        const options = answerItem.selectField[key] || [];
-                                        return (
-                                            <TextField
-                                            select
-                                            variant="standard"
-                                            size="small"
-                                            name={key}
-                                            value={selectedValues[key] || ''}
-                                            onChange={handleSelectChange}
-                                            style={{ minWidth: '200px', height: '40px', color: 'gray', margin: '-6px 10px 0 10px', textAlign: 'center' }}
-                                            >
-                                            {options.map((option: OptionType) => (
-                                                <MenuItem key={option.value.toString()} value={option.value.toString()}>
-                                                {option.label}
-                                                </MenuItem>
-                                            ))}
-                                            </TextField>
-                                        );
-                                        })()}
-                                    </React.Fragment>
-                                    )
-                                ))}
+                                <div className="w-full h-fit text-sm p-1">
+                                    {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part, index) => (
+                                    <div className="inline-block min-w-[150px] my-0 mx-[10px] align-top mt-3" key={index}>
+                                        {index % 2 === 0 ? (
+                                        <span dangerouslySetInnerHTML={{ __html: part }} />
+                                        ) : (
+                                        <>
+                                            {(() => {
+                                            const key = part.trim();
+                                            const options = answerItem.selectField[key] || [];
+                                            return (
+                                                <ControlledSelectField
+                                                variant="standard"
+                                                control={control}
+                                                name={key}
+                                                options={options}
+                                                size='small'
+                                                sx={{
+                                                    minWidth: '150px',
+                                                    height: '35px',
+                                                    color: 'gray',
+                                                    margin: '-5px 0 0 5px',
+                                                    textAlign: 'center',
+                                                }}
+                                                />
+                                            );
+                                            })()}
+                                        </>
+                                        )}
+                                    </div>
+                                    ))}
                                 </div>
                             </Paper>
                             <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
