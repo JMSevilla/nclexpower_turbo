@@ -34,9 +34,13 @@ export const RegularSATAValidationAtom = atom<RegularSATAValidationType | undefi
 )
 
 export const CaseStudySataAtom = atom<CaseStudySATAValidationType | undefined>(
+    undefined
+)
+
 export const DDClozeValidationAtom = atom<DDClozeValidationType | undefined>(
   undefined
 )
+
 export const DDTableValidationAtom = atom<DDTableValidationType | undefined>(
   undefined
 )

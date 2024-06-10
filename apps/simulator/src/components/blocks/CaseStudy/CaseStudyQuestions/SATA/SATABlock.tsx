@@ -8,7 +8,7 @@ import { CaseStudySataAtom } from '@/core/schema/useAtomic';
 export const SATABlock: React.FC<CaseStudyProps> = ({ questionaire }) => {
 
     const [csSataAtom, setCsSataAtom] = useAtom(CaseStudySataAtom);
-    const [activeTab, setActiveTab] = useState<number>(0);
+
 
     async function handleSubmit(values: CaseStudySATAValidationType) {
         console.log(values);
@@ -18,8 +18,6 @@ export const SATABlock: React.FC<CaseStudyProps> = ({ questionaire }) => {
     return (
         <SATA 
             questionaire={questionaire} 
-            setActiveTab={setActiveTab} 
-            activeTab={activeTab} 
             csSataAtom={csSataAtom} 
             handleSubmit={handleSubmit}            
         />

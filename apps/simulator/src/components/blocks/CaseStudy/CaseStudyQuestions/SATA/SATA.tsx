@@ -1,6 +1,6 @@
 import { Checkbox, Grid } from '@mui/material'
 import NearMeIcon from '@mui/icons-material/NearMe';
-import React from 'react'
+import React, { useState } from 'react'
 import { AnswerProps, SsrAnswerTabsProps, QuestionaireProps } from '@/core/types/ssrData';
 import { useErrorHandler } from '@/core/utils/useErrorhandler';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
@@ -14,17 +14,15 @@ import { useAtom } from "jotai"
 
 type Props = {
     questionaire: QuestionaireProps[];
-    setActiveTab: (index:number) => void;
-    activeTab: number;
     csSataAtom: CaseStudySATAValidationType | undefined;
     handleSubmit: (values: CaseStudySATAValidationType) => void;
 }
 
-export const SATA: React.FC<Props> = ({ questionaire, handleSubmit, ...rest }) => {
+export const SATA: React.FC<Props> = ({ questionaire, handleSubmit, csSataAtom }) => {
 
     const ParsedChoices = questionaire ? questionaire[0].answer[0].rows : null
 
-    const { activeTab, setActiveTab, csSataAtom } = rest
+      const [activeTab, setActiveTab] = useState<number>(0);
 
         const form = useForm<CaseStudySATAValidationType>({
         mode: "all",
