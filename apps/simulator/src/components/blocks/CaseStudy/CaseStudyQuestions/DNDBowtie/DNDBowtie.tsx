@@ -6,26 +6,26 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DNDBowtieValidationType, RowSchema } from '@/core/schema/dndbowtie/validation';
 import { DraggableCard } from './DNDBowtieComponent/DraggableCard';
 import { DroppableContainer } from './DNDBowtieComponent/Droppable';
-import { dndObjectValueProps, QuestionaireProps, AnswerProps, choicesListProps, DropContainerType, DropContainerItem } from '@/core/types/ssrData';
-import { dropContainers, initialContainerState } from '@/core/constant/dndStateConstant';
-import { getMapItems } from '@/core/utils/contents';
+import { ItemTypesKeys, itemTypes } from '@/core/constant/dndStateConstant';
+import { dndObjectValueProps, QuestionaireProps, AnswerProps, choicesListProps, DropContainerType } from '@/core/types/ssrData';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
 
-type DroppedValueType = Record<string, dndObjectValueProps[]>
+export type DroppedValueType = Record<string, dndObjectValueProps[]>
 
 type Props = {
   questionaire: QuestionaireProps[];
   answer: AnswerProps[];
   handleSubmit: (values: DNDBowtieValidationType) => void
   dndBowtieAtom: DNDBowtieValidationType | undefined
+  dropContainer: DropContainerType,
+  droppedValue: DroppedValueType,
+  dropAnswer: (container: string, item: dndObjectValueProps) => void,
+  handleRemove: (containerName: string, value: dndObjectValueProps) => void,
+  answerLists: choicesListProps[]
 }
 
-export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, handleSubmit, dndBowtieAtom }) => {
-  const { choicesLists } = getMapItems(answer)
-  const [answerLists, setAnswerList] = useState<choicesListProps[]>(choicesLists);
-  const [droppedValue, setDroppedValue] = useState<DroppedValueType>(initialContainerState);
-  const dropContainer: DropContainerType = dropContainers;
-
+export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) => {
+  const { dropContainer, droppedValue, dropAnswer, handleRemove, answerLists, handleSubmit, dndBowtieAtom } = rest
 
   const form = useForm<DNDBowtieValidationType>({
     mode: 'all',
@@ -48,46 +48,32 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, handleSubmit,
     setValue('dndbowtie', droppedValue)
   }, [droppedValue])
 
-  const removeValue = (id: number, container: string, setState: any) => {
-    setState((prevState: any) => {
-      const updatedState = { ...prevState };
-      updatedState[container] = updatedState[container].filter((block: { id: number }) => block.id !== id);
-      return updatedState;
-    });
-  };
 
-  const addValue = (value: dndObjectValueProps) => {
-    setAnswerList((prevState: any) => {
-      const updatedState = { ...prevState };
-      if (!updatedState[value.container]?.some((values: dndObjectValueProps) => values.id === value.id)) {
-        updatedState[value.container] = updatedState[value.container] ? [...updatedState[value.container], value] : [value];
-      }
-      return updatedState;
-    });
+  const renderDroppableContainer = () => {
+    const itemKeys = Object.keys(itemTypes) as ItemTypesKeys[]
+    return <div className='flex justify-evenly items-center gap-2'>
+      {itemKeys.map((keys, index) => (
+        <div className='flex flex-col gap-4' key={index}>
+          {dropContainer.map((items, index) => (
+            <>
+              {items.accepts[0] === itemTypes[keys] && <div>
+                <DroppableContainer
+                  accept={items.accepts}
+                  errorMessage={dndbowtieError && dndbowtieError[items.container]?.message}
+                  text={items.text}
+                  onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
+                  droppedValue={droppedValue[items.container]}
+                  handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
+                  bg={items.background}
+                  key={index}
+                />
+              </div>}
+            </>
+          ))}
+        </div>
+      ))}
+    </div>
   }
-
-  const dropAnswer = (containerName: string, value: dndObjectValueProps) => {
-    const { id, container } = value
-    setDroppedValue(prevState => {
-      if (prevState[containerName].length > 0) {
-        const currentValue = prevState[containerName];
-        addValue(currentValue[0])
-      }
-
-      return {
-        ...prevState,
-        [containerName]: [value]
-      };
-    });
-    removeValue(id, container, setAnswerList)
-  };
-
-  const handleRemove = (containerName: string, item: dndObjectValueProps) => {
-    const { id } = item
-    removeValue(id, containerName, setDroppedValue)
-    addValue(item)
-  };
-
 
   return (
     <div className="p-2 py-2 overflow-y-auto">
@@ -136,48 +122,7 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, handleSubmit,
                     </p>
                   </div>
                   <div className="flex gap-5 flex-col">
-                    <div className="flex justify-evenly items-center gap-2">
-                      <div className="flex flex-col gap-4">
-                        {dropContainer.slice(0, 2).map((items: DropContainerItem, index: number) => (
-                          <DroppableContainer
-                            key={index}
-                            errorMessage={dndbowtieError && dndbowtieError[items.container]?.message}
-                            accept={items.accepts}
-                            text={items.text}
-                            onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
-                            droppedValue={droppedValue[items.container]}
-                            bg="bg-[#BCE4E4]"
-                            handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
-                          />
-                        )
-                        )}
-                      </div>
-                      <div className="flex justify-center items-center">
-                        <DroppableContainer
-                          accept={dropContainer[2].accepts}
-                          errorMessage={dndbowtieError && dndbowtieError[dropContainer[2].container]?.message}
-                          text={dropContainer[2].text}
-                          onDrop={(item: dndObjectValueProps) => dropAnswer(dropContainer[2].container, item)}
-                          droppedValue={droppedValue[dropContainer[2].container]}
-                          bg="bg-[#6DCFF6]"
-                          handleRemove={() => handleRemove(dropContainer[2].container, droppedValue[dropContainer[2].container][0])}
-                        />
-                      </div>
-                      <div className="flex flex-col gap-4">
-                        {dropContainer.slice(3).map((items: DropContainerItem, index: number) => (
-                          <DroppableContainer
-                            errorMessage={dndbowtieError && dndbowtieError[items.container]?.message}
-                            key={index}
-                            accept={items.accepts}
-                            text={items.text}
-                            onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
-                            droppedValue={droppedValue[items.container]}
-                            bg="bg-[#E0E0DF]"
-                            handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                    {renderDroppableContainer()}
                     <div className="flex justify-evenly items-start">
                       <div className="flex ">
                         {answerItem.choicesListKey.map((listKey: any, index: number) => (
