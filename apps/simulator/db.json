@@ -419,19 +419,19 @@
                             "qId": 6,
                             "answerType": "DDC",
                             "answerInstruction": "Complete the following sentence by choosing from the list of options.",
-                            "DDCAnswer": "The nurse should insert [[selectFieldKey:first]] It would be a <strong>priority</strong> for the nurse to request a prescription for an [[selectFieldKey:second]] The nurse should prepare the client surgery for [[selectFieldKey:third]]",
+                            "DDCAnswer": "The nurse should insert [[selectFieldKey:firstSelectField]] It would be a <strong>priority</strong> for the nurse to request a prescription for an [[selectFieldKey:secondSelectField]] The nurse should prepare the client surgery for [[selectFieldKey:thirdSelectField]]",
                             "answerUI": "unknown",
                             "columns": [],
                             "rows": [],
                             "note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus modi nemo atque inventore explicabo harum dolores laboriosam quo consequatur sint",
                             "selectFieldKey": [
-                                "first",
-                                "second",
-                                "third"
+                                "firstSelectField",
+                                "secondSelectField",
+                                "thirdSelectField"
                             ],
                             "selectField": {
                                 "selectFieldId": 1,
-                                "first": [
+                                "firstSelectField": [
                                     {
                                         "label": "a rectal tube",
                                         "value": "a rectal tube",
@@ -448,7 +448,7 @@
                                         "xvalue": 3
                                     }
                                 ],
-                                "second": [
+                                "secondSelectField": [
                                     {
                                         "label": "analgesic medication",
                                         "value": "analgesic medication",
@@ -465,7 +465,7 @@
                                         "xvalue": 3
                                     }
                                 ],
-                                "third": [
+                                "thirdSelectField": [
                                     {
                                         "label": "6 hours",
                                         "value": "6 hours",
