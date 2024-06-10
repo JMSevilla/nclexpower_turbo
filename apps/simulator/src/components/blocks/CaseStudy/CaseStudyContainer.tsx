@@ -4,6 +4,7 @@ import { useAlertMessageV2 } from '@repo/core-library/contexts/AlertMessageConte
 import {
   HCPBlock,
   DDClozeBlock,
+  DDTableBlock,
   DDTQuestionaireBlock,
   MCQCSBlock,
   DNDBlock,
@@ -19,7 +20,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === 'SATA';
+        return cms.QType === 'DDT';
       });
 
     const { QType: QuestionType, answer, hasAlert, qId } = deserializeContents?.[0];
@@ -52,7 +53,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
     case 'DDC':
       return <DDClozeBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDT':
-      return <DDTQuestionaireBlock questionaire={deserializeContents} answer={answer} />;
+      return <DDTableBlock questionaire={deserializeContents} answer={answer} />;
     case 'DND1':
       return <DNDBlock questionaire={deserializeContents} />;
     case 'DNDBowtie':
