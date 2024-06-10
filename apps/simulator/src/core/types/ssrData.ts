@@ -169,6 +169,12 @@ export type OptionType = {
   xvalue: number;
 };
 
+export type optionProps = {
+  label: string;
+  value: string;
+  xvalue: number;
+};
+
 export type dndObjectValueProps = {
   id: number;
   text: string;
@@ -201,27 +207,17 @@ export interface SelectedValuesType {
   [key: string]: string;
 }
 
-export type DDTProps = {
-  questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
-  selectedValues: SelectedValuesType;
-  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+export type FieldsType = {
+  [key: string]: optionProps[];
 };
 
 export interface TableProps {
   columns: string[];
   selectFieldKeys: string[];
-  selectFieldOptions: { [key: string]: OptionType[] };
-  selectedValues: SelectedValuesType;
-  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectFieldOptions: { [key: string]: optionProps[] };
+  selectFieldComponent: (key:string, field: FieldsType) => ReactNode
 }
 
-export type DDClozeProps = {
-    questionaire: QuestionaireProps[],
-    answer: AnswerProps[],
-    selectedValues: SelectedValuesType,
-    handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
 export interface DropContainerItem {
   accepts: string[];
   text: string;

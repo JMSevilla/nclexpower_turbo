@@ -24,6 +24,7 @@ export const getMapItems = (answer: AnswerProps[]) => {
     const selectFieldKey = foundAnswer ? foundAnswer.selectFieldKey : [];
     const selectField = foundAnswer ? foundAnswer.selectField : [];
     const choicesLists = foundAnswer ? foundAnswer.choicesList : [];
+    const rows = foundAnswer ? foundAnswer.rows : [];
 
-    return { columnName, selectFieldKey, selectField, choicesLists };
+    return { columnName, selectFieldKey, selectField, choicesLists, rows };
 }
