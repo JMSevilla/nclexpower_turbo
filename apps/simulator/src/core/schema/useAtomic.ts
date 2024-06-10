@@ -6,6 +6,8 @@ import { MCQGValidationType } from '@/core/schema/mcqGroup/validation';
 import { HCPValidationType } from '@/core/schema/hcp/validation';
 import { RegularSATAValidationType } from './regularSATA/validation';
 import { DNDBowtieValidationType } from '@/core/schema/dndbowtie/validation';
+import { DDClozeValidationType } from "@/core/schema/ddcloze/validation";
+import { DDTableValidationType } from "./ddtable/validation";
 
 export const MrsnValidationAtom = atom<MrsnValidationType | undefined>(
   undefined
@@ -31,4 +33,13 @@ export const RegularSATAValidationAtom = atom<RegularSATAValidationType | undefi
   undefined
 )
 
-export const DNDBowtieValidationAtom = atom<DNDBowtieValidationType | undefined>(undefined) 
+export const DNDBowtieValidationAtom = atom<DNDBowtieValidationType | undefined>(
+  undefined)
+
+export const DDClozeValidationAtom = atom<DDClozeValidationType | undefined>(
+  undefined
+)
+
+export const DDTableValidationAtom = atom<DDTableValidationType | undefined>(
+  undefined
+)
