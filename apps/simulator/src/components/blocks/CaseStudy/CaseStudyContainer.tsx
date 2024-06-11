@@ -5,7 +5,8 @@ import {
   HCPBlock,
   DDClozeBlock,
   DDTableBlock,
-  MCQCSQuestionnaire,
+  DDTQuestionaireBlock,
+  MCQCSBlock,
   DNDBlock,
   MRSNBlock,
   SATABlock,
@@ -44,7 +45,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
       return <SATABlock questionaire={deserializeContents} />;
     case 'MCQGroup':
     case 'MCQNoGroup':
-      return <MCQCSQuestionnaire questionaire={deserializeContents} answer={answer} />;
+      return <MCQCSBlock questionaire={deserializeContents} answer={answer} />;
     case 'HCP':
       return <HCPBlock questionaire={deserializeContents} answer={answer} />;
     case 'MRSN':
@@ -56,7 +57,7 @@ function renderSwitch(QuestionType: string, deserializeContents: any, answer: an
     case 'DND1':
       return <DNDBlock questionaire={deserializeContents} />;
     case 'DNDBowtie':
-      return <DNDBowtieBlock questionaire={deserializeContents} answer={answer}/>;
+      return <DNDBowtieBlock questionaire={deserializeContents} answer={answer} />;
 
     default:
       return <h3>No questionaire Loaded</h3>;
