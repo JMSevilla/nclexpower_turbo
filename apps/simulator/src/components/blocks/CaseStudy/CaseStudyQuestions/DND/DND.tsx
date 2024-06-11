@@ -140,7 +140,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                                 {answerItem.DNDAnswer ? answerItem?.DNDAnswer
                                                     .split(/\[\[(.*?)\]\]/)
                                                     .map((part: string, index: number) => {
-                                                        const word = part.split(":")[1].trim();
+                                                        const word = part.split(":")[1]?.trim();
 
                                                         return index % 2 === 0 ?
                                                             <span key={index}>{part}</span> :

@@ -5,7 +5,6 @@ import {
   HCPBlock,
   DDClozeBlock,
   DDTableBlock,
-  DDTQuestionaireBlock,
   MCQCSBlock,
   DNDBlock,
   MRSNBlock,

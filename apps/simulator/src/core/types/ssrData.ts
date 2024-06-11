@@ -132,10 +132,10 @@ export type RegularQuestion = {
 
 export type MCQTable = {
   table:
-    | Array<{
-        rows: Array<{}>;
-      }>
-    | any;
+  | Array<{
+    rows: Array<{}>;
+  }>
+  | any;
 };
 
 export interface Row {
@@ -222,5 +222,6 @@ export interface DropContainerItem {
   accepts: string[];
   text: string;
   container: string;
+  background: string;
 }
 export type DropContainerType = DropContainerItem[];
