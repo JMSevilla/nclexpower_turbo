@@ -10,7 +10,6 @@ import { CmsTokens } from "../../types/types";
 import { extractPreloadedLabelFromGlobals } from "../../types/business/global";
 import { injectTokenValuesToPage } from "../../contents/cms/inject-tokens";
 import { useCachedCmsTokens } from "./useCachedCmsTokens";
-import { useRouter } from "next/router";
 import { useCachedCmsGlobals } from "./useCachedCmsGlobals";
 import { useApiContent } from "../../hooks";
 import { useCachedAccessKey } from "../../hooks/useCachedAccessKey";
@@ -47,7 +46,6 @@ export const useContentDataContext = () => {
 export const ContentDataContextProvider: React.FC<
   React.PropsWithChildren<ServerProps>
 > = ({ children, tenant, slug, preloadedGlobals }) => {
-  const router = useRouter();
   const cmsTokens = useCachedCmsTokens();
   const cmsGlobals = useCachedCmsGlobals(tenant.tenantUrl.value);
   const [enrichedContentData, setEnrichedContentData] = useState<ContentData>();
@@ -81,7 +79,6 @@ export const ContentDataContextProvider: React.FC<
       const pageElementsData =
         fulfilledValueOrThrow(page)?.data?.elements ?? null;
       const globalsData = fulfilledValueOrThrow(globals);
-      console.log("pageElementsData", pageElementsData);
       setEnrichedContentData(
         injectTokenValuesToPage(
           tenant,
