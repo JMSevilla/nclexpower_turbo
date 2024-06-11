@@ -362,36 +362,38 @@
                             "answerId": 5,
                             "qId": 5,
                             "answerType": "SATA",
-                            "answerInstruction": "Recent medical findings suggest that regular consumption of green tea may lower the risk of developing cardiovascular diseases due to its antioxidant properties.",
+                            "answerInstruction": "Select the 3 complications the client is at risk for developing.",
                             "answerUI": "Table",
                             "rows": [
                                 {
-                                    "label": "Label 1",
-                                    "value": 1
+                                    "label": "anemia",
+                                    "value": false,
+                                    "xvalue": 1
                                 },
                                 {
-                                    "label": "Label 2",
-                                    "value": 2
+                                    "label": "peritonitis",
+                                    "value": false,
+                                    "xvalue": 2
                                 },
                                 {
-                                    "label": "Label 3",
-                                    "value": 3
+                                    "label": "septic shock",
+                                    "value": false,
+                                    "xvalue": 3
                                 },
                                 {
-                                    "label": "Label 4",
-                                    "value": 4
+                                    "label": "hypovolemia",
+                                    "value": false,
+                                    "xvalue": 4
                                 },
                                 {
-                                    "label": "Label 5",
-                                    "value": 5
+                                    "label": "dysrhythmias",
+                                    "value": false,
+                                    "xvalue": 5
                                 },
                                 {
-                                    "label": "Label 6",
-                                    "value": 6
-                                },
-                                {
-                                    "label": "Label 7",
-                                    "value": 7
+                                    "label": "cardiac arrest",
+                                    "value": false,
+                                    "xvalue": 6
                                 }
                             ],
                             "note": ""
