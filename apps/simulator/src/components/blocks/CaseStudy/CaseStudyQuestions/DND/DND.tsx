@@ -1,6 +1,6 @@
 import NearMeIcon from "@mui/icons-material/NearMe";
 import React, { useEffect, useState } from 'react'
-import { AnswerProps, DND1WordChoicesUI, QuestionaireProps, SsrData } from '@/core/types/ssrData'
+import { AnswerProps, CaseStudyProps, DND1WordChoicesUI, QuestionaireProps } from '@/core/types/ssrData'
 import { DNDValidationType, RowSchema } from '@/core/schema/dnd/validation';
 import { DraggableWord } from '@/components/blocks/CaseStudy/CaseStudyQuestions/DND/DNDComponent/DraggableWord';
 import { Grid } from '@mui/material';
@@ -10,7 +10,7 @@ import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormS
 import { zodResolver } from '@hookform/resolvers/zod';
 
 
-type Props = SsrData & {
+type Props = CaseStudyProps & {
     dndAtom: DNDValidationType | undefined
     handleSubmit: (value: DNDValidationType) => void;
 }
@@ -140,7 +140,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                                 {answerItem.DNDAnswer ? answerItem?.DNDAnswer
                                                     .split(/\[\[(.*?)\]\]/)
                                                     .map((part: string, index: number) => {
-                                                        const word = part.split(":")[1].trim();
+                                                        const word = part.split(":")[1]?.trim();
 
                                                         return index % 2 === 0 ?
                                                             <span key={index}>{part}</span> :

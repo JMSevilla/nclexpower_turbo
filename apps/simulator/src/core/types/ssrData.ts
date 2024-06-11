@@ -26,7 +26,7 @@ export type QuestionaireProps = {
     contentTitle: string;
     content: string | SsrQuestionaireContentProps[];
   }>;
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 export type AnswerProps = Partial<DNDAnswerUIItem> & {
@@ -132,10 +132,10 @@ export type RegularQuestion = {
 
 export type MCQTable = {
   table:
-    | Array<{
-        rows: Array<{}>;
-      }>
-    | any;
+  | Array<{
+    rows: Array<{}>;
+  }>
+  | any;
 };
 
 export interface Row {
@@ -166,6 +166,12 @@ export type CaseStudyProps = {
 export type OptionType = {
   label: string;
   value: boolean;
+  xvalue: number;
+};
+
+export type optionProps = {
+  label: string;
+  value: string;
   xvalue: number;
 };
 
@@ -201,30 +207,21 @@ export interface SelectedValuesType {
   [key: string]: string;
 }
 
-export type DDTProps = {
-  questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
-  selectedValues: SelectedValuesType;
-  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+export type FieldsType = {
+  [key: string]: optionProps[];
 };
 
 export interface TableProps {
   columns: string[];
   selectFieldKeys: string[];
-  selectFieldOptions: { [key: string]: OptionType[] };
-  selectedValues: SelectedValuesType;
-  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectFieldOptions: { [key: string]: optionProps[] };
+  selectFieldComponent: (key:string, field: FieldsType) => ReactNode
 }
 
-export type DDClozeProps = {
-    questionaire: QuestionaireProps[],
-    answer: AnswerProps[],
-    selectedValues: SelectedValuesType,
-    handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
 export interface DropContainerItem {
   accepts: string[];
   text: string;
   container: string;
+  background: string;
 }
 export type DropContainerType = DropContainerItem[];

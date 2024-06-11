@@ -1,16 +1,14 @@
 import { MCQGValidationType, mcqGSchema } from '@/core/schema/mcqGroup/validation';
-import { MCQGValidationAtom } from '@/core/schema/useAtomic';
-import { AnswerProps, SsrData } from '@/core/types/ssrData';
+import { AnswerProps } from '@/core/types/ssrData';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAtom } from 'jotai';
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index'
 import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { ControlledTableRadioButton } from '@/components/TableRadioButton';
 import { FormHelperText } from '@/components/FormHelperText';
 import NearMeIcon from '@mui/icons-material/NearMe';
-
+import { MCQCSProps } from './MCQCSComponents/MCQCS';
 
 type RenderButtonsProps = {
     row?: MCQGValidationType | any;
@@ -26,13 +24,10 @@ export type DataProps = {
     chKeys: string[];
 }
 
-export type ChangeHandler = (onChange: (value: boolean) => void, data: DataProps) => void;
+type ChangeHandler = (onChange: (value: boolean) => void, data: DataProps) => void;
 
-
-export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire, answer }) => {
-    const [mcqGAtom, setmcqGAtom] = useAtom(MCQGValidationAtom);
+export const MCQAnswerGroupTable: React.FC<MCQCSProps> = ({ questionaire, answer, handleSubmit, mcqGAtom }) => {
     const rows = answer && answer?.length > 0 ? answer[0].rows : [];
-
     const form = useForm<MCQGValidationType>({
         mode: "all",
         resolver: zodResolver(mcqGSchema),
@@ -63,11 +58,6 @@ export const MCQAnswerGroupTable: React.FC<SsrData> = ({ questionaire, answer })
         cb: () => form.handleSubmit(handleSubmit)(),
         initDependencies: [mcqGAtom],
     });
-
-    async function handleSubmit(values: MCQGValidationType) {
-        console.log("VALUE : ", values);
-        setmcqGAtom(values);
-    }
 
     const RenderCheckboxes = ({ row, rowIndex }: RenderButtonsProps) => {
         if (!row || rowIndex === undefined) {

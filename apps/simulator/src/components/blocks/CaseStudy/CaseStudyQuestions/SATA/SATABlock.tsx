@@ -1,28 +1,25 @@
 import React, { useState } from 'react'
 import { CaseStudyProps } from '@/core/types/ssrData';
 import { SATA } from './SATA';
+import { CaseStudySATAValidationType } from '@/core/schema/CSSata/validation';
+import { useAtom } from 'jotai';
+import { CaseStudySataAtom } from '@/core/schema/useAtomic';
 
 export const SATABlock: React.FC<CaseStudyProps> = ({ questionaire }) => {
 
-    const [activeTab, setActiveTab] = useState<number>(0);
-    const [checkedValues, setCheckedValues] = useState<number[]>([]);
-    const handleCheckBoxValues = (value: number) => {
-        const isChecked = checkedValues.includes(value);
-        if (isChecked) {
-            setCheckedValues(checkedValues.filter((val) => val !== value));
-        } else {
-            setCheckedValues([...checkedValues, value]);
-        }
-    };
+    const [csSataAtom, setCsSataAtom] = useAtom(CaseStudySataAtom);
+
+
+    async function handleSubmit(values: CaseStudySATAValidationType) {
+        console.log(values);
+        setCsSataAtom(values);
+    }
 
     return (
         <SATA 
             questionaire={questionaire} 
-            setActiveTab={setActiveTab} 
-            activeTab={activeTab} 
-            checkedValues={checkedValues} 
-            handleCheckBoxValues={handleCheckBoxValues}            
+            csSataAtom={csSataAtom} 
+            handleSubmit={handleSubmit}            
         />
     )
 }
-

@@ -1,25 +1,79 @@
-import React from 'react';
-import { Grid, Paper, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { DroppableContainer } from './DNDBowtieComponent/Droppable'; 
-import { DraggableCard } from './DNDBowtieComponent/DraggableCard'; 
-import { dndObjectValueProps, QuestionaireProps, AnswerProps,  choicesListProps, DropContainerType, DropContainerItem } from '@/core/types/ssrData';
+import { Grid, Paper, Typography } from '@mui/material';
+import { useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DNDBowtieValidationType, RowSchema } from '@/core/schema/dndbowtie/validation';
+import { DraggableCard } from './DNDBowtieComponent/DraggableCard';
+import { DroppableContainer } from './DNDBowtieComponent/Droppable';
+import { ItemTypesKeys, itemTypes } from '@/core/constant/dndStateConstant';
+import { dndObjectValueProps, QuestionaireProps, AnswerProps, choicesListProps, DropContainerType } from '@/core/types/ssrData';
+import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
 
-type DropValueType = Record<string, dndObjectValueProps[]>;
+export type DroppedValueType = Record<string, dndObjectValueProps[]>
 
 type Props = {
-      questionaire: QuestionaireProps[];
-      answer: AnswerProps[];
-      dropContainer: DropContainerType,
-      droppedValue: DropValueType,
-      dropAnswer: (container: string, item: dndObjectValueProps) => void,
-      handleRemove: (containerName:string, value: dndObjectValueProps) => void,
-      answerLists: choicesListProps[]
+  questionaire: QuestionaireProps[];
+  answer: AnswerProps[];
+  handleSubmit: (values: DNDBowtieValidationType) => void
+  dndBowtieAtom: DNDBowtieValidationType | undefined
+  dropContainer: DropContainerType,
+  droppedValue: DroppedValueType,
+  dropAnswer: (container: string, item: dndObjectValueProps) => void,
+  handleRemove: (containerName: string, value: dndObjectValueProps) => void,
+  answerLists: choicesListProps[]
 }
 
 export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) => {
+  const { dropContainer, droppedValue, dropAnswer, handleRemove, answerLists, handleSubmit, dndBowtieAtom } = rest
 
-    const {  dropContainer, droppedValue, dropAnswer, handleRemove, answerLists } = rest
+  const form = useForm<DNDBowtieValidationType>({
+    mode: 'all',
+    resolver: zodResolver(RowSchema),
+  })
+
+  const { control, setValue } = form
+  const formState = useFormState({ control: control })
+  const { dndbowtie: dndbowtieError } = formState.errors
+
+  useFormSubmissionBindingHooks({
+    key: 'DNDBowtie',
+    isValid: formState.isValid,
+    isDirty: formState.isDirty,
+    cb: () => form.handleSubmit(handleSubmit)(),
+    initDependencies: [dndBowtieAtom],
+  })
+
+  useEffect(() => {
+    setValue('dndbowtie', droppedValue)
+  }, [droppedValue])
+
+
+  const renderDroppableContainer = () => {
+    const itemKeys = Object.keys(itemTypes) as ItemTypesKeys[]
+    return <div className='flex justify-evenly items-center gap-2'>
+      {itemKeys.map((keys, index) => (
+        <div className='flex flex-col gap-4' key={index}>
+          {dropContainer.map((items, index) => (
+            <>
+              {items.accepts[0] === itemTypes[keys] && <div>
+                <DroppableContainer
+                  accept={items.accepts}
+                  errorMessage={dndbowtieError && dndbowtieError[items.container]?.message}
+                  text={items.text}
+                  onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
+                  droppedValue={droppedValue[items.container]}
+                  handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
+                  bg={items.background}
+                  key={index}
+                />
+              </div>}
+            </>
+          ))}
+        </div>
+      ))}
+    </div>
+  }
 
   return (
     <div className="p-2 py-2 overflow-y-auto">
@@ -28,7 +82,7 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
           <div className='h-full w-full p-4'>
             {questionaire &&
               questionaire.map((questionItem: QuestionaireProps) => (
-                <div key={questionItem.qId} className='w-full'>
+                <div key={questionItem.qId} className='w-full' >
                   <div className='w-full text-sm mb-4 pr-5 pt-4'>
                     <p>{questionItem.question}</p>
                   </div>
@@ -53,8 +107,8 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
                         </>
                       ))}
                   </div>
-                </div>
-              ))}
+                </div>)
+              )}
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6.5}>
@@ -64,67 +118,30 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
                 <>
                   <div key={answerItem.answerId} className='w-full text-sm mb-4 pr-5 pt-4'>
                     <p className="flex"><NearMeIcon className='h-6 rotate-45 text-[#86BCEA] mr-2 pb-1' />
-                    <div dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
+                      <div dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
                     </p>
                   </div>
                   <div className="flex gap-5 flex-col">
-                    <div className="flex justify-evenly items-center gap-2">
-                        <div className="flex flex-col gap-4">
-                            {dropContainer.slice(0, 2).map((items: DropContainerItem, index: number) => (
-                                <DroppableContainer
-                                    key={index}
-                                    accept={items.accepts}
-                                    text={items.text}
-                                    onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
-                                    droppedValue={droppedValue[items.container]}
-                                    bg="bg-[#BCE4E4]"     
-                                    handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
+                    {renderDroppableContainer()}
+                    <div className="flex justify-evenly items-start">
+                      <div className="flex ">
+                        {answerItem.choicesListKey.map((listKey: any, index: number) => (
+                          <div key={index} className="min-w-[180px] bg-[#E6F2FF]">
+                            <Typography variant='subtitle1' sx={{ color: "#1f1f1f", textAlign: "center", padding: "8px" }}>{listKey}</Typography>
+                            <div className="flex flex-col gap-2 p-2">
+                              {answerLists[listKey] && answerLists[listKey].map((item: dndObjectValueProps) => (
+                                <DraggableCard
+                                  key={item.id}
+                                  answer={item}
+                                  type={item.container}
+                                  icon={false}
                                 />
-                            ))}
-                        </div>
-                        <div className="flex justify-center items-center">
-                            <DroppableContainer
-                                accept={dropContainer[2].accepts}
-                                text={dropContainer[2].text}
-                                onDrop={(item: dndObjectValueProps) => dropAnswer(dropContainer[2].container, item)}
-                                droppedValue={droppedValue[dropContainer[2].container]}
-                                bg="bg-[#6DCFF6]"
-                                handleRemove={() => handleRemove(dropContainer[2].container, droppedValue[dropContainer[2].container][0])}
-                            />
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            {dropContainer.slice(3).map((items: DropContainerItem, index: number) => (
-                                <DroppableContainer
-                                    key={index}
-                                    accept={items.accepts}
-                                    text={items.text}
-                                    onDrop={(item: dndObjectValueProps) => dropAnswer(items.container, item)}
-                                    droppedValue={droppedValue[items.container]}
-                                    bg="bg-[#E0E0DF]"
-                                    handleRemove={() => handleRemove(items.container, droppedValue[items.container][0])}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                      <div className="flex justify-evenly items-start">
-                        <div className="flex ">
-                          {answerItem.choicesListKey.map((listKey: any, index: number) => (
-                            <div key={index} className="min-w-[180px] bg-[#E6F2FF]">
-                              <Typography variant='subtitle1' sx={{color: "#1f1f1f", textAlign: "center", padding: "8px" }}>{listKey}</Typography>
-                              <div className="flex flex-col gap-2 p-2">
-                                {answerLists[listKey] && answerLists[listKey].map((item: dndObjectValueProps) => (
-                                  <DraggableCard
-                                    key={item.id}
-                                    answer={item}
-                                    type={item.container}
-                                    icon={false}
-                                  />
-                                ))}
-                              </div>
+                              ))}
                             </div>
-                          ))}
-                        </div>
+                          </div>
+                        ))}
                       </div>
+                    </div>
                   </div>
                   <div className='w-full text-sm mb-4 pr-5 pt-4 flex gap-1'>
                     <p>{answerItem.note === "" ? "" : "Note:"}</p>
@@ -135,6 +152,6 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
           </div>
         </Grid>
       </Grid>
-    </div>
+    </div >
   );
 };

@@ -14,6 +14,7 @@ import {
   GlobalsProvider,
   useContentDataContext,
   useTenantContext,
+  NotificationsContextProvider,
 } from "./contexts";
 import { theme } from "./contents/theme/theme";
 interface Props {
@@ -41,27 +42,28 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
             stickOut={contentData.page?.showAsStickOut?.value}
             preloadedGlobals={preloadedGlobals}
           >
-            <Box minHeight="100vh" display="flex" flexDirection="column">
-              <Header
-                onLogout={() => { }}
-                tenant={tenant}
-                menu={contentData.menu}
-                pageKey={contentData.page?.pageKey?.value}
-              />
-              <PageContainer
-                stickOut={contentData.page?.showAsStickOut?.value}
-                loading={contentData.loading}
-                page={contentData.page}
-              >
-                <LoadablePageContent
-                  page={contentData.page}
+            <NotificationsContextProvider>
+              <Box minHeight="100vh" display="flex" flexDirection="column">
+                <Header
+                  onLogout={() => { }}
+                  tenant={tenant}
+                  menu={contentData.menu}
+                  pageKey={contentData.page?.pageKey?.value}
+                />
+                <PageContainer
+                  stickOut={contentData.page?.showAsStickOut?.value}
                   loading={contentData.loading}
+                  page={contentData.page}
                 >
-                  <PageContent page={contentData.page} tenant={tenant} />
-                </LoadablePageContent>
-              </PageContainer>
-            </Box>
-            <FooterBlock tenant={tenant} />
+                  <LoadablePageContent
+                    page={contentData.page}
+                    loading={contentData.loading}
+                  >
+                    <PageContent page={contentData.page} tenant={tenant} />
+                  </LoadablePageContent>
+                </PageContainer>
+              </Box>
+            </NotificationsContextProvider>
           </GlobalsProvider>
         </ErrorBoundary>
       </ThemeProvider>
