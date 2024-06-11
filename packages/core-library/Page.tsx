@@ -3,7 +3,11 @@ import dynamic from "next/dynamic";
 import { Layout as LayoutComponent } from "./Layout";
 import React from "react";
 import { getPreloadedGlobals, getTenant } from ".";
-import { ContentDataContextProvider, TenantContextProvider } from "./contexts";
+import {
+  ContentDataContextProvider,
+  TenantContextProvider,
+  AuthProvider,
+} from "./contexts";
 import { ErrorBox } from "./components";
 import { extractPreloadedLabelFromGlobals, ServerProps } from "./types";
 import { formattedSlug, parseTenantUrl } from "./types";
@@ -41,7 +45,9 @@ export const Page: NextPage<Props> = ({ data, error }) => {
   return (
     <TenantContextProvider tenant={data.tenant}>
       <ContentDataContextProvider {...data}>
-        <Layout preloadedGlobals={data.preloadedGlobals} />
+        <AuthProvider>
+          <Layout preloadedGlobals={data.preloadedGlobals} />
+        </AuthProvider>
       </ContentDataContextProvider>
     </TenantContextProvider>
   );
