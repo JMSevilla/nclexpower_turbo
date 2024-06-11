@@ -23,7 +23,6 @@ export const parseContent = (
   return contents.map((content) => {
     const type = (content?.elements?.formKey?.value || content?.type).trim();
     const elements = content?.elements;
-    const tenantType = (content?.elements?.formKey?.value || content?.type).trim();
 
     /* all blocks should go here.. */
     switch (type) {

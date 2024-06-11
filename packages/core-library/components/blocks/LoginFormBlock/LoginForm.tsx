@@ -22,21 +22,14 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   return (
     <Grid container direction="column" rowSpacing={4} gap={5}>
       <Grid item md={6} lg={4}>
-        <TextField control={control} label="Email" name="email" />
+        <TextField control={control} label="Username" name='username' />
       </Grid>
       <Grid item md={6} lg={4}>
-        <TextField
-          control={control}
-          label="Password"
-          type="password"
-          name="password"
-        />
+        <TextField control={control} label="Password" type='password' name='password' />
       </Grid>
       <Box marginTop={5}>
-        <Button fullWidth onClick={handleSubmit(onSubmit)} variant="contained">
-          Login
-        </Button>
+        <Button fullWidth onClick={handleSubmit(onSubmit)} variant="contained">Login</Button>
       </Box>
     </Grid>
-  );
-};
+  )
+}

@@ -1,13 +1,13 @@
 import { Box } from '@mui/material'
 import { LoginForm } from './LoginForm'
 import { LoginFormType } from './validation'
-import { CmsPage, Parameters } from '../../../types/page'
 import { useState } from 'react'
+import { StringValue } from '../../../types/common'
 
 
 type Props = {
     id: string,
-    parameters?: Parameters
+    parameters?: { values: { key: StringValue; value: StringValue }[] };
 }
 
 export const LoginFormBlock: React.FC<Props> = ({ id, parameters }) => {

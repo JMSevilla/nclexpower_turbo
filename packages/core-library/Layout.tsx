@@ -6,7 +6,7 @@ import {
   PageContainer,
   PageContent,
   LoadablePageContent,
-  FooterBlock,
+  Footer,
 } from "./components";
 import { extractPreloadedLabelFromGlobals } from "./types";
 import { PreloadedGlobals } from "./types/global";
@@ -64,6 +64,9 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
                 </PageContainer>
               </Box>
             </NotificationsContextProvider>
+            <Footer
+              logo={tenant?.footerLogo}
+              linkGroups={tenant?.footer} copyrightText={""} />
           </GlobalsProvider>
         </ErrorBoundary>
       </ThemeProvider>
