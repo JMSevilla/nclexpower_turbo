@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import { Layout as LayoutComponent } from "./Layout";
 import React from "react";
-import { datatypes, getPreloadedGlobals, getTenant, withSsrSession } from ".";
+import { getPreloadedGlobals, getTenant } from ".";
 import { ContentDataContextProvider, TenantContextProvider } from "./contexts";
 import { ErrorBox } from "./components";
 import { extractPreloadedLabelFromGlobals, ServerProps } from "./types";
@@ -66,7 +66,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     const preloadedGlobals = await getPreloadedGlobals(tenantUrl);
     const slug = formattedSlug(tenant, querySlugs as string[]) || resolvedUrl;
 
-    return { props: { data: { tenant, slug, preloadedGlobals } } };
+    return {
+      props: {
+        data: { tenant, slug, preloadedGlobals },
+      },
+    };
   } catch (error: any) {
     console.error(`Error on getTenant response: ${error.message || error}`);
     return {
