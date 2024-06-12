@@ -6,6 +6,7 @@ import {
   PageContainer,
   PageContent,
   LoadablePageContent,
+  Footer,
 } from "./components";
 import { extractPreloadedLabelFromGlobals } from "./types";
 import { PreloadedGlobals } from "./types/global";
@@ -44,7 +45,7 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
             <NotificationsContextProvider>
               <Box minHeight="100vh" display="flex" flexDirection="column">
                 <Header
-                  onLogout={() => {}}
+                  onLogout={() => { }}
                   tenant={tenant}
                   menu={contentData.menu}
                   pageKey={contentData.page?.pageKey?.value}
@@ -63,6 +64,9 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
                 </PageContainer>
               </Box>
             </NotificationsContextProvider>
+            <Footer
+              logo={tenant?.footerLogo}
+              linkGroups={tenant?.footer} copyrightText={""} />
           </GlobalsProvider>
         </ErrorBoundary>
       </ThemeProvider>
