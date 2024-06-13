@@ -15,8 +15,8 @@ interface Props {
 export const DataGrid: React.FC<Props> = ({ rows, columns, isLoading, initPageSize }) => {
     return (
         <MUIDataGrid
-            rows={rows ?? []}
-            columns={columns ?? []}
+            rows={rows}
+            columns={columns}
             pageSizeOptions={[10, 20, 35]}
             autoHeight
             rowHeight={100}
