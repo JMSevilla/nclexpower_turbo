@@ -1,13 +1,17 @@
-import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { SsrData } from '../types/ssrData';
 import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
+import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
   loading?: boolean;
   setLoader: any;
-  itemselect: datatypes.CalcItemSelectValues[];
+  itemselect: datatypes.CalcItemSelectResponseItem[];
+  displayNextItem: boolean;
+  setDisplayNextItem: any;
+  selectedItem: CalcItemSelectResponseItem[];
 };
 
 type Ssr = {
@@ -22,66 +26,67 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * this useState not necessary.
    */
   const [questionaire, setQuestionaire] = useState<SsrData['questionaire']>([]);
-  const [selectedQuestion, setSelectedQuestion] = useState<datatypes.CalcItemSelectValues[]>([]);
-  const [reloadTrigger, setReloadTrigger] = useState(false);
   const [loader, setLoader] = useState<boolean>(true);
-  const { useApiCallback } = hooks;
+  const [displayNextItem, setDisplayNextItem] = useState<boolean>(false);
+  const { useApiCallback, useApi } = hooks;
   const router = useRouter();
+  const isInitialMount = useRef(true);
+  const [reloadTrigger, setReloadTrigger] = useState(false);
   /**
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-  const itemSelectExec = useApiCallback(
-    async api =>
-      await api.calc.ItemSelect({
-        accountId: '3FA85F64-5717-4562-B3FC-2C963F66AFA6',
-        examGroupId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        shouldDisplayNextItem: data.slug[2] ?? false,
-      }),
+
+  const selectQuestionCb = useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
+  const questionData: ItemSelectTypes = {
+    accountId: '5A637337-33EC-41AF-A903-4192514B9561',
+    examGroupId: '0930C751-AC22-4895-8D76-2EF0B1FC90D9',
+    shouldDisplayNextItem: displayNextItem,
+  };
+  // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      selectQuestionCb.execute({ ...questionData });
+    }
+  }, [questionData, selectQuestionCb]);
+
+  const selectedItem = useMemo(
+    () => mapQuestions(selectQuestionCb.result?.data || []),
+    [selectQuestionCb.result?.data],
   );
 
-  useEffect(() => {
-    // function initSelectedQuestion() {
-    //   itemSelectExec
-    //     .execute()
-    //     .then((res) => setSelectedQuestion(res.data as any));
-    // }
-    // initSelectedQuestion();
-    // const handleRouteChange = () => {
-    //   if (router.pathname === "/next-item") {
-    //     setReloadTrigger((prevState) => !prevState);
-    //   }
-    // };
-    // router.events.on("routeChangeComplete", initSelectedQuestion);
-    // router.events.on("routeChangeComplete", handleRouteChange);
-    // return () => {
-    //   router.events.off("routeChangeComplete", initSelectedQuestion);
-    //   router.events.off("routeChangeComplete", handleRouteChange);
-    // };
-  }, [reloadTrigger]);
+  const initSelectedQuestion = useCallback(() => {
+    selectQuestionCb.execute({ ...questionData });
+  }, [questionData, selectQuestionCb]);
 
   useEffect(() => {
-    /* if data receives slug data `/` then check the session if there is an existing
-    session `accountId`, `examGroupId` and `tokenization` if one of this was removed
-    the simulator or the entire application should terminated or reset straight back
-    to the login. */
-    // check this first `accountId`, `examGroupId` and `tokenization`
-    if (data?.slug === '/') {
-      router.push({
-        pathname: '/',
-        query: {
-          slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
-        }, // this slug can be improved instead of string it should be array of string
-      });
-    }
-  }, []);
+    const handleRouteChange = () => {
+      if (router.pathname === '/next-item') {
+        setReloadTrigger(prevState => !prevState);
+      }
+    };
+
+    router.events.on('routeChangeComplete', initSelectedQuestion);
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', initSelectedQuestion);
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [initSelectedQuestion, router]);
+
+  console.log('selectedItem', selectedItem);
   return (
     <ApplicationContext.Provider
       value={{
         questionaire,
-        loading: loader,
+        loading: selectQuestionCb.loading,
         setLoader,
-        itemselect: selectedQuestion ?? selectedQuestion,
+        itemselect: selectedItem,
+        setDisplayNextItem,
+        displayNextItem,
+        selectedItem,
       }}
     >
       {children}
@@ -95,3 +100,18 @@ export const useApplicationContext = () => {
   }
   return useContext(ApplicationContext);
 };
+
+function mapQuestions(questions: CalcItemSelectResponseItem[]) {
+  return questions.map(question => ({
+    lNum: question.lNum,
+    qId: question.qId,
+    hasContainer: question.hasContainer,
+    qLNum: question.qLNum,
+    question: question.question,
+    actionKey: question.actionKey,
+    questionType: question.questionType,
+    cnCateg: question.cnCateg,
+    correct: question.correct,
+    choices: question.choices,
+  }));
+}
