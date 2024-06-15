@@ -1,11 +1,23 @@
 {
   "extends": "../typescript-config/react-library.json",
   "compilerOptions": {
+    "outDir": "./dist",
     "lib": [
       "DOM",
-      "DOM.Iterable"
-    ]
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
   },
-  "include": ["."],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "./*.ts",
+    "./*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
