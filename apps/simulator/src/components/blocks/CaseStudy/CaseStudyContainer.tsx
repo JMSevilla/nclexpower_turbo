@@ -3,13 +3,14 @@ import { QuestionaireProps, CaseStudyProps } from '@/core/types/ssrData';
 import { useAlertMessageV2 } from '@repo/core-library/contexts/AlertMessageContext';
 import {
   HCPBlock,
-  DDCQuestion,
-  DDTQuestionaireBlock,
-  MCQCSQuestionnaire,
-  DNDQuestionaire,
+  DDClozeBlock,
+  DDTableBlock,
+  MCQCSBlock,
+  DNDBlock,
   MRSNBlock,
+  SATABlock,
+  DNDBowtieBlock
 } from './CaseStudyQuestions';
-import { SATAQuestionaire } from './CaseStudyQuestions/SATAQuestionaire';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) => {
   const { AlertMessage } = useAlertMessageV2();
@@ -18,7 +19,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
     const deserializeContents: any =
       questionaire?.length > 0 &&
       questionaire?.filter((cms: QuestionaireProps) => {
-        return cms.QType === 'DND1';
+        return cms.QType === 'DDT';
       });
 
     const { QType: QuestionType, answer, hasAlert, qId } = deserializeContents?.[0];
@@ -40,20 +41,22 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
 function renderSwitch(QuestionType: string, deserializeContents: any, answer: any) {
   switch (QuestionType) {
     case 'SATA':
-      return <SATAQuestionaire questionaire={deserializeContents} />;
+      return <SATABlock questionaire={deserializeContents} />;
     case 'MCQGroup':
     case 'MCQNoGroup':
-      return <MCQCSQuestionnaire questionaire={deserializeContents} />;
+      return <MCQCSBlock questionaire={deserializeContents} answer={answer} />;
     case 'HCP':
       return <HCPBlock questionaire={deserializeContents} answer={answer} />;
     case 'MRSN':
       return <MRSNBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDC':
-      return <DDCQuestion questionaire={deserializeContents} answer={answer} />;
+      return <DDClozeBlock questionaire={deserializeContents} answer={answer} />;
     case 'DDT':
-      return <DDTQuestionaireBlock questionaire={deserializeContents} answer={answer} />;
+      return <DDTableBlock questionaire={deserializeContents} answer={answer} />;
     case 'DND1':
-      return <DNDQuestionaire questionaire={deserializeContents} />;
+      return <DNDBlock questionaire={deserializeContents} />;
+    case 'DNDBowtie':
+      return <DNDBowtieBlock questionaire={deserializeContents} answer={answer} />;
 
     default:
       return <h3>No questionaire Loaded</h3>;

@@ -3,6 +3,7 @@ export enum MessageType {
   Problem = "Problem",
   Success = "Success",
   Warning = "Warning",
+  PrimaryTenant = "Tenant (primary color)",
   Note = "Note",
 }
 
@@ -13,4 +14,5 @@ export const messageRole = (type: MessageType) =>
     [MessageType.Problem]: "alert",
     [MessageType.Warning]: "alert",
     [MessageType.Note]: "note",
+    [MessageType.PrimaryTenant]: "note",
   })[type];

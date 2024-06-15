@@ -16,13 +16,15 @@ export const getParsedChoices = (choices: string) => {
 
 export const getMapItems = (answer: AnswerProps[]) => {
     if (!answer || answer.length === 0) {
-        return { columnName: [], selectFieldKey: [], selectField: [] };
+        return { columnName: [], selectFieldKey: [], selectField: [], choicesLists: [] };
     }
 
     const foundAnswer = answer.find(answer => answer.answerId);
     const columnName = foundAnswer ? foundAnswer.columns : [];
     const selectFieldKey = foundAnswer ? foundAnswer.selectFieldKey : [];
     const selectField = foundAnswer ? foundAnswer.selectField : [];
+    const choicesLists = foundAnswer ? foundAnswer.choicesList : [];
+    const rows = foundAnswer ? foundAnswer.rows : [];
 
-    return { columnName, selectFieldKey, selectField };
+    return { columnName, selectFieldKey, selectField, choicesLists, rows };
 }

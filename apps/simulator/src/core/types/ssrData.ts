@@ -1,4 +1,5 @@
 import { datatypes } from '@repo/core-library';
+import React, { ReactNode } from 'react';
 
 export type SsrQuestionaireContentProps = {
   contentId: number;
@@ -25,7 +26,7 @@ export type QuestionaireProps = {
     contentTitle: string;
     content: string | SsrQuestionaireContentProps[];
   }>;
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 export type AnswerProps = Partial<DNDAnswerUIItem> & {
@@ -72,7 +73,7 @@ export type DNDAnswerUIItem = {
 
 export type SsrData = {
   questionaire: QuestionaireProps[];
-  answer?: AnswerProps[];
+  answer: AnswerProps[];
 };
 
 // header
@@ -125,8 +126,8 @@ export type SsrMockQuestionaireAnswer = {
 // new types for questionnaire refactoring
 
 export type RegularQuestion = {
-  contents: datatypes.QuestionContentsResponse;
-  itemselection: datatypes.CalcItemSelectValues[];
+  choices: string;
+  question: string;
 };
 
 export type MCQTable = {
@@ -168,6 +169,12 @@ export type OptionType = {
   xvalue: number;
 };
 
+export type optionProps = {
+  label: string;
+  value: string;
+  xvalue: number;
+};
+
 export type dndObjectValueProps = {
   id: number;
   text: string;
@@ -200,17 +207,21 @@ export interface SelectedValuesType {
   [key: string]: string;
 }
 
-export type DDTProps = {
-  questionaire: QuestionaireProps[];
-  answer: AnswerProps[];
-  selectedValues: SelectedValuesType;
-  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+export type FieldsType = {
+  [key: string]: optionProps[];
 };
 
 export interface TableProps {
   columns: string[];
   selectFieldKeys: string[];
-  selectFieldOptions: { [key: string]: OptionType[] };
-  selectedValues: SelectedValuesType;
-  handleSelectChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectFieldOptions: { [key: string]: optionProps[] };
+  selectFieldComponent: (key: string, field: FieldsType) => ReactNode;
 }
+
+export interface DropContainerItem {
+  accepts: string[];
+  text: string;
+  container: string;
+  background: string;
+}
+export type DropContainerType = DropContainerItem[];

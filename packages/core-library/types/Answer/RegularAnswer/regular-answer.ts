@@ -1,6 +1,8 @@
 export type RegularAnswer = {
   LNum: string;
-  answer: number | number[];
-  qType: string;
+  CSItemsLNum: number;
+  answer: number;
+  multiAnswer: number[];
+  QType: string;
   accountId: string;
 };

@@ -1,84 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { MCQBlocks, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
+import { MCQBlock, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
 import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
 import { datatypes } from '@repo/core-library';
-import { AnimatedBoxSkeleton } from '@repo/core-library/components';
-
+import { AnimatedBoxSkeleton, ComponentLoader } from '@repo/core-library/components';
+import { MobileErrorDialog } from './Dialog/MobileErrorDialog';
+import { useMobileDetection } from '@repo/core-library/contexts/MobileDetectionContext';
+import { useApplicationContext } from '@/core/context/AppContext';
 interface Props {
   questionType: string;
-  questionKey: string;
-  itemSelected: datatypes.CalcItemSelectValues[];
+  itemSelected: datatypes.CalcItemSelectResponseItem[];
 }
 
-export const ParseContents: React.FC<Props> = ({ questionType, questionKey, itemSelected }) => {
-  /* use this contents to get the content data */
-  const { contents } = useSimulatorGlobals();
-  const [isLoading, setIsloading] = useState<boolean>(true); //this is for displaying the Skeleton Loader
+export const ParseContents: React.FC<Props> = ({ questionType, itemSelected }) => {
+  const { loading } = useApplicationContext();
+  const { isMobile } = useMobileDetection();
 
-  useEffect(() => {
-    setIsloading(true);
-    setTimeout(() => {
-      setIsloading(false);
-    }, 2000);
-  }, [questionKey, questionType]);
+  if (isMobile) {
+    return <MobileErrorDialog isMobile={isMobile} />;
+  }
 
-  if (isLoading) {
-    return questionType == 'RegularQuestion' ? (
-      <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={350} className="opacity-50" />
-    ) : (
-      <div className="gap-2 flex flex-col opacity-50">
-        <AnimatedBoxSkeleton borderRadius={2} boxShadow={1} height={50} />
-        <div className="flex gap-2">
-          {Array.from({ length: 2 }).map((_, idx) => (
-            <div key={idx} className="w-1/2 flex flex-col gap-2">
-              {Array.from({ length: 2 }).map((_, subIdx) => (
-                <AnimatedBoxSkeleton key={subIdx} borderRadius={2} boxShadow={1} height={subIdx === 0 ? 60 : 280} />
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  if (loading) {
+    return <ComponentLoader disableMarginBottom={false} />;
   }
 
   if (questionType === 'RegularQuestion') {
     if (itemSelected && itemSelected.length > 0) {
-      const regularQKey = itemSelected.filter(key => key.questionUI === questionKey);
+      const regularQKey = itemSelected.filter(key => key.questionType == questionType);
       if (regularQKey.length > 0) {
-        const { questionUI } = regularQKey[0];
-        switch (questionUI) {
-          case 'SATA':
-            return <SATABlockQuestionaire contents={contents} itemselection={itemSelected} />;
-          case 'MCQ':
-            return <MCQBlocks contents={contents} itemselection={itemSelected} />;
-          default:
-            return <h3>No questionnaire Loaded</h3>;
-        }
+        return <MCQBlock choices={regularQKey[0].choices} question={regularQKey[0].question} />;
       }
-    }
-  } else {
-    if (
-      contents &&
-      contents.answerUI?.length > 0 &&
-      contents.choices?.length > 0 &&
-      contents.questionType?.length > 0
-    ) {
-      const qKey = contents.questionType.filter(key => key.qType === questionKey);
-      if (qKey.length > 0) {
-        const { qType: QuestionType } = qKey[0];
-        console.log(qKey[0]);
-
-        switch (QuestionType) {
-          case 'CaseStudy':
-            return <CaseStudyContainer questionaire={[]} />;
-          default:
-            return <h3>No questionnaire Loaded</h3>;
-        }
-      } else {
-        return <h3>No questionnaire Loaded</h3>;
-      }
-    } else {
-      return <h3>No questionnaire Loaded</h3>;
     }
   }
+  // else {
+  //   if (
+  //     contents &&
+  //     contents.answerUI?.length > 0 &&
+  //     contents.choices?.length > 0 &&
+  //     contents.questionType?.length > 0
+  //   ) {
+  //     const qKey = contents.questionType.filter(key => key.qType === questionType);
+  //     if (qKey.length > 0) {
+  //       const { qType: QuestionType } = qKey[0];
+  //       console.log(qKey[0]);
+
+  //       switch (QuestionType) {
+  //         case 'CaseStudy':
+  //           return <CaseStudyContainer questionaire={[]} />;
+  //         default:
+  //           return <h3>No questionnaire Loaded</h3>;
+  //       }
+  //     } else {
+  //       return <h3>No questionnaire Loaded</h3>;
+  //     }
+  //   } else {
+  //     return <h3>No questionnaire Loaded</h3>;
+  //   }
+  // }
 };

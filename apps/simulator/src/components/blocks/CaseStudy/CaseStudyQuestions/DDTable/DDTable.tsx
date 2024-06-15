@@ -1,79 +1,126 @@
+import { QuestionaireProps, AnswerProps, FieldsType } from "@/core/types/ssrData";
 import React from 'react';
-import { TableProps } from '@/core/types/ssrData';
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    MenuItem,
-    TextField
-} from '@mui/material';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import { TableComponent } from "./Table";
+import { ControlledSelectField } from '@repo/core-library/components';
+import { DDTableSchema, DDTableValidationType } from '@/core/schema/ddtable/validation';
+import { useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
+import { Paper, Grid } from '@mui/material';
+import { getMapItems } from "@/core/utils/contents";
 
-export const DDTable: React.FC<TableProps> = ({
-    columns,
-    selectFieldKeys,
-    selectFieldOptions,
-    selectedValues,
-    handleSelectChange
-}) => {
-    return (
-        <Paper elevation={3} className='p-5 overflow-auto flex flex-col gap-5'>
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((columnName, index) => (
-                                <TableCell
-                                    key={index}
-                                    align="center"
-                                    className="text-sm bg-[#E6F2FF] font-semibold border border-[#D4D7DA]"
-                                    sx={{ width: "80px" }}
-                                >
-                                    {columnName}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {selectFieldKeys.map((selectFieldKey, index) => (
-                            <TableRow key={index}>
-                                <TableCell
-                                    align="center"
-                                    className="border border-[#D4D7DA] w-28"
-                                >
-                                    {selectFieldKey}
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    className="border border-[#D4D7DA]"
-                                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        select
-                                        label="Select"
-                                        variant='outlined'
-                                        size="small"
-                                        style={{ minWidth: '150px', height: '40px', padding: '4px', textAlign: "start" }}
-                                        name={selectFieldKey}
-                                        value={selectedValues[selectFieldKey] || ''}
-                                        onChange={handleSelectChange}
-                                    >
-                                        {selectFieldOptions[selectFieldKey].map((option, index) => (
-                                            <MenuItem key={index} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Paper>
-    );
+export type DDTProps = {
+  questionaire: QuestionaireProps[];
+  answer: AnswerProps[];
+  ddtAtom: DDTableValidationType | undefined;
+  handleSubmit: (values: DDTableValidationType) => void;
+};
+
+export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, handleSubmit }) => {
+  const { columnName, selectFieldKey, selectField } = getMapItems(answer);
+
+  const form = useForm<DDTableValidationType>({
+    mode: "all",
+    resolver: zodResolver(DDTableSchema),
+  });
+
+  const { control } = form;
+  const formState = useFormState({ control });
+
+  const renderControlledSelectField = (key: string, fields: FieldsType) => (
+    <ControlledSelectField
+      label="Select"
+      control={control}
+      name={key}
+      size="small"
+      options={fields[key]} 
+      sx={{
+        minWidth: '250px',
+        color: 'gray',
+      }}
+    />
+  );
+
+  useFormSubmissionBindingHooks({
+    key: "DDT",
+    isValid: formState.isValid,
+    isDirty: formState.isDirty,
+    cb: () => form.handleSubmit(handleSubmit)(),
+    initDependencies: [ddtAtom],
+  });
+
+  return (
+    <div className="p-2 py-2 h-full">
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={12} sm={6} md={6}>
+          <div className="h-full w-full p-4">
+            {questionaire &&
+              questionaire.map((questionItem) => (
+                <div key={questionItem.qId} className="w-full">
+                  <div className="w-full text-sm mb-4 pr-5 pt-4">
+                    <p>{questionItem.question}</p>
+                  </div>
+                  <div className="w-full">
+                    {questionItem.tabs &&
+                      questionItem.tabs.map((tab) => (
+                        <div key={tab.tabsId}>
+                          <div className="flex gap-1">
+                            <div className="bg-white w-fit px-5 py-1 rounded-t-md text-sm font-semibold flex items-center mb-[-3px]">
+                              <p>{tab.tabsTitle}</p>
+                            </div>
+                          </div>
+                          <Paper
+                            elevation={3}
+                            className="p-5 overflow-auto flex flex-col gap-5"
+                            style={{ maxHeight: '70vh' }}
+                          >
+                            <div className="h-[45vh] flex w-full gap-2">
+                              <p className="font-semibold min-w-[50px]">
+                                {tab.tabsId} :
+                              </p>
+                              <div className="leading-6 text-sm">
+                                {typeof tab.content === "string" && tab.content}
+                              </div>
+                            </div>
+                          </Paper>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              ))}
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <div className="h-full w-full p-5">
+            {answer &&
+              answer.map((answerItem) => (
+                <div key={answerItem.answerId}>
+                  <div className="w-full text-sm mb-4 pr-5 pt-4">
+                    <p className="flex">
+                      <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: answerItem.answerInstruction,
+                        }}
+                      />
+                    </p>
+                  </div>
+                  <TableComponent
+                    columns={columnName}
+                    selectFieldKeys={selectFieldKey}
+                    selectFieldOptions={selectField}
+                    selectFieldComponent={renderControlledSelectField}
+                  />
+                  <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
+                    <p>{answerItem.note === "" ? "" : "Note:"}</p>
+                    <p>{answerItem.note}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </Grid>
+      </Grid>
+    </div>
+  );
 };

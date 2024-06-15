@@ -112,8 +112,8 @@ export interface FileValue {
   renditions?: {
     default?: {
       height?: number;
-      source: string;
-      url: string;
+      source?: string;
+      url?: string;
       width?: number;
     };
   };
