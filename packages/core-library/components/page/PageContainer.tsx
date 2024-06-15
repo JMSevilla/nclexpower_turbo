@@ -30,7 +30,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
       {!loading && (
         <Box
           width="100%"
-          mt={(theme) => ({ xs: theme.sizes.mobileHeaderHeight, md: 0 })}
+          mt={(theme) => ({ xs: theme?.sizes.mobileHeaderHeight, md: 0 })}
         >
           <NotificationsConsumer page={page} />
         </Box>
@@ -46,7 +46,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
         sx={{
           width: (theme) => ({
             xs: "100%",
-            sm: stickOut ? theme.sizes.stickOutPageWidth : "100%",
+            sm: stickOut ? theme?.sizes.stickOutPageWidth : "100%",
           }),
         }}
       >
@@ -66,12 +66,12 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
             maxWidth: (theme) => ({
               xs: "100vw",
               md: stickOut
-                ? theme.sizes.stickOutPageWidth
-                : theme.sizes.contentWidth,
+                ? theme?.sizes.stickOutPageWidth
+                : theme?.sizes.contentWidth,
             }),
             px: (theme) => ({
-              xs: theme.sizes.mobileContentPaddingX,
-              md: theme.sizes.contentPaddingX,
+              xs: theme?.sizes.mobileContentPaddingX,
+              md: theme?.sizes.contentPaddingX,
             }),
           }}
         >

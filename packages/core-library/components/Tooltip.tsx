@@ -149,7 +149,7 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   <MuiTooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: theme.sizes.fieldTooltip,
+    // maxWidth: theme.sizes.fieldTooltip,
   },
 }));
 
