@@ -59,7 +59,7 @@ export const AlertMessage: React.FC<Props> = ({
         spacing={4}
         alignItems="center"
         px={isMobile ? 0 : 8}
-        maxWidth={(theme) => theme?.sizes?.contentWidth + "!important"}
+        // maxWidth={(theme) => theme.sizes?.contentWidth + "!important"}
       >
         {html && (
           <Grid item flex={1} display="flex" alignItems="center" gap={4}>
