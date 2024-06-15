@@ -6,7 +6,7 @@ export async function getTenant(tenantUrl: string) {
   /* config should placed here. */
 
   const response = await fetch(
-    `${config.value.Content}/v2/content/BaseContent/tenant-content/${tenantUrl}`,
+    `${config.value.Content}/api/v2/content/BaseContent/tenant-content/${tenantUrl}`,
     {
       headers: { ENV: "dev2", "x-api-key": "34a89f9063bb49a59d2525220b677e25" },
     }
@@ -16,7 +16,7 @@ export async function getTenant(tenantUrl: string) {
 
 export async function getPreloadedGlobals(tenantUrl: string) {
   const response = await fetch(
-    `${config.value.Content}/v2/content/BaseContent/preloaded-globals/${tenantUrl}`,
+    `${config.value.Content}/api/v2/content/BaseContent/preloaded-globals/${tenantUrl}`,
     {
       headers: { ENV: "dev2", "x-api-key": "34a89f9063bb49a59d2525220b677e25" },
     }
