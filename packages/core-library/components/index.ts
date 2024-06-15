@@ -10,7 +10,7 @@ export * from "./ErrorTooltip";
 export * from "./Input";
 export * from "./InputLoader";
 export * from "./Link";
-export * from "./ParseHtml";
+// export * from "./ParseHtml";
 export * from "./Tooltip";
 export * from "./page";
 export * from "./Header";
