@@ -16,7 +16,7 @@ export const NotificationsConsumer: React.FC<Props> = ({ page }) => {
 
   return (
     <AlertMessage
-      type={notification?.type}
+      type={MessageType.Info}
       html={notification?.message}
       buttons={notification?.buttons}
     />
