@@ -1,3 +1,4 @@
+// @ts-ignore
 import { useTheme } from "@mui/material";
 import * as eva from "eva-icons";
 import { useEffect } from "react";
