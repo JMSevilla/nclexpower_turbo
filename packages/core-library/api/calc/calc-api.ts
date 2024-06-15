@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ItemSelectTypes, ItemSessionTypes } from "../../types";
+import { ItemSelectTypes, ItemSessionTypes, RegularAnswer } from "../../types";
 import { CalcItemSelectResponseItem } from "../../types/calc-types/calc-types-responses";
 
 export class CalculationApi {
@@ -23,5 +23,16 @@ export class CalculationApi {
     return this.axios.get<CalcItemSelectResponseItem[]>(
       `/baseAppload/display-next-item/${accountId}`
     );
+  }
+  public createAnswer(props: RegularAnswer) {
+    return this.axios.post<number>("/BaseCentralized/calc-cumulatives", props);
+  }
+
+  public initializeLoadPTestHimem() {
+    return this.axios.get<number>("/baseAppload/processor-load-ptest-himem");
+  }
+
+  public initializeLoadPrepareTrackItem() {
+    return this.axios.get<number>("/baseAppload/processor-prep-track-item");
   }
 }
