@@ -40,7 +40,7 @@ export function SelectField({
   ...rest
 }: BaseSelectFieldProps) {
   return (
-    <>
+    <div>
       <TextField
         select
         label={label}
@@ -59,7 +59,7 @@ export function SelectField({
       {helperText && (
         <FormHelperText error={error}>{helperText}</FormHelperText>
       )}
-    </>
+    </div>
   );
 }
 

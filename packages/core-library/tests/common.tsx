@@ -3,7 +3,7 @@ import { RenderOptions, render as rtlRender } from "@testing-library/react";
 import rtlEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
 import { TenantContextProvider, GlobalsProvider } from "../contexts";
-import { theme } from "../core/theme/theme";
+import { theme } from "../contents/theme/theme";
 
 export * from "@testing-library/react";
 

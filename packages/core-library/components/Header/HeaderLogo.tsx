@@ -2,6 +2,10 @@ import { Box, Typography } from "@mui/material";
 import { CmsTenant } from "../../types/tenant";
 import { useGlobalsContext } from "../../contexts";
 import { useResolution } from "../../hooks";
+import Image from "next/image";
+
+//Temporary File Location
+import logoImage from "./asset/CoreZigma.png";
 
 interface Props {
   tenant: CmsTenant | null;
@@ -18,29 +22,28 @@ export const HeaderLogo: React.FC<Props> = ({ tenant, useRawLogoUrl }) => {
   if (!tenant) {
     return null;
   }
-  console.log("tenant", tenant);
+
   return (
     <Box
       position="relative"
       sx={{ cursor: "pointer" }}
-      width={logo?.width}
-      height={logo?.height}
+      height={95}
       role="button"
       aria-label={labelByKey("header_logo_aria_label")}
     >
       {/* Logo here is currently unresponsive due to no linked options. */}
-      {/* {logo ? (
+      {logo ? (
         <Image
           data-testid="header_logo_image"
-          src={logo.url || ""}
+          src={logoImage}
           alt={labelByKey("tenant_logo_alt")}
           key={`${isMobile ? "mobile" : "desktop"}-logo`}
-          height={logo?.height || 46}
-          width={logo?.width || 100}
           style={{
             objectFit: "contain",
             objectPosition: "center",
             width: "auto",
+            height: "100%",
+            padding: 5,
           }}
         />
       ) : (
@@ -58,21 +61,7 @@ export const HeaderLogo: React.FC<Props> = ({ tenant, useRawLogoUrl }) => {
         >
           {tenant.headerText.value}
         </Typography>
-      )} */}
-      <Typography
-        variant="h3"
-        component="span"
-        fontWeight="bold"
-        color="primary"
-        noWrap
-        fontSize={(theme) => ({
-          xs: theme.typography.h6.fontSize,
-          sm: theme.typography.h4.fontSize,
-          md: theme.typography.h3.fontSize,
-        })}
-      >
-        {tenant.headerText.value}
-      </Typography>
+      )}
     </Box>
   );
 };

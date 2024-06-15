@@ -123,14 +123,14 @@ export interface PanelListItem {
 
 interface PageElements
   extends Partial<ButtonElements>,
-    Partial<ResourceListElements>,
-    Partial<ResourceListItemElements>,
-    Partial<InfoTileElements>,
-    Partial<ChartElements>,
-    Partial<DataSummaryElements>,
-    Partial<TimelineElements>,
-    Partial<DataTableElements>,
-    Partial<TrackerElements> {
+  Partial<ResourceListElements>,
+  Partial<ResourceListItemElements>,
+  Partial<InfoTileElements>,
+  Partial<ChartElements>,
+  Partial<DataSummaryElements>,
+  Partial<TimelineElements>,
+  Partial<DataTableElements>,
+  Partial<TrackerElements> {
   textLabel?: StringValue | null;
   type?: SelectionValue;
   themeColorForBackround?: ThemeBackgroundColorSelection | null;
@@ -234,7 +234,7 @@ export interface ResourceListItemElements {
   standaloneSize: SelectionValue<ResourceItemDisplayType>;
 }
 
-interface Parameters {
+export interface Parameters {
   values: { key: StringValue; value: StringValue }[];
 }
 
@@ -342,15 +342,15 @@ export interface PanelColumn {
 export interface ColumnAlignment {
   label: string;
   selection:
-    | "top-left"
-    | "top-center"
-    | "top-right"
-    | "middle-left"
-    | "middle-center"
-    | "middle-right"
-    | "bottom-left"
-    | "bottom-center"
-    | "bottom-right";
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "middle-left"
+  | "middle-center"
+  | "middle-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
 }
 interface ContentBlocksListItems {
   values?: PageContentValues[] | null;

@@ -7,8 +7,12 @@ import {
 
 export class ServerSideApi {
   constructor(private readonly axios: AxiosInstance) {}
+  /**
+   *
+   * @deprecated
+   */
   public createAnswer(props: RegularAnswer) {
-    return this.axios.post<CalcItemSelectResponseItem[]>(
+    return this.axios.post<number>(
       "/api/answer/regular-answer/create-answer",
       props
     );

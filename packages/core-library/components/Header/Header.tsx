@@ -1,5 +1,5 @@
-import { Box, Grid, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { Box, Grid } from "@mui/material";
+import { useState } from "react";
 import { CmsMenu } from "../../types/menu";
 import { CmsTenant } from "../../types/tenant";
 import { useResolution } from "../../hooks";
@@ -32,6 +32,7 @@ export const Header: React.FC<Props> = ({
         role="banner"
         component="header"
         width="100%"
+        height={100}
         display="flex"
         justifyContent="center"
         zIndex={999}
@@ -40,7 +41,6 @@ export const Header: React.FC<Props> = ({
           borderBottomWidth: 1,
           borderBottomStyle: "solid",
           borderBottomColor: "divider",
-          ...(isMobile ? { position: "fixed", top: 0, left: 0, right: 0 } : {}),
         }}
       >
         <Grid
@@ -51,24 +51,14 @@ export const Header: React.FC<Props> = ({
           display="flex"
           alignItems="flex-end"
           justifyContent="flex-end"
-          sx={{
-            maxWidth: (theme) => theme.sizes.contentWidth,
-            height: (theme) => ({
-              xs: theme.sizes.mobileHeaderHeight,
-              md: theme.sizes.headerHeight,
-            }),
-            maxHeight: (theme) => ({
-              xs: theme.sizes.mobileHeaderHeight,
-              md: theme.sizes.headerHeight,
-            }),
-          }}
+
         >
           <Grid
             item
             container
-            alignItems="flex-end"
+            alignItems="flex-center"
             spacing={6}
-            height={{ xs: "auto", md: 80 }}
+            height="auto"
           >
             <Grid item container alignItems="flex-end" xs>
               <Grid item>
@@ -85,7 +75,6 @@ export const Header: React.FC<Props> = ({
                   href={""}
                   shouldNavigateToNewTab={!isAuthenticated}
                 >
-                  {/* Co branding logo */}
                 </HeaderLogoNavigation>
               </Grid>
             </Grid>

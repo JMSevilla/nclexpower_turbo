@@ -1,5 +1,10 @@
-import { HeaderTitleBlock, TextBlock, PanelBlock } from "../../components";
-import { appColorsFromPrimary } from "../../core";
+import {
+  HeaderTitleBlock,
+  TextBlock,
+  PanelBlock,
+  LoginFormBlock,
+} from "../../components";
+import { appColorsFromPrimary } from "../theme/theme";
 import { Typography } from "@mui/material";
 import { CallToAction } from "../../types/common";
 import {
@@ -18,6 +23,7 @@ export const parseContent = (
   return contents.map((content) => {
     const type = (content?.elements?.formKey?.value || content?.type).trim();
     const elements = content?.elements;
+
     /* all blocks should go here.. */
     switch (type) {
       case "Panel": {
@@ -36,11 +42,14 @@ export const parseContent = (
       }
       case "authentication_form": {
         return (
-          <>
-            <h3>Login Form</h3>
-            {/* <LoginFormBlock ... /> */}
-          </>
+          <LoginFormBlock
+            id={type}
+            parameters={content?.elements?.parameters}
+          />
         );
+      }
+      case "account_setup_form": {
+        return <h3>Account Setup</h3>;
       }
       case "Content HTML block": {
         return (
@@ -55,17 +64,6 @@ export const parseContent = (
             )}
             insideHeroBlock={isHeroBlockContent(elements, page)}
             html={elements?.content?.value}
-          />
-        );
-      }
-      case "header": {
-        return (
-          <HeaderTitleBlock
-            id={type}
-            isInStickOutPage={page.showAsStickOut?.value}
-            pageHeader={page.pageHeader?.value}
-            icon={page.headerIcon}
-            indicatorExists={contents[0]?.type === "Journey stage indicator"}
           />
         );
       }

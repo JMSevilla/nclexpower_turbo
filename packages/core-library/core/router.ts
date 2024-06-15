@@ -2,10 +2,10 @@ import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
 import { extractClassifierFromGlobals } from "../types";
-import { useContentDataContext, useTenantContext } from "../contexts";
+import { useTenantContext, useContentDataContext } from "../contexts";
 
 type StaticRoutes = Record<
-  "home" | "hub" | "logout" | "page_not_found" | "bereavement_start",
+  "home" | "hub" | "logout" | "page_not_found" | "account_setup",
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -16,16 +16,12 @@ type PathParameters = {
   query?: ParsedQuery<any>;
 };
 
-type ParsePathParameters = {
-  key: string;
-  query?: ParsedQuery<any>;
-};
-
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
   const { tenant } = useTenantContext();
   const contentData = useContentDataContext();
+
   const staticRoutes = (
     contentData?.globals
       ? extractClassifierFromGlobals(

@@ -16,7 +16,7 @@ import { ControlledToast } from '@repo/core-library/components';
 import { TourComponent } from '@/components/tourComponent';
 import { TourSteps } from '@/core/constant/tourStep';
 import { ProgressProvider } from '@/core/context/ProgressContext';
-
+import { MobileDetectionProvider } from '@repo/core-library/contexts/MobileDetectionContext';
 interface Props {
   questionaire: SsrMockQuestionaire[];
   data?: any;
@@ -31,10 +31,10 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SimulatorProvider data={itemselect}>
-        <PreloadedGlobalsProvider data={data}>
-          <ProgressProvider>
-            <ToastProvider>
+      <PreloadedGlobalsProvider data={data}>
+        <ProgressProvider>
+          <ToastProvider>
+            <MobileDetectionProvider>
               <FormSubmissionContextProvider>
                 <QueryClientProvider client={queryClient}>
                   <div className="min-h-screen flex flex-col bg-slate-100">
@@ -48,11 +48,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                               <ControlledToast autoClose={5000} hideProgressBar={false} />
                               {/* Code below must be refactored after case study structure development completed. */}
                               {itemselect.length > 0 && (
-                                <ParseContents
-                                  questionKey={itemselect[0].questionUI}
-                                  questionType={itemselect[0].questionType}
-                                  itemSelected={itemselect}
-                                />
+                                <ParseContents questionType={itemselect[0].questionType} itemSelected={itemselect} />
                               )}
                             </DndProvider>
                           </LoadablePageContent>
@@ -63,10 +59,10 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                   </div>
                 </QueryClientProvider>
               </FormSubmissionContextProvider>
-            </ToastProvider>
-          </ProgressProvider>
-        </PreloadedGlobalsProvider>
-      </SimulatorProvider>
+            </MobileDetectionProvider>
+          </ToastProvider>
+        </ProgressProvider>
+      </PreloadedGlobalsProvider>
     </ThemeProvider>
   );
 };

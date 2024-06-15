@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { CmsPage } from "../../types/page";
+import { NotificationsConsumer } from "../NotificationsConsumer";
 
 interface Props {
   loading?: boolean;
@@ -26,6 +27,14 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
       alignItems="center"
       justifyContent="flex-start"
     >
+      {!loading && (
+        <Box
+          width="100%"
+          mt={(theme) => ({ xs: theme.sizes.mobileHeaderHeight, md: 0 })}
+        >
+          <NotificationsConsumer page={page} />
+        </Box>
+      )}
       <Box
         flex={1}
         width="100%"
