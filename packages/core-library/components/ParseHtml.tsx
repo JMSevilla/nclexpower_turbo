@@ -225,20 +225,20 @@ const defaultTableStyles = (hasHeader: boolean): SxProps<Theme> => ({
           paddingX: (theme) => `${theme.spacing(6)}!important`,
           paddingY: (theme) => `${theme.spacing(3)}!important`,
           borderBottom: (theme) =>
-            `1px solid ${theme.palette.appColors.incidental["075"]}`,
+            `1px solid ${theme.palette?.appColors.incidental["075"]}`,
         },
         th: {
           paddingX: (theme) => `${theme.spacing(6)}!important`,
           paddingY: (theme) => `${theme.spacing(3)}!important`,
           borderBottom: (theme) =>
-            `1px solid ${theme.palette.appColors.incidental["075"]}`,
+            `1px solid ${theme.palette?.appColors.incidental["075"]}`,
         },
         "&:hover": {
           backgroundColor: (theme) =>
-            theme.palette.appColors.support60.transparentLight,
+            theme.palette?.appColors.support60.transparentLight,
         },
         "&:active": {
-          backgroundColor: (theme) => theme.palette.appColors.primary,
+          backgroundColor: (theme) => theme.palette?.appColors.primary,
           td: {
             color: (theme) => theme.palette.common.white,
           },
