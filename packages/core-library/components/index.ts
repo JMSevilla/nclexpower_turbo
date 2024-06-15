@@ -19,7 +19,6 @@ export * from "./forms/TextField";
 export * from "./blocks/HeaderTitleBlock";
 export * from "./blocks/PanelBlocks";
 export * from "./blocks/TextBlock";
-export * from "./EvaIcon";
 export * from "./blocks/LoginFormBlock/LoginFormBlock";
 export * from "./blocks/ReusableFooter/Footer";
 
