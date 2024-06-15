@@ -1,7 +1,7 @@
 import { Paper } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React from 'react';
-import { RegularQuestion } from '@/core/types/ssrData';
+import { RegularQuestion, SataRegularQuestion } from '@/core/types/ssrData';
 import { datatypes } from '@repo/core-library';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { useForm, useFieldArray, useFormState, FormProvider } from 'react-hook-form';
@@ -11,24 +11,17 @@ import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormS
 import { useErrorHandler } from '@/core/utils/useErrorhandler';
 import { OptionType } from '@/core/types/ssrData';
 
-interface Props extends RegularQuestion {
+interface Props extends SataRegularQuestion {
   regSataAtom: RegularSATAValidationType | undefined;
   handleSubmit: (value: RegularSATAValidationType) => void;
-  ParsedChoices: OptionType[];
 }
 
-export const SATAQuestion: React.FC<Props> = ({
-  handleSubmit,
-  regSataAtom,
-  itemselection,
-  contents,
-  ParsedChoices,
-}) => {
+export const SATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, choices, question }) => {
   const form = useForm<RegularSATAValidationType>({
     mode: 'all',
     resolver: zodResolver(RegSATASchema),
     defaultValues: {
-      regSata: ParsedChoices,
+      regSata: choices,
     },
   });
 
@@ -58,43 +51,40 @@ export const SATAQuestion: React.FC<Props> = ({
     <div className="h-full px-10 py-5">
       <Paper elevation={3}>
         <FormProvider {...form}>
-          {itemselection?.length > 0 &&
-            itemselection.map((item: datatypes.CalcItemSelectValues, index: number) => (
-              <div key={index} className="py-8 px-16">
-                <p className="p-2 py-4">{item.question}</p>
-                <div className="">
-                  {contents.answerUI?.length > 0 &&
-                    contents.answerUI.map((answerUImap, index: number) => {
-                      return (
-                        <div key={index} className="w-full">
-                          <p className="flex py-3 pt-0">
-                            <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: answerUImap.answerInstruction,
-                              }}
-                            />
-                          </p>
-                        </div>
-                      );
-                    })}
-                  <div className="px-4">
-                    {fields?.length > 0 &&
-                      fields.map((choices: OptionType, index: number) => (
-                        <ol key={index}>
-                          <ControlledCheckbox
-                            control={control}
-                            name={`regSata.${index}.value`}
-                            label={choices.label}
-                            shouldUnregister={true}
-                          />
-                        </ol>
-                      ))}
-                  </div>
-                </div>
-                <ErrorMessage />
+          <div className="py-8 px-16">
+            <p className="p-2 py-4">{question}</p>
+            <div className="">
+              {/* {contents.answerUI?.length > 0 &&
+                contents.answerUI.map((answerUImap, index: number) => {
+                  return (
+                    <div key={index} className="w-full">
+                      <p className="flex py-3 pt-0">
+                        <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: answerUImap.answerInstruction,
+                          }}
+                        />
+                      </p>
+                    </div>
+                  );
+                })} */}
+              <div className="px-4">
+                {fields?.length > 0 &&
+                  fields.map((choices: OptionType, index: number) => (
+                    <ol key={index}>
+                      <ControlledCheckbox
+                        control={control}
+                        name={`regSata.${index}.value`}
+                        label={choices.label}
+                        shouldUnregister={true}
+                      />
+                    </ol>
+                  ))}
               </div>
-            ))}
+            </div>
+            <ErrorMessage />
+          </div>
         </FormProvider>
       </Paper>
     </div>
