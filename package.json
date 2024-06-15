@@ -26,6 +26,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@tanstack/react-table": "^8.17.3",
     "iron-session": "^8.0.1",
     "jest": "^29.7.0",
     "react-toastify": "^10.0.5"
