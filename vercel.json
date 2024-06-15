@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "apps/simulator/next.config.js",
+        "use": "@vercel/next"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "apps/simulator/$1"
+      }
+    ],
+    "ignoreBuildStep": [
+      "packages/*"
+    ],
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }
+  

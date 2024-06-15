@@ -63,13 +63,13 @@ export const TextBlock: React.FC<Props> = ({
           {subHeader}
         </Typography>
       )}
-      {enrichedHtml && (
+      {/* {enrichedHtml && (
         <ParsedHtml
           html={enrichedHtml}
           smallerFonts={smallerFonts}
           alternateTableStyle={alternateTableStyle}
         />
-      )}
+      )} */}
     </Box>
   );
 
