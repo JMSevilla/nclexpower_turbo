@@ -11,12 +11,6 @@
         "src": "/(.*)",
         "dest": "apps/simulator/$1"
       }
-    ],
-    "ignoreBuildStep": [
-      "packages/*"
-    ],
-    "env": {
-      "NODE_ENV": "production"
-    }
+    ]
   }
   
