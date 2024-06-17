@@ -13,6 +13,7 @@ import {
   ThemeBackgroundColorSelection,
 } from "../../types/page";
 import { CmsTenant } from "../../types/tenant";
+import { AccountSetupBlock } from '../../components/blocks/AccountSetupBlock/AccountSetupBlock';
 
 export const parseContent = (
   contents: PageContentValues[],
@@ -49,7 +50,10 @@ export const parseContent = (
         );
       }
       case "account_setup_form": {
-        return <h3>Account Setup</h3>;
+        return (
+          <AccountSetupBlock id={type}
+            parameters={content?.elements?.parameters} />
+        );
       }
       case "Content HTML block": {
         return (
