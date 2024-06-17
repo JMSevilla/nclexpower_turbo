@@ -35,6 +35,7 @@ const SELF_HTTP_OPTIONS: HttpOptions = {
   headers: {
     "Content-Type": "application/json",
     "x-api-key": config.value.XApiKey,
+    ENV: "dev2",
   },
   onRequest: (req) => {
     const accessToken = getItem<string | undefined>("AT");

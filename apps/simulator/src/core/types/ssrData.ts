@@ -126,16 +126,16 @@ export type SsrMockQuestionaireAnswer = {
 // new types for questionnaire refactoring
 
 export type RegularQuestion = {
-  contents: datatypes.QuestionContentsResponse;
-  itemselection: datatypes.CalcItemSelectValues[];
+  choices: string;
+  question: string;
 };
 
 export type MCQTable = {
   table:
-  | Array<{
-    rows: Array<{}>;
-  }>
-  | any;
+    | Array<{
+        rows: Array<{}>;
+      }>
+    | any;
 };
 
 export interface Row {
@@ -215,7 +215,7 @@ export interface TableProps {
   columns: string[];
   selectFieldKeys: string[];
   selectFieldOptions: { [key: string]: optionProps[] };
-  selectFieldComponent: (key:string, field: FieldsType) => ReactNode
+  selectFieldComponent: (key: string, field: FieldsType) => ReactNode;
 }
 
 export interface DropContainerItem {
