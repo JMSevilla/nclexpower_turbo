@@ -3,7 +3,9 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - mdev
+      - "feature/*"
+      - "hotfix/*"
 
 jobs:
   build_and_test_core_library:
