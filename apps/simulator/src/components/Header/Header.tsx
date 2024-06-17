@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { AppBar, Toolbar, Box, Tooltip, Typography, Button } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
@@ -6,8 +7,9 @@ import { Header as SsrHeader } from '@/core/types/ssrData';
 import { usePreloadedGlobals } from '@/core/context/PreloadedGlobalsContext';
 import { useCountdown } from '@repo/core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';
-import { useEffect, useState } from 'react';
 import { useProgress } from '@/core/context/ProgressContext';
+import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
+
 
 const buttonStyle = {
   backgroundColor: 'transparent',
@@ -25,6 +27,16 @@ export const Header: React.FC = () => {
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -65,7 +77,7 @@ export const Header: React.FC = () => {
           </div>
           <Box display={'flex'} height={35} pl={7} gap={5} bgcolor={'#86BCEA'}>
             <div className="header-step-6">
-              <Button sx={buttonStyle} style={{ fontFamily: 'Arial, sans-serif' }}>
+              <Button sx={buttonStyle} style={{ fontFamily: 'Arial, sans-serif' }} onClick={openModal}>
                 <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
                 Calculator
               </Button>
@@ -80,6 +92,7 @@ export const Header: React.FC = () => {
         </AppBar>
       </div>
       <LoadingBar color="#0000FF" progress={progress} />
+      <CalculatorModal open={isModalOpen} onClose={closeModal} />
     </Box>
   );
 };

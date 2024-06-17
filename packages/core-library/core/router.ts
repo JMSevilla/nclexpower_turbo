@@ -5,7 +5,7 @@ import { extractClassifierFromGlobals } from "../types";
 import { useTenantContext, useContentDataContext } from "../contexts";
 
 type StaticRoutes = Record<
-  "home" | "hub" | "logout" | "page_not_found" | "account_setup",
+  "home" | "hub" | "logout" | "page_not_found" | "account_setup" | "login",
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -25,15 +25,15 @@ export const useRouter = () => {
   const staticRoutes = (
     contentData?.globals
       ? extractClassifierFromGlobals(
-          "global_routes",
-          contentData.globals
-        )?.reduce(
-          (routes, route) => ({
-            ...routes,
-            [route.key.value]: route.value.value,
-          }),
-          {}
-        )
+        "global_routes",
+        contentData.globals
+      )?.reduce(
+        (routes, route) => ({
+          ...routes,
+          [route.key.value]: route.value.value,
+        }),
+        {}
+      )
       : {}
   ) as StaticRoutes;
 
@@ -69,15 +69,15 @@ export const useRouter = () => {
   ) {
     return typeof path === "string"
       ? router.push(
-          routeUrl(path),
-          addTenantSlug(path),
-          configuredRouteOptions(options)
-        )
+        routeUrl(path),
+        addTenantSlug(path),
+        configuredRouteOptions(options)
+      )
       : router.push(
-          routeUrl(path(staticRoutes)),
-          addTenantSlug(path(staticRoutes)),
-          configuredRouteOptions(options)
-        );
+        routeUrl(path(staticRoutes)),
+        addTenantSlug(path(staticRoutes)),
+        configuredRouteOptions(options)
+      );
   }
 
   async function replace(
@@ -87,10 +87,10 @@ export const useRouter = () => {
     return typeof path === "string"
       ? router.replace(routeUrl(path), path, configuredRouteOptions(options))
       : router.replace(
-          routeUrl(path(staticRoutes)),
-          path(staticRoutes),
-          configuredRouteOptions(options)
-        );
+        routeUrl(path(staticRoutes)),
+        path(staticRoutes),
+        configuredRouteOptions(options)
+      );
   }
 
   function navigate(
