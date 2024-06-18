@@ -1,7 +1,6 @@
 import { AxiosInstance } from "axios";
 import { useAsync, useAsyncCallback } from "react-async-hook";
 import { Api } from "../api";
-import { CalculationApi } from "../api/calc/calc-api";
 import { WebApi } from "../api/web/web-api";
 import Http, { HttpOptions } from "../http-client";
 import { getItem } from "../session-storage";
@@ -50,17 +49,23 @@ export const selfHttpClient = new Http({
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: config.value.API_URL,
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? config.value.LOCAL_API_URL
+      : config.value.API_URL,
 });
 export const mockHttpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: config.value.API_URL,
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? config.value.LOCAL_API_URL
+      : config.value.API_URL,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.API_URL
+      ? "http://localhost:3000"
       : typeof window !== "undefined"
         ? window.location.origin
         : undefined,
@@ -150,10 +155,8 @@ export const useSecuredApiCallback = <R, A extends unknown>(
 
 function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
-    new CalculationApi(client, httpSsrClient),
     new WebApi(client, httpSsrClient),
-    new PreloadedGlobalsApi(client),
-    new WebApiBackOffice(client, httpSsrClient)
+    new PreloadedGlobalsApi(client)
   );
 }
 
