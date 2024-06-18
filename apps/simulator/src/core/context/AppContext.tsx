@@ -3,7 +3,6 @@ import { SsrData } from '../types/ssrData';
 import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
-import { useApi, useApiCallback } from '../hooks/useApi';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -31,35 +30,29 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const [displayNextItem, setDisplayNextItem] = useState<boolean>(false);
   const router = useRouter();
   const isInitialMount = useRef(true);
-  const isInitMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
   /**
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-  const INIT_LOADPTEST = useApi(api => api.calc.initializeLoadPTestHimem());
-  const INIT_PREPTRACK = useApi(api => api.calc.initializeLoadPrepareTrackItem());
-  const selectQuestionCb = useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
+  const INIT_LOADPTEST = hooks.useApi(api => api.calc.initializeLoadPTestHimem());
+  const INIT_PREPTRACK = hooks.useApi(api => api.calc.initializeLoadPrepareTrackItem());
+  const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
     accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
     examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
     shouldDisplayNextItem: displayNextItem,
   };
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
-  useEffect(() => {
-    if (isInitMount.current) {
-      isInitMount.current = false;
-      INIT_LOADPTEST.execute();
-      INIT_PREPTRACK.execute();
-    }
-  }, [INIT_LOADPTEST.result?.data, INIT_PREPTRACK.result?.data]);
 
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
+      INIT_LOADPTEST.execute();
+      INIT_PREPTRACK.execute();
       selectQuestionCb.execute({ ...questionData });
     }
-  }, [questionData, selectQuestionCb, INIT_LOADPTEST.result?.data, INIT_PREPTRACK.result?.data]);
+  }, [questionData, selectQuestionCb, INIT_LOADPTEST.result, INIT_PREPTRACK.result]);
 
   const selectedItem = useMemo(() => {
     const data = selectQuestionCb.result?.data;
