@@ -156,7 +156,8 @@ export const useSecuredApiCallback = <R, A extends unknown>(
 function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
     new WebApi(client, httpSsrClient),
-    new PreloadedGlobalsApi(client)
+    new PreloadedGlobalsApi(client),
+    new WebApiBackOffice(client, httpSsrClient)
   );
 }
 

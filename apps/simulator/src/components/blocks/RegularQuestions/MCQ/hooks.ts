@@ -1,6 +1,6 @@
 import { useApplicationContext } from '@/core/context/AppContext';
 import { useRouter } from 'next/router';
-import { useApiCallback } from '@repo/core-library/hooks';
+import { useApiCallback } from '@/core/hooks/useApi';
 import { RegularAnswer } from '@repo/core-library/types';
 import { useEffect } from 'react';
 
