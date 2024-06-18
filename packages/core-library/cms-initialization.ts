@@ -11,9 +11,14 @@ import { config } from "./config";
 //   return (await response).data ?? null;
 // }
 
+const apiUrl =
+  process.env.NODE_ENV === "development"
+    ? config.value.LOCAL_API_URL
+    : config.value.API_URL;
+
 export async function initializeLoadPTestHimem() {
   const response = axios.get(
-    `${config.value.API_URL}/v1/api/baseAppload/processor-load-ptest-himem`,
+    `${apiUrl}/v1/api/baseAppload/processor-load-ptest-himem`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +32,7 @@ export async function initializeLoadPTestHimem() {
 
 export async function initializeLoadPrepareTrackItem() {
   const response = axios.get(
-    `${config.value.API_URL}/v1/api/baseAppload/processor-prep-track-item`,
+    `${apiUrl}/v1/api/baseAppload/processor-prep-track-item`,
     {
       headers: {
         "Content-Type": "application/json",
