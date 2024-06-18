@@ -1,12 +1,16 @@
+import getConfig from "next/config";
+
+const {
+  publicRuntimeConfig: { processEnv },
+} = getConfig();
+
 export const config = {
   get value() {
     return {
-      Development: "http://localhost:5281/v1/api",
-      Content: "http://localhost:5281/api",
-      Tokenize: "34a89f9063bb49a59d2525220b677e25",
-      MockDB: "http://localhost:3001",
-      XApiKey: "34a89f9063bb49a59d2525220b677e25",
-      HerokuDev: "https://nclexdev-6ecb32719de0.herokuapp.com", // this env is for dev side only.
+      NODE_ENV: process.env.NODE_ENV,
+      API_URL: processEnv.NEXT_PRIVATE_API_URL!,
+      LOCAL_API_URL: processEnv.NEXT_PRIVATE_LOCAL_API_URL,
+      XAPIKEY: processEnv.NEXT_PRIVATE_XAPI_KEY!,
     };
   },
 };

@@ -14,7 +14,7 @@ import { WebOfficeApi } from "../content-api";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
-    "x-api-key": config.value.XApiKey,
+    "x-api-key": config.value.XAPIKEY,
     "Content-Type": "application/json",
     ENV: "dev2",
   },
@@ -34,7 +34,7 @@ const HTTP_OPTIONS: HttpOptions = {
 const SELF_HTTP_OPTIONS: HttpOptions = {
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": config.value.XApiKey,
+    "x-api-key": config.value.XAPIKEY,
     ENV: "dev2",
   },
   onRequest: (req) => {
@@ -52,15 +52,15 @@ export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.HerokuDev
-      : config.value.HerokuDev,
+      ? config.value.LOCAL_API_URL
+      : config.value.API_URL,
 });
 export const mockHttpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.HerokuDev
-      : config.value.HerokuDev,
+      ? config.value.LOCAL_API_URL
+      : config.value.API_URL,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
