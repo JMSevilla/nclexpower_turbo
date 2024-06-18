@@ -22,7 +22,7 @@ export const Page: NextPage<Props> = ({ data, error }) => {
   const Layout = dynamic<React.ComponentProps<typeof LayoutComponent>>(() => import('./Layout').then(c => c.Layout), {
     ssr: false,
   });
-  console.log('data', data);
+
   return (
     <ApplicationProvider data={data}>
       <Layout questionaire={data?.prefetchQ} data={data} />
@@ -36,15 +36,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
     const slug = (querySlugs as string[]) || resolvedUrl;
     // const prefetchQ = await cmsInit.initializedCms();
     // const prefetchHeader = await cmsInit.initializedHeader();
-    const loadPTestHimem = await cmsInit.initializeLoadPTestHimem();
-    const loadPreTrackItem = await cmsInit.initializeLoadPrepareTrackItem();
 
     return {
       props: {
         data: {
           slug,
-          loadPTestHimem,
-          loadPreTrackItem,
         },
       },
     };

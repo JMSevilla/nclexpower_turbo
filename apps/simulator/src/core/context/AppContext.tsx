@@ -36,16 +36,19 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-
+  const INIT_LOADPTEST = useApi(api => api.calc.initializeLoadPTestHimem());
+  const INIT_PREPTRACK = useApi(api => api.calc.initializeLoadPrepareTrackItem());
   const selectQuestionCb = useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
-    accountId: '5A637337-33EC-41AF-A903-4192514B9561',
-    examGroupId: '0930C751-AC22-4895-8D76-2EF0B1FC90D9',
+    accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
+    examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
     shouldDisplayNextItem: displayNextItem,
   };
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
   useEffect(() => {
     if (isInitialMount.current) {
+      INIT_LOADPTEST.execute();
+      INIT_PREPTRACK.execute();
       isInitialMount.current = false;
       selectQuestionCb.execute({ ...questionData });
     }
@@ -76,7 +79,19 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     };
   }, [initSelectedQuestion, router]);
 
-  console.log('selectedItem', selectedItem);
+  useEffect(() => {
+    /**
+     * This auto-route is for test purposes only. This should be removed during the web-customer & simulator integration
+     */
+    if (data?.slug === '/') {
+      router.push({
+        pathname: '/',
+        query: {
+          slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
+        }, // this slug can be improved instead of string it should be array of string
+      });
+    }
+  }, []);
   return (
     <ApplicationContext.Provider
       value={{

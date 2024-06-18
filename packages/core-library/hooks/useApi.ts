@@ -46,27 +46,27 @@ const SELF_HTTP_OPTIONS: HttpOptions = {
 
 export const selfHttpClient = new Http({
   ...SELF_HTTP_OPTIONS,
-  baseURL: config.value.API_URL,
+  baseURL: "http://localhost:3000",
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.API_URL
+      ? config.value.LOCAL_API_URL
       : config.value.API_URL,
 });
 export const mockHttpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.API_URL
+      ? config.value.LOCAL_API_URL
       : config.value.API_URL,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.API_URL
+      ? "http://localhost:3000"
       : typeof window !== "undefined"
         ? window.location.origin
         : undefined,
