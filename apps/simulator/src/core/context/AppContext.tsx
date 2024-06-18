@@ -3,6 +3,7 @@ import { SsrData } from '../types/ssrData';
 import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
+import { useApi, useApiCallback } from '../hooks/useApi';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -28,7 +29,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const [questionaire, setQuestionaire] = useState<SsrData['questionaire']>([]);
   const [loader, setLoader] = useState<boolean>(true);
   const [displayNextItem, setDisplayNextItem] = useState<boolean>(false);
-  const { useApiCallback, useApi } = hooks;
   const router = useRouter();
   const isInitialMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
