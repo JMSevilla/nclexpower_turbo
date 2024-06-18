@@ -10,6 +10,7 @@ import { ServerSideApi } from "../api/ssr/ServerSide";
 import { PreloadedGlobalsApi } from "../api/preloaded/preloaded-globals-api";
 import { WebApiBackOffice } from "../api/web/web-api-backoffice";
 import { WebOfficeApi } from "../content-api";
+import { CalculationApi } from "../api/calc/calc-api";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
@@ -155,6 +156,7 @@ export const useSecuredApiCallback = <R, A extends unknown>(
 
 function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
+    new CalculationApi(client, httpSsrClient),
     new WebApi(client, httpSsrClient),
     new PreloadedGlobalsApi(client),
     new WebApiBackOffice(client, httpSsrClient)
