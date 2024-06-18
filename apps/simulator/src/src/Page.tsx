@@ -34,8 +34,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
   const querySlugs = query['slug'];
   try {
     const slug = (querySlugs as string[]) || resolvedUrl;
-    const prefetchQ = await cmsInit.initializedCms();
-    const prefetchHeader = await cmsInit.initializedHeader();
+    // const prefetchQ = await cmsInit.initializedCms();
+    // const prefetchHeader = await cmsInit.initializedHeader();
     const loadPTestHimem = await cmsInit.initializeLoadPTestHimem();
     const loadPreTrackItem = await cmsInit.initializeLoadPrepareTrackItem();
 
@@ -43,8 +43,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
       props: {
         data: {
           slug,
-          prefetchQ,
-          prefetchHeader,
           loadPTestHimem,
           loadPreTrackItem,
         },
