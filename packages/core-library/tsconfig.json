@@ -6,6 +6,6 @@
       "DOM.Iterable"
     ]
   },
-  "include": ["."],
+  "include": [".", "../../apps/simulator/src/cms-initialization.ts"],
   "exclude": ["node_modules", "dist"]
 }
