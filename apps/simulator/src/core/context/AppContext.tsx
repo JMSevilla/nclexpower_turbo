@@ -54,10 +54,16 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     }
   }, [questionData, selectQuestionCb]);
 
-  const selectedItem = useMemo(
-    () => mapQuestions(selectQuestionCb.result?.data || []),
-    [selectQuestionCb.result?.data],
-  );
+  const selectedItem = useMemo(() => {
+    const data = selectQuestionCb.result?.data;
+
+    if (!Array.isArray(data)) {
+      console.error('Expected an array for selectQuestionCb.result?.data, but received:', data);
+      return [];
+    }
+
+    return mapQuestions(data);
+  }, [selectQuestionCb.result?.data]);
 
   const initSelectedQuestion = useCallback(() => {
     selectQuestionCb.execute({ ...questionData });
@@ -117,6 +123,11 @@ export const useApplicationContext = () => {
 };
 
 function mapQuestions(questions: CalcItemSelectResponseItem[]) {
+  if (!Array.isArray(questions)) {
+    console.error('Expected an array for questions, but received:', questions);
+    return [];
+  }
+
   return questions.map(question => ({
     lNum: question.lNum,
     qId: question.qId,
