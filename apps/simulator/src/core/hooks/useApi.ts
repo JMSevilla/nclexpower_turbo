@@ -25,7 +25,7 @@ const HTTP_OPTIONS: HttpOptions = {
 const SELF_HTTP_OPTIONS: HttpOptions = {
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': config.value.XAPIKEY,
+    'x-api-key': process.env.NEXT_PRIVATE_XAPI_KEY,
     ENV: 'dev2',
   },
   onRequest: req => {
@@ -40,11 +40,13 @@ export const selfHttpClient = new Http({
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: process.env.NODE_ENV === 'development' ? config.value.LOCAL_API_URL : config.value.API_URL,
+  baseURL:
+    process.env.NODE_ENV === 'development' ? process.env.NEXT_PRIVATE_LOCAL_API_URL : process.env.NEXT_PRIVATE_API_URL,
 });
 export const mockHttpClient = new Http({
   ...HTTP_OPTIONS,
-  baseURL: process.env.NODE_ENV === 'development' ? config.value.LOCAL_API_URL : config.value.API_URL,
+  baseURL:
+    process.env.NODE_ENV === 'development' ? process.env.NEXT_PRIVATE_LOCAL_API_URL : process.env.NEXT_PRIVATE_API_URL,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
