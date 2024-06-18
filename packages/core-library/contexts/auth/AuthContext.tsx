@@ -22,7 +22,7 @@ const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
   login(username: string, password: string): Promise<null>;
-  logout: AsyncFunction;
+  logout: () => {};
   setIsAuthenticated: (value: boolean) => void;
 }>(undefined as any);
 

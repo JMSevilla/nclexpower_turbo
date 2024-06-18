@@ -1,7 +1,7 @@
 import { Paper } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React from 'react';
-import { RegularQuestion } from '@/core/types/ssrData';
+import { SataRegularQuestion } from '@/core/types/ssrData';
 import { datatypes } from '@repo/core-library';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { useForm, useFieldArray, useFormState, FormProvider } from 'react-hook-form';
@@ -11,24 +11,17 @@ import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormS
 import { useErrorHandler } from '@/core/utils/useErrorhandler';
 import { OptionType } from '@/core/types/ssrData';
 
-interface Props extends RegularQuestion {
+interface Props extends SataRegularQuestion {
   regSataAtom: RegularSATAValidationType | undefined;
   handleSubmit: (value: RegularSATAValidationType) => void;
-  ParsedChoices: OptionType[];
 }
 
-export const SATAQuestion: React.FC<Props> = ({
-  handleSubmit,
-  regSataAtom,
-  itemselection,
-  contents,
-  ParsedChoices,
-}) => {
+export const SATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, choices, question }) => {
   const form = useForm<RegularSATAValidationType>({
     mode: 'all',
     resolver: zodResolver(RegSATASchema),
     defaultValues: {
-      regSata: ParsedChoices,
+      regSata: [],
     },
   });
 
@@ -57,7 +50,7 @@ export const SATAQuestion: React.FC<Props> = ({
   return (
     <div className="h-full px-10 py-5">
       <Paper elevation={3}>
-        <FormProvider {...form}>
+        {/* <FormProvider {...form}>
           {itemselection?.length > 0 &&
             itemselection.map((item: datatypes.CalcItemSelectValues, index: number) => (
               <div key={index} className="py-8 px-16">
@@ -95,7 +88,7 @@ export const SATAQuestion: React.FC<Props> = ({
                 <ErrorMessage />
               </div>
             ))}
-        </FormProvider>
+        </FormProvider> */}
       </Paper>
     </div>
   );

@@ -197,8 +197,8 @@ const defaultTableStyles = (hasHeader: boolean): SxProps<Theme> => ({
     borderCollapse: "collapse",
     thead: {
       tr: {
-        borderBottom: (theme) =>
-          `1px solid ${theme.palette.appColors.incidental["075"]}`,
+        // borderBottom: (theme) =>
+        //   `1px solid ${theme.palette.appColors.incidental["075"]}`,
         color: (theme) => theme.palette.common.black,
 
         th: {
@@ -207,47 +207,47 @@ const defaultTableStyles = (hasHeader: boolean): SxProps<Theme> => ({
         },
       },
     },
-    tbody: {
-      "tr:nth-of-type(odd)": {
-        backgroundColor: (theme) =>
-          hasHeader
-            ? theme.palette.appColors.support80.transparentLight
-            : theme.palette.common.white,
-      },
-      "tr:nth-of-type(even)": {
-        backgroundColor: (theme) =>
-          hasHeader
-            ? theme.palette.common.white
-            : theme.palette.appColors.support80.transparentLight,
-      },
-      tr: {
-        td: {
-          paddingX: (theme) => `${theme.spacing(6)}!important`,
-          paddingY: (theme) => `${theme.spacing(3)}!important`,
-          borderBottom: (theme) =>
-            `1px solid ${theme.palette.appColors.incidental["075"]}`,
-        },
-        th: {
-          paddingX: (theme) => `${theme.spacing(6)}!important`,
-          paddingY: (theme) => `${theme.spacing(3)}!important`,
-          borderBottom: (theme) =>
-            `1px solid ${theme.palette.appColors.incidental["075"]}`,
-        },
-        "&:hover": {
-          backgroundColor: (theme) =>
-            theme.palette.appColors.support60.transparentLight,
-        },
-        "&:active": {
-          backgroundColor: (theme) => theme.palette.appColors.primary,
-          td: {
-            color: (theme) => theme.palette.common.white,
-          },
-          th: {
-            color: (theme) => theme.palette.common.white,
-          },
-        },
-      },
-    },
+    // tbody: {
+    //   "tr:nth-of-type(odd)": {
+    //     backgroundColor: (theme) =>
+    //       hasHeader
+    //         ? theme.palette?.appColors?.support80.transparentLight
+    //         : theme.palette.common.white,
+    //   },
+    //   "tr:nth-of-type(even)": {
+    //     backgroundColor: (theme) =>
+    //       hasHeader
+    //         ? theme.palette.common.white
+    //         : theme.palette.appColors.support80.transparentLight,
+    //   },
+    //   tr: {
+    //     td: {
+    //       paddingX: (theme) => `${theme.spacing(6)}!important`,
+    //       paddingY: (theme) => `${theme.spacing(3)}!important`,
+    //       borderBottom: (theme) =>
+    //         `1px solid ${theme.palette.appColors.incidental["075"]}`,
+    //     },
+    //     th: {
+    //       paddingX: (theme) => `${theme.spacing(6)}!important`,
+    //       paddingY: (theme) => `${theme.spacing(3)}!important`,
+    //       borderBottom: (theme) =>
+    //         `1px solid ${theme.palette.appColors.incidental["075"]}`,
+    //     },
+    //     "&:hover": {
+    //       backgroundColor: (theme) =>
+    //         theme.palette.appColors.support60.transparentLight,
+    //     },
+    //     "&:active": {
+    //       backgroundColor: (theme) => theme.palette.appColors.primary,
+    //       td: {
+    //         color: (theme) => theme.palette.common.white,
+    //       },
+    //       th: {
+    //         color: (theme) => theme.palette.common.white,
+    //       },
+    //     },
+    //   },
+    // },
   },
   "& table:not(:last-child)": {
     marginBlockEnd: 6,
