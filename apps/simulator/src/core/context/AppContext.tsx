@@ -31,6 +31,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const [displayNextItem, setDisplayNextItem] = useState<boolean>(false);
   const router = useRouter();
   const isInitialMount = useRef(true);
+  const isInitMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
   /**
    * @author JMSevilla
@@ -46,13 +47,19 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   };
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
   useEffect(() => {
-    if (isInitialMount.current) {
+    if (isInitMount.current) {
+      isInitMount.current = false;
       INIT_LOADPTEST.execute();
       INIT_PREPTRACK.execute();
+    }
+  }, [INIT_LOADPTEST.result?.data, INIT_PREPTRACK.result?.data]);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
       isInitialMount.current = false;
       selectQuestionCb.execute({ ...questionData });
     }
-  }, [questionData, selectQuestionCb]);
+  }, [questionData, selectQuestionCb, INIT_LOADPTEST.result?.data, INIT_PREPTRACK.result?.data]);
 
   const selectedItem = useMemo(() => {
     const data = selectQuestionCb.result?.data;
