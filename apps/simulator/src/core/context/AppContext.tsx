@@ -35,8 +35,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-  const INIT_LOADPTEST = hooks.useApi(api => api.calc.initializeLoadPTestHimem());
-  const INIT_PREPTRACK = hooks.useApi(api => api.calc.initializeLoadPrepareTrackItem());
   const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
     accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
@@ -48,11 +46,9 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      INIT_LOADPTEST.execute();
-      INIT_PREPTRACK.execute();
       selectQuestionCb.execute({ ...questionData });
     }
-  }, [questionData, selectQuestionCb, INIT_LOADPTEST.result, INIT_PREPTRACK.result]);
+  }, [questionData, selectQuestionCb]);
 
   const selectedItem = useMemo(() => {
     const data = selectQuestionCb.result?.data;
