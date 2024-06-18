@@ -13,7 +13,7 @@ export async function initializedHeader() {
 
 export async function initializeLoadPTestHimem() {
   const response = axios.get(
-    `${config.value.Development}/baseAppload/processor-load-ptest-himem`,
+    `${config.value.HerokuDev}/v1/api/baseAppload/processor-load-ptest-himem`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function initializeLoadPTestHimem() {
 
 export async function initializeLoadPrepareTrackItem() {
   const response = axios.get(
-    `${config.value.Development}/baseAppload/processor-prep-track-item`,
+    `${config.value.HerokuDev}/v1/api/baseAppload/processor-prep-track-item`,
     {
       headers: {
         "Content-Type": "application/json",

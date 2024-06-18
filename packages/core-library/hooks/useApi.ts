@@ -52,14 +52,14 @@ export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.Development
+      ? config.value.HerokuDev
       : config.value.HerokuDev,
 });
 export const mockHttpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.Content
+      ? config.value.HerokuDev
       : config.value.HerokuDev,
 });
 export const httpSsrClient = new Http({
