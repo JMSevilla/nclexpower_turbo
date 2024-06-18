@@ -81,19 +81,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     };
   }, [initSelectedQuestion, router]);
 
-  useEffect(() => {
-    /**
-     * This auto-route is for test purposes only. This should be removed during the web-customer & simulator integration
-     */
-    if (data?.slug === '/') {
-      router.push({
-        pathname: '/',
-        query: {
-          slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
-        }, // this slug can be improved instead of string it should be array of string
-      });
-    }
-  }, []);
   return (
     <ApplicationContext.Provider
       value={{
