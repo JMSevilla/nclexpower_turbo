@@ -9,9 +9,9 @@ import { useCountdown } from '@repo/core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';
 import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
-
-
-const buttonStyle = {
+import { ToolbarSettings } from '../Toolbar/Toolbar';
+import { ToolbarSettingsProvider } from '@repo/core-library/contexts/ToolbarSettingsContext'
+export const buttonStyle = {
   backgroundColor: 'transparent',
   color: 'white',
   fontSize: 'small',
@@ -23,11 +23,9 @@ const buttonStyle = {
 export const Header: React.FC = () => {
   const { header } = usePreloadedGlobals();
   const { progress } = useProgress();
-
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -75,24 +73,25 @@ export const Header: React.FC = () => {
               </Box>
             </Toolbar>
           </div>
-          <Box display={'flex'} height={35} pl={7} gap={5} bgcolor={'#86BCEA'}>
+          <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} height={35} pl={7} pr={7} gap={5} bgcolor={'#86BCEA'}>
             <div className="header-step-6">
               <Button sx={buttonStyle} style={{ fontFamily: 'Arial, sans-serif' }} onClick={openModal}>
                 <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
                 Calculator
               </Button>
-            </div>
-            <div className="header-step-7">
               <Button sx={buttonStyle} style={{ fontFamily: 'Arial, sans-serif' }}>
                 <FormatClearIcon fontSize="large" sx={buttonStyle.IconStyle} />
                 Clear
               </Button>
+            </div>
+            <div className="header-step-7">
+              <ToolbarSettings />
             </div>
           </Box>
         </AppBar>
       </div>
       <LoadingBar color="#0000FF" progress={progress} />
       <CalculatorModal open={isModalOpen} onClose={closeModal} />
-    </Box>
+    </Box >
   );
 };

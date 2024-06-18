@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
 import { Paper, Grid } from '@mui/material';
 import { getMapItems } from "@/core/utils/contents";
+import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
 
 export type DDTProps = {
   questionaire: QuestionaireProps[];
@@ -24,7 +25,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
     mode: "all",
     resolver: zodResolver(DDTableSchema),
   });
-
+  const { textZoomStyle } = useToolbarSettings();
   const { control } = form;
   const formState = useFormState({ control });
 
@@ -34,7 +35,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
       control={control}
       name={key}
       size="small"
-      options={fields[key]} 
+      options={fields[key]}
       sx={{
         minWidth: '250px',
         color: 'gray',
@@ -97,7 +98,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
               answer.map((answerItem) => (
                 <div key={answerItem.answerId}>
                   <div className="w-full text-sm mb-4 pr-5 pt-4">
-                    <p className="flex">
+                    <p className="flex" style={textZoomStyle}>
                       <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
                       <div
                         dangerouslySetInnerHTML={{
@@ -113,8 +114,8 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
                     selectFieldComponent={renderControlledSelectField}
                   />
                   <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
-                    <p>{answerItem.note === "" ? "" : "Note:"}</p>
-                    <p>{answerItem.note}</p>
+                    <p style={textZoomStyle}>{answerItem.note === "" ? "" : "Note:"}</p>
+                    <p style={textZoomStyle}>{answerItem.note}</p>
                   </div>
                 </div>
               ))}

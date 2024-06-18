@@ -2,6 +2,7 @@ import { CaseStudyProps } from "@/core/types/ssrData";
 import { Grid, Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { NotesComponent } from './NotesComponent';
+import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
 
 const fontStyle = {
   fontFamily: 'Arial, sans-serif',
@@ -10,7 +11,7 @@ const fontStyle = {
 
 export const NotesInfo: React.FC<CaseStudyProps> = ({ questionaire }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
-
+  const { textZoomStyle } = useToolbarSettings();
   if (!questionaire || questionaire.length === 0) return null;
 
   const tabs = questionaire.flatMap((questionItem) => questionItem.tabs);
@@ -21,7 +22,7 @@ export const NotesInfo: React.FC<CaseStudyProps> = ({ questionaire }) => {
         {questionaire.map((questionItem) => (
           <Box key={questionItem.qId} className="w-full">
             <div className="w-full text-sm mb-4 pr-5 pt-4">
-              <Typography sx={fontStyle}>{questionItem.question}</Typography>
+              <Typography sx={fontStyle} style={textZoomStyle}>{questionItem.question}</Typography>
             </div>
           </Box>
         ))}
@@ -33,7 +34,7 @@ export const NotesInfo: React.FC<CaseStudyProps> = ({ questionaire }) => {
                 }`}
               onClick={() => setActiveTab(tabIndex)}
             >
-              <Typography sx={fontStyle}>{tab.tabsTitle}</Typography>
+              <Typography sx={fontStyle} style={textZoomStyle}>{tab.tabsTitle}</Typography>
             </div>
           ))}
         </Box>

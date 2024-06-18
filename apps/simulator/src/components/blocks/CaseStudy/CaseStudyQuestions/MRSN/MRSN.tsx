@@ -8,6 +8,7 @@ import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index';
 import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { useErrorHandler } from '@/core/utils/useErrorhandler';
+import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
 
 interface Props extends SsrData {
     handleSubmit: (values: MrsnValidationType) => void
@@ -32,7 +33,7 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
     });
 
     const formState = useFormState({ control: control });
-
+    const { textZoomStyle } = useToolbarSettings();
     const ErrorMessage = useErrorHandler({
         isValid: formState.isValid,
         errorMessage: formState.errors?.mrsn?.root?.message || '',
@@ -78,8 +79,9 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
                                                             <div
                                                                 key={tab.tabsId}
                                                                 className=" h-[45vh] flex w-full gap-2"
+                                                                style={textZoomStyle}
                                                             >
-                                                                <p className="font-semibold min-w-[50px]">
+                                                                <p className="font-semibold min-w-[50px]" style={textZoomStyle}>
                                                                     {tab.tabsId} :
                                                                 </p>
                                                                 <div className="leading-6 text-sm">
@@ -128,6 +130,7 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
                                         <div
                                             key={answerItem.answerId}
                                             className="w-full text-sm mb-4 pr-5 pt-4"
+                                            style={textZoomStyle}
                                         >
                                             <p className="flex">
                                                 <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
@@ -142,7 +145,7 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
                                             elevation={3}
                                             className="p-5 overflow-auto flex flex-col gap-5"
                                         >
-                                            <div className="w-full h-fit text-sm">
+                                            <div className="w-full h-fit text-sm" style={textZoomStyle}>
                                                 {fields?.length > 0 &&
                                                     fields.map((choices, idx: number) => (
                                                         <ol className="flex items-center">
@@ -157,8 +160,8 @@ export const MRSN: React.FC<Props> = ({ questionaire, answer, handleSubmit, mrsn
                                             </div>
                                         </Paper>
                                         <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
-                                            <p>{answerItem.note === "" ? "" : "Note:"}</p>
-                                            <p>{answerItem.note}</p>
+                                            <p style={textZoomStyle}>{answerItem.note === "" ? "" : "Note:"}</p>
+                                            <p style={textZoomStyle}>{answerItem.note}</p>
                                         </div>
                                     </>
                                 ))}

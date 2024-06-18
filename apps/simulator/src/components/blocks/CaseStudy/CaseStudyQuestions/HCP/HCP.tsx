@@ -14,6 +14,7 @@ import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation'
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index'
 import { Highlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCP/HCPComponent/HCPHighlighter'
 import { useValidationError } from '@/core/utils/useValidationError'
+import { useToolbarSettings } from '@repo/core-library/contexts/ToolbarSettingsContext'
 
 interface Props extends SsrData {
   handleSubmit: (values: HCPValidationType) => void
@@ -29,7 +30,7 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
   const { control } = form
 
   const formState = useFormState({ control: control })
-
+  const { textZoomStyle } = useToolbarSettings();
   const ErrorMessage = useValidationError({
     fieldName: 'hcp',
     formState: formState,
@@ -71,7 +72,7 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
                             className="p-5 overflow-auto flex flex-col gap-5"
                             style={{ maxHeight: '70vh' }}
                           >
-                            <div key={tabIndex} className=" h-[45vh] flex w-full gap-2">
+                            <div key={tabIndex} className=" h-[45vh] flex w-full gap-2" >
                               <p
                                 style={{
                                   display: typeof tab.content !== 'string' ? 'none' : 'block',
@@ -120,7 +121,7 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
               answer.length > 0 &&
               answer.map((answerItem: AnswerProps, answerIdx) => (
                 <React.Fragment key={answerIdx}>
-                  <div key={answerItem.answerId} className="w-full text-sm mb-4 pr-5 pt-4">
+                  <div key={answerItem.answerId} className="w-full text-sm mb-4 pr-5 pt-4" style={textZoomStyle}>
                     <p className="flex">
                       <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
                       <div
@@ -134,9 +135,9 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
                     <div className="w-full h-fit text-sm">
                       {answerItem.tabs?.length > 0 &&
                         answerItem.tabs.map((ansTabs: SsrAnswerTabsProps, ansTabsIdx) => (
-                          <div key={ansTabsIdx}>
+                          <div key={ansTabsIdx} style={textZoomStyle}>
                             <p>
-                              <strong>{ansTabs.tabsId}</strong>
+                              <strong style={textZoomStyle}>{ansTabs.tabsId}</strong>
                             </p>
                             <br />
                             <Highlighter name={'hcp'} control={control} content={ansTabs.content} />

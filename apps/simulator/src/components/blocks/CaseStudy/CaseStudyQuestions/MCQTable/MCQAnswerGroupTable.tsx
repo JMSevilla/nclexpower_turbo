@@ -9,6 +9,7 @@ import { ControlledTableRadioButton } from '@/components/TableRadioButton';
 import { FormHelperText } from '@/components/FormHelperText';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { MCQCSProps } from './MCQCSComponents/MCQCS';
+import { useToolbarSettings } from '@repo/core-library/contexts/ToolbarSettingsContext';
 
 type RenderButtonsProps = {
     row?: MCQGValidationType | any;
@@ -37,7 +38,7 @@ export const MCQAnswerGroupTable: React.FC<MCQCSProps> = ({ questionaire, answer
     })
     const { control, formState, setValue } = form;
     const { fields } = useFieldArray({ control, name: "mcqGroup" })
-
+    const { textZoomStyle } = useToolbarSettings();
     const handleChange: ChangeHandler = (onChange, data) => {
         const { rowIndex, chKey, chKeys } = data
         if (!chKey) {
@@ -128,7 +129,7 @@ export const MCQAnswerGroupTable: React.FC<MCQCSProps> = ({ questionaire, answer
                                                     <TableRow>
                                                         {answerItem.answer ? answerItem.answer.length > 0 && answerItem.answer.map((answerContainer: AnswerProps) =>
                                                             answerContainer.columns && answerContainer.columns.map((columnName: any, index: number) =>
-                                                                <TableCell key={index} align="center" className='text-sm bg-[#E6F2FF] font-semibold border border-[#D4D7DA]' sx={{ width: '80px' }}>{columnName}</TableCell>
+                                                                <TableCell key={index} align="center" className='text-sm bg-[#E6F2FF] font-semibold border border-[#D4D7DA]' style={textZoomStyle} sx={{ width: '80px' }}>{columnName}</TableCell>
                                                             )
                                                         ) : null}
                                                     </TableRow>
@@ -136,7 +137,7 @@ export const MCQAnswerGroupTable: React.FC<MCQCSProps> = ({ questionaire, answer
                                                 <TableBody>
                                                     {fields.length > 0 && fields.map((row, index) =>
                                                         <TableRow key={index}>
-                                                            <TableCell align="left" className='border border-[#D4D7DA] px-4 py-2 w-40 '>{row.rowTitle}</TableCell>
+                                                            <TableCell align="left" className='border border-[#D4D7DA] px-4 py-2 w-40 ' style={textZoomStyle}>{row.rowTitle}</TableCell>
                                                             {questionaire ? questionaire.length > 0 && questionaire.map((tableItem) => (
                                                                 tableItem.QType === "MCQNoGroup" ?
                                                                     <RenderRadioButtons row={row} rowIndex={index} />
@@ -156,7 +157,7 @@ export const MCQAnswerGroupTable: React.FC<MCQCSProps> = ({ questionaire, answer
                                         </div>
                                     )}
                                     <div className='w-full text-sm mb-4 pr-5 pt-4 flex gap-1'>
-                                        <p>Note:</p>
+                                        <p style={textZoomStyle}>Note:</p>
                                         <p>{answerItem.answer ? answerItem.answer.length > 0 && answerItem.answer.map((answerItem: AnswerProps) => (
                                             answerItem.note
                                         )) : null}</p>
