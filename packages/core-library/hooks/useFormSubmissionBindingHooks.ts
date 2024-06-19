@@ -6,7 +6,7 @@ export interface FormSubmissionParams {
   isValid: boolean;
   isDirty?: boolean;
   initDependencies?: DependencyList;
-  cb: AsyncFunction;
+  cb: () => void;
 }
 
 export const useFormSubmissionBindingHooks = ({

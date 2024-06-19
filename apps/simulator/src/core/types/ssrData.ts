@@ -130,6 +130,11 @@ export type RegularQuestion = {
   question: string;
 };
 
+export type SataRegularQuestion = {
+  question: string;
+  choices: OptionType[];
+};
+
 export type MCQTable = {
   table:
     | Array<{

@@ -42,10 +42,10 @@ export const TextBlock: React.FC<Props> = ({
       id={id}
       sx={{
         backgroundColor,
-        color:
-          theme.palette.appColors.primary === backgroundColor
-            ? theme.palette.common.white
-            : "unset",
+        color: theme.palette.common.white,
+        // theme.palette.appColors.primary === backgroundColor
+        //   ? theme.palette.common.white
+        //   : "unset",
       }}
       data-testid="content-html-block"
     >

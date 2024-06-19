@@ -11,17 +11,12 @@ interface Props {
 }
 
 export const Page: NextPage<Props> = ({ data, error }) => {
-
   if (error) {
-    return (
-      <ErrorBox label={`An error occured: ${error?.message || "Error"}`} />
-    )
+    return <ErrorBox label={`An error occured: ${error?.message || 'Error'}`} />;
   }
 
   if (!data) {
-    return (
-      <ErrorBox label={`Client error, Please try again later`} />
-    )
+    return <ErrorBox label={`Client error, Please try again later`} />;
   }
 
   const Layout = dynamic<React.ComponentProps<typeof LayoutComponent>>(() => import('./Layout').then(c => c.Layout), {
@@ -39,8 +34,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
   const querySlugs = query['slug'];
   try {
     const slug = (querySlugs as string[]) || resolvedUrl;
-    const prefetchQ = await cmsInit.initializedCms();
-    const prefetchHeader = await cmsInit.initializedHeader();
+    // const prefetchQ = await cmsInit.initializedCms();
+    // const prefetchHeader = await cmsInit.initializedHeader();
     const loadPTestHimem = await cmsInit.initializeLoadPTestHimem();
     const loadPreTrackItem = await cmsInit.initializeLoadPrepareTrackItem();
 
@@ -48,8 +43,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
       props: {
         data: {
           slug,
-          prefetchQ,
-          prefetchHeader,
           loadPTestHimem,
           loadPreTrackItem,
         },

@@ -30,10 +30,10 @@ const client = (
   session: NextApiRequestWithSession["session"]
 ): Http["client"] =>
   new Http({
-    baseURL: config.value.Development,
+    baseURL: config.value.LOCAL_API_URL,
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": config.value.XApiKey,
+      "x-api-key": config.value.XAPIKEY,
     },
     onError: (error) =>
       console.error(`Error response: ${JSON.stringify(error)}.`),
