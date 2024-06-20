@@ -10,7 +10,7 @@ import LoadingBar from 'react-top-loading-bar';
 import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ToolbarSettings } from '../Toolbar/Toolbar';
-import { ToolbarSettingsProvider } from '@repo/core-library/contexts/ToolbarSettingsContext'
+
 export const buttonStyle = {
   backgroundColor: 'transparent',
   color: 'white',
