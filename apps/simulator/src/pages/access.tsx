@@ -3,10 +3,10 @@ import * as yup from "yup"
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AnimatedBoxSkeleton, NonCMSTextField } from '@repo/core-library/components';
+import { NonCMSTextField } from '@repo/core-library/components';
 
 
-export const accessKey = () => {
+export const AccessPage = () => {
     const AccessKeySchema = yup.object({
         accessKey: yup.string().required("This is Required").default(''),
     });
@@ -83,5 +83,4 @@ export const accessKey = () => {
 
     )
 }
-
-export default accessKey
+export default AccessPage
