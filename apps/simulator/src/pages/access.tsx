@@ -1,16 +1,14 @@
 import { Grid, Button, Box, Typography } from '@mui/material'
-import * as yup from "yup"
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { NonCMSTextField } from '@repo/core-library/components';
+import { useSessionStorage } from '@repo/core-library/hooks';
+import { AccessKeySchema, AccessKeyType } from '@/core/schema/AccessToken/validation';
 
 
 export const AccessPage = () => {
-    const AccessKeySchema = yup.object({
-        accessKey: yup.string().required("This is Required").default(''),
-    });
-    type AccessKeyType = yup.InferType<typeof AccessKeySchema>;
+    const [, setValue] = useSessionStorage<string | null>("accessToken", null)
 
     const form = useForm({
         mode: "onSubmit",
@@ -18,10 +16,10 @@ export const AccessPage = () => {
         defaultValues: AccessKeySchema.getDefault(),
     });
 
-    const { control, handleSubmit, formState } = form;
+    const { control, handleSubmit } = form;
 
     function onSubmit(values: AccessKeyType) {
-        console.log("values : ", values)
+        setValue(values?.accessKey)
     }
 
     return (
