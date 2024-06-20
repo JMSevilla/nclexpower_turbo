@@ -3,7 +3,6 @@ import { SsrData } from '../types/ssrData';
 import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
-import { useApi, useApiCallback } from '../hooks/useApi';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -36,19 +35,16 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-  const INIT_LOADPTEST = useApi(api => api.calc.initializeLoadPTestHimem());
-  const INIT_PREPTRACK = useApi(api => api.calc.initializeLoadPrepareTrackItem());
-  const selectQuestionCb = useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
+  const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
     accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
     examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
     shouldDisplayNextItem: displayNextItem,
   };
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
+
   useEffect(() => {
     if (isInitialMount.current) {
-      INIT_LOADPTEST.execute();
-      INIT_PREPTRACK.execute();
       isInitialMount.current = false;
       selectQuestionCb.execute({ ...questionData });
     }
@@ -86,9 +82,11 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   }, [initSelectedQuestion, router]);
 
   useEffect(() => {
-    /**
-     * This auto-route is for test purposes only. This should be removed during the web-customer & simulator integration
-     */
+    /* if data receives slug data `/` then check the session if there is an existing
+    session `accountId`, `examGroupId` and `tokenization` if one of this was removed
+    the simulator or the entire application should terminated or reset straight back
+    to the login. */
+    // check this first `accountId`, `examGroupId` and `tokenization`
     if (data?.slug === '/') {
       router.push({
         pathname: '/',
