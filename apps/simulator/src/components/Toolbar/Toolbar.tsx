@@ -23,10 +23,10 @@ export const ToolbarSettings: React.FC = () => {
   const iconStyle = {
     border: '1px solid #f3f3f3',
     margin: 1,
-    backgroundColor: '#fff', // Change button background to white
-    color: '#000', // Change button text/icon color to black
+    backgroundColor: '#007AB7',
+    color: '#030303',
     '&:hover': {
-      backgroundColor: '#f3f3f3', // Change button background to light grey on hover
+      color: '#f3f3f3',
     },
   };
 
