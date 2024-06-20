@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { NonCMSTextField } from '@repo/core-library/components';
 
 
-export const accessKey = () => {
+export const AccessPage = () => {
     const AccessKeySchema = yup.object({
         accessKey: yup.string().required("This is Required").default(''),
     });
@@ -84,4 +84,4 @@ export const accessKey = () => {
     )
 }
 
-export default accessKey
+export default AccessPage
