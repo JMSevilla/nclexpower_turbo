@@ -10,7 +10,7 @@ import { ControlledCheckbox } from '@/components/Checkbox';
 import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAtom } from "jotai"
-import { useToolbarSettings } from '@repo/core-library/contexts/ToolbarSettingsContext';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 
 type Props = {

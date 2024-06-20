@@ -8,7 +8,7 @@ import { WordDropContainer } from '@/components/blocks/CaseStudy/CaseStudyQuesti
 import { useForm, useFormState } from 'react-hook-form';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormSubmissionBindingHooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 
 type Props = CaseStudyProps & {

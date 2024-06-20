@@ -17,7 +17,7 @@ import { TourComponent } from '@/components/tourComponent';
 import { TourSteps } from '@/core/constant/tourStep';
 import { ProgressProvider } from '@/core/context/ProgressContext';
 import { MobileDetectionProvider } from '@repo/core-library/contexts/MobileDetectionContext';
-import { ToolbarSettingsProvider } from '@repo/core-library/contexts/ToolbarSettingsContext';
+import { ToolbarSettingsProvider } from '@/core/context/ToolbarSettingsContext';
 
 interface Props {
   questionaire: SsrMockQuestionaire[];

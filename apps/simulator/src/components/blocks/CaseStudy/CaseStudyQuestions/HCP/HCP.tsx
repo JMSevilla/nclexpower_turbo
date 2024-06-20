@@ -14,7 +14,7 @@ import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation'
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index'
 import { Highlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCP/HCPComponent/HCPHighlighter'
 import { useValidationError } from '@/core/utils/useValidationError'
-import { useToolbarSettings } from '@repo/core-library/contexts/ToolbarSettingsContext'
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 interface Props extends SsrData {
   handleSubmit: (values: HCPValidationType) => void

@@ -8,7 +8,7 @@ import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index';
 import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { useErrorHandler } from '@/core/utils/useErrorhandler';
-import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 interface Props extends SsrData {
     handleSubmit: (values: MrsnValidationType) => void

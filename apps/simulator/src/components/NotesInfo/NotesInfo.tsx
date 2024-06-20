@@ -2,7 +2,7 @@ import { CaseStudyProps } from "@/core/types/ssrData";
 import { Grid, Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { NotesComponent } from './NotesComponent';
-import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 const fontStyle = {
   fontFamily: 'Arial, sans-serif',

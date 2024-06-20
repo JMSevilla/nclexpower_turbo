@@ -8,7 +8,7 @@ import {
 
 import { Controller, FieldValues } from "react-hook-form";
 import { ControlledField } from "@repo/core-library/types/ControlledField";
-import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 type Props = CheckboxProps & {
   label?: string;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Paper, Box, Grid, Typography } from "@mui/material";
 import { SsrQuestionaireContentProps, CaseStudyProps } from "@/core/types/ssrData";
-import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 interface NotesComponentProps {
   tabs: CaseStudyProps["questionaire"][number]["tabs"];
   activeTab: number;

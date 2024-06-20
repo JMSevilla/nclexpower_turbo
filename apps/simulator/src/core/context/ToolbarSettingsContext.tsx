@@ -15,23 +15,22 @@ export const ToolbarSettingsContext = createContext<ToolbarSettingsContextValue>
 });
 
 export const useToolbarSettings = (): ToolbarSettingsContextValue => {
-  const context = useContext(ToolbarSettingsContext);
-  if (!context) {
+  if (!ToolbarSettingsContext) {
     throw new Error("useToolbarSettings must be used within a ToolbarSettingsProvider");
   }
-  return context;
+  return useContext(ToolbarSettingsContext);
 };
 
-export const ToolbarSettingsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ToolbarSettingsProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [textZoom, setTextZoom] = useState<number>(1);
 
   const handleZoomInText = () => {
-    setTextZoom((prevZoom) => prevZoom + 0.01);
+    setTextZoom((prevZoom) => prevZoom + 0.02);
   };
 
   const handleZoomOutText = () => {
     if (textZoom > 0.2) {
-      setTextZoom((prevZoom) => prevZoom - 0.01);
+      setTextZoom((prevZoom) => prevZoom - 0.02);
     }
   };
 

@@ -7,7 +7,7 @@ import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
 import { DDClozeValidationType, DDClozeSchema } from '@/core/schema/ddcloze/validation';
-import { useToolbarSettings } from '@repo/core-library/contexts/ToolbarSettingsContext';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 export type DDClozeProps = {
     questionaire: QuestionaireProps[],

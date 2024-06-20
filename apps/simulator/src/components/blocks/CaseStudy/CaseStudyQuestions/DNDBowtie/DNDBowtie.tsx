@@ -9,7 +9,7 @@ import { DroppableContainer } from './DNDBowtieComponent/Droppable';
 import { ItemTypesKeys, itemTypes } from '@/core/constant/dndStateConstant';
 import { dndObjectValueProps, QuestionaireProps, AnswerProps, choicesListProps, DropContainerType } from '@/core/types/ssrData';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
-import { useToolbarSettings } from '@repo/core-library/contexts/ToolbarSettingsContext';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 export type DroppedValueType = Record<string, dndObjectValueProps[]>
 

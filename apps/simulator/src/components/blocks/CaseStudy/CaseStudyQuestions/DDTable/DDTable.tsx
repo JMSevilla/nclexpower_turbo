@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
 import { Paper, Grid } from '@mui/material';
 import { getMapItems } from "@/core/utils/contents";
-import { useToolbarSettings } from "@repo/core-library/contexts/ToolbarSettingsContext";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 export type DDTProps = {
   questionaire: QuestionaireProps[];
