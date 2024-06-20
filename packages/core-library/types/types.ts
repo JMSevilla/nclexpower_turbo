@@ -5,11 +5,11 @@ export interface Membership {
   status: string | null;
 }
 
-export type CmsTokens = Nullable<{
+export type CmsTokens = {
   email: string;
   phoneNumber: string;
   name: string;
-}>;
+};
 
 export interface AccessKey {
   contentAccessKey: string;

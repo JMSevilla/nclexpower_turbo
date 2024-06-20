@@ -41,7 +41,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                     <AlertMessageV2Provider>
                       <TourComponent steps={TourSteps} />
                       <Header />
-                      <PageContainer questionaire={questionaire}>
+                      <PageContainer selectedItem={itemselect}>
                         <div className="min-h-[65dvh] flex flex-col justify-between">
                           <LoadablePageContent loading={loading}>
                             <DndProvider backend={HTML5Backend}>

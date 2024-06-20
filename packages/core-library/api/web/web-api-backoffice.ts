@@ -10,7 +10,7 @@ export class WebApiBackOffice {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance
-  ) {}
+  ) { }
   public tokenInformation() {
     /* get tokenize informations */
     return this.axios.get<CmsTokens>("");
@@ -24,8 +24,8 @@ export class WebApiBackOffice {
     try {
       return await this.axios.get<CmsPageResponse>(
         contentAccessKey
-          ? `/content-api/api/v2/content/authorized-page` // params stringify not yet build
-          : `/v2/content/BaseContent/unauthorized-page?${qs.stringify({ pageUrl: slug, tenantUrl })}`,
+          ? `/api/content-api/api/v2/content/authorized-page` // params stringify not yet build
+          : `/api/v2/content/BaseContent/unauthorized-page?${qs.stringify({ pageUrl: slug, tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
     } catch (err: any) {
@@ -40,10 +40,10 @@ export class WebApiBackOffice {
     try {
       return await this.axios.get<CmsGlobals>(
         contentAccessKey
-          ? `/content-api/api/v2/content/authorized-globals?${qs.stringify({
-              contentAccessKey: "",
-            })}`
-          : `/v2/content/BaseContent/unauthorized-globals?${qs.stringify({ tenantUrl })}`,
+          ? `/api/content-api/api/v2/content/authorized-globals?${qs.stringify({
+            contentAccessKey: "",
+          })}`
+          : `/api/v2/content/BaseContent/unauthorized-globals?${qs.stringify({ tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
     } catch (err: any) {
@@ -69,7 +69,7 @@ export class WebApiBackOffice {
       return await this.axios.get<CmsFooter>(
         contentAccessKey
           ? `` //no current authorized-footer api
-          : `/v2/content/BaseContent/unauthorized-footer?${qs.stringify({ tenantUrl })}`,
+          : `/api/v2/content/BaseContent/unauthorized-footer?${qs.stringify({ tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
     } catch (err: any) {
@@ -85,7 +85,7 @@ export class WebApiBackOffice {
       return await this.axios.get<MenuItem[]>(
         contentAccessKey
           ? `` //no current authorized-menu api
-          : `/v2/content/BaseContent/unauthorized-menu?${qs.stringify({ tenantUrl })}`,
+          : `/api/v2/content/BaseContent/unauthorized-menu?${qs.stringify({ tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
     } catch (err: any) {

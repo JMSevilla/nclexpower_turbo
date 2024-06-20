@@ -10,7 +10,7 @@ type Callback = {
   key: string;
   enabled: boolean;
   unchanged: boolean;
-  fn?: AsyncFunction;
+  fn?: () => void;
 };
 type State = { enabled: boolean; unchanged: boolean; callbacks: Callback[] };
 type InitPayload = Callback;
@@ -60,7 +60,7 @@ const context = createContext<{
   unchanged: boolean;
   hasCallbacks: () => boolean;
   hasCallback: (key: string) => boolean;
-  submit: AsyncFunction;
+  submit: () => void;
   reset: VoidFunction;
   init: (payload: Callback) => void;
   initiateLoading: VoidFunction;

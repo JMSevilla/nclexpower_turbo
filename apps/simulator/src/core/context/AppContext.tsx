@@ -28,7 +28,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const [questionaire, setQuestionaire] = useState<SsrData['questionaire']>([]);
   const [loader, setLoader] = useState<boolean>(true);
   const [displayNextItem, setDisplayNextItem] = useState<boolean>(false);
-  const { useApiCallback, useApi } = hooks;
   const router = useRouter();
   const isInitialMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
@@ -36,14 +35,14 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
-
-  const selectQuestionCb = useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
+  const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
-    accountId: '5A637337-33EC-41AF-A903-4192514B9561',
-    examGroupId: '0930C751-AC22-4895-8D76-2EF0B1FC90D9',
+    accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
+    examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
     shouldDisplayNextItem: displayNextItem,
   };
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
+
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -51,10 +50,16 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     }
   }, [questionData, selectQuestionCb]);
 
-  const selectedItem = useMemo(
-    () => mapQuestions(selectQuestionCb.result?.data || []),
-    [selectQuestionCb.result?.data],
-  );
+  const selectedItem = useMemo(() => {
+    const data = selectQuestionCb.result?.data;
+
+    if (!Array.isArray(data)) {
+      console.error('Expected an array for selectQuestionCb.result?.data, but received:', data);
+      return [];
+    }
+
+    return mapQuestions(data);
+  }, [selectQuestionCb.result?.data]);
 
   const initSelectedQuestion = useCallback(() => {
     selectQuestionCb.execute({ ...questionData });
@@ -76,7 +81,21 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     };
   }, [initSelectedQuestion, router]);
 
-  console.log('selectedItem', selectedItem);
+  useEffect(() => {
+    /* if data receives slug data `/` then check the session if there is an existing
+    session `accountId`, `examGroupId` and `tokenization` if one of this was removed
+    the simulator or the entire application should terminated or reset straight back
+    to the login. */
+    // check this first `accountId`, `examGroupId` and `tokenization`
+    if (data?.slug === '/') {
+      router.push({
+        pathname: '/',
+        query: {
+          slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
+        }, // this slug can be improved instead of string it should be array of string
+      });
+    }
+  }, []);
   return (
     <ApplicationContext.Provider
       value={{
@@ -102,6 +121,11 @@ export const useApplicationContext = () => {
 };
 
 function mapQuestions(questions: CalcItemSelectResponseItem[]) {
+  if (!Array.isArray(questions)) {
+    console.error('Expected an array for questions, but received:', questions);
+    return [];
+  }
+
   return questions.map(question => ({
     lNum: question.lNum,
     qId: question.qId,

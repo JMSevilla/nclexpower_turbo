@@ -25,11 +25,9 @@ export const render = (
   rtlRender(ui, {
     wrapper: ({ children }) => (
       <TenantContextProvider tenant={null as any}>
-        <ThemeProvider theme={theme()}>
-          <GlobalsProvider tenant={null} globals={null} preloadedGlobals={{}}>
-            {children}
-          </GlobalsProvider>
-        </ThemeProvider>
+        <GlobalsProvider tenant={null} globals={null} preloadedGlobals={{}}>
+          {children}
+        </GlobalsProvider>
       </TenantContextProvider>
     ),
     ...options,

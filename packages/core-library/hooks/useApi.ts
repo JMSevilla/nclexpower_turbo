@@ -1,7 +1,6 @@
 import { AxiosInstance } from "axios";
 import { useAsync, useAsyncCallback } from "react-async-hook";
 import { Api } from "../api";
-import { CalculationApi } from "../api/calc/calc-api";
 import { WebApi } from "../api/web/web-api";
 import Http, { HttpOptions } from "../http-client";
 import { getItem } from "../session-storage";
@@ -11,10 +10,11 @@ import { ServerSideApi } from "../api/ssr/ServerSide";
 import { PreloadedGlobalsApi } from "../api/preloaded/preloaded-globals-api";
 import { WebApiBackOffice } from "../api/web/web-api-backoffice";
 import { WebOfficeApi } from "../content-api";
+import { CalculationApi } from "../api/calc/calc-api";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
-    "x-api-key": config.value.XApiKey,
+    "x-api-key": config.value.XAPIKEY,
     "Content-Type": "application/json",
     ENV: "dev2",
   },
@@ -34,7 +34,7 @@ const HTTP_OPTIONS: HttpOptions = {
 const SELF_HTTP_OPTIONS: HttpOptions = {
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": config.value.XApiKey,
+    "x-api-key": config.value.XAPIKEY,
     ENV: "dev2",
   },
   onRequest: (req) => {
@@ -52,15 +52,15 @@ export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.Development
-      : config.value.HerokuDev,
+      ? config.value.LOCAL_API_URL
+      : config.value.API_URL,
 });
 export const mockHttpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
     process.env.NODE_ENV === "development"
-      ? config.value.Content
-      : config.value.HerokuDev,
+      ? config.value.LOCAL_API_URL
+      : config.value.API_URL,
 });
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
