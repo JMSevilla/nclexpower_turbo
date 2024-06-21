@@ -39,6 +39,8 @@ interface Props<T extends object> {
   multiline?: boolean;
   rows?: number;
 }
+
+
 export const TextField = <T extends FieldValues>({
   name,
   control,
@@ -84,15 +86,9 @@ export const TextFieldComponent = <T extends object>({
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
-        {fieldState?.error?.message ? (
-          <FieldError messageKey={fieldState.error.message} />
-        ) : (
-          label !== null && (
-            <Typography component="label" htmlFor={field?.name} display="flex">
-              {label ?? "[[label_name]]"}
-            </Typography>
-          )
-        )}
+        <Typography component="label" htmlFor={field?.name} display="flex">
+          {label ?? "[[label_name]]"}
+        </Typography>
       </Grid>
       <Grid item>
         <ErrorTooltip open={showErrorTooltip} tooltip={errorTooltip}>
@@ -112,6 +108,9 @@ export const TextFieldComponent = <T extends object>({
             />
           )}
         </ErrorTooltip>
+      </Grid>
+      <Grid item>
+        <Typography sx={{ color: 'red', fontSize: 14 }}>{fieldState?.error?.message}</Typography>
       </Grid>
 
       {tooltip?.text && (

@@ -3,7 +3,6 @@ import { LoginForm } from '@repo/core-library/components/blocks/LoginFormBlock/L
 import { LoginFormType } from '@repo/core-library/components/blocks/LoginFormBlock/validation';
 import { StringValue } from '@repo/core-library/types/common';
 import { useState } from 'react'
-import { useLogin } from '../../../../packages/core-library/components/blocks/LoginFormBlock/hooks'
 
 
 type Props = {
@@ -13,10 +12,9 @@ type Props = {
 
 export default function LoginFormBlock({ id, parameters }: Props) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const { loginAccount } = useLogin()
 
     async function onSubmit(values: LoginFormType) {
-        await loginAccount.execute(values)
+        console.log("Submitted Value : ", values)
     }
 
     return (

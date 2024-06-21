@@ -19,9 +19,9 @@ export class WebApi {
       throw err;
     }
   }
-  public async backofficeLogin(data: LoginFormType) {
+  public async webLogin(data: LoginFormType, type: string) {
     try {
-      return await this.axios.post('/api/v2/internal/baseInternal/login', data, { headers: { ENV: "dev2" } })
+      return await this.axios.post(type === 'WebCustomer' ? '' : "/api/v2/internal/baseInternal/login", data, { headers: { ENV: "dev2" } })
     }
     catch (err: any) {
       if (err.response?.status === 404) {

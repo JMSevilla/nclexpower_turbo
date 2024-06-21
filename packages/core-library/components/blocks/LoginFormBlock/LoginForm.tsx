@@ -3,7 +3,7 @@ import { Button } from "../../Button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { loginSchema, LoginFormType } from "./validation";
-import { NonCMSTextField } from '../../forms/NonCMSTextField';
+import { TextField } from '../../forms/TextField';
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -22,10 +22,10 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   return (
     <Grid container direction="column" rowSpacing={4} gap={2}>
       <Grid item md={6} lg={4}>
-        <NonCMSTextField control={control} label="Username" name='username' />
+        <TextField control={control} label="Username" name='username' />
       </Grid>
       <Grid item md={6} lg={4}>
-        <NonCMSTextField control={control} label="Password" type='password' name='password' />
+        <TextField control={control} label="Password" type='password' name='password' />
       </Grid>
       <Box marginTop={5}>
         <Button fullWidth onClick={handleSubmit(onSubmit)} variant="contained">Login</Button>
