@@ -89,5 +89,4 @@ export const AccessPage = () => {
 
     )
 }
-
 export default AccessPage

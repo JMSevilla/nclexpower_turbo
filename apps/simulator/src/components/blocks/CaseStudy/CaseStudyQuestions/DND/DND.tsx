@@ -8,6 +8,7 @@ import { WordDropContainer } from '@/components/blocks/CaseStudy/CaseStudyQuesti
 import { useForm, useFormState } from 'react-hook-form';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormSubmissionBindingHooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 
 type Props = CaseStudyProps & {
@@ -25,7 +26,7 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
         mode: "all",
         resolver: zodResolver(RowSchema),
     });
-
+    const { textZoomStyle } = useToolbarSettings();
     const { control, setValue } = form;
     const formState = useFormState({ control: control });
 
@@ -108,10 +109,10 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                                         key={tabIndex}
                                                         style={{ display: activeTab === tabIndex ? "block" : "none" }}>
                                                         <div className="flex w-full gap-2">
-                                                            <p className="font-semibold min-w-[50px]">
+                                                            <p className="font-semibold min-w-[50px]" >
                                                                 {tab.tabsId} :
                                                             </p>
-                                                            <div className="leading-6 text-sm">
+                                                            <div className="leading-6 text-sm ">
                                                                 {tab.content as string}
                                                             </div>
                                                         </div>
@@ -130,21 +131,21 @@ export const DND: React.FC<Props> = ({ questionaire, dndAtom, handleSubmit }) =>
                                 questionItem.answer ? questionItem.answer.length > 0 &&
                                     questionItem.answer.map((answerItem: AnswerProps, answerItemIdx: number) => (
                                         <div key={answerItemIdx} className="h-fit leading-8 ">
-                                            <p className="leading-5 my-2">{answerItem?.note}</p>
+                                            <p className="leading-5 my-2" style={textZoomStyle}>{answerItem?.note}</p>
                                             <p className="flex leading-5 my-2">
                                                 <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pt-2 " />
-                                                <div dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
+                                                <div style={textZoomStyle} dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
                                             </p>
 
-                                            <div className="w-full flex flex-wrap gap-2">
+                                            <div className="w-full flex flex-wrap gap-2" style={textZoomStyle}>
                                                 {answerItem.DNDAnswer ? answerItem?.DNDAnswer
                                                     .split(/\[\[(.*?)\]\]/)
                                                     .map((part: string, index: number) => {
                                                         const word = part.split(":")[1]?.trim();
 
                                                         return index % 2 === 0 ?
-                                                            <span key={index}>{part}</span> :
-                                                            <span key={index} className="-mt-2 text-center">
+                                                            <span style={textZoomStyle} key={index}>{part}</span> :
+                                                            <span style={textZoomStyle} key={index} className="-mt-2 text-center">
                                                                 {index === 1 ? (
                                                                     <WordDropContainer
                                                                         onDelete={handleRemoveWord}

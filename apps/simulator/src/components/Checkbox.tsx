@@ -8,6 +8,7 @@ import {
 
 import { Controller, FieldValues } from "react-hook-form";
 import { ControlledField } from "@repo/core-library/types/ControlledField";
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 type Props = CheckboxProps & {
   label?: string;
@@ -23,14 +24,15 @@ export const Checkbox: React.FC<Props> = ({
   showErrorMessage = true,
   ...rest
 }) => {
+  const { textZoomStyle } = useToolbarSettings();
   return (
-    <div className="w-full flex flex-col pl-5">
+    <div className="w-full flex flex-col pl-5" >
       <FormControlLabel
         sx={{
           color: (theme) => (error ? theme.palette.error.main : "CurrentColor"),
         }}
         control={<MuiCheckbox {...rest} />}
-        label={<Typography>{label}</Typography>}
+        label={<Typography style={textZoomStyle}>{label}</Typography>}
       />
     </div>
   );

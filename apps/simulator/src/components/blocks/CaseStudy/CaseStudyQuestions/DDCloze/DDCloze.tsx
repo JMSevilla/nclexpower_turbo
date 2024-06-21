@@ -6,7 +6,8 @@ import { ControlledSelectField } from '@repo/core-library/components';
 import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
-import { DDClozeValidationType, DDClozeSchema } from '@/core/schema/ddcloze/validation'; 
+import { DDClozeValidationType, DDClozeSchema } from '@/core/schema/ddcloze/validation';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 export type DDClozeProps = {
     questionaire: QuestionaireProps[],
@@ -15,7 +16,7 @@ export type DDClozeProps = {
     handleSubmit: (values: DDClozeValidationType) => void
 }
 
-export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSubmit, ddcAtom}) => {
+export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSubmit, ddcAtom }) => {
 
     const form = useForm<DDClozeValidationType>({
         mode: "all",
@@ -23,7 +24,7 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSu
     });
 
     const { control } = form;
-
+    const { textZoomStyle } = useToolbarSettings();
     const formState = useFormState({ control: control });
 
     useFormSubmissionBindingHooks({
@@ -75,7 +76,7 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSu
                     <Grid item xs={12} sm={6} md={6} key={answerItem.answerId}>
                         <div className='h-full w-full p-5'>
                             <div className="w-full text-sm mb-4 pr-5 pt-4">
-                                <p className="flex items-center">
+                                <p className="flex items-center" style={textZoomStyle}>
                                     <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
                                     <div dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
                                 </p>
@@ -85,36 +86,36 @@ export const DDCloze: React.FC<DDClozeProps> = ({ questionaire, answer, handleSu
                                     {answerItem.DDCAnswer.split(/\[\[selectFieldKey:(\w+)\]\]/g).map((part, index) => {
                                         const key = part.trim();
                                         const options = answerItem.selectField[key] || [];
-                                        return(
-                                            <div className="inline-block min-w-[150px] my-0 mx-[10px] align-top mt-3" key={index}>
-                                            {index % 2 === 0 ? (
-                                            <span dangerouslySetInnerHTML={{ __html: part }} />
-                                            ) : (
-                                            <>
-                                                <ControlledSelectField
-                                                    variant="standard"
-                                                    control={control}
-                                                    name={key}
-                                                    options={options}
-                                                    size='small'
-                                                    sx={{
-                                                        minWidth: '150px',
-                                                        height: '35px',
-                                                        color: 'gray',
-                                                        margin: '-5px 0 0 5px',
-                                                        textAlign: 'center',
-                                                }}
-                                                />
-                                            </>
-                                            )}
+                                        return (
+                                            <div className="inline-block min-w-[150px] my-0 mx-[10px] align-top mt-3" key={index} style={textZoomStyle}>
+                                                {index % 2 === 0 ? (
+                                                    <span dangerouslySetInnerHTML={{ __html: part }} />
+                                                ) : (
+                                                    <>
+                                                        <ControlledSelectField
+                                                            variant="standard"
+                                                            control={control}
+                                                            name={key}
+                                                            options={options}
+                                                            size='small'
+                                                            sx={{
+                                                                minWidth: '150px',
+                                                                height: '35px',
+                                                                color: 'gray',
+                                                                margin: '-5px 0 0 5px',
+                                                                textAlign: 'center',
+                                                            }}
+                                                        />
+                                                    </>
+                                                )}
                                             </div>
-                                 )
-                                })}
+                                        )
+                                    })}
                                 </div>
                             </Paper>
                             <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
-                                <p>{answerItem.note === "" ? "" : "Note:"}</p>
-                                <p>{answerItem.note}</p>
+                                <p style={textZoomStyle}>{answerItem.note === "" ? "" : "Note:"}</p>
+                                <p style={textZoomStyle}>{answerItem.note}</p>
                             </div>
                         </div>
                     </Grid>

@@ -7,6 +7,8 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:simulator": "turbo run dev --filter=simulator",
+    "dev:web-backoffice-generic": "turbo run dev --filter=web-backoffice-generic",
+    "dev:web-customer": "turbo run dev --filter=web-customer",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
   },

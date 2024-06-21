@@ -9,6 +9,7 @@ import { DroppableContainer } from './DNDBowtieComponent/Droppable';
 import { ItemTypesKeys, itemTypes } from '@/core/constant/dndStateConstant';
 import { dndObjectValueProps, QuestionaireProps, AnswerProps, choicesListProps, DropContainerType } from '@/core/types/ssrData';
 import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 export type DroppedValueType = Record<string, dndObjectValueProps[]>
 
@@ -31,7 +32,7 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
     mode: 'all',
     resolver: zodResolver(RowSchema),
   })
-
+  const { textZoomStyle } = useToolbarSettings();
   const { control, setValue } = form
   const formState = useFormState({ control: control })
   const { dndbowtie: dndbowtieError } = formState.errors
@@ -117,7 +118,7 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
               answer.map((answerItem: AnswerProps) => (
                 <>
                   <div key={answerItem.answerId} className='w-full text-sm mb-4 pr-5 pt-4'>
-                    <p className="flex"><NearMeIcon className='h-6 rotate-45 text-[#86BCEA] mr-2 pb-1' />
+                    <p className="flex" style={textZoomStyle}><NearMeIcon className='h-6 rotate-45 text-[#86BCEA] mr-2 pb-1' />
                       <div dangerouslySetInnerHTML={{ __html: answerItem.answerInstruction }} />
                     </p>
                   </div>
@@ -144,8 +145,8 @@ export const DNDBowtie: React.FC<Props> = ({ questionaire, answer, ...rest }) =>
                     </div>
                   </div>
                   <div className='w-full text-sm mb-4 pr-5 pt-4 flex gap-1'>
-                    <p>{answerItem.note === "" ? "" : "Note:"}</p>
-                    <p>{answerItem.note}</p>
+                    <p style={textZoomStyle}>{answerItem.note === "" ? "" : "Note:"}</p>
+                    <p style={textZoomStyle}>{answerItem.note}</p>
                   </div>
                 </>
               ))}
