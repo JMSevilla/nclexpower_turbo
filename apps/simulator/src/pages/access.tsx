@@ -5,10 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { NonCMSTextField } from '@repo/core-library/components';
 import { useSessionStorage } from '@repo/core-library/hooks';
 import { AccessKeySchema, AccessKeyType } from '@/core/schema/AccessToken/validation';
+import { useRouter } from 'next/router';
 
 
 export const AccessPage = () => {
     const [, setValue] = useSessionStorage<string | null>("accessToken", null)
+    const router = useRouter()
 
     const form = useForm({
         mode: "onSubmit",
@@ -20,6 +22,12 @@ export const AccessPage = () => {
 
     function onSubmit(values: AccessKeyType) {
         setValue(values?.accessKey)
+        router.push({
+            pathname: '/simulator',
+            query: {
+                slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
+            }, // this slug can be improved instead of string it should be array of string
+        });
     }
 
     return (
