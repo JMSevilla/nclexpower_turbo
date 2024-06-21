@@ -17,7 +17,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const Page = dynamic(() => import("./Page"), {
+const Page = dynamic(() => import("./shared/Page"), {
   ssr: false,
 });
 
