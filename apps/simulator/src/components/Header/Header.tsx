@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Box, Tooltip, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Box, Tooltip, Typography, Button, TextField } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
@@ -9,7 +9,9 @@ import { useCountdown } from '@repo/core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';
 import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
+import { ReportIssueDialog } from '../Dialog/ReportIssueDialog'
 import { ToolbarSettings } from '../Toolbar/Toolbar';
+// import { AccessPage } from '../Dialog/test';
 
 export const buttonStyle = {
   backgroundColor: 'transparent',
@@ -83,8 +85,9 @@ export const Header: React.FC = () => {
                 <FormatClearIcon fontSize="large" sx={buttonStyle.IconStyle} />
                 Clear
               </Button>
+              <ReportIssueDialog />
             </div>
-            <div className="header-step-7">
+            <div className="header-step-7 flex items-center">
               <ToolbarSettings />
             </div>
           </Box>

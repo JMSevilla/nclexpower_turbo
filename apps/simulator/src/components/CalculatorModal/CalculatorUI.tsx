@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useCalculator } from '@repo/core-library/hooks/useCalculator';
-// import { EvaIcon } from '@repo/core-library/components';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
-export const CalculatorModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
-  const { input, handleClick, handleClear, handleBack, setInput } = useCalculator();
+export type OpenModalProps = {
+  open: boolean;
+  onClose: () => void;
+}
+
+export const CalculatorModal: React.FC<OpenModalProps> = ({ open, onClose }) => {
+  const { input, handleClick, handleClear, handleBack, setInput, setModalOpen } = useCalculator();
+
+  useEffect(() => {
+    setModalOpen(open);
+  }, [open, setModalOpen]);
+
   const keypadValues = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.'];
   const operatorValues = ['+', '-', '/', '*', '='];
 
@@ -31,7 +42,7 @@ export const CalculatorModal: React.FC<{ open: boolean; onClose: () => void }> =
           <DialogTitle className="text-white">Calculator</DialogTitle>
           <DialogActions>
             <Button onClick={onClose}>
-              {/* <EvaIcon name="close-circle-outline" fill="#f3f3f3" width={30} height={30} /> */}
+              <HighlightOffIcon fontSize="medium" sx={{ color: '#F3F3F3' }} />
             </Button>
           </DialogActions>
         </div>
@@ -62,7 +73,7 @@ export const CalculatorModal: React.FC<{ open: boolean; onClose: () => void }> =
                   </Grid>
                   <Grid item xs={6}>
                     <Button fullWidth onClick={handleBack} sx={buttonStyle}>
-                      {/* <EvaIcon name="backspace-outline" fill="#007bff" width={24} height={24} /> */}
+                      <KeyboardBackspaceIcon fontSize="medium" />
                     </Button>
                   </Grid>
                   {keypadValues.map(value => (
