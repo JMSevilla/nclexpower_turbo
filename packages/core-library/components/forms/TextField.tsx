@@ -1,4 +1,4 @@
-import { Grid, OutlinedInputProps, Typography } from "@mui/material";
+import { FormHelperText, Grid, OutlinedInputProps, Typography } from "@mui/material";
 import { FocusEvent, useState } from "react";
 import {
   Control,
@@ -86,9 +86,15 @@ export const TextFieldComponent = <T extends object>({
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
-        <Typography component="label" htmlFor={field?.name} display="flex">
-          {label ?? "[[label_name]]"}
-        </Typography>
+        {fieldState?.error?.message ? (
+          <FormHelperText error={true}>{fieldState?.error?.message}</FormHelperText>
+        ) : (
+          label !== null && (
+            <Typography component="label" htmlFor={field?.name} display="flex">
+              {label ?? "[[label_name]]"}
+            </Typography>
+          )
+        )}
       </Grid>
       <Grid item>
         <ErrorTooltip open={showErrorTooltip} tooltip={errorTooltip}>
@@ -108,9 +114,6 @@ export const TextFieldComponent = <T extends object>({
             />
           )}
         </ErrorTooltip>
-      </Grid>
-      <Grid item>
-        <Typography sx={{ color: 'red', fontSize: 14 }}>{fieldState?.error?.message}</Typography>
       </Grid>
 
       {tooltip?.text && (
