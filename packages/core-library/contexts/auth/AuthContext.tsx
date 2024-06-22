@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import {
   createContext,
   useCallback,
@@ -7,14 +6,8 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Api } from "../../api";
-import { LoginParams, LogoutParams } from "../../api/types";
-import { useApiCallback } from "../../hooks";
-import { useCachedAccessKey } from "../../hooks/useCachedAccessKey";
 import { useClearCookies } from "../../hooks/useClearCookies";
-import { useSessionStorage, clearSession } from "../../hooks";
 import { useRouter } from "../../core";
-import { useTenantContext } from "../TenantContext";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 
@@ -30,20 +23,14 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
   const router = useRouter();
-  const { tenant } = useTenantContext();
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
   const [refreshToken, setRefreshToken] = useRefreshToken();
-  const cachedAccessKey = useCachedAccessKey();
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!accessToken && !!cachedAccessKey.data?.contentAccessKey
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
 
   useEffect(() => {
-    setIsAuthenticated(
-      !!accessToken && !!cachedAccessKey.data?.contentAccessKey
-    );
-  }, [accessToken, cachedAccessKey.data?.contentAccessKey]);
+    setIsAuthenticated(!!accessToken);
+  }, [accessToken]);
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -53,7 +40,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     try {
       if (refreshToken && accessToken) {
         clearCookies();
-        // logout execution
       }
     } catch (e) {}
     setIsAuthenticated(false);
@@ -71,7 +57,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           logout,
           setIsAuthenticated,
         }),
-        [tenant, isAuthenticated, accessToken, refreshToken]
+        [isAuthenticated, accessToken, refreshToken]
       )}
     >
       {children}
