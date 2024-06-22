@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { LoginForm } from '@repo/core-library/components/blocks/LoginFormBlock/LoginForm';
 import { LoginFormType } from '@repo/core-library/components/blocks/LoginFormBlock/validation';
+import { useAuthContext } from '@repo/core-library/contexts';
 import { StringValue } from '@repo/core-library/types/common';
 import { useState } from 'react'
 
@@ -12,9 +13,10 @@ type Props = {
 
 export default function LoginFormBlock({ id, parameters }: Props) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const { login } = useAuthContext()
 
     async function onSubmit(values: LoginFormType) {
-        console.log("Submitted Value : ", values)
+        login(values.username, values.password, "webBackoffice")
     }
 
     return (

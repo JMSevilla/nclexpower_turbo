@@ -10,11 +10,18 @@ import { useClearCookies } from "../../hooks/useClearCookies";
 import { useRouter } from "../../core";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
+import { useApiCallback } from '../../hooks';
+
+interface LoginProps {
+  username: string
+  password: string
+  type: string
+}
 
 const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
-  login(username: string, password: string): Promise<null>;
+  login(username: string, password: string, type: string): Promise<null>;
   logout: () => {};
   setIsAuthenticated: (value: boolean) => void;
 }>(undefined as any);
@@ -27,6 +34,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [accessToken, setAccessToken] = useAccessToken();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
+  const loginAccount = useApiCallback(async (api, data: LoginProps) => await api.web.webLogin(data.username, data.password, data.type))
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -41,7 +49,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
       if (refreshToken && accessToken) {
         clearCookies();
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -51,8 +59,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         () => ({
           loading: false,
           isAuthenticated,
-          login: async (username, password) => {
-            return null;
+          login: async (username, password, type) => {
+            loginAccount.execute({ username, password, type })
+            return null
           },
           logout,
           setIsAuthenticated,
