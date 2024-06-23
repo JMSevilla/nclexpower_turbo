@@ -11,17 +11,12 @@ import { useRouter } from "../../core";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from '../../hooks';
-
-interface LoginProps {
-  username: string
-  password: string
-  type: string
-}
+import { LoginProps } from '../../types/types'
 
 const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
-  login(username: string, password: string, type: string): Promise<null>;
+  login(username: string, password: string): Promise<null>;
   logout: () => {};
   setIsAuthenticated: (value: boolean) => void;
 }>(undefined as any);
@@ -34,7 +29,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [accessToken, setAccessToken] = useAccessToken();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
-  const loginAccount = useApiCallback(async (api, data: LoginProps) => await api.web.webLogin(data.username, data.password, data.type))
+  const loginCustomerAccount = useApiCallback(async (api, data: LoginProps) => await api.web.webLogin(data))
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -59,8 +54,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         () => ({
           loading: false,
           isAuthenticated,
-          login: async (username, password, type) => {
-            loginAccount.execute({ username, password, type })
+          login: async (username, password) => {
+            const result = await loginCustomerAccount.execute({ username, password, type: "isWebCustomer" })
+            setAccessToken(result?.data?.accessTokenResponse?.accessToken)
+            setRefreshToken(result?.data?.accessTokenResponse?.refreshToken)
+            setIsAuthenticated(true)
             return null
           },
           logout,

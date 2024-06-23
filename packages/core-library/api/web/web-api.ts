@@ -1,6 +1,8 @@
 import { AxiosInstance } from "axios";
 import { AccountSetupType } from '../../components/blocks/AccountSetupBlock/validation';
 import { LoginFormType } from '../../components/blocks/LoginFormBlock/validation';
+import { LoginProps } from '../../types/types';
+import { LoginResponse } from '../types';
 
 export class WebApi {
   constructor(
@@ -19,18 +21,15 @@ export class WebApi {
       throw err;
     }
   }
-  public async webLogin(username: string, password: string, type: string) {
+  public webLogin(props: LoginProps) {
     try {
-      return await this.axios.post(type === 'WebCustomer' ? '' : "/api/v2/internal/baseInternal/login", {
-        username: username,
-        password: password
-      }, { headers: { ENV: "dev2" } })
+      return this.axios.post<LoginResponse>(props.type === 'isWebCustomer' ? '' : "/api/v2/internal/baseInternal/login", {
+        username: props.username,
+        password: props.password
+      })
     }
     catch (err: any) {
-      if (err.response?.status === 404) {
-        return { data: null };
-      }
-      throw err;
+      console.error(err)
     }
   }
 }

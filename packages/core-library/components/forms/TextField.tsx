@@ -87,7 +87,7 @@ export const TextFieldComponent = <T extends object>({
     <Grid container spacing={2} direction="column">
       <Grid item>
         {fieldState?.error?.message ? (
-          <FormHelperText error={true}>{fieldState?.error?.message}</FormHelperText>
+          <FormHelperText error>{fieldState?.error?.message}</FormHelperText>
         ) : (
           label !== null && (
             <Typography component="label" htmlFor={field?.name} display="flex">
