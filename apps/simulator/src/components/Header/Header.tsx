@@ -9,9 +9,8 @@ import { useCountdown } from '@repo/core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';
 import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
-import { ReportIssueDialog } from '../Dialog/ReportIssueDialog'
+import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog'
 import { ToolbarSettings } from '../Toolbar/Toolbar';
-// import { AccessPage } from '../Dialog/test';
 
 export const buttonStyle = {
   backgroundColor: 'transparent',

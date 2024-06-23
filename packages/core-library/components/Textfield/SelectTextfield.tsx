@@ -7,7 +7,7 @@ import {
   TextFieldProps,
 } from "@mui/material";
 
-type SelectOption = {
+export type SelectOption = {
   label: string;
   value: string;
   xvalue: number;
@@ -20,12 +20,13 @@ type BaseSelectFieldProps = {
   required?: boolean;
   options: SelectOption[];
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  value?: string;
+  value?: string | string[];
   onBlur?: () => void;
   sx?: TextFieldProps["sx"];
   size?: TextFieldProps["size"];
   variant?: TextFieldProps["variant"];
   placeholder?: TextFieldProps["placeholder"];
+  multiple?: boolean;
 };
 
 export function SelectField({
@@ -37,6 +38,7 @@ export function SelectField({
   onChange,
   value,
   placeholder,
+  multiple = false,
   ...rest
 }: BaseSelectFieldProps) {
   return (
@@ -45,13 +47,14 @@ export function SelectField({
         select
         label={label}
         error={error}
-        value={value ?? ""}
+        value={value ?? (multiple ? [] : "")}
         onChange={onChange}
         placeholder={placeholder}
+        SelectProps={{ multiple }}
         {...rest}
       >
         {options.map((option) => (
-          <MenuItem key={option.xvalue} value={option.xvalue}>
+          <MenuItem key={option.xvalue} value={option.value}>
             {option.label}
           </MenuItem>
         ))}

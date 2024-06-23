@@ -1,25 +1,19 @@
 import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { ErrorMobileIcon } from '../icons/ErrorMobileIcon';
 import { MobileDetectionContextValue } from '@repo/core-library/contexts/MobileDetectionContext';
+import { CustomDialog } from './CustomDialog';
 
-export const MobileErrorDialog: React.FC<MobileDetectionContextValue> = ({ isMobile }) => {
+interface MobileErrorDialogProps extends MobileDetectionContextValue {
+  message?: string;
+}
+
+export const MobileErrorDialog: React.FC<MobileErrorDialogProps> = ({ isMobile }) => {
   return (
-    <Dialog
+    <CustomDialog
       open={isMobile}
+      title={<ErrorMobileIcon />}
+      content={'Ooops, looks like you are in mobile screen. Change to desktop to access the content.'}
       aria-labelledby="responsive-dialog-title"
-    >
-      <DialogTitle id="responsive-dialog-title">
-        <ErrorMobileIcon />
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText className='text-center'>
-          Ooops, looks like you are in mobile screen. Change to desktop to access the content.
-        </DialogContentText>
-      </DialogContent>
-    </Dialog>
+    />
   );
 };
