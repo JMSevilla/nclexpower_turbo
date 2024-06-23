@@ -5,7 +5,6 @@ import { useResolution } from "../../hooks";
 import Image from "next/image";
 
 //Temporary File Location
-import logoImage from "./asset/CoreZigma.png";
 
 interface Props {
   tenant: CmsTenant | null;
@@ -35,7 +34,7 @@ export const HeaderLogo: React.FC<Props> = ({ tenant, useRawLogoUrl }) => {
       {logo ? (
         <Image
           data-testid="header_logo_image"
-          src={logoImage}
+          src={""}
           alt={labelByKey("tenant_logo_alt")}
           key={`${isMobile ? "mobile" : "desktop"}-logo`}
           style={{
