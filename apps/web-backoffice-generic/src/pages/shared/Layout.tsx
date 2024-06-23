@@ -1,10 +1,10 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ThemeProvider, CssBaseline, useTheme, Box } from "@mui/material";
-import { Header } from "@repo/core-library/components/GenericHeader/Header";
+import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { PageContainer, LoadablePageContent } from "@/components";
+import { DrawerLayout } from "@repo/core-library/components/GenericDrawerLayout/DrawerLayout"
 
-interface Props {}
+interface Props { }
 
 export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
@@ -16,16 +16,14 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box minHeight="100vh" display="flex" flexDirection="column">
-          <Header onLogout={() => {}} isAuthenticated={false} />
-          {/* conditional sidebar can be placed here. */}
+        <DrawerLayout isAuthenticated={false} menu={[]}>
           <PageContainer stickOut={false}>
             <LoadablePageContent loading={false}>
               {children}
             </LoadablePageContent>
           </PageContainer>
-        </Box>
+        </DrawerLayout>
       </ThemeProvider>
-    </QueryClientProvider>
+    </QueryClientProvider >
   );
 };

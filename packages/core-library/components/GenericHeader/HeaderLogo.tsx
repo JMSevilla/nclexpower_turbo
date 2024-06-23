@@ -2,9 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { useResolution } from "../../hooks";
 import Image from "next/image";
 
-interface Props {}
+interface Props { }
 
-export const HeaderLogo: React.FC<Props> = ({}) => {
+export const HeaderLogo: React.FC<Props> = ({ }) => {
   const { isMobile } = useResolution();
 
   return (
@@ -12,6 +12,8 @@ export const HeaderLogo: React.FC<Props> = ({}) => {
       position="relative"
       sx={{ cursor: "pointer" }}
       height={95}
+      display="flex"
+      alignItems="center"
       role="button"
     >
       <Typography
