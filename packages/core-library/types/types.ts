@@ -14,3 +14,9 @@ export type CmsTokens = {
 export interface AccessKey {
   contentAccessKey: string;
 }
+
+export interface LoginProps {
+  username: string
+  password: string
+  type?: string
+}

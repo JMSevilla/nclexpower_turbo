@@ -2,7 +2,7 @@ import { Grid, Button, Box, Typography } from '@mui/material'
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { NonCMSTextField } from '@repo/core-library/components';
+import { TextField } from '@repo/core-library/components';
 import { useSessionStorage } from '@repo/core-library/hooks';
 import { AccessKeySchema, AccessKeyType } from '@/core/schema/AccessToken/validation';
 import { useRouter } from 'next/router';
@@ -49,31 +49,10 @@ export const AccessPage = () => {
                 </Grid>
                 <Grid container xs={6} spacing={2} columns={{ xs: 8, sm: 8, md: 8, lg: 12 }} sx={{ display: "flex", justifyContent: "center", alignContent: "start" }}>
                     <Grid item xs={12}>
-                        <NonCMSTextField
+                        <TextField
                             control={control}
                             name="accessKey"
                             label="Enter Accessor Key"
-                            sx={{
-                                "& .MuiOutlinedInput-root": {
-                                    color: "#000",
-                                    fontFamily: "Arial",
-                                },
-                                "& .MuiInputLabel-outlined": {
-                                    color: "#2e2e2e",
-                                    fontWeight: "bold",
-                                },
-                            }}
-                            style={{ width: "100%", height: "70px" }}
-                            inputProps={{
-                                style: {
-                                    fontSize: 18,
-                                    height: 70,
-                                    width: "100%",
-                                    padding: '0 14px',
-                                    fontWeight: 'bold',
-                                    background: "#eef7ff"
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: 2 }}>

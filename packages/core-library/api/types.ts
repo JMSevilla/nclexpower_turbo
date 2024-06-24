@@ -1,16 +1,22 @@
+
+export type AccessTokenResponse = {
+  tokenType: string;
+  accessToken: string;
+  refreshToken: string;
+  expiration: string;
+  responseCode: string;
+}
 export interface LoginParams {
   username: string;
   password: string;
 }
 
 export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+  accessTokenResponse: AccessTokenResponse;
 }
 
 export interface RefreshTokenResponse {
-  accessToken: string;
-  refreshToken: string;
+  accessTokenResponse: AccessTokenResponse;
 }
 
 export interface LogoutParams {
