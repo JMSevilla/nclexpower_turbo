@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useResolution } from '../../hooks';
-import { Header } from '../GenericHeader/Header';
-import { NavigationType, Sidebar } from '../GenericSidebar/Sidebar';
-
 import { Box, Button, styled } from '@mui/material';
+import { Header } from '../GenericHeader/Header';
+import { NavigationType } from '../../types/navigation';
+import { Sidebar } from '@repo/core-library/components';
+import { mockMenus } from './MockMenus';
+import { useResolution } from '../../hooks';
+import { Main } from './content/Main';
 import MenuIcon from '@mui/icons-material/Menu';
-import { mockmenus } from './MockMenus';
-
 
 
 type DrawerLayoutType = {
@@ -14,36 +14,10 @@ type DrawerLayoutType = {
     menu: NavigationType[]
 }
 
-const Main = styled('main', {
-    shouldForwardProp: (prop) => {
-        return !['isMobile', 'open'].includes(prop as string)
-    }
-})<{
-    open?: boolean;
-    isMobile?: boolean;
-}>(({ theme, open, isMobile }) => ({
-    flexGrow: 1,
-    transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-240px`,
-    ...(isMobile && {
-        marginLeft: 0,
-    }),
-    ...(open && {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    }),
-}));
-
 export const DrawerLayout: React.FC<React.PropsWithChildren<DrawerLayoutType>> = ({ menu, children, isAuthenticated }) => {
     const [open, setOpen] = useState(true)
     const { isMobile } = useResolution()
-    const mockmenu = mockmenus(isAuthenticated)
+    const mockmenu = mockMenus(isAuthenticated)
 
 
     const handleDrawer = () => {

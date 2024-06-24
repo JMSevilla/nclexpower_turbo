@@ -1,6 +1,6 @@
 import { Box, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
-import { NavigationItemType } from './Sidebar'
 import { useRouter } from 'next/router'
+import { NavigationItemType } from '../../types/navigation'
 
 
 type SidebarButtonProps = {

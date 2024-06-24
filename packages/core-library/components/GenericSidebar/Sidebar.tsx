@@ -5,6 +5,7 @@ import { SidebarListButton } from './SidebarListButton';
 import { SidebarButton } from './SidebarButton';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { usePathname } from 'next/navigation';
+import { NavigationType } from '../../types/navigation';
 
 
 type SideBarPropsType = {
@@ -14,19 +15,6 @@ type SideBarPropsType = {
     variant?: "persistent" | "permanent" | "temporary"
     isMobile?: boolean
 }
-
-export type NavigationItemType = {
-    id: number
-    label: string
-    path?: string
-    icon?: React.ReactNode
-}
-
-
-export type NavigationType = NavigationItemType & {
-    children?: NavigationItemType[]
-}
-
 
 export const Sidebar: React.FC<SideBarPropsType> = ({ menu, variant, open, setOpen, isMobile }) => {
     const pathname = usePathname()

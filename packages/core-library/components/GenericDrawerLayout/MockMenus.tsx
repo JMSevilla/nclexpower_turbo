@@ -6,7 +6,7 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import ReportIcon from '@mui/icons-material/Report';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SourceIcon from '@mui/icons-material/Source';
-import { NavigationType } from '../GenericSidebar/Sidebar';
+import { NavigationType } from '../../types/navigation';
 
 
 
@@ -115,7 +115,7 @@ const UnauthencatedMenu: NavigationType[] = [
     }
 ]
 
-export const mockmenus = (isAuthenticated: boolean) => {
+export const mockMenus = (isAuthenticated: boolean) => {
 
     if (isAuthenticated) {
         return AuthenticatedMenu

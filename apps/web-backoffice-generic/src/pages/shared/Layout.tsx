@@ -2,7 +2,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { PageContainer, LoadablePageContent } from "@/components";
-import { DrawerLayout } from "@repo/core-library/components/GenericDrawerLayout/DrawerLayout"
+import { DrawerLayout } from '@repo/core-library/components';
 
 interface Props { }
 
