@@ -18,7 +18,7 @@ const apiUrl =
 
 export async function initializeLoadPTestHimem() {
   const response = await fetch(
-    `${apiUrl}/v1/api/baseAppload/processor-load-ptest-himem`,
+    `${config.value.API_URL}/v1/api/baseAppload/processor-load-ptest-himem`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export async function initializeLoadPTestHimem() {
 
 export async function initializeLoadPrepareTrackItem() {
   const response = await fetch(
-    `${apiUrl}/v1/api/baseAppload/processor-prep-track-item`,
+    `${config.value.API_URL}/v1/api/baseAppload/processor-prep-track-item`,
     {
       headers: {
         "Content-Type": "application/json",

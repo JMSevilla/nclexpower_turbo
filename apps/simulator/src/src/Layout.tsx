@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const Layout: React.FC<Props> = ({ questionaire, data }) => {
-  const { loading, itemselect } = useApplicationContext();
+  const { loading, itemselect, hasAccessToken } = useApplicationContext();
 
   const theme = createTheme();
   const queryClient = new QueryClient({});
@@ -43,7 +43,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                     <AlertMessageV2Provider>
                       <TourComponent steps={TourSteps} />
                       <ToolbarSettingsProvider>
-                        <Header />
+                        {hasAccessToken && <Header />}
                         <PageContainer selectedItem={itemselect}>
                           <div className="min-h-[65dvh] flex flex-col justify-between">
                             <LoadablePageContent loading={loading}>
@@ -57,7 +57,9 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                             </LoadablePageContent>
                           </div>
                         </PageContainer>
-                        <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
+                        {hasAccessToken && (
+                          <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
+                        )}
                       </ToolbarSettingsProvider>
                     </AlertMessageV2Provider>
                   </div>
