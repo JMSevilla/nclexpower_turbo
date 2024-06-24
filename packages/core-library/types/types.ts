@@ -15,8 +15,7 @@ export interface AccessKey {
   contentAccessKey: string;
 }
 
-export interface LoginProps {
-  username: string
-  password: string
-  type?: string
+export interface LoginParams {
+  username: string;
+  password: string;
 }
