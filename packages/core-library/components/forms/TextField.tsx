@@ -1,4 +1,4 @@
-import { Grid, OutlinedInputProps, Typography } from "@mui/material";
+import { FormHelperText, Grid, OutlinedInputProps, Typography } from "@mui/material";
 import { FocusEvent, useState } from "react";
 import {
   Control,
@@ -39,6 +39,8 @@ interface Props<T extends object> {
   multiline?: boolean;
   rows?: number;
 }
+
+
 export const TextField = <T extends FieldValues>({
   name,
   control,
@@ -85,7 +87,7 @@ export const TextFieldComponent = <T extends object>({
     <Grid container spacing={2} direction="column">
       <Grid item>
         {fieldState?.error?.message ? (
-          <FieldError messageKey={fieldState.error.message} />
+          <FormHelperText error>{fieldState?.error?.message}</FormHelperText>
         ) : (
           label !== null && (
             <Typography component="label" htmlFor={field?.name} display="flex">

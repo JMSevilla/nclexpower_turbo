@@ -10,6 +10,8 @@ import { useClearCookies } from "../../hooks/useClearCookies";
 import { useRouter } from "../../core";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
+import { useApiCallback } from '../../hooks';
+import { LoginProps } from '../../types/types'
 
 const context = createContext<{
   loading: boolean;
@@ -27,6 +29,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [accessToken, setAccessToken] = useAccessToken();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
+  const loginCustomerAccount = useApiCallback(async (api, data: LoginProps) => await api.web.webLogin(data))
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -41,7 +44,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
       if (refreshToken && accessToken) {
         clearCookies();
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -52,7 +55,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           loading: false,
           isAuthenticated,
           login: async (username, password) => {
-            return null;
+            const result = await loginCustomerAccount.execute({ username, password, type: "isWebCustomer" })
+            setAccessToken(result?.data?.accessTokenResponse?.accessToken)
+            setRefreshToken(result?.data?.accessTokenResponse?.refreshToken)
+            setIsAuthenticated(true)
+            return null
           },
           logout,
           setIsAuthenticated,
