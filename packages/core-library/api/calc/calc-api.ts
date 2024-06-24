@@ -1,12 +1,14 @@
+import { AccessKeyType } from '../../../../apps/simulator/src/core/schema/AccessToken/validation'
 import { AxiosInstance } from 'axios';
 import { ItemSelectTypes, ItemSessionTypes, RegularAnswer } from '@repo/core-library/types';
 import { CalcItemSelectResponseItem } from '@repo/core-library/types/calc-types/calc-types-responses';
+import { LoginResponse } from '../types';
 
 export class CalculationApi {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance,
-  ) {}
+  ) { }
   public ItemSelect(props: ItemSelectTypes) {
     const { accountId, examGroupId, shouldDisplayNextItem } = props;
     return this.axios.get<CalcItemSelectResponseItem[]>(
@@ -30,5 +32,9 @@ export class CalculationApi {
 
   public initializeLoadPrepareTrackItem() {
     return this.axios.get<number>('/v1/api/baseAppload/processor-prep-track-item');
+  }
+
+  public submitAccessKey(params: AccessKeyType) {
+    return this.axios.post<LoginResponse>('/api/v2/internal/baseInternal/access-key-login', params);
   }
 }
