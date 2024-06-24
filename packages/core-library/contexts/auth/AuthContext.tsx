@@ -10,8 +10,9 @@ import { useClearCookies } from "../../hooks/useClearCookies";
 import { useRouter } from "../../core";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
-import { useApiCallback } from '../../hooks';
-import { LoginProps } from '../../types/types'
+import { useApiCallback } from "../../hooks";
+import { LoginParams } from "../../types/types";
+import { useSingleCookie } from "../../hooks/useCookie";
 
 const context = createContext<{
   loading: boolean;
@@ -27,9 +28,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const router = useRouter();
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
+  const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
-  const loginCustomerAccount = useApiCallback(async (api, data: LoginProps) => await api.web.webLogin(data))
+  const loginCb = useApiCallback((api, data: LoginParams) =>
+    api.web.web_customer_login(data)
+  );
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -44,7 +48,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
       if (refreshToken && accessToken) {
         clearCookies();
       }
-    } catch (e) { }
+    } catch (e) {}
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -55,11 +59,23 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           loading: false,
           isAuthenticated,
           login: async (username, password) => {
-            const result = await loginCustomerAccount.execute({ username, password, type: "isWebCustomer" })
-            setAccessToken(result?.data?.accessTokenResponse?.accessToken)
-            setRefreshToken(result?.data?.accessTokenResponse?.refreshToken)
-            setIsAuthenticated(true)
-            return null
+            const result = await loginCb.execute({
+              username,
+              password,
+            });
+            setAccessToken(result.data.accessTokenResponse.accessToken);
+            setRefreshToken(result.data.accessTokenResponse.refreshToken);
+            setSingleCookie(
+              parseTokenId(result.data.accessTokenResponse.accessToken),
+              {
+                path: "/",
+                sameSite: "strict",
+                secure: process.env.NODE_ENV === "production",
+                domain: `.${window.location.hostname}`,
+              }
+            );
+            setIsAuthenticated(true);
+            return null;
           },
           logout,
           setIsAuthenticated,
