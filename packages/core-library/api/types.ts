@@ -4,7 +4,7 @@ export type AccessTokenResponse = {
   accessToken: string;
   refreshToken: string;
   expiration: string;
-  responseCode: string;
+  responseCode: number | string;
 }
 export interface LoginParams {
   username: string;
