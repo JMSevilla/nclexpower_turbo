@@ -61,7 +61,7 @@ export const ReportIssueDialog: React.FC = () => {
           </Button>
         }
         ghostButton={
-          <Button onClick={handleClose} autoFocus>
+          <Button variant="outlined" onClick={handleClose} autoFocus>
             Cancel
           </Button>
         }

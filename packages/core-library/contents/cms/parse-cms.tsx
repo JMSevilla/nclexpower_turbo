@@ -43,10 +43,7 @@ export const parseContent = (
       }
       case "authentication_form": {
         return (
-          <LoginFormBlock
-            id={type}
-            parameters={content?.elements?.parameters}
-          />
+          <></>
         );
       }
       case "account_setup_form": {
