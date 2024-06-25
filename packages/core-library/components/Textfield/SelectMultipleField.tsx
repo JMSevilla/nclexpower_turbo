@@ -73,7 +73,7 @@ export type ControlledSelectFieldProps = {
   shouldUnregister?: boolean;
 } & BaseSelectFieldProps;
 
-export function ControlledMultipleSelectField({
+export function MultipleSelectField({
   control,
   name,
   onChange,

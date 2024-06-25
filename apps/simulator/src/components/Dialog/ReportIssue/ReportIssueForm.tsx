@@ -1,14 +1,15 @@
 import React from 'react';
 import { FormControl, InputLabel, Typography } from '@mui/material';
 import { TextField } from '@repo/core-library/components';
-import { ControlledMultipleSelectField } from '@repo/core-library/components/MultipleSelectField/SelectMultipleField';
+import { MultipleSelectField } from '@repo/core-library/components/TextField/SelectMultipleField';
 import { IssueMockData } from './IssueMockData';
-
+import { Control, FieldErrors, UseFormHandleSubmit } from 'react-hook-form';
+import { FormValues } from './ReportIssueDialog'
 interface ReportProps {
-  control: any;
-  errors: any;
-  handleSubmit: any;
-  onSubmit: any;
+  control: Control<FormValues>;
+  errors: FieldErrors<FormValues>;
+  handleSubmit: UseFormHandleSubmit<FormValues>;
+  onSubmit: (data: FormValues) => void;
 }
 
 export const ReportIssueForm: React.FC<ReportProps> = ({ control, errors, handleSubmit, onSubmit }) => (
@@ -16,7 +17,7 @@ export const ReportIssueForm: React.FC<ReportProps> = ({ control, errors, handle
     {errors.issues && <Typography color="error">{errors.issues.message}</Typography>}
     <FormControl sx={{ my: 1, width: 550 }} error={!!errors.issues}>
       <InputLabel id="issues-label"></InputLabel>
-      <ControlledMultipleSelectField
+      <MultipleSelectField
         sx={{ width: 550, mb: 2 }}
         control={control}
         name="issues"

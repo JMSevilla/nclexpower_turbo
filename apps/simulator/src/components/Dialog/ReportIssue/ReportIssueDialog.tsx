@@ -9,14 +9,13 @@ import { CustomDialog } from '../CustomDialog';
 import { buttonStyle } from '../../Header/Header';
 import { ReportIssueForm } from './ReportIssueForm'
 
-interface FormValues {
+export interface FormValues {
   issues?: string[];
   description: string;
 }
 
 export const ReportIssueDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -52,7 +51,7 @@ export const ReportIssueDialog: React.FC = () => {
         }
         button={
           <Button
-            variant="outlined"
+            variant="contained"
             sx={{ backgroundColor: '#007AB7' }}
             endIcon={<SendIcon />}
             type="submit"
