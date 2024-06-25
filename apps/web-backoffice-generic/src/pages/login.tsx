@@ -1,22 +1,17 @@
-import { Box } from '@mui/material'
-import { LoginForm } from '@repo/core-library/components/blocks/LoginFormBlock/LoginForm';
-import { LoginFormType } from '@repo/core-library/components/blocks/LoginFormBlock/validation';
+import { LoginFormBlock } from '@repo/core-library/components';
 import { useAuthContext } from '@repo/core-library/contexts';
+import { LoginParams } from '@repo/core-library/types/types';
 import { useState } from 'react'
 
 
-export default function LoginFormBlock() {
+export default function LoginPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const { login } = useAuthContext()
 
-    async function onSubmit({ username, password }: LoginFormType) {
+    async function onSubmit({ username, password }: LoginParams) {
         const result = await login(username, password)
-        console.log("result : ", result)
     }
 
-    return (
-        <Box>
-            <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
-        </Box>
-    )
+    return <LoginFormBlock onSubmit={onSubmit} isLoading={isLoading} />
+
 }
