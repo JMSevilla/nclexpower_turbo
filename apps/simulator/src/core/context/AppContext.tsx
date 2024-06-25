@@ -9,7 +9,7 @@ type AppContextValue = {
   questionaire: SsrData['questionaire'];
   loading?: boolean;
   setLoader: any;
-  hasAccessToken: any;
+  hasAccessToken: boolean;
   itemselect: datatypes.CalcItemSelectResponseItem[];
   displayNextItem: boolean;
   setDisplayNextItem: any;
