@@ -29,7 +29,7 @@ type BaseSelectFieldProps = {
   multiple?: boolean;
 };
 
-export function SelectField({
+export function MultipleSelect({
   label,
   options,
   helperText,
@@ -66,7 +66,7 @@ export function SelectField({
   );
 }
 
-export type ControlledSelectFieldProps = {
+export type MultipleSelectFieldProps = {
   control: any;
   name: string;
   onChange?: (...event: any[]) => void;
@@ -79,7 +79,7 @@ export function MultipleSelectField({
   onChange,
   shouldUnregister,
   ...rest
-}: ControlledSelectFieldProps) {
+}: MultipleSelectFieldProps) {
   return (
     <Controller
       control={control}
@@ -89,7 +89,7 @@ export function MultipleSelectField({
         field: { onChange, onBlur, value, ref },
         fieldState: { error },
       }) => (
-        <SelectField
+        <MultipleSelect
           error={Boolean(error?.message)}
           helperText={error?.message}
           onChange={onChange}

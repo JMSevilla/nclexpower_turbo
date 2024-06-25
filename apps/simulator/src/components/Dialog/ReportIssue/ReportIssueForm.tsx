@@ -1,10 +1,11 @@
 import React from 'react';
 import { FormControl, InputLabel, Typography } from '@mui/material';
 import { TextField } from '@repo/core-library/components';
-import { MultipleSelectField } from '@repo/core-library/components/TextField/SelectMultipleField';
+import { MultipleSelectField } from '@repo/core-library/components';
 import { IssueMockData } from './IssueMockData';
 import { Control, FieldErrors, UseFormHandleSubmit } from 'react-hook-form';
 import { FormValues } from './ReportIssueDialog'
+
 interface ReportProps {
   control: Control<FormValues>;
   errors: FieldErrors<FormValues>;
