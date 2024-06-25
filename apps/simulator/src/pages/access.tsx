@@ -1,16 +1,21 @@
 import { Grid, Button, Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { NonCMSTextField } from '@repo/core-library/components';
+import { TextField } from '@repo/core-library/components';
 import { useSessionStorage } from '@repo/core-library/hooks';
 import { AccessKeySchema, AccessKeyType } from '@/core/schema/AccessToken/validation';
 import { useRouter } from 'next/router';
-
+import { hooks } from '@repo/core-library';
+import { useAccessToken, useRefreshToken } from "@repo/core-library/contexts/auth/hooks";
 
 export const AccessPage = () => {
     const [, setValue] = useSessionStorage<string | null>("accessToken", null)
+    const submitAccessKey = hooks.useApiCallback((api, data: AccessKeyType) => api.calc.submitAccessKey(data));
     const router = useRouter()
+    const [accessToken, setAccessToken] = useAccessToken();
+    const [refreshToken, setRefreshToken] = useRefreshToken();
+    const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
 
     const form = useForm({
         mode: "onSubmit",
@@ -20,14 +25,27 @@ export const AccessPage = () => {
 
     const { control, handleSubmit } = form;
 
-    function onSubmit(values: AccessKeyType) {
-        setValue(values?.accessKey)
-        router.push({
-            pathname: '/simulator',
-            query: {
-                slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
-            }, // this slug can be improved instead of string it should be array of string
-        });
+    async function onSubmit(value: AccessKeyType) {
+        const result = await submitAccessKey.execute(value);
+        if (result.data.accessTokenResponse) {
+            router.push({
+                pathname: '/simulator',
+                query: {
+                    slug: [
+                        'B850483A-AC8D-4DAE-02C6-08DC5B07A84C',
+                        'C002B561-66AF-46FC-A4D2-D282D42BD774',
+                        'false'
+                    ],
+                },
+            }),
+                setAccessToken(result.data.accessTokenResponse.accessToken),
+                setRefreshToken(result.data.accessTokenResponse.refreshToken),
+                setIsAuthenticated(true),
+                setValue(value.accessKey)
+        } else {
+            console.log("Invalid AccessKey")
+        }
+
     }
 
     return (
@@ -49,31 +67,10 @@ export const AccessPage = () => {
                 </Grid>
                 <Grid container xs={6} spacing={2} columns={{ xs: 8, sm: 8, md: 8, lg: 12 }} sx={{ display: "flex", justifyContent: "center", alignContent: "start" }}>
                     <Grid item xs={12}>
-                        <NonCMSTextField
+                        <TextField
                             control={control}
                             name="accessKey"
                             label="Enter Accessor Key"
-                            sx={{
-                                "& .MuiOutlinedInput-root": {
-                                    color: "#000",
-                                    fontFamily: "Arial",
-                                },
-                                "& .MuiInputLabel-outlined": {
-                                    color: "#2e2e2e",
-                                    fontWeight: "bold",
-                                },
-                            }}
-                            style={{ width: "100%", height: "70px" }}
-                            inputProps={{
-                                style: {
-                                    fontSize: 18,
-                                    height: 70,
-                                    width: "100%",
-                                    padding: '0 14px',
-                                    fontWeight: 'bold',
-                                    background: "#eef7ff"
-                                },
-                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: 2 }}>
