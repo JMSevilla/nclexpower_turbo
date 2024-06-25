@@ -18,7 +18,7 @@ const apiUrl =
 
 export async function initializeLoadPTestHimem() {
   const response = await fetch(
-    `${config.value.API_URL}/v1/api/baseAppload/processor-load-ptest-himem`,
+    `${apiUrl}/v1/api/baseAppload/processor-load-ptest-himem`,
     {
       headers: {
         "Content-Type": "application/json",

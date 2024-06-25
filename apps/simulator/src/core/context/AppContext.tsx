@@ -54,7 +54,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     try {
       loadPTestHimemCb.execute();
       loadPreTrackItemCb.execute();
-      console.log('this is called');
       setHasAccessToken(true);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -64,14 +63,12 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   useEffect(() => {
     if (!accessToken) return;
     preProccessor();
-    console.log('loadPTestHimemCb', loadPTestHimemCb.result?.status);
-    console.log('loadPreTrackItemCb', loadPreTrackItemCb.result?.status);
   }, [accessToken]);
 
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      hasAccessToken && selectQuestionCb.execute({ ...questionData });
+      accessToken && selectQuestionCb.execute({ ...questionData });
     }
   }, [questionData, selectQuestionCb, accessToken]);
 
@@ -87,8 +84,8 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   }, [selectQuestionCb.result?.data]);
 
   const initSelectedQuestion = useCallback(() => {
-    hasAccessToken && selectQuestionCb.execute({ ...questionData });
-  }, [questionData, selectQuestionCb, hasAccessToken]);
+    accessToken && selectQuestionCb.execute({ ...questionData });
+  }, [questionData, selectQuestionCb, accessToken]);
 
   useEffect(() => {
     if (!accessToken) {
@@ -96,7 +93,9 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
         pathname: '/',
       });
     }
+  }, [accessToken]);
 
+  useEffect(() => {
     const handleRouteChange = () => {
       if (router.pathname === '/next-item') {
         setReloadTrigger(prevState => !prevState);
