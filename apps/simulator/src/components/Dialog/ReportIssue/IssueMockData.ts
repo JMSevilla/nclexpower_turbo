@@ -1,4 +1,4 @@
-import { SelectIssueOption } from "@repo/core-library/components/TextField/SelectMultipleField";
+import { SelectIssueOption } from '@repo/core-library/components/Textfield/SelectMultipleField';
 
 export const IssueMockData: SelectIssueOption[] = [
   { label: 'Bug Problems', value: 'Bug Problems'},
