@@ -7,10 +7,10 @@ import {
   TextFieldProps,
 } from "@mui/material";
 
-type SelectOption = {
+export type SelectIssueOption = {
   label: string;
   value: string;
-  xvalue: number;
+  xvalue?: number;
 };
 
 type BaseSelectFieldProps = {
@@ -18,14 +18,15 @@ type BaseSelectFieldProps = {
   helperText?: string;
   error?: boolean;
   required?: boolean;
-  options: SelectOption[];
+  options: SelectIssueOption[];
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  value?: string;
+  value?: string | string[];
   onBlur?: () => void;
   sx?: TextFieldProps["sx"];
   size?: TextFieldProps["size"];
   variant?: TextFieldProps["variant"];
   placeholder?: TextFieldProps["placeholder"];
+  multiple?: boolean;
 };
 
 export function SelectField({
@@ -37,6 +38,7 @@ export function SelectField({
   onChange,
   value,
   placeholder,
+  multiple = false,
   ...rest
 }: BaseSelectFieldProps) {
   return (
@@ -71,7 +73,7 @@ export type ControlledSelectFieldProps = {
   shouldUnregister?: boolean;
 } & BaseSelectFieldProps;
 
-export function ControlledSelectField({
+export function ControlledMultipleSelectField({
   control,
   name,
   onChange,
