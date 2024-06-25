@@ -13,7 +13,7 @@ import {
   ThemeBackgroundColorSelection,
 } from "../../types/page";
 import { CmsTenant } from "../../types/tenant";
-import { AccountSetupBlock } from '../../components/blocks/AccountSetupBlock/AccountSetupBlock';
+import { AccountSetupBlock } from "../../components/blocks/AccountSetupBlock/AccountSetupBlock";
 
 export const parseContent = (
   contents: PageContentValues[],
@@ -43,16 +43,19 @@ export const parseContent = (
       }
       case "authentication_form": {
         return (
-          <LoginFormBlock
-            id={type}
-            parameters={content?.elements?.parameters}
-          />
+          // <LoginFormBlock
+          //   id={type}
+          //   parameters={content?.elements?.parameters}
+          // />
+          <></>
         );
       }
       case "account_setup_form": {
         return (
-          <AccountSetupBlock id={type}
-            parameters={content?.elements?.parameters} />
+          <AccountSetupBlock
+            id={type}
+            parameters={content?.elements?.parameters}
+          />
         );
       }
       case "Content HTML block": {
