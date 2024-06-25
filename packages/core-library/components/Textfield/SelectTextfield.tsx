@@ -45,14 +45,13 @@ export function SelectField({
         select
         label={label}
         error={error}
-        value={value ?? (multiple ? [] : "")}
+        value={value ?? ""}
         onChange={onChange}
         placeholder={placeholder}
-        SelectProps={{ multiple }}
         {...rest}
       >
         {options.map((option) => (
-          <MenuItem key={option.xvalue} value={option.value}>
+          <MenuItem key={option.xvalue} value={option.xvalue}>
             {option.label}
           </MenuItem>
         ))}

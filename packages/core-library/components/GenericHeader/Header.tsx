@@ -1,7 +1,7 @@
 import { Box, Button, Grid, } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
-import { NavigationType } from '../GenericSidebar/Sidebar';
+import { NavigationType } from '../../types/navigation';
 import { useRouter } from 'next/router';
 
 

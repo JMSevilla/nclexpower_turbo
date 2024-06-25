@@ -1,6 +1,6 @@
 import { Box, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import { useState } from 'react'
-import { NavigationType } from './Sidebar'
+import { NavigationType } from '../../types/navigation';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Divider } from '@mui/material';
 import { SidebarButton } from './SidebarButton';
