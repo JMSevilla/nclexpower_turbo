@@ -11,7 +11,7 @@ export const MobileErrorDialog: React.FC<MobileErrorDialogProps> = ({ isMobile }
   return (
     <CustomDialog
       open={isMobile}
-      title={<ErrorMobileIcon />}
+      icon={<ErrorMobileIcon />}
       content={'Ooops, looks like you are in mobile screen. Change to desktop to access the content.'}
       aria-labelledby="responsive-dialog-title"
     />
