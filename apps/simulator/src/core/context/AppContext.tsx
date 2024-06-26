@@ -3,11 +3,13 @@ import { SsrData } from '../types/ssrData';
 import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
+import { useAccessToken } from '@repo/core-library/contexts/auth/hooks';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
   loading?: boolean;
   setLoader: any;
+  hasAccessToken: boolean;
   itemselect: datatypes.CalcItemSelectResponseItem[];
   displayNextItem: boolean;
   setDisplayNextItem: any;
@@ -27,6 +29,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    */
   const [questionaire, setQuestionaire] = useState<SsrData['questionaire']>([]);
   const [loader, setLoader] = useState<boolean>(true);
+  const [hasAccessToken, setHasAccessToken] = useState<boolean>(false);
   const [displayNextItem, setDisplayNextItem] = useState<boolean>(false);
   const router = useRouter();
   const isInitialMount = useRef(true);
@@ -35,6 +38,8 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * @author JMSevilla
    * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
    */
+  const loadPTestHimemCb = hooks.useApi(api => api.calc.initializeLoadPTestHimem());
+  const loadPreTrackItemCb = hooks.useApi(api => api.calc.initializeLoadPrepareTrackItem());
   const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
     accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
@@ -43,12 +48,29 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   };
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
 
+  const [accessToken, setAccessToken] = useAccessToken();
+
+  const preProccessor = useCallback(async () => {
+    try {
+      loadPTestHimemCb.execute();
+      loadPreTrackItemCb.execute();
+      setHasAccessToken(true);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    preProccessor();
+  }, [accessToken]);
+
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      selectQuestionCb.execute({ ...questionData });
+      accessToken && selectQuestionCb.execute({ ...questionData });
     }
-  }, [questionData, selectQuestionCb]);
+  }, [questionData, selectQuestionCb, accessToken]);
 
   const selectedItem = useMemo(() => {
     const data = selectQuestionCb.result?.data;
@@ -62,8 +84,16 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   }, [selectQuestionCb.result?.data]);
 
   const initSelectedQuestion = useCallback(() => {
-    selectQuestionCb.execute({ ...questionData });
-  }, [questionData, selectQuestionCb]);
+    accessToken && selectQuestionCb.execute({ ...questionData });
+  }, [questionData, selectQuestionCb, accessToken]);
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push({
+        pathname: '/',
+      });
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -81,13 +111,13 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     };
   }, [initSelectedQuestion, router]);
 
-
   return (
     <ApplicationContext.Provider
       value={{
         questionaire,
         loading: selectQuestionCb.loading,
         setLoader,
+        hasAccessToken,
         itemselect: selectedItem,
         setDisplayNextItem,
         displayNextItem,

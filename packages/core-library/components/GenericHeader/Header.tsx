@@ -1,24 +1,28 @@
-import { Box, Button, Grid, } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
-import { NavigationType } from '../../types/navigation';
-import { useRouter } from 'next/router';
-
+import { NavigationType } from "../../types/navigation";
+import { useRouter } from "next/router";
 
 interface Props {
   onLogout(): void;
-  menu?: NavigationType[]
+  menu?: NavigationType[];
   isAuthenticated: boolean;
-  drawerButton?: React.ReactNode
+  drawerButton?: React.ReactNode;
 }
 
-export const Header: React.FC<Props> = ({ menu, onLogout, isAuthenticated, drawerButton }) => {
+export const Header: React.FC<Props> = ({
+  menu,
+  onLogout,
+  isAuthenticated,
+  drawerButton,
+}) => {
   const { isMobile } = useResolution();
-  const router = useRouter()
+  const router = useRouter();
 
   const handleNavigate = (path?: string) => {
-    router.push({ pathname: path || "/" })
-  }
+    router.push({ pathname: path || "/" });
+  };
 
   return (
     <Box
@@ -39,9 +43,7 @@ export const Header: React.FC<Props> = ({ menu, onLogout, isAuthenticated, drawe
         borderBottomColor: "divider",
       }}
     >
-      {drawerButton && <Grid item>
-        {drawerButton}
-      </Grid>}
+      {drawerButton && <Grid item>{drawerButton}</Grid>}
       <Grid
         container
         px={8}
@@ -52,16 +54,23 @@ export const Header: React.FC<Props> = ({ menu, onLogout, isAuthenticated, drawe
         justifyContent="flex-end"
       >
         <Grid item container alignItems="flex-center" spacing={6} height="auto">
-          <Grid item container alignItems="center" justifyContent="space-between" xs>
-            {!isAuthenticated &&
+          <Grid
+            item
+            container
+            alignItems="center"
+            justifyContent="space-between"
+            xs
+          >
+            {!isAuthenticated && (
               <Grid item>
                 <HeaderLogo />
               </Grid>
-            }
+            )}
             <Grid item display="flex" alignItems="center">
-              {((!isMobile && !isAuthenticated)) ?
+              {!isMobile && !isAuthenticated ? (
                 <Grid container gap={4} direction="row">
-                  {menu && menu.length > 0 &&
+                  {menu &&
+                    menu.length > 0 &&
                     menu.map((navigation, index) => (
                       <Grid item key={index}>
                         <Button onClick={() => handleNavigate(navigation.path)}>
@@ -70,10 +79,8 @@ export const Header: React.FC<Props> = ({ menu, onLogout, isAuthenticated, drawe
                       </Grid>
                     ))}
                 </Grid>
-                :
-                null}
+              ) : null}
             </Grid>
-
           </Grid>
           {isAuthenticated && <Grid item alignSelf="center"></Grid>}
           {isAuthenticated && <Grid item alignSelf="center"></Grid>}
