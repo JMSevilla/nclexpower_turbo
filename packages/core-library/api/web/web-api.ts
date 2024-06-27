@@ -1,27 +1,17 @@
-import { AxiosInstance } from "axios";
-import { AccountSetupType } from "../../components/blocks/AccountSetupBlock/validation";
-import { LoginParams } from "../../types/types";
+import { AxiosError, AxiosInstance } from "axios";
+import { LoginParams, RegisterParams } from "../../types/types";
 import { LoginResponse } from "../types";
 
 export class WebApi {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance
-  ) {}
+  ) { }
 
-  public async createAccount(data: AccountSetupType) {
-    try {
-      return await this.axios.post(
-        "/api/v2/internal/baseInternal/internal-account-creation",
-        data,
-        { headers: { ENV: "dev2" } }
-      );
-    } catch (err: any) {
-      if (err.response?.status === 404) {
-        return { data: null };
-      }
-      throw err;
-    }
+  public web_account_setup(params: RegisterParams) {
+    return this.axios.post<number>(
+      "/api/v2/internal/baseInternal/internal-account-creation",
+      params);
   }
   public web_customer_login(params: LoginParams) {
     return this.axios.post<LoginResponse>(

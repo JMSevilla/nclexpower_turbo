@@ -9,8 +9,6 @@ import SourceIcon from '@mui/icons-material/Source';
 import { NavigationType } from '../../types/navigation';
 
 
-
-
 const AuthenticatedMenu: NavigationType[] = [
     {
         id: 1,
@@ -91,27 +89,26 @@ const AuthenticatedMenu: NavigationType[] = [
 
 ]
 
-
 const UnauthencatedMenu: NavigationType[] = [
     {
         id: 1,
         label: "Home",
-        path: "/",
+        path: "/home",
     },
     {
         id: 2,
         label: "About Us",
-        path: "/",
+        path: "/about-us",
     },
     {
         id: 3,
         label: "Contact Us",
-        path: "/",
+        path: "/contact-us",
     },
     {
         id: 4,
         label: "Login",
-        path: "/",
+        path: "/login",
     }
 ]
 
@@ -121,5 +118,5 @@ export const mockMenus = (isAuthenticated: boolean) => {
         return AuthenticatedMenu
     }
 
-    return UnauthencatedMenu
+    return []
 };
