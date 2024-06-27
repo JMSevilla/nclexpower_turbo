@@ -21,7 +21,7 @@ export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question }) => {
       answer: value.mcqss,
       multiAnswer: [0],
       QType: 'MCQ',
-      accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
+      accountId: '5A637337-33EC-41AF-A903-4192514B9561',
     };
     await throwAnswerCb.execute(data);
   }
