@@ -4,6 +4,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DialogActions } from '@mui/material';
+import { SxProps, Theme } from '@mui/system';
 
 export interface CustomDialogProps {
   open: boolean;
@@ -13,12 +14,14 @@ export interface CustomDialogProps {
   icon?: ReactNode | ReactElement;
   button?: ReactNode | ReactElement;
   ghostButton?: ReactNode | ReactElement;
-  images?: ReactNode | ReactElement;
-  dialogSx?: object;
-  titleSx?: object;
-  contentSx?: object;
-  contentTextSx?: object;
-  actionsSx?: object;
+  sx?: {
+    dialog?: SxProps<Theme>;
+    title?: SxProps<Theme>;
+    content?: SxProps<Theme>;
+    contentText?: SxProps<Theme>;
+    actions?: SxProps<Theme>;
+  };
+
 }
 
 export const CustomDialog: React.FC<CustomDialogProps> = ({
@@ -29,26 +32,20 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   icon,
   button,
   ghostButton,
-  images,
-  dialogSx,
-  titleSx,
-  contentSx,
-  contentTextSx,
-  actionsSx
+  sx = {}
 }) => {
   return (
-    <Dialog open={open} aria-labelledby="custom-dialog-title" sx={dialogSx}>
-      <DialogTitle id="custom-dialog-title" sx={titleSx}>
+    <Dialog open={open} aria-labelledby="custom-dialog-title" sx={sx.dialog}>
+      <DialogTitle id="custom-dialog-title" sx={sx.title}>
         {icon}
-        {images}
         {title}
       </DialogTitle>
-      <DialogContent sx={contentSx}>
+      <DialogContent sx={sx.content}>
         {content}
-        <DialogContentText sx={contentTextSx}>
+        <DialogContentText sx={sx.contentText}>
           {contentText}
         </DialogContentText>
-        <DialogActions sx={actionsSx}>
+        <DialogActions sx={sx.actions}>
           {ghostButton}
           {button}
         </DialogActions>

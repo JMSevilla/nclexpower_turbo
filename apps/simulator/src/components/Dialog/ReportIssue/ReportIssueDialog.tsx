@@ -8,6 +8,7 @@ import { ReportSchema } from '@/core/schema/reportIssue/validation';
 import { CustomDialog } from '../CustomDialog';
 import { buttonStyle } from '../../Header/Header';
 import { ReportIssueForm } from './ReportIssueForm'
+
 export interface FormValues {
   issues?: string[];
   description: string;
@@ -40,7 +41,14 @@ export const ReportIssueDialog: React.FC = () => {
         open={open}
         aria-labelledby="responsive-dialog-title"
         title="Report an Issue"
-        titleSx={{ background: '#007AB7', color: '#F3F3F3', marginBottom: 2 }}
+        sx={{
+          title: {
+            background: '#007AB7',
+            color: '#F3F3F3',
+            marginBottom: 2
+          }
+        }
+        }
         content={
           <ReportIssueForm
             control={control}

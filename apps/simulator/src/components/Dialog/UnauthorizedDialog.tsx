@@ -23,16 +23,22 @@ export const UnauthorizedDialog: React.FC<CustomDialogProps> = ({ open }) => {
         aria-labelledby="responsive-dialog-title"
         icon={<GppMaybeIcon fontSize='large' />}
         title={'Unauthorized'}
-        titleSx={{
-          background: '#B21E35',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          color: '#F3F3F3'
+        sx={{
+          title: {
+            background: '#B21E35',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            color: '#F3F3F3'
+          },
+          contentText: {
+            fontSize: '1.5rem',
+            textAlign: 'center',
+            marginY: 2
+          }
         }}
         contentText={'Access token was not present, you are accessing the simulator unauthorized.'}
-        contentTextSx={{ fontSize: '1.5rem', textAlign: 'center', marginY: 2 }}
         button={
           <Button
             endIcon={<KeyboardReturnIcon />}
