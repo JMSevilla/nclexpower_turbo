@@ -4,6 +4,7 @@ import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
 import { useAccessToken } from '@repo/core-library/contexts/auth/hooks';
+import { UnauthorizedDialog } from '@/components/Dialog/UnauthorizedDialog';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -124,6 +125,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
         selectedItem,
       }}
     >
+      <UnauthorizedDialog open={!hasAccessToken} />
       {children}
     </ApplicationContext.Provider>
   );
