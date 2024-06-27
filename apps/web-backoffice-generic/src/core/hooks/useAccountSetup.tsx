@@ -1,12 +1,6 @@
+import { accountSetupToast } from '@/core/constant/accountSetupToast';
 import { useExecuteToast } from '@repo/core-library/contexts';
 import { useRouter } from 'next/router';
-
-
-export const toast_msgs = {
-    SUCCESS: "Account successfully created",
-    ALREADY_EXIST: "Account already exist",
-    ERROR: "Oops, Please try again later"
-}
 
 export const useAccountSetup = () => {
     const toast = useExecuteToast()
@@ -15,11 +9,11 @@ export const useAccountSetup = () => {
     const toastMessage = (value: number): string => {
         switch (value) {
             case (200):
-                return toast_msgs.SUCCESS
+                return accountSetupToast.SUCCESS
             case (1012):
-                return toast_msgs.ALREADY_EXIST
+                return accountSetupToast.ALREADY_EXIST
             default:
-                return toast_msgs.ERROR
+                return accountSetupToast.ERROR
         }
     }
 
