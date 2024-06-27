@@ -13,7 +13,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { PreloadedGlobalsProvider } from '@/core/context/PreloadedGlobalsContext';
 import { SimulatorProvider } from '@/core/context/SimulatorContext';
 import { ControlledToast } from '@repo/core-library/components';
-import { TourComponent } from '@/components/tourComponent';
+import { TourProvider } from '@reactour/tour';
 import { TourSteps } from '@/core/constant/tourStep';
 import { ProgressProvider } from '@/core/context/ProgressContext';
 import { MobileDetectionProvider } from '@repo/core-library/contexts/MobileDetectionContext';
@@ -29,6 +29,17 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
 
   const theme = createTheme();
   const queryClient = new QueryClient({});
+  const radius = 10;
+  const style = {
+    popover: (base: any) => ({
+      ...base,
+      borderRadius: radius,
+    }),
+    maskArea: (base: any) => ({ ...base, rx: radius }),
+    badge: (base: any) => ({ ...base, left: 'auto', right: '-0.8125em' }),
+    controls: (base: any) => ({ ...base, marginTop: 100 }),
+    close: (base: any) => ({ ...base, right: 'auto', left: 8, top: 8 }),
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,26 +52,38 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                 <QueryClientProvider client={queryClient}>
                   <div className="min-h-screen flex flex-col bg-slate-100">
                     <AlertMessageV2Provider>
-                      <TourComponent steps={TourSteps} />
-                      <ToolbarSettingsProvider>
-                        {hasAccessToken && <Header />}
-                        <PageContainer selectedItem={itemselect}>
-                          <div className="min-h-[65dvh] flex flex-col justify-between">
-                            <LoadablePageContent loading={loading}>
-                              <DndProvider backend={HTML5Backend}>
-                                <ControlledToast autoClose={5000} hideProgressBar={false} />
-                                {/* Code below must be refactored after case study structure development completed. */}
-                                {itemselect.length > 0 && (
-                                  <ParseContents questionType={itemselect[0].questionType} itemSelected={itemselect} />
-                                )}
-                              </DndProvider>
-                            </LoadablePageContent>
-                          </div>
-                        </PageContainer>
-                        {hasAccessToken && (
-                          <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
-                        )}
-                      </ToolbarSettingsProvider>
+                      <TourProvider
+                        steps={TourSteps}
+                        padding={{
+                          mask: 2,
+                          popover: [5, 10],
+                        }}
+                        styles={style}
+                        badgeContent={({ totalSteps, currentStep }) => currentStep + 1 + '/' + totalSteps}
+                      >
+                        <ToolbarSettingsProvider>
+                          {hasAccessToken && <Header />}
+                          <PageContainer selectedItem={itemselect}>
+                            <div className="min-h-[65dvh] flex flex-col justify-between  questionnaire-step-8">
+                              <LoadablePageContent loading={loading}>
+                                <DndProvider backend={HTML5Backend}>
+                                  <ControlledToast autoClose={5000} hideProgressBar={false} />
+                                  {/* Code below must be refactored after case study structure development completed. */}
+                                  {itemselect.length > 0 && (
+                                    <ParseContents
+                                      questionType={itemselect[0].questionType}
+                                      itemSelected={itemselect}
+                                    />
+                                  )}
+                                </DndProvider>
+                              </LoadablePageContent>
+                            </div>
+                          </PageContainer>
+                          {hasAccessToken && (
+                            <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
+                          )}
+                        </ToolbarSettingsProvider>
+                      </TourProvider>
                     </AlertMessageV2Provider>
                   </div>
                 </QueryClientProvider>
