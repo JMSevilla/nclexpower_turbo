@@ -3,19 +3,44 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useMobileDetection } from '@repo/core-library/contexts/MobileDetectionContext';
-import { DialogActions } from '@mui/material';
+import { DialogActions, styled } from '@mui/material';
+import { DialogProps } from '@mui/material/Dialog';
 
-interface CustomDialogProps {
+export interface CustomDialogProps {
   open: boolean;
   title?: string;
+  icon?: ReactNode | ReactElement;
+  children?: ReactNode | ReactElement;
   content?: ReactNode | ReactElement;
   contentText?: string;
-  icon?: ReactNode | ReactElement;
   button?: ReactNode | ReactElement;
   ghostButton?: ReactNode | ReactElement;
-  images?: ReactNode | ReactElement;
+  className?: string;
+  sx?: DialogProps['sx'];
 }
+
+const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  color: '#F3F3F3',
+  '&.unauthorized': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    background: '#B21E35',
+  },
+  '&.report-issue': {
+    background: '#007AB7',
+    marginBottom: 10
+  },
+}));
+
+const DefaultDialogContentText = styled(DialogContentText)(({ theme }) => ({
+  '&.unauthorized': {
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    marginY: 2
+  }
+}));
 
 export const CustomDialog: React.FC<CustomDialogProps> = ({
   open,
@@ -25,26 +50,23 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   icon,
   button,
   ghostButton,
-  images
+  className,
+  children,
+  sx
 }) => {
-  const { isMobile } = useMobileDetection()
-
   return (
-    <Dialog open={open} aria-labelledby="custom-dialog-title">
-      <DialogTitle
-        id="custom-dialog-title"
-        sx={(!isMobile) ? { background: '#007AB7', color: '#F3F3F3', marginBottom: 2 } : {}}
-      >
-        {title}
+    <Dialog open={open} aria-labelledby="custom-dialog-title" sx={sx}>
+      <DefaultDialogTitle id="custom-dialog-title" className={className}>
         {icon}
-        {images}
-      </DialogTitle>
-      <DialogContent>
+        {title}
+      </DefaultDialogTitle>
+      <DialogContent >
+        {children}
         {content}
-        <DialogContentText>
+        <DefaultDialogContentText className={className}>
           {contentText}
-        </DialogContentText>
-        <DialogActions>
+        </DefaultDialogContentText>
+        <DialogActions >
           {ghostButton}
           {button}
         </DialogActions>
@@ -52,4 +74,3 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
     </Dialog>
   );
 };
-

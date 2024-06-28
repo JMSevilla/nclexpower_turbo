@@ -19,3 +19,13 @@ export interface LoginParams {
   username: string;
   password: string;
 }
+
+export interface RegisterParams {
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  middlename: string;
+  imgurl: string;
+  email: string;
+}
