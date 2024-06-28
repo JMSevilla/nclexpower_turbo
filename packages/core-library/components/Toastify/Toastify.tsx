@@ -11,13 +11,19 @@ export const ControlledToast: React.FC<ToastProps> = ({
     position,
     autoClose,
     hideProgressBar,
-   ...rest
+    ...rest
 }) => {
-    return(
-        <ToastContainer 
+    return (
+        <ToastContainer
             position={position}
             autoClose={autoClose}
             hideProgressBar={hideProgressBar}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
             {...rest}
         />
     )

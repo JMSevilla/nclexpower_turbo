@@ -11,13 +11,14 @@ import { useRouter } from "../../core";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
-import { LoginParams } from "../../types/types";
+import { LoginParams, RegisterParams } from "../../types/types";
 import { useSingleCookie } from "../../hooks/useCookie";
 
 const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
   login(username: string, password: string): Promise<null>;
+  register(data: RegisterParams): Promise<number>;
   logout: () => {};
   setIsAuthenticated: (value: boolean) => void;
 }>(undefined as any);
@@ -31,9 +32,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
-  const loginCb = useApiCallback((api, data: LoginParams) =>
-    api.web.web_customer_login(data)
-  );
+
+  const loginCb = useApiCallback((api, data: LoginParams) => api.web.web_customer_login(data));
+  const registerCb = useApiCallback((api, data: RegisterParams) => api.web.web_account_setup(data))
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -76,6 +77,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
             );
             setIsAuthenticated(true);
             return null;
+          },
+          register: async (data: RegisterParams) => {
+            const result = await registerCb.execute(data)
+            return result.data
           },
           logout,
           setIsAuthenticated,
