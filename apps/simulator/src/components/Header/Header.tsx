@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Box, Tooltip, Typography, Button, TextField } from '@mui/material';
+import { AppBar, Toolbar, Box, Tooltip, Typography, Button } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { Header as SsrHeader } from '@/core/types/ssrData';
 import { usePreloadedGlobals } from '@/core/context/PreloadedGlobalsContext';
 import { useCountdown } from '@repo/core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';

@@ -3,7 +3,7 @@ import { LoadablePageContent } from '@/components/LoadablePageContents';
 import { PageContainer } from '@/components/PageContainer';
 import { ParseContents } from '@/components/parse-contents';
 import { useApplicationContext } from '@/core/context/AppContext';
-import { SsrHeader, SsrMockQuestionaire } from '@/core/types/ssrData';
+import { SsrMockQuestionaire } from '@/core/types/ssrData';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AlertMessageV2Provider } from '@repo/core-library/contexts/AlertMessageContext';
@@ -11,9 +11,8 @@ import { FormSubmissionContextProvider, ToastProvider } from '@repo/core-library
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { PreloadedGlobalsProvider } from '@/core/context/PreloadedGlobalsContext';
-import { SimulatorProvider } from '@/core/context/SimulatorContext';
 import { ControlledToast } from '@repo/core-library/components';
-import { TourProvider } from '@reactour/tour';
+import { TourProvider } from '@repo/core-library/contexts';
 import { TourSteps } from '@/core/constant/tourStep';
 import { ProgressProvider } from '@/core/context/ProgressContext';
 import { MobileDetectionProvider } from '@repo/core-library/contexts/MobileDetectionContext';
@@ -29,17 +28,6 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
 
   const theme = createTheme();
   const queryClient = new QueryClient({});
-  const radius = 10;
-  const style = {
-    popover: (base: any) => ({
-      ...base,
-      borderRadius: radius,
-    }),
-    maskArea: (base: any) => ({ ...base, rx: radius }),
-    badge: (base: any) => ({ ...base, left: 'auto', right: '-0.8125em' }),
-    controls: (base: any) => ({ ...base, marginTop: 100 }),
-    close: (base: any) => ({ ...base, right: 'auto', left: 8, top: 8 }),
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -52,15 +40,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                 <QueryClientProvider client={queryClient}>
                   <div className="min-h-screen flex flex-col bg-slate-100">
                     <AlertMessageV2Provider>
-                      <TourProvider
-                        steps={TourSteps}
-                        padding={{
-                          mask: 2,
-                          popover: [5, 10],
-                        }}
-                        styles={style}
-                        badgeContent={({ totalSteps, currentStep }) => currentStep + 1 + '/' + totalSteps}
-                      >
+                      <TourProvider steps={TourSteps}>
                         <ToolbarSettingsProvider>
                           {hasAccessToken && <Header />}
                           <PageContainer selectedItem={itemselect}>
