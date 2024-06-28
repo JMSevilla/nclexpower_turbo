@@ -16,8 +16,8 @@ const PreloadedGlobalsContext = createContext<PreloadedGlobalsValue>(undefined a
 export const PreloadedGlobalsProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ children, data }) => {
   const getPreloadedHeaders = hooks.useApi(async api => {
     const result = await api.preloadedGlobals.getPreloadedGlobalsHeader({
-      LNum: data.slug[0],
-      accountId: data.slug[1],
+      LNum: 'B850483A-AC8D-4DAE-02C6-08DC5B07A84C',
+      accountId: 'C002B561-66AF-46FC-A4D2-D282D42BD774',
     });
     return result.data;
   }, []);

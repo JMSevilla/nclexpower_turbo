@@ -46,7 +46,10 @@ const SELF_HTTP_OPTIONS: HttpOptions = {
 
 export const selfHttpClient = new Http({
   ...SELF_HTTP_OPTIONS,
-  baseURL: "http://localhost:3000",
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : config.value.VERCELURL,
 });
 export const httpClient = new Http({
   ...HTTP_OPTIONS,

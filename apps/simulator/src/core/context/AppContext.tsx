@@ -4,6 +4,7 @@ import { hooks, datatypes } from '@repo/core-library';
 import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from '@repo/core-library/types';
 import { useAccessToken } from '@repo/core-library/contexts/auth/hooks';
+import { useBusinessQueryContext } from '@repo/core-library/contexts';
 import { UnauthorizedDialog } from '@/components/Dialog/UnauthorizedDialog';
 
 type AppContextValue = {
@@ -35,31 +36,30 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const router = useRouter();
   const isInitialMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
-  /**
-   * @author JMSevilla
-   * for test purposes `accountId` and `examGroupId` is generically written since we don't have any api to produce that kind of data. (eg., login api)
-   */
-  const loadPTestHimemCb = hooks.useApi(api => api.calc.initializeLoadPTestHimem());
-  const loadPreTrackItemCb = hooks.useApi(api => api.calc.initializeLoadPrepareTrackItem());
-  const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const questionData: ItemSelectTypes = {
-    accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
-    examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
+    accountId: '5A637337-33EC-41AF-A903-4192514B9561',
+    examGroupId: '0930C751-AC22-4895-8D76-2EF0B1FC90D9',
     shouldDisplayNextItem: displayNextItem,
   };
-  // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
+  const { businessQueryLoadPreProcess, businessQuerySelectQuestions } = useBusinessQueryContext();
+  // const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
+  const { refetch: loadPreProcess } = businessQueryLoadPreProcess(['loadpreprocess']);
+  const {
+    refetch: loadSelectionQuestion,
+    data: selectQuestionData,
+    isLoading,
+  } = businessQuerySelectQuestions(['selectquestion'], questionData);
 
+  // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
   const [accessToken, setAccessToken] = useAccessToken();
 
   const preProccessor = useCallback(async () => {
-    try {
-      loadPTestHimemCb.execute();
-      loadPreTrackItemCb.execute();
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      accessToken && loadPreProcess();
       setHasAccessToken(true);
-    } catch (error) {
-      console.error('Error fetching data:', error);
     }
-  }, [accessToken]);
+  }, []);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -69,24 +69,24 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      accessToken && selectQuestionCb.execute({ ...questionData });
+      accessToken && loadSelectionQuestion();
     }
-  }, [questionData, selectQuestionCb, accessToken]);
+  }, [accessToken]);
 
   const selectedItem = useMemo(() => {
-    const data = selectQuestionCb.result?.data;
+    const data = selectQuestionData;
 
     if (!Array.isArray(data)) {
-      console.error('Expected an array for selectQuestionCb.result?.data, but received:', data);
+      console.error('Expected an array for selectQuestionData, but received:', data);
       return [];
     }
 
     return mapQuestions(data);
-  }, [selectQuestionCb.result?.data]);
+  }, [selectQuestionData]);
 
   const initSelectedQuestion = useCallback(() => {
-    accessToken && selectQuestionCb.execute({ ...questionData });
-  }, [questionData, selectQuestionCb, accessToken]);
+    accessToken && loadSelectionQuestion();
+  }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) {
@@ -116,7 +116,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     <ApplicationContext.Provider
       value={{
         questionaire,
-        loading: selectQuestionCb.loading,
+        loading: isLoading,
         setLoader,
         hasAccessToken,
         itemselect: selectedItem,
