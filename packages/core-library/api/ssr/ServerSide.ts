@@ -1,10 +1,9 @@
 import { AxiosInstance } from "axios";
-import {
-  CalcItemSelectResponseItem,
-  RegularAnswer,
-  ItemSessionTypes,
-} from "../../types";
+import { RegularAnswer } from "../../types";
 
 export class ServerSideApi {
   constructor(private readonly axios: AxiosInstance) {}
+  public ssrCreateAnswer(params: RegularAnswer) {
+    return this.axios.post<number>(`/api/create-answer`, params);
+  }
 }

@@ -3,11 +3,7 @@ import { ErrorMobileIcon } from '../icons/ErrorMobileIcon';
 import { MobileDetectionContextValue } from '@repo/core-library/contexts/MobileDetectionContext';
 import { CustomDialog } from './CustomDialog';
 
-interface MobileErrorDialogProps extends MobileDetectionContextValue {
-  message?: string;
-}
-
-export const MobileErrorDialog: React.FC<MobileErrorDialogProps> = ({ isMobile }) => {
+export const MobileErrorDialog: React.FC<MobileDetectionContextValue> = ({ isMobile }) => {
   return (
     <CustomDialog
       open={isMobile}
