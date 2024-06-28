@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ReportSchema } from '@/core/schema/reportIssue/validation';
 import { CustomDialog } from '../CustomDialog';
 import { buttonStyle } from '../../Header/Header';
-import { ReportIssueForm } from './ReportIssueForm'
+import { ReportIssueForm } from './ReportIssueForm';
 
 export interface FormValues {
   issues?: string[];
@@ -40,23 +40,8 @@ export const ReportIssueDialog: React.FC = () => {
       <CustomDialog
         open={open}
         aria-labelledby="responsive-dialog-title"
+        className="report-issue"
         title="Report an Issue"
-        sx={{
-          title: {
-            background: '#007AB7',
-            color: '#F3F3F3',
-            marginBottom: 2
-          }
-        }
-        }
-        content={
-          <ReportIssueForm
-            control={control}
-            errors={errors}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-          />
-        }
         button={
           <Button
             variant="outlined"
@@ -72,7 +57,14 @@ export const ReportIssueDialog: React.FC = () => {
             Cancel
           </Button>
         }
-      />
+      >
+        <ReportIssueForm
+          control={control}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        />
+      </CustomDialog>
     </React.Fragment>
   );
 };

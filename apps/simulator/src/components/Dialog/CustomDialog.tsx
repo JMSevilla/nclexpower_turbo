@@ -3,26 +3,52 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DialogActions } from '@mui/material';
-import { SxProps, Theme } from '@mui/system';
+import { DialogActions, styled } from '@mui/material';
+import { DialogProps } from '@mui/material/Dialog';
 
 export interface CustomDialogProps {
   open: boolean;
   title?: string;
+  icon?: ReactNode | ReactElement;
+  children?: ReactNode | ReactElement;
   content?: ReactNode | ReactElement;
   contentText?: string;
-  icon?: ReactNode | ReactElement;
   button?: ReactNode | ReactElement;
   ghostButton?: ReactNode | ReactElement;
-  sx?: {
-    dialog?: SxProps<Theme>;
-    title?: SxProps<Theme>;
-    content?: SxProps<Theme>;
-    contentText?: SxProps<Theme>;
-    actions?: SxProps<Theme>;
-  };
-
+  className?: string;
+  sx?: DialogProps['sx'];
 }
+
+const DefaultDialog = styled(Dialog)(({ theme }) => ({
+
+}));
+
+const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  color: '#F3F3F3',
+  '&.unauthorized': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    background: '#B21E35',
+  },
+  '&.report-issue': {
+    background: '#007AB7',
+    marginBottom: 10
+  },
+}));
+
+const DefaultDialogContent = styled(DialogContent)(({ theme }) => ({
+
+}));
+
+const DefaultDialogContentText = styled(DialogContentText)(({ theme }) => ({
+  '&.unauthorized': {
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    marginY: 2
+  }
+}));
 
 export const CustomDialog: React.FC<CustomDialogProps> = ({
   open,
@@ -32,24 +58,27 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   icon,
   button,
   ghostButton,
-  sx = {}
+  className,
+  children,
+  sx
 }) => {
   return (
-    <Dialog open={open} aria-labelledby="custom-dialog-title" sx={sx.dialog}>
-      <DialogTitle id="custom-dialog-title" sx={sx.title}>
+    <DefaultDialog open={open} aria-labelledby="custom-dialog-title" sx={sx}>
+      <DefaultDialogTitle id="custom-dialog-title" className={className}>
         {icon}
         {title}
-      </DialogTitle>
-      <DialogContent sx={sx.content}>
+      </DefaultDialogTitle>
+      <DefaultDialogContent >
+        {children}
         {content}
-        <DialogContentText sx={sx.contentText}>
+        <DefaultDialogContentText className={className}>
           {contentText}
-        </DialogContentText>
-        <DialogActions sx={sx.actions}>
+        </DefaultDialogContentText>
+        <DialogActions >
           {ghostButton}
           {button}
         </DialogActions>
-      </DialogContent>
-    </Dialog>
+      </DefaultDialogContent>
+    </DefaultDialog>
   );
 };

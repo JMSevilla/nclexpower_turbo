@@ -51,12 +51,12 @@ export const parseContent = (
         );
       }
       case "account_setup_form": {
-        return (
-          <AccountSetupBlock
-            id={type}
-            parameters={content?.elements?.parameters}
-          />
-        );
+        // return (
+        //   // <AccountSetupBlock
+        //   //   // id={type}
+        //   //   // parameters={content?.elements?.parameters}
+        //   // />
+        // );
       }
       case "Content HTML block": {
         return (
