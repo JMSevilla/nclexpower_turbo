@@ -29,7 +29,7 @@ export const Page: NextPage<Props> = ({ data, error }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
       <BusinessQueryContextProvider>
         <ApplicationProvider data={data}>
           <Layout questionaire={data?.prefetchQ} data={data} />

@@ -1,7 +1,12 @@
 import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { MutOpt, ApiServiceErr } from "./types";
-import { useApi, useApiCallback } from "../../hooks";
-import { CalcItemSelectResponseItem, ItemSelectTypes } from "../../types";
+import { useApi, useApiCallback, useSecuredApiCallback } from "../../hooks";
+import {
+  CalcItemSelectResponseItem,
+  ItemSelectTypes,
+  RegularAnswer,
+} from "../../types";
+import { AxiosError, AxiosResponse } from "axios";
 
 export const useAppMutation = <Response, TVariables = unknown>(
   mutationFn: (variables: TVariables) => Promise<Response>,
@@ -11,8 +16,10 @@ export const useAppMutation = <Response, TVariables = unknown>(
 export const useLoadPreProcessQuery = (
   queryKey: string[]
 ): UseQueryResult<any, unknown> => {
-  const loadPTestHimemCb = useApi((api) => api.calc.initializeLoadPTestHimem());
-  const loadPreTrackItemCb = useApi((api) =>
+  const loadPTestHimemCb = useApiCallback((api) =>
+    api.calc.initializeLoadPTestHimem()
+  );
+  const loadPreTrackItemCb = useApiCallback((api) =>
     api.calc.initializeLoadPrepareTrackItem()
   );
 
@@ -41,5 +48,20 @@ export const useSelectQuestionsQuery = (
       return result.data;
     },
     { staleTime: Infinity }
+  );
+};
+
+export const useAnswerSubmission = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const submmisionCb = useSecuredApiCallback(
+    async (api, args: RegularAnswer) => await api.secure.ssrCreateAnswer(args)
+  );
+  return useAppMutation<AxiosResponse<number, AxiosError>, RegularAnswer>(
+    async (data) => {
+      const result = await submmisionCb.execute({ ...data });
+      return result;
+    },
+    opt
   );
 };

@@ -3,23 +3,20 @@ import { useRouter } from 'next/router';
 import { useApiCallback } from '@repo/core-library/hooks';
 import { RegularAnswer } from '@repo/core-library/types';
 import { useEffect } from 'react';
+import { useBusinessQueryContext } from '@repo/core-library/contexts';
 
 export const useRegularMCQQuestionnaire = () => {
   const router = useRouter();
   const { setDisplayNextItem, itemselect } = useApplicationContext();
-  const throwAnswerCb = useApiCallback(async (api, args: RegularAnswer) => await api.calc.createAnswer(args));
+  const { businessQuerySubmissionAnswer } = useBusinessQueryContext();
+  const { mutateAsync: submitAnswerAsync, data: result } = businessQuerySubmissionAnswer();
 
   useEffect(() => {
-    if (throwAnswerCb.error) {
-      const errors = throwAnswerCb.error as unknown as string[];
-      console.log(errors.map(e => e));
-    }
-
-    if (!throwAnswerCb.result?.data) {
+    if (!result?.data) {
       return;
     }
 
-    if (throwAnswerCb.result.data === 200) {
+    if (result.data === 200) {
       setDisplayNextItem(true);
       router.push({
         pathname: '/next-item',
@@ -28,10 +25,10 @@ export const useRegularMCQQuestionnaire = () => {
         },
       });
     }
-  }, [throwAnswerCb.error, throwAnswerCb.result?.data]);
+  }, [result?.data]);
 
   return {
-    throwAnswerCb,
+    submitAnswerAsync,
     itemselect,
   };
 };

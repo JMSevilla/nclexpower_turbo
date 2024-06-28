@@ -10,7 +10,7 @@ import { parseJSONtoString } from '@repo/core-library/types';
 
 export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question }) => {
   const [mcqAtom, setMcqAtom] = useAtom(McqSsValidationAtom);
-  const { throwAnswerCb, itemselect } = useRegularMCQQuestionnaire();
+  const { submitAnswerAsync, itemselect } = useRegularMCQQuestionnaire();
 
   const parsedChoices = parseJSONtoString(choices);
 
@@ -23,7 +23,7 @@ export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question }) => {
       QType: 'MCQ',
       accountId: '5A637337-33EC-41AF-A903-4192514B9561',
     };
-    await throwAnswerCb.execute(data);
+    await submitAnswerAsync({ ...data });
   }
 
   return <MCQ handleSubmit={handleSubmit} mcqAtom={mcqAtom} question={question} choices={parsedChoices} />;

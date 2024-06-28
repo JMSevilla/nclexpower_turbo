@@ -1,17 +1,17 @@
 import React, { createContext, useContext } from "react";
-import { useApi, useApiCallback } from "../hooks";
+import { UseMutationResult, UseQueryResult } from "react-query";
 import {
-  useMutation,
-  UseMutationResult,
-  useQuery,
-  UseQueryResult,
-} from "react-query";
-import { ApiServiceErr, MutOpt, QueryOpt } from "../core/hooks/types";
-import { CalcItemSelectResponseItem, ItemSelectTypes } from "../types";
+  CalcItemSelectResponseItem,
+  ItemSelectTypes,
+  RegularAnswer,
+} from "../types";
 import {
+  useAnswerSubmission,
   useLoadPreProcessQuery,
   useSelectQuestionsQuery,
 } from "../core/hooks/useBusinessQueries";
+import { MutOpt } from "../core/hooks/types";
+import { AxiosError, AxiosResponse } from "axios";
 
 interface BusinessQueryContextValue {
   businessQueryLoadPreProcess: (
@@ -21,6 +21,14 @@ interface BusinessQueryContextValue {
     queryKey: string[],
     data: ItemSelectTypes
   ) => UseQueryResult<CalcItemSelectResponseItem[] | undefined, any>;
+  businessQuerySubmissionAnswer: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<number, AxiosError>,
+    any,
+    RegularAnswer,
+    unknown
+  >;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -34,12 +42,14 @@ export const BusinessQueryContextProvider: React.FC<
 > = ({ children }) => {
   const businessQueryLoadPreProcess = useLoadPreProcessQuery;
   const businessQuerySelectQuestions = useSelectQuestionsQuery;
+  const businessQuerySubmissionAnswer = useAnswerSubmission;
 
   return (
     <BusinessQueryContext.Provider
       value={{
         businessQueryLoadPreProcess,
         businessQuerySelectQuestions,
+        businessQuerySubmissionAnswer,
       }}
     >
       {children}

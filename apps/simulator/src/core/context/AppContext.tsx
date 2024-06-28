@@ -55,7 +55,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const preProccessor = useCallback(async () => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      loadPreProcess();
+      accessToken && loadPreProcess();
       setHasAccessToken(true);
     }
   }, []);
@@ -63,7 +63,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   useEffect(() => {
     if (!accessToken) return;
     preProccessor();
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     if (isInitialMount.current) {
