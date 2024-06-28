@@ -19,10 +19,6 @@ export interface CustomDialogProps {
   sx?: DialogProps['sx'];
 }
 
-const DefaultDialog = styled(Dialog)(({ theme }) => ({
-
-}));
-
 const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
   color: '#F3F3F3',
   '&.unauthorized': {
@@ -36,10 +32,6 @@ const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
     background: '#007AB7',
     marginBottom: 10
   },
-}));
-
-const DefaultDialogContent = styled(DialogContent)(({ theme }) => ({
-
 }));
 
 const DefaultDialogContentText = styled(DialogContentText)(({ theme }) => ({
@@ -63,12 +55,12 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   sx
 }) => {
   return (
-    <DefaultDialog open={open} aria-labelledby="custom-dialog-title" sx={sx}>
+    <Dialog open={open} aria-labelledby="custom-dialog-title" sx={sx}>
       <DefaultDialogTitle id="custom-dialog-title" className={className}>
         {icon}
         {title}
       </DefaultDialogTitle>
-      <DefaultDialogContent >
+      <DialogContent >
         {children}
         {content}
         <DefaultDialogContentText className={className}>
@@ -78,7 +70,7 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
           {ghostButton}
           {button}
         </DialogActions>
-      </DefaultDialogContent>
-    </DefaultDialog>
+      </DialogContent>
+    </Dialog>
   );
 };
