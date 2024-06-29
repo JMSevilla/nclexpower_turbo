@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Box, Tooltip, Typography, Button, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { AppBar, Toolbar, Box, Tooltip, Typography, Button } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { Header as SsrHeader } from '@/core/types/ssrData';
 import { usePreloadedGlobals } from '@/core/context/PreloadedGlobalsContext';
 import { useCountdown } from '@repo/core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';
 import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
-import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog'
+import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
 import { ToolbarSettings } from '../Toolbar/Toolbar';
+import { useTour } from '@reactour/tour';
+import { useLocalStorage } from '@repo/core-library/hooks';
 
 export const buttonStyle = {
   backgroundColor: 'transparent',
@@ -28,6 +29,16 @@ export const Header: React.FC = () => {
   const duration = header[0]?.duration ?? null;
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setIsOpen } = useTour();
+  const { getItem, setItem } = useLocalStorage<string>('TourKey');
+
+  useEffect(() => {
+    const Tour = getItem();
+    if (!Tour) {
+      setIsOpen(true);
+      setItem('true');
+    }
+  }, [setIsOpen]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -74,7 +85,16 @@ export const Header: React.FC = () => {
               </Box>
             </Toolbar>
           </div>
-          <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} height={35} pl={7} pr={7} gap={5} bgcolor={'#86BCEA'}>
+          <Box
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            height={35}
+            pl={7}
+            pr={7}
+            gap={5}
+            bgcolor={'#86BCEA'}
+          >
             <div className="header-step-6">
               <Button sx={buttonStyle} style={{ fontFamily: 'Arial, sans-serif' }} onClick={openModal}>
                 <CalculateIcon fontSize="large" sx={buttonStyle.IconStyle} />
@@ -94,6 +114,6 @@ export const Header: React.FC = () => {
       </div>
       <LoadingBar color="#0000FF" progress={progress} />
       <CalculatorModal open={isModalOpen} onClose={closeModal} />
-    </Box >
+    </Box>
   );
 };

@@ -7,3 +7,4 @@ export * from "./TenantContext";
 export * from "./NotificationsContext";
 export * from "./auth/AuthContext";
 export * from "./BusinessQuery";
+export * from "./TourContext";

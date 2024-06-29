@@ -1,16 +1,10 @@
-import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Box,
-  Button as MuiButton,
-} from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PauseIcon from "@mui/icons-material/Pause";
-import { useCustomAction } from "@repo/core-library/hooks";
-import { Button } from "@repo/core-library/components";
+import React from 'react';
+import { AppBar, Toolbar, Typography, Box, Button as MuiButton } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PauseIcon from '@mui/icons-material/Pause';
+import { useCustomAction } from '@repo/core-library/hooks';
+import { Button } from '@repo/core-library/components';
 
 interface Props {
   actionKey: string;
@@ -24,86 +18,79 @@ export const Footer: React.FC<Props> = ({ actionKey }) => {
   return (
     <div className="h-fit w-full bg-[#007ab7] text-white footer-step-9">
       <Toolbar disableGutters>
-        <Box sx={{ height: "100%", width: "100%" }}>
+        <Box sx={{ height: '100%', width: '100%' }}>
           <MuiButton
             disabled
             color="inherit"
             sx={{
-              width: "32%",
-              padding: "1rem",
-              borderRight: "2px solid #F8FAF8",
-              fontFamily: "Arial, sans-serif",
+              width: '32%',
+              padding: '1rem',
+              borderRight: '2px solid #F8FAF8',
+              fontFamily: 'Arial, sans-serif',
               gap: 1,
-              display: "none",
+              display: 'none',
             }}
           >
-            <PauseIcon style={{ fontSize: "20px" }} />
+            <PauseIcon style={{ fontSize: '20px' }} />
             Suspend
           </MuiButton>
         </Box>
         <Box
           sx={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
           }}
         >
           <div className="footer-step-10">
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ textAlign: "center", fontSize: "16px" }}
-            >
+            <Typography variant="h6" component="div" sx={{ textAlign: 'center', fontSize: '16px' }}>
               Acme Medical Prep School
             </Typography>
-            <Typography
-              variant="h6"
-              component="p"
-              sx={{ textAlign: "center", fontSize: "14px" }}
-            >
+            <Typography variant="h6" component="p" sx={{ textAlign: 'center', fontSize: '14px' }}>
               Patricia Freeman
             </Typography>
           </div>
         </Box>
         <Box
           sx={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            justifyContent: "flex-end",
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-end',
           }}
         >
           <MuiButton
             color="inherit"
             className="footer-step-11"
             sx={{
-              width: "32%",
-              padding: "1rem",
-              borderLeft: "2px solid #F8FAF8",
-              fontFamily: "Arial, sans-serif",
-              color: "#FFFFFF",
+              width: '32%',
+              padding: '1rem',
+              borderLeft: '2px solid #F8FAF8',
+              fontFamily: 'Arial, sans-serif',
+              color: '#FFFFFF',
               gap: 1,
             }}
           >
-            <SettingsIcon style={{ fontSize: "18px" }} />
+            <SettingsIcon style={{ fontSize: '18px' }} />
             Navigator
           </MuiButton>
-          <Button
-            sx={{
-              width: "32%",
-              padding: "1rem",
-              borderLeft: "2px solid #F8FAF8",
-              fontFamily: "Arial, sans-serif",
-              color: "#FFFFFF",
-              gap: 1,
-            }}
-            onClick={action?.execute}
-          >
-            Next{" "}
-            <ArrowForwardIcon style={{ fontSize: "20px", marginTop: "2px" }} />
-          </Button>
+          <div className="footer-step-12">
+            <Button
+              sx={{
+                width: '32%',
+                padding: '1rem',
+                borderLeft: '2px solid #F8FAF8',
+                fontFamily: 'Arial, sans-serif',
+                color: '#FFFFFF',
+                gap: 1,
+              }}
+              onClick={action?.execute}
+            >
+              Next <ArrowForwardIcon style={{ fontSize: '20px', marginTop: '2px' }} />
+            </Button>
+          </div>
         </Box>
       </Toolbar>
     </div>
