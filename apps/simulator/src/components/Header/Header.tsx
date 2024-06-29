@@ -10,9 +10,9 @@ import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
 import { ToolbarSettings } from '../Toolbar/Toolbar';
+import { IRTsDialog } from "../Dialog/IRT's/IRTModal";
 import { useTour } from '@reactour/tour';
 import { useLocalStorage } from '@repo/core-library/hooks';
-
 export const buttonStyle = {
   backgroundColor: 'transparent',
   color: 'white',
@@ -107,6 +107,7 @@ export const Header: React.FC = () => {
               <ReportIssueDialog />
             </div>
             <div className="header-step-7 flex items-center">
+              <IRTsDialog />
               <ToolbarSettings />
             </div>
           </Box>

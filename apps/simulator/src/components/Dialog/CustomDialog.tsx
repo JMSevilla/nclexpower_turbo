@@ -17,6 +17,8 @@ export interface CustomDialogProps {
   ghostButton?: ReactNode | ReactElement;
   className?: string;
   sx?: DialogProps['sx'];
+  maxWidth?: DialogProps['maxWidth'];
+  onClose?: () => void;
 }
 
 const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -30,7 +32,7 @@ const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
   },
   '&.report-issue': {
     background: '#007AB7',
-    marginBottom: 10
+    marginBottom: 10,
   },
 }));
 
@@ -38,8 +40,8 @@ const DefaultDialogContentText = styled(DialogContentText)(({ theme }) => ({
   '&.unauthorized': {
     fontSize: '1.5rem',
     textAlign: 'center',
-    marginY: 2
-  }
+    marginY: 2,
+  },
 }));
 
 export const CustomDialog: React.FC<CustomDialogProps> = ({
@@ -52,21 +54,28 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   ghostButton,
   className,
   children,
-  sx
+  sx,
+  maxWidth,
+  onClose,
 }) => {
   return (
-    <Dialog open={open} aria-labelledby="custom-dialog-title" sx={sx}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="custom-dialog-title"
+      sx={sx}
+      className={className}
+      maxWidth={maxWidth}
+    >
       <DefaultDialogTitle id="custom-dialog-title" className={className}>
         {icon}
         {title}
       </DefaultDialogTitle>
-      <DialogContent >
+      <DialogContent>
         {children}
         {content}
-        <DefaultDialogContentText className={className}>
-          {contentText}
-        </DefaultDialogContentText>
-        <DialogActions >
+        <DefaultDialogContentText className={className}>{contentText}</DefaultDialogContentText>
+        <DialogActions>
           {ghostButton}
           {button}
         </DialogActions>
