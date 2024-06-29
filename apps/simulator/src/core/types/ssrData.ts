@@ -128,11 +128,7 @@ export type SsrMockQuestionaireAnswer = {
 export type RegularQuestion = {
   choices: string;
   question: string;
-};
-
-export type SataRegularQuestion = {
-  question: string;
-  choices: OptionType[];
+  questionType: string;
 };
 
 export type MCQTable = {

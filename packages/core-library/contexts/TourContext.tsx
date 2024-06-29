@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { TourProvider as ReactTourProvider, StepType } from "@reactour/tour";
+import { TourProvider, StepType } from "@reactour/tour";
 
 interface TourContextProps {}
 
@@ -16,7 +16,7 @@ interface TourProviderProps {
   steps: StepType[];
 }
 
-export const TourProvider: React.FC<
+export const TourContextProvider: React.FC<
   React.PropsWithChildren<TourProviderProps>
 > = ({ children, steps }) => {
   const radius = 4;
@@ -33,7 +33,7 @@ export const TourProvider: React.FC<
 
   return (
     <TourContext.Provider value={{}}>
-      <ReactTourProvider
+      <TourProvider
         steps={steps}
         padding={{
           mask: 2,
@@ -45,7 +45,7 @@ export const TourProvider: React.FC<
         }
       >
         {children}
-      </ReactTourProvider>
+      </TourProvider>
     </TourContext.Provider>
   );
 };

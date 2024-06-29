@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MCQBlock, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
+import { MCQBlock, CaseStudyContainer, SATABlock } from './blocks';
 import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
 import { datatypes } from '@repo/core-library';
 import { AnimatedBoxSkeleton, ComponentLoader } from '@repo/core-library/components';
@@ -23,11 +23,20 @@ export const ParseContents: React.FC<Props> = ({ questionType, itemSelected }) =
     return <ComponentLoader disableMarginBottom={false} />;
   }
 
-  if (questionType === 'RegularQuestion') {
+  if (questionType === 'MCQ') {
     if (itemSelected && itemSelected.length > 0) {
-      const regularQKey = itemSelected.filter(key => key.questionType == questionType);
-      if (regularQKey.length > 0) {
-        return <MCQBlock choices={regularQKey[0].choices} question={regularQKey[0].question} />;
+      const key = itemSelected.filter(key => key.typeOfQuestion == questionType);
+      if (key.length > 0) {
+        return <MCQBlock choices={key[0].choices} question={key[0].question} questionType={questionType} />;
+      }
+    }
+  }
+
+  if (questionType === 'SATA') {
+    if (itemSelected && itemSelected.length > 0) {
+      const key = itemSelected.filter(key => key.typeOfQuestion == questionType);
+      if (key.length > 0) {
+        return <SATABlock choices={key[0].choices} question={key[0].question} questionType={questionType} />;
       }
     }
   }

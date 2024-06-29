@@ -1,40 +1,57 @@
-import { AccessKeyType } from '../../../../apps/simulator/src/core/schema/AccessToken/validation'
-import { AxiosInstance } from 'axios';
-import { ItemSelectTypes, ItemSessionTypes, RegularAnswer } from '@repo/core-library/types';
-import { CalcItemSelectResponseItem } from '@repo/core-library/types/calc-types/calc-types-responses';
-import { LoginResponse } from '../types';
+import { AccessKeyType, LoginResponse } from "../types";
+import { AxiosInstance } from "axios";
+import {
+  ItemSelectTypes,
+  ItemSessionTypes,
+  RegularAnswer,
+  CalcItemSelectResponseItem,
+} from "../../types";
 
 export class CalculationApi {
   constructor(
     private readonly axios: AxiosInstance,
-    private readonly ssrAxios: AxiosInstance,
-  ) { }
+    private readonly ssrAxios: AxiosInstance
+  ) {}
   public ItemSelect(props: ItemSelectTypes) {
     const { accountId, examGroupId, shouldDisplayNextItem } = props;
     return this.axios.get<CalcItemSelectResponseItem[]>(
-      `/v1/api/baseAppload/item-select-regular/${accountId}/${examGroupId}/${shouldDisplayNextItem}`,
+      `/v1/api/baseAppload/item-select-regular/${accountId}/${examGroupId}/${shouldDisplayNextItem}`
     );
   }
   public ItemSelectSession(props: ItemSessionTypes) {
     const { accountId, SessionItem } = props;
-    return this.axios.get<string>(`/v1/api/baseAppload/item-select-session/${SessionItem}/${accountId}`);
+    return this.axios.get<string>(
+      `/v1/api/baseAppload/item-select-session/${SessionItem}/${accountId}`
+    );
   }
   public DisplayNextItemSelection(accountId: string) {
-    return this.axios.get<CalcItemSelectResponseItem[]>(`/v1/api/baseAppload/display-next-item/${accountId}`);
+    return this.axios.get<CalcItemSelectResponseItem[]>(
+      `/v1/api/baseAppload/display-next-item/${accountId}`
+    );
   }
   public createAnswer(props: RegularAnswer) {
-    return this.axios.post<number>('/v1/api/BaseCentralized/calc-cumulatives', props);
+    return this.axios.post<number>(
+      "/v1/api/BaseCentralized/calc-cumulatives",
+      props
+    );
   }
 
   public initializeLoadPTestHimem() {
-    return this.axios.get<number>('/v1/api/baseAppload/processor-load-ptest-himem');
+    return this.axios.get<number>(
+      "/v1/api/baseAppload/processor-load-ptest-himem"
+    );
   }
 
   public initializeLoadPrepareTrackItem() {
-    return this.axios.get<number>('/v1/api/baseAppload/processor-prep-track-item');
+    return this.axios.get<number>(
+      "/v1/api/baseAppload/processor-prep-track-item"
+    );
   }
 
   public submitAccessKey(params: AccessKeyType) {
-    return this.axios.post<LoginResponse>('/api/v2/internal/baseInternal/access-key-login', params);
+    return this.axios.post<LoginResponse>(
+      "/api/v2/internal/baseInternal/access-key-login",
+      params
+    );
   }
 }

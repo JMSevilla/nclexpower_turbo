@@ -1,20 +1,32 @@
 import React from 'react';
-import { SataRegularQuestion } from '@/core/types/ssrData';
 import { SATAQuestion } from './SATA';
 import { RegularSATAValidationAtom } from '@/core/schema/useAtomic';
 import { RegularSATAValidationType } from '@/core/schema/regularSATA/validation';
 import { useAtom } from 'jotai';
-import { getParsedChoices } from '@/core/utils/contents';
+import { RegularQuestion } from '@/core/types/ssrData';
+import { parseJSONtoString } from '@repo/core-library/types';
+import { useBusinessQueryRegularSubmission } from '@/core/hooks/useRegularSubmission';
 
-export const SATABlockQuestionaire: React.FC<SataRegularQuestion> = ({ choices, question }) => {
-  // const ParsedChoices = getParsedChoices(contents.choices[0].choices)
-
+export const SATABlock: React.FC<RegularQuestion> = ({ choices, question, questionType }) => {
+  const parsedChoices = parseJSONtoString(choices);
   const [regSataAtom, setRegSataAtom] = useAtom(RegularSATAValidationAtom);
+  const { submitAnswerAsync, itemselect } = useBusinessQueryRegularSubmission();
 
   async function handleSubmit(values: RegularSATAValidationType) {
-    console.log('Submitted value', values.regSata);
+    const selectedValues = values.regSata.filter(item => item.Value === true).map(item => item.XValue);
+    const data = {
+      LNum: itemselect[0].lNum,
+      CSItemsLNum: 0,
+      answer: 0,
+      multiAnswer: selectedValues,
+      QType: questionType,
+      accountId: '5A637337-33EC-41AF-A903-4192514B9561',
+    };
     setRegSataAtom(values);
+    await submitAnswerAsync({ ...data });
   }
 
-  return <SATAQuestion handleSubmit={handleSubmit} regSataAtom={regSataAtom} choices={choices} question={question} />;
+  return (
+    <SATAQuestion handleSubmit={handleSubmit} regSataAtom={regSataAtom} choices={parsedChoices} question={question} />
+  );
 };

@@ -12,7 +12,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { PreloadedGlobalsProvider } from '@/core/context/PreloadedGlobalsContext';
 import { ControlledToast } from '@repo/core-library/components';
-import { TourProvider } from '@repo/core-library/contexts';
+import { TourContextProvider } from '@repo/core-library/contexts';
 import { TourSteps } from '@/core/constant/tourStep';
 import { ProgressProvider } from '@/core/context/ProgressContext';
 import { MobileDetectionProvider } from '@repo/core-library/contexts/MobileDetectionContext';
@@ -40,30 +40,29 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                 <QueryClientProvider client={queryClient}>
                   <div className="min-h-screen flex flex-col bg-slate-100">
                     <AlertMessageV2Provider>
-                      <TourProvider steps={TourSteps}>
-                        <ToolbarSettingsProvider>
-                          {hasAccessToken && <Header />}
-                          <PageContainer selectedItem={itemselect}>
-                            <div className="min-h-[65dvh] flex flex-col justify-between  questionnaire-step-8">
-                              <LoadablePageContent loading={loading}>
-                                <DndProvider backend={HTML5Backend}>
-                                  <ControlledToast autoClose={5000} hideProgressBar={false} />
-                                  {/* Code below must be refactored after case study structure development completed. */}
-                                  {itemselect.length > 0 && (
-                                    <ParseContents
-                                      questionType={itemselect[0].questionType}
-                                      itemSelected={itemselect}
-                                    />
-                                  )}
-                                </DndProvider>
-                              </LoadablePageContent>
-                            </div>
-                          </PageContainer>
-                          {hasAccessToken && (
-                            <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
-                          )}
-                        </ToolbarSettingsProvider>
-                      </TourProvider>
+                      <TourContextProvider steps={TourSteps} />
+                      <ToolbarSettingsProvider>
+                        {hasAccessToken && <Header />}
+                        <PageContainer selectedItem={itemselect}>
+                          <div className="min-h-[65dvh] flex flex-col justify-between">
+                            <LoadablePageContent loading={loading}>
+                              <DndProvider backend={HTML5Backend}>
+                                <ControlledToast autoClose={5000} hideProgressBar={false} />
+                                {/* Code below must be refactored after case study structure development completed. */}
+                                {itemselect.length > 0 && (
+                                  <ParseContents
+                                    questionType={itemselect[0].typeOfQuestion}
+                                    itemSelected={itemselect}
+                                  />
+                                )}
+                              </DndProvider>
+                            </LoadablePageContent>
+                          </div>
+                        </PageContainer>
+                        {hasAccessToken && (
+                          <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
+                        )}
+                      </ToolbarSettingsProvider>
                     </AlertMessageV2Provider>
                   </div>
                 </QueryClientProvider>

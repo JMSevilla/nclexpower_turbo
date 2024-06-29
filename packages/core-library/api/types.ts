@@ -1,11 +1,15 @@
-
 export type AccessTokenResponse = {
   tokenType: string;
   accessToken: string;
   refreshToken: string;
   expiration: string;
   responseCode: number | string;
-}
+};
+
+export type AccessKeyType = {
+  accessKey: string;
+};
+
 export interface LoginParams {
   username: string;
   password: string;
