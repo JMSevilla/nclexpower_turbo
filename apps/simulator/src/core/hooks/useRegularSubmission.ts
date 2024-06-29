@@ -1,11 +1,9 @@
 import { useApplicationContext } from '@/core/context/AppContext';
 import { useRouter } from 'next/router';
-import { useApiCallback } from '@repo/core-library/hooks';
-import { RegularAnswer } from '@repo/core-library/types';
 import { useEffect } from 'react';
 import { useBusinessQueryContext } from '@repo/core-library/contexts';
 
-export const useRegularMCQQuestionnaire = () => {
+export const useBusinessQueryRegularSubmission = () => {
   const router = useRouter();
   const { setDisplayNextItem, itemselect } = useApplicationContext();
   const { businessQuerySubmissionAnswer } = useBusinessQueryContext();

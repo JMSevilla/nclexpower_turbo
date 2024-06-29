@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "@repo/core-library/config";
+import { config } from "./config";
 
 // export async function initializedCms() {
 //   const response = axios.get(`${config.value.MockDB}/questionaire`);
