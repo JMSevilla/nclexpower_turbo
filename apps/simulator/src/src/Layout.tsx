@@ -51,7 +51,10 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                                 <ControlledToast autoClose={5000} hideProgressBar={false} />
                                 {/* Code below must be refactored after case study structure development completed. */}
                                 {itemselect.length > 0 && (
-                                  <ParseContents questionType={itemselect[0].questionType} itemSelected={itemselect} />
+                                  <ParseContents
+                                    questionType={itemselect[0].typeOfQuestion}
+                                    itemSelected={itemselect}
+                                  />
                                 )}
                               </DndProvider>
                             </LoadablePageContent>

@@ -42,7 +42,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     shouldDisplayNextItem: displayNextItem,
   };
   const { businessQueryLoadPreProcess, businessQuerySelectQuestions } = useBusinessQueryContext();
-  // const selectQuestionCb = hooks.useApiCallback(async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args));
   const { refetch: loadPreProcess } = businessQueryLoadPreProcess(['loadpreprocess']);
   const {
     refetch: loadSelectionQuestion,
@@ -148,12 +147,11 @@ function mapQuestions(questions: CalcItemSelectResponseItem[]) {
     lNum: question.lNum,
     qId: question.qId,
     hasContainer: question.hasContainer,
-    qLNum: question.qLNum,
     question: question.question,
     actionKey: question.actionKey,
-    questionType: question.questionType,
     cnCateg: question.cnCateg,
     correct: question.correct,
     choices: question.choices,
+    typeOfQuestion: question.typeOfQuestion,
   }));
 }

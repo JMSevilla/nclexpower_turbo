@@ -1,16 +1,20 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const itemSchema = z.object({
-  label: z.string(),
-  value: z.boolean(),
-  xvalue: z.number()
+  Label: z.string(),
+  Value: z.union([z.number(), z.boolean()]),
+  XValue: z.number(),
 });
 
 export const RegSATASchema = z.object({
-  regSata: z.array(itemSchema)
-  .refine((data) => data.filter(item => item.value).length > 0, ({
-    message: "must have atleast 1 answer",
-  }))
+  regSata: z.array(itemSchema).refine(
+    data => {
+      return data.some(item => item.Value === true);
+    },
+    {
+      message: 'At least one item must have Value set to true',
+    },
+  ),
 });
 
 export type RegularSATAValidationType = z.infer<typeof RegSATASchema>;
