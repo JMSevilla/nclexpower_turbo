@@ -9,7 +9,7 @@ export default function LoginPage() {
   const { login } = useAuthContext()
 
   async function onSubmit({ username, password }: LoginParams) {
-    const result = await login(username, password)
+    await login(username, password)
   }
 
   return <LoginFormBlock onSubmit={onSubmit} isLoading={isLoading} />

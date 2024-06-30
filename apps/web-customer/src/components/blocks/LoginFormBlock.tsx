@@ -1,4 +1,3 @@
-import { Box } from '@mui/material'
 import { LoginParams } from '@repo/core-library/types/types'
 import { LoginForm } from './LoginForm'
 
@@ -9,9 +8,7 @@ interface Props {
 
 export function LoginFormBlock({ onSubmit, isLoading }: Props) {
   return (
-    <Box>
-      <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
-    </Box>
+    <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
   )
 }
 
