@@ -10,7 +10,6 @@ export interface CustomDialogProps {
   open: boolean;
   title?: string;
   icon?: ReactNode | ReactElement;
-  children?: ReactNode | ReactElement;
   content?: ReactNode | ReactElement;
   contentText?: string;
   button?: ReactNode | ReactElement;
@@ -18,7 +17,7 @@ export interface CustomDialogProps {
   className?: string;
   sx?: DialogProps['sx'];
   maxWidth?: DialogProps['maxWidth'];
-  onClose?: () => void;
+  close?: () => void;
 }
 
 const DefaultDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -44,7 +43,7 @@ const DefaultDialogContentText = styled(DialogContentText)(({ theme }) => ({
   },
 }));
 
-export const CustomDialog: React.FC<CustomDialogProps> = ({
+export const CustomDialog: React.FC<React.PropsWithChildren<CustomDialogProps>> = ({
   open,
   title,
   content,
@@ -56,16 +55,16 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   children,
   sx,
   maxWidth,
-  onClose,
+  close,
 }) => {
   return (
     <Dialog
       open={open}
-      onClose={onClose}
       aria-labelledby="custom-dialog-title"
       sx={sx}
       className={className}
       maxWidth={maxWidth}
+      onClose={close}
     >
       <DefaultDialogTitle id="custom-dialog-title" className={className}>
         {icon}

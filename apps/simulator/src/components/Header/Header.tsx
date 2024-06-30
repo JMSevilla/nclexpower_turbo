@@ -10,7 +10,7 @@ import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
 import { ToolbarSettings } from '../Toolbar/Toolbar';
-import { IRTsDialog } from "../Dialog/IRT's/IRTModal";
+import { IRTsDialog } from '../Dialog/IrtModal/IRTModal';
 import { useTour } from '@reactour/tour';
 import { useLocalStorage } from '@repo/core-library/hooks';
 export const buttonStyle = {

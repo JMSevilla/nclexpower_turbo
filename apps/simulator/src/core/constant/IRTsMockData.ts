@@ -1,36 +1,4 @@
-export interface IRTExamtype {
-  id: number;
-  EventLNum: number;
-  LineNum: number;
-  ItemID: number;
-  Response: number;
-  LineTheta: string;
-  LineSEM: string;
-  ADisc: string;
-  BDiff: string;
-  CNCateg: number;
-}
-
-export interface ThetaCompType {
-  id: number;
-  seqNum: number;
-  qlNum: number;
-  ADisc: number;
-  BDiff: number;
-  CGuess: number;
-  response: string;
-  inclusion: string;
-  EventLNum: number;
-}
-
-export interface ThetaZeroCumType {
-  id: number;
-  seqNum: number;
-  lastSumNum: number;
-  lastSumDenom: boolean;
-  lastCumulativeTheta: number;
-  accoundid: number;
-}
+import { IRTExamtype, ThetaCompType, ThetaZeroCumType, IrtTableProps } from '../types/irtData';
 
 export const MockdataExam: IRTExamtype[] = [
   {
@@ -229,4 +197,10 @@ export const ColumntheTaZeroCum = [
     width: 150,
     sortable: true,
   },
+];
+
+export const tables: IrtTableProps[] = [
+  { title: 'Exam Logs', rows: MockdataExam, columns: ColumnIRTExam },
+  { title: 'Theta Comp Scratch', rows: MockdataThetaComp, columns: ColumntheTaCompScratch },
+  { title: 'Theta Zero Cumm', rows: MockdataThetaZeroCum, columns: ColumntheTaZeroCum },
 ];
