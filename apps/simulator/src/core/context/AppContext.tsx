@@ -88,14 +88,6 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   }, [accessToken]);
 
   useEffect(() => {
-    if (!accessToken) {
-      router.push({
-        pathname: '/',
-      });
-    }
-  }, [accessToken]);
-
-  useEffect(() => {
     const handleRouteChange = () => {
       if (router.pathname === '/next-item') {
         setReloadTrigger(prevState => !prevState);
