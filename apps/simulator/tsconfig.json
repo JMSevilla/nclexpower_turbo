@@ -14,8 +14,8 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@repo/core-library": ["../../packages/core-library/src"],
-      "@repo/core-library/*": ["../../packages/core-library/src/*"]
+      "@repo/core-library": ["../../packages/core-library"],
+      "@repo/core-library/*": ["../../packages/core-library/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "tailwind.config.ts", "../../packages/core-library/cms-initialization.ts"],
