@@ -1,7 +1,9 @@
 import { RenderOptions, render as rtlRender } from '@testing-library/react';
 import rtlEvent from '@testing-library/user-event';
 import { ReactElement } from 'react';
-import { ApplicationProvider } from '@/core/context/AppContext';
+import { ApplicationProvider } from '../core/context/AppContext';
+import { BusinessQueryContextProvider } from '@repo/core-library/contexts';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 export * from '@testing-library/react';
 
@@ -16,9 +18,17 @@ export function submittedResult() {
   };
 }
 
+const queryClient = new QueryClient({});
+
 export const render = (ui: ReactElement, options?: Omit<RenderOptions, 'queries'>) =>
   rtlRender(ui, {
-    wrapper: ({ children }) => <ApplicationProvider data={null as any}>{children}</ApplicationProvider>,
+    wrapper: ({ children }) => (
+      <QueryClientProvider client={queryClient}>
+        <BusinessQueryContextProvider>
+          <ApplicationProvider data={null as any}>{children}</ApplicationProvider>
+        </BusinessQueryContextProvider>
+      </QueryClientProvider>
+    ),
     ...options,
   });
 
