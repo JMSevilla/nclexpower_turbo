@@ -2,7 +2,7 @@ import { RenderOptions, render as rtlRender } from '@testing-library/react';
 import rtlEvent from '@testing-library/user-event';
 import { ReactElement } from 'react';
 import { ApplicationProvider } from '../core/context/AppContext';
-import { BusinessQueryContextProvider } from '@repo/core-library/contexts';
+import { BusinessQueryContextProvider } from '../../../../packages/core-library/contexts';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 export * from '@testing-library/react';
