@@ -63,6 +63,18 @@ jobs:
           cd apps/simulator
           npm install
 
+      - name: Debug TypeScript paths
+        run: |
+          cd apps/simulator
+          echo "TSConfig paths:"
+          cat tsconfig.json
+
+      - name: Debug TypeScript paths
+        run: |
+          cd apps/simulator
+          echo "TSConfig paths:"
+          cat tsconfig.json
+
       - name: Run tests with coverage for simulator
         run: |
           cd apps/simulator
@@ -72,7 +84,7 @@ jobs:
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./apps/simulator/coverage/**/coverage-final.json
+          files: ./coverage/**/coverage-final.json
           flags: unittests
           name: codecov-simulator
 
