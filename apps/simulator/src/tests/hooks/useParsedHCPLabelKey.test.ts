@@ -1,7 +1,7 @@
 import { renderHook } from '../common';
 import { useParsedHCPLabelKey } from '../../core/utils/useParsedHCPLabelKey';
 
-jest.mock('@repo/core-library/config', () => ({
+jest.mock('../../../../../packages/core-library/config', () => ({
   config: { value: jest.fn() },
 }));
 
