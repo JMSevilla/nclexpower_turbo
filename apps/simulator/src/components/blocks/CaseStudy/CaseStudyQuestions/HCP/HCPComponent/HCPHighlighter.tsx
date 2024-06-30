@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParsedHCPLabelKey } from '@/core/utils/useParsedHCPLabelKey '
+import { useParsedHCPLabelKey } from '@/core/utils/useParsedHCPLabelKey'
 import { useHighlightedProcessor } from '@/core/utils/useHighlightedProcessor'
 import {
   handleHighlight,
