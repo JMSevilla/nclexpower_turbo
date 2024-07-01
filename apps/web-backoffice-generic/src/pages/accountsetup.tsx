@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAuthContext } from " core-library/contexts";
-import { AccountSetupType } from " core-library/components/blocks/AccountSetupBlock/validation";
-import { AccountSetupBlock } from " core-library/components/blocks/AccountSetupBlock/AccountSetupBlock";
+import { useAuthContext } from "core-library/contexts";
+import { AccountSetupType } from "core-library/components/blocks/AccountSetupBlock/validation";
+import { AccountSetupBlock } from "core-library/components/blocks/AccountSetupBlock/AccountSetupBlock";
 import { useAccountSetup } from "@/core/hooks/useAccountSetup";
 
 export default function AccountSetup() {

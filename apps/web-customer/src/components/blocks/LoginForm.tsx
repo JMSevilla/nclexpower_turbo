@@ -11,8 +11,8 @@ import { useForm } from "react-hook-form";
 import {
   loginSchema,
   LoginFormType,
-} from " core-library/components/blocks/LoginFormBlock/validation";
-import { TextField } from " core-library/components";
+} from "core-library/components/blocks/LoginFormBlock/validation";
+import { TextField } from "core-library/components";
 import CoreZigma from "../images/CoreZigma.png";
 import { MedicineLoginBG } from "../icons/MedicineLoginBG";
 

@@ -17,7 +17,7 @@ module.exports = {
         )
       ),
       TRUSTED_ORIGINS: [
-        process.env.NEXT_PRIVATE_API_URL,
+        // process.env.NEXT_PRIVATE_API_URL,
         process.env.NODE_ENV === "development" && "http://localhost:3000",
       ].filter(Boolean),
     },

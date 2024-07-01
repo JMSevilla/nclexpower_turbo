@@ -2,8 +2,8 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { PageContainer, LoadablePageContent } from "@/components";
-import { ControlledToast, DrawerLayout } from " core-library/components";
-import { ToastProvider } from " core-library/contexts";
+import { ControlledToast, DrawerLayout } from "core-library/components";
+import { ToastProvider } from "core-library/contexts";
 
 interface Props {}
 

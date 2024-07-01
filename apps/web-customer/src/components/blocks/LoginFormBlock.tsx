@@ -1,4 +1,4 @@
-import { LoginParams } from " core-library/types/types";
+import { LoginParams } from "core-library/types/types";
 import { LoginForm } from "./LoginForm";
 
 interface Props {
