@@ -5,7 +5,7 @@ import { McqSsValidationType } from '@/core/schema/mcq/validation';
 import { useAtom } from 'jotai';
 import { McqSsValidationAtom } from '@/core/schema/useAtomic';
 import { useBusinessQueryRegularSubmission } from '@/core/hooks/useRegularSubmission';
-import { parseJSONtoString } from '@repo/core-library/types';
+import { parseJSONtoString } from 'core-library/types';
 
 export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question, questionType }) => {
   const [mcqAtom, setMcqAtom] = useAtom(McqSsValidationAtom);

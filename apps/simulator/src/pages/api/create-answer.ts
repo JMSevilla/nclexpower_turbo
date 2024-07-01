@@ -1,6 +1,6 @@
-import { withSsrHttpClient } from '@repo/core-library';
+import { withSsrHttpClient } from 'core-library';
 import { NextApiHandler } from 'next';
-import { RegularAnswer } from '@repo/core-library/types';
+import { RegularAnswer } from 'core-library/types';
 
 const handler: NextApiHandler = withSsrHttpClient(client => async (req, res) => {
   if (req.method !== 'POST') {

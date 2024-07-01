@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid } from '@repo/core-library/components';
+import { DataGrid } from 'core-library/components';
 import { Typography, Card, CardContent } from '@mui/material';
 import { IrtTableProps } from '@/core/types/irtData';
 

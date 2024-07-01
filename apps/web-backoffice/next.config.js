@@ -1,17 +1,17 @@
-const withTM = require("next-transpile-modules")(["@repo/core-library"]);
+const withTM = require('next-transpile-modules')(['core-library']);
 
 module.exports = withTM({
   reactStrictMode: true,
-  output: "standalone",
+  output: 'standalone',
   staticPageGenerationTimeout: 120,
   images: {
-    domains: ["media.discordapp.net"], // add your image domains here
+    domains: ['media.discordapp.net'], // add your image domains here
   },
   async rewrites() {
     return [
       {
-        source: "/:path*",
-        destination: "/",
+        source: '/:path*',
+        destination: '/',
       },
     ];
   },

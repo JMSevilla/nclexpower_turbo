@@ -1,6 +1,6 @@
 import React from 'react';
 import { ErrorMobileIcon } from '../icons/ErrorMobileIcon';
-import { MobileDetectionContextValue } from '@repo/core-library/contexts/MobileDetectionContext';
+import { MobileDetectionContextValue } from 'core-library/contexts/MobileDetectionContext';
 import { CustomDialog } from './CustomDialog';
 
 export const MobileErrorDialog: React.FC<MobileDetectionContextValue> = ({ isMobile }) => {

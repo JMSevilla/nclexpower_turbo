@@ -4,7 +4,7 @@ import { RegularSATAValidationAtom } from '@/core/schema/useAtomic';
 import { RegularSATAValidationType } from '@/core/schema/regularSATA/validation';
 import { useAtom } from 'jotai';
 import { RegularQuestion } from '@/core/types/ssrData';
-import { parseJSONtoString } from '@repo/core-library/types';
+import { parseJSONtoString } from 'core-library/types';
 import { useBusinessQueryRegularSubmission } from '@/core/hooks/useRegularSubmission';
 
 export const SATABlock: React.FC<RegularQuestion> = ({ choices, question, questionType }) => {

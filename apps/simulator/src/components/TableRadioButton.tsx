@@ -1,7 +1,7 @@
 import { FormControlLabel, Radio as MuiRadio, RadioProps, Typography } from '@mui/material';
 import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
-import { ControlledField } from '@repo/core-library/types';
+import { ControlledField } from 'core-library/types';
 import { DataProps } from './blocks/CaseStudy/CaseStudyQuestions';
 
 type Props = RadioProps & {

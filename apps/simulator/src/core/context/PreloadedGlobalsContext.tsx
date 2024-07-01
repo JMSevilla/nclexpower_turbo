@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Header } from '../types/ssrData';
-import { hooks } from '@repo/core-library';
+import { hooks } from 'core-library';
 import { useApplicationContext } from './AppContext';
 
 type PreloadedGlobalsValue = {
