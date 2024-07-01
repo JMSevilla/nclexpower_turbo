@@ -1,4 +1,4 @@
-import { datatypes } from '@repo/core-library';
+import { datatypes } from 'core-library';
 import React, { ReactNode } from 'react';
 
 export type SsrQuestionaireContentProps = {

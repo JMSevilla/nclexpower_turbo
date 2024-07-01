@@ -1,7 +1,8 @@
+import React from 'react';
 import { Stack, FormControlLabel, Checkbox as MuiCheckbox, CheckboxProps, Typography } from '@mui/material';
 
 import { Controller, FieldValues } from 'react-hook-form';
-import { ControlledField } from '@repo/core-library/types';
+import { ControlledField } from 'core-library/types';
 import { FormHelperText } from '.';
 
 type Props = CheckboxProps & {

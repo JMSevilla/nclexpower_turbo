@@ -1,4 +1,3 @@
-const path = require('path');
 /** @type {import('next').NextConfig} */
 
 module.exports = {
@@ -20,8 +19,6 @@ module.exports = {
     },
   },
   webpack: config => {
-    config.resolve.alias['@repo/core-library'] = path.resolve(__dirname, '../../packages/core-library');
-
     config.module.rules.unshift({
       test: /pdf\.worker\.(min\.)?js/,
       use: [

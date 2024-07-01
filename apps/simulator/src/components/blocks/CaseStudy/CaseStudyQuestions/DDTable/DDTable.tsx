@@ -1,15 +1,15 @@
-import { QuestionaireProps, AnswerProps, FieldsType } from "@/core/types/ssrData";
+import { QuestionaireProps, AnswerProps, FieldsType } from '../../../../../core/types/ssrData';
 import React from 'react';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { TableComponent } from "./Table";
-import { ControlledSelectField } from '@repo/core-library/components';
-import { DDTableSchema, DDTableValidationType } from '@/core/schema/ddtable/validation';
+import { TableComponent } from './Table';
+import { ControlledSelectField } from 'core-library/components';
+import { DDTableSchema, DDTableValidationType } from '../../../../../core/schema/ddtable/validation';
 import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks';
 import { Paper, Grid } from '@mui/material';
-import { getMapItems } from "@/core/utils/contents";
-import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
+import { getMapItems } from '../../../../../core/utils/contents';
+import { useToolbarSettings } from '../../../../../core/context/ToolbarSettingsContext';
 
 export type DDTProps = {
   questionaire: QuestionaireProps[];
@@ -22,7 +22,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
   const { columnName, selectFieldKey, selectField } = getMapItems(answer);
 
   const form = useForm<DDTableValidationType>({
-    mode: "all",
+    mode: 'all',
     resolver: zodResolver(DDTableSchema),
   });
   const { textZoomStyle } = useToolbarSettings();
@@ -44,7 +44,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
   );
 
   useFormSubmissionBindingHooks({
-    key: "DDT",
+    key: 'DDT',
     isValid: formState.isValid,
     isDirty: formState.isDirty,
     cb: () => form.handleSubmit(handleSubmit)(),
@@ -57,14 +57,14 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
         <Grid item xs={12} sm={6} md={6}>
           <div className="h-full w-full p-4">
             {questionaire &&
-              questionaire.map((questionItem) => (
+              questionaire.map(questionItem => (
                 <div key={questionItem.qId} className="w-full">
                   <div className="w-full text-sm mb-4 pr-5 pt-4">
                     <p>{questionItem.question}</p>
                   </div>
                   <div className="w-full">
                     {questionItem.tabs &&
-                      questionItem.tabs.map((tab) => (
+                      questionItem.tabs.map(tab => (
                         <div key={tab.tabsId}>
                           <div className="flex gap-1">
                             <div className="bg-white w-fit px-5 py-1 rounded-t-md text-sm font-semibold flex items-center mb-[-3px]">
@@ -77,12 +77,8 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
                             style={{ maxHeight: '70vh' }}
                           >
                             <div className="h-[45vh] flex w-full gap-2">
-                              <p className="font-semibold min-w-[50px]">
-                                {tab.tabsId} :
-                              </p>
-                              <div className="leading-6 text-sm">
-                                {typeof tab.content === "string" && tab.content}
-                              </div>
+                              <p className="font-semibold min-w-[50px]">{tab.tabsId} :</p>
+                              <div className="leading-6 text-sm">{typeof tab.content === 'string' && tab.content}</div>
                             </div>
                           </Paper>
                         </div>
@@ -95,7 +91,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
         <Grid item xs={12} sm={6} md={6}>
           <div className="h-full w-full p-5">
             {answer &&
-              answer.map((answerItem) => (
+              answer.map(answerItem => (
                 <div key={answerItem.answerId}>
                   <div className="w-full text-sm mb-4 pr-5 pt-4">
                     <p className="flex" style={textZoomStyle}>
@@ -114,7 +110,7 @@ export const DDTable: React.FC<DDTProps> = ({ questionaire, answer, ddtAtom, han
                     selectFieldComponent={renderControlledSelectField}
                   />
                   <div className="w-full text-sm mb-4 pr-5 pt-4 flex gap-1">
-                    <p style={textZoomStyle}>{answerItem.note === "" ? "" : "Note:"}</p>
+                    <p style={textZoomStyle}>{answerItem.note === '' ? '' : 'Note:'}</p>
                     <p style={textZoomStyle}>{answerItem.note}</p>
                   </div>
                 </div>

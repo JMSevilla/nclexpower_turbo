@@ -2,11 +2,11 @@ import { Grid, Paper } from '@mui/material';
 import React from 'react';
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { ControlledRadioGroup } from '@/components/RadioGroup';
-import { McqSsValidationType, RowSchema } from '@/core/schema/mcq/validation';
+import { ControlledRadioGroup } from '../../../../components/RadioGroup';
+import { McqSsValidationType, RowSchema } from '../../../../core/schema/mcq/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index';
-import { ParsedChoices } from '@repo/core-library/types';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks/index';
+import { ParsedChoices } from 'core-library/types';
 
 interface Props {
   mcqAtom: McqSsValidationType | undefined;

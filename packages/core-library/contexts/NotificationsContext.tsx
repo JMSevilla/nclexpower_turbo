@@ -8,7 +8,7 @@ import React, {
 import { CmsButton } from "../types/common";
 import { MessageType } from "../components/Alert/alert";
 import { useScroll } from "../core";
-import { useRouter } from "../core";
+import { useRouter } from "next/router";
 import { usePageLoaderContext } from "./PageLoaderContext";
 
 interface NotificationsContextValue {
@@ -40,9 +40,7 @@ export const NotificationsContextProvider: React.FC<
   const scroll = useScroll();
   const { isLoading, isCalculationsLoaded } = usePageLoaderContext();
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const isDataLoading =
-    isLoading ||
-    (router.asPath === router.staticRoutes.hub && !isCalculationsLoaded);
+  const isDataLoading = isLoading || !isCalculationsLoaded;
 
   const hideNotifications = useCallback(() => setNotifications([]), []);
 

@@ -2,12 +2,12 @@ import { Paper } from '@mui/material';
 import React from 'react';
 import { useForm, useFieldArray, useFormState, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RegularSATAValidationType, RegSATASchema } from '@/core/schema/regularSATA/validation';
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/useFormSubmissionBindingHooks';
-import { useErrorHandler } from '@/core/utils/useErrorhandler';
-import { ParsedChoices } from '@repo/core-library/types';
+import { RegularSATAValidationType, RegSATASchema } from '../../../../core/schema/regularSATA/validation';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks/useFormSubmissionBindingHooks';
+import { useErrorHandler } from '../../../../core/utils/useErrorhandler';
+import { ParsedChoices } from 'core-library/types';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { ControlledCheckbox } from '@/components/Checkbox';
+import { ControlledCheckbox } from '../../../../components/Checkbox';
 
 interface Props {
   regSataAtom: RegularSATAValidationType | undefined;

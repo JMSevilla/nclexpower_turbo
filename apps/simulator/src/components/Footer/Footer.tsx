@@ -3,8 +3,8 @@ import { AppBar, Toolbar, Typography, Box, Button as MuiButton } from '@mui/mate
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PauseIcon from '@mui/icons-material/Pause';
-import { useCustomAction } from '@repo/core-library/hooks';
-import { Button } from '@repo/core-library/components';
+import { useCustomAction } from 'core-library/hooks';
+import { Button } from 'core-library/components';
 
 interface Props {
   actionKey: string;

@@ -5,7 +5,7 @@ import parse, { HTMLReactParserOptions } from "html-react-parser";
 import { Parser } from "simple-text-parser";
 import { useTokenEnrichedValue } from "../contents/cms/inject-tokens";
 import { useGlobalsContext, useTenantContext } from "../contexts";
-import { useRouter } from "../core/router";
+import { useRouter } from "next/router";
 
 type EventTarget = React.MouseEvent<HTMLDivElement, MouseEvent>["target"];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import { SsrMockQuestionaire } from '@/core/types/ssrData';
-import { CalcItemSelectResponseItem } from '@repo/core-library/types';
+import { CalcItemSelectResponseItem } from 'core-library/types';
 
 interface Props {
   selectedItem: CalcItemSelectResponseItem[];

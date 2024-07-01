@@ -13,8 +13,8 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    " eslint-config": "*",
+    " typescript-config": "*",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },

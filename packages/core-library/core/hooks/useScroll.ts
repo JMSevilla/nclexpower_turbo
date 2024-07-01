@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { useRouter } from "../router";
+import { useRouter } from "next/router";
 
 export const useScroll = () => {
   const router = useRouter();

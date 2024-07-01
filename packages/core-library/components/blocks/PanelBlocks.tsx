@@ -13,7 +13,7 @@ import {
   parseBackgroundColor,
 } from "../../contents/cms/parse-cms";
 import { useResolution } from "../../hooks";
-import { useRouter } from "../../core/router";
+import { useRouter } from "next/router";
 
 interface Props {
   id?: string;

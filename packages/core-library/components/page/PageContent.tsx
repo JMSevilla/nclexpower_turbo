@@ -4,7 +4,7 @@ import { CmsPage, PageContentValues } from "../../types/page";
 import { CmsTenant } from "../../types/tenant";
 import { shouldReduceSpaceBetweenCmsBlocks } from "../../core/business/cms-spacing";
 import { parseContent } from "../../contents/cms/parse-cms";
-import { useRouter } from "../../core/router";
+import { useRouter } from "next/router";
 
 interface Props {
   page: CmsPage | null;

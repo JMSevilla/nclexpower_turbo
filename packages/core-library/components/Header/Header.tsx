@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CmsMenu } from "../../types/menu";
 import { CmsTenant } from "../../types/tenant";
 import { useResolution } from "../../hooks";
-import { useRouter } from "../../core";
+import { useRouter } from "next/router";
 import { HeaderLogoNavigation } from "./HeaderLogoNavigation";
 import { HeaderLogo } from "./HeaderLogo";
 
@@ -51,7 +51,6 @@ export const Header: React.FC<Props> = ({
           display="flex"
           alignItems="flex-end"
           justifyContent="flex-end"
-
         >
           <Grid
             item
@@ -74,8 +73,7 @@ export const Header: React.FC<Props> = ({
                   id="cobranding_logo_button"
                   href={""}
                   shouldNavigateToNewTab={!isAuthenticated}
-                >
-                </HeaderLogoNavigation>
+                ></HeaderLogoNavigation>
               </Grid>
             </Grid>
             {isAuthenticated && <Grid item alignSelf="center"></Grid>}

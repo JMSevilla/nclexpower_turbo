@@ -1,10 +1,10 @@
+import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { cmsInit } from '@repo/core-library';
 import { Layout as LayoutComponent } from './Layout';
-import { ApplicationProvider } from '@/core/context/AppContext';
-import { ErrorBox } from '@repo/core-library/components';
-import { BusinessQueryContextProvider } from '@repo/core-library/contexts';
+import { ApplicationProvider } from '../core/context/AppContext';
+import { ErrorBox } from 'core-library/components';
+import { BusinessQueryContextProvider } from 'core-library/contexts';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 interface Props {

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { forwardRef } from "react";
 import { useTenantContext } from "../contexts";
-import { useRouter } from "../core";
+import { useRouter } from "next/router";
 
 const Anchor = styled("a")({});
 

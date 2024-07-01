@@ -3,16 +3,16 @@ import { AppBar, Toolbar, Box, Tooltip, Typography, Button } from '@mui/material
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { usePreloadedGlobals } from '@/core/context/PreloadedGlobalsContext';
-import { useCountdown } from '@repo/core-library/hooks/useCountdown';
+import { usePreloadedGlobals } from '../../core/context/PreloadedGlobalsContext';
+import { useCountdown } from 'core-library/hooks/useCountdown';
 import LoadingBar from 'react-top-loading-bar';
-import { useProgress } from '@/core/context/ProgressContext';
+import { useProgress } from '../../core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
 import { ToolbarSettings } from '../Toolbar/Toolbar';
 import { IRTsDialog } from '../Dialog/IrtModal/IRTModal';
 import { useTour } from '@reactour/tour';
-import { useLocalStorage } from '@repo/core-library/hooks';
+import { useLocalStorage } from 'core-library/hooks';
 export const buttonStyle = {
   backgroundColor: 'transparent',
   color: 'white',

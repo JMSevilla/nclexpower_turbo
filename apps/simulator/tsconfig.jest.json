@@ -4,9 +4,7 @@
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
-        "@/*": ["src/*"],
-        "@repo/core-library": ["../../packages/core-library"],
-        "@repo/core-library/*": ["../../packages/core-library/*"]
+        "@/*": ["src/*"]
         }
     }
 }

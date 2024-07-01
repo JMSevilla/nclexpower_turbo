@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { CmsPage } from "../../types/page";
 import { usePageLoaderContext } from "../../contexts/PageLoaderContext";
-import { useRouter } from "../../core";
+import { useRouter } from "next/router";
 import { ComponentLoader } from "../ComponentLoader";
 
 interface Props {
@@ -22,7 +22,6 @@ export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     if (!page && !isPageLoading) {
-      router.push((routes) => routes.page_not_found);
     }
   }, [page, isPageLoading]);
 

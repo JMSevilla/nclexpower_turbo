@@ -1,16 +1,14 @@
 import { Checkbox, Grid } from '@mui/material';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import React, { useState } from 'react';
-import { AnswerProps, SsrAnswerTabsProps, QuestionaireProps } from '@/core/types/ssrData';
-import { useErrorHandler } from '@/core/utils/useErrorhandler';
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks';
-import { CaseStudySATAValidationType, CsSATASchema } from '@/core/schema/CSSata/validation';
-import { CaseStudySataAtom } from '@/core/schema/useAtomic';
-import { ControlledCheckbox } from '@/components/Checkbox';
-import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
+import { AnswerProps, SsrAnswerTabsProps, QuestionaireProps } from '../../../../../core/types/ssrData';
+import { useErrorHandler } from '../../../../../core/utils/useErrorhandler';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks';
+import { CaseStudySATAValidationType, CsSATASchema } from '../../../../../core/schema/CSSata/validation';
+import { ControlledCheckbox } from '../../../../../components/Checkbox';
+import { useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAtom } from 'jotai';
-import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
+import { useToolbarSettings } from '../../../../../core/context/ToolbarSettingsContext';
 
 type Props = {
   questionaire: QuestionaireProps[];

@@ -1,11 +1,11 @@
-import { MCQ } from '@/components/blocks/RegularQuestions/MCQ/MCQ';
+import { MCQ } from '../../../../components/blocks/RegularQuestions/MCQ/MCQ';
 import React from 'react';
-import { RegularQuestion } from '@/core/types/ssrData';
-import { McqSsValidationType } from '@/core/schema/mcq/validation';
+import { RegularQuestion } from '../../../../core/types/ssrData';
+import { McqSsValidationType } from '../../../../core/schema/mcq/validation';
 import { useAtom } from 'jotai';
-import { McqSsValidationAtom } from '@/core/schema/useAtomic';
-import { useBusinessQueryRegularSubmission } from '@/core/hooks/useRegularSubmission';
-import { parseJSONtoString } from '@repo/core-library/types';
+import { McqSsValidationAtom } from '../../../../core/schema/useAtomic';
+import { useBusinessQueryRegularSubmission } from '../../../../core/hooks/useRegularSubmission';
+import { parseJSONtoString } from 'core-library/types';
 
 export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question, questionType }) => {
   const [mcqAtom, setMcqAtom] = useAtom(McqSsValidationAtom);

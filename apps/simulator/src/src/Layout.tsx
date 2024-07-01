@@ -1,22 +1,23 @@
-import { Footer, Header } from '@/components';
-import { LoadablePageContent } from '@/components/LoadablePageContents';
-import { PageContainer } from '@/components/PageContainer';
-import { ParseContents } from '@/components/parse-contents';
-import { useApplicationContext } from '@/core/context/AppContext';
-import { SsrMockQuestionaire } from '@/core/types/ssrData';
+import React from 'react';
+import { Footer, Header } from '../components';
+import { LoadablePageContent } from '../components/LoadablePageContents';
+import { PageContainer } from '../components/PageContainer';
+import { ParseContents } from '../components/parse-contents';
+import { useApplicationContext } from '../core/context/AppContext';
+import { SsrMockQuestionaire } from '../core/types/ssrData';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { AlertMessageV2Provider } from '@repo/core-library/contexts/AlertMessageContext';
-import { FormSubmissionContextProvider, ToastProvider } from '@repo/core-library/contexts';
+import { AlertMessageV2Provider } from 'core-library/contexts/AlertMessageContext';
+import { FormSubmissionContextProvider, ToastProvider } from 'core-library/contexts';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { PreloadedGlobalsProvider } from '@/core/context/PreloadedGlobalsContext';
-import { ControlledToast } from '@repo/core-library/components';
-import { TourContextProvider } from '@repo/core-library/contexts';
-import { TourSteps } from '@/core/constant/tourStep';
-import { ProgressProvider } from '@/core/context/ProgressContext';
-import { MobileDetectionProvider } from '@repo/core-library/contexts/MobileDetectionContext';
-import { ToolbarSettingsProvider } from '@/core/context/ToolbarSettingsContext';
+import { PreloadedGlobalsProvider } from '../core/context/PreloadedGlobalsContext';
+import { ControlledToast } from 'core-library/components';
+import { TourContextProvider } from 'core-library/contexts';
+import { TourSteps } from '../core/constant/tourStep';
+import { ProgressProvider } from '../core/context/ProgressContext';
+import { MobileDetectionProvider } from 'core-library/contexts/MobileDetectionContext';
+import { ToolbarSettingsProvider } from '../core/context/ToolbarSettingsContext';
 
 interface Props {
   questionaire: SsrMockQuestionaire[];
