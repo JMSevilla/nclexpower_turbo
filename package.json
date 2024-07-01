@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "eslint-config": "*",
-    " typescript-config": "*",
+    "typescript-config": "*",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },
