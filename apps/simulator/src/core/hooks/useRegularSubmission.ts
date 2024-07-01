@@ -1,7 +1,7 @@
 import { useApplicationContext } from '@/core/context/AppContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useBusinessQueryContext } from '@repo/core-library/contexts';
+import { useBusinessQueryContext } from 'core-library/contexts';
 
 export const useBusinessQueryRegularSubmission = () => {
   const router = useRouter();

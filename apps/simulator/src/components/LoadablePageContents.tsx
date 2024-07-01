@@ -1,41 +1,33 @@
-import { ComponentLoader } from "@repo/core-library/components";
-import { Box } from "@mui/material";
-import { useApplicationContext } from "@/core/context/AppContext";
-import { useEffect } from "react";
+import { ComponentLoader } from 'core-library/components';
+import { Box } from '@mui/material';
+import { useApplicationContext } from '@/core/context/AppContext';
+import { useEffect } from 'react';
+import { UnauthorizedDialog } from './Dialog/UnauthorizedDialog';
 
 interface Props {
   loading?: boolean;
 }
 
-export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({
-  children,
-  loading,
-}) => {
-  const { setLoader } = useApplicationContext();
+export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({ children, loading }) => {
+  const { setLoader, hasAccessToken } = useApplicationContext();
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
     }, 3000);
   }, []);
+
+  if (!hasAccessToken) {
+    return <UnauthorizedDialog open={!hasAccessToken} />;
+  }
+
   return (
     <>
       {loading ? (
-        <Box
-          flex={1}
-          height="100%"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          sx={{}}
-        >
+        <Box flex={1} height="100%" display="flex" alignItems="center" justifyContent="center" sx={{}}>
           <ComponentLoader disableMarginBottom={false} />
         </Box>
       ) : (
-        <Box
-          display={loading ? "none" : "block"}
-          flexDirection="column"
-          height="100%"
-        >
+        <Box display={loading ? 'none' : 'block'} flexDirection="column" height="100%">
           {children}
         </Box>
       )}

@@ -1,5 +1,5 @@
-import { CmsPage } from "@repo/core-library/types/page";
-import { CmsTenant } from "@repo/core-library/types/tenant";
+import { CmsPage } from "core-library/types/page";
+import { CmsTenant } from "core-library/types/tenant";
 import { DeepPartial } from "react-hook-form";
 
 export const TENANT: CmsTenant = {

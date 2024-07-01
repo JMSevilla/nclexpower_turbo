@@ -1,5 +1,5 @@
 {
-    "name": "@repo/core-library",
+    "name": "core-library",
     "version": "0.0.0",
     "private": true,
     "main": "./index.ts",
@@ -10,7 +10,7 @@
         "test": "jest --coverage"
     },
     "devDependencies": {
-        "@repo/typescript-config": "*",
+        "typescript-config": "*",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^14.1.2",
         "@testing-library/user-event": "^14.3.0",
@@ -51,7 +51,6 @@
         "@tailwindcss/forms": "^0.5.7",
         "clsx": "^2.1.1",
         "compress-json": "^3.0.5",
-        "core-library": "*",
         "css-mediaquery": "^0.1.2",
         "date-fns": "^2.30.0",
         "domhandler": "^5.0.3",

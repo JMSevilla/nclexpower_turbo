@@ -1,4 +1,4 @@
-import { nonce } from '@repo/core-library/types/business/nonce';
+import { nonce } from 'core-library/types/business/nonce';
 
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 

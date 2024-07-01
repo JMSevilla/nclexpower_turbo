@@ -8,8 +8,8 @@ import {
   Typography,
   TypographyProps,
 } from '@mui/material';
-import { datatypes } from '@repo/core-library';
-import { ControlledField } from '@repo/core-library/types';
+import { datatypes } from 'core-library';
+import { ControlledField } from 'core-library/types';
 import { Controller, FieldValues } from 'react-hook-form';
 
 type Props = Pick<RadioGroupProps, 'value' | 'sx' | 'onBlur'> & {
