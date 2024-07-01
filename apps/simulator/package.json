@@ -36,6 +36,8 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
     "react-highlight-words": "^0.20.0",
+    "date-fns": "^2.30.0",
+    "react-idle-timer": "^5.4.0",
     "react-hook-form": "^7.50.1",
     "react-query": "^3.39.3",
     "react-top-loading-bar": "^2.3.1",
