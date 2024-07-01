@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies for core-library
         run: |
           cd packages/core-library
-          npm install
+          npm install --no-save
 
       - name: Run tests with coverage for core-library
         run: |
