@@ -8,8 +8,7 @@
     ],
     "moduleNameMapper": {
       ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "jest-transform-stub",
-      "^@/(.*)$": "<rootDir>/src/$1",
-      "^@repo/core-library(.*)$": "<rootDir>/../../packages/core-library$1"
+      "^@/(.*)$": "<rootDir>/src/$1"
     },
     "testPathIgnorePatterns": [],
     "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
