@@ -10,14 +10,14 @@
         "test": "jest --coverage"
     },
     "devDependencies": {
-        "typescript-config": "*",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^14.1.2",
         "@testing-library/user-event": "^14.3.0",
         "@turbo/gen": "^1.11.3",
+        "@types/dompurify": "^3.0.5",
         "@types/eslint": "^8.56.1",
-        "@types/node": "^20.10.6",
-        "@types/qs": "^6.9.14",
+        "@types/node": "^20.14.9",
+        "@types/qs": "^6.9.15",
         "@types/react": "^18.2.46",
         "@types/react-dom": "^18.2.18",
         "audit-ci": "^6.6.1",
@@ -32,7 +32,8 @@
         "jest-transform-stub": "^2.0.0",
         "react": "^18.2.0",
         "ts-jest": "^29.1.0",
-        "typescript": "^5.3.3"
+        "typescript": "^5.3.3",
+        "typescript-config": "*"
     },
     "dependencies": {
         "@date-io/date-fns": "^3.0.0",
