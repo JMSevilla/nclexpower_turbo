@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Box, Tooltip, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Box, Tooltip, Typography, Button, LinearProgress } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { usePreloadedGlobals } from '@/core/context/PreloadedGlobalsContext';
 import { useCountdown } from 'core-library/hooks/useCountdown';
-import LoadingBar from 'react-top-loading-bar';
 import { useProgress } from '@/core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
@@ -24,7 +23,7 @@ export const buttonStyle = {
 
 export const Header: React.FC = () => {
   const { header } = usePreloadedGlobals();
-  const { progress } = useProgress();
+  const { isLoading } = useProgress();
   const headerTimeRemaining = header[0]?.timeRemaining ?? null;
   const duration = header[0]?.duration ?? null;
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
@@ -52,6 +51,7 @@ export const Header: React.FC = () => {
     <Box sx={{ flexGrow: 1 }}>
       <div className="header-step-1">
         <AppBar position="static">
+          {isLoading && <LinearProgress />}
           <div style={{ padding: 10, backgroundColor: '#007AB7' }}>
             <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Box>
@@ -113,7 +113,6 @@ export const Header: React.FC = () => {
           </Box>
         </AppBar>
       </div>
-      <LoadingBar color="#0000FF" progress={progress} />
       <CalculatorModal open={isModalOpen} onClose={closeModal} />
     </Box>
   );
