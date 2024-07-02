@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { useCalculator } from '@repo/core-library/hooks/useCalculator';
+import { useCalculator } from 'core-library/hooks/useCalculator';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 export type OpenModalProps = {
   open: boolean;
   onClose: () => void;
-}
+};
 
 export const CalculatorModal: React.FC<OpenModalProps> = ({ open, onClose }) => {
   const { input, handleClick, handleClear, handleBack, setInput, setModalOpen } = useCalculator();

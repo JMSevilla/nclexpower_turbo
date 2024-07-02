@@ -4,7 +4,7 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import { OptionType, SsrData, SsrQuestionaireContentProps } from '@/core/types/ssrData';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Paper } from '@mui/material';
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks/index';
 import { FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { ControlledCheckbox } from '@/components/Checkbox';
 import { useErrorHandler } from '@/core/utils/useErrorhandler';

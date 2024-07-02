@@ -1,40 +1,35 @@
-import { SsrData } from '@/core/types/ssrData'
-import React from 'react'
-import {
-  AnswerProps,
-  QuestionaireProps,
-  SsrAnswerTabsProps,
-  SsrQuestionaireContentProps,
-} from '@/core/types/ssrData'
-import NearMeIcon from '@mui/icons-material/NearMe'
-import { Paper, Grid } from '@mui/material'
-import { useForm, useFormState } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation'
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index'
-import { Highlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCP/HCPComponent/HCPHighlighter'
-import { useValidationError } from '@/core/utils/useValidationError'
+import { SsrData } from '@/core/types/ssrData';
+import React from 'react';
+import { AnswerProps, QuestionaireProps, SsrAnswerTabsProps, SsrQuestionaireContentProps } from '@/core/types/ssrData';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import { Paper, Grid } from '@mui/material';
+import { useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { HCPValidationType, RowSchema } from '@/core/schema/hcp/validation';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks/index';
+import { Highlighter } from '@/components/blocks/CaseStudy/CaseStudyQuestions/HCP/HCPComponent/HCPHighlighter';
+import { useValidationError } from '@/core/utils/useValidationError';
 import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 interface Props extends SsrData {
-  handleSubmit: (values: HCPValidationType) => void
-  hcpAtom: HCPValidationType | undefined
+  handleSubmit: (values: HCPValidationType) => void;
+  hcpAtom: HCPValidationType | undefined;
 }
 
 export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAtom }) => {
   const form = useForm<HCPValidationType>({
     mode: 'all',
     resolver: zodResolver(RowSchema),
-  })
+  });
 
-  const { control } = form
+  const { control } = form;
 
-  const formState = useFormState({ control: control })
+  const formState = useFormState({ control: control });
   const { textZoomStyle } = useToolbarSettings();
   const ErrorMessage = useValidationError({
     fieldName: 'hcp',
     formState: formState,
-  })
+  });
 
   useFormSubmissionBindingHooks({
     key: 'HCP',
@@ -42,7 +37,7 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
     isDirty: formState.isDirty,
     cb: () => form.handleSubmit(handleSubmit)(),
     initDependencies: [hcpAtom],
-  })
+  });
 
   return (
     <div className="p-2 py-2 h-full ">
@@ -72,7 +67,7 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
                             className="p-5 overflow-auto flex flex-col gap-5"
                             style={{ maxHeight: '70vh' }}
                           >
-                            <div key={tabIndex} className=" h-[45vh] flex w-full gap-2" >
+                            <div key={tabIndex} className=" h-[45vh] flex w-full gap-2">
                               <p
                                 style={{
                                   display: typeof tab.content !== 'string' ? 'none' : 'block',
@@ -87,22 +82,17 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
                                 ) : (
                                   <>
                                     {tab.content?.length > 0 &&
-                                      tab.content.map(
-                                        (
-                                          contentItem: SsrQuestionaireContentProps,
-                                          contentItemIdx
-                                        ) => (
-                                          <React.Fragment key={contentItemIdx}>
-                                            <p className="min-w-[50px] inline-block">
-                                              <span>
-                                                <strong>{contentItem.contentId}</strong>
-                                              </span>
-                                              : {contentItem.content}
-                                            </p>
-                                            <br />
-                                          </React.Fragment>
-                                        )
-                                      )}
+                                      tab.content.map((contentItem: SsrQuestionaireContentProps, contentItemIdx) => (
+                                        <React.Fragment key={contentItemIdx}>
+                                          <p className="min-w-[50px] inline-block">
+                                            <span>
+                                              <strong>{contentItem.contentId}</strong>
+                                            </span>
+                                            : {contentItem.content}
+                                          </p>
+                                          <br />
+                                        </React.Fragment>
+                                      ))}
                                   </>
                                 )}
                               </div>
@@ -152,5 +142,5 @@ export const HCP: React.FC<Props> = ({ questionaire, answer, handleSubmit, hcpAt
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { QuestionaireProps, CaseStudyProps } from '@/core/types/ssrData';
-import { useAlertMessageV2 } from '@repo/core-library/contexts/AlertMessageContext';
+import { useAlertMessageV2 } from 'core-library/contexts/AlertMessageContext';
 import {
   HCPBlock,
   DDClozeBlock,

@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { Layout as LayoutComponent } from "./Layout";
 import React from "react";
 import { NextPage } from "next";
-import { AuthProvider } from "@repo/core-library/contexts";
+import { AuthProvider } from "core-library/contexts";
 
 interface Props {
   children: React.ReactNode | React.ReactElement;

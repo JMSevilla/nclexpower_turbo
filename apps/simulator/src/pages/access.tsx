@@ -2,12 +2,12 @@ import { Grid, Button, Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextField } from '@repo/core-library/components';
-import { useSessionStorage } from '@repo/core-library/hooks';
+import { TextField } from 'core-library/components';
+import { useSessionStorage } from 'core-library/hooks';
 import { AccessKeySchema, AccessKeyType } from '@/core/schema/AccessToken/validation';
 import { useRouter } from 'next/router';
-import { hooks } from '@repo/core-library';
-import { useAccessToken, useRefreshToken } from '@repo/core-library/contexts/auth/hooks';
+import { hooks } from 'core-library';
+import { useAccessToken, useRefreshToken } from 'core-library/contexts/auth/hooks';
 
 export const AccessPage = () => {
   const [isAthenticated, setIsAuthenticated] = useState<boolean>(false);
