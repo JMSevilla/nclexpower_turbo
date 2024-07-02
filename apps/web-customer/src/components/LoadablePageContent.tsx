@@ -1,4 +1,4 @@
-import { ComponentLoader } from "@repo/core-library/components";
+import { ComponentLoader } from "core-library/components";
 import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useRouter } from "next/router";

@@ -2,7 +2,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme, Box } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
-import { useAuthContext } from "@repo/core-library/contexts";
+import { useAuthContext } from "core-library/contexts";
 
 interface Props {}
 
