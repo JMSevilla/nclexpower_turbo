@@ -20,7 +20,12 @@ export const AccessPage = () => {
   useEffect(() => {
     if (accessToken) {
       setIsAuthenticated(true);
-      router.push('/404');
+      router.push({
+        pathname: '/simulator',
+        query: {
+          slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
+        },
+      });
     }
   }, [accessToken]);
 
