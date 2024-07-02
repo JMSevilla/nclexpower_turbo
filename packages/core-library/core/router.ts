@@ -19,7 +19,7 @@ type PathParameters = {
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
-  const { tenant } = useTenantContext();
+  // const { tenant } = useTenantContext();
   const contentData = useContentDataContext();
 
   const staticRoutes = (

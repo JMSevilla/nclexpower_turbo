@@ -47,8 +47,15 @@ const config: Config = {
         },
         paragraph: "#878e99",
       },
+      backgroundImage: {
+        'core-zigma': "url(\'../assets/coreZigma.png')",
+        'how-it-works': "url(\'../assets/ModifiedHowitWorkBG.png')",
+        'pricing': "url(\'../assets/PricingBGLogo.jpg')",
+      }
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+  ],
 };
 export default config;
