@@ -2,7 +2,8 @@ import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
 import { extractClassifierFromGlobals } from "../types";
-import { useTenantContext, useContentDataContext } from "../contexts";
+import { useContentDataContext } from "../contexts";
+import { useTenantContext } from '../contexts/TenantContext';
 
 type StaticRoutes = Record<
   "home" | "hub" | "logout" | "page_not_found" | "account_setup" | "login",
@@ -19,7 +20,7 @@ type PathParameters = {
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
-  // const { tenant } = useTenantContext();
+  const { tenant } = useTenantContext();
   const contentData = useContentDataContext();
 
   const staticRoutes = (

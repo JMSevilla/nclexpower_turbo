@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
-import { useRouter } from "../../core";
+import { useRouter } from 'next/router';
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
       if (refreshToken && accessToken) {
         clearCookies();
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
