@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from 'core-library/types';
 import { useAccessToken } from 'core-library/contexts/auth/hooks';
 import { useBusinessQueryContext } from 'core-library/contexts';
+import { UnauthorizedDialog } from '../../components/Dialog/UnauthorizedDialog'
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -115,6 +116,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
         selectedItem,
       }}
     >
+      <UnauthorizedDialog open={!accessToken} />
       {children}
     </ApplicationContext.Provider>
   );
