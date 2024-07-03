@@ -1,23 +1,20 @@
-import { CoreZigma } from '@/pages/contents/HomePage/CoreZigmaSystem/CoreZigma';
-import { HowItWorks } from '@/pages/contents/HomePage/HowItWorks/HowItWorks';
-import { Pricing } from '@/pages/contents/HomePage/Pricing/Pricing';
-import { RevolutionBanner } from '@/pages/contents/HomePage/RevolutionBanner/RevolutionBanner';
-
+import { CoreZigmaBlock, HowItWorksBlock, PricingBlock, RevolutionBannerBlock } from '@/pages/contents';
+import { pricingOptions } from '../../../../apps/web-customer/src/core/constant/HompageMockData'
 
 export default function Home() {
   return (
     <div className="w-screen  flex flex-col overflow-y-auto overflow-x-hidden font-['Poppins']">
       <div className='w-full h-screen'>
-        <RevolutionBanner />
-      </div>
-      <div className=" w-full  h-fit">
-        <CoreZigma />
+        <RevolutionBannerBlock />
       </div>
       <div className=" w-full h-fit">
-        <HowItWorks />
+        <CoreZigmaBlock />
+      </div>
+      <div className=" w-full h-fit">
+        <HowItWorksBlock />
       </div>
       <div className=" w-full h-fit ">
-        <Pricing />
+        <PricingBlock pricingOptions={pricingOptions} />
       </div>
     </div>
   );

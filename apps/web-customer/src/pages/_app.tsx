@@ -5,12 +5,14 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import "./mui.css";
 
 import dynamic from "next/dynamic";
 import { Header } from '@/components/CustomerHeader/Header';
-import { Footer } from '@/components/CustomerFooter/Footer';
+import { Footer } from '../../../../packages/core-library/components/ReusableFooter/Footer';
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -27,12 +29,9 @@ const Page = dynamic(() => import("./shared/Page"), {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <>
-      <Header />
-      <Page
-        children={<Suspense>{getLayout(<Component {...pageProps} />)}</Suspense>}
-      />
-      <Footer />
-    </>
+    <Page
+      children={<Suspense>{getLayout(<Component {...pageProps} />)}</Suspense>}
+    />
+
   );
 }

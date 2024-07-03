@@ -6,6 +6,15 @@
       "DOM.Iterable"
     ]
   },
-  "include": [".", "cms-initialization.ts", "api/calc"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    ".",
+    "cms-initialization.ts",
+    "api/calc",
+    "../../apps/web-customer/src/components/CustomCard",
+    "../../apps/web-customer/src/components/FlippableCard"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

@@ -26,3 +26,5 @@ export * from "./blocks/ReusableFooter/Footer";
 export * from "./DataGrid/DataGrid";
 export * from "./GenericDrawerLayout/DrawerLayout"
 export * from "./GenericSidebar/Sidebar"
+export * from "../../../apps/web-customer/src/components/FlippableCard/FlipCard"
+export * from "../../../apps/web-customer/src/components/CustomCard/CustomCard"

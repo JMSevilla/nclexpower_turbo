@@ -119,3 +119,27 @@ interface IconsEntity {
   };
   type: string;
 }
+
+interface ItemProp {
+  label: string
+  path: string
+}
+interface ColumnProp {
+  title: string
+  items: ItemProp[]
+}
+export interface FooterProps {
+  footerList: ColumnProp[]
+}
+
+export interface SliderConfigType {
+  sliderConfig: {
+    infinite: boolean,
+    slidesToShow: number,
+    slidesToScroll: number,
+    autoplay: boolean,
+    speed: number,
+    autoplaySpeed: number,
+    cssEase: string
+  }
+}

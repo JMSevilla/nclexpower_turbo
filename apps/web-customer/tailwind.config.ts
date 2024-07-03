@@ -48,7 +48,7 @@ const config: Config = {
         paragraph: "#878e99",
       },
       backgroundImage: {
-        'core-zigma': "url(\'../assets/coreZigma.png')",
+        'core-zigma': "url(\'../assets/CoreZigmaBG.png')",
         'how-it-works': "url(\'../assets/ModifiedHowitWorkBG.png')",
         'pricing': "url(\'../assets/PricingBGLogo.jpg')",
       }
