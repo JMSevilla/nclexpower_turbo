@@ -1,6 +1,6 @@
 import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { MutOpt, ApiServiceErr } from "./types";
-import { useApi, useApiCallback, useSecuredApiCallback } from "../../hooks";
+import { useApi, useApiCallback } from "../../hooks";
 import {
   CalcItemSelectResponseItem,
   ItemSelectTypes,

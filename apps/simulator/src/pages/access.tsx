@@ -4,15 +4,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextField } from 'core-library/components';
 import { useSessionStorage } from 'core-library/hooks';
-import { AccessKeySchema, AccessKeyType } from '@/core/schema/AccessToken/validation';
+import { AccessKeySchema } from '@/core/schema/AccessToken/validation';
+import { AccessKeyType } from 'core-library/api/types';
 import { useRouter } from 'next/router';
 import { hooks } from 'core-library';
 import { useAccessToken, useRefreshToken } from 'core-library/contexts/auth/hooks';
+import { config } from 'core-library/config';
 
 export const AccessPage = () => {
   const [isAthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [, setValue] = useSessionStorage<string | null>('accessToken', null);
-  const submitAccessKey = hooks.useApiCallback((api, data: AccessKeyType) => api.calc.submitAccessKey(data));
+  const submitAccessKey = hooks.useApiCallback((api, data: AccessKeyType) => api.auth.accessKeyLogin(data));
   const router = useRouter();
   const [accessToken, setAccessToken] = useAccessToken();
   const [refreshToken, setRefreshToken] = useRefreshToken();
@@ -38,7 +40,10 @@ export const AccessPage = () => {
   const { control, handleSubmit } = form;
 
   async function onSubmit(value: AccessKeyType) {
-    const result = await submitAccessKey.execute(value);
+    const result = await submitAccessKey.execute({
+      accessKey: value.accessKey,
+      appName: config.value.BASEAPP,
+    });
     if (result.data.accessTokenResponse) {
       router.push({
         pathname: '/simulator',
