@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { MCQBlock, CaseStudyContainer, SATABlock } from './blocks';
-import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
+import React from 'react';
+import { MCQBlock, SATABlock } from './blocks';
 import { datatypes } from 'core-library';
-import { AnimatedBoxSkeleton, ComponentLoader } from 'core-library/components';
 import { MobileErrorDialog } from './Dialog/MobileErrorDialog';
 import { useMobileDetection } from 'core-library/contexts/MobileDetectionContext';
-import { useApplicationContext } from '@/core/context/AppContext';
 interface Props {
   questionType: string;
   itemSelected: datatypes.CalcItemSelectResponseItem[];
 }
 
 export const ParseContents: React.FC<Props> = ({ questionType, itemSelected }) => {
-  const { loading } = useApplicationContext();
   const { isMobile } = useMobileDetection();
 
   if (isMobile) {
     return <MobileErrorDialog isMobile={isMobile} />;
-  }
-
-  if (loading) {
-    return <ComponentLoader disableMarginBottom={false} />;
   }
 
   if (questionType === 'MCQ') {
