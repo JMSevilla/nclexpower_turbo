@@ -44,8 +44,8 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
           alignSelf="center"
           mr="auto"
           ml="auto"
-          // pt={12}
-          // pb={24}
+          pt={12}
+          pb={24}
           width="100%"
           height="100%"
           sx={{
@@ -54,8 +54,8 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
               md: stickOut ? "660px" : "1440px",
             }),
             px: (theme) => ({
-              // xs: "20px",
-              // md: "90px",
+              xs: "20px",
+              md: "90px",
             }),
 
           }}
