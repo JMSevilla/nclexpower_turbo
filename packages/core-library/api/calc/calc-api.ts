@@ -47,11 +47,4 @@ export class CalculationApi {
       "/v1/api/baseAppload/processor-prep-track-item"
     );
   }
-
-  public submitAccessKey(params: AccessKeyType) {
-    return this.axios.post<LoginResponse>(
-      "/api/v2/internal/baseInternal/access-key-login",
-      params
-    );
-  }
 }

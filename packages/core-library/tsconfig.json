@@ -10,8 +10,9 @@
     ".",
     "cms-initialization.ts",
     "api/calc",
-    "../../apps/web-customer/src/components/CustomCard",
-    "../../apps/web-customer/src/components/FlippableCard"
+    "global.d.ts",
+    "react.d.ts",
+    "eva-icons.d.ts"
   ],
   "exclude": [
     "node_modules",

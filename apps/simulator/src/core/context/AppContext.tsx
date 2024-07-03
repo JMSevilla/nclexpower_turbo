@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from 'core-library/types';
 import { useAccessToken } from 'core-library/contexts/auth/hooks';
 import { useBusinessQueryContext } from 'core-library/contexts';
+import { UnauthorizedDialog } from '../../components/Dialog/UnauthorizedDialog'
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -36,8 +37,8 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const isInitialMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
   const questionData: ItemSelectTypes = {
-    accountId: '5A637337-33EC-41AF-A903-4192514B9561',
-    examGroupId: '0930C751-AC22-4895-8D76-2EF0B1FC90D9',
+    accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
+    examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
     shouldDisplayNextItem: displayNextItem,
   };
   const { businessQueryLoadPreProcess, businessQuerySelectQuestions } = useBusinessQueryContext();
@@ -115,6 +116,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
         selectedItem,
       }}
     >
+      <UnauthorizedDialog open={!accessToken} />
       {children}
     </ApplicationContext.Provider>
   );

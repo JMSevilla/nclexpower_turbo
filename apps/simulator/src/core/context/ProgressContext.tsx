@@ -3,39 +3,24 @@ import React, {
     SetStateAction,
     createContext,
     useContext,
-    useEffect,
     useState
 } from 'react'
 
 
 type ProgressValues = {
-    progress: number,
-    setProgress: Dispatch<SetStateAction<number>>
+    isLoading: boolean
+    setIsLoading: Dispatch<SetStateAction<boolean>>
 }
 
 const ProgressContext = createContext<ProgressValues>(undefined as any);
 
-
 export const ProgressProvider: React.FC<React.PropsWithChildren> = ({
     children
 }) => {
-    const [progress, setProgress] = useState(10)
-
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (progress <= 100) {
-                setProgress(prev => prev + prev)
-                return
-            }
-            clearInterval(intervalId)
-        }, 400);
-        return () => clearInterval(intervalId)
-    }, [progress])
-
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     return (
-        <ProgressContext.Provider value={{ progress, setProgress }}>
+        <ProgressContext.Provider value={{ isLoading, setIsLoading }}>
             {children}
         </ProgressContext.Provider>
     )

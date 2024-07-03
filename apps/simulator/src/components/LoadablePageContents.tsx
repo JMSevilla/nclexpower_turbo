@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import { useApplicationContext } from '@/core/context/AppContext';
 import { useEffect } from 'react';
 import { UnauthorizedDialog } from './Dialog/UnauthorizedDialog';
+import { useProgress } from '@/core/context/ProgressContext';
 
 interface Props {
   loading?: boolean;
@@ -10,6 +11,8 @@ interface Props {
 
 export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({ children, loading }) => {
   const { setLoader, hasAccessToken } = useApplicationContext();
+  const { isLoading } = useProgress()
+
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
@@ -22,7 +25,7 @@ export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({ 
 
   return (
     <>
-      {loading ? (
+      {loading || isLoading ? (
         <Box flex={1} height="100%" display="flex" alignItems="center" justifyContent="center" sx={{}}>
           <ComponentLoader disableMarginBottom={false} />
         </Box>

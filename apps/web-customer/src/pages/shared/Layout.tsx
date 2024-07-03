@@ -1,9 +1,10 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme, Box } from "@mui/material";
+import { LoadablePageContent } from "@/components/LoadablePageContent";
+import { useAuthContext } from "core-library/contexts";
 import { Footer } from 'core-library/components/ReusableFooter/Footer';
 import { Header } from '@/components/CustomerHeader/Header';
-import { useAuthContext } from 'core-library/contexts';
 import { CustomerMenus, FooterLists } from '@/core/constant/HompageMockData';
 
 interface Props { }
@@ -20,11 +21,15 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box minHeight="100vh" display="flex" flexDirection="column">
-          <Header menu={headerMenu} />
-          {children}
-          <Footer footerList={FooterLists} />
-        </Box>
+        {!isAuthenticated ? (
+          <LoadablePageContent isAuthenticated={isAuthenticated}>
+            <Header menu={headerMenu} />
+            {children}
+            <Footer footerList={FooterLists} />
+          </LoadablePageContent>
+        ) : (
+          <>Authorized user should be the hub page.</>
+        )}
       </ThemeProvider>
     </QueryClientProvider>
   );

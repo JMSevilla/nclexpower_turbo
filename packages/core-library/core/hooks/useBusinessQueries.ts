@@ -1,6 +1,6 @@
 import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { MutOpt, ApiServiceErr } from "./types";
-import { useApi, useApiCallback, useSecuredApiCallback } from "../../hooks";
+import { useApi, useApiCallback } from "../../hooks";
 import {
   CalcItemSelectResponseItem,
   ItemSelectTypes,
@@ -54,8 +54,8 @@ export const useSelectQuestionsQuery = (
 export const useAnswerSubmission = (
   opt?: MutOpt<AxiosResponse<number, AxiosError>>
 ) => {
-  const submmisionCb = useSecuredApiCallback(
-    async (api, args: RegularAnswer) => await api.secure.ssrCreateAnswer(args)
+  const submmisionCb = useApiCallback(
+    async (api, args: RegularAnswer) => await api.calc.createAnswer(args)
   );
   return useAppMutation<AxiosResponse<number, AxiosError>, RegularAnswer>(
     async (data) => {
