@@ -1,6 +1,7 @@
-import * as yup from "yup"
+import * as yup from 'yup';
 
 export const AccessKeySchema = yup.object({
-    accessKey: yup.string().required("This is Required").default(''),
+  accessKey: yup.string().required('This is Required').default(''),
+  appName: yup.string().default(''),
 });
 export type AccessKeyType = yup.InferType<typeof AccessKeySchema>;
