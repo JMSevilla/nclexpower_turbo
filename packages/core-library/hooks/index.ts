@@ -7,3 +7,4 @@ export * from "./useFormFocusOnError";
 export * from "./useFormSubmissionBindingHooks";
 export * from "./useLocalStorage";
 export * from "./useRefreshTokenHandler";
+export * from "./useLogout";
