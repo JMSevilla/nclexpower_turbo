@@ -5,12 +5,11 @@ import { WebApi } from "../api/web/web-api";
 import Http, { HttpOptions } from "../http-client";
 import { getItem } from "../session-storage";
 import { config } from "../config";
-import { SsrApi } from "../ssr-api";
-import { ServerSideApi } from "../api/ssr/ServerSide";
 import { PreloadedGlobalsApi } from "../api/preloaded/preloaded-globals-api";
 import { WebApiBackOffice } from "../api/web/web-api-backoffice";
 import { WebOfficeApi } from "../content-api";
 import { CalculationApi } from "../api/calc/calc-api";
+import { AuthApi } from "../api/auth/auth-api";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
@@ -44,13 +43,6 @@ const SELF_HTTP_OPTIONS: HttpOptions = {
   },
 };
 
-export const selfHttpClient = new Http({
-  ...SELF_HTTP_OPTIONS,
-  baseURL:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : config.value.VERCELURL,
-});
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
@@ -129,47 +121,16 @@ export const useContentApiCallback = <R, A extends unknown>(
   });
 };
 
-// secured api hook
-export const useSecuredApi = <R, D extends unknown[]>(
-  asyncFn: (api: SsrApi) => Promise<R>,
-  deps?: D
-) => {
-  return useAsync(async () => {
-    try {
-      const api = secureCreateApi(selfHttpClient.client);
-      return await asyncFn(api);
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  }, [selfHttpClient, ...(deps || [])]);
-};
-
-export const useSecuredApiCallback = <R, A extends unknown>(
-  asyncFn: (api: SsrApi, args: A) => Promise<R>
-) => {
-  return useAsyncCallback(async (args?: A) => {
-    try {
-      const api = secureCreateApi(selfHttpClient.client);
-      return await asyncFn(api, args as A);
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  });
-};
-
 function createApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new Api(
     new CalculationApi(client, httpSsrClient),
     new WebApi(client, httpSsrClient),
     new PreloadedGlobalsApi(client),
-    new WebApiBackOffice(client, httpSsrClient)
+    new WebApiBackOffice(client, httpSsrClient),
+    new AuthApi(client, httpSsrClient)
   );
 }
 
 function contentApi(client: AxiosInstance, httpSsrClient: AxiosInstance) {
   return new WebOfficeApi(new WebApiBackOffice(client, httpSsrClient));
-}
-
-function secureCreateApi(client: AxiosInstance) {
-  return new SsrApi(new ServerSideApi(client));
 }

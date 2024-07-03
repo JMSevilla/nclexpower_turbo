@@ -8,6 +8,7 @@ export type AccessTokenResponse = {
 
 export type AccessKeyType = {
   accessKey: string;
+  appName: string;
 };
 
 export interface LoginParams {
@@ -31,4 +32,5 @@ export interface LogoutParams {
 export interface RefreshParams {
   accessToken: string;
   refreshToken: string;
+  appName: string;
 }
