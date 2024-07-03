@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Grid, Typography, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Button, Grid, Typography, FormControlLabel } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { loginSchema, LoginFormType } from "core-library/components/blocks/LoginFormBlock/validation";
 import { TextField } from "core-library/components";
 import CoreZigma from '../../images/CoreZigma.png';
 import { MedicineLoginBG } from '../../icons/MedicineLoginBG';
+import { Checkbox } from 'core-library/components/Checkbox/Checkbox';
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -56,28 +57,14 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading, rememberMe
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid item lg={12} sx={{ marginY: 2 }}>
-              <Controller
-                name="username"
-                control={control}
-                render={({ field }) => (
-                  <TextField control={control} {...field} label="Username" />
-                )}
-              />
+              <TextField name="username" control={control} label="Username" />
             </Grid>
             <Grid item lg={12} sx={{ marginY: 2 }}>
-              <Controller
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <TextField control={control} {...field} label="Password" type="password" />
-                )}
-              />
+              <TextField control={control} name="password" label="Password" type="password" />
             </Grid>
-            <FormControlLabel
-              control={<Checkbox checked={rememberMe} onChange={handleChangeRememberMe} />}
-              label="Remember me"
-              sx={{ marginY: 2 }}
-            />
+            <Grid item lg={12} sx={{ marginY: 2 }}>
+              <Checkbox checked={rememberMe} onChange={handleChangeRememberMe} label="Remember Me" />
+            </Grid>
             <Box sx={{ gridColumn: 'span 10', display: 'flex', alignItems: 'center', gap: 4 }}>
               <Button disabled={submitLoading} type="submit" variant="contained" fullWidth color="primary" sx={{ px: 4, py: 2 }}>
                 Login
