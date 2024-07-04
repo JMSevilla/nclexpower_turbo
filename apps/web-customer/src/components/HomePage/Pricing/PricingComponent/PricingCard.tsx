@@ -5,7 +5,7 @@ interface CardProps {
     nurseType: number
 }
 
-export const PricingCard: React.FC<CardProps> = ({ type, nurseType }) => {
+const PricingCard: React.FC<CardProps> = ({ type, nurseType }) => {
     const isNurseTypeStandard = nurseType === 0;
     const isCardTypePrimary = type === 1;
     const memoNurseType = useMemo(() => isNurseTypeStandard, [nurseType])
@@ -37,3 +37,4 @@ export const PricingCard: React.FC<CardProps> = ({ type, nurseType }) => {
         </div>
     );
 }
+export default PricingCard

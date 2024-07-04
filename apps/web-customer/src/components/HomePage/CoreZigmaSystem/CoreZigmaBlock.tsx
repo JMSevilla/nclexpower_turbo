@@ -4,7 +4,7 @@ import { FlipCard } from 'core-library/components';
 
 interface Props { }
 
-const CoreZigmaBlock: React.FC<Props> = (props) => {
+export const CoreZigmaBlock: React.FC<Props> = (props) => {
     return (
         <div className='w-full pt-0 bg-core-zigma bg-no-repeat object-cover bg-cover flex justify-center items-center'>
             <div className='container flex flex-col gap-10 '>
@@ -53,6 +53,5 @@ const CoreZigmaBlock: React.FC<Props> = (props) => {
     )
 }
 
-export default CoreZigmaBlock
 
 

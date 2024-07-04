@@ -5,7 +5,7 @@ interface Props {
 
 }
 
-const HowItWorksBlock: React.FC<Props> = (props) => {
+export const HowItWorksBlock: React.FC<Props> = (props) => {
     return (
         <div className='bg-how-it-works bg-no-repeat bg-cover h-fit pt-20 pb-20 items-center justify-center flex'>
             <div className='container flex gap-10 flex-col w-full'>
@@ -33,4 +33,3 @@ const HowItWorksBlock: React.FC<Props> = (props) => {
     )
 }
 
-export default HowItWorksBlock

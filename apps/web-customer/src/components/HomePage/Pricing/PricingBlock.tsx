@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { PricingCard } from './PricingComponent/PricingCard'
-import { PackageOption } from '../../../../core/constant/HompageMockData'
+import { PackageOption } from '../../../core/constant/HompageMockData'
+import PricingCard from './PricingComponent/PricingCard'
 
 interface Props {
     pricingOptions: {
@@ -8,7 +8,7 @@ interface Props {
     }[]
 }
 
-const PricingBlock: React.FC<Props> = (props) => {
+export const PricingBlock: React.FC<Props> = (props) => {
     const [selectedType, setSelectedType] = useState<number>(0)
 
     return (
@@ -49,5 +49,4 @@ const PricingBlock: React.FC<Props> = (props) => {
     )
 }
 
-export default PricingBlock
 
