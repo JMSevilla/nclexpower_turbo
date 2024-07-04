@@ -7,7 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
+import { useToolbarSettings } from '../../core/context/ToolbarSettingsContext';
 
 export const ToolbarSettings: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

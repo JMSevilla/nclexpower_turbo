@@ -14,6 +14,7 @@ export const config = {
       SCOOKIE: processEnv.NEXT_PRIVATE_SINGLE_COOKIE!,
       VERCELURL: processEnv.NEXT_PRIVATE_BASE_URL,
       SECRET_KEY: processEnv.NEXT_PRIVATE_SECRET_KEY!,
+      BASEAPP: processEnv.NEXT_PRIVATE_BASE_APP!,
     };
   },
 };
