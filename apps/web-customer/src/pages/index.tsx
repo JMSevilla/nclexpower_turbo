@@ -1,5 +1,5 @@
-import { CoreZigmaBlock, HowItWorksBlock, PricingBlock, RevolutionBannerBlock } from '../components/index';
-import { pricingOptions } from '../../../../apps/web-customer/src/core/constant/HompageMockData'
+import { RevolutionBannerBlock, CoreZigmaBlock, HowItWorksBlock, PricingBlock } from '@/components';
+import { pricingOptions } from '@/core/constant/HompageMockData';
 
 export default function Home() {
   return (

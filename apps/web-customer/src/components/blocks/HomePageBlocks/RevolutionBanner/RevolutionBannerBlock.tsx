@@ -1,5 +1,5 @@
 import { settings } from '@/core/constant/HompageMockData'
-import { SliderComponent } from '../../ReactSlider/SliderComponent'
+import { SliderComponent } from '../../../ReactSlider/SliderComponent'
 
 interface Props { }
 

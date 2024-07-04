@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PackageOption } from '../../../core/constant/HompageMockData'
+import { PackageOption } from '../../../../core/constant/HompageMockData'
 import PricingCard from './PricingComponent/PricingCard'
 
 interface Props {
