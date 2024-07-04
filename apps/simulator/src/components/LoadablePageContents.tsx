@@ -1,9 +1,9 @@
 import { ComponentLoader } from 'core-library/components';
 import { Box } from '@mui/material';
-import { useApplicationContext } from '@/core/context/AppContext';
+import { useApplicationContext } from '../core/context/AppContext';
 import { useEffect } from 'react';
 import { UnauthorizedDialog } from './Dialog/UnauthorizedDialog';
-import { useProgress } from '@/core/context/ProgressContext';
+import { useProgress } from '../core/context/ProgressContext';
 
 interface Props {
   loading?: boolean;
@@ -11,7 +11,7 @@ interface Props {
 
 export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({ children, loading }) => {
   const { setLoader, hasAccessToken } = useApplicationContext();
-  const { isLoading } = useProgress()
+  const { isLoading } = useProgress();
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,11 +26,24 @@ export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({ 
   return (
     <>
       {loading || isLoading ? (
-        <Box flex={1} height="100%" display="flex" alignItems="center" justifyContent="center" sx={{}}>
+        <Box
+          data-testid="page-content-loading"
+          flex={1}
+          height="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          sx={{}}
+        >
           <ComponentLoader disableMarginBottom={false} />
         </Box>
       ) : (
-        <Box display={loading ? 'none' : 'block'} flexDirection="column" height="100%">
+        <Box
+          data-testid="page-content-loading"
+          display={loading ? 'none' : 'block'}
+          flexDirection="column"
+          height="100%"
+        >
           {children}
         </Box>
       )}

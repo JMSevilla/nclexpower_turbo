@@ -1,7 +1,7 @@
 import { RenderOptions, render as rtlRender } from '@testing-library/react';
 import rtlEvent from '@testing-library/user-event';
 import { ReactElement } from 'react';
-import { ApplicationProvider } from '@/core/context/AppContext';
+import { ApplicationProvider } from '../core/context/AppContext';
 
 export * from '@testing-library/react';
 

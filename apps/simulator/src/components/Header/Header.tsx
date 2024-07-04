@@ -3,9 +3,9 @@ import { AppBar, Toolbar, Box, Tooltip, Typography, Button, LinearProgress } fro
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { usePreloadedGlobals } from '@/core/context/PreloadedGlobalsContext';
+import { usePreloadedGlobals } from '../../core/context/PreloadedGlobalsContext';
 import { useCountdown } from 'core-library/hooks/useCountdown';
-import { useProgress } from '@/core/context/ProgressContext';
+import { useProgress } from '../../core/context/ProgressContext';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
 import { ToolbarSettings } from '../Toolbar/Toolbar';

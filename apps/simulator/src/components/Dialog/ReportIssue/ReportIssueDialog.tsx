@@ -4,7 +4,7 @@ import ReportIcon from '@mui/icons-material/Report';
 import SendIcon from '@mui/icons-material/Send';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ReportSchema } from '@/core/schema/reportIssue/validation';
+import { ReportSchema } from '../../../core/schema/reportIssue/validation';
 import { CustomDialog } from '../CustomDialog';
 import { buttonStyle } from '../../Header/Header';
 import { ReportIssueForm } from './ReportIssueForm';
@@ -22,12 +22,17 @@ export const ReportIssueDialog: React.FC = () => {
     reset();
   };
 
-  const { control, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>({
     resolver: yupResolver(ReportSchema),
   });
 
   const onSubmit = (values: FormValues) => {
-    console.log("Reported Issues:", values);
+    console.log('Reported Issues:', values);
     handleClose();
   };
 
@@ -43,12 +48,7 @@ export const ReportIssueDialog: React.FC = () => {
         className="report-issue"
         title="Report an Issue"
         button={
-          <Button
-            variant="outlined"
-            endIcon={<SendIcon />}
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-          >
+          <Button variant="outlined" endIcon={<SendIcon />} type="submit" onClick={handleSubmit(onSubmit)}>
             Submit
           </Button>
         }
@@ -58,12 +58,7 @@ export const ReportIssueDialog: React.FC = () => {
           </Button>
         }
       >
-        <ReportIssueForm
-          control={control}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-        />
+        <ReportIssueForm control={control} errors={errors} handleSubmit={handleSubmit} onSubmit={onSubmit} />
       </CustomDialog>
     </React.Fragment>
   );
