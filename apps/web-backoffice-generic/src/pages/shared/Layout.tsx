@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { PageContainer, LoadablePageContent } from "@/components";
 import { ControlledToast, DrawerLayout } from "core-library/components";
 import { ToastProvider } from "core-library/contexts";
+import { useAuthContext } from "core-library/contexts";
 import { useLogout, useRefreshTokenHandler } from "core-library/hooks";
 
 interface Props {}
@@ -16,13 +17,18 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   const theme = useTheme();
   useRefreshTokenHandler(logout); //add logout here.
 
+  const { isAuthenticated } = useAuthContext();
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <DrawerLayout isAuthenticated={false} menu={[]}>
+        <DrawerLayout isAuthenticated={isAuthenticated} menu={[]}>
           <PageContainer stickOut={false}>
-            <LoadablePageContent loading={false}>
+            <LoadablePageContent
+              loading={false}
+              isAuthenticated={isAuthenticated}
+            >
               <ToastProvider>
                 <ControlledToast autoClose={5000} hideProgressBar={false} />
                 {children}
