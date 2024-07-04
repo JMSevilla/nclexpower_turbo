@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid } from 'core-library/components';
 import { Typography, Card, CardContent } from '@mui/material';
-import { IrtTableProps } from '@/core/types/irtData';
+import { IrtTableProps } from '../../../core/types/irtData';
 
 interface Tables {
   tables: IrtTableProps[];
