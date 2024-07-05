@@ -1,2 +1,2 @@
-export * from './caseStudyQustionaire';
-export * from './regQuestionaire'
+export * from './csQuestionnaire';
+export * from './regQuestionnaire'

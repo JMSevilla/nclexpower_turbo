@@ -1,11 +1,13 @@
 import React from "react";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import FeedIcon from "@mui/icons-material/Feed";
-import PersonIcon from "@mui/icons-material/Person";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import ReportIcon from "@mui/icons-material/Report";
-import SettingsIcon from "@mui/icons-material/Settings";
-import SourceIcon from "@mui/icons-material/Source";
+import {
+  Dashboard as DashboardIcon,
+  Feed as FeedIcon,
+  Person as PersonIcon,
+  QuestionAnswer as QuestionAnswerIcon,
+  Report as ReportIcon,
+  Settings as SettingsIcon,
+  Source as SourceIcon,
+} from "@mui/icons-material";
 import { NavigationType } from "../../types/navigation";
 
 const AuthenticatedMenu: NavigationType[] = [
@@ -24,7 +26,7 @@ const AuthenticatedMenu: NavigationType[] = [
   {
     id: 2,
     label: "Questionnaires",
-    path: "/manageQuestionaire",
+    path: "/questionnaire-management",
     icon: <QuestionAnswerIcon color="primary" fontSize="small" />,
   },
   {

@@ -25,9 +25,10 @@ export const ControlledTabs: React.FC<ControlledTabsProps> = ({
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} {...rest}>
-          {tabsName.map((item: tabsNameProps, index: number) => (
-            <Tab label={item.label} key={index} />
-          ))}
+          {tabsName.length > 0 &&
+            tabsName.map((item: tabsNameProps, index: number) => (
+              <Tab label={item.label} key={index} />
+            ))}
         </Tabs>
       </Box>
       {children}

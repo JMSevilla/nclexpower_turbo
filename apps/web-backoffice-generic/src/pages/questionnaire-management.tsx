@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ControlledTabs } from "core-library/components";
-import { CaseStudyQustionaire, RegQuestionaire } from "../components/blocks";
+import { CSQuestionnaire, RegQuestionnaire } from "../components/blocks";
 
-export default function Questionaire() {
+export default function Questionnaire() {
   const [tabValue, setTabValue] = useState<number>(0);
 
   const tabname = [
@@ -15,7 +15,19 @@ export default function Questionaire() {
   ];
 
   const handleTabValue = (event: React.SyntheticEvent, newValue: number) => {
+    event.preventDefault();
     setTabValue(newValue);
+  };
+
+  const renderQuestionnaire = (value: number) => {
+    switch (value) {
+      case 0:
+        return <RegQuestionnaire />;
+      case 1:
+        return <CSQuestionnaire />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -25,11 +37,7 @@ export default function Questionaire() {
         tabsName={tabname}
         handleChange={handleTabValue}
       >
-        {tabValue === 0 ? (
-          <RegQuestionaire />
-        ) : (
-          tabValue === 1 && <CaseStudyQustionaire />
-        )}
+        {renderQuestionnaire(tabValue)}
       </ControlledTabs>
     </>
   );
