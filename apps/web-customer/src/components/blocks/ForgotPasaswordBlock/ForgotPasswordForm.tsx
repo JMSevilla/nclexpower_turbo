@@ -1,11 +1,11 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { TextField } from "core-library/components";
-import { ForgotPasswordBG } from "@/components/icons/ForgotPasswordBG";
+import { ForgotPasswordBG } from "../../icons/ForgotPasswordBG";
 import { useForm } from "react-hook-form";
 import {
   forgotPasswordSchema,
   forgotPasswordType,
-} from "@/core/Schema/ForgotPasswordValidation";
+} from "../../../core/Schema/ForgotPasswordValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
