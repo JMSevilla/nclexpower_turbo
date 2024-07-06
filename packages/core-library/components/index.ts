@@ -28,7 +28,6 @@ export * from "./DataGrid/DataGrid";
 export * from "./GenericDrawerLayout/DrawerLayout";
 export * from "./GenericSidebar/Sidebar";
 export * from "./table/DataTable";
-export * from "./table/FunctionalDataTable";
 export * from "./SelectField/SingleSelectField";
 
 // rows
