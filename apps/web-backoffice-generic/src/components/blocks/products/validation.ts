@@ -6,6 +6,7 @@ export const productSchema = yup.object({
   categoryId: yup.string().required("Select category").default(""),
   productDescription: yup.string().notRequired().default(""),
   programType: yup.number().required("Select program type").default(0),
+  programTitle: yup.number().required("Select program title").default(0),
 });
 
 export type ProductFormType = yup.InferType<typeof productSchema>;
