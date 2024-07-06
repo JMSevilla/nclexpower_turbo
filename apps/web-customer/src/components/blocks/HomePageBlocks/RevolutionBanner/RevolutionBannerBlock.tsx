@@ -1,5 +1,5 @@
+import { ImageCarousel } from '@/components/ImageCarousel/ImageCarousel'
 import { settings } from '@/core/constant/HompageMockData'
-import { ImageCarousel } from 'core-library/components'
 import { CoreZigmaLogo, NCLEXLogo, CarouselOne, CarouselTwo, CarouselThree } from 'core-library/assets'
 import Image from 'next/image'
 
