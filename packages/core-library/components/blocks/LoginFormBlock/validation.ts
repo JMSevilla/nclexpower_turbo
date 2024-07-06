@@ -1,8 +1,9 @@
-import * as yup from 'yup'
+import * as yup from "yup";
 
 export const loginSchema = yup.object({
-    username: yup.string().required("Username is required").default(''),
-    password: yup.string().required("Password is required").default(''),
+  email: yup.string().email().required("email is required").default(""),
+  password: yup.string().required("Password is required").default(""),
+  appName: yup.string().default(""),
 });
 
 export type LoginFormType = yup.InferType<typeof loginSchema>;

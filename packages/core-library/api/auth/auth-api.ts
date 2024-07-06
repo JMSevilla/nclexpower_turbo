@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import {
   AccessKeyType,
+  LoginParams,
   LoginResponse,
   RefreshParams,
   RefreshTokenResponse,
@@ -22,6 +23,13 @@ export class AuthApi {
   public accessKeyLogin(params: AccessKeyType) {
     return this.axios.post<LoginResponse>(
       `/api/v2/internal/baseInternal/access-key-login`,
+      params
+    );
+  }
+
+  public login(params: LoginParams) {
+    return this.axios.post<LoginResponse>(
+      `/api/v2/internal/baseInternal/login`,
       params
     );
   }

@@ -16,6 +16,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../../packages/core-library/global.d.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../../packages/core-library/global.d.ts", "../../packages/core-library/core/utils/routeUtils.ts"],
   "exclude": ["node_modules"]
 }
