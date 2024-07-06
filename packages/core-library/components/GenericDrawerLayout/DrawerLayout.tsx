@@ -7,18 +7,20 @@ import { mockMenus } from "./MockMenus";
 import { useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useAuthContext } from "../../contexts";
 
 type DrawerLayoutType = {
-  isAuthenticated: boolean;
   menu: NavigationType[];
 };
 
 export const DrawerLayout: React.FC<
   React.PropsWithChildren<DrawerLayoutType>
-> = ({ menu, children, isAuthenticated }) => {
+> = ({ menu, children }) => {
+  const { isAuthenticated } = useAuthContext();
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
   const mockmenu = mockMenus(isAuthenticated);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
@@ -27,6 +29,12 @@ export const DrawerLayout: React.FC<
   useEffect(() => {
     setOpen(!isMobile);
   }, [isMobile]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <Box display="flex">

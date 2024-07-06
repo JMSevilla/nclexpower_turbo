@@ -8,3 +8,4 @@ export * from "./NotificationsContext";
 export * from "./auth/AuthContext";
 export * from "./BusinessQuery";
 export * from "./TourContext";
+export * from "./DialogContext";

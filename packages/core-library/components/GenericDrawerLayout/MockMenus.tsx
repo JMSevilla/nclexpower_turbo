@@ -8,6 +8,7 @@ import {
   Settings as SettingsIcon,
   Source as SourceIcon,
 } from "@mui/icons-material";
+
 import { NavigationType } from "../../types/navigation";
 
 const AuthenticatedMenu: NavigationType[] = [
@@ -24,43 +25,72 @@ const AuthenticatedMenu: NavigationType[] = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     label: "Manage Exams",
     icon: <FeedIcon color="primary" fontSize="small" />,
     children: [
       {
-        id: 4,
+        id: 2,
         label: "Questionnaires",
         path: "/questionnaire-management",
       },
       {
-        id: 5,
+        id: 3,
         label: "Answers",
         path: "/answers-management",
       },
     ],
   },
   {
+    id: 3,
+    label: "Category Management",
+    icon: <FeedIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 4,
+        label: "Create Category",
+        path: "/category/create-category",
+      },
+    ],
+  },
+  {
     id: 4,
+    label: "Product Management",
+    icon: <FeedIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 5,
+        label: "Create/List Product",
+        path: "/products/create-product",
+      },
+      {
+        id: 6,
+        label: "Create/List Pricing",
+        path: "/products/create-pricing",
+      },
+    ],
+  },
+  {
+    id: 5,
     label: "Results",
     path: "/",
     icon: <SourceIcon color="primary" fontSize="small" />,
   },
   {
-    id: 5,
+    id: 6,
     label: "Manage Users",
     path: "/",
     icon: <PersonIcon color="primary" fontSize="small" />,
   },
   {
-    id: 6,
+    id: 7,
     label: "Settings",
     path: "/",
     icon: <SettingsIcon color="primary" />,
   },
 
   {
-    id: 7,
+    id: 8,
     label: "Reports",
     path: "/",
     icon: <ReportIcon color="primary" />,
