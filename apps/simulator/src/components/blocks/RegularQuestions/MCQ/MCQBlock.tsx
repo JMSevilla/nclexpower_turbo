@@ -6,10 +6,12 @@ import { useAtom } from 'jotai';
 import { McqSsValidationAtom } from '@/core/schema/useAtomic';
 import { useBusinessQueryRegularSubmission } from '@/core/hooks/useRegularSubmission';
 import { parseJSONtoString } from 'core-library/types';
+import { useSessionStorage } from 'core-library/hooks';
 
 export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question, questionType }) => {
   const [mcqAtom, setMcqAtom] = useAtom(McqSsValidationAtom);
   const { submitAnswerAsync, itemselect } = useBusinessQueryRegularSubmission();
+  const [getAccountId] = useSessionStorage<string | null>('accountId', null); // this is for uat test only
 
   const parsedChoices = parseJSONtoString(choices);
   async function handleSubmit(values: McqSsValidationType) {
@@ -19,7 +21,7 @@ export const MCQBlock: React.FC<RegularQuestion> = ({ choices, question, questio
       answer: values.mcqss,
       multiAnswer: [0],
       QType: questionType,
-      accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
+      accountId: getAccountId ?? '',
     };
     setMcqAtom(values);
     await submitAnswerAsync({ ...data });
