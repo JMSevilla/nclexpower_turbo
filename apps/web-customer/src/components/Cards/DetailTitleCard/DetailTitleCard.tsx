@@ -4,7 +4,7 @@ interface CardProps {
     title: string
 }
 
-export const CustomCard: React.FC<CardProps> = ({ title }) => {
+export const DetailTitleCard: React.FC<CardProps> = ({ title }) => {
     return (
         <div className='h-[300px] w-[250px] shadow-lg backdrop-shadow-white'>
             <div className='w-full shadow-lg px-4 rounded-xl flex flex-col items-center justify-evenly grow h-full bg-white bg-opacity-80'>

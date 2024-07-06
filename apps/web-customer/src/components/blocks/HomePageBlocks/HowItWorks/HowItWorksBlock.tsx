@@ -1,9 +1,7 @@
-import { CustomCard } from 'core-library/components'
+import { DetailTitleCard } from '@/components/Cards/DetailTitleCard/DetailTitleCard'
 import React from 'react'
 
-interface Props {
-
-}
+interface Props { }
 
 export const HowItWorksBlock: React.FC<Props> = (props) => {
     return (
@@ -15,9 +13,9 @@ export const HowItWorksBlock: React.FC<Props> = (props) => {
                 </div>
                 <div className='w-full flex flex-col gap-10 pb-5'>
                     <div className='w-full justify-center items-center flex gap-10 '>
-                        <CustomCard title="by watching" />
-                        <CustomCard title="by studying" />
-                        <CustomCard title="by doing" />
+                        <DetailTitleCard title="by watching" />
+                        <DetailTitleCard title="by studying" />
+                        <DetailTitleCard title="by doing" />
                     </div>
                 </div>
                 <div className='flex w-full px-10 items-center justify-center bg-[#002442] py-5 bg-opacity-65 backdrop-blur-sm text-white'>

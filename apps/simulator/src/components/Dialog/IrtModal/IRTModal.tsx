@@ -3,7 +3,7 @@ import { CustomDialog } from '../CustomDialog';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import { tables } from '@/core/constant/IRTsMockData';
+import { tables } from '../../../core/constant/IRTsMockData';
 import { IrtTable } from './IrtTable';
 
 export const IRTsDialog: React.FC = () => {

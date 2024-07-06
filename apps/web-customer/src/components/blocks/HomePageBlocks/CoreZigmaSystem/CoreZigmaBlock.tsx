@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { CoreZigmaLogo, FlipCardOne, FlipCardOneBack, FlipCardThree, FlipCardThreeBack, FlipCardTwo, FlipCardTwoBack, Nurses } from 'core-library/globalAssets';
-import { FlipCard } from 'core-library/components';
+import { CoreZigmaLogo, FlipCardOne, FlipCardOneBack, FlipCardThree, FlipCardThreeBack, FlipCardTwo, FlipCardTwoBack, Nurses } from 'core-library/assets';
+import { FlipCard } from '../../../../components/Cards/FlippableCard/FlipCard';
 
 interface Props { }
 

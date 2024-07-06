@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { CoreZigmaLogo } from '../../globalAssets'
+import { CoreZigmaLogo } from '../../assets'
 import { FooterProps } from '../../types/global'
 import { useMemo } from 'react'
 import { Box } from '@mui/material'
@@ -16,17 +16,19 @@ export const Footer: React.FC<FooterProps> = (props) => {
             fontFamily: 'Poppins',
             backgroundColor: "#002442"
         }}>
-            <Box width={1} sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5
-            }} >
-                <Image style={{ width: 50 }} src={CoreZigmaLogo} alt="CoreZigmaLogo" />
-                <div>
-                    <p className='font-semibold text-3xl'>NCLEX POWER</p>
-                    <p className='italic text-xs'>Powered by : Core-Zigma System</p>
-                </div>
-            </Box>
+            {props.footerList.length > 0 &&
+                <Box width={1} sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 5
+                }} >
+                    <Image style={{ width: 50 }} src={CoreZigmaLogo} alt="CoreZigmaLogo" />
+                    <div>
+                        <p className='font-semibold text-3xl'>NCLEX POWER</p>
+                        <p className='italic text-xs'>Powered by : Core-Zigma System</p>
+                    </div>
+                </Box>
+            }
             <Box
                 sx={{
                     display: 'flex',

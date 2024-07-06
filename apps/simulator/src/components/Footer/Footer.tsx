@@ -5,14 +5,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PauseIcon from '@mui/icons-material/Pause';
 import { useCustomAction } from 'core-library/hooks';
 import { Button } from 'core-library/components';
-import { useProgress } from '@/core/context/ProgressContext';
+import { useProgress } from '../../core/context/ProgressContext';
 
 interface Props {
   actionKey: string;
 }
 
 export const Footer: React.FC<Props> = ({ actionKey }) => {
-  const { isLoading } = useProgress()
+  const { isLoading } = useProgress();
   const action = useCustomAction({
     actionKey: actionKey,
   });

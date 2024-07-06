@@ -83,7 +83,6 @@ export const CustomerMenus = (isAuthenticated: boolean) => {
         return UnauthorizedHeader
     }
 
-    return []
 };
 
 

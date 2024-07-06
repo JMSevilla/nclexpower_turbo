@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import { SxProps, Theme } from "@mui/material/styles";
 import { Header } from "../GenericHeader/Header";
 import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
-import { mockMenus } from "./MockMenus";
 import { useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 
 type DrawerLayoutType = {
-  isAuthenticated: boolean;
   menu: NavigationType[];
+  isAuthenticated: boolean
+  headerContainerSx?: SxProps<Theme>
+  buttonHeaderSx?: SxProps<Theme>
 };
 
 export const DrawerLayout: React.FC<
   React.PropsWithChildren<DrawerLayoutType>
-> = ({ menu, children, isAuthenticated }) => {
+> = ({ menu, children, isAuthenticated, headerContainerSx, buttonHeaderSx }) => {
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
-  const mockmenu = mockMenus(isAuthenticated);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
@@ -28,12 +30,18 @@ export const DrawerLayout: React.FC<
     setOpen(!isMobile);
   }, [isMobile]);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <Box display="flex">
       {(isAuthenticated || isMobile) && (
         <Sidebar
           isMobile={isMobile}
-          menu={mockmenu}
+          menu={menu}
           open={open}
           setOpen={handleDrawer}
         />
@@ -49,9 +57,11 @@ export const DrawerLayout: React.FC<
                   </Button>
                 )
               }
-              onLogout={() => {}}
-              menu={mockmenu}
+              onLogout={() => { }}
+              menu={menu}
               isAuthenticated={isAuthenticated}
+              headerContainerSx={headerContainerSx}
+              buttonHeaderSx={buttonHeaderSx}
             />
           </Box>
           {children}

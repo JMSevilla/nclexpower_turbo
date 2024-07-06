@@ -11,8 +11,6 @@ import "./index.css";
 import "./mui.css";
 
 import dynamic from "next/dynamic";
-import { Header } from '@/components/CustomerHeader/Header';
-import { Footer } from '../../../../packages/core-library/components/ReusableFooter/Footer';
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
