@@ -1,20 +1,26 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { TextField } from "core-library/components";
 import { ForgotPasswordBG } from "@/components/icons/ForgotPasswordBG";
-import { Control, UseFormHandleSubmit } from "react-hook-form";
-import { forgotPasswordType } from "@/core/Schema/ForgotPasswordValidation";
+import { useForm } from "react-hook-form";
+import {
+  forgotPasswordSchema,
+  forgotPasswordType,
+} from "@/core/Schema/ForgotPasswordValidation";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
-  control: Control<forgotPasswordType>;
   onSubmit: (values: forgotPasswordType) => void;
-  handleSubmit: UseFormHandleSubmit<forgotPasswordType>;
 }
 
-export const ForgotPasswordForm: React.FC<Props> = ({
-  control,
-  onSubmit,
-  handleSubmit,
-}) => {
+export const ForgotPasswordForm: React.FC<Props> = ({ onSubmit }) => {
+  const form = useForm({
+    mode: "onSubmit",
+    resolver: yupResolver(forgotPasswordSchema),
+    defaultValues: forgotPasswordSchema.getDefault(),
+  });
+
+  const { control, handleSubmit } = form;
+
   return (
     <Grid
       container
