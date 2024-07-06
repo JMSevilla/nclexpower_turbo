@@ -1,19 +1,20 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { forgotPasswordSchema } from "@/core/Schema/ForgotPasswordValidation";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import { TextField } from "core-library/components";
 import { ForgotPasswordBG } from "@/components/icons/ForgotPasswordBG";
+import { Control, UseFormHandleSubmit } from "react-hook-form";
+import { forgotPasswordType } from "@/core/Schema/ForgotPasswordValidation";
 
-export const ForgotPasswordForm: React.FC = ({}) => {
-  const form = useForm({
-    mode: "onChange",
-    resolver: yupResolver(forgotPasswordSchema),
-    defaultValues: forgotPasswordSchema.getDefault(),
-  });
+interface Props {
+  control: Control<forgotPasswordType>;
+  onSubmit: (values: forgotPasswordType) => void;
+  handleSubmit: UseFormHandleSubmit<forgotPasswordType>;
+}
 
-  const { control } = form;
-
+export const ForgotPasswordForm: React.FC<Props> = ({
+  control,
+  onSubmit,
+  handleSubmit,
+}) => {
   return (
     <Grid
       container
@@ -78,7 +79,7 @@ export const ForgotPasswordForm: React.FC = ({}) => {
             Enter the email address associated with your account and we'll send
             you a link to reset your password.
           </Typography>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid item lg={12} sx={{ marginY: 5 }}>
               <TextField control={control} label="Email" name="email" />
             </Grid>

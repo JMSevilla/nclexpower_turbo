@@ -1,7 +1,7 @@
 import { ForgotPasswordFormBlock } from "@/components/blocks/ForgotPasaswordBlock/ForgotPasswordBlock";
 
-export const ForgotPasswordPage = () => {
+export const ForgotPassword = () => {
   return <ForgotPasswordFormBlock />;
 };
 
-export default ForgotPasswordPage;
+export default ForgotPassword;
