@@ -24,25 +24,19 @@ const AuthenticatedMenu: NavigationType[] = [
     ],
   },
   {
-    id: 2,
-    label: "Questionnaires",
-    path: "/questionnaire-management",
-    icon: <QuestionAnswerIcon color="primary" fontSize="small" />,
-  },
-  {
     id: 3,
     label: "Manage Exams",
     icon: <FeedIcon color="primary" fontSize="small" />,
     children: [
       {
         id: 4,
-        label: "Create Exams",
-        path: "/create",
+        label: "Questionnaires",
+        path: "/questionnaire-management",
       },
       {
         id: 5,
-        label: "Manage Exams",
-        path: "/",
+        label: "Answers",
+        path: "/answers-management",
       },
     ],
   },
