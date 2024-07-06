@@ -7,7 +7,8 @@ export type AccessTokenResponse = {
 };
 
 export type AccessKeyType = {
-  accessKey: string;
+  email: string;
+  password: string;
   appName: string;
 };
 

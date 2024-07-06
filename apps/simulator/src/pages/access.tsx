@@ -13,7 +13,6 @@ import { config } from 'core-library/config';
 
 export const AccessPage = () => {
   const [isAthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [, setValue] = useSessionStorage<string | null>('accessToken', null);
   const [, setAccountId] = useSessionStorage<string | null>('accountId', null); // for uat test purposes only.
   const [state, setState] = useState<any>(null); // for uat test purposes only. this should be removed in the future
   const submitAccessKey = hooks.useApiCallback((api, data: AccessKeyType) => api.auth.accessKeyLogin(data));
@@ -46,23 +45,26 @@ export const AccessPage = () => {
   }
 
   async function onSubmit(value: AccessKeyType) {
-    const result = await submitAccessKey.execute({
-      accessKey: value.accessKey,
-      appName: 'simulator',
-    });
-    if (result.data.accessTokenResponse) {
-      router.push({
-        pathname: '/simulator',
-        query: {
-          slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
-        },
+    try {
+      const result = await submitAccessKey.execute({
+        email: value.email,
+        appName: config.value.BASEAPP ?? 'simulator',
+        password: value.password,
       });
-      setAccessToken(result.data.accessTokenResponse.accessToken);
-      setRefreshToken(result.data.accessTokenResponse.refreshToken);
-      setAccountId(state);
-      setValue(value.accessKey);
-    } else {
-      console.log('Invalid AccessKey');
+      if (Object.keys(result.data.accessTokenResponse).length > 0) {
+        setAccessToken(result.data.accessTokenResponse.accessToken);
+        setRefreshToken(result.data.accessTokenResponse.refreshToken);
+        setAccountId(state);
+        router.push({
+          pathname: '/simulator',
+          query: {
+            slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
+          },
+        });
+      }
+      console.log('invalid email or password');
+    } catch {
+      console.log('invalid email or password');
     }
   }
 
@@ -98,11 +100,21 @@ export const AccessPage = () => {
               sx={{ display: 'flex', justifyContent: 'center', alignContent: 'start' }}
             >
               <Grid item xs={12}>
-                <TextField control={control} name="accessKey" label="Enter Accessor Key" />
+                <TextField control={control} name="email" label="Enter email" />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField control={control} name="password" label="Enter password" />
+              </Grid>
+              <Grid item xs={12}>
                 {/* for test purposes only UAT availability */}
                 <div style={{ marginTop: '10px', marginBottom: '10px' }}>
                   <Typography variant="button">Account ID</Typography>
-                  <MuiTextField onChange={onAccountIdChange} label="Enter Account ID" variant="outlined" />
+                  <MuiTextField
+                    sx={{ width: '100%' }}
+                    onChange={onAccountIdChange}
+                    label="Enter Account ID"
+                    variant="outlined"
+                  />
                 </div>
               </Grid>
               <Grid item xs={12} sx={{ marginTop: 2 }}>
