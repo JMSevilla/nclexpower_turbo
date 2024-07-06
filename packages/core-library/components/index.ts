@@ -32,3 +32,4 @@ export * from "./SelectField/SingleSelectField";
 
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
+export * from "./Tabs/tab"
