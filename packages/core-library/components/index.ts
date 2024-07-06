@@ -5,6 +5,8 @@ export * from "./Textfield/SelectMultipleField";
 export * from "./Toastify/Toastify";
 export * from "./Button/Button";
 export * from "./AnimatedBoxSkeleton/AnimatedSkeletonBox";
+export * from "./Accordion/ControlledAccordion"
+export * from "./TiltDivider/TiltDivider"
 export * from "./Alert/ErrorBox";
 export * from "./Alert/ErrorBoundary";
 export * from "./ErrorTooltip";
