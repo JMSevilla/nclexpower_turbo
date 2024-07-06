@@ -48,7 +48,7 @@ export const AccessPage = () => {
   async function onSubmit(value: AccessKeyType) {
     const result = await submitAccessKey.execute({
       accessKey: value.accessKey,
-      appName: config.value.BASEAPP,
+      appName: 'simulator',
     });
     if (result.data.accessTokenResponse) {
       router.push({
