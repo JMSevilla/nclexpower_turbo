@@ -1,4 +1,9 @@
-import { AccessKeyType, LoginResponse } from "../types";
+import {
+  AccessKeyType,
+  IrtExamLogsResponse,
+  LoginResponse,
+  ThetaZeroCummResponse,
+} from "../types";
 import { AxiosInstance } from "axios";
 import {
   ItemSelectTypes,
@@ -6,6 +11,7 @@ import {
   RegularAnswer,
   CalcItemSelectResponseItem,
 } from "../../types";
+import qs from "query-string";
 
 export class CalculationApi {
   constructor(
@@ -45,6 +51,23 @@ export class CalculationApi {
   public initializeLoadPrepareTrackItem() {
     return this.axios.get<number>(
       "/v1/api/baseAppload/processor-prep-track-item"
+    );
+  }
+  public getIrtExamlogs(accountId: string) {
+    return this.axios.get<IrtExamLogsResponse[]>(
+      `/v1/api/baseAppload/select-irt-exam-logs?${qs.stringify({ accountId })}`
+    );
+  }
+
+  public getIrtZeroCalc(accountId: string) {
+    return this.axios.get<ThetaZeroCummResponse[]>(
+      `/v1/api/baseAppload/select-irt-zero-calc?${qs.stringify({ accountId })}`
+    );
+  }
+
+  public async deleteAllCalc(accountId: string) {
+    return await this.axios.delete<number>(
+      `/v1/api/baseAppload/test-delete-all-calc-by-id/${accountId}`
     );
   }
 }
