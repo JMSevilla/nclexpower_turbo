@@ -47,6 +47,7 @@ export interface RegisterParams {
   middlename: string;
   imgurl: string;
   email: string;
+  appName: string;
 }
 
 export interface PaginationData {
