@@ -84,3 +84,25 @@ export interface ProductSetStatusParams {
   productId: string;
   productStatus: number;
 }
+
+export interface IrtExamLogsResponse {
+  id: string;
+  eventLNum: string;
+  lineNum: number;
+  itemID: number;
+  response: number;
+  lineTheta: number;
+  lineSEM: number;
+  aDisc: number;
+  bDiff: number;
+  cnCateg: number;
+}
+
+export interface ThetaZeroCummResponse {
+  id: string;
+  seqNum: number;
+  lastSumNum: number;
+  lastSumDenom: number;
+  lastCumulativeTheta: number;
+  accountId: string;
+}
