@@ -2,62 +2,63 @@ import React from 'react'
 import { Alert, DataGrid } from 'core-library/components';
 import { ReportedIssuesRows } from '../core/constant/reportIssueMock'
 import { Box, Button } from '@mui/material';
-import { GridColDef } from '@mui/x-data-grid';
+import { useColumns } from 'core-library/hooks';
 
 
 function ReportedIssues() {
+    const { columns } = useColumns({
+        columns: [
+            {
+                field: 'ticket_id',
+                headerName: 'Ticket',
+                sortable: true,
+                flex: 1
+            },
+            {
+                field: 'customer_email',
+                headerName: 'Customer Email',
+                flex: 1,
+                sortable: true,
+            },
+            {
+                field: 'category',
+                headerName: 'Category',
+                flex: 1,
+                sortable: true,
+            },
+            {
+                field: 'product',
+                headerName: 'Product',
+                flex: 1,
+                sortable: true,
 
-    const columns: GridColDef[] = [
-        {
-            field: 'ticket_id',
-            headerName: 'Ticket',
-            sortable: true,
-            flex: 1
-        },
-        {
-            field: 'customer_email',
-            headerName: 'Customer Email',
-            flex: 1,
-            sortable: true,
-        },
-        {
-            field: 'category',
-            headerName: 'Category',
-            flex: 1,
-            sortable: true,
-        },
-        {
-            field: 'product',
-            headerName: 'Product',
-            flex: 1,
-            sortable: true,
-
-        },
-        {
-            field: 'report_date',
-            headerName: 'Date Reported',
-            flex: 1,
-            sortable: true,
-        },
-        {
-            field: 'description',
-            headerName: 'Description',
-            sortable: true,
-            flex: 2
-        },
-        {
-            field: '',
-            headerName: '',
-            sortable: false,
-            flex: 1,
-            disableColumnMenu: true,
-            renderCell: () => (
-                <Box display='flex' justifyContent="center" alignItems='center' height="100%">
-                    <Button sx={{ height: 'fit-content' }}>View Details</Button>
-                </Box>
-            )
-        },
-    ];
+            },
+            {
+                field: 'report_date',
+                headerName: 'Date Reported',
+                flex: 1,
+                sortable: true,
+            },
+            {
+                field: 'description',
+                headerName: 'Description',
+                sortable: true,
+                flex: 2
+            },
+            {
+                field: '',
+                headerName: '',
+                sortable: false,
+                flex: 1,
+                disableColumnMenu: true,
+                renderCell: () => (
+                    <Box display='flex' justifyContent="center" alignItems='center' height="100%">
+                        <Button sx={{ height: 'fit-content' }}>View Details</Button>
+                    </Box>
+                )
+            },
+        ]
+    })
 
 
 
