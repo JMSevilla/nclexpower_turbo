@@ -12,9 +12,9 @@ import {
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 
-interface Props {}
+interface Props { }
 
-export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
+const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const queryClient = new QueryClient();
@@ -49,3 +49,5 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
+
+export default LayoutComponent

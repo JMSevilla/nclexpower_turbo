@@ -4,7 +4,6 @@ import {
   HowItWorksBlock,
   PricingBlock,
 } from "@/components";
-import { pricingOptions } from "@/core/constant/HompageMockData";
 
 export default function Home() {
   return (
@@ -19,7 +18,7 @@ export default function Home() {
         <HowItWorksBlock />
       </div>
       <div className=" w-full h-fit ">
-        <PricingBlock pricingOptions={pricingOptions} />
+        <PricingBlock />
       </div>
     </div>
   );

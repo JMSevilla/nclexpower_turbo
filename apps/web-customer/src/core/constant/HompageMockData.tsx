@@ -55,25 +55,7 @@ export const settings = {
     cssEase: "ease-in-out"
 };
 
-export const PackageOption = [
-    {
-        type: 0,
-        shortText: 'PN',
-        longText: 'Practical Nurse',
-        bgColor: 'bg-green-600',
-    },
-    {
-        type: 1,
-        shortText: 'RN',
-        longText: 'Registered Nurse',
-        bgColor: 'bg-[#1a73e8]',
-    },
-];
 
-export const pricingOptions = [
-    { type: 1 },
-    { type: 2 },
-];
 
 export const CustomerMenus = (isAuthenticated: boolean) => {
 

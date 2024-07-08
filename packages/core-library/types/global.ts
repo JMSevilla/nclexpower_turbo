@@ -143,3 +143,11 @@ export interface SliderConfigType {
     cssEase: string
   }
 }
+
+export interface SelectedProductType {
+  amount: number;
+  currency: string;
+  productName: string;
+  productDescription: string
+
+}
