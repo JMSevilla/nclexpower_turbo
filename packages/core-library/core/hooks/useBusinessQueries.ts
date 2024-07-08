@@ -10,7 +10,9 @@ import { AxiosError, AxiosResponse } from "axios";
 import { CategoryListResponse } from "../../types/category-response";
 import {
   CategoryFormParams,
+  CreatePaymentIntentParams,
   CurrenciesResponse,
+  PaymentIntentResponse,
   ProductSetStatusParams,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
@@ -166,6 +168,22 @@ export const useSetProductStatus = (
     ProductSetStatusParams
   >(async (data) => {
     const result = await submissionSetProductStatusCb.execute({ ...data });
+    return result;
+  }, opt);
+};
+
+export const useCreatePaymentIntent = (
+  opt?: MutOpt<AxiosResponse<PaymentIntentResponse, AxiosError>>
+) => {
+  const submissionCreatePaymentIntentCb = useApiCallback(
+    async (api, args: CreatePaymentIntentParams) =>
+      await api.web.web_create_payment_intent(args)
+  );
+  return useAppMutation<
+    AxiosResponse<PaymentIntentResponse, AxiosError>,
+    CreatePaymentIntentParams
+  >(async (data) => {
+    const result = await submissionCreatePaymentIntentCb.execute({ ...data });
     return result;
   }, opt);
 };
