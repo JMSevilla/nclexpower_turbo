@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useAuthContext } from "core-library/contexts";
 import { AccountSetupType } from "core-library/components/blocks/AccountSetupBlock/validation";
 import { AccountSetupBlock } from "core-library/components/blocks/AccountSetupBlock/AccountSetupBlock";
-import { useAccountSetup } from "@/core/hooks/useAccountSetup";
+import { useAccountSetup } from "../core/hooks/useAccountSetup";
+import withAuth from 'core-library/core/utils/withAuth';
 
-export default function AccountSetup() {
+function AccountSetup() {
   const { register } = useAuthContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { processAccountSetup } = useAccountSetup();
@@ -16,3 +17,5 @@ export default function AccountSetup() {
 
   return <AccountSetupBlock onSubmit={onSubmit} isLoading={isLoading} />;
 }
+
+export default withAuth(AccountSetup)

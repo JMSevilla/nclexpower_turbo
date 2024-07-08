@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { useAccessToken } from "../../contexts/auth/hooks";
 import { authorizedRoute, unauthorizeRoute } from "./contants/route";
@@ -10,15 +10,35 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     const [accessToken] = useAccessToken();
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const accountSetupCb = useApi((api) =>
-      api.webbackoffice.shouldDoAccountSetup()
-    );
+
+    // Uncomment for creation of admin account
+    // const accountSetupCb = useApi((api) =>
+    //   api.webbackoffice.shouldDoAccountSetup()
+    // );
+
 
     useEffect(() => {
       const isLoggedIn = !!accessToken;
       setIsAuthenticated(isLoggedIn);
-      setIsLoading(false);
-      const shouldProceedAccountSetup = accountSetupCb.result?.data; //jacob, this returns either true or false. false if there's no accounts true if any
+      setIsLoading(false); // Comment this setter when account setup function is active
+
+      // Uncomment for creation of admin account
+      // async function accountSetup(url: string) {
+      //   const executeSetup = await accountSetupCb.execute()
+      //   const isAccountExist = executeSetup.data
+
+      //   if (url !== '/accountsetup' && !isAccountExist) {
+      //     router.replace('/accountsetup')
+      //   }
+      //   else if (isAccountExist && url === '/accountsetup') {
+      //     router.back()
+      //   }
+      //   else {
+      //     setIsLoading(false);
+      //   }
+      // }
+      // accountSetup(router.asPath)
+
 
       function authorizationDetection(url: string) {
         if (
@@ -37,6 +57,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       }
 
       authorizationDetection(router.asPath);
+
 
       router.events.on("routeChangeStart", authorizationDetection);
       router.events.on("routeChangeComplete", authorizationDetection);
