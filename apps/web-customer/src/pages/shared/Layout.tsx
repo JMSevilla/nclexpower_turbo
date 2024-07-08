@@ -1,18 +1,24 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ThemeProvider, CssBaseline, useTheme, Box } from "@mui/material";
+import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
 import { useAuthContext } from "core-library/contexts";
+import { Footer } from 'core-library/components/ReusableFooter/Footer';
+import { CustomerMenus, FooterLists } from '../../core/constant/HompageMockData';
+import { DrawerLayout } from 'core-library/components';
+import { useWebHeaderStyles } from '@/pages/contents/useWebHeaderStyles';
 
-interface Props {}
+interface Props { }
 
-export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
+export const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const queryClient = new QueryClient();
   const theme = useTheme();
+  const { isAuthenticated } = useAuthContext()
+  const headerMenu = CustomerMenus(isAuthenticated)
+  const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
 
-  const { isAuthenticated } = useAuthContext();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -20,9 +26,10 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
         <CssBaseline />
         {!isAuthenticated ? (
           <LoadablePageContent isAuthenticated={isAuthenticated}>
-            <Box minHeight="100vh" display="flex" flexDirection="column">
+            <DrawerLayout menu={headerMenu} isAuthenticated={isAuthenticated} buttonHeaderSx={headerLinkSx} headerContainerSx={drawerHeader}>
               {children}
-            </Box>
+            </DrawerLayout>
+            <Footer footerList={FooterLists} />
           </LoadablePageContent>
         ) : (
           <>Authorized user should be the hub page.</>
@@ -31,3 +38,5 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
+
+export default LayoutComponent

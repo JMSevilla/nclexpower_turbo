@@ -7,7 +7,7 @@ import { useLocalStorage } from 'core-library/hooks';
 import { useAuthContext } from 'core-library/contexts';
 
 interface SavedDataProps {
-  username: string;
+  email: string;
   password: string;
   rememberMe: boolean;
 }
@@ -23,7 +23,7 @@ export function LoginFormBlock() {
     if (rememberMe) {
       const encryptedPassword = Encryption(data.password, key ?? "no-secret-key");
       const obj: SavedDataProps = {
-        username: data.username,
+        email: data.email,
         password: encryptedPassword,
         rememberMe: true
       };
