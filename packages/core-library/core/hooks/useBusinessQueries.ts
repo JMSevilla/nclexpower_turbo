@@ -13,7 +13,9 @@ import {
   CreatePaymentIntentParams,
   CurrenciesResponse,
   PaymentIntentResponse,
+  IrtExamLogsResponse,
   ProductSetStatusParams,
+  ThetaZeroCummResponse,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 
@@ -230,6 +232,53 @@ export const useSelectAllProducts = (queryKey: string[]) => {
     queryKey,
     async () => {
       const result = await getAllProducts.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useDeleteAllCalc = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const deleteAllCalc = useApiCallback(
+    async (api, args: string) => await api.calc.deleteAllCalc(args)
+  );
+  return useAppMutation<AxiosResponse<number, AxiosError>, string>(
+    async (id) => {
+      const result = await deleteAllCalc.execute(id);
+      return result;
+    },
+    opt
+  );
+};
+
+export const useGetIrtExamLogs = (
+  queryKey: string[],
+  accountId: string
+): UseQueryResult<IrtExamLogsResponse[] | undefined, any> => {
+  const getIrtExamLogs = useApi((api) => api.calc.getIrtExamlogs(accountId));
+
+  return useQuery<IrtExamLogsResponse[] | undefined, ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getIrtExamLogs.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetIrtZeroCalc = (
+  queryKey: string[],
+  accountId: string
+): UseQueryResult<ThetaZeroCummResponse[] | undefined, any> => {
+  const getIrtZeroCalc = useApi((api) => api.calc.getIrtZeroCalc(accountId));
+
+  return useQuery<ThetaZeroCummResponse[] | undefined, ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getIrtZeroCalc.execute();
       return result.data;
     },
     { staleTime: Infinity }
