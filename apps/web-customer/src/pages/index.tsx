@@ -1,5 +1,26 @@
-import React, { useEffect } from "react";
+import {
+  RevolutionBannerBlock,
+  CoreZigmaBlock,
+  HowItWorksBlock,
+  PricingBlock,
+} from "@/components";
+import { pricingOptions } from "@/core/constant/HompageMockData";
 
 export default function Home() {
-  return <h3>Home</h3>;
+  return (
+    <div className="w-screen  flex flex-col overflow-y-auto overflow-x-hidden font-['Poppins']">
+      <div className="w-full h-screen">
+        <RevolutionBannerBlock />
+      </div>
+      <div className=" w-full h-fit">
+        <CoreZigmaBlock />
+      </div>
+      <div className=" w-full h-fit">
+        <HowItWorksBlock />
+      </div>
+      <div className=" w-full h-fit ">
+        <PricingBlock pricingOptions={pricingOptions} />
+      </div>
+    </div>
+  );
 }

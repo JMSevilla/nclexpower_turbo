@@ -1,8 +1,24 @@
-import { useCallback, useEffect, useMemo } from "react";
-import { useRouter } from "../router";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/router";
 
 export const useScroll = () => {
   const router = useRouter();
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const scrollTo = useCallback((id: string, offsetY = 124) => {
     const top = document.getElementById(id)?.offsetTop ?? window.scrollY;
     window.scrollTo({ top: top + offsetY, behavior: "smooth" });
@@ -30,7 +46,8 @@ export const useScroll = () => {
       scrollTop,
       enableScroll,
       disableScroll,
+      isScrolled,
     }),
-    [disableScroll, enableScroll, scrollTop, scrollTo]
+    [disableScroll, enableScroll, scrollTop, scrollTo, isScrolled]
   );
 };

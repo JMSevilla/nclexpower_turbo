@@ -1,0 +1,13 @@
+export const NCLEXLogo = require('./NCLEXPowerLogo.png')
+export const CoreZigmaLogo = require('./CoreZigmaLogo.png')
+export const CarouselOne = require('./CarouselOne.jpg')
+export const CarouselTwo = require('./CarouselTwo.jpg')
+export const CarouselThree = require('./CarouselThree.jpg')
+
+export const Nurses = require('./NursesImageBlur.png')
+export const FlipCardOne = require('./Flip1Front.png')
+export const FlipCardTwo = require('./Flip2Front.png')
+export const FlipCardThree = require('./Flip3Front.png')
+export const FlipCardOneBack = require('./FlipOneBack.png')
+export const FlipCardTwoBack = require('./FlipTwoBack.png')
+export const FlipCardThreeBack = require('./FlipThreeBack.png')

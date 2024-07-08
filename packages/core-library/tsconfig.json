@@ -6,6 +6,16 @@
       "DOM.Iterable"
     ]
   },
-  "include": [".", "cms-initialization.ts", "api/calc", "global.d.ts", "react.d.ts", "eva-icons.d.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    ".",
+    "cms-initialization.ts",
+    "api/calc",
+    "global.d.ts",
+    "react.d.ts",
+    "eva-icons.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
