@@ -57,6 +57,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
               xs: "20px",
               md: "90px",
             }),
+
           }}
         >
           {children}

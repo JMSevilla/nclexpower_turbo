@@ -1,41 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { PageContainer, LoadablePageContent } from "@/components";
 import { ControlledToast, DrawerLayout } from "core-library/components";
-import { ToastProvider } from "core-library/contexts";
+import { DialogContextProvider, ToastProvider } from "core-library/contexts";
 import { useAuthContext } from "core-library/contexts";
-import { useLogout, useRefreshTokenHandler } from "core-library/hooks";
+import { useLogout } from "core-library/hooks";
+import { ExpirationContextProvider } from "@/core/contexts/ExpirationContext";
+import { mockMenus } from "../../../../../packages/core-library/components/GenericDrawerLayout/MockMenus";
 
-interface Props {}
+interface Props { }
 
 export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
+  const { loading } = useAuthContext();
   const { logout } = useLogout();
   const queryClient = new QueryClient();
+  const { isAuthenticated } = useAuthContext()
   const theme = useTheme();
-  useRefreshTokenHandler(logout); //add logout here.
-
-  const { isAuthenticated } = useAuthContext();
+  const mockMenu = mockMenus(isAuthenticated)
 
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <DrawerLayout isAuthenticated={isAuthenticated} menu={[]}>
-          <PageContainer stickOut={false}>
-            <LoadablePageContent
-              loading={false}
-              isAuthenticated={isAuthenticated}
-            >
-              <ToastProvider>
-                <ControlledToast autoClose={5000} hideProgressBar={false} />
-                {children}
-              </ToastProvider>
-            </LoadablePageContent>
-          </PageContainer>
-        </DrawerLayout>
+        <ExpirationContextProvider logout={logout}>
+          <DialogContextProvider>
+            <DrawerLayout menu={mockMenu} isAuthenticated={isAuthenticated} >
+              <LoadablePageContent loading={loading}>
+                <PageContainer stickOut={false}>
+                  <ToastProvider>
+                    <ControlledToast autoClose={5000} hideProgressBar={false} />
+                    {children}
+                  </ToastProvider>
+                </PageContainer>
+              </LoadablePageContent>
+            </DrawerLayout>
+          </DialogContextProvider>
+        </ExpirationContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

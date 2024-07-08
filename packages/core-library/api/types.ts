@@ -7,15 +7,28 @@ export type AccessTokenResponse = {
 };
 
 export type AccessKeyType = {
-  accessKey: string;
+  email: string;
+  password: string;
   appName: string;
 };
 
 export interface LoginParams {
-  username: string;
+  email: string;
   password: string;
+  appName: string;
 }
 
+export interface CreatePaymentIntentParams {
+  amount: number;
+  currency: string;
+  productName: string;
+  productDescription: string;
+  email: string;
+}
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
+}
 export interface LoginResponse {
   accessTokenResponse: AccessTokenResponse;
 }
@@ -33,4 +46,63 @@ export interface RefreshParams {
   accessToken: string;
   refreshToken: string;
   appName: string;
+}
+
+export type CategoryFormParams = {
+  categoryName: string;
+  categoryDescription: string | null;
+  categoryType: number;
+};
+
+export type CurrenciesResponse = {
+  id: string;
+  symbol: string;
+  name: string;
+  symbol_native: string;
+  decimal_digits: number;
+  rounding: number;
+  code: string;
+  name_plural: string;
+};
+
+export type PricingListResponse = {
+  id: string;
+  price: number;
+  currency: string;
+};
+
+export interface ProductListResponse {
+  id: string;
+  productName: string;
+  pricingId: string;
+  categoryId: string;
+  productDescription: string | null;
+  programType: number;
+}
+
+export interface ProductSetStatusParams {
+  productId: string;
+  productStatus: number;
+}
+
+export interface IrtExamLogsResponse {
+  id: string;
+  eventLNum: string;
+  lineNum: number;
+  itemID: number;
+  response: number;
+  lineTheta: number;
+  lineSEM: number;
+  aDisc: number;
+  bDiff: number;
+  cnCateg: number;
+}
+
+export interface ThetaZeroCummResponse {
+  id: string;
+  seqNum: number;
+  lastSumNum: number;
+  lastSumDenom: number;
+  lastCumulativeTheta: number;
+  accountId: string;
 }

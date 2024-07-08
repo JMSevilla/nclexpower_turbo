@@ -6,8 +6,10 @@ import { useAtom } from 'jotai';
 import { RegularQuestion } from '@/core/types/ssrData';
 import { parseJSONtoString } from 'core-library/types';
 import { useBusinessQueryRegularSubmission } from '@/core/hooks/useRegularSubmission';
+import { useSessionStorage } from 'core-library/hooks';
 
 export const SATABlock: React.FC<RegularQuestion> = ({ choices, question, questionType }) => {
+  const [getAccountId] = useSessionStorage<string | null>('accountId', null); // this is for uat test only
   const parsedChoices = parseJSONtoString(choices);
   const [regSataAtom, setRegSataAtom] = useAtom(RegularSATAValidationAtom);
   const { submitAnswerAsync, itemselect } = useBusinessQueryRegularSubmission();
@@ -20,7 +22,7 @@ export const SATABlock: React.FC<RegularQuestion> = ({ choices, question, questi
       answer: 0,
       multiAnswer: selectedValues,
       QType: questionType,
-      accountId: '5A637337-33EC-41AF-A903-4192514B9561',
+      accountId: getAccountId ?? '',
     };
     setRegSataAtom(values);
     await submitAnswerAsync({ ...data });

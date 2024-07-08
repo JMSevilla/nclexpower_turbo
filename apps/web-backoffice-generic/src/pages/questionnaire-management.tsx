@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 import { ControlledTabs } from "core-library/components";
 import { CSQuestionnaire, RegQuestionnaire } from "../components/blocks";
+import { questionTabName } from "@/core/constant/TabName";
 
 export default function Questionnaire() {
   const [tabValue, setTabValue] = useState<number>(0);
-
-  const tabname = [
-    {
-      label: "Regular Questions",
-    },
-    {
-      label: "CaseStudy Questions",
-    },
-  ];
 
   const handleTabValue = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
@@ -31,14 +23,12 @@ export default function Questionnaire() {
   };
 
   return (
-    <>
       <ControlledTabs
         value={tabValue}
-        tabsName={tabname}
+        tabsName={questionTabName}
         handleChange={handleTabValue}
       >
         {renderQuestionnaire(tabValue)}
       </ControlledTabs>
-    </>
   );
 }

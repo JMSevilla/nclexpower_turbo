@@ -3,12 +3,16 @@ import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from "next/router";
+import { SxProps, Theme } from "@mui/material/styles";
+
 
 interface Props {
   onLogout(): void;
   menu?: NavigationType[];
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
+  headerContainerSx?: SxProps<Theme>
+  buttonHeaderSx?: SxProps<Theme>
 }
 
 export const Header: React.FC<Props> = ({
@@ -16,6 +20,8 @@ export const Header: React.FC<Props> = ({
   onLogout,
   isAuthenticated,
   drawerButton,
+  headerContainerSx,
+  buttonHeaderSx
 }) => {
   const { isMobile } = useResolution();
   const router = useRouter();
@@ -29,15 +35,16 @@ export const Header: React.FC<Props> = ({
       role="banner"
       component="header"
       width="100%"
-      height={100}
+      height={70}
       display="flex"
       justifyContent="center"
       alignItems="center"
       position="sticky"
       top={0}
       zIndex={999}
+      bgcolor="background.default"
       sx={{
-        backgroundColor: "background.default",
+        ...headerContainerSx,
         borderBottomWidth: 1,
         borderBottomStyle: "solid",
         borderBottomColor: "divider",
@@ -73,7 +80,9 @@ export const Header: React.FC<Props> = ({
                     menu.length > 0 &&
                     menu.map((navigation, index) => (
                       <Grid item key={index}>
-                        <Button onClick={() => handleNavigate(navigation.path)}>
+                        <Button sx={{
+                          ...buttonHeaderSx
+                        }} onClick={() => handleNavigate(navigation.path)}>
                           {navigation.label}
                         </Button>
                       </Grid>

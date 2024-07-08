@@ -13,7 +13,7 @@ type Props = {
   submitLoading?: boolean;
   rememberMe: boolean;
   handleChangeRememberMe: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  savedData: { username: string; password: string; rememberMe: boolean } | null;
+  savedData: { email: string; password: string; rememberMe: boolean } | null;
 };
 
 export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading, rememberMe, handleChangeRememberMe, savedData }) => {
@@ -27,7 +27,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading, rememberMe
 
   useEffect(() => {
     if (savedData) {
-      setValue('username', savedData.username);
+      setValue('email', savedData.email);
       setValue('password', savedData.password);
     }
   }, [savedData, setValue]);
@@ -57,7 +57,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading, rememberMe
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid item lg={12} sx={{ marginY: 2 }}>
-              <TextField name="username" control={control} label="Username" />
+              <TextField name="email" control={control} label="Email" />
             </Grid>
             <Grid item lg={12} sx={{ marginY: 2 }}>
               <TextField control={control} name="password" label="Password" type="password" />

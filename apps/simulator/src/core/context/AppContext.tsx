@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import { CalcItemSelectResponseItem, ItemSelectTypes } from 'core-library/types';
 import { useAccessToken } from 'core-library/contexts/auth/hooks';
 import { useBusinessQueryContext } from 'core-library/contexts';
-import { UnauthorizedDialog } from '../../components/Dialog/UnauthorizedDialog'
+import { UnauthorizedDialog } from '../../components/Dialog/UnauthorizedDialog';
+import { useSessionStorage } from 'core-library/hooks';
 
 type AppContextValue = {
   questionaire: SsrData['questionaire'];
@@ -29,6 +30,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
    * @deprecated
    * this useState not necessary.
    */
+  const [getAccountId] = useSessionStorage<string | null>('accountId', null); // this is for uat test only
   const [questionaire, setQuestionaire] = useState<SsrData['questionaire']>([]);
   const [loader, setLoader] = useState<boolean>(true);
   const [hasAccessToken, setHasAccessToken] = useState<boolean>(false);
@@ -37,7 +39,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const isInitialMount = useRef(true);
   const [reloadTrigger, setReloadTrigger] = useState(false);
   const questionData: ItemSelectTypes = {
-    accountId: '8EECB5D9-54C9-445D-91CC-7E137F7C6C3E',
+    accountId: getAccountId ?? '',
     examGroupId: '1B8235C8-7EAD-43AC-94AD-A2EF06DFE42E',
     shouldDisplayNextItem: displayNextItem,
   };

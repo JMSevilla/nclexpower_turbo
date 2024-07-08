@@ -15,6 +15,8 @@ export const config = {
       VERCELURL: processEnv.NEXT_PRIVATE_BASE_URL,
       SECRET_KEY: processEnv.NEXT_PRIVATE_SECRET_KEY!,
       BASEAPP: processEnv.NEXT_PRIVATE_BASE_APP!,
+      BASEHUB: processEnv.NEXT_PRIVATE_BASE_ROUTE!,
+      APPENV: processEnv.NEXT_PRIVATE_ENV!,
     };
   },
 };

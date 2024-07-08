@@ -13,11 +13,12 @@ import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
 import { LoginParams, RegisterParams } from "../../types/types";
 import { useSingleCookie } from "../../hooks/useCookie";
+import { config } from "../../config";
 
 const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
-  login(username: string, password: string): Promise<null>;
+  login(email: string, password: string): Promise<null>;
   register(data: RegisterParams): Promise<number>;
   logout: () => {};
   setIsAuthenticated: (value: boolean) => void;
@@ -32,13 +33,13 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
-
   const loginCb = useApiCallback((api, data: LoginParams) =>
-    api.web.web_customer_login(data)
+    api.auth.login(data)
   );
   const registerCb = useApiCallback((api, data: RegisterParams) =>
     api.web.web_account_setup(data)
   );
+  const loading = loginCb.loading || registerCb.loading;
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -53,7 +54,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
       if (refreshToken && accessToken) {
         clearCookies();
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -61,12 +62,13 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     <context.Provider
       value={useMemo(
         () => ({
-          loading: false,
+          loading,
           isAuthenticated,
-          login: async (username, password) => {
+          login: async (email, password) => {
             const result = await loginCb.execute({
-              username,
+              email,
               password,
+              appName: config.value.BASEAPP,
             });
             setAccessToken(result.data.accessTokenResponse.accessToken);
             setRefreshToken(result.data.accessTokenResponse.refreshToken);

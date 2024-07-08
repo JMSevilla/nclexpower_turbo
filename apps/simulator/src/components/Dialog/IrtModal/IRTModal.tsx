@@ -1,12 +1,39 @@
 import React from 'react';
 import { CustomDialog } from '../CustomDialog';
 import { useState } from 'react';
-import { Button } from '@mui/material';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import { tables } from '../../../core/constant/IRTsMockData';
-import { IrtTable } from './IrtTable';
+import { useBusinessQueryContext } from 'core-library/contexts';
+import { IrtExamLogs } from './IrtExamLogs';
+import { IrtThethaZeroCumm } from './IrtZeroCumm';
+import { useSessionStorage } from 'core-library/hooks';
+import { Card, CardContent, Button } from '@mui/material';
 
-export const IRTsDialog: React.FC = () => {
+export const IRTsModal: React.FC = () => {
+  const [getAccountId] = useSessionStorage<string | null>('accountId', null);
+
+  const { businessQueryDeleteAllCalc, businessQueryGetIrtExamLogs, businessQueryGetIrtZeroCalc } =
+    useBusinessQueryContext();
+
+  const {
+    data: IrtExamLogsData,
+    isLoading: ExamlogsLoading,
+    refetch: IrtExamLogsrefetch,
+  } = businessQueryGetIrtExamLogs(['IrtExamLogs'], getAccountId ?? '');
+
+  const {
+    data: IrtZeroCalcData,
+    isLoading: zeroCalcLoading,
+    refetch: ZeroCalcRefetch,
+  } = businessQueryGetIrtZeroCalc(['IrtZeroCalc'], getAccountId ?? '');
+
+  const { mutateAsync } = businessQueryDeleteAllCalc();
+
+  async function deleteAllCalc() {
+    await mutateAsync(getAccountId ?? '');
+    IrtExamLogsrefetch();
+    ZeroCalcRefetch();
+  }
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
@@ -33,8 +60,28 @@ export const IRTsDialog: React.FC = () => {
             Cancel
           </Button>
         }
-        content={<IrtTable tables={tables} />}
-      ></CustomDialog>
+      >
+        <Button onClick={deleteAllCalc} variant="contained" color="error">
+          DELETE ALL
+        </Button>
+
+        <Card elevation={5} sx={{ my: 2 }}>
+          <CardContent>
+            <IrtExamLogs
+              data={IrtExamLogsData ?? []}
+              isloading={ExamlogsLoading}
+              accountId={getAccountId ?? ''}
+              title="IRTEXAMLOGS"
+            />
+            <IrtThethaZeroCumm
+              data={IrtZeroCalcData ?? []}
+              isloading={zeroCalcLoading}
+              accountId={getAccountId ?? ''}
+              title="IRTThetaZeroCumm"
+            />
+          </CardContent>
+        </Card>
+      </CustomDialog>
     </React.Fragment>
   );
 };

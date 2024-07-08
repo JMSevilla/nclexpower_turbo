@@ -1,29 +1,18 @@
-import dynamic from "next/dynamic";
-import { Layout as LayoutComponent } from "./Layout";
 import React from "react";
-import { NextPage } from "next";
-import { AuthProvider } from "core-library/contexts";
+import {
+  AuthProvider,
+  BusinessQueryContextProvider,
+} from "core-library/contexts";
+import { Layout } from "./Layout";
 
-interface Props {
-  children: React.ReactNode | React.ReactElement;
-}
-
-const Page: NextPage<Props> = ({ children }) => {
-  const Layout = dynamic<React.ComponentProps<typeof LayoutComponent>>(
-    () => import("./Layout").then((c) => c.Layout),
-    {
-      ssr: false,
-    }
-  );
-
+export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
-      <AuthProvider>
-        {/* Higher-level of code */}
-        <Layout children={children} />
-      </AuthProvider>
+      <BusinessQueryContextProvider>
+        <AuthProvider>
+          <Layout children={children} />
+        </AuthProvider>
+      </BusinessQueryContextProvider>
     </React.Fragment>
   );
 };
-
-export default Page;
