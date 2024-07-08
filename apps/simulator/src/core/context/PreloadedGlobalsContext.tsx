@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Header } from '../types/ssrData';
 import { hooks } from 'core-library';
 import { useApplicationContext } from './AppContext';
+import { useSessionStorage } from 'core-library/hooks';
 
 type PreloadedGlobalsValue = {
   header: Header[];
@@ -14,10 +15,11 @@ type Ssr = {
 const PreloadedGlobalsContext = createContext<PreloadedGlobalsValue>(undefined as any);
 
 export const PreloadedGlobalsProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ children, data }) => {
+  const [getAccountId] = useSessionStorage<string | null>('accountId', null); // this is for uat test only
   const getPreloadedHeaders = hooks.useApi(async api => {
     const result = await api.preloadedGlobals.getPreloadedGlobalsHeader({
       LNum: 'B850483A-AC8D-4DAE-02C6-08DC5B07A84C',
-      accountId: 'C002B561-66AF-46FC-A4D2-D282D42BD774',
+      accountId: getAccountId ?? '',
     });
     return result.data;
   }, []);
