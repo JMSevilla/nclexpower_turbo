@@ -26,88 +26,71 @@ const AuthenticatedMenu: NavigationType[] = [
   },
   {
     id: 2,
-    label: "Questionnaires",
-    icon: <QuestionAnswerIcon color="primary" fontSize="small" />,
+    label: "Manage Exams",
+    icon: <FeedIcon color="primary" fontSize="small" />,
     children: [
       {
         id: 2,
-        label: "Case Study",
-        path: "/",
+        label: "Questionnaires",
+        path: "/questionnaire-management",
       },
       {
         id: 3,
-        label: "Regular",
-        path: "/",
+        label: "Answers",
+        path: "/answers-management",
       },
     ],
   },
   {
     id: 3,
-    label: "Manage Exams",
-    icon: <FeedIcon color="primary" fontSize="small" />,
-    children: [
-      {
-        id: 4,
-        label: "Create Exams",
-        path: "/create",
-      },
-      {
-        id: 5,
-        label: "Manage Exams",
-        path: "/",
-      },
-    ],
-  },
-  {
-    id: 4,
     label: "Category Management",
     icon: <FeedIcon color="primary" fontSize="small" />,
     children: [
       {
-        id: 6,
+        id: 4,
         label: "Create Category",
         path: "/category/create-category",
       },
     ],
   },
   {
-    id: 5,
+    id: 4,
     label: "Product Management",
     icon: <FeedIcon color="primary" fontSize="small" />,
     children: [
       {
-        id: 7,
+        id: 5,
         label: "Create/List Product",
         path: "/products/create-product",
       },
       {
-        id: 8,
+        id: 6,
         label: "Create/List Pricing",
         path: "/products/create-pricing",
       },
     ],
   },
   {
-    id: 6,
+    id: 5,
     label: "Results",
     path: "/",
     icon: <SourceIcon color="primary" fontSize="small" />,
   },
   {
-    id: 7,
+    id: 6,
     label: "Manage Users",
     path: "/",
     icon: <PersonIcon color="primary" fontSize="small" />,
   },
   {
-    id: 8,
+    id: 7,
     label: "Settings",
     path: "/",
     icon: <SettingsIcon color="primary" />,
   },
 
   {
-    id: 9,
+    id: 8,
     label: "Reports",
     path: "/",
     icon: <ReportIcon color="primary" />,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ControlledTabs } from "core-library/components";
-import { CSQuestionnaire, RegQuestionnaire } from "../components/blocks";
-import { questionTabName } from "@/core/constant/TabName";
+import { RegAnswers, CSAnswer } from "../components/blocks";
+import { answertabname } from "@/core/constant/TabName";
 
 export default function Questionnaire() {
   const [tabValue, setTabValue] = useState<number>(0);
@@ -14,9 +14,9 @@ export default function Questionnaire() {
   const renderQuestionnaire = (value: number) => {
     switch (value) {
       case 0:
-        return <RegQuestionnaire />;
+        return <RegAnswers />;
       case 1:
-        return <CSQuestionnaire />;
+        return <CSAnswer />;
       default:
         return null;
     }
@@ -25,7 +25,7 @@ export default function Questionnaire() {
   return (
       <ControlledTabs
         value={tabValue}
-        tabsName={questionTabName}
+        tabsName={answertabname}
         handleChange={handleTabValue}
       >
         {renderQuestionnaire(tabValue)}
