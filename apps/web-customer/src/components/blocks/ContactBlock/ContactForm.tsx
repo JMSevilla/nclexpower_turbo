@@ -3,7 +3,6 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { TextField } from "core-library/components";
 import { ContactFormType } from '../../../core/schema/ContactForm/validation';
 import { Control, UseFormHandleSubmit } from 'react-hook-form';
-import { ContactFormBG } from '../../../components/icons/ContactFormBG';
 
 interface FormValues {
   control: Control<ContactFormType>
@@ -14,8 +13,7 @@ interface FormValues {
 export const ContactForm: React.FC<FormValues> = ({ control, handleSubmit, onSubmit }) => {
   return (
     <section className='w-full h-screen flex items-center justify-center '>
-      <div className="absolute w-full z-0">
-        <ContactFormBG />
+      <div className="absolute w-full h-screen z-0 bg-pricing ">
       </div>
       <Grid container sx={{ width: '60%', zIndex: 1 }}>
         <Grid item xl={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
@@ -53,7 +51,6 @@ export const ContactForm: React.FC<FormValues> = ({ control, handleSubmit, onSub
               </Box>
             </form>
           </div>
-
         </Grid>
       </Grid>
     </section >

@@ -15,7 +15,7 @@ export const ContactAccordion = () => {
   }));
 
   return (
-    <section className='w-full h-full flex items-center justify-center '>
+    <section className='w-full h-[90vh] flex items-center justify-center '>
       <Grid container sx={{ width: '60%', zIndex: 1 }}>
         <Grid item xl={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
           <div className="flex items-center p-12 justify-center flex-col bg-white ">

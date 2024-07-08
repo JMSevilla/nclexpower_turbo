@@ -23,6 +23,7 @@ const config: Config = {
       },
     },
     screens: {
+      xs: "200px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
@@ -47,6 +48,9 @@ const config: Config = {
         },
         paragraph: "#878e99",
       },
+      backgroundImage: {
+        'pricing': "url(\'/web-customer/src/assets/PricingBG.jpg')",
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],

@@ -1,24 +1,23 @@
-import { SvgIconComponent } from "@mui/icons-material"
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import XIcon from '@mui/icons-material/X';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import * as Icon from '@mui/icons-material';
+import { SvgIconComponent } from '@mui/icons-material';
 
-interface Props{
-  icon: SvgIconComponent
+interface Props {
+  icon: SvgIconComponent;
 }
 
 export const SocialMediaMock: Props[] = [
   {
-    icon: FacebookIcon
+    icon: Icon.Facebook
   },
   {
-    icon: InstagramIcon
+    icon: Icon.Instagram
+
   },
   {
-    icon: XIcon
+    icon: Icon.Twitter
+
   },
   {
-    icon: LinkedInIcon
-  },
-]
+    icon: Icon.LinkedIn
+  }
+];
