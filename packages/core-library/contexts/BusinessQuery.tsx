@@ -8,6 +8,7 @@ import {
 import {
   useAnswerSubmission,
   useCreateCategorySubmission,
+  useCreatePaymentIntent,
   useCreatePricingSubmission,
   useCreateProductSubmission,
   useDeleteCategory,
@@ -22,7 +23,12 @@ import {
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
 import { CategoryListResponse } from "../types/category-response";
-import { CategoryFormParams, ProductSetStatusParams } from "../api/types";
+import {
+  CategoryFormParams,
+  CreatePaymentIntentParams,
+  PaymentIntentResponse,
+  ProductSetStatusParams,
+} from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
 interface BusinessQueryContextValue {
@@ -93,6 +99,14 @@ interface BusinessQueryContextValue {
     ProductSetStatusParams,
     unknown
   >;
+  businessQueryCreatePaymentIntent: (
+    opt?: MutOpt<AxiosResponse<PaymentIntentResponse, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<PaymentIntentResponse, AxiosError<unknown, any>>,
+    any,
+    CreatePaymentIntentParams,
+    unknown
+  >;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -116,6 +130,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryCreateProduct = useCreateProductSubmission;
   const businessQueryGetAllProducts = useSelectAllProducts;
   const businessQuerySetProductStatus = useSetProductStatus;
+  const businessQueryCreatePaymentIntent = useCreatePaymentIntent;
 
   return (
     <BusinessQueryContext.Provider
@@ -132,6 +147,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryCreateProduct,
         businessQueryGetAllProducts,
         businessQuerySetProductStatus,
+        businessQueryCreatePaymentIntent,
       }}
     >
       {children}

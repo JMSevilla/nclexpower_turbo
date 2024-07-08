@@ -18,6 +18,17 @@ export interface LoginParams {
   appName: string;
 }
 
+export interface CreatePaymentIntentParams {
+  amount: number;
+  currency: string;
+  productName: string;
+  productDescription: string;
+  email: string;
+}
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
+}
 export interface LoginResponse {
   accessTokenResponse: AccessTokenResponse;
 }
