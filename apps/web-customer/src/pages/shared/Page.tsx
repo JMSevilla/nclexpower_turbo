@@ -1,19 +1,18 @@
 import React from "react";
-import { AuthProvider } from "core-library/contexts";
-import LayoutComponent from '@/pages/shared/Layout';
+import {
+  AuthProvider,
+  BusinessQueryContextProvider,
+} from "core-library/contexts";
+import { Layout } from "./Layout";
 
-
-const Page: React.FC<React.PropsWithChildren> = ({ children }) => {
-
-
+export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
-      <AuthProvider>
-        {/* Higher-level of code */}
-        <LayoutComponent children={children} />
-      </AuthProvider>
+      <BusinessQueryContextProvider>
+        <AuthProvider>
+          <Layout children={children} />
+        </AuthProvider>
+      </BusinessQueryContextProvider>
     </React.Fragment>
   );
 };
-
-export default Page;
