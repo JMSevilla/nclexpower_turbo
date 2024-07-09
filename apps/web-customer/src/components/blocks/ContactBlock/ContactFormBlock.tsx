@@ -2,7 +2,7 @@ import React from 'react';
 import { ContactForm } from "./ContactForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { ContactFormType, contactSchema } from "../../../core/schema/ContactForm/validation";
+import { ContactFormType, contactSchema } from "../../../core/Schema";
 import { useExecuteToast } from "core-library/contexts";
 
 export function ContactFormBlock() {

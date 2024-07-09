@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import {
   forgotPasswordSchema,
   forgotPasswordType,
-} from "../../../core/schema/ForgotPasswordValidation";
+} from "../../../core/Schema/ForgotPasswordValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
