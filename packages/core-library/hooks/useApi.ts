@@ -30,19 +30,6 @@ const HTTP_OPTIONS: HttpOptions = {
   },
 };
 
-const SELF_HTTP_OPTIONS: HttpOptions = {
-  headers: {
-    "Content-Type": "application/json",
-    "x-api-key": config.value.XAPIKEY,
-    ENV: "dev2",
-  },
-  onRequest: (req) => {
-    const accessToken = getItem<string | undefined>("AT");
-    if (req.headers && accessToken)
-      req.headers.Authorization = `Bearer ${accessToken}`;
-  },
-};
-
 export const httpClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:

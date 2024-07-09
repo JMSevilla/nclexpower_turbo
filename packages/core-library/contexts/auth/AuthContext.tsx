@@ -85,8 +85,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
             return null;
           },
           register: async (data: RegisterParams) => {
-            const result = await registerCb.execute(data);
-            return result.data;
+            const result = await registerCb.execute({ ...data, appName: "webdev_app" });
+            return result?.data;
           },
           logout,
           setIsAuthenticated,

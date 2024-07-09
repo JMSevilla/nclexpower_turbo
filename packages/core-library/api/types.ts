@@ -18,6 +18,17 @@ export interface LoginParams {
   appName: string;
 }
 
+export interface CreatePaymentIntentParams {
+  amount: number;
+  currency: string;
+  productName: string;
+  productDescription: string;
+  email: string;
+}
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
+}
 export interface LoginResponse {
   accessTokenResponse: AccessTokenResponse;
 }
@@ -72,4 +83,26 @@ export interface ProductListResponse {
 export interface ProductSetStatusParams {
   productId: string;
   productStatus: number;
+}
+
+export interface IrtExamLogsResponse {
+  id: string;
+  eventLNum: string;
+  lineNum: number;
+  itemID: number;
+  response: number;
+  lineTheta: number;
+  lineSEM: number;
+  aDisc: number;
+  bDiff: number;
+  cnCateg: number;
+}
+
+export interface ThetaZeroCummResponse {
+  id: string;
+  seqNum: number;
+  lastSumNum: number;
+  lastSumDenom: number;
+  lastCumulativeTheta: number;
+  accountId: string;
 }

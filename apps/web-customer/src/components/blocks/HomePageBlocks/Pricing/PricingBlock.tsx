@@ -1,15 +1,39 @@
-import React, { useState } from 'react'
-import { PackageOption } from '../../../../core/constant/HompageMockData'
+import React, { useEffect, useState } from 'react'
 import PricingCard from './PricingComponent/PricingCard'
+import { useBusinessQueryContext } from 'core-library/contexts'
+import { SelectedProductType } from 'core-library/types/global'
+import { useRouter } from 'next/router'
 
-interface Props {
-    pricingOptions: {
-        type: number
-    }[]
-}
+interface Props { }
 
 export const PricingBlock: React.FC<Props> = (props) => {
-    const [selectedType, setSelectedType] = useState<number>(0)
+    const [nurseType, setNurseType] = useState<string>('Registered')
+    const [filteredItems, setFilteredItems] = useState<[]>();
+    const router = useRouter();
+
+
+    const { businessQueryGetAllProducts } = useBusinessQueryContext();
+    const { data: ProductData } = businessQueryGetAllProducts(['PricingList'])
+
+    const handleSelectProduct = (product: SelectedProductType) => {
+        router.push({
+            pathname: '/order-summary',
+            query: {
+                amount: product.amount,
+                currency: product.currency,
+                productName: product.productName,
+                productDescription: product.productDescription,
+            },
+        });
+    };
+
+
+    const filterItems = (keyword: string) => {
+        setNurseType(keyword)
+        const filtered = ProductData && ProductData.filter((item: SelectedProductType) => item.productName.includes(keyword));
+        setFilteredItems(filtered);
+    };
+    useEffect(() => { filterItems('Registered') }, [ProductData]);
 
     return (
         <div className='pt-10 pb-40 h-fit bg-pricing bg-cover flex items-center justify-center'>
@@ -20,26 +44,25 @@ export const PricingBlock: React.FC<Props> = (props) => {
                         <div className='w-1/2 max-w-[450px] flex flex-col gap-2'>
                             <p className='text-left w-full text-xl font-semibold'>Select</p>
                             <span className='flex gap-5'>
-                                {PackageOption.length > 0 && PackageOption.map((button) => (
-                                    <button
-                                        key={button.type}
-                                        onClick={() => setSelectedType(button.type)}
-                                        className={`${selectedType === button.type ? 'w-full' : 'w-[80%] saturate-0 hover:scale-95'} ${button.bgColor} transition-all duration-300 text-white py-3 rounded-lg flex items-center leading-4 px-5 text-left gap-2`}>
-                                        <p className="text-3xl font-semibold border-r-2 px-2">{button.shortText}</p>
-                                        <span>
-                                            <p>{button.longText.split(' ').map((word, idx) => <React.Fragment key={idx}>{word}<br /></React.Fragment>)}</p>
-                                        </span>
-                                    </button>
-                                ))}
+                                <button className={`${nurseType === "Registered" ? 'w-full' : 'w-[80%] saturate-0 hover:scale-95'} bg-green-600 whitespace-nowrap transition-all duration-300 text-white py-5 text-lg rounded-lg flex items-center leading-4 px-5 text-left gap-2`}
+                                    onClick={() => filterItems('Registered')}>
+                                    <p>RN | </p>
+                                    <p>Registered Nurse</p>
+                                </button>
+                                <button className={`${nurseType === "Practical" ? 'w-full' : 'w-[80%] saturate-0 hover:scale-95'} bg-blue whitespace-nowrap transition-all duration-300 text-white py-5 text-lg rounded-lg flex items-center leading-4 px-5 text-left gap-2`}
+                                    onClick={() => filterItems('Practical')}>
+                                    <p>PN | </p>
+                                    <p>Practical Nurse</p>
+                                </button>
                             </span>
-                            <p className=' text-xs'>Lorem ipsum dolor sit amet. Eos iusto voluptatibus et alias accusamus.</p>
                         </div>
                     </div>
-                    <div className='w-2/3 px-10 flex flex-col gap-5'>
-                        <p className={`${selectedType == 0 ? 'bg-green-600' : 'bg-[#1a73e8]'} p-3 text-white text-xl font-semibold w-full rounded-md`}>{selectedType == 0 ? 'Practical Nurse' : 'Registered Nurse'}</p>
+                    <div className='w-2/3 px-10 flex flex-col gap-5 mt-8'>
                         <div className='flex gap-5  justify-center'>
-                            {props.pricingOptions.length > 0 && props.pricingOptions.map((card, index) => (
-                                <PricingCard key={index} type={card.type} nurseType={selectedType} />
+                            {filteredItems && filteredItems.length > 0 && filteredItems.map((item, index) => (
+                                <div key={index}>
+                                    <PricingCard key={index} cardData={item} handleSelectProduct={handleSelectProduct} />
+                                </div>
                             ))}
                         </div>
                     </div>

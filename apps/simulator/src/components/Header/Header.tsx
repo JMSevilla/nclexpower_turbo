@@ -8,9 +8,10 @@ import { useCountdown } from 'core-library/hooks/useCountdown';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
 import { ToolbarSettings } from '../Toolbar/Toolbar';
-import { IRTsDialog } from '../Dialog/IrtModal/IRTModal';
+import { IRTsModal } from '../Dialog/IrtModal/IRTModal';
 import { useTour } from '@reactour/tour';
 import { useLocalStorage } from 'core-library/hooks';
+
 export const buttonStyle = {
   backgroundColor: 'transparent',
   color: 'white',
@@ -104,7 +105,7 @@ export const Header: React.FC = () => {
               <ReportIssueDialog />
             </div>
             <div className="header-step-7 flex items-center">
-              <IRTsDialog />
+              <IRTsModal />
               <ToolbarSettings />
             </div>
           </Box>

@@ -10,8 +10,12 @@ import { AxiosError, AxiosResponse } from "axios";
 import { CategoryListResponse } from "../../types/category-response";
 import {
   CategoryFormParams,
+  CreatePaymentIntentParams,
   CurrenciesResponse,
+  PaymentIntentResponse,
+  IrtExamLogsResponse,
   ProductSetStatusParams,
+  ThetaZeroCummResponse,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 
@@ -170,6 +174,22 @@ export const useSetProductStatus = (
   }, opt);
 };
 
+export const useCreatePaymentIntent = (
+  opt?: MutOpt<AxiosResponse<PaymentIntentResponse, AxiosError>>
+) => {
+  const submissionCreatePaymentIntentCb = useApiCallback(
+    async (api, args: CreatePaymentIntentParams) =>
+      await api.web.web_create_payment_intent(args)
+  );
+  return useAppMutation<
+    AxiosResponse<PaymentIntentResponse, AxiosError>,
+    CreatePaymentIntentParams
+  >(async (data) => {
+    const result = await submissionCreatePaymentIntentCb.execute({ ...data });
+    return result;
+  }, opt);
+};
+
 export const useGetAllCurrencies = (
   queryKey: string[]
 ): UseQueryResult<any, unknown> => {
@@ -212,6 +232,53 @@ export const useSelectAllProducts = (queryKey: string[]) => {
     queryKey,
     async () => {
       const result = await getAllProducts.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useDeleteAllCalc = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const deleteAllCalc = useApiCallback(
+    async (api, args: string) => await api.calc.deleteAllCalc(args)
+  );
+  return useAppMutation<AxiosResponse<number, AxiosError>, string>(
+    async (id) => {
+      const result = await deleteAllCalc.execute(id);
+      return result;
+    },
+    opt
+  );
+};
+
+export const useGetIrtExamLogs = (
+  queryKey: string[],
+  accountId: string
+): UseQueryResult<IrtExamLogsResponse[] | undefined, any> => {
+  const getIrtExamLogs = useApi((api) => api.calc.getIrtExamlogs(accountId));
+
+  return useQuery<IrtExamLogsResponse[] | undefined, ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getIrtExamLogs.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetIrtZeroCalc = (
+  queryKey: string[],
+  accountId: string
+): UseQueryResult<ThetaZeroCummResponse[] | undefined, any> => {
+  const getIrtZeroCalc = useApi((api) => api.calc.getIrtZeroCalc(accountId));
+
+  return useQuery<ThetaZeroCummResponse[] | undefined, ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getIrtZeroCalc.execute();
       return result.data;
     },
     { staleTime: Infinity }

@@ -1,10 +1,14 @@
-import { RevolutionBannerBlock, CoreZigmaBlock, HowItWorksBlock, PricingBlock } from '@/components';
-import { pricingOptions } from '@/core/constant/HompageMockData';
+import {
+  RevolutionBannerBlock,
+  CoreZigmaBlock,
+  HowItWorksBlock,
+  PricingBlock,
+} from "@/components";
 
 export default function Home() {
   return (
     <div className="w-screen  flex flex-col overflow-y-auto overflow-x-hidden font-['Poppins']">
-      <div className='w-full h-screen'>
+      <div className="w-full h-screen">
         <RevolutionBannerBlock />
       </div>
       <div className=" w-full h-fit">
@@ -14,7 +18,7 @@ export default function Home() {
         <HowItWorksBlock />
       </div>
       <div className=" w-full h-fit ">
-        <PricingBlock pricingOptions={pricingOptions} />
+        <PricingBlock />
       </div>
     </div>
   );
