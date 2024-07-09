@@ -7,9 +7,12 @@ import { IrtExamLogs } from './IrtExamLogs';
 import { IrtThethaZeroCumm } from './IrtZeroCumm';
 import { useSessionStorage } from 'core-library/hooks';
 import { Card, CardContent, Button } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export const IRTsModal: React.FC = () => {
   const [getAccountId] = useSessionStorage<string | null>('accountId', null);
+
+  const router = useRouter();
 
   const { businessQueryDeleteAllCalc, businessQueryGetIrtExamLogs, businessQueryGetIrtZeroCalc } =
     useBusinessQueryContext();
@@ -32,6 +35,12 @@ export const IRTsModal: React.FC = () => {
     await mutateAsync(getAccountId ?? '');
     IrtExamLogsrefetch();
     ZeroCalcRefetch();
+    router.push({
+      pathname: '/simulator',
+      query: {
+        slug: ['B850483A-AC8D-4DAE-02C6-08DC5B07A84C', 'C002B561-66AF-46FC-A4D2-D282D42BD774', 'false'],
+      },
+    });
   }
 
   const [open, setOpen] = useState(false);
