@@ -8,9 +8,13 @@ import { ReportIssueForm } from './ReportIssueForm';
 import { ReportSchema } from '../../core/Schema'
 
 export interface FormValues {
-  issues?: string[];
+  ticket: string;
+  customerEmail: string;
+  categories?: string[];
+  product: string;
+  dateReported: Date;
   description: string;
-  createdOn: Date;
+  url: string;
 }
 
 export const ReportIssueDialog: React.FC = () => {

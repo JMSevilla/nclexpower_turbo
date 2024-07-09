@@ -16,8 +16,17 @@ interface ReportProps {
 
 export const ReportIssueForm: React.FC<ReportProps> = ({ control, errors, handleSubmit, onSubmit }) => (
   <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col items-center justify-center'>
-    {errors.issues && <Typography color="error">{errors.issues.message}</Typography>}
-    <FormControl sx={{ my: 1, width: '100%' }} error={!!errors.issues}>
+    <div className="w-full my-2">
+      <TextField
+        control={control}
+        name="ticket"
+        label={"Ticket"}
+        placeholder="NCLEX01234"
+        disabled
+      />
+    </div>
+    {errors.categories && <Typography color="error">{errors.categories.message}</Typography>}
+    <FormControl sx={{ my: 1, width: '100%' }} error={!!errors.categories}>
       <InputLabel id="issues-label"></InputLabel>
       <MultipleSelectField
         sx={{ width: '100%', mb: 2 }}
@@ -28,6 +37,22 @@ export const ReportIssueForm: React.FC<ReportProps> = ({ control, errors, handle
         multiple
       />
     </FormControl>
+    <div className="w-full my-2">
+      <TextField
+        control={control}
+        name="customerEmail"
+        label="Email Address"
+        placeholder="Input your email address here..."
+      />
+    </div>
+    <div className="w-full my-2">
+      <TextField
+        control={control}
+        name="url"
+        label="Enter url"
+        placeholder="Input your url link here..."
+      />
+    </div>
     <FormControl sx={{ my: 1, width: '100%' }} error={!!errors.description}>
       <TextField
         multiline
