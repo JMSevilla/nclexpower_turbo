@@ -12,17 +12,17 @@ interface FormValues {
 
 export const ContactForm: React.FC<FormValues> = ({ control, handleSubmit, onSubmit }) => {
   return (
-    <section className='w-full h-screen flex items-center justify-center '>
+    <section className="w-full h-screen flex items-center justify-center">
       <div className="absolute w-full h-screen z-0 bg-pricing ">
       </div>
       <Grid container sx={{ width: '60%', zIndex: 1 }}>
         <Grid item xl={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
           <div className="flex items-center p-12 justify-center flex-col bg-white border rounded-md">
             <div className="text-center mb-5">
-              <Typography variant="h5" component="span" sx={{ color: '#007AB7', fontFamily: 'Arial, sans-serif' }}>
+              <Typography variant="h6" component="span" sx={{ color: '#007AB7', fontFamily: 'Poppins' }}>
                 Connect with us
               </Typography>
-              <Typography variant="h4" sx={{ textColor: '#030303', fontWeight: 'bold', fontFamily: 'Arial, sans-serif' }}>
+              <Typography variant="h4" sx={{ textColor: '#030303', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                 The NCLEX team would love to hear from you.
               </Typography>
             </div>

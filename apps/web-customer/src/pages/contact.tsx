@@ -6,12 +6,12 @@ import { ContactAccordion } from '../components/blocks/ContactBlock/ContactAccor
 
 export default function ContactPage() {
   return (
-    <>
+    <div className="font-['Poppins']">
       <ContactHero />;
       <TiltDivider />
       <ContactAccordion />
       <ContactFormBlock />
       <ContactMap />;
-    </>
+    </div>
   )
 }

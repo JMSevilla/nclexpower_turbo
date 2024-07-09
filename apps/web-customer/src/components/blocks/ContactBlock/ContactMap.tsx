@@ -39,11 +39,11 @@ export const ContactMap: React.FC = () => {
                   <CardContent sx={{ padding: 3 }}>
                     <div className="flex items-center justify-start">
                       <item.icon className="mr-2 text-white" />
-                      <Typography variant="h5" sx={{ color: '#F3F3F3', fontWeight: 'bold', fontFamily: 'Arial, sans-serif' }}>
+                      <Typography variant="h5" sx={{ color: '#F3F3F3', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                         {item.title}
                       </Typography>
                     </div>
-                    <Typography sx={{ color: '#ced4da', fontFamily: 'Arial, sans-serif' }}>
+                    <Typography sx={{ color: '#ced4da', fontFamily: 'Poppins' }}>
                       {item.subTitle}
                     </Typography>
                   </CardContent>

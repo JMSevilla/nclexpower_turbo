@@ -15,20 +15,20 @@ export const ContactAccordion = () => {
   }));
 
   return (
-    <section className='w-full h-[90vh] flex items-center justify-center '>
+    <section className='w-full h-[90vh]  flex items-center justify-center '>
       <Grid container sx={{ width: '60%', zIndex: 1 }}>
         <Grid item xl={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
           <div className="flex items-center p-12 justify-center flex-col bg-white ">
             <QuestionAnswerIcon fontSize='large' sx={{ color: '#007AB7' }} />
             <div className="text-center mb-5">
-              <Typography variant="h3" sx={{ color: '#007AB7', fontWeight: 'bold', fontFamily: 'Arial, sans-serif' }}>
+              <Typography variant="h3" sx={{ color: '#007AB7', fontWeight: 'bold', fontFamily: 'Poppins' }}>
                 Frequently Asked Questions
               </Typography>
               <p>
                 These are the most commonly asked questions about NCLEX power and billing. Have any concerns?
               </p>
             </div>
-            <div className='mt-6 p-4'>
+            <div className="mt-6 p-4 font-['Poppins']">
               <ControlledAccordion items={accordionItems} control={control} name="accordion" />
             </div>
           </div>

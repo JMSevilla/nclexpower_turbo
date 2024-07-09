@@ -30,7 +30,7 @@ export const ContactHero: React.FC = () => {
       >
         <Box sx={{ maxWidth: { xs: "xl", lg: "3xl" } }}>
           <Grid item lg={12} >
-            <Typography variant="h3" sx={{ color: 'white', fontWeight: 700, marginBottom: 1 }}>
+            <Typography variant="h2" sx={{ color: 'white', fontWeight: 700, marginBottom: 1.5, fontFamily: 'Poppins' }}>
               Contact Us
             </Typography>
             <p className="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita repellat beatae laudantium corrupti voluptatibus quae nihil, nisi eius officiis porro! Quam facere, voluptatem perferendis fugit perspiciatis neque provident rem sit.</p>
@@ -39,7 +39,7 @@ export const ContactHero: React.FC = () => {
             <span className="text-2 xl">Visit us at |  </span>
             <div className="flex">
               {SocialMediaMock.map((item) => (
-                <item.icon className="mx-2 border p-1 rounded-md hover:bg-sky-400 hover:text-black cursor-pointer" fontSize="large" />
+                <item.icon className="mx-2 border p-1.5 rounded-lg hover:bg-sky-400 hover:text-black cursor-pointer" fontSize="large" />
               ))}
             </div>
           </div>
