@@ -149,5 +149,6 @@ export interface SelectedProductType {
   currency: string;
   productName: string;
   productDescription: string
+  programTitle: number
 
 }
