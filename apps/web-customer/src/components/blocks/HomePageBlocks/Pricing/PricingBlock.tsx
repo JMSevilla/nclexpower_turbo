@@ -5,15 +5,14 @@ import { SelectedProductType } from 'core-library/types/global'
 import { useRouter } from 'next/router'
 import { Encryption } from 'core-library/utils/Encryption'
 import { config } from 'core-library/config'
-import { useSessionStorage } from 'core-library/hooks'
+import { useEncryptItem } from 'core-library/contexts/auth/hooks'
 
 interface Props { }
-
 
 export const PricingBlock: React.FC<Props> = (props) => {
     const [nurseType, setNurseType] = useState<number>(0)
     const [filteredItems, setFilteredItems] = useState<[]>();
-    const [, setEncryptedProduct] = useSessionStorage<string | null>('SessionItem', null);
+    const [, setEncryptedProduct] = useEncryptItem();
     const { businessQueryGetAllProducts } = useBusinessQueryContext();
     const { data: ProductData } = businessQueryGetAllProducts(['PricingList'])
     const router = useRouter();
@@ -70,8 +69,7 @@ export const PricingBlock: React.FC<Props> = (props) => {
                                 </div>
                             )) :
                                 <div className={`bg-gradient-to-tr ${nurseType === 0 ? 'from-green-400 to-green-600 text-curveGray' : 'from-blue to-cyan-700 text-white'} rounded-md shadow-md px-5 py-8 text-lg w-full text-center  font-semibold`}>
-                                    <p>Price Data is Currently Not Available</p>
-                                    <p className='text-xs'>Please Try Again Later</p>
+                                    <p>Programs unavailable, please reload the page</p>
                                 </div>
                             }
                         </div>

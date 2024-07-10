@@ -8,3 +8,6 @@ export const useAccessToken = () =>
 
 export const useRefreshToken = () =>
   useSessionStorage<string | undefined>("refreshToken", undefined);
+
+export const useEncryptItem = () =>
+  useSessionStorage<string | undefined>("SessionItem", undefined);
