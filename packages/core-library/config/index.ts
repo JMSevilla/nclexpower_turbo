@@ -17,6 +17,7 @@ export const config = {
       BASEAPP: processEnv.NEXT_PRIVATE_BASE_APP!,
       BASEHUB: processEnv.NEXT_PRIVATE_BASE_ROUTE!,
       APPENV: processEnv.NEXT_PRIVATE_ENV!,
+      HMACSCRTKEY: processEnv.NEXT_PRIVATE_HMAC_SECRET_KEY,
     };
   },
 };

@@ -6,3 +6,7 @@ export function parseJSONtoString(value: string) {
     return null;
   }
 }
+
+export function parseBase64toString(base64String: string): string {
+  return Buffer.from(base64String, "base64").toString("utf-8");
+}
