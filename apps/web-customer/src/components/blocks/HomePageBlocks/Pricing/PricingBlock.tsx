@@ -64,7 +64,7 @@ export const PricingBlock: React.FC<Props> = (props) => {
                     </div>
                     <div className='w-full px-10 flex flex-col gap-5 mt-8'>
                         <div className='flex gap-5 w-full justify-center flex-wrap '>
-                            {filteredItems && filteredItems.length > 0 ? filteredItems.slice(0, 2).map((item, index) => (
+                            {filteredItems && filteredItems.length > 0 ? filteredItems.map((item, index) => (
                                 <div key={index}>
                                     <PricingCard key={index} cardData={item} handleSelectProduct={handleSelectProduct} />
                                 </div>
