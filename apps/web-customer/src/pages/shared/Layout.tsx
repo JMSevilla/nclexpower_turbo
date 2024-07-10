@@ -24,6 +24,7 @@ const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
   const headerMenu = CustomerMenus(isAuthenticated);
   const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
 
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -38,8 +39,8 @@ const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
                 headerContainerSx={drawerHeader}
               >
                 {children}
+                <Footer footerList={FooterLists} />
               </DrawerLayout>
-              <Footer footerList={FooterLists} />
             </LoadablePageContent>
           ) : (
             <>Authorized user should be the hub page.</>

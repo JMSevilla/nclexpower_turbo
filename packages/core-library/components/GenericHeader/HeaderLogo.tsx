@@ -11,7 +11,7 @@ export const HeaderLogo: React.FC<Props> = ({ }) => {
     <Box
       position="relative"
       sx={{ cursor: "pointer" }}
-      height={95}
+      height={70}
       display="flex"
       alignItems="center"
       role="button"

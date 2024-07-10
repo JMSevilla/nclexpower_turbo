@@ -47,7 +47,7 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           justifyContent="center"
           borderBottom={1}
           borderColor="divider"
-          height={100}
+          height={70}
         >
           <Typography
             variant="h5"
