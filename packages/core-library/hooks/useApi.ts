@@ -10,7 +10,6 @@ import { WebApiBackOffice } from "../api/web/web-api-backoffice";
 import { WebOfficeApi } from "../content-api";
 import { CalculationApi } from "../api/calc/calc-api";
 import { AuthApi } from "../api/auth/auth-api";
-import { generateHmacSignature } from "../core/utils/hmacSignature";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
@@ -22,11 +21,6 @@ const HTTP_OPTIONS: HttpOptions = {
     const accessToken = getItem<string | undefined>("accessToken");
     if (req.headers && accessToken)
       req.headers.Authorization = `Bearer ${accessToken}`;
-    if (req.headers)
-      req.headers["X-Hmac-Signature"] = generateHmacSignature(
-        JSON.stringify(req.data),
-        config.value.HMACSCRTKEY
-      );
   },
   onError: (error) => {
     const user = getItem<string | undefined>("user");
