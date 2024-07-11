@@ -18,9 +18,13 @@ interface Props {
 const context = createContext<{
   stripePromise: Promise<Stripe | null> | null;
   clientSecret: string | null;
+  paymentIntentId: string | null;
+  isLoading: boolean;
+  orderNumber: string | null;
   createPaymentIntentWithClientSecret(
     params: CreatePaymentIntentParams
   ): Promise<void>;
+  getOrderNumber(): Promise<void>
 }>({} as any);
 
 export const useStripeContext = () => {
@@ -33,9 +37,12 @@ export const useStripeContext = () => {
 export const StripeContextProvider: React.FC<
   React.PropsWithChildren<Props>
 > = ({ publishableKey, children }) => {
-  const { businessQueryCreatePaymentIntent } = useBusinessQueryContext();
+  const { businessQueryCreatePaymentIntent, businessQueryGetOrderNumber } = useBusinessQueryContext();
   const { mutateAsync, isLoading } = businessQueryCreatePaymentIntent();
+  const { data: dataOrderNumber, refetch: refetchOrderNumber, isLoading: orderNumberLoading } = businessQueryGetOrderNumber(["getOrderNumber"])
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const [orderNumber, setOrderNumber] = useState<string | null>(null)
   const [stripePromise, setStripePromise] =
     useState<Promise<Stripe | null> | null>(null);
 
@@ -50,15 +57,28 @@ export const StripeContextProvider: React.FC<
   ) {
     const result = await mutateAsync({ ...params });
     setClientSecret(result.data.clientSecret);
+    setPaymentIntentId(result.data.paymentIntentId);
   }
+
+  async function getOrderNumber() {
+    if (!orderNumber) {
+      await refetchOrderNumber()
+    }
+  }
+
+  useEffect(() => { setOrderNumber(dataOrderNumber) }, [dataOrderNumber])
 
   const values = useMemo(
     () => ({
       stripePromise,
       clientSecret,
+      paymentIntentId,
+      getOrderNumber,
       createPaymentIntentWithClientSecret,
+      orderNumber,
+      isLoading: orderNumberLoading || isLoading
     }),
-    [clientSecret, stripePromise, publishableKey]
+    [clientSecret, paymentIntentId, stripePromise, publishableKey, orderNumber, isLoading, orderNumberLoading]
   );
 
   return (

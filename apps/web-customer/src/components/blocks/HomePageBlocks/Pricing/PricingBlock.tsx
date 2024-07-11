@@ -22,8 +22,9 @@ export const PricingBlock: React.FC<Props> = (props) => {
         const storedData = {
             amount: product.amount.toString(),
             currency: product.currency,
-            productName: product.amount.toString(),
+            productName: product.productName.toString(),
             productDescription: product.productDescription,
+            programTitle: product.programTitle
         }
         const encyptedData = Encryption(JSON.stringify(storedData), key ?? 'no-secret-key')
         setEncryptedProduct(encyptedData)
