@@ -81,6 +81,8 @@ export const StripeContextProvider: React.FC<
     [clientSecret, paymentIntentId, stripePromise, publishableKey, orderNumber, isLoading, orderNumberLoading]
   );
 
+  console.log("publishableKey : ", publishableKey)
+
   return (
     <context.Provider value={values}>
       {stripePromise && clientSecret ? (

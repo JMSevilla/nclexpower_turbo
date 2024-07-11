@@ -22,7 +22,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
             if (orderDetail) {
                 !orderNumber && await getOrderNumber()
                 await createPaymentIntentWithClientSecret(orderDetail)
-                router.replace('/payment')
+                router.replace('/order-checkout')
             }
             return
         }
