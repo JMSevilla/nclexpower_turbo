@@ -1,13 +1,13 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ThemeProvider, CssBaseline, useTheme, Box } from "@mui/material";
+import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
 import { StripeContextProvider, useAuthContext } from "core-library/contexts";
 import { useStripeConfig } from "core-library";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
 import {
   CustomerMenus,
-  FooterLists,
+  list,
 } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
@@ -39,7 +39,7 @@ const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
                 headerContainerSx={drawerHeader}
               >
                 {children}
-                <Footer footerList={FooterLists} />
+                <Footer list={list} />
               </DrawerLayout>
             </LoadablePageContent>
           ) : (

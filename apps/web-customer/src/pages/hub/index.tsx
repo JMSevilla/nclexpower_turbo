@@ -1,3 +1,4 @@
+import withAuth from 'core-library/core/utils/withAuth'
 import React from 'react'
 
 interface Props { }
@@ -10,4 +11,4 @@ const HubOverview: React.FC<Props> = (props) => {
     )
 }
 
-export default HubOverview
+export default withAuth(HubOverview)
