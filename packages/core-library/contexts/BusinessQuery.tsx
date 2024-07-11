@@ -22,6 +22,7 @@ import {
   useGetIrtExamLogs,
   useDeleteAllCalc,
   useGetIrtZeroCalc,
+  useGetOrderNumber,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -96,6 +97,8 @@ interface BusinessQueryContextValue {
   businessQueryGetAllProducts: (
     queryKey: string[]
   ) => UseQueryResult<any, unknown>;
+  businessQueryGetOrderNumber: (queryKey: string[]) =>
+    UseQueryResult<any, unknown>
   businessQuerySetProductStatus: (
     opt?: MutOpt<AxiosResponse<number, AxiosError>>
   ) => UseMutationResult<
@@ -153,6 +156,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetAllProducts = useSelectAllProducts;
   const businessQuerySetProductStatus = useSetProductStatus;
   const businessQueryCreatePaymentIntent = useCreatePaymentIntent;
+  const businessQueryGetOrderNumber = useGetOrderNumber;
 
   const businessQueryGetIrtExamLogs = useGetIrtExamLogs;
   const businessQueryDeleteAllCalc = useDeleteAllCalc;
@@ -171,6 +175,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetAllPricing,
         businessQueryCreateProduct,
         businessQueryGetAllProducts,
+        businessQueryGetOrderNumber,
         businessQuerySetProductStatus,
         businessQueryCreatePaymentIntent,
         businessQueryGetIrtExamLogs,
