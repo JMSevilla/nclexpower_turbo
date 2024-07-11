@@ -153,6 +153,11 @@ export class WebApiBackOffice {
     );
   }
 
+  public getOrderNumber() {
+    return this.axios.get<string>('/api/v1/Order/get-order-number')
+  }
+
+
   public async createProducts(params: ProductParams) {
     return await this.axios.post<number>(
       `/api/v1/Product/internal-add-products`,

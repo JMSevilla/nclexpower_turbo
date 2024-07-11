@@ -1,9 +1,5 @@
 import { createContext, useContext, useEffect } from "react";
 import { useRefreshTokenHandler } from "core-library/hooks";
-import { Alert } from "core-library/components";
-import { Box } from "@mui/material";
-import { FormatExpiry } from "core-library";
-
 interface Props {
   logout(): Promise<void>;
 }

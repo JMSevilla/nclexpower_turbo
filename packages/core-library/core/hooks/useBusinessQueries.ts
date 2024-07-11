@@ -223,6 +223,22 @@ export const useGetAllPricing = (queryKey: string[]) => {
   );
 };
 
+export const useGetOrderNumber = (queryKey: string[]) => {
+  const getOrderNumber = useApiCallback((api) => api.webbackoffice.getOrderNumber());
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getOrderNumber.execute();
+      return result.data;
+    },
+    {
+      enabled: false,
+      staleTime: Infinity
+    }
+
+  )
+}
+
 export const useSelectAllProducts = (queryKey: string[]) => {
   const getAllProducts = useApi(
     (api) => api.webbackoffice.getAllProducts(),

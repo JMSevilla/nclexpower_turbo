@@ -1,6 +1,10 @@
 import React from "react";
-import { AuthProvider, BusinessQueryContextProvider, ToastProvider } from "core-library/contexts";
-import LayoutComponent from '@/pages/shared/Layout';
+import {
+  AuthProvider,
+  BusinessQueryContextProvider,
+  ToastProvider,
+} from "core-library/contexts";
+import { Layout } from "./Layout";
 import { ControlledToast } from "core-library/components";
 
 const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
@@ -10,8 +14,7 @@ const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         <AuthProvider>
           <ToastProvider>
             <ControlledToast autoClose={5000} hideProgressBar={false} />
-            {/* Higher-level of code */}
-            <LayoutComponent children={children} />
+            <Layout children={children} />
           </ToastProvider>
         </AuthProvider>
       </BusinessQueryContextProvider>
@@ -19,4 +22,4 @@ const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   );
 };
 
-export default Page
+export default Page;
