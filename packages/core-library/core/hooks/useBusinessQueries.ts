@@ -16,6 +16,10 @@ import {
   IrtExamLogsResponse,
   ProductSetStatusParams,
   ThetaZeroCummResponse,
+  ConfirmPaymentResponse,
+  ConfirmPaymentParams,
+  CheckoutSessionResponse,
+  CheckoutSessionParams,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 
@@ -190,6 +194,38 @@ export const useCreatePaymentIntent = (
   }, opt);
 };
 
+export const useConfirmPayment = (
+  opt?: MutOpt<AxiosResponse<ConfirmPaymentResponse, AxiosError>>
+) => {
+  const submissionConfirmPaymentCb = useApiCallback(
+    async (api, args: ConfirmPaymentParams) =>
+      await api.web.web_ssr_confirm_payment(args)
+  );
+  return useAppMutation<
+    AxiosResponse<ConfirmPaymentResponse, AxiosError>,
+    ConfirmPaymentParams
+  >(async (data) => {
+    const result = await submissionConfirmPaymentCb.execute({ ...data });
+    return result;
+  }, opt);
+};
+
+export const useCheckoutSession = (
+  opt?: MutOpt<AxiosResponse<CheckoutSessionResponse, AxiosError>>
+) => {
+  const submissionCreateSessionCb = useApiCallback(
+    async (api, args: CheckoutSessionParams) =>
+      await api.web.web_ssr_create_checkout_session(args)
+  );
+  return useAppMutation<
+    AxiosResponse<CheckoutSessionResponse, AxiosError>,
+    CheckoutSessionParams
+  >(async (data) => {
+    const result = await submissionCreateSessionCb.execute({ ...data });
+    return result;
+  }, opt);
+};
+
 export const useGetAllCurrencies = (
   queryKey: string[]
 ): UseQueryResult<any, unknown> => {
@@ -224,7 +260,9 @@ export const useGetAllPricing = (queryKey: string[]) => {
 };
 
 export const useGetOrderNumber = (queryKey: string[]) => {
-  const getOrderNumber = useApiCallback((api) => api.webbackoffice.getOrderNumber());
+  const getOrderNumber = useApiCallback((api) =>
+    api.webbackoffice.getOrderNumber()
+  );
   return useQuery<ApiServiceErr>(
     queryKey,
     async () => {
@@ -233,11 +271,10 @@ export const useGetOrderNumber = (queryKey: string[]) => {
     },
     {
       enabled: false,
-      staleTime: Infinity
+      staleTime: Infinity,
     }
-
-  )
-}
+  );
+};
 
 export const useSelectAllProducts = (queryKey: string[]) => {
   const getAllProducts = useApi(

@@ -23,6 +23,7 @@ export interface CreatePaymentIntentParams {
   currency: string;
   productName: string;
   productDescription: string;
+  programTitle: number;
 }
 export interface UpdatePaymentIntentParams {
   paymentIntentId: string;
@@ -109,4 +110,25 @@ export interface ThetaZeroCummResponse {
   lastSumDenom: number;
   lastCumulativeTheta: number;
   accountId: string;
+}
+
+export interface ConfirmPaymentParams {
+  paymentIntentId: string | null;
+  email: string | undefined;
+}
+
+export interface ConfirmPaymentResponse {
+  responseCode: number;
+  returnUrl: string;
+}
+
+export interface CheckoutSessionParams {
+  amount: number;
+  currency: string;
+  productName: string;
+  productDescription: string;
+}
+
+export interface CheckoutSessionResponse {
+  sessionId: string;
 }

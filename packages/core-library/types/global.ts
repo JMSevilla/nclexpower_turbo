@@ -121,34 +121,33 @@ interface IconsEntity {
 }
 
 interface ItemProp {
-  label: string
-  path: string
+  label: string;
+  path: string;
 }
 interface ColumnProp {
-  title: string
-  items: ItemProp[]
+  title: string;
+  items: ItemProp[];
 }
 export interface FooterProps {
-  list: ColumnProp[]
+  list: ColumnProp[];
 }
 
 export interface SliderConfigType {
   sliderConfig: {
-    infinite: boolean,
-    slidesToShow: number,
-    slidesToScroll: number,
-    autoplay: boolean,
-    speed: number,
-    autoplaySpeed: number,
-    cssEase: string
-  }
+    infinite: boolean;
+    slidesToShow: number;
+    slidesToScroll: number;
+    autoplay: boolean;
+    speed: number;
+    autoplaySpeed: number;
+    cssEase: string;
+  };
 }
 
 export interface SelectedProductType {
   amount: number;
   currency: string;
   productName: string;
-  productDescription: string
-  programTitle: number
-
+  productDescription: string;
+  programTitle: number;
 }

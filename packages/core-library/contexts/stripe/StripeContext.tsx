@@ -24,7 +24,7 @@ const context = createContext<{
   createPaymentIntentWithClientSecret(
     params: CreatePaymentIntentParams
   ): Promise<void>;
-  getOrderNumber(): Promise<void>
+  getOrderNumber(): Promise<void>;
 }>({} as any);
 
 export const useStripeContext = () => {
@@ -37,12 +37,17 @@ export const useStripeContext = () => {
 export const StripeContextProvider: React.FC<
   React.PropsWithChildren<Props>
 > = ({ publishableKey, children }) => {
-  const { businessQueryCreatePaymentIntent, businessQueryGetOrderNumber } = useBusinessQueryContext();
+  const { businessQueryCreatePaymentIntent, businessQueryGetOrderNumber } =
+    useBusinessQueryContext();
   const { mutateAsync, isLoading } = businessQueryCreatePaymentIntent();
-  const { data: dataOrderNumber, refetch: refetchOrderNumber, isLoading: orderNumberLoading } = businessQueryGetOrderNumber(["getOrderNumber"])
+  const {
+    data: dataOrderNumber,
+    refetch: refetchOrderNumber,
+    isLoading: orderNumberLoading,
+  } = businessQueryGetOrderNumber(["getOrderNumber"]);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
-  const [orderNumber, setOrderNumber] = useState<string | null>(null)
+  const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [stripePromise, setStripePromise] =
     useState<Promise<Stripe | null> | null>(null);
 
@@ -62,11 +67,13 @@ export const StripeContextProvider: React.FC<
 
   async function getOrderNumber() {
     if (!orderNumber) {
-      await refetchOrderNumber()
+      await refetchOrderNumber();
     }
   }
 
-  useEffect(() => { setOrderNumber(dataOrderNumber) }, [dataOrderNumber])
+  useEffect(() => {
+    setOrderNumber(dataOrderNumber);
+  }, [dataOrderNumber]);
 
   const values = useMemo(
     () => ({
@@ -76,25 +83,31 @@ export const StripeContextProvider: React.FC<
       getOrderNumber,
       createPaymentIntentWithClientSecret,
       orderNumber,
-      isLoading: orderNumberLoading || isLoading
+      isLoading: orderNumberLoading || isLoading,
     }),
-    [clientSecret, paymentIntentId, stripePromise, publishableKey, orderNumber, isLoading, orderNumberLoading]
+    [
+      clientSecret,
+      paymentIntentId,
+      stripePromise,
+      publishableKey,
+      orderNumber,
+      isLoading,
+      orderNumberLoading,
+    ]
   );
 
-  console.log("publishableKey : ", publishableKey)
-
   return (
-    <context.Provider value={values}>
+    <React.Fragment>
       {stripePromise && clientSecret ? (
         <Elements
           stripe={stripePromise}
-          options={{ clientSecret, loader: "auto" }}
+          options={{ clientSecret, loader: "never" }}
         >
-          {children}
+          <context.Provider value={values}>{children}</context.Provider>
         </Elements>
       ) : (
-        <React.Fragment>{children}</React.Fragment>
+        <context.Provider value={values}>{children}</context.Provider>
       )}
-    </context.Provider>
+    </React.Fragment>
   );
 };

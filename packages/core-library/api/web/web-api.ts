@@ -2,12 +2,20 @@ import { AxiosError, AxiosInstance } from "axios";
 import { RegisterParams } from "../../types/types";
 import qs from "query-string";
 import { config } from "../../config";
-import { CreatePaymentIntentParams, PaymentIntentResponse, UpdatePaymentIntentParams } from "../types";
+import {
+  CheckoutSessionParams,
+  CheckoutSessionResponse,
+  ConfirmPaymentParams,
+  ConfirmPaymentResponse,
+  CreatePaymentIntentParams,
+  PaymentIntentResponse,
+  UpdatePaymentIntentParams,
+} from "../types";
 export class WebApi {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance
-  ) { }
+  ) {}
 
   public web_account_setup(params: RegisterParams) {
     return this.axios.post<number>(
@@ -32,6 +40,20 @@ export class WebApi {
   public web_update_payment_intent(params: UpdatePaymentIntentParams) {
     return this.axios.post<number>(
       `/api/v2/payment/intent/update-payment-intent`,
+      params
+    );
+  }
+
+  public web_ssr_confirm_payment(params: ConfirmPaymentParams) {
+    return this.ssrAxios.post<ConfirmPaymentResponse>(
+      `/api/client/confirm-payment`,
+      params
+    );
+  }
+
+  public web_ssr_create_checkout_session(params: CheckoutSessionParams) {
+    return this.ssrAxios.post<CheckoutSessionResponse>(
+      `/api/client/create-payment-session`,
       params
     );
   }
