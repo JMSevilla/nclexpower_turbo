@@ -1,41 +1,25 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  InputAdornment,
-  Typography,
-  TextField,
-} from "@mui/material";
-import { ChangePasswordType, ChangePasswordSchema } from "../../../core/Schema";
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Checkbox } from "core-library/components/Checkbox/Checkbox";
+import { TextField } from "core-library/components";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useShowPasswordForm } from "./ShowPassword";
 import {
-  Visibility,
-  VisibilityOff,
-  CheckCircle,
-  Cancel,
-} from "@mui/icons-material";
+  validatePassword,
+  ChangePasswordSchema,
+  ChangePasswordType,
+} from "core-library/types";
+import { ValidationIndicators } from "./ValidationIndicator";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
-  showPassword: boolean;
   agreeTermsCondition?: boolean;
   onSubmit: (values: ChangePasswordType) => void;
-  handlePasswordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangeTermsCondition: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
-  handleShowPassword: (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => void;
-  validationChecks: {
-    isLengthValid: boolean;
-    containsNumber: boolean;
-    containsUppercase: boolean;
-  };
 }
 
 export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
@@ -43,20 +27,25 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
   submitLoading,
   agreeTermsCondition,
   handleChangeTermsCondition,
-  handlePasswordChange,
-  handleShowPassword,
-  validationChecks,
-  showPassword,
 }) => {
+  const {
+    showPassword,
+    handleClickShowPassword,
+    handleClickShowconfirmPassword,
+    showconfirmPassword,
+  } = useShowPasswordForm();
+
   const form = useForm({
     mode: "onSubmit",
     resolver: yupResolver(ChangePasswordSchema),
     defaultValues: ChangePasswordSchema.getDefault(),
   });
 
-  const { control, handleSubmit } = form;
+  const { control, handleSubmit, watch } = form;
 
-  const { isLengthValid, containsNumber, containsUppercase } = validationChecks;
+  const newPassword = watch("newPassword", "");
+
+  const validationChecks = validatePassword(newPassword);
 
   return (
     <>
@@ -67,6 +56,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
           sx={{
             width: { xs: "90%", sm: "80%", md: "70%", lg: "60%" },
             zIndex: 1,
+            mt: 5,
           }}
         >
           <Grid item xs={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
@@ -85,8 +75,8 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                   variant="caption"
                   sx={{
                     fontSize: {
-                      xs: "16px",
-                      sm: "18px",
+                      xs: "14px",
+                      sm: "16px",
                       md: "18px",
                       lg: "20px",
                       xl: "22px",
@@ -112,75 +102,37 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
 
               <form onSubmit={handleSubmit(onSubmit)} className="w-full">
                 <Grid item xs={12} sx={{ marginY: 3, display: "flex", gap: 2 }}>
-                  <Controller
-                    name="newPassword"
+                  <TextField
                     control={control}
-                    render={({ field, formState: { errors } }) => (
-                      <TextField
-                        {...field}
-                        fullWidth
-                        label="New Password"
-                        error={!!errors.newPassword}
-                        helperText={errors.newPassword?.message}
-                        type={showPassword ? "text" : "password"}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          field.onChange(e.target.value);
-                          handlePasswordChange(e);
-                        }}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleShowPassword}
-                                edge="end"
-                              >
-                                {showPassword ? (
-                                  <Visibility />
-                                ) : (
-                                  <VisibilityOff />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
+                    name="newPassword"
+                    label="New Password"
+                    type={showPassword ? "text" : "password"}
                   />
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="start"
+                    sx={{ mt: 4 }}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
                 </Grid>
 
                 <Grid item xs={12} sx={{ marginY: 3, display: "flex", gap: 2 }}>
-                  <Controller
-                    name="confirmPassword"
+                  <TextField
                     control={control}
-                    render={({ field, formState: { errors } }) => (
-                      <TextField
-                        {...field}
-                        fullWidth
-                        label="Confirm Password"
-                        type={showPassword ? "text" : "password"}
-                        error={!!errors.confirmPassword}
-                        helperText={errors.confirmPassword?.message}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleShowPassword}
-                                edge="end"
-                              >
-                                {showPassword ? (
-                                  <Visibility />
-                                ) : (
-                                  <VisibilityOff />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    type={showconfirmPassword ? "text" : "password"}
                   />
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowconfirmPassword}
+                    edge="start"
+                    sx={{ mt: 4 }}
+                  >
+                    {showconfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
                 </Grid>
                 <Grid item xs={12} sx={{ marginY: 2 }}>
                   <Typography
@@ -192,59 +144,13 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                   >
                     Must contain at least
                   </Typography>
-                  <ul style={{ fontFamily: "Poppins", paddingLeft: "20px" }}>
-                    <li
-                      style={{
-                        color: isLengthValid ? "green" : "red",
-                      }}
-                    >
-                      {isLengthValid ? (
-                        <CheckCircle sx={{ mr: 1 }} />
-                      ) : (
-                        <Cancel sx={{ mr: 1 }} />
-                      )}
-                      Minimum 6 characters
-                    </li>
-                    <li style={{ color: containsNumber ? "green" : "red" }}>
-                      {containsNumber ? (
-                        <CheckCircle sx={{ mr: 1 }} />
-                      ) : (
-                        <Cancel sx={{ mr: 1 }} />
-                      )}{" "}
-                      Contains a number
-                    </li>
-                    <li style={{ color: containsUppercase ? "green" : "red" }}>
-                      {containsUppercase ? (
-                        <CheckCircle sx={{ mr: 1 }} />
-                      ) : (
-                        <Cancel sx={{ mr: 1 }} />
-                      )}
-                      Contains an uppercase letter
-                    </li>
-                  </ul>
+                  <ValidationIndicators validationChecks={validationChecks} />
                 </Grid>
                 <Grid item xs={12} sx={{ marginY: 2 }}>
-                  <Controller
-                    name="agreeTermsCondition"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <>
-                        <Checkbox
-                          {...field}
-                          checked={agreeTermsCondition}
-                          onChange={(e) => {
-                            field.onChange(e.target.checked);
-                            handleChangeTermsCondition(e);
-                          }}
-                          label="Terms and condition"
-                        />
-                        {error && (
-                          <Typography color="error" variant="body2">
-                            {error.message}
-                          </Typography>
-                        )}
-                      </>
-                    )}
+                  <Checkbox
+                    checked={agreeTermsCondition}
+                    onChange={handleChangeTermsCondition}
+                    label="Accept terms and condition"
                   />
                 </Grid>
                 <Box
