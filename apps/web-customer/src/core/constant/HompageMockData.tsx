@@ -1,4 +1,4 @@
-export const FooterLists = [
+export const list = [
     {
         title: "Company",
         items: [
