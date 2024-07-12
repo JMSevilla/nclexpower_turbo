@@ -129,7 +129,7 @@ interface ColumnProp {
   items: ItemProp[]
 }
 export interface FooterProps {
-  footerList: ColumnProp[]
+  list: ColumnProp[]
 }
 
 export interface SliderConfigType {
