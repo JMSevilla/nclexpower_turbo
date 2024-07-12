@@ -23,11 +23,11 @@ export interface CreatePaymentIntentParams {
   currency: string;
   productName: string;
   productDescription: string;
-  email: string;
 }
 
 export interface PaymentIntentResponse {
   clientSecret: string;
+  paymentIntentId: string;
 }
 export interface LoginResponse {
   accessTokenResponse: AccessTokenResponse;

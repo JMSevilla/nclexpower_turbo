@@ -5,8 +5,8 @@ export * from "./Textfield/SelectMultipleField";
 export * from "./Toastify/Toastify";
 export * from "./Button/Button";
 export * from "./AnimatedBoxSkeleton/AnimatedSkeletonBox";
-export * from "./Accordion/ControlledAccordion"
-export * from "./TiltDivider/TiltDivider"
+export * from "./Accordion/ControlledAccordion";
+export * from "./TiltDivider/TiltDivider";
 export * from "./Alert/ErrorBox";
 export * from "./Alert/ErrorBoundary";
 export * from "./ErrorTooltip";
@@ -31,7 +31,8 @@ export * from "./GenericDrawerLayout/DrawerLayout";
 export * from "./GenericSidebar/Sidebar";
 export * from "./table/DataTable";
 export * from "./SelectField/SingleSelectField";
+export * from "./Textfield/OtpField";
 
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
-export * from "./Tabs/tab"
+export * from "./Tabs/tab";
