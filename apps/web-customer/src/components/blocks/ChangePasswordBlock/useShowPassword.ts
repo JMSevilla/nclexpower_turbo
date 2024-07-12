@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useShowPasswordForm = () => {
+export const useShowPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 

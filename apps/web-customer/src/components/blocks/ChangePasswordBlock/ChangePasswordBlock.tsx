@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChangePasswordForm } from "./ChangePasswordForm";
-import { ChangePasswordType } from "core-library/types";
+import { ChangePasswordType } from "../../../core/Schema";
 import { useExecuteToast } from "core-library/contexts";
 
 export function ChangePasswordBlock() {

@@ -1,15 +1,9 @@
-import * as Yup from "yup";
+import * as yup from "yup";
+import { validatePassword } from "core-library/utils/Regex";
 
-export const validatePassword = (password: any) => {
-  return {
-    isLengthValid: password.length >= 6,
-    containsNumber: /(?=.*[0-9])/.test(password),
-    containsUppercase: /(?=.*[A-Z])/.test(password),
-  };
-};
-
-export const ChangePasswordSchema = Yup.object({
-  newPassword: Yup.string()
+export const ChangePasswordSchema = yup.object({
+  newPassword: yup
+    .string()
     .required("New Password is required")
     .min(6, "Password is too short - should be 6 chars minumum")
     .test(
@@ -28,10 +22,11 @@ export const ChangePasswordSchema = Yup.object({
       (value) => validatePassword(value).containsUppercase
     )
     .default(""),
-  confirmPassword: Yup.string()
+  confirmPassword: yup
+    .string()
     .required("Please confirm your new password")
-    .oneOf([Yup.ref("newPassword")], "Passwords must match")
+    .oneOf([yup.ref("newPassword")], "Passwords must match")
     .default(""),
 });
 
-export type ChangePasswordType = Yup.InferType<typeof ChangePasswordSchema>;
+export type ChangePasswordType = yup.InferType<typeof ChangePasswordSchema>;

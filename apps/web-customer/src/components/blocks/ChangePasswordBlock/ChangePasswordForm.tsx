@@ -5,13 +5,10 @@ import { useForm } from "react-hook-form";
 import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { TextField } from "core-library/components";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useShowPasswordForm } from "./ShowPassword";
-import {
-  validatePassword,
-  ChangePasswordSchema,
-  ChangePasswordType,
-} from "core-library/types";
+import { useShowPassword } from "./useShowPassword";
+import { ChangePasswordType, ChangePasswordSchema } from "../../../core/Schema";
 import { ValidationIndicators } from "./ValidationIndicator";
+import { validatePassword } from "core-library/utils/Regex";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
@@ -33,7 +30,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
     handleClickShowPassword,
     handleClickShowconfirmPassword,
     showconfirmPassword,
-  } = useShowPasswordForm();
+  } = useShowPassword();
 
   const form = useForm({
     mode: "onSubmit",
@@ -144,7 +141,11 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                   >
                     Must contain at least
                   </Typography>
-                  <ValidationIndicators validationChecks={validationChecks} />
+                  <ValidationIndicators
+                    isLengthValid={validationChecks.isLengthValid}
+                    containsNumber={validationChecks.containsNumber}
+                    containsUppercase={validationChecks.containsUppercase}
+                  />
                 </Grid>
                 <Grid item xs={12} sx={{ marginY: 2 }}>
                   <Checkbox
