@@ -47,7 +47,7 @@ const ResendButton: React.FC<{
     <Typography
       onClick={handleClick}
       alignSelf="start"
-      fontSize="0.8rem"
+      fontSize="1.1rem"
       fontWeight="bold"
       mt={1}
       color="primary"
@@ -72,7 +72,7 @@ const FormattedTime: React.FC<{ seconds: number; hideCanResend: boolean }> = ({
 
   return (
     <FormHelperText
-      sx={{ fontWeight: 560, color: (theme) => theme.palette.grey[500] }}
+      sx={{ fontWeight: 560, fontSize: '1rem', mt: 1, color: (theme) => theme.palette.grey[500] }}
     >
       {!canResend
         ? `Resend Code: ${formatted}`
@@ -93,22 +93,22 @@ export const HelperText: React.FC<
   error,
   hideCanResend = false,
 }) => {
-  const canResend = remainingSeconds <= 0;
+    const canResend = remainingSeconds <= 0;
 
-  return (
-    <Stack>
-      {helperText ? (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
-      ) : (
-        <FormattedTime
-          seconds={remainingSeconds}
-          hideCanResend={hideCanResend}
-        />
-      )}
-      {!hideCanResend && canResend && <ResendButton onClick={onResend} />}
-    </Stack>
-  );
-};
+    return (
+      <Stack>
+        {helperText ? (
+          <FormHelperText error={error}>{helperText}</FormHelperText>
+        ) : (
+          <FormattedTime
+            seconds={remainingSeconds}
+            hideCanResend={hideCanResend}
+          />
+        )}
+        {!hideCanResend && canResend && <ResendButton onClick={onResend} />}
+      </Stack>
+    );
+  };
 
 export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
   error,
@@ -149,60 +149,60 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
 
   const handleChange =
     (index: number): ChangeEventHandler<HTMLInputElement> =>
-    (event) => {
-      const text = event.target.value;
-      const isNumberOrEmpty = isSingleDigitNumber(text) || text === "";
+      (event) => {
+        const text = event.target.value;
+        const isNumberOrEmpty = isSingleDigitNumber(text) || text === "";
 
-      if (!isNumberOrEmpty) {
-        return event.preventDefault();
-      }
+        if (!isNumberOrEmpty) {
+          return event.preventDefault();
+        }
 
-      setPin((prevPin) => {
-        const newValue = prevPin.map((val, i) => {
-          if (index === i) return text;
-          return val;
+        setPin((prevPin) => {
+          const newValue = prevPin.map((val, i) => {
+            if (index === i) return text;
+            return val;
+          });
+          onChange?.(newValue.join(""));
+          return newValue;
         });
-        onChange?.(newValue.join(""));
-        return newValue;
-      });
-    };
+      };
 
   const moveToNext =
     (index: number): KeyboardEventHandler<HTMLInputElement> =>
-    (event) => {
-      const { key } = event;
+      (event) => {
+        const { key } = event;
 
-      if (key === "Backspace" || key === "Delete") {
-        setPin((prevPin) => prevPin.map((v, i) => (index === i ? "" : v)));
-        const prev = index - 1;
-        if (prev > -1 && pin[index] === "") {
-          refs.current[prev].current?.focus();
+        if (key === "Backspace" || key === "Delete") {
+          setPin((prevPin) => prevPin.map((v, i) => (index === i ? "" : v)));
+          const prev = index - 1;
+          if (prev > -1 && pin[index] === "") {
+            refs.current[prev].current?.focus();
+          }
+          return;
         }
-        return;
-      }
 
-      if (!isSingleDigitNumber(key)) return;
+        if (!isSingleDigitNumber(key)) return;
 
-      if (index < digits - 1) {
-        refs.current[index + 1].current?.focus();
-      }
-    };
+        if (index < digits - 1) {
+          refs.current[index + 1].current?.focus();
+        }
+      };
 
   return (
     <Stack sx={{ width: "100%" }}>
       <Stack direction="column" mx="auto">
         {label && <InputLabel error={error}>{label}</InputLabel>}
         <Stack
-          maxWidth={350}
-          p={0.5}
+          maxWidth={550}
           gap={gap}
+          mb={3}
           direction="row"
           justifyContent="space-round"
         >
           {pin.map((v, i) => (
             <TextField
               sx={{
-                width: [40, 50],
+                width: ['100%', '100%'],
                 height: [50, 60],
                 ...sx,
               }}
@@ -213,6 +213,10 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
                 sx: {
                   px: 1,
                   py: 1.3,
+                  height: 50,
+                  width: '100%',
+                  textAlign: 'center',
+                  border: '1px solid #007AB7',
                 },
               }}
               variant={variant}
