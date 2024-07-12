@@ -17,7 +17,7 @@ import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useLogout } from "core-library/hooks";
 
-interface Props {}
+interface Props { }
 
 export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
@@ -54,3 +54,5 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
+
+export default Layout
