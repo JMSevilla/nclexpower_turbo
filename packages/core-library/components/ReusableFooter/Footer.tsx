@@ -16,7 +16,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
             fontFamily: 'Poppins',
             backgroundColor: "#002442"
         }}>
-            {props.footerList.length > 0 &&
+            {props.list.length > 0 &&
                 <Box width={1} sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -40,11 +40,11 @@ export const Footer: React.FC<FooterProps> = (props) => {
                     marginBottom: 2
                 }}
             >
-                {props.footerList.length > 0 && props.footerList.map((list, index) => (
+                {props.list.length > 0 && props.list.map((list, index) => (
                     <div key={index} className="w-1/3 h-fit flex flex-col items-center text-left">
                         <p className="font-semibold pb-2">{list.title}</p>
                         <ul className="flex flex-col gap-2 text-xs">
-                            {props.footerList.length > 0 && list.items.map((item, index) => (
+                            {props.list.length > 0 && list.items.map((item, index) => (
                                 <li key={index}>
                                     <a href={item.path}>{item.label}</a>
                                 </li>

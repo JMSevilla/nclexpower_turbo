@@ -21,6 +21,8 @@ export const DrawerLayout: React.FC<
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
   const [mounted, setMounted] = useState<boolean>(false);
+  const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
+  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
@@ -60,8 +62,8 @@ export const DrawerLayout: React.FC<
               onLogout={() => { }}
               menu={menu}
               isAuthenticated={isAuthenticated}
-              headerContainerSx={headerContainerSx}
-              buttonHeaderSx={buttonHeaderSx}
+              headerContainerSx={AuthHeaderStyle}
+              buttonHeaderSx={AuthButtonStyle}
             />
           </Box>
           {children}
