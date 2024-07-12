@@ -1,5 +1,5 @@
 import React from "react";
-import { OTPSchema, OTPType } from "@/core/Schema";
+import { OTPSchema, OTPType } from "../../../core/Schema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
