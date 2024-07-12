@@ -2,7 +2,11 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
-import { StripeContextProvider, useAuthContext } from "core-library/contexts";
+import {
+  StripeContextProvider,
+  useAuthContext,
+  ExpirationContextProvider,
+} from "core-library/contexts";
 import { useStripeConfig } from "core-library";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
 import {
@@ -11,10 +15,11 @@ import {
 } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
+import { useLogout } from "core-library/hooks";
 
-interface Props { }
+interface Props {}
 
-const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
+export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const queryClient = new QueryClient();
@@ -23,14 +28,15 @@ const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
   const { isAuthenticated } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
   const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
+  const { logout } = useLogout();
 
 
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <StripeContextProvider publishableKey={publishableKey}>
-          {!isAuthenticated ? (
+        <ExpirationContextProvider logout={logout}>
+          <StripeContextProvider publishableKey={publishableKey}>
             <LoadablePageContent isAuthenticated={isAuthenticated}>
               <DrawerLayout
                 menu={headerMenu}
@@ -42,13 +48,9 @@ const LayoutComponent: React.FC<React.PropsWithChildren<Props>> = ({
                 <Footer list={list} />
               </DrawerLayout>
             </LoadablePageContent>
-          ) : (
-            <>Authorized user should be the hub page.</>
-          )}
-        </StripeContextProvider>
+          </StripeContextProvider>
+        </ExpirationContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
 };
-
-export default LayoutComponent
