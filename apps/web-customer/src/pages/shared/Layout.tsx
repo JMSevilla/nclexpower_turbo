@@ -9,15 +9,12 @@ import {
 } from "core-library/contexts";
 import { useStripeConfig } from "core-library";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
-import {
-  CustomerMenus,
-  list,
-} from "../../core/constant/HompageMockData";
+import { CustomerMenus, list } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useLogout } from "core-library/hooks";
 
-interface Props { }
+interface Props {}
 
 export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
@@ -30,14 +27,13 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
   const { logout } = useLogout();
 
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ExpirationContextProvider logout={logout}>
           <StripeContextProvider publishableKey={publishableKey}>
-            <LoadablePageContent isAuthenticated={isAuthenticated}>
+            <LoadablePageContent>
               <DrawerLayout
                 menu={headerMenu}
                 isAuthenticated={isAuthenticated}
@@ -55,4 +51,4 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   );
 };
 
-export default Layout
+export default Layout;

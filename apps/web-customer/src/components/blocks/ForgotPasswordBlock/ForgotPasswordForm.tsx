@@ -2,17 +2,18 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { TextField } from "core-library/components";
 import { ForgotPasswordBG } from "../../icons/ForgotPasswordBG";
 import { useForm } from "react-hook-form";
-import {
-  forgotPasswordSchema,
-  forgotPasswordType,
-} from "../../../core/Schema/ForgotPasswordValidation";
+import { forgotPasswordSchema, forgotPasswordType } from "../../../core/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
   onSubmit: (values: forgotPasswordType) => void;
+  submitLoading?: boolean;
 }
 
-export const ForgotPasswordForm: React.FC<Props> = ({ onSubmit }) => {
+export const ForgotPasswordForm: React.FC<Props> = ({
+  onSubmit,
+  submitLoading,
+}) => {
   const form = useForm({
     mode: "onSubmit",
     resolver: yupResolver(forgotPasswordSchema),
@@ -103,6 +104,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({ onSubmit }) => {
                 fullWidth
                 color="primary"
                 sx={{ px: 4, py: 2 }}
+                disabled={submitLoading}
               >
                 Continue
               </Button>
