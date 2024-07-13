@@ -1,5 +1,12 @@
 import * as yup from "yup";
-import { validatePassword } from "core-library/utils/Regex";
+
+export const validatePassword = (password: string) => {
+  return {
+    isLengthValid: password.length >= 6,
+    containsNumber: /(?=.*[0-9])/.test(password),
+    containsUppercase: /(?=.*[A-Z])/.test(password),
+  };
+};
 
 export const ChangePasswordSchema = yup.object({
   newPassword: yup

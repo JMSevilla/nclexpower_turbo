@@ -8,7 +8,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from "./useShowPassword";
 import { ChangePasswordType, ChangePasswordSchema } from "../../../core/Schema";
 import { ValidationIndicators } from "./ValidationIndicator";
-import { validatePassword } from "core-library/utils/Regex";
+import { validatePassword } from "../../../core/Schema";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
