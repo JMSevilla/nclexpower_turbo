@@ -5,14 +5,13 @@ import { NavigationType } from "../../types/navigation";
 import { useRouter } from "next/router";
 import { SxProps, Theme } from "@mui/material/styles";
 
-
 interface Props {
   onLogout(): void;
   menu?: NavigationType[];
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
-  headerContainerSx?: SxProps<Theme>
-  buttonHeaderSx?: SxProps<Theme>
+  headerContainerSx?: SxProps<Theme>;
+  buttonHeaderSx?: SxProps<Theme>;
 }
 
 export const Header: React.FC<Props> = ({
@@ -21,7 +20,7 @@ export const Header: React.FC<Props> = ({
   isAuthenticated,
   drawerButton,
   headerContainerSx,
-  buttonHeaderSx
+  buttonHeaderSx,
 }) => {
   const { isMobile } = useResolution();
   const router = useRouter();
@@ -80,9 +79,12 @@ export const Header: React.FC<Props> = ({
                     menu.length > 0 &&
                     menu.map((navigation, index) => (
                       <Grid item key={index}>
-                        <Button sx={{
-                          ...buttonHeaderSx
-                        }} onClick={() => handleNavigate(navigation.path)}>
+                        <Button
+                          sx={{
+                            ...buttonHeaderSx,
+                          }}
+                          onClick={() => handleNavigate(navigation.path)}
+                        >
                           {navigation.label}
                         </Button>
                       </Grid>
@@ -95,7 +97,9 @@ export const Header: React.FC<Props> = ({
           {isAuthenticated && <Grid item alignSelf="center"></Grid>}
           {isMobile && <Grid item></Grid>}
         </Grid>
-        <Grid item xs={12} position="relative"></Grid>
+        <Grid item xs={12} position="relative">
+          <Button onClick={onLogout}>sample logout</Button>
+        </Grid>
       </Grid>
     </Box>
   );

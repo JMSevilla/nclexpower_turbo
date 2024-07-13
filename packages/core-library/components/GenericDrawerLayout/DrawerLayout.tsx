@@ -7,25 +7,33 @@ import { Sidebar } from "../";
 import { useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import { useLogout } from "../../hooks";
 
 type DrawerLayoutType = {
   menu: NavigationType[];
-  isAuthenticated: boolean
-  headerContainerSx?: SxProps<Theme>
-  buttonHeaderSx?: SxProps<Theme>
+  isAuthenticated: boolean;
+  headerContainerSx?: SxProps<Theme>;
+  buttonHeaderSx?: SxProps<Theme>;
 };
 
 export const DrawerLayout: React.FC<
   React.PropsWithChildren<DrawerLayoutType>
-> = ({ menu, children, isAuthenticated, headerContainerSx, buttonHeaderSx }) => {
+> = ({
+  menu,
+  children,
+  isAuthenticated,
+  headerContainerSx,
+  buttonHeaderSx,
+}) => {
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
   const [mounted, setMounted] = useState<boolean>(false);
   const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
-  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null
-  const router = useRouter()
-  const hideDrawer = router.pathname === '/order-checkout';
+  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
+  const router = useRouter();
+  const { logout } = useLogout();
+  const hideDrawer = router.pathname === "/order-checkout";
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
@@ -54,7 +62,7 @@ export const DrawerLayout: React.FC<
       <Main open={open} isMobile={isMobile}>
         <Box display="flex" minHeight="100vh" flexDirection="column">
           <Box>
-            {!hideDrawer &&
+            {!hideDrawer && (
               <Header
                 drawerButton={
                   ((!open && isAuthenticated) || isMobile) && (
@@ -63,13 +71,13 @@ export const DrawerLayout: React.FC<
                     </Button>
                   )
                 }
-                onLogout={() => { }}
+                onLogout={logout}
                 menu={menu}
                 isAuthenticated={isAuthenticated}
                 headerContainerSx={AuthHeaderStyle}
                 buttonHeaderSx={AuthButtonStyle}
               />
-            }
+            )}
           </Box>
           {children}
         </Box>
