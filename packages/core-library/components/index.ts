@@ -32,6 +32,7 @@ export * from "./GenericSidebar/Sidebar";
 export * from "./table/DataTable";
 export * from "./SelectField/SingleSelectField";
 export * from "./Textfield/OtpField";
+export * from "./Button/CheckoutButton";
 
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";

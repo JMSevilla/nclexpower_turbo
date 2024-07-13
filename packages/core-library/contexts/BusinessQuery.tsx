@@ -23,6 +23,8 @@ import {
   useDeleteAllCalc,
   useGetIrtZeroCalc,
   useGetOrderNumber,
+  useConfirmPayment,
+  useCheckoutSession,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -34,6 +36,10 @@ import {
   ThetaZeroCummResponse,
   PaymentIntentResponse,
   CreatePaymentIntentParams,
+  ConfirmPaymentParams,
+  ConfirmPaymentResponse,
+  CheckoutSessionResponse,
+  CheckoutSessionParams,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -97,8 +103,9 @@ interface BusinessQueryContextValue {
   businessQueryGetAllProducts: (
     queryKey: string[]
   ) => UseQueryResult<any, unknown>;
-  businessQueryGetOrderNumber: (queryKey: string[]) =>
-    UseQueryResult<any, unknown>
+  businessQueryGetOrderNumber: (
+    queryKey: string[]
+  ) => UseQueryResult<any, unknown>;
   businessQuerySetProductStatus: (
     opt?: MutOpt<AxiosResponse<number, AxiosError>>
   ) => UseMutationResult<
@@ -132,6 +139,22 @@ interface BusinessQueryContextValue {
     string,
     unknown
   >;
+  businessQueryConfirmPayment: (
+    opt?: MutOpt<AxiosResponse<ConfirmPaymentResponse, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<ConfirmPaymentResponse, AxiosError<unknown, any>>,
+    any,
+    ConfirmPaymentParams,
+    unknown
+  >;
+  businessQueryCheckoutSession: (
+    opt?: MutOpt<AxiosResponse<CheckoutSessionResponse, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<CheckoutSessionResponse, AxiosError<unknown, any>>,
+    any,
+    CheckoutSessionParams,
+    unknown
+  >;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -157,10 +180,12 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQuerySetProductStatus = useSetProductStatus;
   const businessQueryCreatePaymentIntent = useCreatePaymentIntent;
   const businessQueryGetOrderNumber = useGetOrderNumber;
-
+  const businessQueryConfirmPayment = useConfirmPayment;
   const businessQueryGetIrtExamLogs = useGetIrtExamLogs;
   const businessQueryDeleteAllCalc = useDeleteAllCalc;
   const businessQueryGetIrtZeroCalc = useGetIrtZeroCalc;
+  const businessQueryCheckoutSession = useCheckoutSession;
+
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -181,6 +206,8 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetIrtExamLogs,
         businessQueryDeleteAllCalc,
         businessQueryGetIrtZeroCalc,
+        businessQueryConfirmPayment,
+        businessQueryCheckoutSession,
       }}
     >
       {children}
