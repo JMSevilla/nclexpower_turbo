@@ -1,10 +1,14 @@
 import * as yup from "yup";
+import {
+  CONTAINS_NUMBER_REGEX,
+  CONTAINS_UPPERCASE_REGEX,
+} from "core-library/utils/Regex";
 
 export const validatePassword = (password: string) => {
   return {
     isLengthValid: password.length >= 6,
-    containsNumber: /(?=.*[0-9])/.test(password),
-    containsUppercase: /(?=.*[A-Z])/.test(password),
+    containsNumber: CONTAINS_NUMBER_REGEX.test(password),
+    containsUppercase: CONTAINS_UPPERCASE_REGEX.test(password),
   };
 };
 
