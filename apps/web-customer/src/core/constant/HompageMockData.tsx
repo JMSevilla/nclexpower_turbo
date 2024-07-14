@@ -32,10 +32,10 @@ export const list = [
 ];
 
 export const UnauthorizedHeader = [
-    { id: 1, label: "Home" },
+    { id: 1, label: "Home", path: "/" },
     { id: 2, label: "About" },
-    { id: 3, label: "Contact Us" },
-    { id: 4, label: "Login" },
+    { id: 3, label: "Contact Us", path: "/contact" },
+    { id: 4, label: "Login", path: "/login" },
 ]
 
 export const AuthorizedHeader = [
@@ -66,5 +66,3 @@ export const CustomerMenus = (isAuthenticated: boolean) => {
     }
 
 };
-
-
