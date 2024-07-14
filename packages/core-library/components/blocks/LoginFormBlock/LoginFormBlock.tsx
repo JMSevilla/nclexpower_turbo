@@ -9,7 +9,15 @@ interface Props {
 
 export function LoginFormBlock({ onSubmit, isLoading }: Props) {
     return (
-        <Box>
+        <Box
+            display='flex'
+            justifyContent="center"
+            alignItems="center"
+            flexGrow={1}
+            sx={{
+                height: '100vh',
+            }}
+        >
             <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
         </Box>
     )

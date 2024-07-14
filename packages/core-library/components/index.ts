@@ -30,6 +30,7 @@ export * from "./DataGrid/DataGrid";
 export * from "./GenericDrawerLayout/DrawerLayout";
 export * from "./GenericSidebar/Sidebar";
 export * from "./table/DataTable";
+export * from "./ReactTable/ReactTable";
 export * from "./SelectField/SingleSelectField";
 export * from "./Textfield/OtpField";
 export * from "./Button/CheckoutButton";
@@ -37,3 +38,4 @@ export * from "./Button/CheckoutButton";
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
 export * from "./Tabs/tab";
+
