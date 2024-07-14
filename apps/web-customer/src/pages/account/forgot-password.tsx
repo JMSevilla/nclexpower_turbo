@@ -1,4 +1,4 @@
-import { ForgotPasswordFormBlock } from "../components/blocks/ForgotPasswordBlock/ForgotPasswordBlock";
+import { ForgotPasswordFormBlock } from "../../components/blocks/ForgotPasswordBlock/ForgotPasswordBlock";
 
 export const ForgotPassword = () => {
   return <ForgotPasswordFormBlock />;

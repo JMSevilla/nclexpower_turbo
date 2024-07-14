@@ -23,7 +23,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   useFormFocusOnError<LoginFormType>(formState.errors, setFocus);
 
   return (
-    <Grid container direction="column" rowSpacing={4} gap={2}>
+    <Grid container direction="column" width={.5} rowSpacing={4} gap={2}>
       <Grid item md={6} lg={4}>
         <TextField<LoginFormType>
           name="email"
