@@ -177,4 +177,8 @@ export class WebApiBackOffice {
       params
     );
   }
+
+  public async getAllReportedIssues() {
+    return await this.axios.get('/api/v1/Customer/get-all-report-issues')
+  }
 }

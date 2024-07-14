@@ -20,6 +20,7 @@ import {
   ConfirmPaymentParams,
   CheckoutSessionResponse,
   CheckoutSessionParams,
+  ReportedIssuesResponse,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 
@@ -332,6 +333,21 @@ export const useGetIrtZeroCalc = (
     queryKey,
     async () => {
       const result = await getIrtZeroCalc.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetAllReportedIssues = (
+  queryKey: string[],
+): UseQueryResult<ReportedIssuesResponse[] | undefined, any> => {
+  const getAllReportedIssues = useApi((api) => api.webbackoffice.getAllReportedIssues());
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getAllReportedIssues.execute();
       return result.data;
     },
     { staleTime: Infinity }

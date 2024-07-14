@@ -93,7 +93,7 @@ const AuthenticatedMenu: NavigationType[] = [
   {
     id: 8,
     label: "Reports",
-    path: "/",
+    path: "/reports/reported-issues",
     icon: <ReportIcon color="primary" />,
   },
   {
