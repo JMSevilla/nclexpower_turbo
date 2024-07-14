@@ -20,7 +20,7 @@ export function LoginFormBlock() {
   const [savedData, setSavedData] = useState<SavedDataProps | null>(null);
   const router = useRouter();
 
-  const handleBack = () => {
+  const returnHomePage = () => {
     router.push('/')
   }
 
@@ -63,7 +63,7 @@ export function LoginFormBlock() {
       handleChangeRememberMe={handleChangeRememberMe}
       rememberMe={rememberMe}
       savedData={savedData}
-      handleBack={handleBack}
+      returnHomePage={returnHomePage}
     />
   );
 }

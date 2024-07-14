@@ -28,7 +28,7 @@ export const DrawerLayout: React.FC<
   const router = useRouter()
 
   const hideDrawer = (
-    router.pathname === 'order-summary' ||
+    router.pathname === 'order-checkout' ||
     router.pathname === '/login'
   )
 

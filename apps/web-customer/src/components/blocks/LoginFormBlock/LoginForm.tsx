@@ -14,7 +14,7 @@ type Props = {
   rememberMe: boolean;
   handleChangeRememberMe: (event: React.ChangeEvent<HTMLInputElement>) => void;
   savedData: { email: string; password: string; rememberMe: boolean } | null;
-  handleBack: () => void;
+  returnHomePage: () => void;
 };
 
 export const LoginForm: React.FC<Props> = ({
@@ -23,7 +23,7 @@ export const LoginForm: React.FC<Props> = ({
   rememberMe,
   handleChangeRememberMe,
   savedData,
-  handleBack
+  returnHomePage
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -79,7 +79,7 @@ export const LoginForm: React.FC<Props> = ({
               </Button>
             </Box>
           </form>
-          <Button onClick={handleBack} variant="outlined" sx={{ mt: 2 }}>Return Homepage</Button>
+          <Button onClick={returnHomePage} variant="outlined" sx={{ mt: 2 }}>Return Homepage</Button>
         </Box>
       </Grid>
     </Grid>
