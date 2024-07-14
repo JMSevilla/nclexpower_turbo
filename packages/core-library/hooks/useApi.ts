@@ -15,7 +15,7 @@ const HTTP_OPTIONS: HttpOptions = {
   headers: {
     "x-api-key": config.value.XAPIKEY,
     "Content-Type": "application/json",
-    ENV: "dev2",
+    "X-Environment": config.value.SYSENV,
   },
   onRequest: (req) => {
     const accessToken = getItem<string | undefined>("accessToken");
