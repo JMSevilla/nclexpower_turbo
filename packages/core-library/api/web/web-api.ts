@@ -7,6 +7,7 @@ import {
   CheckoutSessionResponse,
   ConfirmPaymentParams,
   ConfirmPaymentResponse,
+  CreateCustomerParams,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   UpdatePaymentIntentParams,
@@ -56,5 +57,9 @@ export class WebApi {
       `/api/client/create-payment-session`,
       params
     );
+  }
+
+  public web_ssr_create_customer(params: CreateCustomerParams) {
+    return this.ssrAxios.post<number>(`/api/customer/create`, params);
   }
 }
