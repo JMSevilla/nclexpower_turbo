@@ -12,9 +12,9 @@ import { useAuthContext } from "core-library/contexts";
 import { useLogout } from "core-library/hooks";
 import { mockMenus } from "../../../../../packages/core-library/components/GenericDrawerLayout/MockMenus";
 
-interface Props {}
+interface Props { }
 
-export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
+const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const { loading } = useAuthContext();
@@ -46,3 +46,5 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
+
+export default Layout
