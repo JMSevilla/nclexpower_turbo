@@ -132,3 +132,24 @@ export interface CheckoutSessionParams {
 export interface CheckoutSessionResponse {
   sessionId: string;
 }
+
+
+export interface ReportedIssuesResponse {
+  id: string
+  ticketNumber: string
+  email: string
+  categoryId: string
+  category: CategoryResponse
+  systemProduct: number
+  description: string
+  dateReported: string
+}
+
+export interface CategoryResponse {
+  id: string
+  categoryName: string
+  categoryDescription: string
+  categoryType: number
+  createdAt: string
+  updatedAt: string
+}

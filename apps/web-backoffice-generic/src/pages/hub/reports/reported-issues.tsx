@@ -1,38 +1,20 @@
 import React from 'react'
 import { Alert, DataGrid } from 'core-library/components';
-import { ReportedIssuesRows } from '../../../core/constant/reportIssueMock'
-import { Box, Button, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useColumns } from 'core-library/hooks';
 import { useBusinessQueryContext } from 'core-library/contexts';
 import { ReportedIssuesResponse } from 'core-library/api/types';
+import { useDateFormat, useSystemProduct } from '../../../core/hooks';
 
 
 
 
 function ReportedIssues() {
     const { businessQueryGetAllReportedIssues } = useBusinessQueryContext()
-    // const { data } = businessQueryGetAllReportedIssues(['getAllReportedIssues'])
+    const { data } = businessQueryGetAllReportedIssues(['getAllReportedIssues'])
+    const { getSystemProductLabel } = useSystemProduct()
+    const { getFormattedDate } = useDateFormat()
 
-
-    const data: ReportedIssuesResponse[] = [
-        {
-            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            ticketNumber: "string",
-            email: "string",
-            categoryId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            category: {
-                id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                categoryName: "string",
-                categoryDescription: "string",
-                categoryType: 0,
-                createdAt: "2024-07-10T12:00:27.428Z",
-                updatedAt: "2024-07-10T12:00:27.428Z"
-            },
-            systemProduct: 0,
-            description: "string",
-            dateReported: "2024-07-10T12:00:27.428Z"
-        }
-    ]
 
 
     const { columns } = useColumns({
@@ -50,41 +32,40 @@ function ReportedIssues() {
                 sortable: true,
             },
             {
-                field: 'category',
+                field: 'category.categoryName',
                 headerName: 'Category',
                 flex: 1,
                 sortable: true,
+                renderCell: (rows) => {
+                    const { category } = rows.row
+                    return <Typography>{category.categoryName}</Typography>
+                }
             },
             {
-                field: 'product',
-                headerName: 'Product',
-                flex: 1,
+                field: 'systemProduct',
+                headerName: 'System Product',
+                flex: 2,
                 sortable: true,
-
+                renderCell: (rows) => {
+                    const { systemProduct } = rows.row
+                    return <Typography>{getSystemProductLabel(systemProduct)}</Typography>
+                }
             },
             {
-                field: 'report_date',
+                field: 'dateReported',
                 headerName: 'Date Reported',
                 flex: 1,
                 sortable: true,
+                renderCell: (rows) => {
+                    const { dateReported } = rows.row
+                    return <Typography>{getFormattedDate(dateReported)}</Typography>
+                }
             },
             {
                 field: 'description',
                 headerName: 'Description',
                 sortable: true,
                 flex: 2
-            },
-            {
-                field: '',
-                headerName: '',
-                sortable: false,
-                flex: 1,
-                disableColumnMenu: true,
-                renderCell: () => (
-                    <Box display='flex' justifyContent="center" alignItems='center' height="100%">
-                        <Button sx={{ height: 'fit-content' }}>View Details</Button>
-                    </Box>
-                )
             },
         ]
     })
