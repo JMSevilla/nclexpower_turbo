@@ -1,10 +1,12 @@
-export const SystemProduct = [
+import { SystemProductType } from '../../core/types/systemProduct';
+
+export const SystemProduct: SystemProductType[] = [
     {
-        systemProduct: 0,
+        value: 0,
         label: "Simulator"
     },
     {
-        systemProduct: 1,
+        value: 1,
         label: "Web Customer"
     },
 ]

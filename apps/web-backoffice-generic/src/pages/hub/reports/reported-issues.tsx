@@ -1,21 +1,15 @@
 import React from 'react'
 import { Alert, DataGrid } from 'core-library/components';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { useColumns } from 'core-library/hooks';
 import { useBusinessQueryContext } from 'core-library/contexts';
-import { ReportedIssuesResponse } from 'core-library/api/types';
 import { useDateFormat, useSystemProduct } from '../../../core/hooks';
-
-
-
 
 function ReportedIssues() {
     const { businessQueryGetAllReportedIssues } = useBusinessQueryContext()
     const { data } = businessQueryGetAllReportedIssues(['getAllReportedIssues'])
     const { getSystemProductLabel } = useSystemProduct()
     const { getFormattedDate } = useDateFormat()
-
-
 
     const { columns } = useColumns({
         columns: [
@@ -38,7 +32,7 @@ function ReportedIssues() {
                 sortable: true,
                 renderCell: (rows) => {
                     const { category } = rows.row
-                    return <Typography>{category.categoryName}</Typography>
+                    return category.categoryName
                 }
             },
             {
@@ -46,20 +40,14 @@ function ReportedIssues() {
                 headerName: 'System Product',
                 flex: 2,
                 sortable: true,
-                renderCell: (rows) => {
-                    const { systemProduct } = rows.row
-                    return <Typography>{getSystemProductLabel(systemProduct)}</Typography>
-                }
+                valueGetter: (systemProduct) => getSystemProductLabel(systemProduct)
             },
             {
                 field: 'dateReported',
                 headerName: 'Date Reported',
                 flex: 1,
                 sortable: true,
-                renderCell: (rows) => {
-                    const { dateReported } = rows.row
-                    return <Typography>{getFormattedDate(dateReported)}</Typography>
-                }
+                valueGetter: (date) => getFormattedDate(date)
             },
             {
                 field: 'description',
