@@ -132,3 +132,13 @@ export interface CheckoutSessionParams {
 export interface CheckoutSessionResponse {
   sessionId: string;
 }
+
+export interface CreateCustomerParams {
+  firstname: string;
+  middlename: string | null;
+  lastname: string;
+  email: string;
+  orderNumber: string;
+  productId: string;
+  totalAmount: number;
+}
