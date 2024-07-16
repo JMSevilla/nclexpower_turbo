@@ -24,13 +24,15 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   const theme = useTheme();
   const mockMenu = mockMenus(isAuthenticated);
 
+  const onLogout = () => { console.log("LOGOUT") }
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ExpirationContextProvider logout={logout}>
           <DialogContextProvider>
-            <DrawerLayout menu={mockMenu} isAuthenticated={isAuthenticated}>
+            <DrawerLayout menu={mockMenu} isAuthenticated={isAuthenticated} onLogout={onLogout}>
               <LoadablePageContent loading={loading}>
                 <PageContainer stickOut={false}>
                   <ToastProvider>
