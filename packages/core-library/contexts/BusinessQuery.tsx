@@ -25,6 +25,8 @@ import {
   useGetOrderNumber,
   useConfirmPayment,
   useCheckoutSession,
+  useGetAllReportedIssues,
+  useCreateCustomer,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -40,6 +42,8 @@ import {
   ConfirmPaymentResponse,
   CheckoutSessionResponse,
   CheckoutSessionParams,
+  ReportedIssuesResponse,
+  CreateCustomerParams,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -126,7 +130,6 @@ interface BusinessQueryContextValue {
     queryKey: string[],
     accountId: string
   ) => UseQueryResult<IrtExamLogsResponse[] | undefined, any>;
-
   businessQueryGetIrtZeroCalc: (
     queryKey: string[],
     accountId: string
@@ -153,6 +156,18 @@ interface BusinessQueryContextValue {
     AxiosResponse<CheckoutSessionResponse, AxiosError<unknown, any>>,
     any,
     CheckoutSessionParams,
+    unknown
+  >;
+  businessQueryGetAllReportedIssues: (
+    queryKey: string[],
+  ) => UseQueryResult<ReportedIssuesResponse[] | undefined, any>;
+
+  businessQueryCreateCustomer: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<number, AxiosError<unknown, any>>,
+    any,
+    CreateCustomerParams,
     unknown
   >;
 }
@@ -185,6 +200,8 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryDeleteAllCalc = useDeleteAllCalc;
   const businessQueryGetIrtZeroCalc = useGetIrtZeroCalc;
   const businessQueryCheckoutSession = useCheckoutSession;
+  const businessQueryGetAllReportedIssues = useGetAllReportedIssues
+  const businessQueryCreateCustomer = useCreateCustomer;
 
   return (
     <BusinessQueryContext.Provider
@@ -208,6 +225,8 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetIrtZeroCalc,
         businessQueryConfirmPayment,
         businessQueryCheckoutSession,
+        businessQueryGetAllReportedIssues,
+        businessQueryCreateCustomer,
       }}
     >
       {children}

@@ -24,8 +24,13 @@ export const DrawerLayout: React.FC<
   const [mounted, setMounted] = useState<boolean>(false);
   const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
   const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null
+
   const router = useRouter()
-  const hideDrawer = router.pathname === '/order-checkout';
+
+  const hideDrawer = (
+    router.pathname === 'order-checkout' ||
+    router.pathname === '/login'
+  )
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
