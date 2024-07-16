@@ -4,27 +4,42 @@ import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from "next/router";
 import { SxProps, Theme } from "@mui/material/styles";
+import { AccountMenu } from '../index';
+import { AccountMenuItem } from '../../../../apps/web-backoffice-generic/src/core/constant/UserDropDown';
+import {
+  AccountCircle as AccountCircleIcon,
+} from "@mui/icons-material";
+import { useState } from 'react';
 
 
 interface Props {
-  onLogout(): void;
   menu?: NavigationType[];
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
   headerContainerSx?: SxProps<Theme>
   buttonHeaderSx?: SxProps<Theme>
+  onLogout?: () => void
 }
 
 export const Header: React.FC<Props> = ({
   menu,
-  onLogout,
   isAuthenticated,
   drawerButton,
   headerContainerSx,
-  buttonHeaderSx
+  buttonHeaderSx,
+  onLogout
 }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleLogout = () => { }
+
+
   const { isMobile } = useResolution();
   const router = useRouter();
+
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/" });
@@ -95,7 +110,15 @@ export const Header: React.FC<Props> = ({
           {isAuthenticated && <Grid item alignSelf="center"></Grid>}
           {isMobile && <Grid item></Grid>}
         </Grid>
-        <Grid item xs={12} position="relative"></Grid>
+        {isAuthenticated &&
+          <AccountMenu
+            icon={<AccountCircleIcon color="primary" fontSize="small" />}
+            label="User"
+            accountItem={AccountMenuItem}
+            anchorEl={anchorEl}
+            onClick={handleClick}
+            onLogout={handleLogout}
+          />}
       </Grid>
     </Box>
   );

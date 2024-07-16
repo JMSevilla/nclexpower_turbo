@@ -4,7 +4,7 @@ import { SxProps, Theme } from "@mui/material/styles";
 import { Header } from "../GenericHeader/Header";
 import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
-import { useResolution } from "../../hooks";
+import { useLogout, useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from 'next/router';
@@ -14,11 +14,13 @@ type DrawerLayoutType = {
   isAuthenticated: boolean
   headerContainerSx?: SxProps<Theme>
   buttonHeaderSx?: SxProps<Theme>
+  onLogout?: () => void
+
 };
 
 export const DrawerLayout: React.FC<
   React.PropsWithChildren<DrawerLayoutType>
-> = ({ menu, children, isAuthenticated, headerContainerSx, buttonHeaderSx }) => {
+> = ({ menu, children, isAuthenticated, headerContainerSx, buttonHeaderSx, onLogout }) => {
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
   const [mounted, setMounted] = useState<boolean>(false);
@@ -26,6 +28,7 @@ export const DrawerLayout: React.FC<
   const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null
 
   const router = useRouter()
+  const { logout } = useLogout();
 
   const hideDrawer = (
     router.pathname === 'order-checkout' ||
@@ -68,11 +71,11 @@ export const DrawerLayout: React.FC<
                     </Button>
                   )
                 }
-                onLogout={() => { }}
                 menu={menu}
                 isAuthenticated={isAuthenticated}
                 headerContainerSx={AuthHeaderStyle}
                 buttonHeaderSx={AuthButtonStyle}
+                onLogout={onLogout}
               />
             }
           </Box>

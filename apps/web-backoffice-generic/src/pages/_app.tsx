@@ -7,7 +7,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./index.css";
 import "./mui.css";
-import { Page } from "./shared/Page";
+import Page from '../pages/shared/Page';
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
