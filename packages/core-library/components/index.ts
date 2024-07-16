@@ -34,6 +34,7 @@ export * from "./ReactTable/ReactTable";
 export * from "./SelectField/SingleSelectField";
 export * from "./Textfield/OtpField";
 export * from "./Button/CheckoutButton";
+export * from "./GenericDropDown/AccountMenu";
 
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";

@@ -4,24 +4,37 @@ import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from "next/router";
 import { SxProps, Theme } from "@mui/material/styles";
+import { AccountMenu } from "../index";
+import { AccountMenuItem } from "../../../../apps/web-backoffice-generic/src/core/constant/UserDropDown";
+import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
+import { useState } from "react";
 
 interface Props {
-  onLogout(): void;
   menu?: NavigationType[];
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
   headerContainerSx?: SxProps<Theme>;
   buttonHeaderSx?: SxProps<Theme>;
+  // headerContainerSx?: SxProps<Theme>
+  // buttonHeaderSx?: SxProps<Theme>
+  onLogout?: () => void;
 }
 
 export const Header: React.FC<Props> = ({
   menu,
-  onLogout,
   isAuthenticated,
   drawerButton,
   headerContainerSx,
   buttonHeaderSx,
+  onLogout,
 }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleLogout = () => {};
+
   const { isMobile } = useResolution();
   const router = useRouter();
 
@@ -100,6 +113,16 @@ export const Header: React.FC<Props> = ({
         <Grid item xs={12} position="relative">
           <Button onClick={onLogout}>sample logout</Button>
         </Grid>
+        {isAuthenticated && (
+          <AccountMenu
+            icon={<AccountCircleIcon color="primary" fontSize="small" />}
+            label="User"
+            accountItem={AccountMenuItem}
+            anchorEl={anchorEl}
+            onClick={handleClick}
+            onLogout={handleLogout}
+          />
+        )}
       </Grid>
     </Box>
   );

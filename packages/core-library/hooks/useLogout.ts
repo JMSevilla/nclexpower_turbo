@@ -13,7 +13,7 @@ export const useLogout = () => {
       clearAccessToken();
       clearRefreshToken();
       router.push("/login");
-      console.log("shoud logout!");
+      console.log("should logout!");
     },
   };
 };

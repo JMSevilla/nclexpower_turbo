@@ -11,7 +11,6 @@ import { CategoryListResponse } from "../../types/category-response";
 import {
   CategoryFormParams,
   CreatePaymentIntentParams,
-  CurrenciesResponse,
   PaymentIntentResponse,
   IrtExamLogsResponse,
   ProductSetStatusParams,
@@ -20,6 +19,8 @@ import {
   ConfirmPaymentParams,
   CheckoutSessionResponse,
   CheckoutSessionParams,
+  CreateCustomerParams,
+  ReportedIssuesResponse,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 
@@ -113,6 +114,22 @@ export const useCreateCategorySubmission = (
     },
     opt
   );
+};
+
+export const useCreateCustomer = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const createCustomerSubmissionCb = useApiCallback(
+    async (api, args: CreateCustomerParams) =>
+      await api.web.web_ssr_create_customer(args)
+  );
+  return useAppMutation<
+    AxiosResponse<number, AxiosError>,
+    CreateCustomerParams
+  >(async (data) => {
+    const result = await createCustomerSubmissionCb.execute({ ...data });
+    return result;
+  }, opt);
 };
 
 export const useDeleteCategory = (
@@ -332,6 +349,21 @@ export const useGetIrtZeroCalc = (
     queryKey,
     async () => {
       const result = await getIrtZeroCalc.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetAllReportedIssues = (
+  queryKey: string[],
+): UseQueryResult<ReportedIssuesResponse[] | undefined, any> => {
+  const getAllReportedIssues = useApi((api) => api.webbackoffice.getAllReportedIssues());
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getAllReportedIssues.execute();
       return result.data;
     },
     { staleTime: Infinity }

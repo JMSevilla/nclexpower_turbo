@@ -12,9 +12,9 @@ import { useAuthContext } from "core-library/contexts";
 import { useLogout } from "core-library/hooks";
 import { mockMenus } from "../../../../../packages/core-library/components/GenericDrawerLayout/MockMenus";
 
-interface Props {}
+interface Props { }
 
-export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
+const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const { loading } = useAuthContext();
@@ -24,13 +24,15 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   const theme = useTheme();
   const mockMenu = mockMenus(isAuthenticated);
 
+  const onLogout = () => { console.log("LOGOUT") }
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ExpirationContextProvider logout={logout}>
           <DialogContextProvider>
-            <DrawerLayout menu={mockMenu} isAuthenticated={isAuthenticated}>
+            <DrawerLayout menu={mockMenu} isAuthenticated={isAuthenticated} onLogout={onLogout}>
               <LoadablePageContent loading={loading}>
                 <PageContainer stickOut={false}>
                   <ToastProvider>
@@ -46,3 +48,5 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
+
+export default Layout

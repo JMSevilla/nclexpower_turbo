@@ -1,11 +1,11 @@
-import { Layout } from "./Layout";
 import React from "react";
 import {
   AuthProvider,
   BusinessQueryContextProvider,
 } from "core-library/contexts";
+import Layout from '../shared/Layout';
 
-export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
       <BusinessQueryContextProvider>
@@ -16,3 +16,5 @@ export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     </React.Fragment>
   );
 };
+
+export default Page
