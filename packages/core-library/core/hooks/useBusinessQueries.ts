@@ -23,6 +23,7 @@ import {
   ReportedIssuesResponse,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
+import { useAccessToken } from "../../contexts/auth/hooks";
 
 export const useAppMutation = <Response, TVariables = unknown>(
   mutationFn: (variables: TVariables) => Promise<Response>,
@@ -32,6 +33,7 @@ export const useAppMutation = <Response, TVariables = unknown>(
 export const useLoadPreProcessQuery = (
   queryKey: string[]
 ): UseQueryResult<any, unknown> => {
+  const [accessToken, setAccessToken] = useAccessToken();
   const loadPTestHimemCb = useApiCallback((api) =>
     api.calc.initializeLoadPTestHimem()
   );
@@ -42,6 +44,7 @@ export const useLoadPreProcessQuery = (
   return useQuery<ApiServiceErr>(
     queryKey,
     async () => {
+      if(!accessToken) return
       loadPTestHimemCb.execute();
       loadPreTrackItemCb.execute();
     },
@@ -53,6 +56,7 @@ export const useSelectQuestionsQuery = (
   queryKey: string[],
   data: ItemSelectTypes
 ): UseQueryResult<CalcItemSelectResponseItem[] | undefined, any> => {
+  const [accessToken, setAccessToken] = useAccessToken();
   const selectQuestionCb = useApiCallback(
     async (api, args: ItemSelectTypes) => await api.calc.ItemSelect(args)
   );
@@ -60,6 +64,7 @@ export const useSelectQuestionsQuery = (
   return useQuery<CalcItemSelectResponseItem[] | undefined, ApiServiceErr>(
     queryKey,
     async () => {
+      if(!accessToken) return
       const result = await selectQuestionCb.execute({ ...data });
       return result.data;
     },
