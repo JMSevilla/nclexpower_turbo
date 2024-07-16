@@ -12,7 +12,8 @@
     "api/calc",
     "global.d.ts",
     "react.d.ts",
-    "eva-icons.d.ts"
+    "eva-icons.d.ts",
+    "../../apps/web-backoffice-generic/src/core/constant/UserDropDown.tsx"
   ],
   "exclude": [
     "node_modules",

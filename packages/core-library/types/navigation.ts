@@ -1,9 +1,5 @@
-export type NavigationItemType = {
-    id: number
-    label: string
-    path?: string
-    icon?: React.ReactNode
-}
+import { NavigationItemType } from './global'
+
 
 export type NavigationType = NavigationItemType & {
     children?: NavigationItemType[]

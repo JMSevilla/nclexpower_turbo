@@ -9,7 +9,6 @@ import {
   Source as SourceIcon,
   AccountCircle as AccountCircleIcon
 } from "@mui/icons-material";
-
 import { NavigationType } from "../../types/navigation";
 
 const AuthenticatedMenu: NavigationType[] = [
@@ -95,18 +94,6 @@ const AuthenticatedMenu: NavigationType[] = [
     label: "Reports",
     path: "/reports/reported-issues",
     icon: <ReportIcon color="primary" />,
-  },
-  {
-    id: 9,
-    label: "User",
-    icon: <AccountCircleIcon color="primary" fontSize="small" />,
-    children: [
-      {
-        id: 10,
-        label: "Logout",
-        path: "/",
-      },
-    ],
   },
 ];
 
