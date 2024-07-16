@@ -110,9 +110,7 @@ export const Header: React.FC<Props> = ({
           {isAuthenticated && <Grid item alignSelf="center"></Grid>}
           {isMobile && <Grid item></Grid>}
         </Grid>
-        <Grid item xs={12} position="relative">
-          <Button onClick={onLogout}>sample logout</Button>
-        </Grid>
+        <Grid item xs={12} position="relative"></Grid>
         {isAuthenticated && (
           <AccountMenu
             icon={<AccountCircleIcon color="primary" fontSize="small" />}
@@ -120,7 +118,7 @@ export const Header: React.FC<Props> = ({
             accountItem={AccountMenuItem}
             anchorEl={anchorEl}
             onClick={handleClick}
-            onLogout={handleLogout}
+            onLogout={onLogout}
           />
         )}
       </Grid>

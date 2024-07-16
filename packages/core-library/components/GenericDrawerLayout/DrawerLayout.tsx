@@ -4,41 +4,41 @@ import { SxProps, Theme } from "@mui/material/styles";
 import { Header } from "../GenericHeader/Header";
 import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
-import { useLogout, useResolution } from "../../hooks";
+import { useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/router";
-// import { useLogout } from "../../hooks";
+import { useAuthContext } from "../../contexts";
 
 type DrawerLayoutType = {
   menu: NavigationType[];
   isAuthenticated: boolean;
   headerContainerSx?: SxProps<Theme>;
   buttonHeaderSx?: SxProps<Theme>;
-  onLogout?: () => void
+  onLogout?: () => void;
 };
 
-export const DrawerLayout: React.FC<React.PropsWithChildren<DrawerLayoutType>> = ({
+export const DrawerLayout: React.FC<
+  React.PropsWithChildren<DrawerLayoutType>
+> = ({
   menu,
   children,
   isAuthenticated,
   headerContainerSx,
   buttonHeaderSx,
-  onLogout
+  onLogout,
 }) => {
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
   const [mounted, setMounted] = useState<boolean>(false);
   const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
   const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
-  
-  const router = useRouter()
-  const { logout } = useLogout();
 
-  const hideDrawer = (
-    router.pathname === 'order-checkout' ||
-    router.pathname === '/login'
-  )
+  const router = useRouter();
+  const { logout } = useAuthContext();
+
+  const hideDrawer =
+    router.pathname === "order-checkout" || router.pathname === "/login";
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
@@ -80,7 +80,7 @@ export const DrawerLayout: React.FC<React.PropsWithChildren<DrawerLayoutType>> =
                 isAuthenticated={isAuthenticated}
                 headerContainerSx={AuthHeaderStyle}
                 buttonHeaderSx={AuthButtonStyle}
-                onLogout={onLogout}
+                onLogout={logout}
               />
             )}
           </Box>
@@ -89,5 +89,4 @@ export const DrawerLayout: React.FC<React.PropsWithChildren<DrawerLayoutType>> =
       </Main>
     </Box>
   );
-  }
-}
+};
