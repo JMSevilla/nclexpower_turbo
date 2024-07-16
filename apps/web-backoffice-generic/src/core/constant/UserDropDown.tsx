@@ -1,14 +1,29 @@
-import { Logout as LogoutIcon } from "@mui/icons-material";
-import { NavigationType } from 'core-library/types/navigation';
+import {
+    AccountCircle,
+    Payment
+} from "@mui/icons-material";
+import { NavigationItemType } from 'core-library/types/global';
 
-const handleLogout = () => { }
+interface AccountMenuType {
+    id: number,
+    label: string,
+    icon: React.ReactNode,
+    subItem: NavigationItemType[]
+}
 
-export const DropDownMenu: NavigationType[] = [
-    {
-        id: 1,
-        label: "Logout",
-        icon: <LogoutIcon fontSize="small" />,
-        onClick: handleLogout
-    },
-]
+export const AccountMenuItem
+    : AccountMenuType[] = [
+        {
+            id: 1,
+            label: "User Info",
+            icon: <AccountCircle fontSize="small" />,
+            subItem: [
+                {
+                    id: 1,
+                    label: "View Plan",
+                    icon: <Payment fontSize="small" />,
+                }
+            ]
+        },
+    ]
 
