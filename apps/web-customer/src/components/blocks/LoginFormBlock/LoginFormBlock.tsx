@@ -5,6 +5,7 @@ import { config } from 'core-library/config';
 import { Encryption } from 'core-library/utils/Encryption';
 import { useLocalStorage } from 'core-library/hooks';
 import { useAuthContext } from 'core-library/contexts';
+import { useRouter } from 'next/router';
 
 interface SavedDataProps {
   email: string;
@@ -17,6 +18,11 @@ export function LoginFormBlock() {
   const { setItem, getItem, removeItem } = useLocalStorage("rm");
   const [rememberMe, setRememberMe] = useState(false);
   const [savedData, setSavedData] = useState<SavedDataProps | null>(null);
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.push('/')
+  }
 
   async function handleSubmit(data: LoginParams) {
     const key = config.value.SECRET_KEY;
@@ -57,6 +63,7 @@ export function LoginFormBlock() {
       handleChangeRememberMe={handleChangeRememberMe}
       rememberMe={rememberMe}
       savedData={savedData}
+      handleBack={handleBack}
     />
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Grid, Typography, FormControlLabel } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { loginSchema, LoginFormType } from "core-library/components/blocks/LoginFormBlock/validation";
@@ -14,9 +14,17 @@ type Props = {
   rememberMe: boolean;
   handleChangeRememberMe: (event: React.ChangeEvent<HTMLInputElement>) => void;
   savedData: { email: string; password: string; rememberMe: boolean } | null;
+  handleBack: () => void;
 };
 
-export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading, rememberMe, handleChangeRememberMe, savedData }) => {
+export const LoginForm: React.FC<Props> = ({
+  onSubmit,
+  submitLoading,
+  rememberMe,
+  handleChangeRememberMe,
+  savedData,
+  handleBack
+}) => {
   const form = useForm({
     mode: "onSubmit",
     resolver: yupResolver(loginSchema),
@@ -71,6 +79,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading, rememberMe
               </Button>
             </Box>
           </form>
+          <Button onClick={handleBack} variant="outlined" sx={{ mt: 2 }}>Return Homepage</Button>
         </Box>
       </Grid>
     </Grid>

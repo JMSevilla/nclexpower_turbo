@@ -26,6 +26,7 @@ import {
   useConfirmPayment,
   useCheckoutSession,
   useGetAllReportedIssues,
+  useCreateCustomer,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -42,6 +43,7 @@ import {
   CheckoutSessionResponse,
   CheckoutSessionParams,
   ReportedIssuesResponse,
+  CreateCustomerParams,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -160,6 +162,14 @@ interface BusinessQueryContextValue {
     queryKey: string[],
   ) => UseQueryResult<ReportedIssuesResponse[] | undefined, any>;
 
+  businessQueryCreateCustomer: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<number, AxiosError<unknown, any>>,
+    any,
+    CreateCustomerParams,
+    unknown
+  >;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -191,6 +201,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetIrtZeroCalc = useGetIrtZeroCalc;
   const businessQueryCheckoutSession = useCheckoutSession;
   const businessQueryGetAllReportedIssues = useGetAllReportedIssues
+  const businessQueryCreateCustomer = useCreateCustomer;
 
   return (
     <BusinessQueryContext.Provider
@@ -215,6 +226,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryConfirmPayment,
         businessQueryCheckoutSession,
         businessQueryGetAllReportedIssues,
+        businessQueryCreateCustomer,
       }}
     >
       {children}

@@ -153,3 +153,13 @@ export interface CategoryResponse {
   createdAt: string
   updatedAt: string
 }
+
+export interface CreateCustomerParams {
+  firstname: string;
+  middlename: string | null;
+  lastname: string;
+  email: string;
+  orderNumber: string;
+  productId: string;
+  totalAmount: number;
+}
