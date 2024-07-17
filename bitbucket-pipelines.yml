@@ -6,8 +6,10 @@ pipelines:
         name: Build and Test Core Library
         script:
           - echo "Starting SSH agent..."
+          - echo "$SSH_PRIVATE_KEY" > id_rsa
+          - chmod 600 id_rsa
           - eval "$(ssh-agent -s)"
-          - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+          - ssh-add id_rsa
           - echo "Checking out repository..."
           - git clone git@bitbucket.org:nclexpower/ncturbo.git
           - apt-get update && apt-get install -y jq
