@@ -5,8 +5,11 @@ pipelines:
     - step:
         name: Build and Test Core Library
         script:
+          - echo "Starting SSH agent..."
+          - eval "$(ssh-agent -s)"
+          - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
           - echo "Checking out repository..."
-          - git clone https://modernsoftwaredevelopmen-admin@bitbucket.org/nclexpower/ncturbo.git
+          - git clone git@bitbucket.org:nclexpower/ncturbo.git
           - apt-get update && apt-get install -y jq
           - echo "Removing local dependencies from package.json..."
           - cd packages/core-library
