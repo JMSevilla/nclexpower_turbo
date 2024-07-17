@@ -6,7 +6,7 @@ pipelines:
         name: Build and Test Core Library
         script:
           - echo "Checking out repository..."
-          - git clone https://modernsoftwaredevelopmen-admin@bitbucket.org/nclexpower/ncturbo.git .
+          - git clone https://modernsoftwaredevelopmen-admin@bitbucket.org/nclexpower/ncturbo.git
           - apt-get update && apt-get install -y jq
           - echo "Removing local dependencies from package.json..."
           - cd packages/core-library
