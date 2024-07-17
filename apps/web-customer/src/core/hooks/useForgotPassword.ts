@@ -1,31 +1,23 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { useLocalStorage } from "core-library/hooks";
+import { hasclientkeyRoute } from "core-library/core/utils/contants/route";
 
-export const useForgotPassword = (hasClientKeyPath: string[]) => {
+export const useForgotPassword = () => {
   const router = useRouter();
   const { setItem } = useLocalStorage("Clientkey");
   const { bussinessQueryGetClientKey } = useBusinessQueryContext();
 
-  const { data: ClientKey, refetch } = bussinessQueryGetClientKey(
+  const { data: clientSecretKey } = bussinessQueryGetClientKey(
     ["GetclientKey"],
-    hasClientKeyPath
+    hasclientkeyRoute
   );
 
-  useEffect(() => {
-    if (ClientKey) {
-      setItem(ClientKey);
-    }
-  }, [ClientKey]);
-
   const handleForgotPasswordClick = async () => {
-    const result = await refetch();
-
-    if (result.data) {
-      setItem(result.data);
+    if (clientSecretKey) {
+      setItem(clientSecretKey);
       router.push("/account/forgot-password");
-    } else if (hasClientKeyPath.includes(router.asPath)) {
+    } else if (hasclientkeyRoute.includes(router.asPath)) {
       router.push("/404");
     }
   };

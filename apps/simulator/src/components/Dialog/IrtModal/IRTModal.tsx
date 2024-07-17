@@ -8,7 +8,7 @@ import { IrtThethaZeroCumm } from './IrtZeroCumm';
 import { useSessionStorage } from 'core-library/hooks';
 import { Card, CardContent, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useApplicationContext } from '@/core/context/AppContext';
+import { useApplicationContext } from '../../../core/context/AppContext';
 
 export const IRTsModal: React.FC = () => {
   const [getAccountId] = useSessionStorage<string | null>('accountId', null);
@@ -92,12 +92,6 @@ export const IRTsModal: React.FC = () => {
               accountId={getAccountId ?? ''}
               title="IRTThetaZeroCumm"
             />
-            {/* <DataTable 
-            data={IrtZeroCalcData ?? []}
-            loading={zeroCalcLoading}
-            id={getAccountId ?? ''}
-            tableHeaders={[]}
-            /> */}
           </CardContent>
         </Card>
       </CustomDialog>

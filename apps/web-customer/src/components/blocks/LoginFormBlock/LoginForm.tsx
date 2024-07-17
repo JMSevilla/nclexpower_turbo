@@ -11,6 +11,7 @@ import CoreZigma from "../../images/CoreZigma.png";
 import { MedicineLoginBG } from "../../icons/MedicineLoginBG";
 import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { useForgotPassword } from "../../../core/hooks/useForgotPassword";
+import { Link } from "core-library/components";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -44,9 +45,7 @@ export const LoginForm: React.FC<Props> = ({
     }
   }, [savedData, setValue]);
 
-  const hasClientKeyPath = ["/forgot-password", "/otp", "/change-password"];
-
-  const { handleForgotPasswordClick } = useForgotPassword(hasClientKeyPath);
+  const { handleForgotPasswordClick } = useForgotPassword();
 
   return (
     <Grid
@@ -129,12 +128,12 @@ export const LoginForm: React.FC<Props> = ({
                 onChange={handleChangeRememberMe}
                 label="Remember Me"
               />
-              <a
+              <Link
                 onClick={handleForgotPasswordClick}
                 style={{ color: "blue", cursor: "pointer" }}
               >
                 Forgot Password?
-              </a>
+              </Link>
             </Grid>
             <Box
               sx={{

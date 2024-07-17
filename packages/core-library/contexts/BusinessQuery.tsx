@@ -27,7 +27,7 @@ import {
   useCheckoutSession,
   useGetAllReportedIssues,
   useCreateCustomer,
-  useGetClientKey,
+  useGetclientKey,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -208,7 +208,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryCheckoutSession = useCheckoutSession;
   const businessQueryGetAllReportedIssues = useGetAllReportedIssues;
   const businessQueryCreateCustomer = useCreateCustomer;
-  const bussinessQueryGetClientKey = useGetClientKey;
+  const bussinessQueryGetClientKey = useGetclientKey;
 
   return (
     <BusinessQueryContext.Provider

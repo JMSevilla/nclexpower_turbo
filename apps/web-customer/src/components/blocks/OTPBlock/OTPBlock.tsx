@@ -3,6 +3,7 @@ import OTPForm from "./OTPForm";
 import { OTPType } from "../../../core/Schema";
 import { useExecuteToast } from "core-library/contexts";
 import { useRouter } from "next/router";
+
 const OTPBlock: React.FC = () => {
   const [attempts, setAttempts] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -12,7 +13,6 @@ const OTPBlock: React.FC = () => {
 
   const onSubmit = (values: OTPType) => {
     if (attempts < 3) {
-      console.log("Values: ", values);
       setAttempts((prevAttempts) => prevAttempts + 1);
     }
     if (attempts === 2) {

@@ -17,7 +17,6 @@ export function ChangePasswordBlock() {
   };
 
   const Onsubmit = (values: ChangePasswordType) => {
-    console.log(values);
     toast.executeToast(
       "You have successfully Change your Password",
       "top-right",

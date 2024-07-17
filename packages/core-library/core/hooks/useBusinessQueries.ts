@@ -372,19 +372,19 @@ export const useGetAllReportedIssues = (
   );
 };
 
-export const useGetClientKey = (
+export const useGetclientKey = (
   queryKey: string[],
   pageRoute: string[]
 ): UseQueryResult<undefined, any> => {
-  const getClientKey = useApi(
-    (api) => api.web.Internal_get_client_key(pageRoute),
+  const getclientKey = useApi(
+    (api) => api.web.GetclientSecretkey(pageRoute),
     []
   );
 
   return useQuery<ApiServiceErr>(
     queryKey,
     async () => {
-      const result = await getClientKey.execute();
+      const result = await getclientKey.execute();
       return result.data;
     },
     { staleTime: Infinity }

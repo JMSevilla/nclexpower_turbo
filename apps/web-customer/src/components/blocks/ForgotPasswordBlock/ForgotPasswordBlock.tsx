@@ -8,7 +8,6 @@ export function ForgotPasswordFormBlock() {
   const toast = useExecuteToast();
 
   const onSubmit = (value: forgotPasswordType) => {
-    console.log(value);
     toast.executeToast(
       "Email Sent We have sent a password reset link to your email. ",
       "top-right",

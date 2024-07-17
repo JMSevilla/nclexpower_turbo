@@ -6,3 +6,9 @@ const hubSubRoutes = ["", "/create-category"]; //should be from the DB.
 
 export const authorizedRoute = generateNestedRoutes(hubBaseRoute, hubSubRoutes);
 export const unauthorizeRoute = ["/login", "/"];
+
+export const hasclientkeyRoute = [
+  "/forgot-password",
+  "/otp",
+  "/change-password",
+];
