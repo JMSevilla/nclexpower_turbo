@@ -356,14 +356,35 @@ export const useGetIrtZeroCalc = (
 };
 
 export const useGetAllReportedIssues = (
-  queryKey: string[],
+  queryKey: string[]
 ): UseQueryResult<ReportedIssuesResponse[] | undefined, any> => {
-  const getAllReportedIssues = useApi((api) => api.webbackoffice.getAllReportedIssues());
+  const getAllReportedIssues = useApi((api) =>
+    api.webbackoffice.getAllReportedIssues()
+  );
 
   return useQuery<ApiServiceErr>(
     queryKey,
     async () => {
       const result = await getAllReportedIssues.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetClientKey = (
+  queryKey: string[],
+  pageRoute: string[]
+): UseQueryResult<undefined, any> => {
+  const getClientKey = useApi(
+    (api) => api.web.Internal_get_client_key(pageRoute),
+    []
+  );
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getClientKey.execute();
       return result.data;
     },
     { staleTime: Infinity }

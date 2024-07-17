@@ -62,4 +62,10 @@ export class WebApi {
   public web_ssr_create_customer(params: CreateCustomerParams) {
     return this.ssrAxios.post<number>(`/api/customer/create`, params);
   }
+
+  public Internal_get_client_key(pageRoute: string[]) {
+    return this.axios.get<string>(
+      `/api/v2/internal/baseInternal/get-client-key?${qs.stringify({ pageRoute })}`
+    );
+  }
 }

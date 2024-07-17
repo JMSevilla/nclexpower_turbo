@@ -6,9 +6,12 @@ import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { TextField } from "core-library/components";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from "./useShowPassword";
-import { ChangePasswordType, ChangePasswordSchema } from "../../../core/Schema";
+import {
+  ChangePasswordType,
+  ChangePasswordSchema,
+  validatePassword,
+} from "../../../../core/Schema";
 import { ValidationIndicators } from "./ValidationIndicator";
-import { validatePassword } from "../../../core/Schema";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
@@ -131,22 +134,24 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                     {showconfirmPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </Grid>
-                <Grid item xs={12} sx={{ marginY: 2 }}>
-                  <Typography
-                    sx={{
-                      marginY: 2,
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Must contain at least
-                  </Typography>
-                  <ValidationIndicators
-                    isLengthValid={validationChecks.isLengthValid}
-                    containsNumber={validationChecks.containsNumber}
-                    containsUppercase={validationChecks.containsUppercase}
-                  />
-                </Grid>
+                {newPassword.length > 0 && (
+                  <Grid item xs={12} sx={{ marginY: 2 }}>
+                    <Typography
+                      sx={{
+                        marginY: 2,
+                        fontFamily: "Poppins",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Must contain at least
+                    </Typography>
+                    <ValidationIndicators
+                      isLengthValid={validationChecks.isLengthValid}
+                      containsNumber={validationChecks.containsNumber}
+                      containsUppercase={validationChecks.containsUppercase}
+                    />
+                  </Grid>
+                )}
                 <Grid item xs={12} sx={{ marginY: 2 }}>
                   <Checkbox
                     checked={agreeTermsCondition}

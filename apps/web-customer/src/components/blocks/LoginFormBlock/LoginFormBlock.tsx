@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { LoginParams } from 'core-library/types/types';
-import { LoginForm } from './LoginForm';
-import { config } from 'core-library/config';
-import { Encryption } from 'core-library/utils/Encryption';
-import { useLocalStorage } from 'core-library/hooks';
-import { useAuthContext } from 'core-library/contexts';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from "react";
+import { LoginParams } from "core-library/types/types";
+import { LoginForm } from "./LoginForm";
+import { config } from "core-library/config";
+import { Encryption } from "core-library/utils/Encryption";
+import { useLocalStorage } from "core-library/hooks";
+import { useAuthContext } from "core-library/contexts";
+import { useRouter } from "next/router";
 
 interface SavedDataProps {
   email: string;
@@ -21,17 +21,20 @@ export function LoginFormBlock() {
   const router = useRouter();
 
   const handleBack = () => {
-    router.push('/')
-  }
+    router.push("/");
+  };
 
   async function handleSubmit(data: LoginParams) {
     const key = config.value.SECRET_KEY;
     if (rememberMe) {
-      const encryptedPassword = Encryption(data.password, key ?? "no-secret-key");
+      const encryptedPassword = Encryption(
+        data.password,
+        key ?? "no-secret-key"
+      );
       const obj: SavedDataProps = {
         email: data.email,
         password: encryptedPassword,
-        rememberMe: true
+        rememberMe: true,
       };
       setItem(JSON.stringify(obj));
     } else {
@@ -39,19 +42,21 @@ export function LoginFormBlock() {
     }
   }
 
-  const handleChangeRememberMe = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRememberMe = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRememberMe(event.target.checked);
   };
 
   useEffect(() => {
     const item = getItem();
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       try {
         const parsedRm: SavedDataProps = JSON.parse(item);
         setSavedData(parsedRm);
         setRememberMe(parsedRm.rememberMe);
       } catch (error) {
-        console.error('Failed to parse saved data', error);
+        console.error("Failed to parse saved data", error);
       }
     }
   }, [getItem]);

@@ -27,6 +27,7 @@ import {
   useCheckoutSession,
   useGetAllReportedIssues,
   useCreateCustomer,
+  useGetClientKey,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -159,7 +160,7 @@ interface BusinessQueryContextValue {
     unknown
   >;
   businessQueryGetAllReportedIssues: (
-    queryKey: string[],
+    queryKey: string[]
   ) => UseQueryResult<ReportedIssuesResponse[] | undefined, any>;
 
   businessQueryCreateCustomer: (
@@ -170,6 +171,11 @@ interface BusinessQueryContextValue {
     CreateCustomerParams,
     unknown
   >;
+
+  bussinessQueryGetClientKey: (
+    queryKey: string[],
+    pageRoute: string[]
+  ) => UseQueryResult<undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -200,8 +206,9 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryDeleteAllCalc = useDeleteAllCalc;
   const businessQueryGetIrtZeroCalc = useGetIrtZeroCalc;
   const businessQueryCheckoutSession = useCheckoutSession;
-  const businessQueryGetAllReportedIssues = useGetAllReportedIssues
+  const businessQueryGetAllReportedIssues = useGetAllReportedIssues;
   const businessQueryCreateCustomer = useCreateCustomer;
+  const bussinessQueryGetClientKey = useGetClientKey;
 
   return (
     <BusinessQueryContext.Provider
@@ -227,6 +234,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryCheckoutSession,
         businessQueryGetAllReportedIssues,
         businessQueryCreateCustomer,
+        bussinessQueryGetClientKey,
       }}
     >
       {children}

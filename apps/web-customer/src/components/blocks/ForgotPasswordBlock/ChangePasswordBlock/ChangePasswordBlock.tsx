@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { ChangePasswordForm } from "./ChangePasswordForm";
-import { ChangePasswordType } from "../../../core/Schema";
+import { ChangePasswordType } from "../../../../core/Schema";
 import { useExecuteToast } from "core-library/contexts";
+import { useRouter } from "next/router";
 
 export function ChangePasswordBlock() {
   const [acceptTermsCondition, setTermsCondition] = useState(false);
 
+  const router = useRouter();
   const toast = useExecuteToast();
 
   const handleChangeTermsCondition = (
@@ -18,9 +20,10 @@ export function ChangePasswordBlock() {
     console.log(values);
     toast.executeToast(
       "You have successfully Change your Password",
-      "top-center",
+      "top-right",
       false
     );
+    router.push("/login");
   };
 
   return (
