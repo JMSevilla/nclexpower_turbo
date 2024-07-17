@@ -1,142 +1,32 @@
-image: atlassian/default-image:3
+image: node:14
 
 pipelines:
-  branches:
-    mdev:
-      - parallel:
-          - step:
-              name: Build and Test Core Library
-              caches:
-                - node
-              script:
-                - apt-get update && apt-get install -y jq
-                - cd packages/core-library
-                - jq 'del(.devDependencies["@repo/eslint-config"]) | del(.devDependencies["@repo/typescript-config"])' package.json > temp.json && mv temp.json package.json
-                - npm install
-                - npm run test -- --coverage
-              artifacts:
-                - packages/core-library/coverage/**
-          - step:
-              name: Lint
-              script:
-                - echo "Your linting goes here..."
-          - step:
-              name: Security Scan
-              script:
-                - echo "Your security scan goes here..."
+  default:
+    - step:
+        name: Build and Test Core Library
+        script:
+          - echo "Checking out repository..."
+          - git clone https://modernsoftwaredevelopmen-admin@bitbucket.org/nclexpower/ncturbo.git .
+          - apt-get update && apt-get install -y jq
+          - echo "Removing local dependencies from package.json..."
+          - cd packages/core-library
+          - jq 'del(.devDependencies["@repo/eslint-config"]) | del(.devDependencies["@repo/typescript-config"])' package.json > temp.json && mv temp.json package.json
+          - echo "Installing dependencies for core-library..."
+          - npm install
+          - echo "Running tests with coverage for core-library..."
+          - npm run test -- --coverage
+          - echo "Uploading coverage reports to Codecov..."
+          - bash <(curl -s https://codecov.io/bash) -t $codecov_bitbucket -f ./packages/core-library/coverage/**/coverage-final.json -n codecov-core-library
 
-      - step:
-          name: Deploy Simulator to Vercel
-          deployment: staging
-          script:
-            - cd apps/simulator
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deploy Web Backoffice Generic to Vercel
-          deployment: staging
-          script:
-            - cd apps/web-backoffice-generic
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deploy Web Customer to Vercel
-          deployment: staging
-          script:
-            - cd apps/web-customer
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-    "feature/*":
-      - parallel:
-          - step:
-              name: Build and Test Core Library
-              caches:
-                - node
-              script:
-                - apt-get update && apt-get install -y jq
-                - cd packages/core-library
-                - jq 'del(.devDependencies["@repo/eslint-config"]) | del(.devDependencies["@repo/typescript-config"])' package.json > temp.json && mv temp.json package.json
-                - npm install
-                - npm run test -- --coverage
-              artifacts:
-                - packages/core-library/coverage/**
-          - step:
-              name: Lint
-              script:
-                - echo "Your linting goes here..."
-          - step:
-              name: Security Scan
-              script:
-                - echo "Your security scan goes here..."
-
-      - step:
-          name: Deploy Simulator to Vercel
-          deployment: staging
-          script:
-            - cd apps/simulator
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deploy Web Backoffice Generic to Vercel
-          deployment: staging
-          script:
-            - cd apps/web-backoffice-generic
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deploy Web Customer to Vercel
-          deployment: staging
-          script:
-            - cd apps/web-customer
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-    "hotfix/*":
-      - parallel:
-          - step:
-              name: Build and Test Core Library
-              caches:
-                - node
-              script:
-                - apt-get update && apt-get install -y jq
-                - cd packages/core-library
-                - jq 'del(.devDependencies["@repo/eslint-config"]) | del(.devDependencies["@repo/typescript-config"])' package.json > temp.json && mv temp.json package.json
-                - npm install
-                - npm run test -- --coverage
-              artifacts:
-                - packages/core-library/coverage/**
-          - step:
-              name: Lint
-              script:
-                - echo "Your linting goes here..."
-          - step:
-              name: Security Scan
-              script:
-                - echo "Your security scan goes here..."
-
-      - step:
-          name: Deploy Simulator to Vercel
-          deployment: staging
-          script:
-            - cd apps/simulator
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deploy Web Backoffice Generic to Vercel
-          deployment: staging
-          script:
-            - cd apps/web-backoffice-generic
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deploy Web Customer to Vercel
-          deployment: staging
-          script:
-            - cd apps/web-customer
-            - npx vercel --token $BBKT_VERCEL_TOKEN
-
-      - step:
-          name: Deployment to Production
-          deployment: production
-          trigger: manual
-          script:
-            - echo "Your deployment to production script goes here..."
+    - step:
+        name: Deploy to Vercel
+        script:
+          - echo "Deploying simulator to Vercel..."
+          - cd apps/simulator
+          - npx vercel --token $BBKT_VERCEL_TOKEN
+          - echo "Deploying web-backoffice-generic to Vercel..."
+          - cd ../web-backoffice-generic
+          - npx vercel --token $BBKT_VERCEL_TOKEN
+          - echo "Deploying web-customer to Vercel..."
+          - cd ../web-customer
+          - npx vercel --token $BBKT_VERCEL_TOKEN
