@@ -16,7 +16,7 @@ export function ChangePasswordBlock() {
     setTermsCondition(event.target.checked);
   };
 
-  const Onsubmit = (values: ChangePasswordType) => {
+  const onSubmit = (values: ChangePasswordType) => {
     toast.executeToast(
       "You have successfully Change your Password",
       "top-right",
@@ -27,7 +27,7 @@ export function ChangePasswordBlock() {
 
   return (
     <ChangePasswordForm
-      onSubmit={Onsubmit}
+      onSubmit={onSubmit}
       handleChangeTermsCondition={handleChangeTermsCondition}
       agreeTermsCondition={acceptTermsCondition}
       submitLoading={false}

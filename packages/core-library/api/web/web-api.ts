@@ -63,7 +63,7 @@ export class WebApi {
     return this.ssrAxios.post<number>(`/api/customer/create`, params);
   }
 
-  public GetclientSecretkey(pageRoute: string[]) {
+  public web_get_client_secretKey(pageRoute: string[]) {
     return this.axios.get<string>(
       `/api/v2/internal/baseInternal/get-client-key?${qs.stringify({ pageRoute })}`
     );

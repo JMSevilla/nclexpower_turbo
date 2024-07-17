@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { useLocalStorage } from "core-library/hooks";
-import { hasclientkeyRoute } from "core-library/core/utils/contants/route";
+import { hasClientKeyRoute } from "core-library/core/utils/contants/route";
 
 export const useForgotPassword = () => {
   const router = useRouter();
@@ -10,14 +10,14 @@ export const useForgotPassword = () => {
 
   const { data: clientSecretKey } = bussinessQueryGetClientKey(
     ["GetclientKey"],
-    hasclientkeyRoute
+    hasClientKeyRoute
   );
 
   const handleForgotPasswordClick = async () => {
     if (clientSecretKey) {
       setItem(clientSecretKey);
       router.push("/account/forgot-password");
-    } else if (hasclientkeyRoute.includes(router.asPath)) {
+    } else if (hasClientKeyRoute.includes(router.asPath)) {
       router.push("/404");
     }
   };
