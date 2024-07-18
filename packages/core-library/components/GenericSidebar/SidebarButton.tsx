@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { NavigationItemType } from "../../types/navigation";
+import { NavigationItemType } from "../../types/global";
 import { config } from "../../config";
 
 type SidebarButtonProps = {

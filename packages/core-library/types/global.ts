@@ -151,3 +151,11 @@ export interface SelectedProductType {
   productDescription: string;
   programTitle: number;
 }
+
+export type NavigationItemType = {
+  id: number
+  label: string
+  path?: string
+  icon?: React.ReactNode
+  subItem?: NavigationItemType[]
+}
