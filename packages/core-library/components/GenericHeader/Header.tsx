@@ -33,8 +33,6 @@ export const Header: React.FC<Props> = ({
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
-  const handleLogout = () => {};
-
   const { isMobile } = useResolution();
   const router = useRouter();
 

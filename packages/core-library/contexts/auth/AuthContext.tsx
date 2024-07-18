@@ -20,7 +20,7 @@ const context = createContext<{
   isAuthenticated: boolean;
   login(email: string, password: string): Promise<null>;
   register(data: RegisterParams): Promise<number>;
-  logout: () => {};
+  logout(): Promise<void>;
   setIsAuthenticated: (value: boolean) => void;
 }>(undefined as any);
 

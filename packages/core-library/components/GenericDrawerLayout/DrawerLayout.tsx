@@ -8,7 +8,6 @@ import { useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/router";
-import { useAuthContext } from "../../contexts";
 
 type DrawerLayoutType = {
   menu: NavigationType[];
@@ -35,7 +34,6 @@ export const DrawerLayout: React.FC<
   const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
 
   const router = useRouter();
-  const { logout } = useAuthContext();
 
   const hideDrawer =
     router.pathname === "order-checkout" || router.pathname === "/login";
@@ -80,7 +78,7 @@ export const DrawerLayout: React.FC<
                 isAuthenticated={isAuthenticated}
                 headerContainerSx={AuthHeaderStyle}
                 buttonHeaderSx={AuthButtonStyle}
-                onLogout={logout}
+                onLogout={onLogout}
               />
             )}
           </Box>
