@@ -12,7 +12,6 @@ import { Footer } from "core-library/components/ReusableFooter/Footer";
 import { CustomerMenus, list } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
-import { useLogout } from "core-library/hooks";
 
 interface Props {}
 
@@ -22,10 +21,9 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   const queryClient = new QueryClient();
   const theme = useTheme();
   const { publishableKey } = useStripeConfig();
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, logout } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
   const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
-  const { logout } = useLogout();
 
   return (
     <QueryClientProvider client={queryClient}>

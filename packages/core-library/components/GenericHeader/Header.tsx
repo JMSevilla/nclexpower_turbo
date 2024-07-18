@@ -15,8 +15,6 @@ interface Props {
   drawerButton?: React.ReactNode;
   headerContainerSx?: SxProps<Theme>;
   buttonHeaderSx?: SxProps<Theme>;
-  // headerContainerSx?: SxProps<Theme>
-  // buttonHeaderSx?: SxProps<Theme>
   onLogout?: () => void;
 }
 
