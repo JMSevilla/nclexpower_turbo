@@ -9,3 +9,4 @@ export * from "./useLocalStorage";
 export * from "./useRefreshTokenHandler";
 export * from "./useLogout";
 export * from "./useColumns";
+export * from "./useSanitizeInputs"
