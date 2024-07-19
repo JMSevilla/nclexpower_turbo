@@ -20,7 +20,7 @@ const context = createContext<{
   isAuthenticated: boolean;
   login(email: string, password: string): Promise<null>;
   register(data: RegisterParams): Promise<number>;
-  logout: () => {};
+  logout(): Promise<void>;
   setIsAuthenticated: (value: boolean) => void;
 }>(undefined as any);
 
@@ -33,6 +33,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
+  const [, , clearAccessToken] = useAccessToken();
+  const [, , clearRefreshToken] = useRefreshToken();
   const loginCb = useApiCallback((api, data: LoginParams) =>
     api.auth.login(data)
   );
@@ -53,8 +55,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     try {
       if (refreshToken && accessToken) {
         clearCookies();
+        clearAccessToken();
+        clearRefreshToken();
+        router.push("/login");
       }
-    } catch (e) { }
+    } catch (e) {}
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -85,7 +90,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
             return null;
           },
           register: async (data: RegisterParams) => {
-            const result = await registerCb.execute({ ...data, appName: "webdev_app" });
+            const result = await registerCb.execute({
+              ...data,
+              appName: "webdev_app",
+            });
             return result?.data;
           },
           logout,

@@ -4,36 +4,39 @@ import { SxProps, Theme } from "@mui/material/styles";
 import { Header } from "../GenericHeader/Header";
 import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
-import { useLogout, useResolution } from "../../hooks";
+import { useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 type DrawerLayoutType = {
   menu: NavigationType[];
-  isAuthenticated: boolean
-  headerContainerSx?: SxProps<Theme>
-  buttonHeaderSx?: SxProps<Theme>
-  onLogout?: () => void
-
+  isAuthenticated: boolean;
+  headerContainerSx?: SxProps<Theme>;
+  buttonHeaderSx?: SxProps<Theme>;
+  onLogout?: () => void;
 };
 
 export const DrawerLayout: React.FC<
   React.PropsWithChildren<DrawerLayoutType>
-> = ({ menu, children, isAuthenticated, headerContainerSx, buttonHeaderSx, onLogout }) => {
+> = ({
+  menu,
+  children,
+  isAuthenticated,
+  headerContainerSx,
+  buttonHeaderSx,
+  onLogout,
+}) => {
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
   const [mounted, setMounted] = useState<boolean>(false);
   const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
-  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null
+  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
 
-  const router = useRouter()
-  const { logout } = useLogout();
+  const router = useRouter();
 
-  const hideDrawer = (
-    router.pathname === 'order-checkout' ||
-    router.pathname === '/login'
-  )
+  const hideDrawer =
+    router.pathname === "order-checkout" || router.pathname === "/login";
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
@@ -62,7 +65,7 @@ export const DrawerLayout: React.FC<
       <Main open={open} isMobile={isMobile}>
         <Box display="flex" minHeight="100vh" flexDirection="column">
           <Box>
-            {!hideDrawer &&
+            {!hideDrawer && (
               <Header
                 drawerButton={
                   ((!open && isAuthenticated) || isMobile) && (
@@ -77,7 +80,7 @@ export const DrawerLayout: React.FC<
                 buttonHeaderSx={AuthButtonStyle}
                 onLogout={onLogout}
               />
-            }
+            )}
           </Box>
           {children}
         </Box>
