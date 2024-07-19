@@ -17,6 +17,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@types/jsonwebtoken": "^9.0.6",
     "core-library": "*",
+    "isomorphic-dompurify": "^2.13.0",
     "json-web-token": "^3.2.0",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.4",
