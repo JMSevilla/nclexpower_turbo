@@ -53,8 +53,8 @@ export function MultipleSelect({
         SelectProps={{ multiple }}
         {...rest}
       >
-        {options.map((option) => (
-          <MenuItem key={option.xvalue} value={option.value}>
+        {options.map((option, index) => (
+          <MenuItem key={`${option.value}-${index}`} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
