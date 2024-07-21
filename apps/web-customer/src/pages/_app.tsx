@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import "./mui.css";
+import "../styles/password-strength-meter.css";
 import Page from "./shared/Page";
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
