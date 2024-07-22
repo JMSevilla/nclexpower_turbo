@@ -1,4 +1,9 @@
-import { FormHelperText, Grid, OutlinedInputProps, Typography } from "@mui/material";
+import {
+  FormHelperText,
+  Grid,
+  OutlinedInputProps,
+  Typography,
+} from "@mui/material";
 import { FocusEvent, useState } from "react";
 import {
   Control,
@@ -16,7 +21,10 @@ import { Tooltip } from "../Tooltip";
 import { CmsTooltip } from "../../types/common";
 import { Input } from "../Input";
 import { InputLoader } from "../InputLoader";
-import { FieldError } from "./FieldError";
+import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
+import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
+import React from "react";
+import { PasswordStrengthMeter } from "../Textfield/PasswordStrengthMeter";
 
 interface Props<T extends object> {
   name: Path<T>;
@@ -39,7 +47,6 @@ interface Props<T extends object> {
   multiline?: boolean;
   rows?: number;
 }
-
 
 export const TextField = <T extends FieldValues>({
   name,
@@ -83,6 +90,11 @@ export const TextFieldComponent = <T extends object>({
     fieldState?.error?.types &&
     Object.keys(fieldState.error.types).length > 1;
 
+  const result =
+    props.type === "password"
+      ? zxcvbn(field.value == undefined ? "" : field.value)
+      : zxcvbn("");
+
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
@@ -101,17 +113,22 @@ export const TextFieldComponent = <T extends object>({
           {isLoading ? (
             <InputLoader />
           ) : (
-            <Input
-              {...props}
-              {...field}
-              id={field?.name}
-              data-testid={props["data-testid"] || `${field.name}-field`}
-              error={!!fieldState?.error?.message}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              value={field?.value ?? ""}
-              onKeyDown={(e) => e.key === "Enter" && onEnter && onEnter()}
-            />
+            <React.Fragment>
+              <Input
+                {...props}
+                {...field}
+                id={field?.name}
+                data-testid={props["data-testid"] || `${field.name}-field`}
+                error={!!fieldState?.error?.message}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                value={field?.value ?? ""}
+                onKeyDown={(e) => e.key === "Enter" && onEnter && onEnter()}
+              />
+              {props.type === "password" && (
+                <PasswordStrengthMeter result={result} />
+              )}
+            </React.Fragment>
           )}
         </ErrorTooltip>
       </Grid>
