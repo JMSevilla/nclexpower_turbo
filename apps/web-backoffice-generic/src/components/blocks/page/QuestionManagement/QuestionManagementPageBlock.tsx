@@ -27,12 +27,3 @@ export const QuestionManagementPageBlock = () => {
     </Box>
   );
 };
-
-const formWizardValues = (
-  prev: Partial<RegularQuestionFormType> | undefined,
-  values: Partial<RegularQuestionFormType>,
-  keepPrevId?: boolean
-): Partial<RegularQuestionFormType> => ({
-  ...prev,
-  ...values,
-});
