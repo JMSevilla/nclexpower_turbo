@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CustomDialog } from '../CustomDialog';
 import { useState } from 'react';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
@@ -12,6 +12,8 @@ import { useApplicationContext } from '@/core/context/AppContext';
 
 export const IRTsModal: React.FC = () => {
   const [getAccountId] = useSessionStorage<string | null>('accountId', null);
+
+  const [showDelete, setShowDelete] = useState(false);
 
   const router = useRouter();
 
@@ -55,6 +57,14 @@ export const IRTsModal: React.FC = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    if (IrtZeroCalcData?.length || IrtExamLogsData?.length) {
+      setShowDelete(true);
+    } else {
+      setShowDelete(false);
+    }
+  }, [IrtZeroCalcData, IrtExamLogsData]);
+
   return (
     <React.Fragment>
       <Button onClick={handleClickOpen} sx={{ color: '#F3F3F3' }}>
@@ -74,9 +84,11 @@ export const IRTsModal: React.FC = () => {
           </Button>
         }
       >
-        <Button onClick={deleteAllCalc} variant="contained" color="error">
-          DELETE ALL
-        </Button>
+        {showDelete && (
+          <Button onClick={deleteAllCalc} variant="contained" color="error">
+            DELETE ALL
+          </Button>
+        )}
 
         <Card elevation={5} sx={{ my: 2 }}>
           <CardContent>
