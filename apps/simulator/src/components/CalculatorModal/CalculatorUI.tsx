@@ -29,7 +29,7 @@ export const CalculatorModal: React.FC<OpenModalProps> = ({ open, onClose }) => 
 
   const operatorStyle = {
     backgroundColor: '#007AB7',
-    color: '#007AB7',
+    color: '#F3F3F3',
     fontSize: '1.35rem',
     marginBottom: 0.5,
     height: 69,

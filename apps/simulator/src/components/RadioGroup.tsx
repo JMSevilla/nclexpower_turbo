@@ -1,3 +1,4 @@
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 import {
   FormControlLabel,
   FormControlLabelProps,
@@ -34,11 +35,12 @@ export type RadioProps = MuiRadioProps &
   };
 
 export const Radio: React.FC<RadioProps> = ({ value, label, labelProps, color, radioContainerProps, ...rest }) => {
+  const { textZoomStyle } = useToolbarSettings();
   return (
     <FormControlLabel
       value={value}
       control={<MuiRadio size="small" sx={{ ...(!color && sx) }} {...rest} />}
-      label={<Typography {...labelProps}>{label}</Typography>}
+      label={<Typography style={textZoomStyle}{...labelProps}>{label}</Typography>}
       {...radioContainerProps}
     />
   );
