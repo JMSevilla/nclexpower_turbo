@@ -46,6 +46,7 @@ interface Props<T extends object> {
   disabled?: boolean;
   multiline?: boolean;
   rows?: number;
+  IsRegister?: boolean;
 }
 
 export const TextField = <T extends FieldValues>({
@@ -90,10 +91,9 @@ export const TextFieldComponent = <T extends object>({
     fieldState?.error?.types &&
     Object.keys(fieldState.error.types).length > 1;
 
-  const result =
-    props.type === "password"
-      ? zxcvbn(field.value == undefined ? "" : field.value)
-      : zxcvbn("");
+  const result = props.IsRegister
+    ? zxcvbn(field.value == undefined ? "" : field.value)
+    : zxcvbn("");
 
   return (
     <Grid container spacing={2} direction="column">
@@ -125,9 +125,7 @@ export const TextFieldComponent = <T extends object>({
                 value={field?.value ?? ""}
                 onKeyDown={(e) => e.key === "Enter" && onEnter && onEnter()}
               />
-              {props.type === "password" && (
-                <PasswordStrengthMeter result={result} />
-              )}
+              {props.IsRegister && <PasswordStrengthMeter result={result} />}
             </React.Fragment>
           )}
         </ErrorTooltip>

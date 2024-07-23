@@ -35,8 +35,8 @@ export * from "./SelectField/SingleSelectField";
 export * from "./Textfield/OtpField";
 export * from "./Button/CheckoutButton";
 export * from "./GenericDropDown/AccountMenu";
+export * from "./Stepper/Stepper";
 
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
-export * from "./Tabs/tab";
-
+export * from "./Tabs/Tabs";
