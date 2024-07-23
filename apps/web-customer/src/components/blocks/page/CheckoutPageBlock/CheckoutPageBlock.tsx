@@ -6,36 +6,13 @@ import {
   PaymentElement,
   useElements,
   useStripe,
-  CardElement,
 } from "@stripe/react-stripe-js";
-import {
-  StripeLinkAuthenticationElementChangeEvent,
-  StripeCardElementOptions,
-} from "@stripe/stripe-js";
+import { StripeLinkAuthenticationElementChangeEvent } from "@stripe/stripe-js";
 import { CheckoutFormType, checkoutSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useBusinessQueryContext } from "core-library/contexts";
-import { useApiCallback } from "core-library/hooks";
-import { UpdatePaymentIntentParams } from "core-library/api/types";
-
 interface Props {
   paymentIntentId: string | null;
 }
-
-const CARD_OPTIONS: StripeCardElementOptions = {
-  style: {
-    base: {
-      iconColor: "#666EE8",
-      color: "#31325F",
-      fontWeight: "300",
-      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-      fontSize: "18px",
-      "::placeholder": {
-        color: "#CFD7E0",
-      },
-    },
-  },
-};
 
 export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
   const form = useForm<CheckoutFormType>({
