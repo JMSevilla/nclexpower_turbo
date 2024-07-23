@@ -53,24 +53,24 @@ export const Header: React.FC = () => {
           <div style={{ padding: 10, backgroundColor: '#007AB7' }}>
             <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Box>
-                <Typography fontWeight="bold" style={{ fontFamily: 'Arial, sans-serif' }}>
-                  <div className="header-step-2 p-0">
+                <Box fontWeight="bold" style={{ fontFamily: 'Arial, sans-serif' }}>
+                  <Box className="header-step-2 p-0">
                     Time Remaining :<span className="ml-2">{headerTimeRemaining ?? timeRemaining}</span>
-                  </div>
-                </Typography>
-                <Typography fontSize={14} fontWeight="bold" style={{ fontFamily: 'Arial, sans-serif' }}>
-                  <div className="header-step-3">
-                    Duration :<span className="ml-2">{duration ?? timeDuration}</span>
-                  </div>
-                </Typography>
+                  </Box>
+                </Box>
+                <Box fontSize={14} fontWeight="bold" style={{ fontFamily: 'Arial, sans-serif' }}>
+                  <Box className="header-step-3">
+                    Duration :<Typography component={'span'} className="ml-2">{duration ?? timeDuration}</Typography>
+                  </Box>
+                </Box>
               </Box>
               <Box>
-                <div className="header-step-4">
+                <Box className="header-step-4">
                   <Typography textAlign="center" style={{ fontFamily: 'Arial, sans-serif' }}>
                     QID: {header[0]?.qId}
                   </Typography>
                   <Typography style={{ fontFamily: 'Arial, sans-serif' }}>NCLEX Sample Tutor</Typography>
-                </div>
+                </Box>
               </Box>
               <Box flexGrow={0}>
                 <div className="header-step-5">

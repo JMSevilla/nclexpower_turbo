@@ -87,27 +87,26 @@ export const AccessPage = () => {
               justifyContent: 'center',
             }}
           >
-            <Grid xs={6} sx={{ display: 'flex', gap: 2 }}>
+            <Grid sx={{ display: 'flex', gap: 2 }}>
               <Typography fontSize={25} sx={{ fontFamily: 'Arial', fontWeight: '600' }}>
                 Enter Access Key
               </Typography>
             </Grid>
             <Grid
               container
-              xs={6}
               spacing={2}
               columns={{ xs: 8, sm: 8, md: 8, lg: 12 }}
               sx={{ display: 'flex', justifyContent: 'center', alignContent: 'start' }}
             >
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField control={control} name="email" label="Enter email" />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField control={control} name="password" label="Enter password" />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 {/* for test purposes only UAT availability */}
-                <div style={{ marginTop: '10px', marginBottom: '10px' }}>
+                <Box style={{ marginTop: '10px', marginBottom: '10px' }}>
                   <Typography variant="button">Account ID</Typography>
                   <MuiTextField
                     sx={{ width: '100%' }}
@@ -115,9 +114,9 @@ export const AccessPage = () => {
                     label="Enter Account ID"
                     variant="outlined"
                   />
-                </div>
+                </Box>
               </Grid>
-              <Grid item xs={12} sx={{ marginTop: 2 }}>
+              <Grid item xs={8} sx={{ marginTop: 2 }}>
                 <Button
                   onClick={handleSubmit(onSubmit)}
                   sx={{ width: '100%', height: '70px' }}
