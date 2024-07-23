@@ -44,6 +44,7 @@ export const ReportIssueDialog: React.FC = () => {
       </Button>
       <CustomDialog
         open={open}
+        close={handleClose}
         aria-labelledby="responsive-dialog-title"
         className="report-issue"
         title="Report an Issue"

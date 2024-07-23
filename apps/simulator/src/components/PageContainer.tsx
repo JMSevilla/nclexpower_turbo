@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from '@mui/material';
 import { SsrMockQuestionaire } from '@/core/types/ssrData';
 import { CalcItemSelectResponseItem } from 'core-library/types';
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 
 interface Props {
   selectedItem: CalcItemSelectResponseItem[];
@@ -9,6 +10,8 @@ interface Props {
 
 export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({ children, selectedItem }) => {
   const hasContainer = selectedItem.length > 0 && selectedItem.some(item => item.hasContainer);
+  const { textZoomStyle } = useToolbarSettings();
+
 
   return (
     <>
@@ -19,6 +22,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({ childr
             pb: 2,
             height: '100%',
           }}
+          style={textZoomStyle}
         >
           {children}
         </Container>
