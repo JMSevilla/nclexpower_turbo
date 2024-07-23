@@ -7,7 +7,7 @@ import {
   Report as ReportIcon,
   Settings as SettingsIcon,
   Source as SourceIcon,
-  AccountCircle as AccountCircleIcon
+  AccountCircle as AccountCircleIcon,
 } from "@mui/icons-material";
 import { NavigationType } from "../../types/navigation";
 
@@ -31,13 +31,8 @@ const AuthenticatedMenu: NavigationType[] = [
     children: [
       {
         id: 2,
-        label: "Questionnaires",
-        path: "/questionnaire-management",
-      },
-      {
-        id: 3,
-        label: "Answers",
-        path: "/answers-management",
+        label: "Question Management",
+        path: "/qm/manage-questions",
       },
     ],
   },
