@@ -97,17 +97,17 @@ export const StripeContextProvider: React.FC<
   );
 
   return (
-    <React.Fragment>
+    <context.Provider value={values}>
       {stripePromise && clientSecret ? (
         <Elements
           stripe={stripePromise}
           options={{ clientSecret, loader: "never" }}
         >
-          <context.Provider value={values}>{children}</context.Provider>
+          {children}
         </Elements>
       ) : (
-        <context.Provider value={values}>{children}</context.Provider>
+        <>{children}</>
       )}
-    </React.Fragment>
+    </context.Provider>
   );
 };
