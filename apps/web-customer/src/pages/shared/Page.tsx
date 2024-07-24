@@ -7,7 +7,7 @@ import {
 import { Layout } from "./Layout";
 import { ControlledToast } from "core-library/components";
 
-const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
       <BusinessQueryContextProvider>
@@ -21,5 +21,3 @@ const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     </React.Fragment>
   );
 };
-
-export default Page;

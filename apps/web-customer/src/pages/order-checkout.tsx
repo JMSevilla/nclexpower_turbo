@@ -1,103 +1,23 @@
-import { BackButton } from "@/components";
-import React, { useState } from "react";
+import { BackButton, CheckoutPageBlock } from "@/components";
+import React from "react";
 import WestIcon from "@mui/icons-material/West";
-import {
-  LinkAuthenticationElement,
-  useStripe,
-  PaymentElement,
-  useElements,
-} from "@stripe/react-stripe-js";
-import { StripeLinkAuthenticationElementChangeEvent } from "@stripe/stripe-js";
-import { TextField } from "core-library/components";
-import { FormProvider, useForm } from "react-hook-form";
-import { useApiCallback } from "core-library/hooks";
-import { UpdatePaymentIntentParams } from "core-library/api/types";
-import {
-  useBusinessQueryContext,
-  useStripeContext,
-} from "core-library/contexts";
-import { config } from "core-library/config";
+import { Elements } from "@stripe/react-stripe-js";
+import { Stripe } from "@stripe/stripe-js";
+import { useStripeContext } from "core-library/contexts";
 
 interface Props {}
+interface CheckoutPageProps {
+  clientSecret: string | null;
+  stripePromise: Promise<Stripe | null> | null;
+  paymentIntentId: string | null;
+}
+
+const CheckoutPage = (props: CheckoutPageProps) => (
+  <CheckoutPageBlock {...props} />
+);
 
 const OrderCheckout: React.FC<Props> = (props) => {
-  const { businessQueryConfirmPayment } = useBusinessQueryContext();
-  const { mutateAsync, data: confirmPaymentData } =
-    businessQueryConfirmPayment();
-  const form = useForm();
-  const { control, getValues } = form;
-  const { paymentIntentId, clientSecret } = useStripeContext();
-  const [email, setEmail] = useState<string>();
-  const updatePaymentIntent = useApiCallback(
-    async (api, p: UpdatePaymentIntentParams) =>
-      await api.web.web_update_payment_intent(p)
-  );
-  const stripe = useStripe();
-  const elements = useElements();
-
-  async function confirmPayment() {
-    const obj = {
-      paymentIntentId: paymentIntentId,
-      email: email,
-    } as UpdatePaymentIntentParams;
-    await updatePaymentIntent.execute({ ...obj }); // Don't forget to transfer this to SSR & business query
-    /* Create a loader and please disable the confirm payment button during the payment confirmation. */
-    // await mutateAsync({
-    //   paymentIntentId: paymentIntentId,
-    //   email: email,
-    // });
-    // console.log("confirmPaymentData", confirmPaymentData);
-    if (!stripe || !elements) {
-      return;
-    }
-
-    const { error } = await stripe?.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: ``,
-        payment_method_data: {
-          billing_details: {
-            email: email,
-          },
-        },
-      },
-    });
-
-    console.log(error);
-  }
-
-  function handleEmailChange(
-    event: StripeLinkAuthenticationElementChangeEvent
-  ) {
-    setEmail(event.value.email);
-  }
-
-  const CheckoutForm = () => {
-    return (
-      <form>
-        <div className="w-full h-fit flex flex-col gap-2">
-          <TextField name="firstName" control={control} label="First Name" />
-          <div className="flex gap-2">
-            <TextField
-              name="middleName"
-              control={control}
-              label="Middle Name"
-            />
-            <TextField name="lastName" control={control} label="Last Name" />
-          </div>
-          <LinkAuthenticationElement onChange={handleEmailChange} />
-          <PaymentElement />
-
-          <button
-            onClick={confirmPayment}
-            className=" bg-gradient-to-b from-[#2253c3] to-[#6593ff] px-5 py-2 text-white font-semibold rounded-lg self-end mt-5"
-          >
-            Confirm Payment
-          </button>
-        </div>
-      </form>
-    );
-  };
+  const { paymentIntentId, clientSecret, stripePromise } = useStripeContext();
 
   return (
     <div className="w-screen h-screen flex">
@@ -128,7 +48,11 @@ const OrderCheckout: React.FC<Props> = (props) => {
       </div>
       <div className="py-10 px-10 bg-slate-200 h-full w-1/2 flex items-center justify-center">
         <div className=" w-full h-fit flex items-center justify-center p-5 shadow-md rounded-lg bg-white">
-          <CheckoutForm />
+          <CheckoutPage
+            clientSecret={clientSecret}
+            stripePromise={stripePromise}
+            paymentIntentId={paymentIntentId}
+          />
         </div>
       </div>
     </div>
