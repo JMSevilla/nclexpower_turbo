@@ -103,15 +103,15 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
   ) : null;
 
   async function handleProceedCheckout() {
-    if (!orderDetail) return;
-    await getOrderNumber();
-    await createPaymentIntentWithClientSecret({
-      amount: orderDetail.amount,
-      currency: orderDetail.currency,
-      productDescription: orderDetail.productDescription,
-      productName: orderDetail.productName,
-      programTitle: orderDetail.programTitle,
-    });
-    await router.push("/order-checkout");
+    // if (!orderDetail) return;
+    // await getOrderNumber();
+    // await createPaymentIntentWithClientSecret({
+    //   amount: orderDetail.amount,
+    //   currency: orderDetail.currency,
+    //   productDescription: orderDetail.productDescription,
+    //   productName: orderDetail.productName,
+    //   programTitle: orderDetail.programTitle,
+    // });
+    await router.push("/customer/payment/checkout");
   }
 };
