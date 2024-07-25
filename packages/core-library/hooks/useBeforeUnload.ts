@@ -22,6 +22,21 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
   };
 
   useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      
+      if (typeof window === 'undefined') return;
+
+      event.preventDefault();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleRouteChangeStart = (route: string) => {
       nextRouteRef.current = route;
 
@@ -31,20 +46,6 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
         throw "routeChange aborted";
       }
     };
-
-    if (window !== undefined) {
-      const handlePageExit = (event: Event | undefined) => {
-        event = event || window.event;
-
-        const message = "Changes you made may not be saved.";
-
-        return message;
-      }
-      
-      return () => {
-        window.onbeforeunload = handlePageExit;
-      }
-    }
     
     const cleanUp = () =>
       router.events.off("routeChangeStart", handleRouteChangeStart);
