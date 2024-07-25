@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useCallback, useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { Button, TextField } from "core-library/components";
 import {
   LinkAuthenticationElement,
@@ -10,21 +10,25 @@ import {
 import { StripeLinkAuthenticationElementChangeEvent } from "@stripe/stripe-js";
 import { CheckoutFormType, checkoutSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Router, useRouter } from 'next/router';
-import { Checkbox } from 'core-library/components/Checkbox/Checkbox';
+import { useRouter } from 'next/router';
+import { ControlledCheckbox } from 'core-library/components/Checkbox/Checkbox';
+import { usePreviousValue } from '@/core/hooks/usePreviousValue';
+import { ControlledTextField } from 'core-library/components/Textfield/TextField';
 interface Props {
   paymentIntentId: string | null;
 }
 
 export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
-  const [enableMiddle, setEnableMiddle] = useState(false)
   const router = useRouter()
+
   const form = useForm<CheckoutFormType>({
     mode: "onChange",
     resolver: yupResolver(checkoutSchema),
     defaultValues: checkoutSchema.getDefault(),
   });
-  const { control, setValue, getValues } = form;
+
+  const { control, setValue, getValues, watch, resetField } = form;
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -53,6 +57,18 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
     }
   }
 
+  const hasNoMiddleName = watch('hasNoMiddleName')
+  const hasNoMiddleNamePrevValue = usePreviousValue(hasNoMiddleName)
+
+  useEffect(() => {
+    resetField('middlename')
+  }, [
+    hasNoMiddleName,
+    hasNoMiddleNamePrevValue,
+    resetField,
+
+  ])
+
   const handleEmailChange = useCallback(
     (event: StripeLinkAuthenticationElementChangeEvent) => {
       setValue("email", event.value.email);
@@ -62,13 +78,26 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
 
   return (
     <div className="w-full h-fit flex flex-col gap-2">
-      <TextField name="firstname" control={control} label="First Name" />
-      <div className="flex gap-2">
-        <div>
-          <TextField disabled={enableMiddle} name="middlename" control={control} label="Middle Name" />
-          <Checkbox onChange={() => setEnableMiddle(!enableMiddle)} sx={{ lineHeight: '12px', color: 'GrayText' }} label="I don't have a Middle Name" />
+      <ControlledTextField name="firstname" control={control} label="First Name" />
+      <div className="flex gap-2 w-full">
+        <div className='w-1/2'>
+          <ControlledTextField
+            control={control}
+            required={!hasNoMiddleName}
+            shouldUnregister
+            name="middlename"
+            label="Middlename"
+            disabled={hasNoMiddleName}
+          />
+          <ControlledCheckbox
+            control={control}
+            name="hasNoMiddleName"
+            label="I do not have a middlename"
+          />
         </div>
-        <TextField name="lastname" control={control} label="Last Name" />
+        <div className='w-1/2'>
+          <ControlledTextField name="lastname" control={control} label="Last Name" />
+        </div>
       </div>
       <LinkAuthenticationElement onChange={handleEmailChange} />
       <PaymentElement />

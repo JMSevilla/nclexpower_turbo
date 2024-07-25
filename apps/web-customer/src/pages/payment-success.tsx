@@ -8,8 +8,8 @@ import React from 'react'
 const PaymentSuccess = () => {
     const router = useRouter()
 
-    const returnHome = () => {
-        router.push('/')
+    const returnLogin = () => {
+        router.push('/login')
     }
 
     return (
@@ -23,11 +23,11 @@ const PaymentSuccess = () => {
                             <p className='text-xl font-semibold text-[#467dcd]'>Thank You!</p>
                         </div>
                     </div>
-                    <p className='text-sm text-paragraph'>You will be redirected to the home page shortly
-                        or click here to return to home page
+                    <p className='text-sm text-paragraph'>
+                        Please check your email for the <br />confirmation of your credentials.
                     </p>
-                    <Button onClick={returnHome} sx={{ borderRadius: '20px', paddingY: '10px', width: '60%' }}>
-                        Home
+                    <Button onClick={returnLogin} sx={{ borderRadius: '20px', paddingY: '10px', width: '60%' }}>
+                        Proceed to Login
                     </Button>
                 </Paper>
                 <Image className='w-14 absolute bottom-8 left-[5%]' src={CoreZigmaLogo} alt='Payment Icon' />

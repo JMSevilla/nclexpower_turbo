@@ -13,9 +13,9 @@ import { CustomerMenus, list } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 
-interface Props {}
+interface Props { }
 
-export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
+const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const queryClient = new QueryClient();
@@ -48,3 +48,5 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
+
+export default Layout
