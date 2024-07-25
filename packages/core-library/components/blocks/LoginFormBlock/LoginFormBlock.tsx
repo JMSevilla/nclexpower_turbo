@@ -15,7 +15,7 @@ export function LoginFormBlock({ onSubmit, isLoading }: Props) {
             alignItems="center"
             flexGrow={1}
             sx={{
-                height: '100vh',
+                height: '100%',
             }}
         >
             <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
