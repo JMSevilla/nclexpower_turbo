@@ -6,6 +6,7 @@ import {
 } from "core-library/contexts";
 import { Layout } from "./Layout";
 import { ControlledToast } from "core-library/components";
+import { ClientSecretKeyContextProvider } from "core-library/contexts";
 
 export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
@@ -13,8 +14,10 @@ export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       <BusinessQueryContextProvider>
         <AuthProvider>
           <ToastProvider>
-            <ControlledToast autoClose={5000} hideProgressBar={false} />
-            <Layout children={children} />
+            <ClientSecretKeyContextProvider>
+              <ControlledToast autoClose={5000} hideProgressBar={false} />
+              <Layout children={children} />
+            </ClientSecretKeyContextProvider>
           </ToastProvider>
         </AuthProvider>
       </BusinessQueryContextProvider>

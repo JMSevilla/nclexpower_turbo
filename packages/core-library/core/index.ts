@@ -6,3 +6,4 @@ export * from "./utils/cooldown";
 export * from "./utils/withAuth";
 export * from "./hooks/stripe/useStripeConfig";
 export * from "./utils/useDecryptOrder";
+export * from "./utils/withClientKey";
