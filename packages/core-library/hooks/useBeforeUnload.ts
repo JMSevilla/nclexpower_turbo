@@ -32,6 +32,20 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
       }
     };
 
+    if (window !== undefined) {
+      const handlePageExit = (event: Event | undefined) => {
+        event = event || window.event;
+
+        const message = "Changes you made may not be saved.";
+
+        return message;
+      }
+      
+      return () => {
+        window.onbeforeunload = handlePageExit;
+      }
+    }
+    
     const cleanUp = () =>
       router.events.off("routeChangeStart", handleRouteChangeStart);
 
@@ -40,7 +54,6 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
     }
 
     router.events.on("routeChangeStart", handleRouteChangeStart);
-
     return cleanUp;
   }, [router.asPath, enabled, navigationAllowed]);
 
