@@ -36,9 +36,11 @@ export const DrawerLayout: React.FC<
     const router = useRouter();
 
     const hideDrawer =
-      router.pathname === "order-checkout"
-      || router.pathname === "/login"
-      || router.pathname === "/payment-success";
+      router.pathname === "order-checkout" ||
+      router.pathname === "/login" ||
+      router.pathname === "/account/verification/otp" ||
+      router.pathname === "/payment-success";
+
 
     const handleDrawer = () => {
       setOpen((prev) => !prev);

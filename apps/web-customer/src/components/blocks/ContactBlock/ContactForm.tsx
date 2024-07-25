@@ -19,12 +19,12 @@ export const ContactForm: React.FC<FormValues> = ({ control, handleSubmit, onSub
         <Grid item xl={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
           <div className="flex items-center p-12 justify-center flex-col bg-white border rounded-md">
             <div className="text-center mb-5">
-              <Typography variant="h6" component="span" sx={{ color: '#007AB7', fontFamily: 'Poppins' }}>
+              <Typography variant="h3" component="span" sx={{ color: '#007AB7', fontFamily: 'Poppins', fontWeight: 'bold' }}>
                 Connect with us
               </Typography>
-              <Typography variant="h4" sx={{ textColor: '#030303', fontWeight: 'bold', fontFamily: 'Poppins' }}>
+              <p>
                 The NCLEX team would love to hear from you.
-              </Typography>
+              </p>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
               <Grid item lg={12} sx={{ marginY: 2, display: 'flex', gap: 1 }}>
