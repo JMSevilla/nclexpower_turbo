@@ -115,6 +115,7 @@ export interface ThetaZeroCummResponse {
 export interface ConfirmPaymentParams {
   paymentIntentId: string | null;
   email: string | undefined;
+  paymentMethodId: string | undefined;
 }
 
 export interface ConfirmPaymentResponse {
@@ -133,25 +134,24 @@ export interface CheckoutSessionResponse {
   sessionId: string;
 }
 
-
 export interface ReportedIssuesResponse {
-  id: string
-  ticketNumber: string
-  email: string
-  categoryId: string
-  category: CategoryResponse
-  systemProduct: number
-  description: string
-  dateReported: string
+  id: string;
+  ticketNumber: string;
+  email: string;
+  categoryId: string;
+  category: CategoryResponse;
+  systemProduct: number;
+  description: string;
+  dateReported: string;
 }
 
 export interface CategoryResponse {
-  id: string
-  categoryName: string
-  categoryDescription: string
-  categoryType: number
-  createdAt: string
-  updatedAt: string
+  id: string;
+  categoryName: string;
+  categoryDescription: string;
+  categoryType: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateCustomerParams {

@@ -36,7 +36,9 @@ export const DrawerLayout: React.FC<
     const router = useRouter();
 
     const hideDrawer =
-      router.pathname === "order-checkout" || router.pathname === "/login";
+      router.pathname === "order-checkout" ||
+      router.pathname === "/login" ||
+      router.pathname === "/account/verification/otp"
 
     const handleDrawer = () => {
       setOpen((prev) => !prev);
@@ -64,26 +66,25 @@ export const DrawerLayout: React.FC<
         )}
         <Main open={open} isMobile={isMobile}>
           <Box display="flex" minHeight="100vh" flexDirection="column">
-            {!hideDrawer && (
-              <Header
-                drawerButton={
-                  ((!open && isAuthenticated) || isMobile) && (
-                    <Button onClick={handleDrawer}>
-                      <MenuIcon />
-                    </Button>
-                  )
-                }
-                menu={menu}
-                isAuthenticated={isAuthenticated}
-                headerContainerSx={AuthHeaderStyle}
-                buttonHeaderSx={AuthButtonStyle}
-                onLogout={onLogout}
-              />
-            )}
             <Box>
-              {children}
+              {!hideDrawer && (
+                <Header
+                  drawerButton={
+                    ((!open && isAuthenticated) || isMobile) && (
+                      <Button onClick={handleDrawer}>
+                        <MenuIcon />
+                      </Button>
+                    )
+                  }
+                  menu={menu}
+                  isAuthenticated={isAuthenticated}
+                  headerContainerSx={AuthHeaderStyle}
+                  buttonHeaderSx={AuthButtonStyle}
+                  onLogout={onLogout}
+                />
+              )}
             </Box>
-
+            {children}
           </Box>
         </Main>
       </Box>

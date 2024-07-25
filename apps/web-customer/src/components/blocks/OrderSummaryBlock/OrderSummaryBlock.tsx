@@ -1,5 +1,5 @@
 import { Box, Card, Grid, Paper, Typography } from "@mui/material";
-import { CheckoutButton } from "core-library/components";
+import { Button } from "core-library/components";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDecryptOrder } from "core-library/core/utils/useDecryptOrder";
@@ -10,6 +10,8 @@ type Props = {};
 export const OrderSummaryBlock: React.FC<Props> = () => {
   const router = useRouter();
   const orderDetail = useDecryptOrder();
+  const { createPaymentIntentWithClientSecret, getOrderNumber } =
+    useStripeContext();
 
   if (!orderDetail) {
     router.replace("/");
@@ -83,7 +85,13 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
             </Box>
           </Box>
           <Box pt={2}>
-            <CheckoutButton orderDetails={orderDetail} />
+            <Button
+              onClick={handleProceedCheckout}
+              disabled={false}
+              sx={{ mb: 2, p: 1, width: "100%" }}
+            >
+              Proceed to payment
+            </Button>
             <Typography textAlign="center" variant="body2">
               Click this button to finalize and confirm your order. By
               confirming, you agree to our terms and conditions
@@ -93,4 +101,17 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
       </div>
     </div>
   ) : null;
+
+  async function handleProceedCheckout() {
+    if (!orderDetail) return;
+    await getOrderNumber();
+    await createPaymentIntentWithClientSecret({
+      amount: orderDetail.amount,
+      currency: orderDetail.currency,
+      productDescription: orderDetail.productDescription,
+      productName: orderDetail.productName,
+      programTitle: orderDetail.programTitle,
+    });
+    await router.push("/order-checkout");
+  }
 };

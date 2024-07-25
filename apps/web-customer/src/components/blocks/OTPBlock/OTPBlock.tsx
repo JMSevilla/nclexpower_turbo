@@ -9,6 +9,15 @@ const OTPBlock: React.FC = () => {
   const [resendRemainingTime, setResendRemainingTime] = useState(0);
   const toast = useExecuteToast();
 
+  var handlePageExit = (e: Event | undefined) => {
+    e = e || window.event;
+
+    var message = 'Changes you made may not be saved.';
+    return message;
+  };
+
+  window.onbeforeunload = handlePageExit;
+
   const onSubmit = (values: OTPType) => {
     if (attempts < 3) {
       console.log('Values: ', values);
