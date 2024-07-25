@@ -65,26 +65,27 @@ export const DrawerLayout: React.FC<
           />
         )}
         <Main open={open} isMobile={isMobile}>
-          <Box display="flex" minHeight="100vh" flexDirection="column">
-            <Box>
-              {!hideDrawer && (
-                <Header
-                  drawerButton={
-                    ((!open && isAuthenticated) || isMobile) && (
-                      <Button onClick={handleDrawer}>
-                        <MenuIcon />
-                      </Button>
-                    )
-                  }
-                  menu={menu}
-                  isAuthenticated={isAuthenticated}
-                  headerContainerSx={AuthHeaderStyle}
-                  buttonHeaderSx={AuthButtonStyle}
-                  onLogout={onLogout}
-                />
-              )}
+          <Box display="flex" height="100vh" flexDirection="column" minHeight="100vh">
+            {!hideDrawer && (
+              <Header
+                drawerButton={
+                  ((!open && isAuthenticated) || isMobile) && (
+                    <Button onClick={handleDrawer}>
+                      <MenuIcon />
+                    </Button>
+                  )
+                }
+                menu={menu}
+                isAuthenticated={isAuthenticated}
+                headerContainerSx={AuthHeaderStyle}
+                buttonHeaderSx={AuthButtonStyle}
+                onLogout={onLogout}
+              />
+            )}
+            <Box height="100%">
+              {children}
             </Box>
-            {children}
+
           </Box>
         </Main>
       </Box>

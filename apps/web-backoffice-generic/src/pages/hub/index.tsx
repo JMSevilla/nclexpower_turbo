@@ -8,7 +8,7 @@ interface Props { }
 
 const HubOverview: React.FC<Props> = (props) => {
   return (
-    <div className="w-full h-screen bg-cover font-['Poppins'] bg-gradient-to-b from-slate-200 to-white px-5">
+    <div className="w-full h-screen bg-cover font-['Poppins'] bg-gradient-to-b">
       <div className='w-full flex gap-5 py-5 items-center justify-center px-5 lg:flex-row md:flex-col sm:flex-col xs:flex-col'>
         <span className='flex w-full gap-5 leading-4 '>
           {DashboardCards && DashboardCards.map((card, index) => (
