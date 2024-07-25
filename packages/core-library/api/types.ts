@@ -112,6 +112,17 @@ export interface ThetaZeroCummResponse {
   accountId: string;
 }
 
+export interface ThetaCalcScratchResponse {
+  seqNum: number;
+  qlNum: string;
+  aDisc: number;
+  bDiff: number;
+  cGuess: number;
+  response: number;
+  inclusion: number;
+  eventLNum: string;
+}
+
 export interface ConfirmPaymentParams {
   paymentIntentId: string | null;
   email: string | undefined;
