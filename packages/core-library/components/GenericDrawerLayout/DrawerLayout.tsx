@@ -65,7 +65,7 @@ export const DrawerLayout: React.FC<
           />
         )}
         <Main open={open} isMobile={isMobile}>
-          <Box display="flex" minHeight="100vh" flexDirection="column">
+          <Box display="flex" height="100vh" flexDirection="column" minHeight="100vh">
             <Box>
               {!hideDrawer && (
                 <Header
@@ -84,7 +84,10 @@ export const DrawerLayout: React.FC<
                 />
               )}
             </Box>
-            {children}
+            <Box height="100%">
+              {children}
+            </Box>
+
           </Box>
         </Main>
       </Box>
