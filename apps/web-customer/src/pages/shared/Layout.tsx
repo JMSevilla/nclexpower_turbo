@@ -48,5 +48,3 @@ export const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     </QueryClientProvider>
   );
 };
-
-export default Layout;

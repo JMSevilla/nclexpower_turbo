@@ -27,64 +27,66 @@ export const DrawerLayout: React.FC<
   buttonHeaderSx,
   onLogout,
 }) => {
-  const [open, setOpen] = useState(true);
-  const { isMobile } = useResolution();
-  const [mounted, setMounted] = useState<boolean>(false);
-  const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
-  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
+    const [open, setOpen] = useState(true);
+    const { isMobile } = useResolution();
+    const [mounted, setMounted] = useState<boolean>(false);
+    const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
+    const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
 
-  const router = useRouter();
+    const router = useRouter();
 
-  const hideDrawer =
-    router.pathname === "order-checkout" || router.pathname === "/login";
+    const hideDrawer =
+      router.pathname === "order-checkout" ||
+      router.pathname === "/login" ||
+      router.pathname === "/account/verification/otp"
 
-  const handleDrawer = () => {
-    setOpen((prev) => !prev);
-  };
+    const handleDrawer = () => {
+      setOpen((prev) => !prev);
+    };
 
-  useEffect(() => {
-    setOpen(!isMobile);
-  }, [isMobile]);
+    useEffect(() => {
+      setOpen(!isMobile);
+    }, [isMobile]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+    useEffect(() => {
+      setMounted(true);
+    }, []);
 
-  if (!mounted) return null;
+    if (!mounted) return null;
 
-  return (
-    <Box display="flex">
-      {(isAuthenticated || isMobile) && (
-        <Sidebar
-          isMobile={isMobile}
-          menu={menu}
-          open={open}
-          setOpen={handleDrawer}
-        />
-      )}
-      <Main open={open} isMobile={isMobile}>
-        <Box display="flex" minHeight="100vh" flexDirection="column">
-          <Box>
-            {!hideDrawer && (
-              <Header
-                drawerButton={
-                  ((!open && isAuthenticated) || isMobile) && (
-                    <Button onClick={handleDrawer}>
-                      <MenuIcon />
-                    </Button>
-                  )
-                }
-                menu={menu}
-                isAuthenticated={isAuthenticated}
-                headerContainerSx={AuthHeaderStyle}
-                buttonHeaderSx={AuthButtonStyle}
-                onLogout={onLogout}
-              />
-            )}
+    return (
+      <Box display="flex">
+        {(isAuthenticated || isMobile) && (
+          <Sidebar
+            isMobile={isMobile}
+            menu={menu}
+            open={open}
+            setOpen={handleDrawer}
+          />
+        )}
+        <Main open={open} isMobile={isMobile}>
+          <Box display="flex" minHeight="100vh" flexDirection="column">
+            <Box>
+              {!hideDrawer && (
+                <Header
+                  drawerButton={
+                    ((!open && isAuthenticated) || isMobile) && (
+                      <Button onClick={handleDrawer}>
+                        <MenuIcon />
+                      </Button>
+                    )
+                  }
+                  menu={menu}
+                  isAuthenticated={isAuthenticated}
+                  headerContainerSx={AuthHeaderStyle}
+                  buttonHeaderSx={AuthButtonStyle}
+                  onLogout={onLogout}
+                />
+              )}
+            </Box>
+            {children}
           </Box>
-          {children}
-        </Box>
-      </Main>
-    </Box>
-  );
-};
+        </Main>
+      </Box>
+    );
+  };
