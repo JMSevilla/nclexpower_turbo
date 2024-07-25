@@ -59,7 +59,8 @@ export const IRTsModal: React.FC = () => {
 
   useEffect(() => {
     if (IrtZeroCalcData?.length || IrtExamLogsData?.length) {
-      return setShowDelete(true);
+      setShowDelete(true);
+      return;
     }
     setShowDelete(false);
   }, [IrtZeroCalcData, IrtExamLogsData]);
