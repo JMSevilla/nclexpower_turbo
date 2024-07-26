@@ -22,6 +22,21 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
   };
 
   useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      
+      if (typeof window === 'undefined') return;
+
+      event.preventDefault();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleRouteChangeStart = (route: string) => {
       nextRouteRef.current = route;
 
@@ -31,7 +46,7 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
         throw "routeChange aborted";
       }
     };
-
+    
     const cleanUp = () =>
       router.events.off("routeChangeStart", handleRouteChangeStart);
 
@@ -40,7 +55,6 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
     }
 
     router.events.on("routeChangeStart", handleRouteChangeStart);
-
     return cleanUp;
   }, [router.asPath, enabled, navigationAllowed]);
 

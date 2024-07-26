@@ -2,6 +2,7 @@ import {
   AccessKeyType,
   IrtExamLogsResponse,
   LoginResponse,
+  ThetaCalcScratchResponse,
   ThetaZeroCummResponse,
 } from "../types";
 import { AxiosInstance } from "axios";
@@ -68,6 +69,12 @@ export class CalculationApi {
   public async deleteAllCalc(accountId: string) {
     return await this.axios.delete<number>(
       `/v1/api/baseAppload/test-delete-all-calc-by-id/${accountId}`
+    );
+  }
+
+  public getIrtThetaCalScratch(accountId: string) {
+    return this.axios.get<ThetaCalcScratchResponse[]>(
+      `/v1/api/baseAppload/select-irt-theta-calc?${qs.stringify({ accountId })}`
     );
   }
 }

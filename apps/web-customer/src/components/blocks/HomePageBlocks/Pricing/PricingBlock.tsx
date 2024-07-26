@@ -19,14 +19,7 @@ export const PricingBlock: React.FC<Props> = (props) => {
 
     const handleSelectProduct = (product: SelectedProductType) => {
         const key = config.value.SECRET_KEY
-        const storedData = {
-            amount: product.amount.toString(),
-            currency: product.currency,
-            productName: product.productName.toString(),
-            productDescription: product.productDescription,
-            programTitle: product.programTitle
-        }
-        const encyptedData = Encryption(JSON.stringify(storedData), key ?? 'no-secret-key')
+        const encyptedData = Encryption(JSON.stringify({ ...product }), key ?? 'no-secret-key')
         setEncryptedProduct(encyptedData)
         router.push({
             pathname: '/order-summary',

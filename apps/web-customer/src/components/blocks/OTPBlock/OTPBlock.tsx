@@ -3,6 +3,7 @@ import OTPForm from "./OTPForm";
 import { OTPType } from "../../../core/Schema";
 import { useExecuteToast } from "core-library/contexts";
 import { useRouter } from "next/router";
+import { useBeforeUnload } from "core-library/hooks";
 
 const OTPBlock: React.FC = () => {
   const [attempts, setAttempts] = useState(0);
@@ -10,15 +11,6 @@ const OTPBlock: React.FC = () => {
   const [resendRemainingTime, setResendRemainingTime] = useState(0);
   const toast = useExecuteToast();
   const router = useRouter();
-
-  var handlePageExit = (e: Event | undefined) => {
-    e = e || window.event;
-
-    var message = "Changes you made may not be saved.";
-    return message;
-  };
-
-  window.onbeforeunload = handlePageExit;
 
   const onSubmit = (values: OTPType) => {
     if (attempts < 3) {
@@ -49,6 +41,8 @@ const OTPBlock: React.FC = () => {
   const handleResend = () => {
     setResendRemainingTime(300);
   };
+
+  useBeforeUnload(true);
 
   return (
     <OTPForm

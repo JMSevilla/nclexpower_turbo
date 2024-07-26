@@ -51,6 +51,7 @@ const config: Config = {
         'core-zigma': "url(\'../assets/CoreZigmaBG.png')",
         'how-it-works': "url(\'../assets/ModifiedHowitWorkBG.png')",
         'pricing': "url(\'../assets/PricingBGLogo.jpg')",
+        'success-payment': "url(\'../assets/SuccessPaymentBG.png')",
       }
     },
   },

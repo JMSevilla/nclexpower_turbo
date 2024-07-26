@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import "./mui.css";
 import "../styles/password-strength-meter.css";
-import { Page } from "./shared/Page";
+import Page from "./shared/Page";
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
