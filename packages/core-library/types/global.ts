@@ -145,6 +145,8 @@ export interface SliderConfigType {
 }
 
 export interface SelectedProductType {
+  pricingId: string,
+  productId: string,
   amount: number;
   currency: string;
   productName: string;
