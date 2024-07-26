@@ -3,10 +3,12 @@ import React from 'react'
 
 interface CardProps {
     cardData: {
+        id: string
         productName: string
         productDescription: string
         programType: number
         programTitle: number
+        pricingId: string
         pricing: {
             price: number
             currency: string
@@ -17,7 +19,6 @@ interface CardProps {
 
 const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => {
     const ProgramTitle = cardData.programTitle
-
     return (
         <div className={`${ProgramTitle === 0 ? 'bg-green-100' : 'bg-blue bg-opacity-10'} ${cardData.pricing.price == 230 && '-mt-5'} my-4 transition-all duration-300 h-fit w-[350px] rounded-md shadow-md hover:scale-105`}>
             <div className={`${ProgramTitle === 0 ? 'bg-green-600' : 'bg-blue'} w-full h-4 rounded-t-md`} />
@@ -40,7 +41,16 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
                 <button className="border-2 border-slate-800 w-1/2 py-2 rounded-xl">More info</button>
 
                 <button
-                    onClick={() => handleSelectProduct({ amount: cardData.pricing.price, currency: cardData.pricing.currency, productName: cardData.productName, productDescription: cardData.productDescription, programTitle: cardData.programTitle })}
+                    onClick={() =>
+                        handleSelectProduct({
+                            amount: cardData.pricing.price,
+                            currency: cardData.pricing.currency,
+                            productName: cardData.productName,
+                            productDescription: cardData.productDescription,
+                            programTitle: cardData.programTitle,
+                            pricingId: cardData.pricingId,
+                            productId: cardData.id
+                        })}
                     className={`${ProgramTitle === 0 ? 'bg-green-600' : 'bg-blue'} text-white w-1/2 py-2 rounded-xl`}>Select</button>
             </div>
         </div>
