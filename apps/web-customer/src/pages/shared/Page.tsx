@@ -4,10 +4,10 @@ import {
   BusinessQueryContextProvider,
   ToastProvider,
 } from "core-library/contexts";
-import { Layout } from "./Layout";
+import Layout from "./Layout";
 import { ControlledToast } from "core-library/components";
 
-export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
       <BusinessQueryContextProvider>
@@ -21,3 +21,5 @@ export const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     </React.Fragment>
   );
 };
+
+export default Page

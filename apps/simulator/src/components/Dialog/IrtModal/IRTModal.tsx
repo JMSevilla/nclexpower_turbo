@@ -1,24 +1,33 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CustomDialog } from '../CustomDialog';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import { useBusinessQueryContext } from 'core-library/contexts';
 import { IrtExamLogs } from './IrtExamLogs';
 import { IrtThethaZeroCumm } from './IrtZeroCumm';
 import { useSessionStorage } from 'core-library/hooks';
-import { Card, CardContent, Button } from '@mui/material';
+import { Card, CardContent, Button, Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { DataTable, DataTableHeader } from 'core-library/components';
+import { IrtThetaCalcScratch } from './IrtThetaCalcScratch';
+import { ThetaCalcScratchResponse } from 'core-library/api/types';
 import { useApplicationContext } from '../../../core/context/AppContext';
 
 export const IRTsModal: React.FC = () => {
   const [getAccountId] = useSessionStorage<string | null>('accountId', null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const [showDelete, setShowDelete] = useState(false);
 
   const router = useRouter();
 
-  const { businessQueryDeleteAllCalc, businessQueryGetIrtExamLogs, businessQueryGetIrtZeroCalc } =
-    useBusinessQueryContext();
+  const {
+    businessQueryDeleteAllCalc,
+    businessQueryGetIrtExamLogs,
+    businessQueryGetIrtZeroCalc,
+    businessQueryGetThetaCalcScratch,
+  } = useBusinessQueryContext();
 
   const { setDisplayNextItem } = useApplicationContext();
 
@@ -34,12 +43,19 @@ export const IRTsModal: React.FC = () => {
     refetch: ZeroCalcRefetch,
   } = businessQueryGetIrtZeroCalc(['IrtZeroCalc'], getAccountId ?? '');
 
+  const {
+    data: getIrtThetaCalcScratch,
+    isLoading: ThetaCalcLoading,
+    refetch: ThetaCalcRefetch,
+  } = businessQueryGetThetaCalcScratch(['IrtThetaCalcScratch'], getAccountId ?? '');
+
   const { mutateAsync } = businessQueryDeleteAllCalc();
 
   async function deleteAllCalc() {
     await mutateAsync(getAccountId ?? '');
     IrtExamLogsrefetch();
     ZeroCalcRefetch();
+    ThetaCalcRefetch();
     setDisplayNextItem(false);
     router.push({
       pathname: '/simulator',
@@ -55,6 +71,33 @@ export const IRTsModal: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const tableHeaders: DataTableHeader[] = [
+    { name: 'seqNum', width: 150, align: 'left' },
+    { name: 'qlNum', width: 150, align: 'left' },
+    { name: 'aDisc', width: 150, align: 'left' },
+    { name: 'bDiff', width: 150, align: 'left' },
+    { name: 'cGuess', width: 150, align: 'left' },
+    { name: 'response', width: 150, align: 'left' },
+    { name: 'inclusion', width: 150, align: 'left' },
+    { name: 'eventLNum', width: 150, align: 'left' },
+  ];
+
+  const totalItems = getIrtThetaCalcScratch ? getIrtThetaCalcScratch.length : 0;
+  const totalPages = Math.ceil(totalItems / pageSize);
+  const paginatedData = getIrtThetaCalcScratch?.slice((currentPage - 1) * pageSize, currentPage * pageSize) ?? [];
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(prevPage => prevPage - 1);
+    }
   };
 
   useEffect(() => {
@@ -104,6 +147,35 @@ export const IRTsModal: React.FC = () => {
               accountId={getAccountId ?? ''}
               title="IRTThetaZeroCumm"
             />
+
+            <Box>
+              <Typography fontStyle={'italic'} sx={{ fontWeight: 'bold', py: 2 }}>
+                THETA CALC SCRATCH
+              </Typography>
+              <DataTable
+                data={[paginatedData ?? []]}
+                id="THETA CALC SCRATCH"
+                tableHeaders={tableHeaders}
+                bodyRowComponent={(data: ThetaCalcScratchResponse[], key: number) => (
+                  <IrtThetaCalcScratch
+                    data={data}
+                    key={key}
+                    accountId={getAccountId ?? ''}
+                    isloading={ThetaCalcLoading}
+                  />
+                )}
+                onNextPage={handleNextPage}
+                onPreviousPage={handlePreviousPage}
+                pagination={{
+                  pageNumber: currentPage,
+                  pageSize,
+                  totalPages,
+                  totalItems,
+                  hasNextPage: currentPage < totalPages,
+                  hasPreviousPage: currentPage > 1,
+                }}
+              />
+            </Box>
           </CardContent>
         </Card>
       </CustomDialog>

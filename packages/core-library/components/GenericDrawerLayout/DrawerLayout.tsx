@@ -39,6 +39,8 @@ export const DrawerLayout: React.FC<
     router.pathname === "order-checkout" ||
     router.pathname === "/login" ||
     router.pathname === "/account/verification/otp" ||
+    router.pathname === "/customer/payment/checkout" ||
+    router.pathname === "/payment-success" ||
     router.pathname === "/404";
 
   const handleDrawer = () => {

@@ -21,6 +21,7 @@ import {
   CheckoutSessionParams,
   CreateCustomerParams,
   ReportedIssuesResponse,
+  ThetaCalcScratchResponse,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -44,7 +45,7 @@ export const useLoadPreProcessQuery = (
   return useQuery<ApiServiceErr>(
     queryKey,
     async () => {
-      if(!accessToken) return
+      if (!accessToken) return;
       loadPTestHimemCb.execute();
       loadPreTrackItemCb.execute();
     },
@@ -64,7 +65,7 @@ export const useSelectQuestionsQuery = (
   return useQuery<CalcItemSelectResponseItem[] | undefined, ApiServiceErr>(
     queryKey,
     async () => {
-      if(!accessToken) return
+      if (!accessToken) return;
       const result = await selectQuestionCb.execute({ ...data });
       return result.data;
     },
@@ -361,14 +362,34 @@ export const useGetIrtZeroCalc = (
 };
 
 export const useGetAllReportedIssues = (
-  queryKey: string[],
+  queryKey: string[]
 ): UseQueryResult<ReportedIssuesResponse[] | undefined, any> => {
-  const getAllReportedIssues = useApi((api) => api.webbackoffice.getAllReportedIssues());
+  const getAllReportedIssues = useApi((api) =>
+    api.webbackoffice.getAllReportedIssues()
+  );
 
   return useQuery<ApiServiceErr>(
     queryKey,
     async () => {
       const result = await getAllReportedIssues.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetIrtThetaCalcScratch = (
+  queryKey: string[],
+  accountId: string
+): UseQueryResult<ThetaCalcScratchResponse[] | undefined, any> => {
+  const getIrtThetaCalcScratch = useApi((api) =>
+    api.calc.getIrtThetaCalScratch(accountId)
+  );
+
+  return useQuery<ThetaCalcScratchResponse[] | undefined, ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getIrtThetaCalcScratch.execute();
       return result.data;
     },
     { staleTime: Infinity }
