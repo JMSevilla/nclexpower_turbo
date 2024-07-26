@@ -11,7 +11,7 @@ type Props = CheckboxProps & {
   showErrorMessage?: boolean;
 };
 
-export const Checkbox: React.FC<Props> = ({ label, helperText, error, showErrorMessage = true, ...rest }) => {
+export const Checkbox: React.FC<Props> = ({ label, helperText, error, showErrorMessage = true, sx, ...rest }) => {
   return (
     <Stack gap={1}>
       <FormControlLabel
@@ -19,7 +19,7 @@ export const Checkbox: React.FC<Props> = ({ label, helperText, error, showErrorM
           color: theme => (error ? theme.palette.error.main : 'CurrentColor'),
         }}
         control={<MuiCheckbox {...rest} />}
-        label={<Typography variant="caption">{label}</Typography>}
+        label={<Typography sx={sx} variant="caption">{label}</Typography>}
       />
       {helperText && showErrorMessage && <FormHelperText error={error}>{helperText}</FormHelperText>}
     </Stack>
