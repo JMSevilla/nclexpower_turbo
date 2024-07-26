@@ -27,6 +27,7 @@ import {
   useCheckoutSession,
   useGetAllReportedIssues,
   useCreateCustomer,
+  useGetIrtThetaCalcScratch,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -44,6 +45,7 @@ import {
   CheckoutSessionParams,
   ReportedIssuesResponse,
   CreateCustomerParams,
+  ThetaCalcScratchResponse,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -159,7 +161,7 @@ interface BusinessQueryContextValue {
     unknown
   >;
   businessQueryGetAllReportedIssues: (
-    queryKey: string[],
+    queryKey: string[]
   ) => UseQueryResult<ReportedIssuesResponse[] | undefined, any>;
 
   businessQueryCreateCustomer: (
@@ -170,6 +172,10 @@ interface BusinessQueryContextValue {
     CreateCustomerParams,
     unknown
   >;
+  businessQueryGetThetaCalcScratch: (
+    queryKey: string[],
+    accountId: string
+  ) => UseQueryResult<ThetaCalcScratchResponse[] | undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -200,8 +206,9 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryDeleteAllCalc = useDeleteAllCalc;
   const businessQueryGetIrtZeroCalc = useGetIrtZeroCalc;
   const businessQueryCheckoutSession = useCheckoutSession;
-  const businessQueryGetAllReportedIssues = useGetAllReportedIssues
+  const businessQueryGetAllReportedIssues = useGetAllReportedIssues;
   const businessQueryCreateCustomer = useCreateCustomer;
+  const businessQueryGetThetaCalcScratch = useGetIrtThetaCalcScratch;
 
   return (
     <BusinessQueryContext.Provider
@@ -227,6 +234,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryCheckoutSession,
         businessQueryGetAllReportedIssues,
         businessQueryCreateCustomer,
+        businessQueryGetThetaCalcScratch,
       }}
     >
       {children}
