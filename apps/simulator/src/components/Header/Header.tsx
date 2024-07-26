@@ -3,7 +3,6 @@ import { AppBar, Toolbar, Box, Tooltip, Typography, Button, LinearProgress } fro
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { usePreloadedGlobals } from '../../core/context/PreloadedGlobalsContext';
 import { useCountdown } from 'core-library/hooks/useCountdown';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
@@ -22,9 +21,6 @@ export const buttonStyle = {
 };
 
 export const Header: React.FC = () => {
-  const { header } = usePreloadedGlobals();
-  const headerTimeRemaining = header[0]?.timeRemaining ?? null;
-  const duration = header[0]?.duration ?? null;
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setIsOpen } = useTour();
@@ -55,19 +51,22 @@ export const Header: React.FC = () => {
               <Box>
                 <Box fontWeight="bold" style={{ fontFamily: 'Arial, sans-serif' }}>
                   <Box className="header-step-2 p-0">
-                    Time Remaining :<span className="ml-2">{headerTimeRemaining ?? timeRemaining}</span>
+                    Time Remaining :<span className="ml-2">{timeRemaining}</span>
                   </Box>
                 </Box>
                 <Box fontSize={14} fontWeight="bold" style={{ fontFamily: 'Arial, sans-serif' }}>
                   <Box className="header-step-3">
-                    Duration :<Typography component={'span'} className="ml-2">{duration ?? timeDuration}</Typography>
+                    Duration :
+                    <Typography component={'span'} className="ml-2">
+                      {timeDuration}
+                    </Typography>
                   </Box>
                 </Box>
               </Box>
               <Box>
                 <Box className="header-step-4">
                   <Typography textAlign="center" style={{ fontFamily: 'Arial, sans-serif' }}>
-                    QID: {header[0]?.qId}
+                    QID:
                   </Typography>
                   <Typography style={{ fontFamily: 'Arial, sans-serif' }}>NCLEX Sample Tutor</Typography>
                 </Box>
