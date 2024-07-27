@@ -10,7 +10,6 @@ import { TextField } from "core-library/components";
 import CoreZigma from "../../images/CoreZigma.png";
 import { MedicineLoginBG } from "../../icons/MedicineLoginBG";
 import { Checkbox } from "core-library/components/Checkbox/Checkbox";
-import { Link } from "core-library/components";
 import { useClientSecretKey } from "core-library/contexts";
 
 type Props = {
@@ -128,12 +127,13 @@ export const LoginForm: React.FC<Props> = ({
                 onChange={handleChangeRememberMe}
                 label="Remember Me"
               />
-              <Link
+              <Typography
                 onClick={handleForgotPasswordClick}
                 style={{ color: "blue", cursor: "pointer" }}
+                component="span"
               >
                 Forgot Password?
-              </Link>
+              </Typography>
             </Grid>
             <Box
               sx={{
