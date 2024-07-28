@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
@@ -12,6 +12,8 @@ import { Footer } from "core-library/components/ReusableFooter/Footer";
 import { CustomerMenus, list } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
+import { useConfirmedIntent } from 'core-library/contexts/auth/hooks';
+import { usePaymentSuccessRedirect } from '@/core/hooks/usePaymentSuccessRedirect';
 
 interface Props { }
 
@@ -24,6 +26,8 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({
   const { isAuthenticated, logout } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
   const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
+  const [confirmValue] = useConfirmedIntent()
+  usePaymentSuccessRedirect(confirmValue)
 
   return (
     <QueryClientProvider client={queryClient}>

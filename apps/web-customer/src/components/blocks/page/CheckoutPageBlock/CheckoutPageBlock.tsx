@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
-import { Button, TextField } from "core-library/components";
+import React, { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Button } from "core-library/components";
 import {
   LinkAuthenticationElement,
   PaymentElement,
@@ -10,16 +10,18 @@ import {
 import { StripeLinkAuthenticationElementChangeEvent } from "@stripe/stripe-js";
 import { CheckoutFormType, checkoutSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from 'next/router';
 import { ControlledCheckbox } from 'core-library/components/Checkbox/Checkbox';
 import { usePreviousValue } from '@/core/hooks/usePreviousValue';
 import { ControlledTextField } from 'core-library/components/Textfield/TextField';
+import { useConfirmedIntent, useEncryptItem } from 'core-library/contexts/auth/hooks';
 interface Props {
   paymentIntentId: string | null;
 }
 
 export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
-  const router = useRouter()
+  const [, setIntent] = useConfirmedIntent();
+  const [encryptedUser] = useEncryptItem();
+
 
   const form = useForm<CheckoutFormType>({
     mode: "onChange",
@@ -27,7 +29,7 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
     defaultValues: checkoutSchema.getDefault(),
   });
 
-  const { control, setValue, getValues, watch, resetField } = form;
+  const { control, setValue, getValues, watch, resetField, handleSubmit } = form;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -35,11 +37,12 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
   async function confirmPayment() {
     try {
       const values = getValues();
+      setIntent(encryptedUser)
       if (!stripe || !elements) return;
       const { error } = await stripe?.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}`,
+          return_url: `${window.location.origin}/payment-success`,
           payment_method_data: {
             billing_details: {
               email: values.email,
@@ -48,13 +51,12 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
           },
         },
       });
-
       if (error) {
       }
-      await router.push("/payment-success");
     } catch (error) {
       console.error(error);
     }
+
   }
 
   const hasNoMiddleName = watch('hasNoMiddleName')
@@ -66,7 +68,6 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
     hasNoMiddleName,
     hasNoMiddleNamePrevValue,
     resetField,
-
   ])
 
   const handleEmailChange = useCallback(
@@ -102,7 +103,7 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
       <LinkAuthenticationElement onChange={handleEmailChange} />
       <PaymentElement />
       <Button
-        onClick={confirmPayment}
+        onClick={handleSubmit(confirmPayment)}
         className=" bg-gradient-to-b from-[#2253c3] to-[#6593ff] px-5 py-2 text-white font-semibold rounded-2xl self-end mt-5"
       >
         Confirm Payment

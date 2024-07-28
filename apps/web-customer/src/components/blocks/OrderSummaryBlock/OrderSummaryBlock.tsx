@@ -111,6 +111,8 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
       productDescription: orderDetail.productDescription,
       productName: orderDetail.productName,
       programTitle: orderDetail.programTitle,
+      productId: orderDetail.productId,
+      pricingId: orderDetail.pricingId
     });
     await router.push("/customer/payment/checkout");
   }
