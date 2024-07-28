@@ -24,6 +24,8 @@ export interface CreatePaymentIntentParams {
   productName: string;
   productDescription: string;
   programTitle: number;
+  productId: string;
+  pricingId: string;
 }
 export interface UpdatePaymentIntentParams {
   paymentIntentId: string;

@@ -1,6 +1,3 @@
-import { addMinutes, parseISO } from "date-fns";
-import { useIdleTimer } from "react-idle-timer";
-import { useApiCallback } from "../../hooks";
 import { useSessionStorage } from "../../hooks";
 
 export const useAccessToken = () =>
@@ -11,3 +8,6 @@ export const useRefreshToken = () =>
 
 export const useEncryptItem = () =>
   useSessionStorage<string | undefined>("SessionItem", undefined);
+
+export const useConfirmedIntent = () =>
+  useSessionStorage<string | undefined>("ConfirmedIntent", undefined);
