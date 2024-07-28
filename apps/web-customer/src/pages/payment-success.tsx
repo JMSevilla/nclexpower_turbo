@@ -11,7 +11,9 @@ const PaymentSuccess = () => {
     const [confirmValue] = useConfirmedIntent()
 
     const returnLogin = () => { router.push('/login') }
-    if (!confirmValue) { return }
+    if (!confirmValue) {
+        return null
+    }
 
     return (
         <div className=' w-screen h-screen flex items-center justify-center bg-success-payment bg-cover'>
