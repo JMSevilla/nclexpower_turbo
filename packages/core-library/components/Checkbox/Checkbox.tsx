@@ -19,7 +19,7 @@ export const Checkbox: React.FC<Props> = ({ label, helperText, error, showErrorM
           color: theme => (error ? theme.palette.error.main : 'CurrentColor'),
         }}
         control={<MuiCheckbox {...rest} />}
-        label={<Typography sx={sx} variant="caption">{label}</Typography>}
+        label={<Typography sx={sx} className='pt-sans-narrow-regular'>{label}</Typography>}
       />
       {helperText && showErrorMessage && <FormHelperText error={error}>{helperText}</FormHelperText>}
     </Stack>
