@@ -1,6 +1,5 @@
-// src/hooks/usePaymentSuccessRedirect.js
 import { useEffect } from 'react';
-import { useRouter } from 'next/router'; // assuming you're using Next.js
+import { useRouter } from 'next/router';
 import { useConfirmedIntent } from 'core-library/contexts/auth/hooks';
 
 export const usePaymentSuccessRedirect = (confirmValue: string | undefined) => {
