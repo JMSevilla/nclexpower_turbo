@@ -17,6 +17,7 @@ type AppContextValue = {
   displayNextItem: boolean;
   setDisplayNextItem: any;
   selectedItem: CalcItemSelectResponseItem[];
+  refresh: () => Promise<void>;
 };
 
 type Ssr = {
@@ -53,6 +54,10 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
 
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
   const [accessToken, setAccessToken] = useAccessToken();
+
+  const refresh = async () => {
+    loadSelectionQuestion();
+  };
 
   const preProccessor = useCallback(async () => {
     if (isInitialMount.current) {
@@ -116,6 +121,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
         setDisplayNextItem,
         displayNextItem,
         selectedItem,
+        refresh,
       }}
     >
       <UnauthorizedDialog open={!accessToken} />
