@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "core-library/components";
 import {
@@ -13,21 +13,30 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ControlledCheckbox } from 'core-library/components/Checkbox/Checkbox';
 import { usePreviousValue } from '@/core/hooks/usePreviousValue';
 import { ControlledTextField } from 'core-library/components/Textfield/TextField';
-import { useConfirmedIntent, useEncryptItem } from 'core-library/contexts/auth/hooks';
+import { useCheckoutIntent, useConfirmedIntent } from 'core-library/contexts/auth/hooks';
+import { IntentValueType } from 'core-library/types/global';
 interface Props {
   paymentIntentId: string | null;
 }
 
 export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
-  const [, setIntent] = useConfirmedIntent();
-  const [encryptedUser] = useEncryptItem();
-
+  const [checkoutIntentValue, , clearSessionItem] = useCheckoutIntent()
+  const [, setIntent] = useConfirmedIntent()
+  const [intentContainer, setIntentContainer] = useState<IntentValueType>()
 
   const form = useForm<CheckoutFormType>({
     mode: "onChange",
     resolver: yupResolver(checkoutSchema),
     defaultValues: checkoutSchema.getDefault(),
   });
+
+  useEffect(() => {
+    if (checkoutIntentValue !== undefined) {
+      const value = checkoutIntentValue
+      setIntentContainer(value)
+    }
+    clearSessionItem()
+  }, [checkoutIntentValue])
 
   const { control, setValue, getValues, watch, resetField, handleSubmit } = form;
 
@@ -37,8 +46,8 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
   async function confirmPayment() {
     try {
       const values = getValues();
-      setIntent(encryptedUser)
       if (!stripe || !elements) return;
+      setIntent(intentContainer)
       const { error } = await stripe?.confirmPayment({
         elements,
         confirmParams: {
@@ -56,7 +65,6 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
     } catch (error) {
       console.error(error);
     }
-
   }
 
   const hasNoMiddleName = watch('hasNoMiddleName')
@@ -73,9 +81,7 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
   const handleEmailChange = useCallback(
     (event: StripeLinkAuthenticationElementChangeEvent) => {
       setValue("email", event.value.email);
-    },
-    []
-  );
+    }, []);
 
   return (
     <div className="w-full h-fit flex flex-col gap-2">

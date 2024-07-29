@@ -161,3 +161,5 @@ export type NavigationItemType = {
   icon?: React.ReactNode
   subItem?: NavigationItemType[]
 }
+
+export type IntentValueType = string | undefined | null;
