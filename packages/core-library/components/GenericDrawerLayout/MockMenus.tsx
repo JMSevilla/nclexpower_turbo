@@ -80,7 +80,7 @@ const AuthenticatedMenu: NavigationType[] = [
   {
     id: 7,
     label: "Settings",
-    path: "/",
+    path: "/settings/internal-application-settings",
     icon: <SettingsIcon color="primary" />,
   },
 

@@ -174,3 +174,34 @@ export interface CreateCustomerParams {
   productId: string;
   totalAmount: number;
 }
+
+export type DiscrepanciesResponse = {
+  discrepancies: DiscrepancyItem[];
+};
+
+export type DiscrepancyItem = {
+  record: DiscrepancyRecordItem;
+  missingIn: string;
+};
+
+export type DiscrepancyRecordItem = {
+  qid: number;
+  qLNum: number;
+  question: string;
+  choice_1: string;
+  choice_2: string;
+  choice_3: string;
+  choice_4: string;
+  choice_5: string;
+  choice_6: string;
+  correct: string;
+  rationale: string;
+  cogLNum: number;
+  cnCateg: number;
+  integPLNum: number;
+  contentLNum: number;
+};
+
+export type FileUploadParams = {
+  file: File;
+};
