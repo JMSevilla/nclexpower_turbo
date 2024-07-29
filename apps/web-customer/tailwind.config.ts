@@ -15,6 +15,8 @@ const config: Config = {
       logo: "Proxima Nova",
       main: "Abyssinica SIL",
       subtitle: "Roboto Slab",
+      ptSans: ["PT Sans", "sans-serif"],
+      ptSansNarrow: ['PT Sans Narrow', 'sans-serif'],
     },
     container: {
       padding: {
@@ -33,12 +35,15 @@ const config: Config = {
         primary: "#ffffff", // white
         secondary: "#fdf9ff", // light gray
         gray: "#eff0f5", //gray
+        darkGray: "#969696", // dark gray
         curveGray: "#202731", // dark gray
+        hoverBlue: "#00173F", // dark blue login
         curveBlue: "#3c31dd", // blue
         sideBar: "#051e34", //dark blue
         sideBarTab: "#122c44", // light gray
         sideBarTabHover: "#253d53", // white gray
         blue: "#1a73e8", // blue
+        darkBlue: "#0F2A71;", //login blue
         accent: {
           DEFAULT: "#bd321c", //red,
           hoverToRed: "#bd321c", // red,
@@ -51,6 +56,7 @@ const config: Config = {
         'core-zigma': "url(\'../assets/CoreZigmaBG.png')",
         'how-it-works': "url(\'../assets/ModifiedHowitWorkBG.png')",
         'pricing': "url(\'../assets/PricingBGLogo.jpg')",
+        'login': "url(\'../assets/LoginBG.png')",
         'success-payment': "url(\'../assets/SuccessPaymentBG.png')",
       }
     },
