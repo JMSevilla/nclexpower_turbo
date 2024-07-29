@@ -39,6 +39,8 @@ export * from "./Stepper/Stepper";
 export * from "./Info/InformationTitle";
 export * from "./forms/fileUploadForm/FileUploadField";
 export * from "./ProgressBar";
+export * from "./ToolTip/CustomToolTip";
+
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
 export * from "./Tabs/Tabs";
