@@ -49,7 +49,8 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
                             productDescription: cardData.productDescription,
                             programTitle: cardData.programTitle,
                             pricingId: cardData.pricingId,
-                            productId: cardData.id
+                            productId: cardData.id,
+                            programType: cardData.programType // 0 = 23 Days : 1 = 8 Days
                         })}
                     className={`${ProgramTitle === 0 ? 'bg-green-600' : 'bg-blue'} text-white w-1/2 py-2 rounded-xl`}>Select</button>
             </div>

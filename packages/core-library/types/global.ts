@@ -152,6 +152,8 @@ export interface SelectedProductType {
   productName: string;
   productDescription: string;
   programTitle: number;
+  programType: number
+
 }
 
 export type NavigationItemType = {
