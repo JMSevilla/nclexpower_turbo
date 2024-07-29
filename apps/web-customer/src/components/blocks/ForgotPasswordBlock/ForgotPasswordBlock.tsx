@@ -1,21 +1,25 @@
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
-import { forgotPasswordType } from "../../../core/Schema";
-import { useExecuteToast } from "core-library/contexts";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 export function ForgotPasswordFormBlock() {
-  const toast = useExecuteToast();
   const router = useRouter();
+  const [alertMessage, setAlertMessage] = useState<string>();
 
-  const onSubmit = (value: forgotPasswordType) => {
-    console.log(value);
-    toast.executeToast(
-      "Check your email to change your password",
-      "top-center",
-      false
-    );
-    router.push("/account/verification/otp");
+  const onSubmit = () => {
+    setAlertMessage("Successfully submitted Email");
+
+    setTimeout(() => {
+      router.push("/account/verification/otp");
+    }, 3000);
   };
 
-  return <ForgotPasswordForm onSubmit={onSubmit} submitLoading={false} />;
+  return (
+    <ForgotPasswordForm
+      onSubmit={onSubmit}
+      submitLoading={false}
+      alertMessage={alertMessage}
+      showAlert={alertMessage !== null}
+    />
+  );
 }

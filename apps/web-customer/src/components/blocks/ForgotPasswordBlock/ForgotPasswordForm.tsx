@@ -1,18 +1,24 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Card } from "@mui/material";
 import { TextField } from "core-library/components";
-import { ForgotPasswordBG } from "../../icons/ForgotPasswordBG";
 import { useForm } from "react-hook-form";
 import { forgotPasswordSchema, forgotPasswordType } from "../../../core/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import CoreZigma from "../../images/CoreZigma.png";
+import Link from "next/link";
+import { Alert } from "core-library/components";
 
 interface Props {
   onSubmit: (values: forgotPasswordType) => void;
   submitLoading?: boolean;
+  alertMessage?: string;
+  showAlert?: boolean;
 }
 
 export const ForgotPasswordForm: React.FC<Props> = ({
   onSubmit,
   submitLoading,
+  showAlert,
+  alertMessage,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -20,98 +26,96 @@ export const ForgotPasswordForm: React.FC<Props> = ({
     defaultValues: forgotPasswordSchema.getDefault(),
   });
 
-  const { control, handleSubmit } = form;
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid },
+  } = form;
 
   return (
-    <Grid
-      container
-      sx={{
-        minHeight: { lg: "100vh" },
-        display: "flex",
-        flexDirection: "row-reverse",
-      }}
-    >
-      <Grid
-        item
-        xs={12}
-        lg={5}
-        xl={7}
+    <section className="h-screen flex items-center justify-center  font-['Poppins'] bg-pricing">
+      <Card
         sx={{
-          order: { xs: 0, sm: 0, lg: 2 },
-          height: "100vh",
-          display: { xs: "none", sm: "block", lg: "block" },
+          display: "flex",
+          p: 5,
+          flexDirection: "column",
+          alignItems: "center",
         }}
+        elevation={5}
       >
-        <ForgotPasswordBG />
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        lg={7}
-        xl={5}
-        sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}
-      >
-        <Box sx={{ maxWidth: { xs: "xl", lg: "3xl" }, mt: 15 }}>
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{ fontWeight: "bold", mb: 4, textAlign: "center" }}
-          >
-            Forgot Your <span style={{ color: "#007AB7" }}>Password?</span>
-          </Typography>
-
-          <Typography
-            variant="caption"
-            sx={{
-              fontSize: {
-                xs: "14px",
-                sm: "16px",
-                md: "18px",
-                lg: "20px",
-                xl: "22px",
-              },
-              lineHeight: {
-                xs: "1.4",
-                sm: "1.5",
-                md: "1.6",
-                lg: "1.7",
-                xl: "1.8",
-              },
-              textAlign: "left",
-              mb: 4,
-              maxWidth: "600px",
-              mx: "auto",
-            }}
-          >
+        <div className="flex items-center justify-center py-14">
+          <Box
+            component="img"
+            src={CoreZigma.src}
+            alt="CoreZigma"
+            sx={{ width: "150px", height: "150px", objectFit: "cover" }}
+          />
+        </div>
+        <h2 className="mb-4 text-[40px] text-center pt-sans-bold text-4xl pt-sans-regular ">
+          Forgot Your <span className="text-darkBlue">Password?</span>
+        </h2>
+        <div className="max-w-96 min-w-[550px] pt-10">
+          <p className="pt-sans-narrow-regular font-light text-darkGray text-xl">
             Enter the email address associated with your account and we'll send
             you a link to reset your password.
-          </Typography>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid item lg={12} sx={{ marginY: 5 }}>
-              <TextField control={control} label="Email" name="email" />
-            </Grid>
-            <Box
-              sx={{
-                gridColumn: "span 10",
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-              }}
-            >
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                color="primary"
-                sx={{ px: 4, py: 2 }}
-                disabled={submitLoading}
-              >
-                Continue
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Grid>
-    </Grid>
+          </p>
+          <div className="pt-5">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                control={control}
+                label="Email"
+                name="email"
+                sx={{
+                  borderRadius: "10px",
+                  width: "100%",
+                }}
+                inputProps={{ style: { padding: 15, borderRadius: "10px" } }}
+              />
+
+              {showAlert && alertMessage && (
+                <div className="pt-2">
+                  <Alert
+                    severity={
+                      alertMessage.includes("Successfully")
+                        ? "success"
+                        : "error"
+                    }
+                    title={alertMessage}
+                  />
+                </div>
+              )}
+
+              <div className="mt-5">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  sx={{
+                    px: 4,
+                    py: 2,
+                    borderRadius: "10px",
+                    backgroundColor: "#0F2A71",
+                  }}
+                  className="hover:bg-hoverBlue"
+                  disabled={!isValid || submitLoading}
+                >
+                  Continue
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="flex items-center justify-center mt-20 pt-sans-narrow-regular text-xl">
+          <p className="text-darkGray">Don't have an account?</p>
+          <Link
+            href="/#Signup"
+            className="ml-1 font pt-sans-narrow-bold underline text-darkBlue cursor-pointer "
+          >
+            Sign up
+          </Link>
+        </div>
+      </Card>
+    </section>
   );
 };
