@@ -6,9 +6,12 @@ import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { TextField } from "core-library/components";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from "./useShowPassword";
-import { ChangePasswordType, ChangePasswordSchema } from "../../../core/Schema";
+import {
+  ChangePasswordType,
+  ChangePasswordSchema,
+} from "../../../../core/Schema";
 import { ValidationIndicators } from "./ValidationIndicator";
-import { validatePassword } from "../../../core/Schema";
+import { validatePassword } from "../../../../core/Schema";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;

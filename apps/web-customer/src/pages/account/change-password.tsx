@@ -1,5 +1,8 @@
-import { ChangePasswordBlock } from "../../components/blocks/ChangePasswordBlock/ChangePasswordBlock";
+import { ChangePasswordBlock } from "../../components/blocks/ForgotPasswordBlock/ChangePasswordBlock/ChangePasswordBlock";
+import withClientSecretKey from "core-library/core/utils/withClientKey";
 
-export default function ChangePasswordPage() {
+export function ChangePasswordPage() {
   return <ChangePasswordBlock />;
 }
+
+export default withClientSecretKey(ChangePasswordPage);
