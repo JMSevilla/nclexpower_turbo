@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { ChangePasswordForm } from "./ChangePasswordForm";
-import { ChangePasswordType } from "../../../../core/Schema";
-import { useExecuteToast } from "core-library/contexts";
 import { useRouter } from "next/router";
 
 export function ChangePasswordBlock() {
   const [acceptTermsCondition, setTermsCondition] = useState(false);
 
-  const toast = useExecuteToast();
   const router = useRouter();
 
   const handleChangeTermsCondition = (
@@ -16,13 +13,7 @@ export function ChangePasswordBlock() {
     setTermsCondition(event.target.checked);
   };
 
-  const Onsubmit = (values: ChangePasswordType) => {
-    console.log(values);
-    toast.executeToast(
-      "You have successfully Change your Password",
-      "top-center",
-      false
-    );
+  const Onsubmit = () => {
     router.push("/login");
   };
 

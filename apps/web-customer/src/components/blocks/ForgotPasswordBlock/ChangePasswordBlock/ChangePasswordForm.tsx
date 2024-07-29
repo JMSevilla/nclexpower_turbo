@@ -41,11 +41,35 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
     defaultValues: ChangePasswordSchema.getDefault(),
   });
 
-  const { control, handleSubmit, watch } = form;
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { isValid },
+  } = form;
 
   const newPassword = watch("newPassword", "");
+  const confirmPassword = watch("confirmPassword", "");
 
   const validationChecks = validatePassword(newPassword);
+  const isPasswordMatching =
+    newPassword === confirmPassword && newPassword !== "";
+
+  const passwordCriteria = [
+    {
+      isValid: validationChecks.isLengthValid,
+      message: "Minimum 6 characters",
+    },
+    { isValid: validationChecks.containsNumber, message: "Contains a number" },
+    {
+      isValid: validationChecks.containsUppercase,
+      message: "Contains an uppercase letter",
+    },
+    {
+      isValid: isPasswordMatching,
+      message: "Password must match",
+    },
+  ];
 
   return (
     <>
@@ -65,12 +89,15 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                 <Typography
                   variant="h4"
                   component="span"
-                  sx={{ color: "#007AB7", fontFamily: "Poppins" }}
+                  sx={{
+                    color: "#0F2A71",
+                    fontFamily: "pt-sans-narrow-bold",
+                  }}
                 >
                   CHANGE PASSWORD
                 </Typography>
               </div>
-              <div className="text-center mb-5">
+              <div className="text-center mb-5 text-darkGray">
                 <Typography
                   variant="caption"
                   sx={{
@@ -92,7 +119,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                     mb: 4,
                     maxWidth: "400px",
                     mx: "auto",
-                    fontFamily: "Poppins",
+                    fontFamily: "pt-sans-narrow-regular",
                   }}
                 >
                   Please enter a new password. Ensure that your new password is
@@ -145,9 +172,10 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                     Must contain at least
                   </Typography>
                   <ValidationIndicators
-                    isLengthValid={validationChecks.isLengthValid}
-                    containsNumber={validationChecks.containsNumber}
-                    containsUppercase={validationChecks.containsUppercase}
+                    criteria={passwordCriteria}
+                    iconSize="medium"
+                    invalidColor="red"
+                    validColor="green"
                   />
                 </Grid>
                 <Grid item xs={12} sx={{ marginY: 2 }}>
@@ -168,12 +196,13 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                   }}
                 >
                   <Button
-                    disabled={submitLoading}
+                    disabled={!isValid || submitLoading}
                     type="submit"
                     variant="contained"
                     fullWidth
                     color="primary"
-                    sx={{ px: 4, py: 2 }}
+                    sx={{ px: 4, py: 2, backgroundColor: "#0F2A71" }}
+                    className="hover:bg-hoverBlue"
                   >
                     Change Password
                   </Button>

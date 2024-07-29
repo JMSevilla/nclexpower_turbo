@@ -41,7 +41,9 @@ export const DrawerLayout: React.FC<
     router.pathname === "/account/verification/otp" ||
     router.pathname === "/customer/payment/checkout" ||
     router.pathname === "/payment-success" ||
-    router.pathname === "/404";
+    router.pathname === "/404" ||
+    router.pathname === "/account/forgot-password" ||
+    router.pathname === "/account/change-password";
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);
