@@ -36,6 +36,7 @@ export * from "./Textfield/OtpField";
 export * from "./Button/CheckoutButton";
 export * from "./GenericDropDown/AccountMenu";
 export * from "./Stepper/Stepper";
+export * from "./ToolTip/CustomToolTip";
 
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
