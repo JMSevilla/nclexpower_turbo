@@ -3,26 +3,11 @@ import { ChangePasswordForm } from "./ChangePasswordForm";
 import { useRouter } from "next/router";
 
 export function ChangePasswordBlock() {
-  const [acceptTermsCondition, setTermsCondition] = useState(false);
-
   const router = useRouter();
 
-  const handleChangeTermsCondition = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTermsCondition(event.target.checked);
-  };
-
-  const Onsubmit = () => {
+  const onSubmit = () => {
     router.push("/login");
   };
 
-  return (
-    <ChangePasswordForm
-      onSubmit={Onsubmit}
-      handleChangeTermsCondition={handleChangeTermsCondition}
-      agreeTermsCondition={acceptTermsCondition}
-      submitLoading={false}
-    />
-  );
+  return <ChangePasswordForm onSubmit={onSubmit} submitLoading={false} />;
 }

@@ -6,7 +6,7 @@ export const NotfoundBlock: React.FC = () => {
   const router = useRouter();
 
   const Back = () => {
-    router.back();
+    router.replace("/login");
   };
 
   return (

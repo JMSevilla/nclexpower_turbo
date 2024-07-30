@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { TextField } from "core-library/components";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from "./useShowPassword";
@@ -15,18 +14,12 @@ import { validatePassword } from "../../../../core/Schema";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
-  agreeTermsCondition?: boolean;
   onSubmit: (values: ChangePasswordType) => void;
-  handleChangeTermsCondition: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
 }
 
 export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
   onSubmit,
   submitLoading,
-  agreeTermsCondition,
-  handleChangeTermsCondition,
 }) => {
   const {
     showPassword,
@@ -51,25 +44,33 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
   const newPassword = watch("newPassword", "");
   const confirmPassword = watch("confirmPassword", "");
 
-  const validationChecks = validatePassword(newPassword);
-  const isPasswordMatching =
-    newPassword === confirmPassword && newPassword !== "";
+  const validationChecks = useMemo(
+    () => validatePassword(newPassword),
+    [newPassword]
+  );
+  const isPasswordMatching = useMemo(
+    () => newPassword === confirmPassword && newPassword !== "",
+    [newPassword, confirmPassword]
+  );
 
-  const passwordCriteria = [
-    {
-      isValid: validationChecks.isLengthValid,
-      message: "Minimum 6 characters",
-    },
-    { isValid: validationChecks.containsNumber, message: "Contains a number" },
-    {
-      isValid: validationChecks.containsUppercase,
-      message: "Contains an uppercase letter",
-    },
-    {
-      isValid: isPasswordMatching,
-      message: "Password must match",
-    },
-  ];
+  const passwordCriteria = useMemo(
+    () => [
+      {
+        isValid: validationChecks.isLengthValid,
+        message: "Minimum 6 characters",
+      },
+      {
+        isValid: validationChecks.containsNumber,
+        message: "Contains a number",
+      },
+      {
+        isValid: validationChecks.containsUppercase,
+        message: "Contains an uppercase letter",
+      },
+      { isValid: isPasswordMatching, message: "Password must match" },
+    ],
+    [validationChecks, isPasswordMatching]
+  );
 
   return (
     <>
@@ -178,13 +179,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                     validColor="green"
                   />
                 </Grid>
-                <Grid item xs={12} sx={{ marginY: 2 }}>
-                  <Checkbox
-                    checked={agreeTermsCondition}
-                    onChange={handleChangeTermsCondition}
-                    label="Accept terms and condition"
-                  />
-                </Grid>
+
                 <Box
                   sx={{
                     gridColumn: "span 10",
@@ -201,7 +196,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                     variant="contained"
                     fullWidth
                     color="primary"
-                    sx={{ px: 4, py: 2, backgroundColor: "#0F2A71" }}
+                    sx={{ px: 4, py: 2, mt: 3, backgroundColor: "#0F2A71" }}
                     className="hover:bg-hoverBlue"
                   >
                     Change Password
