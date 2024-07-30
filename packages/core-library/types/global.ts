@@ -152,6 +152,8 @@ export interface SelectedProductType {
   productName: string;
   productDescription: string;
   programTitle: number;
+  programType: number
+
 }
 
 export type NavigationItemType = {
@@ -161,3 +163,5 @@ export type NavigationItemType = {
   icon?: React.ReactNode
   subItem?: NavigationItemType[]
 }
+
+export type IntentValueType = string | undefined | null;

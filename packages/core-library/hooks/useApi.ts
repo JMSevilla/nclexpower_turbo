@@ -47,8 +47,8 @@ export const mockHttpClient = new Http({
 export const httpSsrClient = new Http({
   ...HTTP_OPTIONS,
   baseURL:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
+    process.env.NODE_ENV === "development" && typeof window != "undefined"
+      ? `${window.location.origin}`
       : typeof window !== "undefined"
         ? window.location.origin
         : undefined,

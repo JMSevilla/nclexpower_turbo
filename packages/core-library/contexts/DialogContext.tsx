@@ -1,15 +1,23 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { DialogBox } from "../components/Dialog/DialogBox";
 import { DialogContextModal } from "../components/Dialog/DialogContextModal";
+import { ExcelRowRegularQuestion } from "../core";
+import { DialogProps } from "@mui/material";
 
 const context = createContext<{
   isDialogOpen: boolean;
-  openDialog(value: string, title: string): void;
+  openDialog(
+    value: string,
+    title: string,
+    csvData?: ExcelRowRegularQuestion[],
+    maxWidth?: DialogProps["maxWidth"]
+  ): void;
   closeDialog(): void;
   loading: boolean;
   setTitle(value: string): void;
   setLoading(value: boolean): void;
   setHideCloseButton(value: boolean): void;
+  csvData?: ExcelRowRegularQuestion[];
 }>(undefined as any);
 
 export const useDialogContext = () => {
@@ -27,11 +35,20 @@ export const DialogContextProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [title, setTitle] = useState<string>("no-title");
   const [loading, setLoading] = useState<boolean>(false);
   const [hideCloseButton, setHideCloseButton] = useState<boolean>(false);
+  const [csvData, setCsvData] = useState<ExcelRowRegularQuestion[]>([]);
+  const [maxWidth, setMaxWidth] = useState<DialogProps["maxWidth"]>("md");
 
-  const openDialog = (value: string, title: string) => {
+  const openDialog = (
+    value: string,
+    title: string,
+    csvData?: ExcelRowRegularQuestion[],
+    maxWidth?: DialogProps["maxWidth"]
+  ) => {
     setIsOpen(true);
     setDialogFormType(value);
     setTitle(title);
+    setCsvData(csvData ?? []);
+    setMaxWidth(maxWidth);
   };
 
   const handleClose = () => {
@@ -60,8 +77,9 @@ export const DialogContextProvider: React.FC<React.PropsWithChildren<{}>> = ({
         header={title}
         loading={loading}
         hideCloseButton={hideCloseButton}
+        maxWidth={maxWidth}
       >
-        <DialogContextModal dialogFormType={dialogFormType} />
+        <DialogContextModal dialogFormType={dialogFormType} csvData={csvData} />
       </DialogBox>
     </context.Provider>
   );
