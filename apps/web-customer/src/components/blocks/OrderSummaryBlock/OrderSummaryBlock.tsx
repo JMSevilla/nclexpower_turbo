@@ -21,15 +21,15 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
   return orderDetail ? (
     <div className="flex justify-center h-full">
       <div className="container  items-center h-screen flex justify-center item gap-3">
-        <Paper className="w-[800px] p-10" elevation={3}>
+        <Paper className="max-w-[545px] min-w-[400px] w-2/3 p-10 rounded-lg pt-sans-regular" elevation={3}>
           <Box className="p-3">
-            <Typography fontWeight={600} variant="h4" color="primary">
+            <Typography className='pt-sans-caption-bold text-4xl mb-5 text-[#0F2A71]' fontWeight={600} color="primary">
               Order Summary
             </Typography>
-            <Typography variant="body2">
-              Thank you for choosing our service! Below are the details of your
-              selected plan and the total price you will be charged. Please
-              review all the information before confirming your order.
+            <Typography className='pt-sans-regular text-sm' variant="body2">
+              Thank you for your order! Below are the details of your selected plan
+              and the total price you will be charged.
+              Please review all the information before confirming your purchase.
             </Typography>
           </Box>
           <Box>
@@ -40,6 +40,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
                     <Box>
                       <Typography>Plan name:</Typography>
                       <Typography
+                        className='text-[#0F2A71]'
                         textTransform="uppercase"
                         textAlign="end"
                         fontWeight={600}
@@ -50,12 +51,16 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
                     <Box>
                       <Typography>Duration: </Typography>
                       <Typography
+                        className='text-[#0F2A71]'
                         textTransform="uppercase"
                         textAlign="end"
                         fontWeight={600}
                       >
-                        {" "}
-                        23 DAYS
+                        {orderDetail.programType == 0 ?
+                          <p> 23 Days (Standard)</p> :
+                          orderDetail.programType == 1 ?
+                            <p> 8 Days (Fast Track)</p>
+                            : null}
                       </Typography>
                     </Box>
                   </Card>
@@ -70,7 +75,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
             </Box>
 
             <Box p={2}>
-              <Box display="flex" justifyContent="space-between">
+              <Box className='text-paragraph' display="flex" justifyContent="space-between">
                 <Typography>Balance Amount :</Typography>
                 <Typography>
                   {orderDetail.amount}.00 {orderDetail.currency}
@@ -86,6 +91,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
           </Box>
           <Box pt={2}>
             <Button
+              className='bg-[#0F2A71] rounded-md'
               onClick={handleProceedCheckout}
               disabled={false}
               sx={{ mb: 2, p: 1, width: "100%" }}
@@ -93,8 +99,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
               Proceed to payment
             </Button>
             <Typography textAlign="center" variant="body2">
-              Click this button to finalize and confirm your order. By
-              confirming, you agree to our terms and conditions
+              By proceeding, you accept our terms and conditions.
             </Typography>
           </Box>
         </Paper>
@@ -111,6 +116,8 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
       productDescription: orderDetail.productDescription,
       productName: orderDetail.productName,
       programTitle: orderDetail.programTitle,
+      productId: orderDetail.productId,
+      pricingId: orderDetail.pricingId
     });
     await router.push("/customer/payment/checkout");
   }
