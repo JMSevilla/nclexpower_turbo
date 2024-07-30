@@ -14,6 +14,8 @@ import { CategoryListResponse } from "../../types/category-response";
 import {
   CategoryFormParams,
   CurrenciesResponse,
+  DiscrepanciesResponse,
+  FileUploadParams,
   PricingListResponse,
   ProductListResponse,
   ProductSetStatusParams,
@@ -23,7 +25,7 @@ export class WebApiBackOffice {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance
-  ) { }
+  ) {}
   public tokenInformation() {
     /* get tokenize informations */
     return this.axios.get<CmsTokens>("");
@@ -55,13 +57,27 @@ export class WebApiBackOffice {
     }
   }
 
+  public automationUploadDocuments(params: FileUploadParams) {
+    const form = new FormData();
+    form.append("file", params.file);
+    return this.axios.post<DiscrepanciesResponse | number>(
+      `/v1/api/baseAppload/automation-sq-compare`,
+      form,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+  }
+
   public async globals(tenantUrl: string, contentAccessKey?: string) {
     try {
       return await this.axios.get<CmsGlobals>(
         contentAccessKey
           ? `/api/content-api/api/v2/content/authorized-globals?${qs.stringify({
-            contentAccessKey: "",
-          })}`
+              contentAccessKey: "",
+            })}`
           : `/api/v2/content/BaseContent/unauthorized-globals?${qs.stringify({ tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
@@ -154,9 +170,8 @@ export class WebApiBackOffice {
   }
 
   public getOrderNumber() {
-    return this.axios.get<string>('/api/v1/Order/get-order-number')
+    return this.axios.get<string>("/api/v1/Order/get-order-number");
   }
-
 
   public async createProducts(params: ProductParams) {
     return await this.axios.post<number>(
@@ -179,6 +194,6 @@ export class WebApiBackOffice {
   }
 
   public async getAllReportedIssues() {
-    return await this.axios.get('/api/v1/Customer/get-all-report-issues')
+    return await this.axios.get("/api/v1/Customer/get-all-report-issues");
   }
 }
