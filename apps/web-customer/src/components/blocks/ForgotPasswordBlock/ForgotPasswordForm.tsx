@@ -10,7 +10,6 @@ import { Alert } from "core-library/components";
 interface Props {
   onSubmit: (values: forgotPasswordType) => void;
   submitLoading?: boolean;
-  alertMessage?: string;
   showAlert?: boolean;
 }
 
@@ -18,7 +17,6 @@ export const ForgotPasswordForm: React.FC<Props> = ({
   onSubmit,
   submitLoading,
   showAlert,
-  alertMessage,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -72,15 +70,11 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                 inputProps={{ style: { padding: 15, borderRadius: "10px" } }}
               />
 
-              {showAlert && alertMessage && (
+              {showAlert && (
                 <div className="pt-2">
                   <Alert
-                    severity={
-                      alertMessage.includes("Successfully")
-                        ? "success"
-                        : "error"
-                    }
-                    title={alertMessage}
+                    severity="success"
+                    title="Successfully sent to your email"
                   />
                 </div>
               )}

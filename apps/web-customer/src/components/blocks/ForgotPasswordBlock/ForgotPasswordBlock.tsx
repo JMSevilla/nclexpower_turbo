@@ -4,11 +4,10 @@ import { useRouter } from "next/router";
 
 export function ForgotPasswordFormBlock() {
   const router = useRouter();
-  const [alertMessage, setAlertMessage] = useState<string>();
+  const [showAlert, setshowAlert] = useState<boolean>(false);
 
   const onSubmit = () => {
-    setAlertMessage("Successfully submitted Email");
-
+    setshowAlert(true);
     setTimeout(() => {
       router.push("/account/verification/otp");
     }, 3000);
@@ -18,8 +17,7 @@ export function ForgotPasswordFormBlock() {
     <ForgotPasswordForm
       onSubmit={onSubmit}
       submitLoading={false}
-      alertMessage={alertMessage}
-      showAlert={alertMessage !== null}
+      showAlert={showAlert}
     />
   );
 }
