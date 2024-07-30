@@ -17,7 +17,7 @@ export default function Home() {
       <div className=" w-full h-fit">
         <HowItWorksBlock />
       </div>
-      <div className=" w-full h-fit ">
+      <div className=" w-full h-fit" id="pricing" >
         <PricingBlock />
       </div>
     </div>

@@ -25,6 +25,7 @@ import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import React from "react";
 import { PasswordStrengthMeter } from "../Textfield/PasswordStrengthMeter";
+import { DialogProps } from '@mui/material/Dialog';
 
 interface Props<T extends object> {
   name: Path<T>;
@@ -47,6 +48,8 @@ interface Props<T extends object> {
   multiline?: boolean;
   rows?: number;
   IsRegister?: boolean;
+  sx?: DialogProps['sx'];
+  inputProps?: OutlinedInputProps["inputProps"];
 }
 
 export const TextField = <T extends FieldValues>({
@@ -102,8 +105,8 @@ export const TextFieldComponent = <T extends object>({
           <FormHelperText error>{fieldState?.error?.message}</FormHelperText>
         ) : (
           label !== null && (
-            <Typography component="label" htmlFor={field?.name} display="flex">
-              {label ?? "[[label_name]]"}
+            <Typography component="label" htmlFor={field?.name} display="flex" >
+              {label ?? ""}
             </Typography>
           )
         )}
