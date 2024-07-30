@@ -12,12 +12,12 @@ import { Footer } from "core-library/components/ReusableFooter/Footer";
 import { CustomerMenus, list } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
+import { PageLoaderContextProvider } from "core-library/contexts/PageLoaderContext";
+import { useCustomerCreation } from "@/core/hooks/useCustomerCreation";
 
-interface Props { }
+interface Props {}
 
-const Layout: React.FC<React.PropsWithChildren<Props>> = ({
-  children,
-}) => {
+const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
   const theme = useTheme();
   const { publishableKey } = useStripeConfig();
@@ -29,24 +29,26 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ExpirationContextProvider logout={logout}>
-          <StripeContextProvider publishableKey={publishableKey}>
-            <LoadablePageContent>
-              <DrawerLayout
-                menu={headerMenu}
-                isAuthenticated={isAuthenticated}
-                buttonHeaderSx={headerLinkSx}
-                headerContainerSx={drawerHeader}
-              >
-                {children}
-                <Footer list={list} />
-              </DrawerLayout>
-            </LoadablePageContent>
-          </StripeContextProvider>
-        </ExpirationContextProvider>
+        <PageLoaderContextProvider loading={false}>
+          <ExpirationContextProvider logout={logout}>
+            <StripeContextProvider publishableKey={publishableKey}>
+              <LoadablePageContent>
+                <DrawerLayout
+                  menu={headerMenu}
+                  isAuthenticated={isAuthenticated}
+                  buttonHeaderSx={headerLinkSx}
+                  headerContainerSx={drawerHeader}
+                >
+                  {children}
+                  <Footer list={list} />
+                </DrawerLayout>
+              </LoadablePageContent>
+            </StripeContextProvider>
+          </ExpirationContextProvider>
+        </PageLoaderContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
 };
 
-export default Layout
+export default Layout;

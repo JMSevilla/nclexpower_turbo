@@ -40,7 +40,7 @@ export * from "./Info/InformationTitle";
 export * from "./forms/fileUploadForm/FileUploadField";
 export * from "./ProgressBar";
 export * from "./ToolTip/CustomToolTip";
-
+export * from "./PageLoader";
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
 export * from "./Tabs/Tabs";
