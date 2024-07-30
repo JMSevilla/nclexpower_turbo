@@ -1,9 +1,7 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
-import { extractClassifierFromGlobals } from "../types";
-import { useContentDataContext } from "../contexts";
-import { useTenantContext } from '../contexts/TenantContext';
+import { usePageLoaderContext } from "../contexts/PageLoaderContext";
 
 type StaticRoutes = Record<
   "home" | "hub" | "logout" | "page_not_found" | "account_setup" | "login",
@@ -20,27 +18,16 @@ type PathParameters = {
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
-  const { tenant } = useTenantContext();
-  const contentData = useContentDataContext();
 
-  const staticRoutes = (
-    contentData?.globals
-      ? extractClassifierFromGlobals(
-        "global_routes",
-        contentData.globals
-      )?.reduce(
-        (routes, route) => ({
-          ...routes,
-          [route.key.value]: route.value.value,
-        }),
-        {}
-      )
-      : {}
-  ) as StaticRoutes;
+  const staticRoutes = {} as StaticRoutes;
 
   useEffect(() => {
-    const start = () => setLoading(true);
-    const end = () => setLoading(false);
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
     router.events.on("routeChangeError", end);
@@ -65,52 +52,70 @@ export const useRouter = () => {
   };
 
   async function push(
-    path: string | PathFromRoutes,
+    path: string | PathFromRoutes | { pathname: string },
     options?: TransitionOptions
   ) {
-    return typeof path === "string"
-      ? router.push(
-        routeUrl(path),
-        addTenantSlug(path),
-        configuredRouteOptions(options)
-      )
-      : router.push(
-        routeUrl(path(staticRoutes)),
-        addTenantSlug(path(staticRoutes)),
+    if (typeof path === "string") {
+      return router.push(routeUrl(path), path, configuredRouteOptions(options));
+    } else if (typeof path === "function") {
+      const resolvedPath = path(staticRoutes);
+      return router.push(
+        routeUrl(resolvedPath),
+        resolvedPath,
         configuredRouteOptions(options)
       );
+    } else {
+      return router.push(
+        routeUrl(path.pathname),
+        path.pathname,
+        configuredRouteOptions(options)
+      );
+    }
   }
 
   async function replace(
-    path: string | PathFromRoutes,
+    path: string | PathFromRoutes | { pathname: string },
     options?: TransitionOptions
   ) {
-    return typeof path === "string"
-      ? router.replace(routeUrl(path), path, configuredRouteOptions(options))
-      : router.replace(
-        routeUrl(path(staticRoutes)),
-        path(staticRoutes),
+    if (typeof path === "string") {
+      return router.replace(
+        routeUrl(path),
+        path,
         configuredRouteOptions(options)
       );
+    } else if (typeof path === "function") {
+      const resolvedPath = path(staticRoutes);
+      return router.replace(
+        routeUrl(resolvedPath),
+        resolvedPath,
+        configuredRouteOptions(options)
+      );
+    } else {
+      return router.replace(
+        routeUrl(path.pathname),
+        path.pathname,
+        configuredRouteOptions(options)
+      );
+    }
   }
 
   function navigate(
     fn: (
-      path: string | PathFromRoutes,
+      path: string | PathFromRoutes | { pathname: string },
       options?: TransitionOptions
     ) => Promise<boolean>
   ) {
     return async (
-      path: string | PathFromRoutes | PathParameters,
+      path: string | PathFromRoutes | PathParameters | { pathname: string },
       options?: TransitionOptions
     ) => {
       setLoading(true);
-      if (typeof path === "string") {
+      if (typeof path === "string" || typeof path === "function") {
         return await fn(path, options);
       }
 
-      if (typeof path === "function") {
-        return await fn(path, options);
+      if (typeof path === "object" && "pathname" in path) {
+        return await fn(path.pathname, options);
       }
 
       try {
@@ -125,14 +130,6 @@ export const useRouter = () => {
         return false;
       }
     };
-  }
-
-  function addTenantSlug(path: string): string {
-    const tenantUrl = tenant?.tenantUrl.value.split("/")?.[1];
-    if (tenantUrl && path.split("/")?.[1] != tenantUrl) {
-      return tenantUrl + path;
-    }
-    return path;
   }
 
   function routeUrl(path: string) {
