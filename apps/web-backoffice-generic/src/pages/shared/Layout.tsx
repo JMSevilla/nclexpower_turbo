@@ -9,7 +9,7 @@ import {
   ExpirationContextProvider,
 } from "core-library/contexts";
 import { useAuthContext } from "core-library/contexts";
-import { mockMenus } from "../../../../../packages/core-library/components/GenericDrawerLayout/MockMenus";
+import { mockMenus } from "core-library/components/GenericDrawerLayout/MockMenus";
 
 interface Props {}
 

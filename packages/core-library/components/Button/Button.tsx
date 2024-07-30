@@ -20,6 +20,7 @@ export interface ButtonProps
     | "variant"
     | "role"
     | "onKeyDown"
+    | "size"
   > {
   width?: number | string;
   id?: string;

@@ -36,6 +36,9 @@ export * from "./Textfield/OtpField";
 export * from "./Button/CheckoutButton";
 export * from "./GenericDropDown/AccountMenu";
 export * from "./Stepper/Stepper";
+export * from "./Info/InformationTitle";
+export * from "./forms/fileUploadForm/FileUploadField";
+export * from "./ProgressBar";
 export * from "./ToolTip/CustomToolTip";
 
 // rows
