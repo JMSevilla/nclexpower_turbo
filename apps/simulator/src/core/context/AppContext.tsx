@@ -56,7 +56,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
   const [accessToken, setAccessToken] = useAccessToken();
 
   const refresh = async () => {
-    loadSelectionQuestion();
+    await loadSelectionQuestion();
   };
 
   const preProccessor = useCallback(async () => {
