@@ -37,7 +37,7 @@ export * from "./Button/CheckoutButton";
 export * from "./GenericDropDown/AccountMenu";
 export * from "./Stepper/Stepper";
 export * from "./ToolTip/CustomToolTip";
-
+export * from "./PageLoader";
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
 export * from "./Tabs/Tabs";
