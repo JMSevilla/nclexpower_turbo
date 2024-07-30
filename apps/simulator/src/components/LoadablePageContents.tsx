@@ -8,13 +8,8 @@ interface Props {
 }
 
 export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({ children, loading }) => {
-  const { setLoader, hasAccessToken } = useApplicationContext();
+  const { hasAccessToken } = useApplicationContext();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 3000);
-  }, []);
 
   if (!hasAccessToken) {
     return <UnauthorizedDialog open={!hasAccessToken} />;
