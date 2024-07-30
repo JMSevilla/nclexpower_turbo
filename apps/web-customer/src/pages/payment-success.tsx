@@ -1,15 +1,18 @@
 import { Paper } from '@mui/material'
 import { CoreZigmaLogo, PaymentBadge } from 'core-library/assets'
 import { Button } from 'core-library/components'
+import { useConfirmedIntent } from 'core-library/contexts/auth/hooks'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 const PaymentSuccess = () => {
     const router = useRouter()
+    const [confirmValue] = useConfirmedIntent()
 
-    const returnLogin = () => {
-        router.push('/login')
+    const returnLogin = () => { router.push('/login') }
+    if (!confirmValue) {
+        return null
     }
 
     return (

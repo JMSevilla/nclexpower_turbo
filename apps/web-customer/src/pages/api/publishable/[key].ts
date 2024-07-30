@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next";
 import { withSsrHttpClient } from "core-library";
-import { errorResponse } from "../../../core/ssr/responses";
+import { errorResponse } from "core-library/api/ssr/responses";
 
 const handler: NextApiHandler = withSsrHttpClient(
   (client) => async (req, res) => {

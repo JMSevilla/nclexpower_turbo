@@ -15,6 +15,7 @@ interface Props extends DialogProps {
   loading: boolean;
   header?: string;
   hideCloseButton?: boolean;
+  maxWidth?: DialogProps["maxWidth"];
 }
 
 export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
@@ -24,12 +25,13 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   open,
   hideCloseButton,
+  maxWidth = "md",
   ...props
 }) => {
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth={maxWidth}
       open={open}
       onClose={handleClose}
       sx={{ zIndex: 1301 }}

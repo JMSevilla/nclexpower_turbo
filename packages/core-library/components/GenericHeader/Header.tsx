@@ -2,7 +2,7 @@ import { Box, Button, Grid } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "../../core";
 import { SxProps, Theme } from "@mui/material/styles";
 import { AccountMenu } from "../index";
 import { AccountMenuItem } from "../../../../apps/web-backoffice-generic/src/core/constant/UserDropDown";
