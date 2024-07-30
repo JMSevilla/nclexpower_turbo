@@ -8,6 +8,7 @@ const hubSubRoutes = [
   "/manage-questions",
   "/create-product",
   "/create-pricing",
+  "/internal-application-settings",
 ]; //should be from the DB.
 
 export const authorizedRoute = generateNestedRoutes(hubBaseRoute, hubSubRoutes);
