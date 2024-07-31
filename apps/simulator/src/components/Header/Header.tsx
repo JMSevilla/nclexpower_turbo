@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Box, Tooltip, Typography, Button, LinearProgress } fro
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { useCountdown } from 'core-library/hooks/useCountdown';
 import { CalculatorModal } from '../CalculatorModal/CalculatorUI';
 import { ReportIssueDialog } from '../Dialog/ReportIssue/ReportIssueDialog';
@@ -10,6 +11,7 @@ import { ToolbarSettings } from '../Toolbar/Toolbar';
 import { IRTsModal } from '../Dialog/IrtModal/IRTModal';
 import { useTour } from '@reactour/tour';
 import { useLocalStorage } from 'core-library/hooks';
+import { useApplicationContext } from '../../core/context/AppContext';
 
 export const buttonStyle = {
   backgroundColor: 'transparent',
@@ -25,6 +27,7 @@ export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setIsOpen } = useTour();
   const { getItem, setItem } = useLocalStorage<string>('TourKey');
+  const { refresh } = useApplicationContext();
 
   useEffect(() => {
     const Tour = getItem();
@@ -104,6 +107,9 @@ export const Header: React.FC = () => {
               <ReportIssueDialog />
             </div>
             <div className="header-step-7 flex items-center">
+              <Button onClick={refresh} sx={{ color: '#F3F3F3' }}>
+                <RefreshIcon fontSize="medium" />
+              </Button>
               <IRTsModal />
               <ToolbarSettings />
             </div>
