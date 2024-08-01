@@ -9,10 +9,10 @@ import { useProgress } from '../../core/context/ProgressContext';
 
 interface Props {
   actionKey: string;
+  loading?: boolean
 }
 
-export const Footer: React.FC<Props> = ({ actionKey }) => {
-  const { isLoading } = useProgress();
+export const Footer: React.FC<Props> = ({ actionKey, loading }) => {
   const action = useCustomAction({
     actionKey: actionKey,
   });
@@ -88,7 +88,7 @@ export const Footer: React.FC<Props> = ({ actionKey }) => {
                 color: '#FFFFFF',
                 gap: 1,
               }}
-              disabled={isLoading}
+              disabled={loading}
               onClick={action?.execute}
             >
               Next <ArrowForwardIcon style={{ fontSize: '20px', marginTop: '2px' }} />
