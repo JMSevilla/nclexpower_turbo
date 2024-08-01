@@ -15,6 +15,8 @@ import { usePreviousValue } from '@/core/hooks/usePreviousValue';
 import { ControlledTextField } from 'core-library/components/Textfield/TextField';
 import { useCheckoutIntent, useConfirmedIntent } from 'core-library/contexts/auth/hooks';
 import { IntentValueType } from 'core-library/types/global';
+import { Encryption } from 'core-library/utils/Encryption';
+import { config } from 'core-library/config';
 interface Props {
   paymentIntentId: string | null;
 }
@@ -32,8 +34,13 @@ export const CheckoutPageBlock: React.FC<Props> = ({ paymentIntentId }) => {
 
   useEffect(() => {
     if (checkoutIntentValue !== undefined) {
+      const key = config.value.SECRET_KEY;
       const value = checkoutIntentValue
-      setIntentContainer(value)
+      const encyptedData = Encryption(
+        JSON.stringify({ value }),
+        key ?? "no-secret-key"
+      );
+      setIntentContainer(encyptedData)
     }
     clearSessionItem()
   }, [checkoutIntentValue])

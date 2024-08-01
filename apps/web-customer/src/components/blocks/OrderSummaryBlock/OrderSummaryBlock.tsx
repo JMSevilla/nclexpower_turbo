@@ -50,7 +50,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
                     </Box>
                     <Box>
                       <Typography>Duration: </Typography>
-                      <Typography
+                      <Box
                         className='text-[#0F2A71]'
                         textTransform="uppercase"
                         textAlign="end"
@@ -61,7 +61,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
                           orderDetail.programType == 1 ?
                             <p> 8 Days (Fast Track)</p>
                             : null}
-                      </Typography>
+                      </Box>
                     </Box>
                   </Card>
                 </Grid>
