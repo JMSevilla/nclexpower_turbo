@@ -50,6 +50,7 @@ interface Props<T extends object> {
   IsRegister?: boolean;
   sx?: DialogProps['sx'];
   inputProps?: OutlinedInputProps["inputProps"];
+  endAdornment?: OutlinedInputProps["endAdornment"];
 }
 
 export const TextField = <T extends FieldValues>({
