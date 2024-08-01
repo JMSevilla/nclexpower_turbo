@@ -50,6 +50,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     refetch: loadSelectionQuestion,
     data: selectQuestionData,
     isLoading,
+    isFetching
   } = businessQuerySelectQuestions(['selectquestion'], questionData);
 
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
@@ -114,7 +115,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     <ApplicationContext.Provider
       value={{
         questionaire,
-        loading: isLoading,
+        loading: isLoading || isFetching,
         setLoader,
         hasAccessToken,
         itemselect: selectedItem,

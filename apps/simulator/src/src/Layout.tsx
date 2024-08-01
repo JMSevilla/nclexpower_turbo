@@ -31,9 +31,9 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ProgressProvider>
-        <ToastProvider>
-          <MobileDetectionProvider>
+      <ToastProvider>
+        <MobileDetectionProvider>
+          <ProgressProvider>
             <FormSubmissionContextProvider>
               <QueryClientProvider client={queryClient}>
                 <div className="min-h-screen flex flex-col bg-slate-100">
@@ -58,7 +58,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                           </div>
                         </PageContainer>
                         {hasAccessToken && (
-                          <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} />
+                          <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} loading={loading} />
                         )}
                       </ToolbarSettingsProvider>
                     </TourContextProvider>
@@ -66,9 +66,9 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                 </div>
               </QueryClientProvider>
             </FormSubmissionContextProvider>
-          </MobileDetectionProvider>
-        </ToastProvider>
-      </ProgressProvider>
+           </ProgressProvider>
+        </MobileDetectionProvider>
+      </ToastProvider>
     </ThemeProvider>
   );
 };
