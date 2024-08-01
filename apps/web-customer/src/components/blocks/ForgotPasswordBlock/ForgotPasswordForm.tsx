@@ -1,11 +1,12 @@
-import { Box, Button, Card } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import { TextField } from "core-library/components";
 import { useForm } from "react-hook-form";
 import { forgotPasswordSchema, forgotPasswordType } from "../../../core/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import CoreZigma from "../../images/CoreZigma.png";
+import { CoreZigmaLogo } from "core-library/assets";
 import Link from "next/link";
 import { Alert } from "core-library/components";
+import Image from "next/image";
 
 interface Props {
   onSubmit: (values: forgotPasswordType) => void;
@@ -42,11 +43,10 @@ export const ForgotPasswordForm: React.FC<Props> = ({
         elevation={5}
       >
         <div className="flex items-center justify-center py-14">
-          <Box
-            component="img"
-            src={CoreZigma.src}
+          <Image
+            src={CoreZigmaLogo}
             alt="CoreZigma"
-            sx={{ width: "150px", height: "150px", objectFit: "cover" }}
+            style={{ width: "150px", height: "150px", objectFit: "cover" }}
           />
         </div>
         <h2 className="mb-4 text-[40px] text-center pt-sans-bold text-4xl pt-sans-regular ">
