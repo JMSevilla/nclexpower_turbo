@@ -17,39 +17,39 @@ body {
     overflow-x: hidden;
 }
 .pt-sans-narrow-regular {
-    font-family: "PT Sans Narrow", sans-serif;
+    font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 400;
     font-style: normal;
-  }
-  
-  .pt-sans-narrow-bold {
-    font-family: "PT Sans Narrow", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
+}
 
-  .pt-sans-regular {
-    font-family: "PT Sans", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .pt-sans-bold {
-    font-family: "PT Sans", sans-serif;
+.pt-sans-narrow-bold {
+    font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 700;
     font-style: normal;
-  }
-  .pt-sans-caption-regular {
-    font-family: "PT Sans Caption", sans-serif;
+}
+
+.pt-sans-regular {
+    font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     font-style: normal;
-  }
-  
-  .pt-sans-caption-bold {
-    font-family: "PT Sans Caption", sans-serif;
+}
+
+.pt-sans-bold {
+    font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-style: normal;
-  }
+}
+.pt-sans-caption-regular {
+    font-family: 'PT Sans Caption', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.pt-sans-caption-bold {
+    font-family: 'PT Sans Caption', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
 .custom-shape-divider-top-1677508034 {
     position: absolute;
     top: 0;
@@ -172,7 +172,6 @@ code {
     text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .flip-card:hover .flip-card-inner {
