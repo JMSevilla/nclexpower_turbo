@@ -5,7 +5,7 @@ import { config } from "core-library/config";
 import { Encryption } from "core-library/utils/Encryption";
 import { useLocalStorage } from "core-library/hooks";
 import { useAuthContext } from "core-library/contexts";
-import { useRouter } from "core-library";
+import { useRouter } from "core-library/core/router";
 
 interface SavedDataProps {
   email: string;

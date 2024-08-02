@@ -1,6 +1,6 @@
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
 import { ForgotPasswordAtom, ForgotPasswordType } from "../../../core/Schema";
-import { useRouter } from "core-library";
+import { useRouter } from "core-library/core/router";
 import { useApiCallback } from "core-library/hooks";
 import { useAtom } from "jotai";
 import { useState } from "react";

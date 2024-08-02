@@ -7,7 +7,7 @@ import {
   useAuthContext,
   ExpirationContextProvider,
 } from "core-library/contexts";
-import { useStripeConfig } from "core-library";
+import { useStripeConfig } from "core-library/core/hooks/stripe/useStripeConfig";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
 import {
   CompanyInfo,
