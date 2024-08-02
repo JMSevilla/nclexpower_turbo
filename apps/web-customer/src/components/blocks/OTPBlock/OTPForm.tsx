@@ -18,7 +18,7 @@ const OTPForm: React.FC<Props> = ({
   onSubmit,
   isDisabled,
   resendRemainingTime,
-  onResend
+  onResend,
 }) => {
   const form = useForm<OTPType>({
     mode: "onSubmit",
@@ -31,8 +31,8 @@ const OTPForm: React.FC<Props> = ({
     <section className="h-screen flex items-center justify-center flex-col font-['Poppins']">
       <Image className='w-80' src={OTP} alt="ImageOne" />
       <div className="text-center my-2">
-        <h2 className="text-4xl font-['Poppins'] my-2">Verify Your Account</h2>
-        <p className="text-xl text-paragraph">Enter the OTP sent to your email</p>
+        <h2 className="text-4xl pt-sans-caption-bold my-2">Verify Your Account</h2>
+        <p className="text-xl pt-sans-narrow-regular text-darkGray">Enter the OTP sent to your email</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="my-2">
         <div className="flex items-center justify-center gap-2">
@@ -40,7 +40,6 @@ const OTPForm: React.FC<Props> = ({
             control={control}
             name="otp"
             digits={6}
-            label=""
             variant="outlined"
             hideCanResend={isDisabled}
             resendRemainingTime={resendRemainingTime}
@@ -48,13 +47,14 @@ const OTPForm: React.FC<Props> = ({
           />
         </div>
         <Button
-          variant="contained"
           type="submit"
           fullWidth
-          sx={{ marginY: 3, padding: 1.5 }}
+          variant="contained"
+          className='hover:bg-hoverBlue'
+          sx={{ px: 4, py: 2, backgroundColor: '#0F2A71', mt: 2 }}
           disabled={isDisabled}
         >
-          Continue
+          <span className='pt-sans-narrow-bold text-lg normal-case'>Continue</span>
         </Button>
       </form>
     </section>

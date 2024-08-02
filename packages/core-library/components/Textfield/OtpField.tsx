@@ -97,14 +97,11 @@ export const HelperText: React.FC<
 
     return (
       <Stack>
-        {helperText ? (
-          <FormHelperText error={error}>{helperText}</FormHelperText>
-        ) : (
-          <FormattedTime
-            seconds={remainingSeconds}
-            hideCanResend={hideCanResend}
-          />
-        )}
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+        <FormattedTime
+          seconds={remainingSeconds}
+          hideCanResend={hideCanResend}
+        />
         {!hideCanResend && canResend && <ResendButton onClick={onResend} />}
       </Stack>
     );

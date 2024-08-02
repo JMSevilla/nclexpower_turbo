@@ -25,17 +25,18 @@ const OTPBlock: React.FC = () => {
         false
       );
     }
-
     router.push("/account/change-password");
   };
 
   useEffect(() => {
     if (resendRemainingTime > 0) {
+      setIsDisabled(true);
       const interval = setInterval(() => {
         setResendRemainingTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
       }, 1000);
       return () => clearInterval(interval);
     }
+    return setIsDisabled(false)
   }, [resendRemainingTime]);
 
   const handleResend = () => {
