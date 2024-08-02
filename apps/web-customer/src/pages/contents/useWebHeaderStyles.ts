@@ -11,11 +11,25 @@ export const useWebHeaderStyles = () => {
     };
 
     const headerLinkSx: SxProps<Theme> = {
-        color: !isScrolled ? 'white' : 'default',
-        fontFamily: 'Poppins, sans-serif',
+        color: !isScrolled ? 'white' : 'black',
+        fontFamily: 'PT Sans, sans-serif',
+        textTransform: 'none',
+        fontSize: '16px'
     };
 
-    return { drawerHeader, headerLinkSx };
+    const loginButtonSx = {
+        bgcolor: isScrolled ? '#0f2a71' : '#f3c402',
+        color: isScrolled ? 'white' : 'black',
+        textTransform: 'none',
+        borderRadius: '15px',
+        width: 100,
+        paddingTop: 1,
+        '&:hover': {
+            backgroundColor: isScrolled ? '#071c51' : '#cca406',
+        },
+    };
+
+    return { drawerHeader, headerLinkSx, loginButtonSx };
 };
 
 export default useWebHeaderStyles

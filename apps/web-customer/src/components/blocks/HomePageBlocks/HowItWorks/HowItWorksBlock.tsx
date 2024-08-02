@@ -1,29 +1,39 @@
-import { DetailTitleCard } from '@/components/Cards/DetailTitleCard/DetailTitleCard'
+import { PracticeTest, StudyCards, WatchVideos } from 'core-library/assets'
+import Image from 'next/image'
 import React from 'react'
 
 interface Props { }
 
 export const HowItWorksBlock: React.FC<Props> = (props) => {
     return (
-        <div className='bg-how-it-works bg-no-repeat bg-cover h-fit pt-20 pb-20 items-center justify-center flex'>
-            <div className='container flex gap-10 flex-col w-full'>
-                <div className='w-full h-fit flex px-14 items-center '>
-                    <p className='w-fit text-left text-5xl font-bold border-r-2 pr-2 py-4 text-white'>How it <span className=' text-blue'>works</span></p>
-                    <p className='w-2/3 pr-28 pl-4 text-white font-semibold'>Lorem ipsum dolor sit amet. Eos iusto voluptatibus et alias accusamus aut error nobis quo consequuntur magnam eos dolor illo non odio tenetur. In veritatis cupiditate et accusantium voluptates eos dolore dolores est r</p>
+        <div className='bg-[#f0f2f8] h-fit py-20 items-center justify-center flex'>
+            <div className='w-full flex flex-col items-center'>
+                <div className='flex flex-col gap-5 items-center'>
+                    <p className='text-4xl font-bold '><span className='text-[#0f2a71]'>Step-by-step</span>  till you pass! </p>
+                    <p className='font-bold'>Elevate your learning and critical thinking like never before!</p>
+                    <p>With the CORE-Zigma System, you will build your knowledge, confidence, and test-taking skills - step by step with our proven method!</p>
                 </div>
-                <div className='w-full flex flex-col gap-10 pb-5'>
-                    <div className='w-full justify-center items-center flex gap-10 '>
-                        <DetailTitleCard title="by watching" />
-                        <DetailTitleCard title="by studying" />
-                        <DetailTitleCard title="by doing" />
+                <div className='w-4/6 flex items-center justify-center py-10'>
+                    <div className='w-1/3 flex items-center flex-col hover:scale-105 transition-all duration-300'>
+                        <Image src={WatchVideos} alt='WatchVideos' />
+                        <p >Step 1 : <span className='text-[#0f2a71] font-bold'>By Watching</span></p>
+                    </div>
+                    <div className='w-1/3 flex items-center flex-col hover:scale-105 transition-all duration-300'>
+                        <Image src={StudyCards} alt='StudyCards' />
+                        <p>Step 2 : <span className='text-[#0f2a71] font-bold'>By Studying</span></p>
+                    </div>
+                    <div className='w-1/3 flex items-center flex-col hover:scale-105 transition-all duration-300'>\
+                        <Image src={PracticeTest} alt='PracticeTest' />
+                        <p >Step 3 : <span className='text-[#0f2a71] font-bold'>By Doing</span></p>
                     </div>
                 </div>
-                <div className='flex w-full px-10 items-center justify-center bg-[#002442] py-5 bg-opacity-65 backdrop-blur-sm text-white'>
-                    <div className='h-[300px] max-w-[550px] w-1/2 bg-[#4f4f4f] rounded-md flex items-center justify-center text-4xl'>VIDEO</div>
-                    <div className=' flex flex-col gap-5 px-10 w-1/2'>
-                        <p className='text-2xl font-semibold'>Step by step, till you leap and fly!</p>
-                        <p className=' font-medium'>Built on sound and solid educational principles and strategies, our system elevates and sharpens your critical thinking skills needed to pass the exam!</p>
-                        <p className=' font-medium'>With an arsenal of carefully crafted tools, techniques and technology, learn what you need to know, step-by-step:</p>
+                <div className='flex w-5/6 justify-center pt-10'>
+                    <div className='w-2/5 pl-16 text-left flex flex-col gap-5'>
+                        <p className='text-4xl font-bold'>Watch  <span className='text-[#0f2a71]'> How it Works</span></p>
+                        <p className='font-ptSansNarrow text-lg'>See for yourself how to use our system, and how much fun and different it is to learn and prepare for NCLEX!</p>
+                    </div>
+                    <div className=' h-64 w-3/5 px-5 flex justify-center'>
+                        <div className='bg-[#0f2a71] w-3/4 h-full rounded-lg' />
                     </div>
                 </div>
             </div>
