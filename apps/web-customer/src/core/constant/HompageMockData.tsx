@@ -1,35 +1,24 @@
 export const list = [
     {
-        title: "Company",
         items: [
-            { label: "About Us", path: "/about_us" },
-            { label: "Careers", path: "/careers" },
-            { label: "Press", path: "/press" },
-            { label: "Blog", path: "/blog" },
+            { label: "About", path: "/about_us" },
             { label: "Contact", path: "/contact" },
-        ],
+            { label: "Login", path: "/login" },
+        ]
     },
     {
-        title: "Support",
         items: [
-            { label: "Help Center", path: "/help_center" },
-            { label: "FAQs", path: "/faqs" },
-            { label: "Terms of Service", path: "/terms_of_service" },
-            { label: "Privacy Policy", path: "/privacy_policy" },
-            { label: "Accessibility", path: "/accessibility" },
-        ],
-    },
-    {
-        title: "Follow Us",
-        items: [
-            { label: "Facebook", path: "/facebook" },
-            { label: "Twitter", path: "/twitter" },
-            { label: "Instagram", path: "/instagram" },
-            { label: "LinkedIn", path: "/linkedin" },
-            { label: "YouTube", path: "/youtube" },
+            { label: "Facebook", path: "/help_center" },
+            { label: "Twitter", path: "/faqs" },
+            { label: "Instagram", path: "/faqs" },
         ],
     },
 ];
+export const CompanyInfo = {
+    address: '1700 Eureka Rd Ste 155 Roseville, California 95661',
+    phone: '1-866-800-3030',
+    website: 'info@nclexpower.com',
+};
 
 export const UnauthorizedHeader = [
     { id: 1, label: "Home", path: "/" },
@@ -49,11 +38,57 @@ export const settings = {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    speed: 3000,
+    autoplay: true,
+    speed: 2000,
     autoplaySpeed: 8000,
     cssEase: "ease-in-out"
 };
+
+export const FastTrackList = [
+    {
+        id: 1,
+        label: 'Emphasis on patient-units.'
+    },
+    {
+        id: 2,
+        label: 'Includes content and med cards.'
+    },
+    {
+        id: 3,
+        label: 'Engaging topic videos.'
+    },
+    {
+        id: 4,
+        label: '100% computer adaptive simulator.'
+    },
+    {
+        id: 5,
+        label: 'Step-by-step guided schedule.'
+    },
+]
+export const StandardList = [
+    {
+        id: 1,
+        label: 'Comprehensive review.'
+    },
+    {
+        id: 2,
+        label: 'Includes content and med cards.'
+    },
+    {
+        id: 3,
+        label: 'Engaging topic videos.'
+    },
+    {
+        id: 4,
+        label: '100% computer adaptive simulator.'
+    },
+    {
+        id: 5,
+        label: 'Step-by-step guided schedule.'
+    },
+]
+
 
 
 
