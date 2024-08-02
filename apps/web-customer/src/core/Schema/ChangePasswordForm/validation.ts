@@ -2,7 +2,7 @@ import * as yup from "yup";
 import {
   CONTAINS_NUMBER_REGEX,
   CONTAINS_UPPERCASE_REGEX,
-} from "core-library/utils/Regex";
+} from "core-library/utils";
 
 export const validatePassword = (password: string) => {
   return {

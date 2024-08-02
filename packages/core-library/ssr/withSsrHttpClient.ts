@@ -35,9 +35,10 @@ const client = (
         ? config.value.LOCAL_API_URL
         : config.value.API_URL,
     headers: {
-      "Content-Type": "application/json",
       "x-api-key": config.value.XAPIKEY,
-      ENV: "dev2",
+      "Content-Type": "application/json",
+      "X-Environment": config.value.SYSENV,
+      "X-Time-Zone": "Asia/Manila", // we should create a middleware to get the timezone dynamically.
     },
     onError: (error) =>
       console.error(`Error response: ${JSON.stringify(error)}.`),
