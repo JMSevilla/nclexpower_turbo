@@ -10,7 +10,11 @@ import {
   CreateCustomerParams,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
+  ResendCodeParams,
+  SelectEmailResponse,
   UpdatePaymentIntentParams,
+  VerificationResponse,
+  VerifyCodeParams,
 } from "../types";
 export class WebApi {
   constructor(
@@ -18,6 +22,7 @@ export class WebApi {
     private readonly ssrAxios: AxiosInstance
   ) {}
 
+  /* This api should be in web-api-backoffice */
   public web_account_setup(params: RegisterParams) {
     return this.axios.post<number>(
       "/api/v2/payment/intent/config-get-publishable-key/",
@@ -28,6 +33,32 @@ export class WebApi {
   public web_get_publishableKey() {
     return this.ssrAxios.get<string>(
       `/api/publishable/${qs.stringify({ environments: config.value.APPENV })}`
+    );
+  }
+
+  public web_select_email(email: string) {
+    return this.ssrAxios.post<SelectEmailResponse>(
+      `/api/account-recovery/${qs.stringify({ email: email })}`
+    );
+  }
+
+  public web_verification_code(email: string) {
+    return this.ssrAxios.post<VerificationResponse>(
+      `/api/verification/${qs.stringify({ email: email })}`
+    );
+  }
+
+  public web_verify_otp_code(params: VerifyCodeParams) {
+    return this.ssrAxios.post<VerificationResponse>(
+      `/api/security/otp/verify`,
+      params
+    );
+  }
+
+  public web_resend_otp_code(params: ResendCodeParams) {
+    return this.ssrAxios.post<VerificationResponse>(
+      `/api/security/otp/resend`,
+      params
     );
   }
 

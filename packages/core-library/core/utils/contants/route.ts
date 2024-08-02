@@ -1,4 +1,4 @@
-import { generateNestedRoutes } from "core-library/core";
+import { generateNestedRoutes } from "../routeUtils";
 import { config } from "core-library/config";
 
 const hubBaseRoute = config.value.BASEHUB;

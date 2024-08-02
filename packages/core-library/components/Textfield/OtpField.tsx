@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import type { Theme } from "@mui/material/styles";
-import {
+import React, {
   useRef,
   RefObject,
   useEffect,
@@ -18,6 +18,8 @@ import {
 import { Controller, FieldValues } from "react-hook-form";
 import { ControlledField } from ".";
 import { InputLabel, FormHelperText } from "./TextField";
+import { ProgressBar } from "../ProgressBar";
+import { ResendCodeParams } from "../../api/types";
 
 type Props = TextFieldProps &
   Pick<StackProps, "gap"> & {
@@ -28,7 +30,7 @@ type Props = TextFieldProps &
     error?: boolean;
     onChange?: (_value: string) => void;
     onBlur?: () => void;
-    onResend?: () => void;
+    onResend?: () => Promise<void>;
     resendRemainingTime?: number;
     noLabel?: string;
   };
@@ -39,24 +41,31 @@ const isSingleDigitNumber = (value: string) => /^\d$/.test(value);
 
 const ResendButton: React.FC<{
   onClick?: Props["onResend"];
-}> = ({ onClick }) => {
-  const handleClick = () => {
-    onClick?.();
+  isLoading?: boolean;
+}> = ({ onClick, isLoading }) => {
+  const handleClick = async () => {
+    await onClick?.();
   };
   return (
-    <Typography
-      onClick={handleClick}
-      alignSelf="start"
-      fontSize="1.1rem"
-      fontWeight="bold"
-      mt={1}
-      color="primary"
-      sx={{
-        cursor: "pointer",
-      }}
-    >
-      Send new code
-    </Typography>
+    <React.Fragment>
+      {isLoading ? (
+        <ProgressBar isLoading={isLoading} />
+      ) : (
+        <Typography
+          onClick={handleClick}
+          alignSelf="start"
+          fontSize="1.1rem"
+          fontWeight="bold"
+          mt={1}
+          color="primary"
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          Send new code
+        </Typography>
+      )}
+    </React.Fragment>
   );
 };
 
@@ -72,7 +81,12 @@ const FormattedTime: React.FC<{ seconds: number; hideCanResend: boolean }> = ({
 
   return (
     <FormHelperText
-      sx={{ fontWeight: 560, fontSize: '1rem', mt: 1, color: (theme) => theme.palette.grey[500] }}
+      sx={{
+        fontWeight: 560,
+        fontSize: "1rem",
+        mt: 1,
+        color: (theme) => theme.palette.grey[500],
+      }}
     >
       {!canResend
         ? `Resend Code: ${formatted}`
@@ -85,6 +99,7 @@ export const HelperText: React.FC<
   Pick<Props, "onResend" | "error" | "helperText"> & {
     seconds: number;
     hideCanResend: boolean;
+    isLoading?: boolean;
   }
 > = ({
   onResend,
@@ -92,25 +107,30 @@ export const HelperText: React.FC<
   helperText,
   error,
   hideCanResend = false,
+  isLoading = false,
 }) => {
-    const canResend = remainingSeconds <= 0;
+  const canResend = remainingSeconds <= 0;
 
-    return (
-      <Stack>
-        {helperText ? (
-          <FormHelperText error={error}>{helperText}</FormHelperText>
-        ) : (
-          <FormattedTime
-            seconds={remainingSeconds}
-            hideCanResend={hideCanResend}
-          />
-        )}
-        {!hideCanResend && canResend && <ResendButton onClick={onResend} />}
-      </Stack>
-    );
-  };
+  return (
+    <Stack>
+      {helperText ? (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      ) : (
+        <FormattedTime
+          seconds={remainingSeconds}
+          hideCanResend={hideCanResend}
+        />
+      )}
+      {!hideCanResend && canResend && (
+        <ResendButton onClick={onResend} isLoading={isLoading} />
+      )}
+    </Stack>
+  );
+};
 
-export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
+export const OtpField: React.FC<
+  Props & { hideCanResend?: boolean; isResendLoading?: boolean }
+> = ({
   error,
   digits = OTP_DIGIT_COUNT,
   value,
@@ -125,10 +145,12 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
   inputProps,
   noLabel = false,
   hideCanResend = false,
+  isResendLoading = false,
   ...rest
 }) => {
   const [pin, setPin] = useState<string[]>([]);
   const refs = useRef<RefObject<HTMLInputElement>[]>([]);
+  const [remainingTime, setRemainingTime] = useState(resendRemainingTime);
 
   useEffect(() => {
     refs.current = Array(digits)
@@ -139,6 +161,7 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
       refs.current = [];
     };
   }, [digits]);
+
   useEffect(() => {
     const arr = value?.slice(0, digits + 1).split("") ?? [];
     const p = Array(digits)
@@ -147,46 +170,63 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
     setPin(p);
   }, [value, digits]);
 
+  useEffect(() => {
+    setRemainingTime(resendRemainingTime);
+  }, [resendRemainingTime]);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | null = null;
+    if (remainingTime > 0) {
+      timer = setInterval(() => {
+        setRemainingTime((prev) => (prev > 0 ? prev - 1 : 0));
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [remainingTime]);
+
   const handleChange =
     (index: number): ChangeEventHandler<HTMLInputElement> =>
-      (event) => {
-        const text = event.target.value;
-        const isNumberOrEmpty = isSingleDigitNumber(text) || text === "";
+    (event) => {
+      const text = event.target.value;
+      const isNumberOrEmpty = isSingleDigitNumber(text) || text === "";
 
-        if (!isNumberOrEmpty) {
-          return event.preventDefault();
-        }
+      if (!isNumberOrEmpty) {
+        return event.preventDefault();
+      }
 
-        setPin((prevPin) => {
-          const newValue = prevPin.map((val, i) => {
-            if (index === i) return text;
-            return val;
-          });
-          onChange?.(newValue.join(""));
-          return newValue;
+      setPin((prevPin) => {
+        const newValue = prevPin.map((val, i) => {
+          if (index === i) return text;
+          return val;
         });
-      };
+        onChange?.(newValue.join(""));
+        return newValue;
+      });
+    };
 
   const moveToNext =
     (index: number): KeyboardEventHandler<HTMLInputElement> =>
-      (event) => {
-        const { key } = event;
+    (event) => {
+      const { key } = event;
 
-        if (key === "Backspace" || key === "Delete") {
-          setPin((prevPin) => prevPin.map((v, i) => (index === i ? "" : v)));
-          const prev = index - 1;
-          if (prev > -1 && pin[index] === "") {
-            refs.current[prev].current?.focus();
-          }
-          return;
+      if (key === "Backspace" || key === "Delete") {
+        setPin((prevPin) => prevPin.map((v, i) => (index === i ? "" : v)));
+        const prev = index - 1;
+        if (prev > -1 && pin[index] === "") {
+          refs.current[prev].current?.focus();
         }
+        return;
+      }
 
-        if (!isSingleDigitNumber(key)) return;
+      if (!isSingleDigitNumber(key)) return;
 
-        if (index < digits - 1) {
-          refs.current[index + 1].current?.focus();
-        }
-      };
+      if (index < digits - 1) {
+        refs.current[index + 1].current?.focus();
+      }
+    };
 
   return (
     <Stack sx={{ width: "100%" }}>
@@ -202,7 +242,7 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
           {pin.map((v, i) => (
             <TextField
               sx={{
-                width: ['100%', '100%'],
+                width: ["100%", "100%"],
                 height: [50, 60],
                 ...sx,
               }}
@@ -214,9 +254,9 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
                   px: 1,
                   py: 1.3,
                   height: 50,
-                  width: '100%',
-                  textAlign: 'center',
-                  border: '1px solid #007AB7',
+                  width: "100%",
+                  textAlign: "center",
+                  border: "1px solid #007AB7",
                 },
               }}
               variant={variant}
@@ -235,8 +275,9 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
             error={error}
             helperText={helperText}
             onResend={onResend}
-            seconds={resendRemainingTime}
+            seconds={remainingTime}
             hideCanResend={hideCanResend}
+            isLoading={isResendLoading}
           />
         )}
       </Stack>
@@ -245,7 +286,7 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
 };
 
 type ControlledOtpFieldProps<T extends FieldValues> = ControlledField<T> &
-  Props & { hideCanResend: boolean };
+  Props & { hideCanResend?: boolean; isResendLoading?: boolean };
 
 export function ControlledOtpField<T extends FieldValues>({
   control,
