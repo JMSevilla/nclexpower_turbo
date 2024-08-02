@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useApiCallback } from "core-library/hooks";
 import { useExecuteToast } from "core-library/contexts";
-import { useRouter } from "core-library";
+import { useRouter } from "core-library/core/router";
 import { ResendCodeParams, VerifyCodeParams } from "core-library/api/types";
 
 interface OtpVerificationResult {
