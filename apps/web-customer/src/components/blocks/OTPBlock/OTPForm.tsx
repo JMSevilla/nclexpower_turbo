@@ -1,27 +1,30 @@
 import React from "react";
 import { OTPSchema, OTPType } from "../../../core/Schema";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "@mui/material";
+import { Button } from "core-library/components";
 import { ControlledOtpField } from "core-library/components";
-import Image from 'next/image'
-import OTP from '../../../assets/OTP.png';
+import Image from "next/image";
+import OTP from "../../../assets/OTP.png";
+import { Stack } from "@mui/material";
 
 type Props = {
   onSubmit: (values: OTPType) => void;
-  isDisabled: boolean;
+  submitLoading: boolean;
   resendRemainingTime: number;
-  onResend: () => void;
-}
+  onResend: () => Promise<void>;
+  isResendLoading?: boolean;
+};
 
 const OTPForm: React.FC<Props> = ({
   onSubmit,
-  isDisabled,
+  submitLoading,
   resendRemainingTime,
-  onResend
+  onResend,
+  isResendLoading,
 }) => {
   const form = useForm<OTPType>({
-    mode: "onSubmit",
+    mode: "all",
     resolver: yupResolver(OTPSchema),
   });
 
@@ -29,34 +32,38 @@ const OTPForm: React.FC<Props> = ({
 
   return (
     <section className="h-screen flex items-center justify-center flex-col font-['Poppins']">
-      <Image className='w-80' src={OTP} alt="ImageOne" />
+      <Image className="w-80" src={OTP} alt="ImageOne" />
       <div className="text-center my-2">
         <h2 className="text-4xl font-['Poppins'] my-2">Verify Your Account</h2>
-        <p className="text-xl text-paragraph">Enter the OTP sent to your email</p>
+        <p className="text-xl text-paragraph">
+          Enter the OTP sent to your email
+        </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="my-2">
-        <div className="flex items-center justify-center gap-2">
-          <ControlledOtpField
-            control={control}
-            name="otp"
-            digits={6}
-            label=""
-            variant="outlined"
-            hideCanResend={isDisabled}
-            resendRemainingTime={resendRemainingTime}
-            onResend={onResend}
-          />
-        </div>
-        <Button
-          variant="contained"
-          type="submit"
-          fullWidth
-          sx={{ marginY: 3, padding: 1.5 }}
-          disabled={isDisabled}
-        >
-          Continue
-        </Button>
-      </form>
+      <FormProvider {...form}>
+        <Stack className="my-2">
+          <Stack className="flex items-center justify-center gap-2">
+            <ControlledOtpField
+              control={control}
+              name="otp"
+              digits={6}
+              label=""
+              variant="outlined"
+              resendRemainingTime={resendRemainingTime}
+              onResend={onResend}
+              isResendLoading={isResendLoading}
+            />
+          </Stack>
+          <Button
+            variant="contained"
+            sx={{ marginY: 3, padding: 1.5 }}
+            loading={submitLoading}
+            disabled={submitLoading}
+            onClick={handleSubmit(onSubmit)}
+          >
+            Continue
+          </Button>
+        </Stack>
+      </FormProvider>
     </section>
   );
 };

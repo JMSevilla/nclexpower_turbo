@@ -1,23 +1,25 @@
-import { Button, Card } from "@mui/material";
-import { TextField } from "core-library/components";
-import { useForm } from "react-hook-form";
-import { forgotPasswordSchema, forgotPasswordType } from "../../../core/Schema";
+import { forgotPasswordSchema, ForgotPasswordType } from "../../../core/Schema";
+import { Box, Grid, Typography, Card } from "@mui/material";
+import { Alert, Button, TextField } from "core-library/components";
+import { ForgotPasswordBG } from "../../icons/ForgotPasswordBG";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CoreZigmaLogo } from "core-library/assets";
 import Link from "next/link";
-import { Alert } from "core-library/components";
 import Image from "next/image";
 
 interface Props {
-  onSubmit: (values: forgotPasswordType) => void;
+  onSubmit: (values: ForgotPasswordType) => void;
   submitLoading?: boolean;
   showAlert?: boolean;
+  isExpired?: boolean;
 }
 
 export const ForgotPasswordForm: React.FC<Props> = ({
   onSubmit,
   submitLoading,
   showAlert,
+  isExpired,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -49,6 +51,13 @@ export const ForgotPasswordForm: React.FC<Props> = ({
             style={{ width: "150px", height: "150px", objectFit: "cover" }}
           />
         </div>
+        {isExpired && (
+          <Alert
+            severity="error"
+            title="Account Expired"
+            description="The account you are trying to access is already expired."
+          />
+        )}
         <h2 className="mb-4 text-[40px] text-center pt-sans-bold text-4xl pt-sans-regular ">
           Forgot Your <span className="text-darkBlue">Password?</span>
         </h2>
@@ -58,7 +67,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
             you a link to reset your password.
           </p>
           <div className="pt-5">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <FormProvider {...form}>
               <TextField
                 control={control}
                 label="Email"
@@ -81,10 +90,8 @@ export const ForgotPasswordForm: React.FC<Props> = ({
 
               <div className="mt-5">
                 <Button
-                  type="submit"
                   variant="contained"
                   fullWidth
-                  color="primary"
                   sx={{
                     px: 4,
                     py: 2,
@@ -93,11 +100,13 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                   }}
                   className="hover:bg-hoverBlue"
                   disabled={!isValid || submitLoading}
+                  loading={submitLoading}
+                  onClick={handleSubmit(onSubmit)}
                 >
                   Continue
                 </Button>
               </div>
-            </form>
+            </FormProvider>
           </div>
         </div>
         <div className="flex items-center justify-center mt-20 pt-sans-narrow-regular text-xl">
