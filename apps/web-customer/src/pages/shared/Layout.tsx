@@ -9,7 +9,7 @@ import {
 } from "core-library/contexts";
 import { useStripeConfig } from "core-library";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
-import { CustomerMenus, list } from "../../core/constant/HompageMockData";
+import { CompanyInfo, CustomerMenus, list } from "../../core/constant/HompageMockData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { PageLoaderContextProvider } from "core-library/contexts/PageLoaderContext";
@@ -44,7 +44,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
                   headerContainerSx={drawerHeader}
                 >
                   {children}
-                  <Footer list={list} />
+                  <Footer info={CompanyInfo} list={list} />
                 </DrawerLayout>
               </LoadablePageContent>
             </StripeContextProvider>

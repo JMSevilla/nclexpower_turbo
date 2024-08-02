@@ -1,11 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { useResolution } from "../../hooks";
 import Image from "next/image";
+import { NCLEXBlueLogo, NCLEXYellowLogo } from '../../assets';
+import { useScroll } from '../../core';
 
 interface Props { }
 
 export const HeaderLogo: React.FC<Props> = ({ }) => {
   const { isMobile } = useResolution();
+  const { isScrolled } = useScroll();
+  const NCLEXLogo = isScrolled ? NCLEXBlueLogo : NCLEXYellowLogo
 
   return (
     <Box
@@ -28,7 +32,7 @@ export const HeaderLogo: React.FC<Props> = ({ }) => {
           md: theme.typography.h3.fontSize,
         })}
       >
-        No logo
+        <Image width={150} src={NCLEXLogo} alt='NCLEX Logo' />
       </Typography>
     </Box>
   );

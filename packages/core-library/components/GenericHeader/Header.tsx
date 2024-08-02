@@ -2,11 +2,12 @@ import { Box, Button, Grid } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
-import { useRouter } from "../../core";
+import { useRouter } from 'next/router';
 import { SxProps, Theme } from "@mui/material/styles";
 import { AccountMenu } from "../index";
 import { AccountMenuItem } from "../../../../apps/web-backoffice-generic/src/core/constant/UserDropDown";
 import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
+import { useWebHeaderStyles } from "../../../../apps/web-customer/src/pages/contents/useWebHeaderStyles";
 import { useState } from "react";
 
 interface Props {
@@ -33,6 +34,7 @@ export const Header: React.FC<Props> = ({
 
   const { isMobile } = useResolution();
   const router = useRouter();
+  const { loginButtonSx } = useWebHeaderStyles();
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/" });
@@ -89,9 +91,7 @@ export const Header: React.FC<Props> = ({
                     menu.map((navigation, index) => (
                       <Grid item key={index}>
                         <Button
-                          sx={{
-                            ...buttonHeaderSx,
-                          }}
+                          sx={navigation.label === 'Login' ? loginButtonSx : buttonHeaderSx}
                           onClick={() => handleNavigate(navigation.path)}
                         >
                           {navigation.label}
@@ -118,6 +118,6 @@ export const Header: React.FC<Props> = ({
           />
         )}
       </Grid>
-    </Box>
+    </Box >
   );
 };

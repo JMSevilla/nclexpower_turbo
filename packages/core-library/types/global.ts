@@ -125,11 +125,16 @@ interface ItemProp {
   path: string;
 }
 interface ColumnProp {
-  title: string;
   items: ItemProp[];
+}
+interface InfoProp {
+  address: string;
+  phone: string;
+  website: string;
 }
 export interface FooterProps {
   list: ColumnProp[];
+  info: InfoProp
 }
 
 export interface SliderConfigType {
