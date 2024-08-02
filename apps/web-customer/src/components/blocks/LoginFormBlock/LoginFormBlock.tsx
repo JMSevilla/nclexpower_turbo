@@ -49,6 +49,15 @@ export function LoginFormBlock() {
 
     if (savedData && rememberMe) {
       const decryptedPassword = Decryption(savedData.password, key ?? "no-secret-key");
+      const invalidPassword = data.password !== savedData.password && data.password !== decryptedPassword
+
+      if (invalidPassword) {
+        toast.executeToast("Invalid email or password", "top-right", false, {
+          toastId: 0,
+          type: "error",
+        });
+        return;
+      }
       passwordToUse = decryptedPassword ?? "";
     }
 
