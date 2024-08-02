@@ -1,12 +1,12 @@
 import { forgotPasswordSchema, ForgotPasswordType } from "../../../core/Schema";
-import { Box, Grid, Typography, Card } from "@mui/material";
-import { Alert, Button, TextField } from "core-library/components";
-import { ForgotPasswordBG } from "../../icons/ForgotPasswordBG";
+import { Box } from "@mui/material";
+import { Alert, TextField } from "core-library/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CoreZigmaLogo } from "core-library/assets";
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "core-library/components";
 
 interface Props {
   onSubmit: (values: ForgotPasswordType) => void;
@@ -34,15 +34,14 @@ export const ForgotPasswordForm: React.FC<Props> = ({
   } = form;
 
   return (
-    <section className="h-screen flex items-center justify-center  font-['Poppins'] bg-pricing">
-      <Card
+    <section className="h-screen flex items-center justify-center pt-sans-caption ">
+      <Box
         sx={{
           display: "flex",
           p: 5,
           flexDirection: "column",
           alignItems: "center",
         }}
-        elevation={5}
       >
         <div className="flex items-center justify-center py-14">
           <Image
@@ -51,13 +50,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
             style={{ width: "150px", height: "150px", objectFit: "cover" }}
           />
         </div>
-        {isExpired && (
-          <Alert
-            severity="error"
-            title="Account Expired"
-            description="The account you are trying to access is already expired."
-          />
-        )}
+
         <h2 className="mb-4 text-[40px] text-center pt-sans-bold text-4xl pt-sans-regular ">
           Forgot Your <span className="text-darkBlue">Password?</span>
         </h2>
@@ -78,7 +71,6 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                 }}
                 inputProps={{ style: { padding: 15, borderRadius: "10px" } }}
               />
-
               {showAlert && (
                 <div className="pt-2">
                   <Alert
@@ -87,7 +79,16 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                   />
                 </div>
               )}
-
+              s
+              {isExpired && (
+                <div className="pt-2">
+                  <Alert
+                    severity="error"
+                    title="Account Expired"
+                    description="The account you are trying to access is already expired."
+                  />
+                </div>
+              )}
               <div className="mt-5">
                 <Button
                   variant="contained"
@@ -99,9 +100,9 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                     backgroundColor: "#0F2A71",
                   }}
                   className="hover:bg-hoverBlue"
-                  disabled={!isValid || submitLoading}
                   loading={submitLoading}
                   onClick={handleSubmit(onSubmit)}
+                  disabled={!isValid || submitLoading}
                 >
                   Continue
                 </Button>
@@ -118,7 +119,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
             Sign up
           </Link>
         </div>
-      </Card>
+      </Box>
     </section>
   );
 };

@@ -10,10 +10,10 @@ import { useOtpVerification } from "@/core/hooks/useOtpVerification";
 export function ForgotPasswordFormBlock() {
   const [, setAtomEmail] = useAtom(ForgotPasswordAtom);
   const [isExpired, setIsExpired] = useState<boolean>(false);
+  const [showAlert, setshowAlert] = useState<boolean>(false);
   const { setWaitTime } = useOtpVerification();
   const { executeToast } = useExecuteToast();
   const router = useRouter();
-  const [showAlert, setshowAlert] = useState<boolean>(false);
 
   const emailCb = useApiCallback(
     async (api, args: { email: string }) =>
@@ -58,6 +58,7 @@ export function ForgotPasswordFormBlock() {
       const verificationResult = await verificationCb.execute({
         email: values.email,
       });
+      setshowAlert(true);
       if (verificationResult.data.responseCode === 508) {
         setWaitTime(verificationResult.data.waitTimeInMinutes * 60);
         const minutes = verificationResult.data.waitTimeInMinutes * 60;
