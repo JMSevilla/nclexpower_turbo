@@ -1,43 +1,40 @@
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import Cancel from "@mui/icons-material/Cancel";
+import { SvgIconProps } from "@mui/material/SvgIcon";
+
+interface ValidationCriteria {
+  isValid: boolean;
+  message: string;
+}
 
 interface Props {
-  isLengthValid: boolean;
-  containsNumber: boolean;
-  containsUppercase: boolean;
+  criteria: ValidationCriteria[];
+  validColor?: string;
+  invalidColor?: string;
+  iconSize?: SvgIconProps["fontSize"];
 }
 
 export const ValidationIndicators = ({
-  isLengthValid,
-  containsNumber,
-  containsUppercase,
+  criteria,
+  validColor = "green",
+  invalidColor = "red",
+  iconSize = "medium",
 }: Props) => {
   return (
     <ul style={{ fontFamily: "Poppins", paddingLeft: "20px" }}>
-      <li style={{ color: isLengthValid ? "green" : "red" }}>
-        {isLengthValid ? (
-          <CheckCircle sx={{ mr: 1 }} />
-        ) : (
-          <Cancel sx={{ mr: 1 }} />
-        )}
-        Minimum 6 characters
-      </li>
-      <li style={{ color: containsNumber ? "green" : "red" }}>
-        {containsNumber ? (
-          <CheckCircle sx={{ mr: 1 }} />
-        ) : (
-          <Cancel sx={{ mr: 1 }} />
-        )}
-        Contains a number
-      </li>
-      <li style={{ color: containsUppercase ? "green" : "red" }}>
-        {containsUppercase ? (
-          <CheckCircle sx={{ mr: 1 }} />
-        ) : (
-          <Cancel sx={{ mr: 1 }} />
-        )}
-        Contains an uppercase letter
-      </li>
+      {criteria.map((criterion, index) => (
+        <li
+          key={index}
+          style={{ color: criterion.isValid ? validColor : invalidColor }}
+        >
+          {criterion.isValid ? (
+            <CheckCircle sx={{ mr: 1 }} fontSize={iconSize} />
+          ) : (
+            <Cancel sx={{ mr: 1 }} fontSize={iconSize} />
+          )}
+          {criterion.message}
+        </li>
+      ))}
     </ul>
   );
 };
