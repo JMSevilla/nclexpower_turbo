@@ -72,7 +72,12 @@ const FormattedTime: React.FC<{ seconds: number; hideCanResend: boolean }> = ({
 
   return (
     <FormHelperText
-      sx={{ fontWeight: 560, fontSize: '1rem', mt: 1, color: (theme) => theme.palette.grey[500] }}
+      sx={{
+        fontWeight: 560,
+        fontSize: "1rem",
+        mt: 1,
+        color: (theme) => theme.palette.grey[500],
+      }}
     >
       {!canResend
         ? `Resend Code: ${formatted}`
@@ -97,14 +102,8 @@ export const HelperText: React.FC<
 
     return (
       <Stack>
-        {helperText ? (
-          <FormHelperText error={error}>{helperText}</FormHelperText>
-        ) : (
-          <FormattedTime
-            seconds={remainingSeconds}
-            hideCanResend={hideCanResend}
-          />
-        )}
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+        <FormattedTime seconds={remainingSeconds} hideCanResend={hideCanResend} />
         {!hideCanResend && canResend && <ResendButton onClick={onResend} />}
       </Stack>
     );
@@ -188,6 +187,35 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
         }
       };
 
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const paste = event.clipboardData
+      .getData("text")
+      .slice(0, digits)
+      .split("")
+      .filter(isSingleDigitNumber);
+
+    setPin((prevPin) => {
+      const newPin = prevPin.map((val, i) => paste[i] || val);
+      onChange?.(newPin.join(""));
+      return newPin;
+    });
+
+    paste.forEach((char, index) => {
+      if (refs.current[index]) {
+        refs.current[index]!.current!.value = char;
+        refs.current[index]!.current!.dispatchEvent(
+          new Event("input", { bubbles: true })
+        );
+      }
+    });
+
+    const lastFilledIndex = paste.length - 1;
+    if (refs.current[lastFilledIndex]) {
+      refs.current[lastFilledIndex].current!.focus();
+    }
+  };
+
   return (
     <Stack sx={{ width: "100%" }}>
       <Stack direction="column" mx="auto">
@@ -202,7 +230,7 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
           {pin.map((v, i) => (
             <TextField
               sx={{
-                width: ['100%', '100%'],
+                width: ["100%", "100%"],
                 height: [50, 60],
                 ...sx,
               }}
@@ -214,9 +242,9 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
                   px: 1,
                   py: 1.3,
                   height: 50,
-                  width: '100%',
-                  textAlign: 'center',
-                  border: '1px solid #007AB7',
+                  width: "100%",
+                  textAlign: "center",
+                  border: "1px solid #007AB7",
                 },
               }}
               variant={variant}
@@ -224,6 +252,7 @@ export const OtpField: React.FC<Props & { hideCanResend: boolean }> = ({
               autoFocus={i === 0}
               onKeyDown={moveToNext(i)}
               onChange={handleChange(i)}
+              onPaste={handlePaste}
               value={v}
               error={error}
               {...rest}
@@ -256,10 +285,7 @@ export function ControlledOtpField<T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({
-        field: { value, onChange, onBlur },
-        fieldState: { error },
-      }) => {
+      render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => {
         return (
           <OtpField
             value={value}
