@@ -17,6 +17,8 @@ const config: Config = {
       subtitle: "Roboto Slab",
       ptSans: ["PT Sans", "sans-serif"],
       ptSansNarrow: ['PT Sans Narrow', 'sans-serif'],
+      Rajdhani: ['Rajdhani', 'sans-serif'],
+      Poppins: ['Poppins', 'sans-serif'],
     },
     container: {
       padding: {

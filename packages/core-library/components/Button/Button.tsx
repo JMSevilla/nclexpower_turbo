@@ -96,7 +96,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sx,
           }}
           fullWidth={fullWidth}
-          disabled={false}
+          disabled={disabled}
           aria-label={text}
           aria-disabled={isDisabledOrLoading}
           disableRipple={isDisabledOrLoading}

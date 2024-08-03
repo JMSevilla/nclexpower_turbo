@@ -1,18 +1,20 @@
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
+import { useState } from "react";
 import { ForgotPasswordAtom, ForgotPasswordType } from "../../../core/Schema";
 import { useRouter } from "core-library/core/router";
 import { useApiCallback } from "core-library/hooks";
 import { useAtom } from "jotai";
-import { useState } from "react";
 import { useExecuteToast } from "core-library/contexts";
 import { useOtpVerification } from "@/core/hooks/useOtpVerification";
 
 export function ForgotPasswordFormBlock() {
   const [, setAtomEmail] = useAtom(ForgotPasswordAtom);
   const [isExpired, setIsExpired] = useState<boolean>(false);
+  const [showAlert, setshowAlert] = useState<boolean>(false);
   const { setWaitTime } = useOtpVerification();
   const { executeToast } = useExecuteToast();
   const router = useRouter();
+
   const emailCb = useApiCallback(
     async (api, args: { email: string }) =>
       await api.web.web_select_email(args.email)
@@ -27,6 +29,7 @@ export function ForgotPasswordFormBlock() {
       onSubmit={handleSubmit}
       submitLoading={emailCb.loading || verificationCb.loading}
       isExpired={isExpired}
+      showAlert={showAlert}
     />
   );
 
@@ -55,6 +58,7 @@ export function ForgotPasswordFormBlock() {
       const verificationResult = await verificationCb.execute({
         email: values.email,
       });
+      setshowAlert(true);
       if (verificationResult.data.responseCode === 508) {
         setWaitTime(verificationResult.data.waitTimeInMinutes * 60);
         const minutes = verificationResult.data.waitTimeInMinutes * 60;
