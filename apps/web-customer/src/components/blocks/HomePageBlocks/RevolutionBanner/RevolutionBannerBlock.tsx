@@ -1,7 +1,6 @@
 import { ImageCarousel } from '@/components/ImageCarousel/ImageCarousel'
 import { settings } from '@/core/constant/HompageMockData'
 import { CarouselOne, CarouselTwo, CarouselThree } from 'core-library/assets'
-
 import Image from 'next/image'
 
 interface Props { }
