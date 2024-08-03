@@ -207,3 +207,26 @@ export type DiscrepancyRecordItem = {
 export type FileUploadParams = {
   file: File;
 };
+
+export type SelectEmailResponse = {
+  isExpired: boolean;
+  proceed: boolean;
+  accountIsFound: boolean;
+  remainingDays: number;
+  remainingMonths: number;
+  validUntil: string;
+};
+
+export type VerificationResponse = {
+  responseCode: number;
+  waitTimeInMinutes: number;
+};
+
+export type VerifyCodeParams = {
+  code: number;
+  email: string;
+};
+
+export type ResendCodeParams = {
+  email: string;
+};

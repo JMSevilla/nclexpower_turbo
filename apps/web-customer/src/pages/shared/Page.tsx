@@ -7,22 +7,25 @@ import {
 import Layout from "./Layout";
 import { ControlledToast } from "core-library/components";
 import { ClientSecretKeyContextProvider } from "core-library/contexts";
+import { PageLoaderContextProvider } from "core-library/contexts/PageLoaderContext";
 
 const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
       <BusinessQueryContextProvider>
         <AuthProvider>
-          <ToastProvider>
-            <ClientSecretKeyContextProvider>
-              <ControlledToast autoClose={5000} hideProgressBar={false} />
-              <Layout children={children} />
-            </ClientSecretKeyContextProvider>
-          </ToastProvider>
+          <PageLoaderContextProvider loading={false}>
+            <ToastProvider>
+              <ClientSecretKeyContextProvider>
+                <ControlledToast autoClose={5000} hideProgressBar={false} />
+                <Layout children={children} />
+              </ClientSecretKeyContextProvider>
+            </ToastProvider>
+          </PageLoaderContextProvider>
         </AuthProvider>
       </BusinessQueryContextProvider>
     </React.Fragment>
   );
 };
 
-export default Page
+export default Page;

@@ -20,6 +20,7 @@
     "@types/react-slick": "^0.23.13",
     "core-library": "*",
     "isomorphic-dompurify": "^2.13.0",
+    "jotai": "^2.9.1",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",

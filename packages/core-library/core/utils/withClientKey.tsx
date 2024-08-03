@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 import { useClientSecretKey } from "../../contexts/SecretClientKeyContext";
 import { hasClientKeyRoute } from "./contants/route";
 
+/**
+ * @deprecated This is no longer effective in pre-product or production and will not expand enhancement on sprint 10.
+ */
 const withClientSecretKey = (WrappedComponent: React.ComponentType) => {
   const Wrapper = (props: any) => {
     const router = useRouter();
