@@ -78,23 +78,23 @@ const CreateCategoryMainPage: React.FC = () => {
           title="Category Management"
           description="You can create your category for the entire application."
         />
+        <Button
+          sx={{ float: "right", mt: 2, mb: 2 }}
+          onClick={() => openDialog("category_form", "Category Form")}
+        >
+          Create
+        </Button>
+        <Card sx={{ mt: 5, width: "100%" }} elevation={5}>
+          <Typography variant="body1">Category List</Typography>
+          <hr />
+          <DataGrid
+            columns={columns}
+            initPageSize={10}
+            rows={data ?? []}
+            isLoading={isLoading}
+          />
+        </Card>
       </Container>
-      <Button
-        sx={{ float: "right", mt: 2, mb: 2 }}
-        onClick={() => openDialog("category_form", "Category Form")}
-      >
-        Create
-      </Button>
-      <Card sx={{ mt: 5, width: "100%" }} elevation={5}>
-        <Typography variant="body1">Category List</Typography>
-        <hr />
-        <DataGrid
-          columns={columns}
-          initPageSize={10}
-          rows={data ?? []}
-          isLoading={isLoading}
-        />
-      </Card>
     </Box>
   );
 
