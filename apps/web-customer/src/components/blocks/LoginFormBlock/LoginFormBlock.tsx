@@ -32,10 +32,10 @@ export function LoginFormBlock() {
 
   const handleSubmit = useCallback(async (data: LoginParams) => {
     const key = config.value.SECRET_KEY;
-    let passwordToUse = data.password; //qwioyeqoiwh
+    let passwordToUse = data.password;
 
     if (rememberMe) {
-      const encryptedPassword = isEncrypted(data.password) ? data.password : Encryption(data.password, key ?? "no-secret-key"); //asdasdasdasdasdas:1213
+      const encryptedPassword = isEncrypted(data.password) ? data.password : Encryption(data.password, key ?? "no-secret-key");
 
       const obj: SavedDataProps = {
         email: data.email,
@@ -48,7 +48,7 @@ export function LoginFormBlock() {
     }
 
     if (savedData && rememberMe) {
-      const decryptedPassword = Decryption(savedData.password, key ?? "no-secret-key"); //qwioyeqoiwh
+      const decryptedPassword = Decryption(savedData.password, key ?? "no-secret-key");
       const invalidPassword = data.password !== savedData.password && data.password !== decryptedPassword
 
       if (invalidPassword) {
