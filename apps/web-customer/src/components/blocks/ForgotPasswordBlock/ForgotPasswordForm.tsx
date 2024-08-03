@@ -1,18 +1,20 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { TextField } from "core-library/components";
+import { Box, Grid, Typography } from "@mui/material";
+import { Alert, Button, TextField } from "core-library/components";
 import { ForgotPasswordBG } from "../../icons/ForgotPasswordBG";
-import { useForm } from "react-hook-form";
-import { forgotPasswordSchema, forgotPasswordType } from "../../../core/Schema";
+import { FormProvider, useForm } from "react-hook-form";
+import { forgotPasswordSchema, ForgotPasswordType } from "../../../core/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
-  onSubmit: (values: forgotPasswordType) => void;
+  onSubmit: (values: ForgotPasswordType) => void;
   submitLoading?: boolean;
+  isExpired?: boolean;
 }
 
 export const ForgotPasswordForm: React.FC<Props> = ({
   onSubmit,
   submitLoading,
+  isExpired,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -52,10 +54,17 @@ export const ForgotPasswordForm: React.FC<Props> = ({
         sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}
       >
         <Box sx={{ maxWidth: { xs: "xl", lg: "3xl" }, mt: 15 }}>
+          {isExpired && (
+            <Alert
+              severity="error"
+              title="Account Expired"
+              description="The account you are trying to access is already expired."
+            />
+          )}
           <Typography
             variant="h2"
             component="h1"
-            sx={{ fontWeight: "bold", mb: 4, textAlign: "center" }}
+            sx={{ fontWeight: "bold", mb: 4, textAlign: "center", mt: 2 }}
           >
             Forgot Your <span style={{ color: "#007AB7" }}>Password?</span>
           </Typography>
@@ -86,7 +95,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
             Enter the email address associated with your account and we'll send
             you a link to reset your password.
           </Typography>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <FormProvider {...form}>
             <Grid item lg={12} sx={{ marginY: 5 }}>
               <TextField control={control} label="Email" name="email" />
             </Grid>
@@ -99,17 +108,17 @@ export const ForgotPasswordForm: React.FC<Props> = ({
               }}
             >
               <Button
-                type="submit"
                 variant="contained"
                 fullWidth
-                color="primary"
                 sx={{ px: 4, py: 2 }}
+                loading={submitLoading}
                 disabled={submitLoading}
+                onClick={handleSubmit(onSubmit)}
               >
                 Continue
               </Button>
             </Box>
-          </form>
+          </FormProvider>
         </Box>
       </Grid>
     </Grid>

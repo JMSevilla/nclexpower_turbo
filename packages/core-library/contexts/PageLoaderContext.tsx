@@ -31,7 +31,7 @@ export const PageLoaderContextProvider: React.FC<
     setTimeout(() => {
       setIsLoading(false);
       setIsCalculationsLoaded(false);
-    }, 3000);
+    }, 2000);
   }, [isLoading, isCalculationsLoaded]);
 
   return (

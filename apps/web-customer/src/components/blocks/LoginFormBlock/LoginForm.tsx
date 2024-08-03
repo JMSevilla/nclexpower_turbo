@@ -10,7 +10,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from '../ForgotPasswordBlock/ChangePasswordBlock/useShowPassword';
 import { useClientSecretKey } from 'core-library/contexts';
 import { SavedDataProps } from './LoginFormBlock';
-import Button from '@mui/material/Button';
+import { Button } from 'core-library/components';
+// import Button from '@mui/material/Button';
 import CoreZigma from '../../images/CoreZigma.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from 'next/link';
@@ -115,8 +116,10 @@ export const LoginForm: React.FC<Props> = ({
                 </Typography>
               </Grid>
               <Box sx={{ gridColumn: 'span 10', display: 'flex', alignItems: 'center', gap: 4 }}>
-                <Button disabled={submitLoading} variant="contained" fullWidth className='hover:bg-hoverBlue' type='submit'
-                  sx={{ px: 4, py: 2, backgroundColor: '#0F2A71', borderRadius: '10px', }}>
+                <Button disabled={submitLoading} variant="contained" fullWidth className='hover:bg-hoverBlue'
+                  sx={{ px: 4, py: 2, backgroundColor: '#0F2A71', borderRadius: '10px', }}
+                  onClick={handleSubmit(onSubmit)}
+                >
                   <span className='pt-sans-narrow-bold text-lg normal-case'>Sign In</span>
                 </Button>
               </Box>

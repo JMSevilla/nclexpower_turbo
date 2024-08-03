@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "../core";
 
 /**
  * Calls a handler when the user tries to leave the page using in-app navigation.
@@ -23,16 +23,15 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      
-      if (typeof window === 'undefined') return;
+      if (typeof window === "undefined") return;
 
       event.preventDefault();
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
@@ -46,7 +45,7 @@ export function useBeforeUnload(enabled: boolean, handler?: VoidFunction) {
         throw "routeChange aborted";
       }
     };
-    
+
     const cleanUp = () =>
       router.events.off("routeChangeStart", handleRouteChangeStart);
 

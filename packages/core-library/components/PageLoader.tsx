@@ -31,7 +31,7 @@ export const PageLoader: React.FC = () => {
       );
     };
 
-    const timer = setInterval(updateProgress, 300);
+    const timer = setInterval(updateProgress, 200);
     return () => clearInterval(timer);
   }, []);
 

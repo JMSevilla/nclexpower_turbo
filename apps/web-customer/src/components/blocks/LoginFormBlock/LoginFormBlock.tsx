@@ -6,7 +6,7 @@ import { Encryption } from 'core-library/utils/Encryption';
 import { Decryption } from 'core-library/utils/Decryption';
 import { useLocalStorage } from 'core-library/hooks';
 import { useAuthContext, useExecuteToast } from 'core-library/contexts';
-import { useRouter } from 'next/router';
+import { useRouter } from "core-library/core/router";
 
 export interface SavedDataProps {
   email: string;
@@ -15,7 +15,7 @@ export interface SavedDataProps {
 }
 
 export function LoginFormBlock() {
-  const { login } = useAuthContext();
+  const { login, loading } = useAuthContext();
   const { setItem, getItem, removeItem } = useLocalStorage("rm");
   const [rememberMe, setRememberMe] = useState(false);
   const [savedData, setSavedData] = useState<SavedDataProps | null>(null);
@@ -23,7 +23,7 @@ export function LoginFormBlock() {
   const router = useRouter();
 
   const handleBack = () => {
-    router.push('/');
+    router.push((route) => route.home);
   };
 
   const isEncrypted = (password: string) => {
@@ -32,10 +32,10 @@ export function LoginFormBlock() {
 
   const handleSubmit = useCallback(async (data: LoginParams) => {
     const key = config.value.SECRET_KEY;
-    let passwordToUse = data.password;
+    let passwordToUse = data.password; //qwioyeqoiwh
 
     if (rememberMe) {
-      const encryptedPassword = isEncrypted(data.password) ? data.password : Encryption(data.password, key ?? "no-secret-key");
+      const encryptedPassword = isEncrypted(data.password) ? data.password : Encryption(data.password, key ?? "no-secret-key"); //asdasdasdasdasdas:1213
 
       const obj: SavedDataProps = {
         email: data.email,
@@ -48,7 +48,7 @@ export function LoginFormBlock() {
     }
 
     if (savedData && rememberMe) {
-      const decryptedPassword = Decryption(savedData.password, key ?? "no-secret-key");
+      const decryptedPassword = Decryption(savedData.password, key ?? "no-secret-key"); //qwioyeqoiwh
       const invalidPassword = data.password !== savedData.password && data.password !== decryptedPassword
 
       if (invalidPassword) {
@@ -58,7 +58,7 @@ export function LoginFormBlock() {
         });
         return;
       }
-      passwordToUse = decryptedPassword ?? "";
+      passwordToUse = decryptedPassword || data.password
     }
 
     try {
@@ -74,19 +74,21 @@ export function LoginFormBlock() {
     }
   }, [savedData, rememberMe, setItem, removeItem, login, router, toast]);
 
-  const handleChangeRememberMe = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRememberMe = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRememberMe(event.target.checked);
   };
 
   useEffect(() => {
     const item = getItem();
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       try {
         const parsedRm: SavedDataProps = JSON.parse(item);
         setSavedData(parsedRm);
         setRememberMe(parsedRm.rememberMe);
       } catch (error) {
-        console.error('Failed to parse saved data', error);
+        console.error("Failed to parse saved data", error);
       }
     }
   }, [getItem]);
@@ -94,7 +96,7 @@ export function LoginFormBlock() {
   return (
     <LoginForm
       onSubmit={handleSubmit}
-      submitLoading={false}
+      submitLoading={loading}
       handleChangeRememberMe={handleChangeRememberMe}
       rememberMe={rememberMe}
       savedData={savedData}

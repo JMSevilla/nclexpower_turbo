@@ -1,7 +1,12 @@
 import * as yup from "yup";
+import { atom } from "jotai";
 
 export const forgotPasswordSchema = yup.object({
   email: yup.string().email().required("Email is required").default(""),
 });
 
-export type forgotPasswordType = yup.InferType<typeof forgotPasswordSchema>;
+export type ForgotPasswordType = yup.InferType<typeof forgotPasswordSchema>;
+
+export const ForgotPasswordAtom = atom<ForgotPasswordType | undefined>(
+  undefined
+);

@@ -16,6 +16,7 @@ const HTTP_OPTIONS: HttpOptions = {
     "x-api-key": config.value.XAPIKEY,
     "Content-Type": "application/json",
     "X-Environment": config.value.SYSENV,
+    "X-Time-Zone": "Asia/Manila", // we should create a middleware to get the timezone dynamically.
   },
   onRequest: (req) => {
     const accessToken = getItem<string | undefined>("accessToken");
