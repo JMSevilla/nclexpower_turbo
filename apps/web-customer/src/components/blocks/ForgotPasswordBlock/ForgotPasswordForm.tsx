@@ -79,7 +79,6 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                   />
                 </div>
               )}
-              s
               {isExpired && (
                 <div className="pt-2">
                   <Alert
