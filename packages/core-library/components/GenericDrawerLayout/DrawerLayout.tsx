@@ -44,7 +44,8 @@ export const DrawerLayout: React.FC<
     router.pathname === "/order-summary" ||
     router.pathname === "/404" ||
     router.pathname === "/account/forgot-password" ||
-    router.pathname === "/account/change-password";
+    router.pathname === "/account/change-password" ||
+    router.pathname === "/account/reset-link";
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);

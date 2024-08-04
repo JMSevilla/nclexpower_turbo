@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { OTP_REGEX } from "core-library/utils/regex";
+import { OTP_REGEX } from "core-library/utils";
 
 export const OTPSchema = yup.object().shape({
   otp: yup

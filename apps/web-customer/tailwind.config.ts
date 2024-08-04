@@ -17,6 +17,8 @@ const config: Config = {
       subtitle: "Roboto Slab",
       ptSans: ["PT Sans", "sans-serif"],
       ptSansNarrow: ['PT Sans Narrow', 'sans-serif'],
+      Rajdhani: ['Rajdhani', 'sans-serif'],
+      Poppins: ['Poppins', 'sans-serif'],
     },
     container: {
       padding: {
@@ -44,6 +46,7 @@ const config: Config = {
         sideBarTabHover: "#253d53", // white gray
         blue: "#1a73e8", // blue
         darkBlue: "#0F2A71;", //login blue
+        yellow: "#F4C501", // yellow
         accent: {
           DEFAULT: "#bd321c", //red,
           hoverToRed: "#bd321c", // red,
