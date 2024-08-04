@@ -225,6 +225,35 @@ export const OtpField: React.FC<
           }
         };
 
+    const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      const paste = event.clipboardData
+        .getData("text")
+        .slice(0, digits)
+        .split("")
+        .filter(isSingleDigitNumber);
+
+      setPin((prevPin) => {
+        const newPin = prevPin.map((val, i) => paste[i] || val);
+        onChange?.(newPin.join(""));
+        return newPin;
+      });
+
+      paste.forEach((char, index) => {
+        if (refs.current[index]) {
+          refs.current[index]!.current!.value = char;
+          refs.current[index]!.current!.dispatchEvent(
+            new Event("input", { bubbles: true })
+          );
+        }
+      });
+
+      const lastFilledIndex = paste.length - 1;
+      if (refs.current[lastFilledIndex]) {
+        refs.current[lastFilledIndex].current!.focus();
+      }
+    };
+
     return (
       <Stack sx={{ width: "100%" }}>
         <Stack direction="column" mx="auto">
@@ -261,6 +290,7 @@ export const OtpField: React.FC<
                 autoFocus={i === 0}
                 onKeyDown={moveToNext(i)}
                 onChange={handleChange(i)}
+                onPaste={handlePaste}
                 value={v}
                 error={error}
                 {...rest}
@@ -294,10 +324,7 @@ export function ControlledOtpField<T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({
-        field: { value, onChange, onBlur },
-        fieldState: { error },
-      }) => {
+      render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => {
         return (
           <OtpField
             value={value}
