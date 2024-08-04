@@ -32,12 +32,10 @@ const OTPForm: React.FC<Props> = ({
 
   return (
     <section className="h-screen flex items-center justify-center flex-col font-['Poppins']">
-      <Image className="w-80" src={OTP} alt="ImageOne" />
+      <Image className='w-80' src={OTP} alt="ImageOne" />
       <div className="text-center my-2">
-        <h2 className="text-4xl font-['Poppins'] my-2">Verify Your Account</h2>
-        <p className="text-xl text-paragraph">
-          Enter the OTP sent to your email
-        </p>
+        <h2 className="text-4xl pt-sans-caption-bold my-2 text-darkBlue">Verify Your Account</h2>
+        <p className="text-xl pt-sans-narrow-regular text-darkGray">Enter the OTP sent to your email</p>
       </div>
       <FormProvider {...form}>
         <Stack className="my-2">
@@ -55,7 +53,8 @@ const OTPForm: React.FC<Props> = ({
           </Stack>
           <Button
             variant="contained"
-            sx={{ marginY: 3, padding: 1.5 }}
+            className='hover:bg-hoverBlue'
+            sx={{ px: 4, py: 2, backgroundColor: '#0F2A71', mt: 2 }}
             loading={submitLoading}
             disabled={submitLoading}
             onClick={handleSubmit(onSubmit)}
