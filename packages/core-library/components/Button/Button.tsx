@@ -6,6 +6,7 @@ import {
 import { forwardRef } from "react";
 import { useCustomAction } from "../../hooks";
 import { ButtonType } from "./button-type";
+import { Box } from '@mui/material';
 
 export interface ButtonProps
   extends Pick<
@@ -33,7 +34,7 @@ export interface ButtonProps
   customActionKey?: string;
 }
 
-const LOADER_SIZE = 26;
+const LOADER_SIZE = 20;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -74,11 +75,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             className,
             type,
             isLoading ? "loading" : null,
-            isDisabled ? "disabled" : null,
+            isDisabledOrLoading ? "disabled" : null,
           ]
             .filter(Boolean)
             .join(" ")}
           sx={{
+            display: 'flex',
+            alignItems: 'stretch',
             position: "relative",
             width: fullWidth ? "100%" : width,
             minWidth: 140,
@@ -86,10 +89,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             borderRadius: 0,
             "& #loader": {
               position: "absolute",
-              left: `calc(50% - ${LOADER_SIZE / 2}px)`,
+              marginY: 'auto',
               top: `calc(50% - ${LOADER_SIZE / 2}px)`,
+              marginLeft: 1
             },
-
             ...sx,
           }}
           fullWidth={fullWidth}
@@ -107,11 +110,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         >
           {children || text}
           {isLoading && (
-            <CircularProgress
-              size={LOADER_SIZE}
-              id="loader"
-              aria-live="assertive"
-            />
+            <Box>
+              <CircularProgress
+                size={LOADER_SIZE}
+                color="inherit"
+                id="loader"
+                aria-live="assertive"
+                thickness={5}
+              />
+            </Box>
           )}
         </MuiButton>
         {action?.node}

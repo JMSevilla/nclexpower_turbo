@@ -25,7 +25,7 @@ export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({
           <ComponentLoader disableMarginBottom />
         </Box>
       ) : (
-        <Box display="flex" flexDirection="column" height="100%">
+        <Box display="flex" flexDirection="column" height="100%" className={'animate-fadeIn'}>
           {children}
         </Box>
       )}

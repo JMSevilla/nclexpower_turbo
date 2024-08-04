@@ -50,12 +50,11 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           height={70}
         >
           <Typography
-            variant="h5"
             component="span"
             fontWeight="bold"
             color="primary"
           >
-            NO LOGO
+            WEB BACKOFFICE
           </Typography>
 
           <Box position="absolute" right={5}>

@@ -38,19 +38,14 @@ const STATIC_ROUTES: StaticRoutes = {
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
-  const { setIsLoading, setIsCalculationsLoaded } = usePageLoaderContext();
   const staticRoutes = {} as StaticRoutes;
 
   useEffect(() => {
     const start = () => {
       setLoading(true);
-      setIsLoading(true);
-      setIsCalculationsLoaded(true);
     };
     const end = () => {
       setLoading(false);
-      setIsLoading(false);
-      setIsCalculationsLoaded(false);
     };
 
     router.events.on("routeChangeStart", start);
