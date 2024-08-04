@@ -1,7 +1,7 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
-import { PageContainer, LoadablePageContent } from "@/components";
+import { PageContainer } from "@/components";
 import { ControlledToast, DrawerLayout } from "core-library/components";
 import {
   DialogContextProvider,
@@ -10,8 +10,9 @@ import {
 } from "core-library/contexts";
 import { useAuthContext } from "core-library/contexts";
 import { mockMenus } from "core-library/components/GenericDrawerLayout/MockMenus";
+import { ContentLoader } from 'core-library/router'
 
-interface Props {}
+interface Props { }
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { loading, logout } = useAuthContext();
@@ -31,14 +32,14 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
               isAuthenticated={isAuthenticated}
               onLogout={logout}
             >
-              <LoadablePageContent loading={loading}>
+              <ContentLoader loading={loading}>
                 <PageContainer stickOut={false}>
                   <ToastProvider>
                     <ControlledToast autoClose={5000} hideProgressBar={false} />
                     {children}
                   </ToastProvider>
                 </PageContainer>
-              </LoadablePageContent>
+              </ContentLoader>
             </DrawerLayout>
           </DialogContextProvider>
         </ExpirationContextProvider>

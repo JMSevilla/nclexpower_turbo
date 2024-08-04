@@ -13,3 +13,4 @@ export * from "./useSanitizeInputs";
 export * from "./useWizardForm";
 export * from "./useModal";
 export * from "./useBeforeUnload";
+export * from "./usePageLoader"

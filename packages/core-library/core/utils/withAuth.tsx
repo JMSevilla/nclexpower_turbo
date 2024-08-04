@@ -69,7 +69,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     }, [router, accessToken]);
 
     if (isLoading) {
-      return <div>Loading...</div>;
+      return;
     }
 
     return (isAuthenticated &&

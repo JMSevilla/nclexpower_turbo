@@ -7,13 +7,13 @@ import {
   useState,
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
-import { useRouter } from "next/router";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
 import { LoginParams, RegisterParams } from "../../types/types";
 import { useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
+import { useRouter } from '../../core';
 
 const context = createContext<{
   loading: boolean;
@@ -57,9 +57,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         clearCookies();
         clearAccessToken();
         clearRefreshToken();
-        router.push("/login");
+        router.push((route) => route.login);
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
