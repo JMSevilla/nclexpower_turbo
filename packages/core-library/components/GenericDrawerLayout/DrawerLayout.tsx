@@ -15,6 +15,7 @@ type DrawerLayoutType = {
   headerContainerSx?: SxProps<Theme>;
   buttonHeaderSx?: SxProps<Theme>;
   onLogout?: () => void;
+  loading?: boolean;
 };
 
 export const DrawerLayout: React.FC<
@@ -26,6 +27,7 @@ export const DrawerLayout: React.FC<
   headerContainerSx,
   buttonHeaderSx,
   onLogout,
+  loading,
 }) => {
   const [open, setOpen] = useState(true);
   const { isMobile } = useResolution();
@@ -60,6 +62,8 @@ export const DrawerLayout: React.FC<
   }, []);
 
   if (!mounted) return null;
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <Box display="flex">

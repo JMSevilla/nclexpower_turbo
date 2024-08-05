@@ -230,3 +230,8 @@ export type VerifyCodeParams = {
 export type ResendCodeParams = {
   email: string;
 };
+
+export type ValidateTokenParams = {
+  accessToken: string | undefined;
+  appName: string;
+};
