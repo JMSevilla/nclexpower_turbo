@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { TextField } from "core-library/components";
-import { ContactFormType } from "../../../core/Schema/ContactForm/validation";
+import { ContactFormType } from "@/core/Schema";
 import { Control, UseFormHandleSubmit } from "react-hook-form";
 
 interface FormValues {
