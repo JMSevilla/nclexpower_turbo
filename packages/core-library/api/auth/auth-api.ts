@@ -5,6 +5,7 @@ import {
   LoginResponse,
   RefreshParams,
   RefreshTokenResponse,
+  ValidateTokenParams,
 } from "../types";
 
 export class AuthApi {
@@ -32,5 +33,9 @@ export class AuthApi {
       `/api/v2/internal/baseInternal/login`,
       params
     );
+  }
+
+  public validateToken(params: ValidateTokenParams) {
+    return this.ssrAxios.post<number>(`/api/security/validate-token`, params);
   }
 }

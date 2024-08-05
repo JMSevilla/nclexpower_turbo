@@ -10,9 +10,10 @@ import {
 } from "core-library/contexts";
 import { useAuthContext } from "core-library/contexts";
 import { mockMenus } from "core-library/components/GenericDrawerLayout/MockMenus";
-import { ContentLoader } from 'core-library/router'
+import { ContentLoader } from "core-library/router";
+import { useValidateToken } from "core-library/hooks";
 
-interface Props { }
+interface Props {}
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { loading, logout } = useAuthContext();
@@ -20,6 +21,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { isAuthenticated } = useAuthContext();
   const theme = useTheme();
   const mockMenu = mockMenus(isAuthenticated);
+  const { tokenValidated, loading: validateLoading } = useValidateToken();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -29,8 +31,9 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
           <DialogContextProvider>
             <DrawerLayout
               menu={mockMenu}
-              isAuthenticated={isAuthenticated}
+              isAuthenticated={isAuthenticated || tokenValidated}
               onLogout={logout}
+              loading={validateLoading}
             >
               <ContentLoader loading={loading}>
                 <PageContainer stickOut={false}>
