@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { ContactForm } from "./ContactForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { ContactFormType, contactSchema } from "../../../core/Schema";
+import { ContactFormType, contactSchema } from "./validation";
 import { useExecuteToast } from "core-library/contexts";
 
 export function ContactFormBlock() {
@@ -11,15 +11,19 @@ export function ContactFormBlock() {
   const form = useForm({
     mode: "onSubmit",
     resolver: yupResolver(contactSchema),
-    defaultValues: contactSchema.getDefault()
+    defaultValues: contactSchema.getDefault(),
   });
 
   const { handleSubmit, control } = form;
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
-    toast.executeToast('Your message have been received. Thank you', "top-right", false)
-  }
+    toast.executeToast(
+      "Your message have been received. Thank you",
+      "top-right",
+      false
+    );
+  };
 
   return (
     <ContactForm
