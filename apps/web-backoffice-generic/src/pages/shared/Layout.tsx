@@ -7,6 +7,7 @@ import {
   DialogContextProvider,
   ToastProvider,
   ExpirationContextProvider,
+  TabsContextProvider,
 } from "core-library/contexts";
 import { useAuthContext } from "core-library/contexts";
 import { mockMenus } from "core-library/components/GenericDrawerLayout/MockMenus";
@@ -27,25 +28,30 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ExpirationContextProvider logout={logout}>
-          <DialogContextProvider>
-            <DrawerLayout
-              menu={mockMenu}
-              isAuthenticated={isAuthenticated || tokenValidated}
-              onLogout={logout}
-              loading={validateLoading}
-            >
-              <ContentLoader loading={loading}>
-                <PageContainer stickOut={false}>
-                  <ToastProvider>
-                    <ControlledToast autoClose={5000} hideProgressBar={false} />
-                    {children}
-                  </ToastProvider>
-                </PageContainer>
-              </ContentLoader>
-            </DrawerLayout>
-          </DialogContextProvider>
-        </ExpirationContextProvider>
+        <TabsContextProvider>
+          <ExpirationContextProvider logout={logout}>
+            <DialogContextProvider>
+              <DrawerLayout
+                menu={mockMenu}
+                isAuthenticated={isAuthenticated || tokenValidated}
+                onLogout={logout}
+                loading={validateLoading}
+              >
+                <ContentLoader loading={loading}>
+                  <PageContainer stickOut={false}>
+                    <ToastProvider>
+                      <ControlledToast
+                        autoClose={5000}
+                        hideProgressBar={false}
+                      />
+                      {children}
+                    </ToastProvider>
+                  </PageContainer>
+                </ContentLoader>
+              </DrawerLayout>
+            </DialogContextProvider>
+          </ExpirationContextProvider>
+        </TabsContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

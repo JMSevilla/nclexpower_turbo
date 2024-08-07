@@ -9,11 +9,7 @@ import {
   Alert,
 } from "core-library/components";
 import React, { useEffect, useState } from "react";
-import {
-  fileValidationErrors,
-  uploadFormSchema,
-  UploadFormType,
-} from "../../validation";
+import { fileValidationErrors, uploadFormSchema } from "../../validation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Chip, Typography } from "@mui/material";
@@ -25,6 +21,7 @@ import {
   DiscrepanciesResponse,
   FileUploadParams,
 } from "core-library/api/types";
+import { UploadFormType } from "../../types";
 
 interface Props {
   fileType?: string[];

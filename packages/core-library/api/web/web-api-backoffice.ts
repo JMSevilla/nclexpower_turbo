@@ -19,6 +19,7 @@ import {
   PricingListResponse,
   ProductListResponse,
   ProductSetStatusParams,
+  RegularQuestionTypeParams,
 } from "../types";
 
 export class WebApiBackOffice {
@@ -176,6 +177,13 @@ export class WebApiBackOffice {
   public async createProducts(params: ProductParams) {
     return await this.axios.post<number>(
       `/api/v1/Product/internal-add-products`,
+      params
+    );
+  }
+
+  public createRegularType(params: RegularQuestionTypeParams) {
+    return this.axios.post<number>(
+      `/api/v1/Category/create-regular-type`,
       params
     );
   }

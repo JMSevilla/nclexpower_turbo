@@ -235,3 +235,8 @@ export type ValidateTokenParams = {
   accessToken: string | undefined;
   appName: string;
 };
+
+export type RegularQuestionTypeParams = {
+  questionType: string;
+  description: string;
+};

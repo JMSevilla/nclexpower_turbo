@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { ChooseSettingsOptions, SettingsSelectionOptions } from "./types";
 
 export const uploadFormSchema = () => {
   return yup.object({
@@ -6,7 +7,13 @@ export const uploadFormSchema = () => {
   });
 };
 
-export type UploadFormType = yup.InferType<ReturnType<typeof uploadFormSchema>>;
+export const settingsSelectionSchema = yup
+  .object({
+    selection: yup.mixed<SettingsSelectionOptions>(),
+    chosen: yup.mixed<ChooseSettingsOptions>(),
+  })
+  .required()
+  .concat(uploadFormSchema());
 
 export const fileValidationErrors = (prefix: string) => ({
   fileType: `${prefix}_type_error`,
