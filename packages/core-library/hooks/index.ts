@@ -15,3 +15,4 @@ export * from "./useModal";
 export * from "./useBeforeUnload";
 export * from "./usePageLoader";
 export * from "./useValidateToken";
+export * from "./useActiveSteps";
