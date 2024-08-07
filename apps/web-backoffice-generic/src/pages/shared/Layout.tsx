@@ -13,6 +13,7 @@ import { useAuthContext } from "core-library/contexts";
 import { mockMenus } from "core-library/components/GenericDrawerLayout/MockMenus";
 import { ContentLoader } from "core-library/router";
 import { useValidateToken } from "core-library/hooks";
+import { theme } from "core-library/contents/theme/theme";
 
 interface Props {}
 
@@ -20,13 +21,12 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { loading, logout } = useAuthContext();
   const queryClient = new QueryClient();
   const { isAuthenticated } = useAuthContext();
-  const theme = useTheme();
   const mockMenu = mockMenus(isAuthenticated);
   const { tokenValidated, loading: validateLoading } = useValidateToken();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme()}>
         <CssBaseline />
         <TabsContextProvider>
           <ExpirationContextProvider logout={logout}>
