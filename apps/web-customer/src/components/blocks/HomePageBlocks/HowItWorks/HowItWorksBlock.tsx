@@ -22,7 +22,7 @@ export const HowItWorksBlock: React.FC<Props> = (props) => {
                         <Image src={StudyCards} alt='StudyCards' />
                         <p>Step 2 : <span className='text-[#0f2a71] font-bold'>By Studying</span></p>
                     </div>
-                    <div className='w-1/3 flex items-center flex-col hover:scale-105 transition-all duration-300'>\
+                    <div className='w-1/3 flex items-center flex-col hover:scale-105 transition-all duration-300'>
                         <Image src={PracticeTest} alt='PracticeTest' />
                         <p >Step 3 : <span className='text-[#0f2a71] font-bold'>By Doing</span></p>
                     </div>
