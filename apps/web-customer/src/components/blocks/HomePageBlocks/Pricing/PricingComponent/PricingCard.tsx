@@ -24,7 +24,18 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
     const ProgramTitle = cardData.programTitle
     const ProgramDescription = cardData.programType == 0 ? StandardList : FastTrackList
     return (
-        <div className=' transition-all duration-300 h-full border border-darkGray w-[350px] px-12 py-5 rounded-md shadow-md'>
+        <div
+            onClick={() =>
+                handleSelectProduct({
+                    amount: cardData.pricing.price,
+                    currency: cardData.pricing.currency,
+                    productName: cardData.productName,
+                    productDescription: cardData.productDescription,
+                    programTitle: cardData.programTitle,
+                    pricingId: cardData.pricingId,
+                    productId: cardData.id,
+                    programType: cardData.programType // 0 = 23 Days : 1 = 8 Days
+                })} className=' transition-all duration-300 h-full border border-darkGray w-[350px] px-12 py-5 rounded-md shadow-md'>
             <div className='w-full flex h-fit py-2 items-center justify-center  rounded-md'>
                 <p className="text-2xl">{cardData.programType == 0 ? '23 Days (Standard)' : '8 Days (Fast Track)'}</p>
 
@@ -45,17 +56,7 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
             <div className="w-full flex gap-5 py-5 justify-center items-center px-2 font-semibold">
                 <button
                     className={`${ProgramTitle === 1 ? 'bg-[#08474b]' : 'bg-[#0c225c]'} text-white w-full py-2 rounded-lg`}
-                    onClick={() =>
-                        handleSelectProduct({
-                            amount: cardData.pricing.price,
-                            currency: cardData.pricing.currency,
-                            productName: cardData.productName,
-                            productDescription: cardData.productDescription,
-                            programTitle: cardData.programTitle,
-                            pricingId: cardData.pricingId,
-                            productId: cardData.id,
-                            programType: cardData.programType // 0 = 23 Days : 1 = 8 Days
-                        })}>
+                >
                     Get Started
                 </button>
             </div>
