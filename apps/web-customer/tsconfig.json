@@ -21,7 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     "../../packages/core-library/global.d.ts",
-    "../../packages/core-library/core/utils/useDecryptOrder.tsx"
+    "../../packages/core-library/core/utils/useDecryptOrder.tsx",
+    "../../packages/core-library/theme.d.ts"
   ],
   "exclude": ["node_modules"]
 }

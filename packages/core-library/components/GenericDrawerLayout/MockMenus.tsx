@@ -46,6 +46,11 @@ const AuthenticatedMenu: NavigationType[] = [
         label: "Create Category",
         path: "/category/create-category",
       },
+      {
+        id: 5,
+        label: "Create Regular Q-Type",
+        path: "/category/create-rq-type",
+      },
     ],
   },
   {
