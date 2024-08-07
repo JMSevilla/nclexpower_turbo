@@ -26,6 +26,6 @@ export const Tab = styled((props: StyledTabProps) => (
   />
 ))(({ theme }) => ({
   "&.Mui-selected": {
-    backgroundColor: theme.palette.appColors?.support80.transparentLight,
+    backgroundColor: theme.palette?.appColors?.support80.transparentLight,
   },
 }));
