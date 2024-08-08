@@ -20,8 +20,6 @@ const CheckoutPage = (props: CheckoutPageProps) => (
 const OrderCheckout: React.FC<Props> = (props) => {
     const orderDetail = useDecryptOrder();
     const { paymentIntentId, clientSecret, stripePromise, orderNumber } = useStripeContext();
-    console.log("orderNumber : ", orderNumber)
-
 
     return (
         <div className="w-screen h-screen flex">
