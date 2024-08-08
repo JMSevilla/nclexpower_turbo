@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
-import { useResolution } from "../../hooks";
+import { useResolution, useRouteBasedVisibility } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from 'next/router';
@@ -28,6 +28,7 @@ export const Header: React.FC<Props> = ({
   onLogout,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -35,12 +36,13 @@ export const Header: React.FC<Props> = ({
   const { isMobile } = useResolution();
   const router = useRouter();
   const { loginButtonSx } = useWebHeaderStyles();
+  const { isHeaderHidden } = useRouteBasedVisibility()
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/" });
   };
 
-  return (
+  return !isHeaderHidden && (
     <Box
       role="banner"
       component="header"
