@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Box, Button } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
 import { Header } from "../GenericHeader/Header";
 import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
-import { useResolution } from "../../hooks";
+import { useIsMounted, useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useRouter } from "next/router";
 
 type DrawerLayoutType = {
   menu: NavigationType[];
@@ -29,60 +28,40 @@ export const DrawerLayout: React.FC<
   onLogout,
   loading,
 }) => {
-  const [open, setOpen] = useState(true);
-  const { isMobile } = useResolution();
-  const [mounted, setMounted] = useState<boolean>(false);
-  const AuthHeaderStyle = !isAuthenticated ? headerContainerSx : null;
-  const AuthButtonStyle = !isAuthenticated ? buttonHeaderSx : null;
+    const { isMobile } = useResolution();
+    const mounted = useIsMounted()
+    const [open, setOpen] = useState(true);
+    const AuthHeaderStyle = useMemo(() => !isAuthenticated ? headerContainerSx : null, [isAuthenticated]);
+    const AuthButtonStyle = useMemo(() => !isAuthenticated ? buttonHeaderSx : null, [isAuthenticated]);
 
-  const router = useRouter();
+    const handleDrawer = () => {
+      setOpen((prev) => !prev);
+    };
 
-  const hideDrawer =
-    router.pathname === "order-checkout" ||
-    router.pathname === "/login" ||
-    router.pathname === "/account/verification/otp" ||
-    router.pathname === "/customer/payment/checkout" ||
-    router.pathname === "/payment-success" ||
-    router.pathname === "/order-summary" ||
-    router.pathname === "/404" ||
-    router.pathname === "/account/forgot-password" ||
-    router.pathname === "/account/change-password" ||
-    router.pathname === "/account/reset-link";
+    useEffect(() => {
+      setOpen(!isMobile);
+    }, [isMobile]);
 
-  const handleDrawer = () => {
-    setOpen((prev) => !prev);
-  };
 
-  useEffect(() => {
-    setOpen(!isMobile);
-  }, [isMobile]);
+    if (!mounted) return;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <Box display="flex">
-      {(isAuthenticated || isMobile) && (
-        <Sidebar
-          isMobile={isMobile}
-          menu={menu}
-          open={open}
-          setOpen={handleDrawer}
-        />
-      )}
-      <Main open={open} isMobile={isMobile}>
-        <Box
-          display="flex"
-          height="100vh"
-          flexDirection="column"
-          minHeight="100vh"
-        >
-          {!hideDrawer && (
+    return (
+      <Box display="flex">
+        {(isAuthenticated || isMobile) && (
+          <Sidebar
+            isMobile={isMobile}
+            menu={menu}
+            open={open}
+            setOpen={handleDrawer}
+          />
+        )}
+        <Main open={open} isMobile={isMobile}>
+          <Box
+            display="flex"
+            height="100vh"
+            flexDirection="column"
+            minHeight="100vh"
+          >
             <Header
               drawerButton={
                 ((!open && isAuthenticated) || isMobile) && (
@@ -97,10 +76,9 @@ export const DrawerLayout: React.FC<
               buttonHeaderSx={AuthButtonStyle}
               onLogout={onLogout}
             />
-          )}
-          <Box height="100%">{children}</Box>
-        </Box>
-      </Main>
-    </Box>
-  );
-};
+            <Box height="100%">{children}</Box>
+          </Box>
+        </Main>
+      </Box>
+    );
+  };
