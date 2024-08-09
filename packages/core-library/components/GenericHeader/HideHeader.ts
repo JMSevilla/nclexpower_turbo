@@ -1,7 +1,6 @@
 import { HiddenNavigationType } from 'core-library/types';
 
 export const HideHeader: HiddenNavigationType[] = [
-
     {
         appName: 'webc_app',
         pathnames: [

@@ -11,4 +11,5 @@ export const HideFooter: HiddenNavigationType[] = [
             '/account/change-password',
             '/account/reset-link',
         ]
-    }]
+    }
+]

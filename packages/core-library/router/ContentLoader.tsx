@@ -29,7 +29,7 @@ export const ContentLoader: React.FC<React.PropsWithChildren<Props>> = ({
                 </Box>
             ) : (
                 <Box display="flex" flexDirection="column" height="100%" className={'animate-fadeIn'}>
-                    {children && children}
+                    {children}
                 </Box>
             )}
         </React.Fragment>
