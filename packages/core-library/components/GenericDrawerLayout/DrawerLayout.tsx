@@ -7,14 +7,14 @@ import { Sidebar } from "../";
 import { useIsMounted, useResolution } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
+import { WebHeaderStylesType } from '../../types/web-header-style';
 
 type DrawerLayoutType = {
   menu: NavigationType[];
   isAuthenticated: boolean;
-  headerContainerSx?: SxProps<Theme>;
-  buttonHeaderSx?: SxProps<Theme>;
   onLogout?: () => void;
   loading?: boolean;
+  headerStyles?: WebHeaderStylesType
 };
 
 export const DrawerLayout: React.FC<
@@ -23,16 +23,13 @@ export const DrawerLayout: React.FC<
   menu,
   children,
   isAuthenticated,
-  headerContainerSx,
-  buttonHeaderSx,
   onLogout,
   loading,
+  headerStyles
 }) => {
     const { isMobile } = useResolution();
     const mounted = useIsMounted()
     const [open, setOpen] = useState(true);
-    const AuthHeaderStyle = useMemo(() => !isAuthenticated ? headerContainerSx : null, [isAuthenticated]);
-    const AuthButtonStyle = useMemo(() => !isAuthenticated ? buttonHeaderSx : null, [isAuthenticated]);
 
     const handleDrawer = () => {
       setOpen((prev) => !prev);
@@ -63,6 +60,7 @@ export const DrawerLayout: React.FC<
             minHeight="100vh"
           >
             <Header
+              {...headerStyles}
               drawerButton={
                 ((!open && isAuthenticated) || isMobile) && (
                   <Button onClick={handleDrawer}>
@@ -72,8 +70,6 @@ export const DrawerLayout: React.FC<
               }
               menu={menu}
               isAuthenticated={isAuthenticated}
-              headerContainerSx={AuthHeaderStyle}
-              buttonHeaderSx={AuthButtonStyle}
               onLogout={onLogout}
             />
             <Box height="100%">{children}</Box>

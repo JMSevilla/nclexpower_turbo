@@ -2,7 +2,7 @@ import { HiddenNavigationType } from '../../types';
 
 export const HideFooter: HiddenNavigationType[] = [
     {
-        appName: '  webc_app',
+        appName: 'webc_app',
         pathnames: [
             '/account/verification/otp',
             '/login',
