@@ -47,7 +47,7 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
             </div>
             <div className="w-full flex gap-5 justify-center items-center py-5">
                 <div className="text-xs flex flex-col gap-2">{ProgramDescription.length > 0 && ProgramDescription.map((list, index) => (
-                    <div className='flex gap-2'>
+                    <div key={index} className='flex gap-2'>
                         <span><CheckCircleOutlineIcon sx={{ fontSize: 20 }} /></span>
                         <p>{list.label}</p>
                     </div>

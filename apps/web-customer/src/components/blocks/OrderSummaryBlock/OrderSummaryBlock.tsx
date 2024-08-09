@@ -1,9 +1,9 @@
 import { Box, Card, Grid, Paper, Typography } from "@mui/material";
 import { Button } from "core-library/components";
-import { useRouter } from "next/router";
 import React from "react";
 import { useDecryptOrder } from "core-library/core/utils/useDecryptOrder";
 import { useStripeContext } from "core-library/contexts";
+import { useRouter } from 'core-library';
 
 type Props = {};
 
@@ -45,7 +45,7 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
                         textAlign="end"
                         fontWeight={600}
                       >
-                        {orderDetail.productName}
+                        {orderDetail.productName} ({orderDetail.programTitle == 0 ? 'RN' : 'PN'})
                       </Typography>
                     </Box>
                     <Box>
@@ -119,6 +119,6 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
       productId: orderDetail.productId,
       pricingId: orderDetail.pricingId
     });
-    await router.push("/customer/payment/checkout");
+    await router.push({ pathname: "/customer/payment/checkout" });
   }
 };
