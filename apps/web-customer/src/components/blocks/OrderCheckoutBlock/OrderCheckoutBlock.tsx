@@ -3,6 +3,7 @@ import React from "react";
 import WestIcon from "@mui/icons-material/West";
 import { Stripe } from '@stripe/stripe-js';
 import { useStripeContext } from 'core-library/contexts';
+import { useDecryptOrder } from 'core-library';
 
 
 interface Props { }
@@ -17,7 +18,8 @@ const CheckoutPage = (props: CheckoutPageProps) => (
 );
 
 const OrderCheckout: React.FC<Props> = (props) => {
-    const { paymentIntentId, clientSecret, stripePromise } = useStripeContext();
+    const orderDetail = useDecryptOrder();
+    const { paymentIntentId, clientSecret, stripePromise, orderNumber } = useStripeContext();
 
     return (
         <div className="w-screen h-screen flex">
@@ -37,12 +39,16 @@ const OrderCheckout: React.FC<Props> = (props) => {
                 <div className="p-5 text-white flex flex-col gap-5">
                     <p className="text-2xl font-semibold">Order Details</p>
                     <div className="px-5 pb-5 w-full border-b font-semibold">
-                        <p>Order ID : NCLEXBHNASJVCUDS</p>
-                        <p>Program Type : Practical Nurse (PN)</p>
-                        <p>Product Name : Standard Program (23 Days)</p>
+                        <p>Order ID : {orderNumber}</p>
+                        <p>Program Type :  {orderDetail?.productName} ({orderDetail?.programTitle == 0 ? 'RN' : 'PN'})</p>
+                        <p>Product Name : {orderDetail?.programType == 0 ?
+                            <span> 23 Days (Standard)</span> :
+                            orderDetail?.programType == 1 ?
+                                <span> 8 Days (Fast Track)</span>
+                                : null}</p>
                     </div>
                     <p className="text-3xl px-5 font-semibold">
-                        $ 260.00 <span className="text-[1.3rem]">(USD)</span>
+                        ${orderDetail?.amount}.00 <span className="text-[1.3rem]">({orderDetail?.currency})</span>
                     </p>
                 </div>
             </div>
