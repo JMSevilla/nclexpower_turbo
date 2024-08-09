@@ -81,7 +81,6 @@ export const PricingBlock: React.FC<Props> = (props) => {
                   className={`cursor-pointer transition-all duration-150 ${nurseType == 1 ? "hover:border-[#08474b] hover:border-2 rounded-lg hover:-mt-2" : "hover:border-[#0c225c] hover:border-2 rounded-lg hover:-mt-2"}`}
                   key={index}>
                   <PricingCard
-                    key={index}
                     cardData={item}
                     handleSelectProduct={handleSelectProduct} />
                 </div>
