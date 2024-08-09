@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
-import { useResolution } from "../../hooks";
+import { useResolution, useRouteBasedVisibility } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from 'next/router';
@@ -9,13 +9,12 @@ import { AccountMenuItem } from "../../../../apps/web-backoffice-generic/src/cor
 import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
 import { useWebHeaderStyles } from "../../../../apps/web-customer/src/pages/contents/useWebHeaderStyles";
 import { useState } from "react";
+import { WebHeaderStylesType } from '../../types/web-header-style';
 
-interface Props {
+interface Props extends Partial<WebHeaderStylesType> {
   menu?: NavigationType[];
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
-  headerContainerSx?: SxProps<Theme>;
-  buttonHeaderSx?: SxProps<Theme>;
   onLogout?: () => void;
 }
 
@@ -23,9 +22,10 @@ export const Header: React.FC<Props> = ({
   menu,
   isAuthenticated,
   drawerButton,
-  headerContainerSx,
-  buttonHeaderSx,
   onLogout,
+  drawerHeader,
+  headerLinkSx,
+  loginButtonSx
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,13 +34,13 @@ export const Header: React.FC<Props> = ({
 
   const { isMobile } = useResolution();
   const router = useRouter();
-  const { loginButtonSx } = useWebHeaderStyles();
+  const { isHeaderHidden } = useRouteBasedVisibility()
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/" });
   };
 
-  return (
+  return !isHeaderHidden && (
     <Box
       role="banner"
       component="header"
@@ -54,7 +54,7 @@ export const Header: React.FC<Props> = ({
       zIndex={999}
       bgcolor="background.default"
       sx={{
-        ...headerContainerSx,
+        ...drawerHeader,
         borderBottomWidth: 1,
         borderBottomStyle: "solid",
         borderBottomColor: "divider",
@@ -91,7 +91,7 @@ export const Header: React.FC<Props> = ({
                     menu.map((navigation, index) => (
                       <Grid item key={index}>
                         <Button
-                          sx={navigation.label === 'Login' ? loginButtonSx : buttonHeaderSx}
+                          sx={navigation.label === 'Login' ? loginButtonSx : headerLinkSx}
                           onClick={() => handleNavigate(navigation.path)}
                         >
                           {navigation.label}
