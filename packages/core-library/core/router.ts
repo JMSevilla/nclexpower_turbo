@@ -13,7 +13,8 @@ type StaticRoutes = Record<
   | "account_setup"
   | "login"
   | "account_verification_otp"
-  | "account_forgot_password", //we can register all our static routes here.
+  | "account_forgot_password"
+  | "reset_link_success", //we can register all our static routes here.
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -33,6 +34,7 @@ const STATIC_ROUTES: StaticRoutes = {
   login: "/login",
   account_verification_otp: "/account/verification/otp",
   account_forgot_password: "/account/forgot-password",
+  reset_link_success: "/account/reset-link",
 };
 
 export const useRouter = () => {

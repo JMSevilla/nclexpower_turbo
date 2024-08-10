@@ -12,6 +12,8 @@ interface OtpVerificationResult {
   error: string | null;
   setWaitTime: Dispatch<SetStateAction<number>>;
   resendOtp(params: ResendCodeParams): Promise<void>;
+  resetTime: number;
+  setResetTime: Dispatch<SetStateAction<number>>;
 }
 
 export const useOtpVerification = (): OtpVerificationResult => {
@@ -24,6 +26,7 @@ export const useOtpVerification = (): OtpVerificationResult => {
       await api.web.web_resend_otp_code(args)
   );
   const [waitTime, setWaitTime] = useState(0);
+  const [resetTime, setResetTime] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const toast = useExecuteToast();
@@ -140,5 +143,7 @@ export const useOtpVerification = (): OtpVerificationResult => {
     error,
     setWaitTime,
     resendOtp,
+    setResetTime,
+    resetTime,
   };
 };

@@ -13,6 +13,7 @@ interface Props {
   submitLoading?: boolean;
   showAlert?: boolean;
   isExpired?: boolean;
+  resetTime: number;
 }
 
 export const ForgotPasswordForm: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
   submitLoading,
   showAlert,
   isExpired,
+  resetTime,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -101,7 +103,8 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                   className="hover:bg-hoverBlue"
                   loading={submitLoading}
                   onClick={handleSubmit(onSubmit)}
-                  disabled={!isValid || submitLoading}
+                  disabled={!isValid || submitLoading || resetTime !== 0}
+                  resetTime={resetTime}
                 >
                   Continue
                 </Button>
