@@ -1,7 +1,7 @@
 import { ChangePasswordBlock } from "../../components/blocks/ForgotPasswordBlock/ChangePasswordBlock/ChangePasswordBlock";
 
-export function ChangePasswordPage() {
+export function ResetPasswordPage() {
   return <ChangePasswordBlock />;
 }
 
-export default ChangePasswordPage;
+export default ResetPasswordPage;
