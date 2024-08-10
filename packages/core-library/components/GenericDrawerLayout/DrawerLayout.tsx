@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
-import { SxProps, Theme } from "@mui/material/styles";
 import { Header } from "../GenericHeader/Header";
 import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
-import { useIsMounted, useResolution } from "../../hooks";
+import { useIsMounted, useResolution, useRouteBasedVisibility } from "../../hooks";
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 import { WebHeaderStylesType } from '../../types/web-header-style';
@@ -15,7 +14,7 @@ type DrawerLayoutType = {
   onLogout?: () => void;
   loading?: boolean;
   headerStyles?: WebHeaderStylesType
-  isHeaderHidden?: boolean
+  hiddenHeaderPathnames?: string[]
 };
 
 export const DrawerLayout: React.FC<
@@ -25,13 +24,13 @@ export const DrawerLayout: React.FC<
   children,
   isAuthenticated,
   onLogout,
-  loading,
   headerStyles,
-  isHeaderHidden
+  hiddenHeaderPathnames
 }) => {
     const { isMobile } = useResolution();
     const mounted = useIsMounted()
     const [open, setOpen] = useState(true);
+    const { isHidden } = useRouteBasedVisibility(hiddenHeaderPathnames ?? [])
 
     const handleDrawer = () => {
       setOpen((prev) => !prev);
@@ -62,7 +61,7 @@ export const DrawerLayout: React.FC<
           >
             <Header
               {...headerStyles}
-              hidden={isHeaderHidden ?? false}
+              hidden={isHidden ?? false}
               drawerButton={
                 ((!open && isAuthenticated) || isMobile) && (
                   <Button onClick={handleDrawer}>
@@ -74,7 +73,7 @@ export const DrawerLayout: React.FC<
               isAuthenticated={isAuthenticated}
               onLogout={onLogout}
             />
-            <Box height="100%">{children}</Box>
+            <Box height="100%" >{children}</Box>
           </Box>
         </Main>
       </Box>

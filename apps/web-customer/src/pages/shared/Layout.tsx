@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
@@ -18,7 +18,6 @@ import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
-import { useRouteBasedVisibility } from 'core-library/hooks';
 import { HideHeader } from '../../core/constant/HideHeader';
 
 interface Props { }
@@ -31,7 +30,6 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const headerMenu = CustomerMenus(isAuthenticated);
   const headerStyles = useWebHeaderStyles();
   const [confirmValue] = useConfirmedIntent();
-  const { isHidden } = useRouteBasedVisibility(HideHeader);
   usePaymentSuccessRedirect(confirmValue);
 
   return (
@@ -45,7 +43,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
                 menu={headerMenu}
                 isAuthenticated={isAuthenticated}
                 headerStyles={headerStyles}
-                isHeaderHidden={isHidden}
+                hiddenHeaderPathnames={HideHeader}
               >
                 {children}
                 <Footer info={CompanyInfo} list={list} />
