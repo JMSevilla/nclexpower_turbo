@@ -42,6 +42,13 @@ export class WebApi {
     );
   }
 
+  public web_reset_link(params: ResendCodeParams) {
+    return this.ssrAxios.post<VerificationResponse>(
+      `/api/reset/send-link`,
+      params
+    );
+  }
+
   public web_verification_code(email: string) {
     return this.ssrAxios.post<VerificationResponse>(
       `/api/verification/${qs.stringify({ email: email })}`
