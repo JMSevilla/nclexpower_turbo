@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { LoadablePageContent } from "@/components/LoadablePageContent";
@@ -18,8 +18,9 @@ import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
+import { HideHeader } from '../../core/constant/HideHeader';
 
-interface Props {}
+interface Props { }
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
@@ -27,7 +28,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { publishableKey } = useStripeConfig();
   const { isAuthenticated, logout } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
-  const { drawerHeader, headerLinkSx } = useWebHeaderStyles();
+  const headerStyles = useWebHeaderStyles();
   const [confirmValue] = useConfirmedIntent();
   usePaymentSuccessRedirect(confirmValue);
 
@@ -41,8 +42,8 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
               <DrawerLayout
                 menu={headerMenu}
                 isAuthenticated={isAuthenticated}
-                buttonHeaderSx={headerLinkSx}
-                headerContainerSx={drawerHeader}
+                headerStyles={headerStyles}
+                hiddenHeaderPathnames={HideHeader}
               >
                 {children}
                 <Footer info={CompanyInfo} list={list} />
