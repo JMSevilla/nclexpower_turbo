@@ -1,31 +1,25 @@
 import { useMemo } from 'react';
-import { config } from '../config';
 import { useRouter } from '../core';
-import { HiddenNavigationType } from '../types';
-import { HideHeader } from '../components/GenericHeader/HideHeader';
-import { HideFooter } from '../components/ReusableFooter/HideFooter';
 
 
 type HideNavigationReturnType = {
-    isHeaderHidden: boolean;
-    isFooterHidden: boolean;
+    isHidden: boolean;
+    pathname: string;
 };
 
-export const useRouteBasedVisibility = (): HideNavigationReturnType => {
+export const useRouteBasedVisibility = (pathnames: string[]): HideNavigationReturnType => {
     const { pathname } = useRouter();
 
-    const isNavigationHidden = (hiddenNavigations: HiddenNavigationType[]): boolean => {
-        const baseApp = hiddenNavigations.find((nav) => nav.appName === config.value.BASEAPP);
-
-        if (baseApp) {
-            const { pathnames } = baseApp;
-            return pathnames.includes(pathname);
-        }
-
-        return false;
+    const isNavigationHidden = (): boolean => {
+        return pathnames.includes(pathname);
     };
 
-    const isHidden = useMemo(() => { return { isHeaderHidden: isNavigationHidden(HideHeader), isFooterHidden: isNavigationHidden(HideFooter) } }, [pathname]);
+    const isHidden = useMemo(() => {
+        return {
+            isHidden: isNavigationHidden(),
+            pathname: pathname
+        }
+    }, [pathname]);
 
     return isHidden;
 }

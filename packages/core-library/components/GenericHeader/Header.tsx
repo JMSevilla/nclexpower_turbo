@@ -1,13 +1,11 @@
 import { Box, Button, Grid } from "@mui/material";
-import { useResolution, useRouteBasedVisibility } from "../../hooks";
+import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from 'next/router';
-import { SxProps, Theme } from "@mui/material/styles";
 import { AccountMenu } from "../index";
 import { AccountMenuItem } from "../../../../apps/web-backoffice-generic/src/core/constant/UserDropDown";
 import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
-import { useWebHeaderStyles } from "../../../../apps/web-customer/src/pages/contents/useWebHeaderStyles";
 import { useState } from "react";
 import { WebHeaderStylesType } from '../../types/web-header-style';
 
@@ -16,6 +14,7 @@ interface Props extends Partial<WebHeaderStylesType> {
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
   onLogout?: () => void;
+  hidden: boolean
 }
 
 export const Header: React.FC<Props> = ({
@@ -25,7 +24,8 @@ export const Header: React.FC<Props> = ({
   onLogout,
   drawerHeader,
   headerLinkSx,
-  loginButtonSx
+  loginButtonSx,
+  hidden
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,13 +34,12 @@ export const Header: React.FC<Props> = ({
 
   const { isMobile } = useResolution();
   const router = useRouter();
-  const { isHeaderHidden } = useRouteBasedVisibility()
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/" });
   };
 
-  return !isHeaderHidden && (
+  return !hidden && (
     <Box
       role="banner"
       component="header"

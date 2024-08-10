@@ -4,17 +4,17 @@ import NorthIcon from "@mui/icons-material/North";
 import { FooterProps } from "../../types/global";
 import { useMemo } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { useRouter } from "next/router";
 import { useScroll } from "../../core";
 import { useRouteBasedVisibility } from '../../hooks';
+import { HideFooter } from './HideFooter';
 
 export const Footer: React.FC<FooterProps> = (props) => {
   const { scrollTop } = useScroll();
   const yearData = new Date().getFullYear();
   const memoYear = useMemo(() => yearData, [yearData]);
-  const { isFooterHidden } = useRouteBasedVisibility()
+  const { isHidden } = useRouteBasedVisibility(HideFooter)
 
-  return !isFooterHidden && (
+  return !isHidden && (
     <Box
       width={1}
       sx={{

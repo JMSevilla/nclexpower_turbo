@@ -15,6 +15,7 @@ type DrawerLayoutType = {
   onLogout?: () => void;
   loading?: boolean;
   headerStyles?: WebHeaderStylesType
+  isHeaderHidden?: boolean
 };
 
 export const DrawerLayout: React.FC<
@@ -25,7 +26,8 @@ export const DrawerLayout: React.FC<
   isAuthenticated,
   onLogout,
   loading,
-  headerStyles
+  headerStyles,
+  isHeaderHidden
 }) => {
     const { isMobile } = useResolution();
     const mounted = useIsMounted()
@@ -38,7 +40,6 @@ export const DrawerLayout: React.FC<
     useEffect(() => {
       setOpen(!isMobile);
     }, [isMobile]);
-
 
     if (!mounted) return;
 
@@ -61,6 +62,7 @@ export const DrawerLayout: React.FC<
           >
             <Header
               {...headerStyles}
+              hidden={isHeaderHidden ?? false}
               drawerButton={
                 ((!open && isAuthenticated) || isMobile) && (
                   <Button onClick={handleDrawer}>
