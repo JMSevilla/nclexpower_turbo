@@ -13,11 +13,7 @@ export const HeaderLogo: React.FC<Props> = ({}) => {
   const router = useRouter();
 
   const NCLEXLogo =
-    router.pathname === "/404"
-      ? NCLEXBlueLogo
-      : isScrolled
-        ? NCLEXBlueLogo
-        : NCLEXYellowLogo;
+    router.pathname === "/404" || isScrolled ? NCLEXBlueLogo : NCLEXYellowLogo;
 
   return (
     <Box

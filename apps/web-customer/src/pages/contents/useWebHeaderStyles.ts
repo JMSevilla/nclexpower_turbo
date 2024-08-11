@@ -7,7 +7,7 @@ export const useWebHeaderStyles = () => {
 
   const router = useRouter();
 
-  const isScrolledOrRoute = router.pathname === "/404" ? true : isScrolled;
+  const isScrolledOrRoute = router.pathname === "/404" || isScrolled;
 
   const drawerHeader: SxProps<Theme> = {
     position: "fixed",
