@@ -1,4 +1,4 @@
-import PageNotFound from "../../../assets/NotFoundPage.png";
+import { NotFoundPage } from "core-library/assets";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -13,7 +13,7 @@ export const NotfoundBlock: React.FC = () => {
   return (
     <div className="h-screen flex items-center justify-center font-['Poppins'] text-center p-4 ">
       <div className="w-[643.5px] h-[637px] flex-shrink-0 mr-10">
-        <Image src={PageNotFound} alt="Page Not Found" />
+        <Image src={NotFoundPage} alt="Page Not Found" />
       </div>
       <div className="flex flex-col gap-y-2 justify-center items-center">
         <h1 className="W-[547px] text-[#3562D8] font-Poppins text-center text-[200px] font-bold leading-[108%]">
