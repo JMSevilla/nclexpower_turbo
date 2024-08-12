@@ -11,6 +11,7 @@ export type SelectIssueOption = {
   label: string;
   value: string;
   xvalue?: number;
+  categoryName?: string
 };
 
 type BaseSelectFieldProps = {
@@ -54,8 +55,8 @@ export function MultipleSelect({
         {...rest}
       >
         {options.map((option, index) => (
-          <MenuItem key={`${option.value}-${index}`} value={option.value}>
-            {option.label}
+          <MenuItem key={`${option.value}-${index}`} value={option.value || option.categoryName}>
+            {option.label || option.categoryName}
           </MenuItem>
         ))}
       </TextField>
@@ -76,8 +77,9 @@ export type MultipleSelectFieldProps = {
 export function MultipleSelectField({
   control,
   name,
-  onChange,
+  onChange: CustomOnChange,
   shouldUnregister,
+  value: CustomValue,
   ...rest
 }: MultipleSelectFieldProps) {
   return (
@@ -92,9 +94,15 @@ export function MultipleSelectField({
         <MultipleSelect
           error={Boolean(error?.message)}
           helperText={error?.message}
-          onChange={onChange}
+          // onChange={onChange}
+          onChange={(event) => {
+            onChange(event);
+            if (CustomOnChange) {
+              CustomOnChange(event);
+            }
+          }}
           onBlur={onBlur}
-          value={value}
+          value={CustomValue ? CustomValue : value}
           {...rest}
         />
       )}

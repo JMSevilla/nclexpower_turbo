@@ -85,7 +85,7 @@ export const CreateRegularQuestion: React.FC<Props> = (props) => {
                                 name="client_needs"
                                 label="CLIENT NEEDS CATEGORY :"
                                 options={ClientNeeds ?? []}
-                                value={formHandler[selectedPageIndex]?.client_needs ? formHandler[selectedPageIndex]?.client_needs : ''}
+                                value={formHandler[selectedPageIndex]?.client_needs || ''}
                             />
                             <MultipleSelectField
                                 control={control}
