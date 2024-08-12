@@ -18,6 +18,7 @@ import {
   VerificationResponse,
   VerifyCodeParams,
 } from "../types";
+import { Encryption } from "../../utils";
 export class WebApi {
   constructor(
     private readonly axios: AxiosInstance,
@@ -72,10 +73,16 @@ export class WebApi {
   }
 
   public web_reset_password(params: ResetPasswordParams) {
-    return this.ssrAxios.post<number>(
-      `/api/security/reset-link/reset-password`,
-      params
-    );
+    try {
+      const { newPassword, accountId, token } = params;
+      const encrypt = Encryption(newPassword, config.value.SECRET_KEY);
+      return this.ssrAxios.post<number>(
+        `/api/security/reset-link/reset-password`,
+        { newPassword: encrypt, accountId, token }
+      );
+    } catch (error) {
+      console.error("error", error);
+    }
   }
 
   public web_resend_otp_code(params: ResendCodeParams) {
