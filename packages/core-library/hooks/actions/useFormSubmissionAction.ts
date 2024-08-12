@@ -1,5 +1,5 @@
-import { useFormSubmissionContext } from "../contexts/FormSubmissionContext";
-import { CustomActionHook } from "../types/CustomActionHook";
+import { useFormSubmissionContext } from "../../contexts/FormSubmissionContext";
+import { CustomActionHook } from "../../types/CustomActionHook";
 
 export const useFormSubmissionAction: CustomActionHook = () => {
   const formSubmission = useFormSubmissionContext();

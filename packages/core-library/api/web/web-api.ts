@@ -11,8 +11,10 @@ import {
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   ResendCodeParams,
+  ResetPasswordParams,
   SelectEmailResponse,
   UpdatePaymentIntentParams,
+  ValidateResetLinkTokenParams,
   VerificationResponse,
   VerifyCodeParams,
 } from "../types";
@@ -58,6 +60,20 @@ export class WebApi {
   public web_verify_otp_code(params: VerifyCodeParams) {
     return this.ssrAxios.post<VerificationResponse>(
       `/api/security/otp/verify`,
+      params
+    );
+  }
+
+  public web_validate_reset_token(params: ValidateResetLinkTokenParams) {
+    return this.ssrAxios.post<boolean>(
+      `/api/security/reset-link/validate-token`,
+      params
+    );
+  }
+
+  public web_reset_password(params: ResetPasswordParams) {
+    return this.ssrAxios.post<number>(
+      `/api/security/reset-link/reset-password`,
       params
     );
   }
