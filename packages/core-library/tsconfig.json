@@ -1,5 +1,5 @@
 {
-  "extends": "typescript-config/base.json",
+  "extends": "../typescript-config/react-library.json",
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable"]
   },
