@@ -1,15 +1,15 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
-import { useRouter } from "next/router";
-import { AccountMenu } from "../index";
+import { useRouter } from "../../core";
+import { AccountMenu, Button } from "../index";
 import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { WebHeaderStylesType } from "../../types/web-header-style";
 import { AccountMenuItem } from ".";
 
-interface Props extends Partial<WebHeaderStylesType> {
+export interface Props extends Partial<WebHeaderStylesType> {
   menu?: NavigationType[];
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
@@ -47,6 +47,7 @@ export const Header: React.FC<Props> = ({
         width="100%"
         minHeight={70}
         display="flex"
+        data-testid="header"
         justifyContent="center"
         alignItems="center"
         position="sticky"
@@ -103,6 +104,7 @@ export const Header: React.FC<Props> = ({
                                 : headerLinkSx
                             }
                             onClick={() => handleNavigate(navigation.path)}
+                            data-testid={`menu-item-${navigation.label}`}
                           >
                             {navigation.label}
                           </Button>
