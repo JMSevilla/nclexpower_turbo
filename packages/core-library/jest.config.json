@@ -7,8 +7,7 @@
     "/node_modules/(?!swiper|ssr-window|dom7|@hookform/resolvers|react-dnd|core-dnd|dnd-core|@react-dnd|@azure/msal-react)"
   ],
   "moduleNameMapper": {
-    ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "jest-transform-stub",
-    "^@mui/icons-material(.*)$": "<rootDir>/../../node_modules/@mui/icons-material$1"
+    ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "jest-transform-stub"
   },
   "testPathIgnorePatterns": [],
   "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
