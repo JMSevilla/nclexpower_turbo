@@ -1,8 +1,19 @@
 {
   "extends": "../typescript-config/react-library.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable"]
+    "lib": ["DOM", "DOM.Iterable"],
+    "paths": {
+      "@mui/icons-material/*": ["../../node_modules/@mui/icons-material/*"]
+    }
   },
-  "include": ["."],
-  "exclude": ["node_modules"]
+  "include": [
+    ".",
+    "cms-initialization.ts",
+    "api/calc",
+    "global.d.ts",
+    "react.d.ts",
+    "theme.d.ts",
+    "eva-icons.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }
