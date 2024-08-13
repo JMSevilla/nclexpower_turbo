@@ -1,17 +1,8 @@
 {
-  "extends": "../typescript-config/react-library.json",
+  "extends": "typescript-config/base.json",
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable"]
   },
-  "include": [
-    ".",
-    "cms-initialization.ts",
-    "api/calc",
-    "global.d.ts",
-    "react.d.ts",
-    "theme.d.ts",
-    "eva-icons.d.ts",
-    "../../apps/web-backoffice-generic/src/core/constant/UserDropDown.tsx"
-  ],
-  "exclude": ["node_modules", "dist"]
+  "include": ["."],
+  "exclude": ["node_modules"]
 }
