@@ -1,16 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import { useResolution } from "../../hooks";
 import Image from "next/image";
 import { NCLEXBlueLogo, NCLEXYellowLogo } from "../../assets";
-import { useScroll } from "../../core";
-import { useRouter } from "next/router";
+import { useRouter, useScroll } from "../../core";
 
 interface Props {}
 
 export const HeaderLogo: React.FC<Props> = ({}) => {
-  const { isMobile } = useResolution();
-  const { isScrolled } = useScroll();
   const router = useRouter();
+  const { isScrolled } = useScroll();
 
   const NCLEXLogo =
     router.pathname === "/404" || isScrolled ? NCLEXBlueLogo : NCLEXYellowLogo;
@@ -23,6 +20,7 @@ export const HeaderLogo: React.FC<Props> = ({}) => {
       display="flex"
       alignItems="center"
       role="button"
+      data-testid="header-logo"
     >
       <Typography
         variant="h3"
