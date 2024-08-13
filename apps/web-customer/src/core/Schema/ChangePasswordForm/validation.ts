@@ -3,6 +3,7 @@ import {
   CONTAINS_NUMBER_REGEX,
   CONTAINS_UPPERCASE_REGEX,
 } from "core-library/utils";
+import { atom } from "jotai";
 
 export const validatePassword = (password: string) => {
   return {
@@ -41,3 +42,7 @@ export const ChangePasswordSchema = yup.object({
 });
 
 export type ChangePasswordType = yup.InferType<typeof ChangePasswordSchema>;
+
+export const ChangePasswordAtom = atom<ChangePasswordType | undefined>(
+  undefined
+);
