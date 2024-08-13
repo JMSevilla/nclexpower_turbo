@@ -28,6 +28,7 @@ import {
   useGetAllReportedIssues,
   useCreateCustomer,
   useGetIrtThetaCalcScratch,
+  useGetRegularQuestionDDCategory,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -176,6 +177,8 @@ interface BusinessQueryContextValue {
     queryKey: string[],
     accountId: string
   ) => UseQueryResult<ThetaCalcScratchResponse[] | undefined, any>;
+
+  businessQueryGetRegularQuestionDDCategory: (queryKey: string[], type: number) => UseQueryResult<any | undefined, any>
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -209,6 +212,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetAllReportedIssues = useGetAllReportedIssues;
   const businessQueryCreateCustomer = useCreateCustomer;
   const businessQueryGetThetaCalcScratch = useGetIrtThetaCalcScratch;
+  const businessQueryGetRegularQuestionDDCategory = useGetRegularQuestionDDCategory
 
   return (
     <BusinessQueryContext.Provider
@@ -235,6 +239,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetAllReportedIssues,
         businessQueryCreateCustomer,
         businessQueryGetThetaCalcScratch,
+        businessQueryGetRegularQuestionDDCategory
       }}
     >
       {children}

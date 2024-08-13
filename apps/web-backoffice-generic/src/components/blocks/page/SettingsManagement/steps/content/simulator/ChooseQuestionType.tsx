@@ -1,7 +1,6 @@
 import { WizardFormMap } from "core-library/hooks";
 import { ContainedRegularQuestionType } from "./types";
-import { RegularQuestionSelectionOptions } from "../../../types";
-import { QuestionTypeSelection } from "./steps/content/QuestionTypeSelection";
+import { CreateRegularQuestion, QuestionTypeSelection } from "./steps/content/index";
 
 export type QuestionTypeFormSteps =
   | "InitialQuestionTypeSelection"
@@ -21,7 +20,7 @@ export const ChooseQuestionTypeStep = {
   },
   CreateRegularQuestion: {
     previousStep: "InitialQuestionTypeSelection",
-    content: (props) => <>Create regular question UI {props.values.type}</>,
+    content: (props) => <CreateRegularQuestion {...props} />,
   },
 } as WizardFormMap<
   Partial<QuestionTypeFormSteps>,

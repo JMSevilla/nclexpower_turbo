@@ -395,3 +395,20 @@ export const useGetIrtThetaCalcScratch = (
     { staleTime: Infinity }
   );
 };
+
+export const useGetRegularQuestionDDCategory = (
+  queryKey: string[], type: number
+): UseQueryResult<any | undefined, any> => {
+  const getClientNeeds = useApi((api) =>
+    api.webbackoffice.getRegularQuestionDDCategory(type)
+  );
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getClientNeeds.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
