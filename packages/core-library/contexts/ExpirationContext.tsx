@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect } from "react";
-import { useRefreshTokenHandler } from "core-library/hooks";
+import { useRefreshTokenHandler } from "../hooks";
 interface Props {
   logout(): Promise<void>;
 }
