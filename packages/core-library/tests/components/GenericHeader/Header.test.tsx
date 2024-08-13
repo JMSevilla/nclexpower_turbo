@@ -1,6 +1,5 @@
-import { act, fireEvent, render, screen, waitFor } from "../../common";
+import { fireEvent, render, screen, waitFor } from "../../common";
 import { Header, Props } from "../../../components/GenericHeader/Header";
-import { config } from "../../../config";
 import { useRouter } from "../../../core";
 import { useResolution } from "../../../hooks";
 import { NavigationType } from "../../../types/navigation";
