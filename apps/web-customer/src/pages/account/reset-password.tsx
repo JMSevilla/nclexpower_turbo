@@ -76,7 +76,7 @@ export function ResetPasswordPage() {
         newPassword: values.newPassword,
       });
 
-      if (result.data === 200) {
+      if (result?.data === 200) {
         toast.executeToast(
           "Successfully changed your password.",
           "top-right",
