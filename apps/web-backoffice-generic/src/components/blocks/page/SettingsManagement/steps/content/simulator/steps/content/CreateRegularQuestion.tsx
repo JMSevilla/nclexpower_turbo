@@ -1,6 +1,8 @@
 import { ContainedRegularQuestionType } from '@/components/blocks/page/SettingsManagement/steps/content/simulator/types';
 import { Button, MultipleSelectField } from 'core-library/components';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import React, { useState } from 'react'
 import { Pagination } from '@mui/material';
 import { FormValueType } from '@/components/blocks/page/SettingsManagement/types';
@@ -9,6 +11,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createRegularSATAQuestionSchema } from '@/core/schema/RegularSata/createRegularSATAQuestionSchema';
 import { answerForm, questionForm } from '@/core/constant/RegularQuestionForm';
+import { useAtom } from 'jotai';
+import { CreateRegularQuestionAtom } from '@/core/schema/useAtomic';
 
 interface Props {
     nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -17,7 +21,11 @@ interface Props {
     next: () => void;
 }
 
-export const CreateRegularQuestion: React.FC<Props> = (props) => {
+export const CreateRegularQuestion: React.FC<Props> = ({ nextStep,
+    previousStep,
+    values,
+    next }) => {
+    const [formAtom, setFormAtom] = useAtom(CreateRegularQuestionAtom)
     const [selectedPageIndex, setSelectedPageIndex] = useState<number>(0);
     const [formHandler, setFormHandler] = useState<FormValueType[]>([questionForm]);
     const form = useForm({
@@ -66,86 +74,103 @@ export const CreateRegularQuestion: React.FC<Props> = (props) => {
 
     const onSubmit = () => {
         console.log('Submitted Successfully')
+        setFormAtom(formHandler)
         form.reset()
     }
 
     return (
         <div className='h-[850px] flex flex-col items-center p-5 gap-y-10'>
-            <p className='text-center font-bold'>
-                Create regular question <br /> ({props.values.type})
-            </p>
+            <div className='flex w-full'>
+                <Button onClick={previousStep} className='flex items-center justify-center bg-transparent shadow-none text-black hover:bg-transparent hover:shadow-none hover:scale-105 transition-all duration-150'>
+                    <TrendingFlatIcon sx={{ rotate: '180deg', color: '#37BEC7' }} />
+                    <p className='underline'>Go Back</p>
+                </Button>
+                <p className='text-center font-bold pl-[30%]'>
+                    Create regular question <br /> ({values.type})
+                </p>
+            </div>
             <form className='w-full' {...form}>
                 {formHandler[selectedPageIndex] && (
-                    <div className='w-full h-full flex shadow-md border border-slate-300 rounded-lg'>
-                        <div className='w-1/3 h-full flex flex-col gap-5 pl-10 pt-24'>
-                            <MultipleSelectField
-                                control={control}
-                                onChange={(e) => handleInputChange(e, 'client_needs')}
-                                sx={{ width: '100%', mb: 2 }}
-                                name="client_needs"
-                                label="CLIENT NEEDS CATEGORY :"
-                                options={ClientNeeds ?? []}
-                                value={formHandler[selectedPageIndex]?.client_needs || ''}
-                            />
-                            <MultipleSelectField
-                                control={control}
-                                onChange={(e) => handleInputChange(e, 'content_area')}
-                                sx={{ width: '100%', mb: 2 }}
-                                name="content_area"
-                                label="CONTENT AREA :"
-                                options={ContentArea ?? []}
-                                value={formHandler[selectedPageIndex]?.content_area || ''}
-                            />
-                            <MultipleSelectField
-                                control={control}
-                                onChange={(e) => handleInputChange(e, 'cognitive_level')}
-                                sx={{ width: '100%', mb: 2 }}
-                                name="cognitive_level"
-                                label="COGNITIVE LEVEL :"
-                                options={CognitiveLevel ?? []}
-                                value={formHandler[selectedPageIndex]?.cognitive_level || ''}
-                            />
-                        </div>
-                        <div className='w-2/3 h-full flex flex-col items-end px-10 py-5'>
+                    <div className='w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg'>
+                        <div className='h-fit w-full flex justify-between p-5'>
+                            <Button
+                                width={10}
+                                sx={{ minWidth: 'none' }}
+                                className='bg-red-700 items-center w-fit flex flex-col text-xs text-white font-semibold rounded-xl scale-75 hover:bg-red-800 disabled:saturate-0'>
+                                <span><DeleteOutlineIcon /></span>
+                                <p>Delete Page</p>
+                            </Button>
                             <Button onClick={handleSubmit(addForm)}
                                 disabled={formLimit}
-                                className='bg-[#37BEC7] items-center py-2 w-44 text-sm text-white font-semibold rounded-xl leading-3 disabled:saturate-0'>
+                                className='bg-[#37BEC7] items-center py-2 w-44 text-sm text-white font-semibold rounded-xl leading-3 hover:bg-[#2a98a0] disabled:saturate-0'>
                                 <span><AddIcon /></span>
                                 <p>Add New Form</p>
                             </Button>
-
-                            <div className='w-full'>
-                                <p className='text-md font-semibold'>Question :</p>
-                                <textarea
-                                    onChange={(e) => handleInputChange(e, 'question')}
-                                    name='question'
-                                    value={formHandler[selectedPageIndex]?.question || ''}
-                                    className='border rounded-lg p-5 bg-slate-200 w-full'
-                                    rows={5}
-                                    placeholder='Enter Question'
+                        </div>
+                        <div className='w-full flex'>
+                            <div className='w-1/3 h-full flex flex-col gap-5 pl-10 pt-24'>
+                                <MultipleSelectField
+                                    control={control}
+                                    onChange={(e) => handleInputChange(e, 'client_needs')}
+                                    sx={{ width: '100%', mb: 2 }}
+                                    name="client_needs"
+                                    label="CLIENT NEEDS CATEGORY :"
+                                    options={ClientNeeds ?? []}
+                                    value={formHandler[selectedPageIndex]?.client_needs || ''}
+                                />
+                                <MultipleSelectField
+                                    control={control}
+                                    onChange={(e) => handleInputChange(e, 'content_area')}
+                                    sx={{ width: '100%', mb: 2 }}
+                                    name="content_area"
+                                    label="CONTENT AREA :"
+                                    options={ContentArea ?? []}
+                                    value={formHandler[selectedPageIndex]?.content_area || ''}
+                                />
+                                <MultipleSelectField
+                                    control={control}
+                                    onChange={(e) => handleInputChange(e, 'cognitive_level')}
+                                    sx={{ width: '100%', mb: 2 }}
+                                    name="cognitive_level"
+                                    label="COGNITIVE LEVEL :"
+                                    options={CognitiveLevel ?? []}
+                                    value={formHandler[selectedPageIndex]?.cognitive_level || ''}
                                 />
                             </div>
-                            <div className='w-full'>
-                                <p className='text-md font-semibold'>Answer Options :</p>
-                                <div className='w-full h-[200px] bg-slate-200 rounded-md p-2 flex flex-col gap-2 overflow-y-auto'>
-                                    {answerOption.map((item, index) => (
-                                        <div key={index} className='w-full min-h-10 rounded-md flex text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-between'>
-                                            <input
-                                                className='h-5 text-sm rounded-sm p-2 bg-[#aedbde] w-80 border-none'
-                                                defaultValue={`Question ${index}`}
-                                                value={formHandler[selectedPageIndex]?.answers_option[index].label || ''}
-                                            />
-                                            <input type='checkbox' />
-                                        </div>
-                                    ))}
-                                    <Button
-                                        onClick={addAnswer}
-                                        disabled={answerOptionLimit}
-                                        className='w-full h-10 flex rounded-md text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-center text-[#37BEC7] font-semibold disabled:saturate-0'
-                                    >
-                                        <span><AddIcon /></span>
-                                        <p>Add Answer Option</p>
-                                    </Button>
+                            <div className='w-2/3 h-full flex flex-col items-end px-10 py-5'>
+                                <div className='w-full'>
+                                    <p className='text-md font-semibold'>Question :</p>
+                                    <textarea
+                                        onChange={(e) => handleInputChange(e, 'question')}
+                                        name='question'
+                                        value={formHandler[selectedPageIndex]?.question || ''}
+                                        className='border rounded-lg p-5 bg-slate-200 w-full'
+                                        rows={5}
+                                        placeholder='Enter Question'
+                                    />
+                                </div>
+                                <div className='w-full'>
+                                    <p className='text-md font-semibold'>Answer Options :</p>
+                                    <div className='w-full h-[200px] bg-slate-200 rounded-md p-2 flex flex-col gap-2 overflow-y-auto'>
+                                        {answerOption.map((item, index) => (
+                                            <div key={index} className='w-full min-h-10 rounded-md flex text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-between'>
+                                                <input
+                                                    className='h-5 text-sm rounded-sm p-2 bg-[#aedbde] w-80 border-none'
+                                                    defaultValue={`Question ${index}`}
+                                                    value={formHandler[selectedPageIndex]?.answers_option[index].label || ''}
+                                                />
+                                                <input type='checkbox' />
+                                            </div>
+                                        ))}
+                                        <Button
+                                            onClick={addAnswer}
+                                            disabled={answerOptionLimit}
+                                            className='w-full h-10 flex rounded-md text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-center text-[#37BEC7] font-semibold hover:bg-[#2a98a0] transition-colors duration-150 hover:text-white disabled:saturate-0'
+                                        >
+                                            <span><AddIcon /></span>
+                                            <p>Add Answer Option</p>
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +190,7 @@ export const CreateRegularQuestion: React.FC<Props> = (props) => {
                     />
                 </div>
                 <div className='w-1/2 flex justify-end'>
-                    <Button onClick={handleSubmit(onSubmit)} className='bg-[#37BEC7] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3'>
+                    <Button onClick={handleSubmit(onSubmit)} className='bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150'>
                         <p>Continue</p>
                     </Button>
                 </div>
