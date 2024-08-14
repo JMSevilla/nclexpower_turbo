@@ -1,13 +1,10 @@
-import { useState } from "react";
+import { ChangePasswordType } from "@/core/Schema";
 import { ChangePasswordForm } from "./ChangePasswordForm";
-import { useRouter } from "next/router";
 
-export function ChangePasswordBlock() {
-  const router = useRouter();
-
-  const onSubmit = () => {
-    router.push("/login");
-  };
-
-  return <ChangePasswordForm onSubmit={onSubmit} submitLoading={false} />;
+interface Props {
+  onSubmit(values: ChangePasswordType): void;
 }
+
+export const ChangePasswordBlock: React.FC<Props> = ({ onSubmit }) => {
+  return <ChangePasswordForm onSubmit={onSubmit} submitLoading={false} />;
+};

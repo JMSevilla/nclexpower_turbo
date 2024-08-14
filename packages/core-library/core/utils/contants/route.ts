@@ -1,5 +1,5 @@
 import { generateNestedRoutes } from "../routeUtils";
-import { config } from "core-library/config";
+import { config } from "../../../config";
 
 const hubBaseRoute = config.value.BASEHUB;
 const hubSubRoutes = [

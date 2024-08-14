@@ -37,6 +37,7 @@ export interface ButtonProps
   resetTime?: number;
   error?: boolean;
   helperText?: string;
+  "data-testid"?: string;
 }
 
 const LOADER_SIZE = 20;
@@ -131,6 +132,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ref={ref}
           id={id}
           custom-action-key={customActionKey}
+          data-testid={props["data-testid"]}
           className={[
             className,
             type,

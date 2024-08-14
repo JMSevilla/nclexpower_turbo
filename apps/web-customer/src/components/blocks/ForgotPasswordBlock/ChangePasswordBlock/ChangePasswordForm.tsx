@@ -1,16 +1,16 @@
 import React, { useMemo } from "react";
-import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { TextField } from "core-library/components";
+import { FormProvider, useForm } from "react-hook-form";
+import { Button, TextField } from "core-library/components";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from "./useShowPassword";
-import {
-  ChangePasswordType,
-  ChangePasswordSchema,
-} from "../../../../core/Schema";
 import { ValidationIndicators } from "./ValidationIndicator";
-import { validatePassword } from "../../../../core/Schema";
+import {
+  ChangePasswordSchema,
+  ChangePasswordType,
+  validatePassword,
+} from "@/core/Schema";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
@@ -127,82 +127,90 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
                   different from the previous one for better security.
                 </Typography>
               </div>
-
-              <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-                <Grid item xs={12} sx={{ marginY: 3, display: "flex", gap: 2 }}>
-                  <TextField
-                    control={control}
-                    name="newPassword"
-                    label="New Password"
-                    type={showPassword ? "text" : "password"}
-                  />
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="start"
-                    sx={{ mt: 4 }}
+              <FormProvider {...form}>
+                <Stack className="w-full">
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{ marginY: 3, display: "flex", gap: 2 }}
                   >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </Grid>
+                    <TextField
+                      control={control}
+                      name="newPassword"
+                      label="New Password"
+                      type={showPassword ? "text" : "password"}
+                    />
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="start"
+                      sx={{ mt: 4 }}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </Grid>
 
-                <Grid item xs={12} sx={{ marginY: 3, display: "flex", gap: 2 }}>
-                  <TextField
-                    control={control}
-                    name="confirmPassword"
-                    label="Confirm Password"
-                    type={showconfirmPassword ? "text" : "password"}
-                  />
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowconfirmPassword}
-                    edge="start"
-                    sx={{ mt: 4 }}
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{ marginY: 3, display: "flex", gap: 2 }}
                   >
-                    {showconfirmPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </Grid>
-                <Grid item xs={12} sx={{ marginY: 2 }}>
-                  <Typography
+                    <TextField
+                      control={control}
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      type={showconfirmPassword ? "text" : "password"}
+                    />
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowconfirmPassword}
+                      edge="start"
+                      sx={{ mt: 4 }}
+                    >
+                      {showconfirmPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </Grid>
+                  <Grid item xs={12} sx={{ marginY: 2 }}>
+                    <Typography
+                      sx={{
+                        marginY: 2,
+                        fontFamily: "Poppins",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Must contain at least
+                    </Typography>
+                    <ValidationIndicators
+                      criteria={passwordCriteria}
+                      iconSize="medium"
+                      invalidColor="red"
+                      validColor="green"
+                    />
+                  </Grid>
+
+                  <Box
                     sx={{
-                      marginY: 2,
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
+                      gridColumn: "span 10",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      mt: 2,
+                      flexDirection: { xs: "column", md: "row" },
                     }}
                   >
-                    Must contain at least
-                  </Typography>
-                  <ValidationIndicators
-                    criteria={passwordCriteria}
-                    iconSize="medium"
-                    invalidColor="red"
-                    validColor="green"
-                  />
-                </Grid>
-
-                <Box
-                  sx={{
-                    gridColumn: "span 10",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                    mt: 2,
-                    flexDirection: { xs: "column", md: "row" },
-                  }}
-                >
-                  <Button
-                    disabled={!isValid || submitLoading}
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                    sx={{ px: 4, py: 2, mt: 3, backgroundColor: "#0F2A71" }}
-                    className="hover:bg-hoverBlue"
-                  >
-                    Change Password
-                  </Button>
-                </Box>
-              </form>
+                    <Button
+                      disabled={!isValid || submitLoading}
+                      variant="contained"
+                      fullWidth
+                      sx={{ px: 4, py: 2, mt: 3, backgroundColor: "#0F2A71" }}
+                      className="hover:bg-hoverBlue"
+                      onClick={handleSubmit(onSubmit)}
+                    >
+                      Change Password
+                    </Button>
+                  </Box>
+                </Stack>
+              </FormProvider>
             </div>
           </Grid>
         </Grid>
