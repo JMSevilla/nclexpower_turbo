@@ -5,7 +5,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Editor } from '@tiptap/react'
 import { CustomMenusType, MenuButtonType } from '../../core/types/editor-type';
 
@@ -16,7 +16,6 @@ type MenuButtonPropsType = CustomMenusType & {
 export const MenuButtons = ({ editor, editorFor }: MenuButtonPropsType) => {
     const editorFocus = editor.chain().focus()
     const editorCan = editor.can()
-
 
     const createButton = (label: string,
         onClick: () => void,
@@ -40,7 +39,6 @@ export const MenuButtons = ({ editor, editorFor }: MenuButtonPropsType) => {
         createButton('Paragraph', () => editorFocus.setParagraph().run(), undefined, false, editor.isActive('paragraph')),
         createButton('Heading', () => editorFocus.toggleHeading({ level: 2 }).run(), undefined, false, editor.isActive('heading', { level: 2 }))
     ]
-
 
     const listStyles = [
         createButton('Unordered list', () => editorFocus.toggleBulletList().run(), <FormatListBulletedIcon />, false, editor.isActive('bulletList')),
@@ -80,5 +78,4 @@ export const MenuButtons = ({ editor, editorFor }: MenuButtonPropsType) => {
     }
 
     return getButtons()
-
 }
