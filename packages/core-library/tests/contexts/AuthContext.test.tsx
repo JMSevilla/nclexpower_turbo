@@ -15,7 +15,7 @@ jest.mock("../../hooks/useApi", () => ({
     .fn()
     .mockReturnValue({ loading: false, execute: jest.fn() }),
 }));
-jest.mock("next/router", () => ({
+jest.mock("../../core/router", () => ({
   useRouter: jest.fn(),
 }));
 
