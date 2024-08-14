@@ -1,19 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { BubbleMenu, useCurrentEditor } from '@tiptap/react'
 import { Box } from '@mui/material'
-import { MenuButtons } from './content/Menus';
 import { EditorButtonGroup } from './EditorButtonGroup';
 import { CustomMenusType } from '../../core/types/editor-type'
-
+import { MenuButtons } from './Menus';
 
 type CustomMenuBarPropsType = CustomMenusType
 
-export const CustomMenuBar = ({ editorFor }: CustomMenuBarPropsType) => {
+export const CustomMenuBar: React.FC<CustomMenuBarPropsType> = ({ editorFor }) => {
     const { editor } = useCurrentEditor()
 
     if (!editor) return null;
 
-    const menus = MenuButtons({ editor, editorFor })
+    const getMenus = MenuButtons({ editor, editorFor })
+    const menus = useMemo(() => getMenus ?? [], [getMenus])
 
     if (editorFor === "questions" || editorFor === "default") {
         return (

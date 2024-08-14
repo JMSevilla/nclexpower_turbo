@@ -3,9 +3,11 @@ import { Box, IconButton } from '@mui/material';
 import { MenuButtonType } from '../../core/types/editor-type';
 import React from 'react';
 
+type EditorButtonGroupPropsType = {
+    menus: MenuButtonType[]
+}
 
-
-export const EditorButtonGroup = ({ menus }: { menus: MenuButtonType[] }) => {
+export const EditorButtonGroup: React.FC<EditorButtonGroupPropsType> = ({ menus }) => {
     return menus.map((button, index) =>
         <Box key={index} sx={{ backgroundColor: button.isActive ? 'purple' : '' }} borderRadius='5px'  >
             <IconButton sx={{
