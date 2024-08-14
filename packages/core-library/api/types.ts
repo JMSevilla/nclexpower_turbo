@@ -251,3 +251,19 @@ export type ResetPasswordParams = {
   token: string;
   newPassword: string;
 };
+
+export type ReportIssueType = {
+  email: string;
+  categoryId: string;
+  description: string;
+  systemProduct: number;
+}
+
+export type GetCategoryType = {
+  id: string;
+  categoryName: string;
+  categoryDescription: string;
+  categoryType: number;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -43,6 +43,9 @@ export function MultipleSelect({
 }: BaseSelectFieldProps) {
   return (
     <div>
+      {helperText && (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      )}
       <TextField
         select
         label={label}
@@ -59,9 +62,6 @@ export function MultipleSelect({
           </MenuItem>
         ))}
       </TextField>
-      {helperText && (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
-      )}
     </div>
   );
 }
