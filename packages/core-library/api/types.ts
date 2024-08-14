@@ -240,3 +240,14 @@ export type RegularQuestionTypeParams = {
   questionType: string;
   description: string;
 };
+
+export type ValidateResetLinkTokenParams = {
+  accountId: string;
+  token: string;
+};
+
+export type ResetPasswordParams = {
+  accountId: string;
+  token: string;
+  newPassword: string;
+};

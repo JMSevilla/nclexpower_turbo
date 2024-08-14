@@ -11,11 +11,14 @@ import {
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   ResendCodeParams,
+  ResetPasswordParams,
   SelectEmailResponse,
   UpdatePaymentIntentParams,
+  ValidateResetLinkTokenParams,
   VerificationResponse,
   VerifyCodeParams,
 } from "../types";
+import { Encryption } from "../../utils";
 export class WebApi {
   constructor(
     private readonly axios: AxiosInstance,
@@ -60,6 +63,26 @@ export class WebApi {
       `/api/security/otp/verify`,
       params
     );
+  }
+
+  public web_validate_reset_token(params: ValidateResetLinkTokenParams) {
+    return this.ssrAxios.post<boolean>(
+      `/api/security/reset-link/validate-token`,
+      params
+    );
+  }
+
+  public web_reset_password(params: ResetPasswordParams) {
+    try {
+      const { newPassword, accountId, token } = params;
+      const encrypt = Encryption(newPassword, config.value.SECRET_KEY);
+      return this.ssrAxios.post<number>(
+        `/api/security/reset-link/reset-password`,
+        { newPassword: encrypt, accountId, token }
+      );
+    } catch (error) {
+      console.error("error", error);
+    }
   }
 
   public web_resend_otp_code(params: ResendCodeParams) {

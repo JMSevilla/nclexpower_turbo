@@ -5,7 +5,7 @@ import { LoadablePageContent } from "@/components/LoadablePageContent";
 import {
   StripeContextProvider,
   useAuthContext,
-  ExpirationContextProvider,
+  FormSubmissionContextProvider,
 } from "core-library/contexts";
 import { useStripeConfig } from "core-library/core/hooks/stripe/useStripeConfig";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
@@ -18,9 +18,9 @@ import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
-import { HideHeader } from '../../core/constant/HideHeader';
+import { HideHeader } from "../../core/constant/HideHeader";
 
-interface Props { }
+interface Props {}
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
@@ -36,7 +36,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ExpirationContextProvider logout={logout}>
+        <FormSubmissionContextProvider>
           <StripeContextProvider publishableKey={publishableKey}>
             <LoadablePageContent>
               <DrawerLayout
@@ -50,7 +50,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
               </DrawerLayout>
             </LoadablePageContent>
           </StripeContextProvider>
-        </ExpirationContextProvider>
+        </FormSubmissionContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

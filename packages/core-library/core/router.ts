@@ -1,9 +1,6 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
-import { usePageLoaderContext } from "../contexts/PageLoaderContext";
-import { useApi } from "../hooks";
-import { hasClientKeyRoute } from "./utils/contants/route";
 
 type StaticRoutes = Record<
   | "home"

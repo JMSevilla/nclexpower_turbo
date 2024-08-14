@@ -1,7 +1,10 @@
 {
   "extends": "../typescript-config/react-library.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable"]
+    "lib": ["DOM", "DOM.Iterable"],
+    "paths": {
+      "@mui/icons-material/*": ["../../node_modules/@mui/icons-material/*"]
+    }
   },
   "include": [
     ".",
@@ -10,8 +13,7 @@
     "global.d.ts",
     "react.d.ts",
     "theme.d.ts",
-    "eva-icons.d.ts",
-    "../../apps/web-backoffice-generic/src/core/constant/UserDropDown.tsx"
+    "eva-icons.d.ts"
   ],
   "exclude": ["node_modules", "dist"]
 }
