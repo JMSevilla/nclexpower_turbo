@@ -1,41 +1,21 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
-import ReportIcon from '@mui/icons-material/Report';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { DialogBox } from 'core-library/components/Dialog/DialogBox';
-import { ReportIssueForm } from './ReportIssueForm';
-import { ReportSchema } from '../../core/Schema'
+import { useBusinessQueryContext } from 'core-library/contexts';
+import { ReportIssueType } from 'core-library/api/types';
+import ReportIcon from '@mui/icons-material/Report';
+import ReportIssueForm from './ReportIssueForm';
 
-export interface FormValues {
-  ticket: string;
-  customerEmail: string;
-  categories?: string[];
-  product: string;
-  dateReported: Date;
-  description: string;
-  url: string;
-}
-
-export const ReportIssueDialog: React.FC = () => {
+export default function ReportIssueDialog() {
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    reset();
-  };
+  const { businessQueryCreateReportIssue } = useBusinessQueryContext();
+  const { mutateAsync } = businessQueryCreateReportIssue();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>({
-    resolver: yupResolver(ReportSchema),
-  });
+  const handleClickOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false);
 
-  const onSubmit = (values: FormValues) => {
-    console.log('Reported Issues:', values);
+  async function onSubmit(params: ReportIssueType) {
+    await mutateAsync({ ...params })
     handleClose();
   };
 
@@ -46,18 +26,16 @@ export const ReportIssueDialog: React.FC = () => {
         Report Issue
       </Button>
       <DialogBox
-        sx={{ zIndex: 0 }}
         handleClose={handleClose}
         loading={true}
         maxWidth={"md"}
         open={open}
-        aria-labelledby="responsive-dialog-title"
-        className="report-issue"
         header='Report an Issue'
         hideCloseButton={true}
+        sx={{ zIndex: 1 }}
       >
-        <ReportIssueForm control={control} errors={errors} handleSubmit={handleSubmit} onSubmit={onSubmit} />
+        <ReportIssueForm onSubmit={onSubmit} />
       </DialogBox>
     </React.Fragment>
   );
-};
+}
