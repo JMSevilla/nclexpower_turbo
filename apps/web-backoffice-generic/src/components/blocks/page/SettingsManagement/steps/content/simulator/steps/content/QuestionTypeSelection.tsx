@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { Card, InformationTitle } from "core-library/components";
-import { Box, Grid, Divider, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Card } from "core-library/components";
+import { Box, Grid, Typography } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../types";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegularQuestionSelectionOptions } from "@/components/blocks/page/SettingsManagement/types";
+import { QuestionTypeSelectionLoader } from "./loader";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -30,6 +31,7 @@ export const QuestionTypeSelection: React.FC<Props> = ({
   values,
   next,
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { reset, setValue } = useForm<ChooseQuestionTypeStepFormType>({
     resolver: yupResolver(chooseQuestionTypeSchema),
     mode: "all",
@@ -42,11 +44,23 @@ export const QuestionTypeSelection: React.FC<Props> = ({
     });
   }, [values.type]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleSelection = (values: ChooseQuestionTypeStepFormType) => {
     setValue("type", values.type);
     nextStep({ type: values.type });
     next();
   };
+
+  if (isLoading) {
+    return <QuestionTypeSelectionLoader />;
+  }
 
   return (
     <Grid
