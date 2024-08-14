@@ -15,23 +15,26 @@ export const CustomMenuBar: React.FC<CustomMenuBarPropsType> = ({ editorFor }) =
     const getMenus = MenuButtons({ editor, editorFor })
     const menus = useMemo(() => getMenus ?? [], [getMenus])
 
-    if (editorFor === "questions" || editorFor === "default") {
-        return (
-            <Box gap={1} display='flex' flexWrap={'wrap'} >
-                {editor && <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-                    <Box display={'flex'} gap={1} bgcolor={"white"} boxShadow={2} padding={1}>
-                        <EditorButtonGroup menus={menus} />
-                    </Box>
-                </BubbleMenu>}
-            </Box >
-        )
-    }
-    else if (editorFor === "casestudy") {
-        return (
-            <Box gap={1} display='flex' flexWrap={'wrap'} borderBottom={1} borderColor={'#F0EEED'} padding={3}>
-                <EditorButtonGroup menus={menus} />
-            </Box >
-        )
+    switch (editorFor) {
+        case 'default':
+        case 'questions':
+            return (
+                <Box gap={1} display='flex' flexWrap={'wrap'} >
+                    {editor && <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+                        <Box display={'flex'} gap={1} bgcolor={"white"} boxShadow={2} padding={1}>
+                            <EditorButtonGroup menus={menus} />
+                        </Box>
+                    </BubbleMenu>}
+                </Box >
+            )
+        case 'casestudy':
+            return (
+                <Box gap={1} display='flex' flexWrap={'wrap'} borderBottom={1} borderColor={'#F0EEED'} padding={3}>
+                    <EditorButtonGroup menus={menus} />
+                </Box>
+            )
+        default:
+            return null;
     }
 }
 

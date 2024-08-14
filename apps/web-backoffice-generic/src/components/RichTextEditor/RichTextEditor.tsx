@@ -10,7 +10,6 @@ import { ControlledField } from 'core-library/types'
 
 type RichTextEditorPropsType = CustomMenusType & {
     onChange?(html: string): void;
-    containerClassName?: string;
     editorClassName?: string;
 }
 
@@ -22,7 +21,6 @@ export function ControlledRichTextEditor<T extends FieldValues>({
     onChange: originalOnchange,
     editorFor,
     editorClassName,
-    containerClassName
 }: ControlledRichTextEditorProps<T>) {
     const { purifyInputs } = useSanitizedInputs({ config: { RETURN_TRUSTED_TYPE: true } })
     const handleChange = (html: string, onChange: (...event: any[]) => void) => {
@@ -34,21 +32,19 @@ export function ControlledRichTextEditor<T extends FieldValues>({
     return (<Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Box boxShadow={2} className={containerClassName}>
-                <EditorProvider
-                    slotBefore={<CustomMenuBar editorFor={editorFor} />}
-                    editorProps={{
-                        attributes: { class: `min-h-[100px] p-4 ${editorClassName}` }
-                    }}
-                    onUpdate={({ editor }) => {
-                        handleChange(editor.getHTML(), onChange)
-                    }}
-                    extensions={extensions}
-                    immediatelyRender={false}
-                    content={value}
-                />
-            </Box>
+        render={({ field: { onChange, value, onBlur, ref }, fieldState: { error } }) => (
+            <EditorProvider
+                slotBefore={<CustomMenuBar editorFor={editorFor} />}
+                editorProps={{
+                    attributes: { class: `min-h-[100px] p-4  ${editorClassName}` }
+                }}
+                onUpdate={({ editor }) => {
+                    handleChange(editor.getHTML(), onChange)
+                }}
+                extensions={extensions}
+                immediatelyRender={false}
+                content={value}
+            />
         )}
     />
     )
