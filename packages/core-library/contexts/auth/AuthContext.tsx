@@ -11,23 +11,48 @@ import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
 import { LoginParams, RegisterParams } from "../../types/types";
-import { useSingleCookie } from "../../hooks/useCookie";
+import { CookieSetOptions, useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
-import { useRouter } from '../../core';
+import { useRouter } from "../../core";
+import { useExecuteToast } from "../ToastContext";
 
 const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
-  login(email: string, password: string): Promise<null>;
+  login(email: string, password: string): Promise<void>;
   register(data: RegisterParams): Promise<number>;
   logout(): Promise<void>;
   setIsAuthenticated: (value: boolean) => void;
+  verificationPreparation: OTPPreparation;
+  setVerificationPreparation: (value: OTPPreparation) => void;
+  setAccessToken: (
+    value:
+      | string
+      | ((storedValue: string | undefined) => string | undefined)
+      | undefined
+  ) => void;
+  setRefreshToken: (
+    value:
+      | string
+      | ((storedValue: string | undefined) => string | undefined)
+      | undefined
+  ) => void;
+  setSingleCookie: (value: string | null, options?: CookieSetOptions) => void;
 }>(undefined as any);
+
+export type OTPPreparation = {
+  email: string;
+  password: string;
+  appName: string;
+};
 
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
   const router = useRouter();
+  const toast = useExecuteToast();
+  const [verificationPreparation, setVerificationPreparation] =
+    useState<OTPPreparation>({} as OTPPreparation);
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
@@ -57,9 +82,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         clearCookies();
         clearAccessToken();
         clearRefreshToken();
+        clearSingleCookie();
         router.push((route) => route.login);
       }
-    } catch (e) { }
+    } catch (e) {}
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -75,6 +101,28 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               password,
               appName: config.value.BASEAPP,
             });
+            if (result.data.is2FaEnabled) {
+              const prepareVerification = {
+                email: email,
+                password: password,
+                appName: config.value.BASEAPP,
+              } as OTPPreparation;
+              setVerificationPreparation(prepareVerification);
+              router.push((route) => route.account_verification_otp);
+              return;
+            }
+            if (result.data.responseCode === 404) {
+              toast.executeToast(
+                "Invalid email or password. Please try again.",
+                "top-right",
+                false,
+                {
+                  toastId: 0,
+                  type: "error",
+                }
+              );
+              return;
+            }
             setAccessToken(result.data.accessTokenResponse.accessToken);
             setRefreshToken(result.data.accessTokenResponse.refreshToken);
             setSingleCookie(
@@ -87,7 +135,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               }
             );
             setIsAuthenticated(true);
-            return null;
           },
           register: async (data: RegisterParams) => {
             const result = await registerCb.execute({
@@ -98,8 +145,13 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           },
           logout,
           setIsAuthenticated,
+          verificationPreparation,
+          setVerificationPreparation,
+          setAccessToken,
+          setRefreshToken,
+          setSingleCookie,
         }),
-        [isAuthenticated, accessToken, refreshToken]
+        [isAuthenticated, accessToken, refreshToken, verificationPreparation]
       )}
     >
       {children}
