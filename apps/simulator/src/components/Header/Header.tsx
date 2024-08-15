@@ -12,6 +12,7 @@ import { IRTsModal } from '../Dialog/IrtModal/IRTModal';
 import { useTour } from '@reactour/tour';
 import { useLocalStorage } from 'core-library/hooks';
 import { useApplicationContext } from '../../core/context/AppContext';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 export const buttonStyle = {
   backgroundColor: 'transparent',
@@ -22,7 +23,11 @@ export const buttonStyle = {
   },
 };
 
-export const Header: React.FC = () => {
+type Props = {
+  logout: () => void;
+}
+
+export const Header: React.FC<Props> = ({ logout }) => {
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setIsOpen } = useTour();
@@ -112,6 +117,7 @@ export const Header: React.FC = () => {
               </Button>
               <IRTsModal />
               <ToolbarSettings />
+              <ExitToAppIcon onClick={logout} className="cursor-pointer" />
             </div>
           </Box>
         </AppBar>

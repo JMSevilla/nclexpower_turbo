@@ -190,6 +190,7 @@ export const LoginForm: React.FC<Props> = ({
               >
                 <Button
                   disabled={submitLoading}
+                  loading={submitLoading}
                   variant="contained"
                   fullWidth
                   className="hover:bg-hoverBlue"

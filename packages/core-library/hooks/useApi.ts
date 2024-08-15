@@ -10,13 +10,14 @@ import { WebApiBackOffice } from "../api/web/web-api-backoffice";
 import { WebOfficeApi } from "../content-api";
 import { CalculationApi } from "../api/calc/calc-api";
 import { AuthApi } from "../api/auth/auth-api";
+import { getTimeZone } from "../utils";
 
 const HTTP_OPTIONS: HttpOptions = {
   headers: {
     "x-api-key": config.value.XAPIKEY,
     "Content-Type": "application/json",
     "X-Environment": config.value.SYSENV,
-    "X-Time-Zone": "Asia/Manila", // we should create a middleware to get the timezone dynamically.
+    "X-Time-Zone": getTimeZone(), // we should create a middleware to get the timezone dynamically.
   },
   onRequest: (req) => {
     const accessToken = getItem<string | undefined>("accessToken");

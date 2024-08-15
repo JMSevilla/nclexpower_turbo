@@ -1,9 +1,9 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { NavigationType } from "../../types/navigation";
 import { useRouter } from "../../core";
-import { AccountMenu, Button } from "../index";
+import { AccountMenu } from "../index";
 import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { WebHeaderStylesType } from "../../types/web-header-style";
