@@ -3,7 +3,6 @@ export type AccessTokenResponse = {
   accessToken: string;
   refreshToken: string;
   expiration: string;
-  responseCode: number | string;
 };
 
 export type AccessKeyType = {
@@ -38,6 +37,9 @@ export interface PaymentIntentResponse {
 }
 export interface LoginResponse {
   accessTokenResponse: AccessTokenResponse;
+  responseCode: number | undefined;
+  is2FaEnabled: boolean;
+  twoFactorCodeExpiryTime: string;
 }
 
 export interface RefreshTokenResponse {
@@ -250,6 +252,13 @@ export type ResetPasswordParams = {
   accountId: string;
   token: string;
   newPassword: string;
+};
+
+export type Verify2FAParams = {
+  email: string;
+  code: string;
+  password: string;
+  appName: string;
 };
 
 export type ReportIssueType = {
