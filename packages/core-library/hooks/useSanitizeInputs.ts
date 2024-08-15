@@ -2,12 +2,12 @@ import { sanitize, Config } from 'isomorphic-dompurify'
 
 
 type useSanitizedInputsType = {
-    purifyInputs(dirty: string, config?: Config): string | HTMLElement | DocumentFragment;
+    purifyInputs(dirty: string, config?: Config): string | TrustedHTML | DocumentFragment | HTMLElement;
 }
 
-export const useSanitizedInputs = (): useSanitizedInputsType => {
-    const purifyInputs = (dirty: string, config?: Config) => {
-        const clean = sanitize(dirty, { ...config, ALLOWED_TAGS: ['#text'] })
+export const useSanitizedInputs = ({ config }: { config?: Config }): useSanitizedInputsType => {
+    const purifyInputs = (dirty: string) => {
+        const clean = sanitize(dirty, { ...config })
         return clean
     }
 
