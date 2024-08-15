@@ -4,7 +4,7 @@ import { cmsInit } from 'core-library';
 import { Layout as LayoutComponent } from './Layout';
 import { ApplicationProvider } from '@/core/context/AppContext';
 import { ErrorBox } from 'core-library/components';
-import { BusinessQueryContextProvider } from 'core-library/contexts';
+import { BusinessQueryContextProvider, AuthProvider } from 'core-library/contexts';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 interface Props {
@@ -32,7 +32,9 @@ export const Page: NextPage<Props> = ({ data, error }) => {
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
       <BusinessQueryContextProvider>
         <ApplicationProvider data={data}>
-          <Layout questionaire={data?.prefetchQ} data={data} />
+          <AuthProvider>
+            <Layout questionaire={data?.prefetchQ} data={data} />
+          </AuthProvider>
         </ApplicationProvider>
       </BusinessQueryContextProvider>
     </QueryClientProvider>
