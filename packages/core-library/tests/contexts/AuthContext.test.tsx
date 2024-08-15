@@ -34,6 +34,11 @@ describe("useAuthContext", () => {
       logout: expect.any(Function),
       register: expect.any(Function),
       setIsAuthenticated: expect.any(Function),
+      verificationPreparation: expect.any(Object),
+      setVerificationPreparation: expect.any(Function),
+      setAccessToken: expect.any(Function),
+      setRefreshToken: expect.any(Function),
+      setSingleCookie: expect.any(Function),
     });
   });
 });

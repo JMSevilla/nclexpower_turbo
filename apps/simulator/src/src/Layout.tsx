@@ -7,7 +7,7 @@ import { SsrMockQuestionaire } from '@/core/types/ssrData';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AlertMessageV2Provider } from 'core-library/contexts/AlertMessageContext';
-import { FormSubmissionContextProvider, ToastProvider } from 'core-library/contexts';
+import { FormSubmissionContextProvider, ToastProvider, useAuthContext } from 'core-library/contexts';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ControlledToast } from 'core-library/components';
@@ -24,7 +24,7 @@ interface Props {
 
 export const Layout: React.FC<Props> = ({ questionaire, data }) => {
   const { loading, itemselect, hasAccessToken } = useApplicationContext();
-
+  const { logout } = useAuthContext();
   const theme = createTheme();
   const queryClient = new QueryClient({});
 
@@ -40,7 +40,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                   <AlertMessageV2Provider>
                     <TourContextProvider steps={TourSteps}>
                       <ToolbarSettingsProvider>
-                        {hasAccessToken && <Header />}
+                        {hasAccessToken && <Header logout={logout} />}
                         <PageContainer selectedItem={itemselect}>
                           <div className="min-h-[65dvh] flex flex-col justify-between questionnaire-step-8">
                             <LoadablePageContent loading={loading}>
@@ -66,7 +66,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                 </div>
               </QueryClientProvider>
             </FormSubmissionContextProvider>
-           </ProgressProvider>
+          </ProgressProvider>
         </MobileDetectionProvider>
       </ToastProvider>
     </ThemeProvider>
