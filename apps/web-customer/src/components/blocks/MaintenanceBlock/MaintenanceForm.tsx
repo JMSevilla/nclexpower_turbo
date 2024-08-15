@@ -38,7 +38,7 @@ export const MaintenanceForm: React.FC<Props> = ({ onSubmit }) => {
               <TextField
                 control={control}
                 label="Email"
-                name="customerEmail"
+                name="email"
                 sx={{
                   borderRadius: "10px",
                   width: "100%",
