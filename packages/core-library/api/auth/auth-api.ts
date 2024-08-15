@@ -6,6 +6,7 @@ import {
   RefreshParams,
   RefreshTokenResponse,
   ValidateTokenParams,
+  Verify2FAParams,
 } from "../types";
 
 export class AuthApi {
@@ -31,6 +32,13 @@ export class AuthApi {
   public login(params: LoginParams) {
     return this.axios.post<LoginResponse>(
       `/api/v2/internal/baseInternal/login`,
+      params
+    );
+  }
+
+  public verify_2fa(params: Verify2FAParams) {
+    return this.ssrAxios.post<LoginResponse>(
+      `/api/security/otp/verify-2fa`,
       params
     );
   }

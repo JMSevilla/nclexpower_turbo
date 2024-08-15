@@ -4,7 +4,7 @@ import { config } from "../config";
 
 type CookieValue<T> = { [key: string]: T | null };
 
-interface CookieSetOptions {
+export interface CookieSetOptions {
   path?: string;
   expires?: Date;
   maxAge?: number;

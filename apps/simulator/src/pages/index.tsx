@@ -1,1 +1,1 @@
-export { AccessPage as default } from '../pages/access';
+export { AccessPage as default } from '../pages/login';
