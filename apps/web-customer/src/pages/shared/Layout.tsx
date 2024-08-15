@@ -26,7 +26,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
   const theme = useTheme();
   const { publishableKey } = useStripeConfig();
-  const { isAuthenticated, logout } = useAuthContext();
+  const { isAuthenticated } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
   const headerStyles = useWebHeaderStyles();
   const [confirmValue] = useConfirmedIntent();
