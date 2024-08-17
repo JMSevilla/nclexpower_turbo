@@ -4,6 +4,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import Http from "../http-client";
 import { config } from "../config";
+import { getTimeZone } from "../utils";
 
 type Tokens = { accessToken?: string; refreshToken?: string };
 
@@ -38,7 +39,7 @@ const client = (
       "x-api-key": config.value.XAPIKEY,
       "Content-Type": "application/json",
       "X-Environment": config.value.SYSENV,
-      "X-Time-Zone": "Asia/Manila", // we should create a middleware to get the timezone dynamically.
+      "X-Time-Zone": getTimeZone(), // we should create a middleware to get the timezone dynamically.
     },
     onError: (error) =>
       console.error(`Error response: ${JSON.stringify(error)}.`),
