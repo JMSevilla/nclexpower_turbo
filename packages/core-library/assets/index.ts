@@ -21,3 +21,4 @@ export const FlipCardTwoBack = require("./BackTwo.png");
 export const FlipCardThreeBack = require("./BackThree.png");
 export const PaymentBadge = require("./PaymentBadge.png");
 export const NotFoundPage = require("./NotFoundPage.png");
+export const UnderMaintenance = require("./UnderMaintenance.png");
