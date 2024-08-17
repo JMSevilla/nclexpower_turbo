@@ -59,20 +59,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Deploy simulator to Vercel
-        if: github.ref == 'refs/heads/mdev' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/hotfix/')
+      - name: Deploy simulator to Vercel (Dev)
+        if: github.ref == 'refs/heads/mdev'
         run: |
           cd apps/simulator
-          npx vercel --token ${{ secrets.VERCEL_TOKEN }}
+          npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --scope DGR-projects --project dev-nclexpower-simulator
 
-      - name: Deploy web-backoffice-generic to Vercel
-        if: github.ref == 'refs/heads/mdev' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/hotfix/')
-        run: |
-          cd apps/web-backoffice-generic
-          npx vercel --token ${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy web-customer to Vercel
-        if: github.ref == 'refs/heads/mdev' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/hotfix/')
+      - name: Deploy web-customer to Vercel (Dev)
+        if: github.ref == 'refs/heads/mdev'
         run: |
           cd apps/web-customer
-          npx vercel --token ${{ secrets.VERCEL_TOKEN }}
+          npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --scope DGR-projects --project nclexpower-turbo-web-customer
