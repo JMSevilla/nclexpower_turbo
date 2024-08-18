@@ -8,6 +8,7 @@ const mockPreviousStep = jest.fn();
 const mockFn = jest.fn();
 const mockRegularValues: ContainedRegularQuestionType = { type: 'MCQ', main_type: "Regular" };
 const mockCSValues: ContainedRegularQuestionType = { type: 'MCQ', main_type: "Case Study" };
+const mockUseRouter = useRouter as jest.Mock;
 
 jest.mock("core-library/config", () => ({ config: { value: jest.fn() } }));
 
@@ -15,33 +16,33 @@ jest.mock("core-library/core/router", () => ({
     useRouter: jest.fn(),
 }));
 
-(useRouter as jest.Mock).mockReturnValue({
-    push: mockFn,
+beforeEach(() => {
+    mockUseRouter.mockReturnValue({ push: mockFn });
 });
 
-describe('Success Page', () => {
 
-    it('Should Display Success Page for Regular Question', () => {
+describe('Success Page', () => {
+    it('it should display success page for regular question', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
             values={mockRegularValues}
             next={mockFn} />)
         expect(screen.getByText('Regular Questions Successfully Added')).toBeInTheDocument()
-        expect(screen.getByTestId('Regular')).toBeInTheDocument()
+        expect(screen.getByTestId('regular-question')).toBeInTheDocument()
     })
 
-    it('Should Display Success Page for Case Study Question', () => {
+    it('it should display success page for case study question', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
             values={mockCSValues}
             next={mockFn} />)
         expect(screen.getByText('Case Study Questions Successfully Added')).toBeInTheDocument()
-        expect(screen.getByTestId('Case Study')).toBeInTheDocument()
+        expect(screen.getByTestId('case-study-question')).toBeInTheDocument()
     })
 
-    it('Go to Regular Question List', () => {
+    it('is should go to regular question list', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -53,7 +54,7 @@ describe('Success Page', () => {
     })
 
 
-    it('Go to Case Study Question List', () => {
+    it('itshould go to case study question list', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -64,7 +65,7 @@ describe('Success Page', () => {
         expect(mockFn).toHaveBeenCalledWith({ pathname: "/case-study-list" });
     })
 
-    it('Proceed to Create New (Regular)', () => {
+    it('it should proceed to create new (regular)', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -75,7 +76,7 @@ describe('Success Page', () => {
         expect(mockFn);
     })
 
-    it('Proceed to Create New (Case Study)', () => {
+    it('it should proceed to create new (case study)', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}

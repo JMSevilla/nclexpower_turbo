@@ -13,6 +13,7 @@ interface Props {
 
 export const SuccessPage: React.FC<Props> = (props) => {
     const { values, nextStep, next } = props
+    const type_indetifier = values.main_type == "Regular" ? 'regular' : 'case-study'
     const NextLocation = values.main_type == "Regular" ? '/regular-question-list' : '/case-study-list'
     const router = useRouter()
 
@@ -26,7 +27,7 @@ export const SuccessPage: React.FC<Props> = (props) => {
     }
 
     return (
-        <div data-testid={values.main_type} className='h-[650px] flex flex-col items-center justify-center p-5 gap-y-10'>
+        <div data-testid={`${type_indetifier}-question`} className='h-[650px] flex flex-col items-center justify-center p-5 gap-y-10'>
             <CheckCircleIcon sx={{ fontSize: 100, color: '#37BEC7' }} />
             <p className='font-semibold text-xl'>{values.main_type} Questions Successfully Added</p>
             <div className='flex gap-5'>
