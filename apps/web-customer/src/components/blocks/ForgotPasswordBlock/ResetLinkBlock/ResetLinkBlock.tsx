@@ -50,7 +50,7 @@ export const ResetLinkBlock: React.FC = () => {
                 If it doesn’t arrive soon. Check your spam folder or
               </p>
               <Link
-                href={"/account/forgot-password"}
+                href="/account/forgot-password"
                 className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer text-[18px] "
               >
                 send the email again.
@@ -60,7 +60,7 @@ export const ResetLinkBlock: React.FC = () => {
             <p className="pb-6 pt-sans-caption text-[18px] text-[#0f2a71]  ">
               Need help?
               <span className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer underline">
-                <Link href={"/#Contact-support"}> Contact Support</Link>
+                <Link href="/contact"> Contact Support</Link>
               </span>
             </p>
 

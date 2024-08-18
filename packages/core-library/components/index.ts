@@ -42,6 +42,7 @@ export * from "./ProgressBar";
 export * from "./ToolTip/CustomToolTip";
 export * from "./PageLoader";
 export * from "./Badge/CustomBadge";
+export * from "./CSPHead";
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
 export * from "./Tabs/Tabs";
