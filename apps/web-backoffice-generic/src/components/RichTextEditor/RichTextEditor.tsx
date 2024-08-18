@@ -7,6 +7,7 @@ import { extensions } from './config/extentions-config'
 import { CustomMenusType } from '../../core/types/editor-type'
 import { Controller, FieldValues } from 'react-hook-form'
 import { ControlledField } from 'core-library/types'
+import { FormHelperText } from 'core-library/components/Textfield/TextField'
 
 type RichTextEditorPropsType = CustomMenusType & {
     onChange?(html: string): void;
@@ -34,17 +35,21 @@ export function ControlledRichTextEditor<T extends FieldValues>({
         name={name}
         render={({ field: { onChange, value, onBlur, ref }, fieldState: { error } }) => (
             <EditorProvider
-                slotBefore={<CustomMenuBar editorFor={editorFor} />}
                 editorProps={{
                     attributes: { class: `min-h-[100px] p-4  ${editorClassName}` }
                 }}
+                enableContentCheck={true}
                 onUpdate={({ editor }) => {
                     handleChange(editor.getHTML(), onChange)
                 }}
                 extensions={extensions}
-                immediatelyRender={false}
-                content={value}
-            />
+                slotAfter={error?.message && (
+                    <FormHelperText error={!!error.message}>{error.message}</FormHelperText>
+                )}
+
+                immediatelyRender={false}>
+                <CustomMenuBar editorFor={editorFor} content={value.toString()} />
+            </EditorProvider>
         )}
     />
     )

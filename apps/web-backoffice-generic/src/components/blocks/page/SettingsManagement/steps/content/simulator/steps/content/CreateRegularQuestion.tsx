@@ -1,18 +1,16 @@
-import { ContainedRegularQuestionType } from '@/components/blocks/page/SettingsManagement/steps/content/simulator/types';
-import { Button, MultipleSelectField } from 'core-library/components';
+import { ContainedRegularQuestionType, RegularQuestionsFormType } from '@/components/blocks/page/SettingsManagement/steps/content/simulator/types';
+import { Button, Card, MultipleSelectField } from 'core-library/components';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pagination } from '@mui/material';
-import { FormValueType } from '@/components/blocks/page/SettingsManagement/types';
 import { useBusinessQueryContext } from 'core-library/contexts';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { createRegularSATAQuestionSchema } from '@/core/schema/RegularSata/createRegularSATAQuestionSchema';
-import { answerForm, questionForm } from '@/core/constant/RegularQuestionForm';
-import { useAtom } from 'jotai';
-import { CreateRegularQuestionAtom } from '@/core/schema/useAtomic';
+import { FormProvider } from 'react-hook-form';
+import { ControlledRichTextEditor } from '@/components/RichTextEditor/RichTextEditor';
+import { AnswerOptions } from '@/components/AnswerOptions/AnswerOptions';
+import { useRegularQuestionForm } from '@/components/blocks/page/SettingsManagement/steps/content/simulator/steps/content/useRegularQuestionForm';
+import { initQuestionsValues } from '@/core/constant/initQuestionsValues';
 
 interface Props {
     nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -21,65 +19,60 @@ interface Props {
     next: () => void;
 }
 
-export const CreateRegularQuestion: React.FC<Props> = ({ nextStep,
-    previousStep,
-    values,
-    next }) => {
-    const [formAtom, setFormAtom] = useAtom(CreateRegularQuestionAtom)
-    const [selectedPageIndex, setSelectedPageIndex] = useState<number>(0);
-    const [formHandler, setFormHandler] = useState<FormValueType[]>([questionForm]);
-    const form = useForm({
-        mode: 'onSubmit',
-        resolver: yupResolver(createRegularSATAQuestionSchema)
-    })
+export const CreateRegularQuestion: React.FC<Props> = ({ nextStep, previousStep, values, next }) => {
+    const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
+    const [isCurrentPage, setIsCurrentPage] = useState(false)
+    const { appendQuestionnaire, form, parentForm, questionnaireFields, removeQuestionnaire, updateQuestionnaire } = useRegularQuestionForm(values)
+
     const { control, handleSubmit } = form
+    const { handleSubmit: confirmCreation } = parentForm
 
     const { businessQueryGetRegularQuestionDDCategory } = useBusinessQueryContext()
     const { data: ClientNeeds } = businessQueryGetRegularQuestionDDCategory(['getClientNeeds'], 2)
     const { data: ContentArea } = businessQueryGetRegularQuestionDDCategory(['getContentArea'], 3)
     const { data: CognitiveLevel } = businessQueryGetRegularQuestionDDCategory(['getCognitiveLevel'], 4)
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: string) => {
-        const { value } = e.target;
-        const updatedForm = [...formHandler];
-        updatedForm[selectedPageIndex] = {
-            ...updatedForm[selectedPageIndex],
-            [name]: value
-        };
-        setFormHandler(updatedForm);
-    };
 
-    const addForm = () => {
-        setFormHandler([...formHandler, questionForm]);
-        setSelectedPageIndex(formHandler.length);
-        form.reset()
-    };
-
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setSelectedPageIndex(value - 1);
-    };
-
-    const answerOption = formHandler[selectedPageIndex]?.answers_option || [];
-    const formLimit = formHandler.length >= 10;
-    const answerOptionLimit = answerOption.length >= 5;
-
-    const addAnswer = () => {
-        const updatedForm = [...formHandler];
-        updatedForm[selectedPageIndex].answers_option = [
-            ...answerOption,
-            answerForm
-        ];
-        setFormHandler(updatedForm);
-    };
-
-    const onSubmit = () => {
-        console.log('Submitted Successfully')
-        setFormAtom(formHandler)
-        form.reset()
+    const updateValues = (nextPageIndex?: number) => {
+        const defaultValues = questionnaireFields[nextPageIndex ?? selectedPageIndex - 1]
+        if (defaultValues) {
+            form.reset({ ...defaultValues })
+        } else {
+            form.reset({ ...initQuestionsValues })
+        }
     }
 
+    const handlePaginate = (event: React.ChangeEvent<unknown>, page: number) => {
+        setSelectedPageIndex(page)
+    }
+
+    const handleAddForm = (value: RegularQuestionsFormType) => {
+        if (isCurrentPage) {
+            updateQuestionnaire(selectedPageIndex - 1, { ...value })
+            return
+        }
+        appendQuestionnaire({ ...value })
+        setSelectedPageIndex(prev => prev + 1)
+    }
+
+    const handleRemove = () => {
+        removeQuestionnaire(selectedPageIndex - 1);
+        updateValues(selectedPageIndex);
+    };
+
+    const handleContinue = (values: ContainedRegularQuestionType) => {
+        console.log(values)
+        nextStep({ ...values })
+    }
+
+    useEffect(() => {
+        updateValues()
+        const isCurrentQuestionnaire = selectedPageIndex - 1 !== questionnaireFields.length
+        setIsCurrentPage(isCurrentQuestionnaire)
+    }, [selectedPageIndex])
+
     return (
-        <div className='h-[850px] flex flex-col items-center p-5 gap-y-10'>
+        <div className='flex flex-col items-center p-5 gap-y-10'>
             <div className='flex w-full'>
                 <Button onClick={previousStep} className='flex items-center justify-center bg-transparent shadow-none text-black hover:bg-transparent hover:shadow-none hover:scale-105 transition-all duration-150'>
                     <TrendingFlatIcon sx={{ rotate: '180deg', color: '#37BEC7' }} />
@@ -89,100 +82,79 @@ export const CreateRegularQuestion: React.FC<Props> = ({ nextStep,
                     Create regular question <br /> ({values.type})
                 </p>
             </div>
-            <form className='w-full' {...form}>
-                {formHandler[selectedPageIndex] && (
-                    <div className='w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg'>
-                        <div className='h-fit w-full flex justify-between p-5'>
-                            <Button
-                                width={10}
-                                sx={{ minWidth: 'none' }}
-                                className='bg-red-700 items-center w-fit flex flex-col text-xs text-white font-semibold rounded-xl scale-75 hover:bg-red-800 disabled:saturate-0'>
-                                <span><DeleteOutlineIcon /></span>
-                                <p>Delete Page</p>
-                            </Button>
-                            <Button onClick={handleSubmit(addForm)}
-                                disabled={formLimit}
-                                className='bg-[#37BEC7] items-center py-2 w-44 text-sm text-white font-semibold rounded-xl leading-3 hover:bg-[#2a98a0] disabled:saturate-0'>
-                                <span><AddIcon /></span>
-                                <p>Add New Form</p>
-                            </Button>
+
+
+            <FormProvider {...form}>
+                <div className='w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10'>
+                    <div className='h-fit w-full flex justify-end text-xs gap-2'>
+                        <Button
+                            onClick={handleRemove}
+                            sx={{ minWidth: 'none' }}
+                            className='bg-red-700 items-center w-fit text-xs py-2 flex text-white font-semibold rounded-xl  hover:bg-red-800 disabled:saturate-0'>
+                            <span><DeleteOutlineIcon /></span>
+                            <p>Delete Form</p>
+                        </Button>
+
+                        <Button onClick={handleSubmit(handleAddForm)}
+                            className='bg-[#37BEC7] items-center py-2 text-xs text-white font-semibold rounded-xl leading-3 hover:bg-[#2a98a0] disabled:saturate-0'>
+                            <span><AddIcon /></span>
+                            <p>{!isCurrentPage ? 'Add Form' : 'Update Form'}</p>
+                        </Button>
+                    </div>
+                    <div className='w-full flex gap-10'>
+                        <div className='w-1/3 h-full flex flex-col gap-5  '>
+                            <MultipleSelectField
+                                control={control}
+                                sx={{ width: '100%', mb: 2 }}
+                                name={'clientNeeds'}
+                                label="Client Needs Category :"
+                                options={ClientNeeds ?? []}
+                                variant='standard'
+                            />
+                            <MultipleSelectField
+                                control={control}
+                                sx={{ width: '100%', mb: 2 }}
+                                name="contentArea"
+                                label="Content Area :"
+                                options={ContentArea ?? []}
+                                variant='standard'
+
+                            />
+                            <MultipleSelectField
+                                variant='standard'
+                                control={control}
+                                sx={{ width: '100%', mb: 2 }}
+                                name="cognitiveLevel"
+                                label="Cognitive Level :"
+                                options={CognitiveLevel ?? []}
+                            />
                         </div>
-                        <div className='w-full flex'>
-                            <div className='w-1/3 h-full flex flex-col gap-5 pl-10 pt-24'>
-                                <MultipleSelectField
-                                    control={control}
-                                    onChange={(e) => handleInputChange(e, 'client_needs')}
-                                    sx={{ width: '100%', mb: 2 }}
-                                    name="client_needs"
-                                    label="CLIENT NEEDS CATEGORY :"
-                                    options={ClientNeeds ?? []}
-                                    value={formHandler[selectedPageIndex]?.client_needs || ''}
-                                />
-                                <MultipleSelectField
-                                    control={control}
-                                    onChange={(e) => handleInputChange(e, 'content_area')}
-                                    sx={{ width: '100%', mb: 2 }}
-                                    name="content_area"
-                                    label="CONTENT AREA :"
-                                    options={ContentArea ?? []}
-                                    value={formHandler[selectedPageIndex]?.content_area || ''}
-                                />
-                                <MultipleSelectField
-                                    control={control}
-                                    onChange={(e) => handleInputChange(e, 'cognitive_level')}
-                                    sx={{ width: '100%', mb: 2 }}
-                                    name="cognitive_level"
-                                    label="COGNITIVE LEVEL :"
-                                    options={CognitiveLevel ?? []}
-                                    value={formHandler[selectedPageIndex]?.cognitive_level || ''}
-                                />
+                        <div className='w-2/3 h-full flex flex-col gap-5 items-end  py-5'>
+                            <div className='w-full rounded-md'>
+                                <p className='text-md font-semibold'>Question :</p>
+                                <Card >
+                                    <ControlledRichTextEditor
+                                        control={control}
+                                        editorClassName='max-h-[200px] overflow-auto'
+                                        editorFor='questions'
+                                        name='question' />
+                                </Card>
                             </div>
-                            <div className='w-2/3 h-full flex flex-col items-end px-10 py-5'>
-                                <div className='w-full'>
-                                    <p className='text-md font-semibold'>Question :</p>
-                                    <textarea
-                                        onChange={(e) => handleInputChange(e, 'question')}
-                                        name='question'
-                                        value={formHandler[selectedPageIndex]?.question || ''}
-                                        className='border rounded-lg p-5 bg-slate-200 w-full'
-                                        rows={5}
-                                        placeholder='Enter Question'
-                                    />
-                                </div>
-                                <div className='w-full'>
-                                    <p className='text-md font-semibold'>Answer Options :</p>
-                                    <div className='w-full h-[200px] bg-slate-200 rounded-md p-2 flex flex-col gap-2 overflow-y-auto'>
-                                        {answerOption.map((item, index) => (
-                                            <div key={index} className='w-full min-h-10 rounded-md flex text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-between'>
-                                                <input
-                                                    className='h-5 text-sm rounded-sm p-2 bg-[#aedbde] w-80 border-none'
-                                                    defaultValue={`Question ${index}`}
-                                                    value={formHandler[selectedPageIndex]?.answers_option[index].label || ''}
-                                                />
-                                                <input type='checkbox' />
-                                            </div>
-                                        ))}
-                                        <Button
-                                            onClick={addAnswer}
-                                            disabled={answerOptionLimit}
-                                            className='w-full h-10 flex rounded-md text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-center text-[#37BEC7] font-semibold hover:bg-[#2a98a0] transition-colors duration-150 hover:text-white disabled:saturate-0'
-                                        >
-                                            <span><AddIcon /></span>
-                                            <p>Add Answer Option</p>
-                                        </Button>
-                                    </div>
-                                </div>
+                            <div className='w-full'>
+                                <p className='text-md font-semibold'>Answer Options :</p>
+                                <div><AnswerOptions questionType='regularQuestion' questionnaireType='SATA' /></div>
                             </div>
                         </div>
                     </div>
-                )}
-            </form>
+                </div>
+
+            </FormProvider >
             <div className='w-full flex'>
                 <div className='w-1/2 flex justify-start'>
                     <Pagination
-                        count={formHandler.length}
-                        onChange={handleChange}
-                        page={selectedPageIndex + 1}
+                        count={questionnaireFields.length + 1}
+                        onChange={handlePaginate}
+                        page={selectedPageIndex}
                         variant="outlined"
                         shape="rounded"
                         showFirstButton
@@ -190,11 +162,11 @@ export const CreateRegularQuestion: React.FC<Props> = ({ nextStep,
                     />
                 </div>
                 <div className='w-1/2 flex justify-end'>
-                    <Button onClick={handleSubmit(onSubmit)} className='bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150'>
+                    <Button onClick={confirmCreation(handleContinue)} className='bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150'>
                         <p>Continue</p>
                     </Button>
                 </div>
             </div>
-        </div>
-    );
-}
+        </div >
+    )
+} 
