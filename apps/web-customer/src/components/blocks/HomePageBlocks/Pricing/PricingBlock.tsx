@@ -7,7 +7,7 @@ import { Encryption } from "core-library/utils/Encryption";
 import { config } from "core-library/config";
 import { useEncryptItem } from "core-library/contexts/auth/hooks";
 
-interface Props {}
+interface Props { }
 
 export const PricingBlock: React.FC<Props> = (props) => {
   const [nurseType, setNurseType] = useState<number>(1);
@@ -76,14 +76,13 @@ export const PricingBlock: React.FC<Props> = (props) => {
             </button>
           </span>
         </div>
-        <div className="w-full px-10 flex flex-col gap-5 mt-8">
-          <div className="flex gap-5 w-full justify-center flex-wrap ">
+        <div className="w-full px-10 flex flex-col gap-5 mt-8 items-start justify-center">
+          <div className="flex gap-5 w-2/3 justify-center self-center flex-wrap">
             {filteredItems && filteredItems.length > 0 ? (
               filteredItems.map((item, index) => (
                 <div
-                  className={`cursor-pointer transition-all duration-150 ${nurseType == 1 ? "hover:border-[#08474b] hover:border-2 rounded-lg hover:-mt-2" : "hover:border-[#0c225c] hover:border-2 rounded-lg hover:-mt-2"}`}
-                  key={index}
-                >
+                  className={`cursor-pointer border-2 border-transparent transition-all duration-300 ${nurseType == 1 ? "hover:border-[#08474b] hover:border-2 hover:scale-105 rounded-lg hover:-mt-2" : "hover:border-[#0c225c] hover:border-2 rounded-lg hover:-mt-2"}`}
+                  key={index}>
                   <PricingCard
                     key={index}
                     cardData={item}

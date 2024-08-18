@@ -1,4 +1,4 @@
-import { FastTrackList, StandardList } from '@/core/constant/HompageMockData'
+import { FastTrackList, StandardList } from '@/core/constant/HompageMockData';
 import { SelectedProductType } from 'core-library/types/global'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import React from 'react'
@@ -24,7 +24,18 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
     const ProgramTitle = cardData.programTitle
     const ProgramDescription = cardData.programType == 0 ? StandardList : FastTrackList
     return (
-        <div className=' transition-all duration-300 h-full border border-darkGray w-[350px] px-12 py-5 rounded-md shadow-md'>
+        <div
+            onClick={() =>
+                handleSelectProduct({
+                    amount: cardData.pricing.price,
+                    currency: cardData.pricing.currency,
+                    productName: cardData.productName,
+                    productDescription: cardData.productDescription,
+                    programTitle: cardData.programTitle,
+                    pricingId: cardData.pricingId,
+                    productId: cardData.id,
+                    programType: cardData.programType // 0 = 23 Days : 1 = 8 Days
+                })} className=' transition-all duration-300 h-full border border-darkGray bg-white w-[350px] px-12 py-5 rounded-md shadow-md'>
             <div className='w-full flex h-fit py-2 items-center justify-center  rounded-md'>
                 <p className="text-2xl">{cardData.programType == 0 ? '23 Days (Standard)' : '8 Days (Fast Track)'}</p>
 
