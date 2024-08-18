@@ -2,7 +2,7 @@ import { ThemeProvider } from "@mui/material";
 import { RenderOptions, render as rtlRender } from "@testing-library/react";
 import rtlEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
-import { TenantContextProvider, GlobalsProvider } from "../contexts";
+import { TenantContextProvider, GlobalsProvider, BusinessQueryContextProvider } from "../contexts";
 import { theme } from "../contents/theme/theme";
 
 export * from "@testing-library/react";
@@ -26,7 +26,9 @@ export const render = (
     wrapper: ({ children }) => (
       <TenantContextProvider tenant={null as any}>
         <GlobalsProvider tenant={null} globals={null} preloadedGlobals={{}}>
-          {children}
+          <BusinessQueryContextProvider>
+            {children}
+          </BusinessQueryContextProvider>
         </GlobalsProvider>
       </TenantContextProvider>
     ),
