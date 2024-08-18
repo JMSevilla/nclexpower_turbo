@@ -13,3 +13,4 @@ export * from "./TenantContext";
 export * from "./ExpirationContext";
 export * from "./SecretClientKeyContext";
 export * from "./TabsContext";
+export * from "./HeaderTitleContext";
