@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         clearSingleCookie();
         router.push((route) => route.login);
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -151,7 +151,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setRefreshToken,
           setSingleCookie,
         }),
-        [isAuthenticated, accessToken, refreshToken, verificationPreparation]
+        [isAuthenticated, accessToken, refreshToken, verificationPreparation, loading]
       )}
     >
       {children}
