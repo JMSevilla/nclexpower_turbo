@@ -6,6 +6,7 @@ import {
   StripeContextProvider,
   useAuthContext,
   FormSubmissionContextProvider,
+  HeaderTitleContextProvider,
 } from "core-library/contexts";
 import { useStripeConfig } from "core-library/core/hooks/stripe/useStripeConfig";
 import { Footer } from "core-library/components/ReusableFooter/Footer";
@@ -36,21 +37,23 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <FormSubmissionContextProvider>
-          <StripeContextProvider publishableKey={publishableKey}>
-            <LoadablePageContent>
-              <DrawerLayout
-                menu={headerMenu}
-                isAuthenticated={isAuthenticated}
-                headerStyles={headerStyles}
-                hiddenHeaderPathnames={HideHeader}
-              >
-                {children}
-                <Footer info={CompanyInfo} list={list} />
-              </DrawerLayout>
-            </LoadablePageContent>
-          </StripeContextProvider>
-        </FormSubmissionContextProvider>
+        <HeaderTitleContextProvider>
+          <FormSubmissionContextProvider>
+            <StripeContextProvider publishableKey={publishableKey}>
+              <LoadablePageContent>
+                <DrawerLayout
+                  menu={headerMenu}
+                  isAuthenticated={isAuthenticated}
+                  headerStyles={headerStyles}
+                  hiddenHeaderPathnames={HideHeader}
+                >
+                  {children}
+                  <Footer info={CompanyInfo} list={list} />
+                </DrawerLayout>
+              </LoadablePageContent>
+            </StripeContextProvider>
+          </FormSubmissionContextProvider>
+        </HeaderTitleContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
