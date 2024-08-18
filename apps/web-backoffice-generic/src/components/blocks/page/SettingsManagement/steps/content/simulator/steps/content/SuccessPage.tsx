@@ -1,4 +1,3 @@
-// import { ContainedRegularQuestionType } from '@/components/blocks/page/SettingsManagement/steps/content/simulator/types';
 import React from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Button } from 'core-library/components';

@@ -1,7 +1,7 @@
 import { WizardFormMap } from "core-library/hooks";
 import { ContainedRegularQuestionType } from "./types";
 import { QuestionTypeSelection } from "./steps/content/QuestionTypeSelection";
-import { SuccessPage } from '../../../../../../blocks/page';
+import { SuccessPage } from '@/components/blocks/page';
 
 export type QuestionTypeFormSteps =
   | "InitialQuestionTypeSelection"
