@@ -22,7 +22,7 @@ beforeEach(() => {
 
 
 describe('Success Page', () => {
-    it('it should display success page for regular question', () => {
+    it('should display success page for regular question', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -32,7 +32,7 @@ describe('Success Page', () => {
         expect(screen.getByTestId('regular-question')).toBeInTheDocument()
     })
 
-    it('it should display success page for case study question', () => {
+    it('should display success page for case study question', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -42,7 +42,7 @@ describe('Success Page', () => {
         expect(screen.getByTestId('case-study-question')).toBeInTheDocument()
     })
 
-    it('is should go to regular question list', () => {
+    it('should go to regular question list', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -54,7 +54,7 @@ describe('Success Page', () => {
     })
 
 
-    it('itshould go to case study question list', () => {
+    it('should go to case study question list', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -65,7 +65,7 @@ describe('Success Page', () => {
         expect(mockFn).toHaveBeenCalledWith({ pathname: "/case-study-list" });
     })
 
-    it('it should proceed to create new (regular)', () => {
+    it('should proceed to create new (regular)', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
@@ -76,7 +76,7 @@ describe('Success Page', () => {
         expect(mockFn);
     })
 
-    it('it should proceed to create new (case study)', () => {
+    it('should proceed to create new (case study)', () => {
         render(<SuccessPage
             nextStep={mockNextStep}
             previousStep={mockPreviousStep}
