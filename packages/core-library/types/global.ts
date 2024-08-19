@@ -159,6 +159,21 @@ export interface SelectedProductType {
   programTitle: number;
   programType: number;
   inclusions: {
+    features: string[];
+  };
+}
+export interface ProductCardType {
+  id: string;
+  productName: string;
+  productDescription: string;
+  programType: number;
+  programTitle: number;
+  pricingId: string;
+  pricing: {
+    price: number;
+    currency: string;
+  };
+  inclusions: {
     // temporarily placed just to addressed the ticket. https://app.clickup.com/t/86epzggjz
     features: string[];
   };
