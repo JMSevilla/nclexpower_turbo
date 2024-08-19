@@ -5,20 +5,24 @@ import React from 'react'
 
 interface CardProps {
     cardData: {
-        id: string
-        productName: string
-        productDescription: string
-        programType: number
-        programTitle: number
-        pricingId: string
+        // why we can't use types here instead of defining them one by one?
+        id: string;
+        productName: string;
+        productDescription: string;
+        programType: number;
+        programTitle: number;
+        pricingId: string;
         pricing: {
-            price: number
-            currency: string
-        }
-    }
-    handleSelectProduct: (values: SelectedProductType) => void
+            price: number;
+            currency: string;
+        };
+        inclusions: {
+            // temporarily placed just to addressed the ticket. https://app.clickup.com/t/86epzggjz
+            features: string[];
+        };
+    };
+    handleSelectProduct: (values: SelectedProductType) => void;
 }
-
 
 const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => {
     const ProgramTitle = cardData.programTitle

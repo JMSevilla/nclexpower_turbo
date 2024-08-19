@@ -1,73 +1,75 @@
 import React from 'react';
-import { Button, FormControl, InputLabel, Typography } from '@mui/material';
-import { TextField } from 'core-library/components';
-import { MultipleSelectField } from 'core-library/components';
-import { IssueMockData } from '../../core/constant/ReportIssueMock/IssueMockData';
-import { Control, FieldErrors, UseFormHandleSubmit } from 'react-hook-form';
-import { FormValues } from './ReportIssueDialog';
-import SendIcon from '@mui/icons-material/Send';
+import { MultipleSelectField, TextField, Button } from 'core-library/components';
+import { useForm } from 'react-hook-form';
+import { ReportIssueType, ReportSchema } from '../../core/Schema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useBusinessQueryContext } from 'core-library/contexts';
+import { useFormFocusOnError } from 'core-library/hooks';
 
-interface ReportProps {
-  control: Control<FormValues>;
-  errors: FieldErrors<FormValues>;
-  handleSubmit: UseFormHandleSubmit<FormValues>;
-  onSubmit: (data: FormValues) => void;
+type Props = {
+  onSubmit: (data: ReportIssueType) => void;
 }
 
-export const ReportIssueForm: React.FC<ReportProps> = ({ control, errors, handleSubmit, onSubmit }) => (
-  <form onSubmit={handleSubmit(onSubmit)} className=' flex flex-col items-center justify-center'>
-    <div className="w-full my-2">
-      <TextField
-        control={control}
-        name="ticket"
-        label={"Ticket"}
-        placeholder="NCLEX01234"
-        disabled
-      />
-    </div>
-    {errors.categories && <Typography color="error">{errors.categories.message}</Typography>}
-    <FormControl sx={{ my: 1, width: '100%' }} error={!!errors.categories}>
-      <InputLabel id="issues-label"></InputLabel>
+type CategoryType = {
+  id: string;
+  categoryName: string;
+}
+
+export default function ReportIssueForm({ onSubmit }: Props) {
+  const { businessQueryGetReportCategories } = useBusinessQueryContext();
+  const { data } = businessQueryGetReportCategories([
+    "CategoryList",
+  ], 1);
+
+  const form = useForm<ReportIssueType>({
+    mode: "all",
+    resolver: yupResolver(ReportSchema),
+    defaultValues: ReportSchema.getDefault()
+  });
+
+  const { control, handleSubmit, formState, setFocus, clearErrors } = form;
+  useFormFocusOnError<ReportIssueType>(formState.errors, setFocus);
+
+  const categories = data?.map((item: CategoryType) => ({
+    label: item.categoryName,
+    value: item.id,
+  }))
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
       <MultipleSelectField
-        sx={{ width: '100%', mb: 2 }}
         control={control}
-        name="issues"
-        label="Issues"
-        options={IssueMockData}
-        multiple
+        name="categoryId"
+        options={categories ?? []}
+        label={"Select Report Categories"}
+        sx={{ marginY: 2, borderRadius: '10px', width: '100%' }}
       />
-    </FormControl>
-    <div className="w-full my-2">
-      <TextField
+      <TextField<ReportIssueType>
         control={control}
-        name="customerEmail"
+        name="email"
         label="Email Address"
         placeholder="Input your email address here..."
+        onBlur={() => clearErrors()}
+        sx={{ borderRadius: '5px', marginBottom: 2 }}
+        inputProps={{ style: { padding: 15, borderRadius: '5px' } }}
       />
-    </div>
-    <div className="w-full my-2">
-      <TextField
-        control={control}
-        name="url"
-        label="Enter url"
-        placeholder="Input your url link here..."
-      />
-    </div>
-    <FormControl sx={{ my: 1, width: '100%' }} error={!!errors.description}>
-      <TextField
+      <TextField<ReportIssueType>
         multiline
         rows={4}
         control={control}
         name="description"
         label="Provide a brief description about the encountered issue:"
         placeholder="Describe the issue..."
+        onBlur={() => clearErrors()}
       />
-      {errors.description && <Typography color="error">{errors.description.message}</Typography>}
-    </FormControl>
-    <div className="flex items-start justify-start flex-col w-full">
-      <Button fullWidth variant="contained" endIcon={<SendIcon />} type="submit" sx={{ padding: 1.5, marginTop: 2 }}>
+      <Button
+        variant="contained"
+        onClick={handleSubmit(onSubmit)}
+        sx={{ borderRadius: 1 }}
+        className="w-full mt-6 p-3 bg-darkBlue hover:bg-hoverBlue"
+      >
         Submit
       </Button>
-    </div>
-  </form>
-);
+    </form>
+  )
+}

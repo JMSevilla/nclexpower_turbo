@@ -1,5 +1,9 @@
 import { Box, Grid } from "@mui/material";
-import { Button } from "core-library/components";
+import {
+  Button,
+  MultipleSelectField,
+  SelectIssueOption,
+} from "core-library/components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { productSchema, ProductFormType } from "./validation";
@@ -28,6 +32,18 @@ export const ProductForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   });
   const { control, handleSubmit, clearErrors, setFocus, formState } = form;
   useFormFocusOnError<ProductFormType>(formState.errors, setFocus);
+
+  // mock inclusions
+  const inclusions: SelectIssueOption[] = [
+    {
+      label: "Inclusions 1 test",
+      value: "Inclusions 1 test",
+    },
+    {
+      label: "Inclusions 2 test",
+      value: "Inclusions 2 test",
+    },
+  ];
 
   return (
     <Box>
@@ -92,6 +108,14 @@ export const ProductForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
           },
         ]}
         label="Program type"
+      />
+      <MultipleSelectField
+        control={control}
+        name="features"
+        label="Inclusions"
+        options={inclusions}
+        multiple
+        sx={{ mt: 3, width: "100%" }}
       />
       <Box sx={{ float: "right" }} mt={5} mb={5}>
         <Button onClick={handleSubmit(onSubmit)} variant="contained">

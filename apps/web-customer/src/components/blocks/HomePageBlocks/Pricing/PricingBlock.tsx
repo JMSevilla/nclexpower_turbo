@@ -57,7 +57,8 @@ export const PricingBlock: React.FC<Props> = (props) => {
           <span className="flex gap-5">
             <button
               className={`${nurseType === 0 ? "w-full" : "w-[80%] saturate-0 hover:scale-95"} bg-[#0c225c] whitespace-nowrap transition-all duration-300 text-white py-5 text-lg rounded-2xl flex items-center leading-4 px-5 text-left gap-2`}
-              onClick={() => filterItems(0)}>
+              onClick={() => filterItems(0)}
+            >
               <p className="font-bold text-3xl">
                 RN <span className="font-normal">|</span>{" "}
               </p>
@@ -65,7 +66,8 @@ export const PricingBlock: React.FC<Props> = (props) => {
             </button>
             <button
               className={`${nurseType === 1 ? "w-full" : "w-[80%] saturate-0 hover:scale-95"} bg-[#08474b] whitespace-nowrap transition-all duration-300 text-white py-5 text-lg rounded-2xl flex items-center leading-4 px-5 text-left gap-2`}
-              onClick={() => filterItems(1)}>
+              onClick={() => filterItems(1)}
+            >
               <p className="font-bold text-3xl">
                 PN <span className="font-normal">|</span>{" "}
               </p>
@@ -82,12 +84,14 @@ export const PricingBlock: React.FC<Props> = (props) => {
                   key={index}>
                   <PricingCard
                     cardData={item}
-                    handleSelectProduct={handleSelectProduct} />
+                    handleSelectProduct={handleSelectProduct}
+                  />
                 </div>
               ))
             ) : (
               <div
-                className={`bg-gradient-to-tr ${nurseType === 0 ? "from-[#334f9d] to-[#0c225c] text-white" : "from-[#31898f] to-[#08474b] text-white"} rounded-md shadow-md px-5 py-8 text-lg w-full text-center  font-semibold`}>
+                className={`bg-gradient-to-tr ${nurseType === 0 ? "from-[#334f9d] to-[#0c225c] text-white" : "from-[#31898f] to-[#08474b] text-white"} rounded-md shadow-md px-5 py-8 text-lg w-full text-center  font-semibold`}
+              >
                 <p>Programs unavailable, please reload the page</p>
               </div>
             )}
