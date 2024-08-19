@@ -27,11 +27,11 @@ export default function ReportIssueDialog() {
       </Button>
       <DialogBox
         handleClose={handleClose}
-        loading={false} // Set to false for testing purposes
+        loading={false}
         maxWidth={"md"}
         open={open}
         header='Report an Issue'
-        hideCloseButton={false} // Ensure close button is present
+        hideCloseButton={false}
         sx={{ zIndex: 1 }}
       >
         <ReportIssueForm onSubmit={onSubmit} />
