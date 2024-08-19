@@ -11,11 +11,11 @@ export default function ReportIssueDialog() {
   const { businessQueryCreateReportIssue } = useBusinessQueryContext();
   const { mutateAsync } = businessQueryCreateReportIssue();
 
-  const handleClickOpen = () => setOpen(true)
+  const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   async function onSubmit(params: ReportIssueType) {
-    await mutateAsync({ ...params })
+    await mutateAsync({ ...params });
     handleClose();
   };
 
@@ -27,11 +27,11 @@ export default function ReportIssueDialog() {
       </Button>
       <DialogBox
         handleClose={handleClose}
-        loading={true}
+        loading={false} // Set to false for testing purposes
         maxWidth={"md"}
         open={open}
         header='Report an Issue'
-        hideCloseButton={true}
+        hideCloseButton={false} // Ensure close button is present
         sx={{ zIndex: 1 }}
       >
         <ReportIssueForm onSubmit={onSubmit} />
