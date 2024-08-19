@@ -7,6 +7,11 @@ export const productSchema = yup.object({
   productDescription: yup.string().notRequired().default(""),
   programType: yup.number().required("Select program type").default(0),
   programTitle: yup.number().required("Select program title").default(0),
+  features: yup
+    .array()
+    .min(1, "Please select atleast 1 feature")
+    .required("Select atleast 1 feature")
+    .default([]),
 });
 
 export type ProductFormType = yup.InferType<typeof productSchema>;

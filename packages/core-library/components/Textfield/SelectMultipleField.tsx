@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 
 export type SelectIssueOption = {
+  //beejay change this to SelectOption or any type name will do.
   label: string;
   value: string;
   xvalue?: number;
