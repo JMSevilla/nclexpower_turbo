@@ -143,7 +143,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             .join(" ")}
           sx={{
             display: "flex",
-            alignItems: "stretch",
+            alignItems: "center",
             position: "relative",
             width: fullWidth ? "100%" : width,
             minWidth: 140,

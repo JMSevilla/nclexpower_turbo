@@ -21,8 +21,8 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { loading, logout } = useAuthContext();
   const queryClient = new QueryClient();
   const { isAuthenticated } = useAuthContext();
-  const mockMenu = mockMenus(isAuthenticated);
   const { tokenValidated, loading: validateLoading } = useValidateToken();
+  const mockMenu = mockMenus(isAuthenticated && tokenValidated);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -33,11 +33,9 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
             <DialogContextProvider>
               <DrawerLayout
                 menu={mockMenu}
-                isAuthenticated={isAuthenticated || tokenValidated}
-                onLogout={logout}
-                loading={validateLoading}
-              >
-                <ContentLoader loading={loading}>
+                isAuthenticated={isAuthenticated && tokenValidated}
+                onLogout={logout}>
+                <ContentLoader loading={loading || validateLoading}>
                   <PageContainer stickOut={false}>
                     <ToastProvider>
                       <ControlledToast
