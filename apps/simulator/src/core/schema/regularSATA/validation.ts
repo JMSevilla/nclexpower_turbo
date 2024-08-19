@@ -9,10 +9,10 @@ const itemSchema = z.object({
 export const RegSATASchema = z.object({
   regSata: z.array(itemSchema).refine(
     data => {
-      return data.some(item => item.Value === true);
+      return data.filter(item => item.Value === true).length >= 2;
     },
     {
-      message: 'At least one item must have Value set to true',
+      message: 'At least 2 items must have Value set to true',
     },
   ),
 });

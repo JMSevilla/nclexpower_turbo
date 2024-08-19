@@ -18,6 +18,8 @@ export const config = {
       BASEHUB: processEnv.NEXT_PRIVATE_BASE_ROUTE!,
       APPENV: processEnv.NEXT_PRIVATE_ENV!,
       SYSENV: processEnv.NEXT_PRIVATE_SYSENV!,
+      LOCALFE: processEnv.NEXT_PRIVATE_LOCALFE,
+      STRIPE_URL_JS: processEnv.NEXT_PRIVATE_STRIPE_URL,
     };
   },
 };

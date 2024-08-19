@@ -3,13 +3,21 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Image from "next/image";
 import Emailsent from "../../../../assets/message.png";
 import Link from "next/link";
+import { useAtom } from "jotai";
+import { ForgotPasswordAtom } from "@/core";
+import { NotfoundBlock } from "../../NotFoundBlock/NotFoundBlock";
 
 export const ResetLinkBlock: React.FC = () => {
+  const [email] = useAtom(ForgotPasswordAtom);
   const router = useRouter();
 
   const handleBack = () => {
     router.replace((route) => route.login);
   };
+
+  if (!email?.email) {
+    return <NotfoundBlock />;
+  }
 
   return (
     <div className="h-screen flex justify-center items-center ">
@@ -18,7 +26,7 @@ export const ResetLinkBlock: React.FC = () => {
           <Image
             className="w-40 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl "
             src={Emailsent}
-            alt="Page Not Found"
+            alt="EmailSent"
           />
         </div>
         <div>
@@ -34,7 +42,7 @@ export const ResetLinkBlock: React.FC = () => {
                 We’ve sent password reset instructions to:
               </p>
               <p className="pt-sans-bold text-[22px] w-96 text-[#0f2a71] ">
-                test@gmail.com
+                {email?.email ?? "[[no-email]]"}
               </p>
             </div>
             <div className="pb-2">
@@ -42,7 +50,7 @@ export const ResetLinkBlock: React.FC = () => {
                 If it doesn’t arrive soon. Check your spam folder or
               </p>
               <Link
-                href={"/account/forgot-password"}
+                href="/account/forgot-password"
                 className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer text-[18px] "
               >
                 send the email again.
@@ -52,7 +60,7 @@ export const ResetLinkBlock: React.FC = () => {
             <p className="pb-6 pt-sans-caption text-[18px] text-[#0f2a71]  ">
               Need help?
               <span className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer underline">
-                <Link href={"/#Contact-support"}> Contact Support</Link>
+                <Link href="/contact"> Contact Support</Link>
               </span>
             </p>
 

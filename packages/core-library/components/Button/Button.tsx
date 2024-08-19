@@ -2,11 +2,13 @@ import {
   CircularProgress,
   Button as MuiButton,
   ButtonProps as MuiButtonProps,
+  Stack,
 } from "@mui/material";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useCustomAction } from "../../hooks";
 import { ButtonType } from "./button-type";
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
+import { FormHelperText } from "../Textfield/TextField";
 
 export interface ButtonProps
   extends Pick<
@@ -32,9 +34,46 @@ export interface ButtonProps
   buttonActionType?: MuiButtonProps["type"];
   text?: string;
   customActionKey?: string;
+  resetTime?: number;
+  error?: boolean;
+  helperText?: string;
+  "data-testid"?: string;
 }
 
 const LOADER_SIZE = 20;
+
+const FormattedTime: React.FC<{ seconds: number }> = ({ seconds }) => {
+  const minutes = Math.floor(seconds / 60);
+  const formattedSeconds = `${seconds % 60}`.padStart(2, "0");
+  const formatted = `${minutes}:${formattedSeconds}`;
+  const canResend = seconds <= 0;
+
+  return (
+    <FormHelperText
+      sx={{
+        fontWeight: 560,
+        fontSize: "1rem",
+        mt: 1,
+        color: (theme) => theme.palette.grey[500],
+      }}
+    >
+      {!canResend && `Can resend after : ${formatted}`}
+    </FormHelperText>
+  );
+};
+
+const HelperText: React.FC<
+  Pick<ButtonProps, "error" | "helperText"> & {
+    seconds: number;
+  }
+> = ({ seconds, helperText, error }) => {
+  return (
+    <Stack>
+      <FormHelperText error={error}>{helperText}</FormHelperText>
+      <FormattedTime seconds={seconds} />
+    </Stack>
+  );
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -53,6 +92,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onClick,
       href,
       buttonActionType,
+      resetTime,
       ...props
     },
     ref
@@ -60,17 +100,39 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const action = useCustomAction({
       actionKey: customActionKey,
     });
+    const [remainingTime, setRemainingTime] = useState<number>(resetTime ?? 0);
     const isLoading = loading || action?.loading;
     const isDisabled = disabled || action?.disabled;
     const isDisabledOrLoading = isLoading || isDisabled;
     const disabledReasonId = `disabledReason-${Math.random().toString(36).substring(2, 15)}`;
     const role = !href ? { role: "button" } : {};
+
+    useEffect(() => {
+      if (resetTime !== undefined) {
+        setRemainingTime(resetTime);
+      }
+    }, [resetTime]);
+
+    useEffect(() => {
+      let timer: ReturnType<typeof setInterval> | null = null;
+      if (remainingTime > 0) {
+        timer = setInterval(() => {
+          setRemainingTime((prev) => (prev > 0 ? prev - 1 : 0));
+        }, 1000);
+      }
+
+      return () => {
+        if (timer) clearInterval(timer);
+      };
+    }, [remainingTime]);
+
     const button = (
       <>
         <MuiButton
           ref={ref}
           id={id}
           custom-action-key={customActionKey}
+          data-testid={props["data-testid"]}
           className={[
             className,
             type,
@@ -80,8 +142,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             .filter(Boolean)
             .join(" ")}
           sx={{
-            display: 'flex',
-            alignItems: 'stretch',
+            display: "flex",
+            alignItems: "stretch",
             position: "relative",
             width: fullWidth ? "100%" : width,
             minWidth: 140,
@@ -89,9 +151,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             borderRadius: 0,
             "& #loader": {
               position: "absolute",
-              marginY: 'auto',
+              marginY: "auto",
               top: `calc(50% - ${LOADER_SIZE / 2}px)`,
-              marginLeft: 1
+              marginLeft: 1,
             },
             ...sx,
           }}
@@ -108,7 +170,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {...role}
           {...props}
         >
-          {children || text}
+          {remainingTime > 0 ? (
+            <HelperText
+              helperText="You've reached maximum sent link"
+              seconds={remainingTime}
+            />
+          ) : (
+            children || text || "Continue"
+          )}
           {isLoading && (
             <Box>
               <CircularProgress

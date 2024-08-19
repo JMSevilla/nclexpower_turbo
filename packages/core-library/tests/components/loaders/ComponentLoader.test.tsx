@@ -2,6 +2,9 @@ import { ComponentLoader } from "../../../components";
 import { render } from "../../common";
 
 jest.mock("../../../config", () => ({ config: { value: jest.fn() } }));
+jest.mock("../../../core/router", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("ComponentLoader", () => {
   it("renders correctly", () => {
@@ -25,6 +28,6 @@ describe("ComponentLoader", () => {
       <ComponentLoader disableMarginBottom={false} />
     );
     const componentLoader = getByTestId("component-loader");
-    expect(componentLoader).toHaveStyle("margin-bottom: 128px");
+    expect(componentLoader).toHaveStyle("margin-bottom: 64px");
   });
 });

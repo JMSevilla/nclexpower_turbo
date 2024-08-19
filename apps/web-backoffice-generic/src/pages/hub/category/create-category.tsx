@@ -1,7 +1,7 @@
 import React from "react";
 import withAuth from "core-library/core/utils/withAuth";
-import { Container, Box, Typography, Chip } from "@mui/material";
-import { Alert, Card, DataGrid, Button } from "core-library/components";
+import { Container, Box, Typography, Chip, Button } from "@mui/material";
+import { Alert, Card, DataGrid } from "core-library/components";
 import {
   useBusinessQueryContext,
   useDialogContext,
@@ -44,9 +44,20 @@ const CreateCategoryMainPage: React.FC = () => {
         renderCell: (params) => {
           if (params.row.categoryType == 0) {
             return <Chip variant="filled" size="small" label="PRICING" />;
-          } else {
-            return <Chip variant="filled" size="small" label="REPORT ISSUE" />;
           }
+          if (params.row.categoryType == 2) {
+            return <Chip variant="filled" size="small" label="CLIENT NEEDS" />;
+          }
+          if (params.row.categoryType == 3) {
+            return <Chip variant="filled" size="small" label="CONTENT AREA" />;
+          }
+          if (params.row.categoryType == 4) {
+            return (
+              <Chip variant="filled" size="small" label="COGNITIVE LEVEL" />
+            );
+          }
+
+          return <Chip variant="filled" size="small" label="REPORT ISSUE" />;
         },
       },
       {
@@ -56,7 +67,7 @@ const CreateCategoryMainPage: React.FC = () => {
         width: 150,
         renderCell: (params) => {
           return (
-            <Box sx={{ display: "inline" }}>
+            <Box>
               <Button
                 variant="text"
                 onClick={async () => await deleteCategory(params.row.id)}

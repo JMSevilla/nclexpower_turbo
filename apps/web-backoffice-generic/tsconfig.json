@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,9 +13,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -27,8 +21,9 @@
     "**/*.ts",
     "**/*.tsx",
     "../../packages/core-library/global.d.ts",
-    "../../packages/core-library/core/utils/routeUtils.ts"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "../../packages/core-library/theme.d.ts",
+    "../../packages/core-library/core/utils/routeUtils.ts",
+    "../../packages/core-library/config"
+  ],
+  "exclude": ["node_modules"]
 }

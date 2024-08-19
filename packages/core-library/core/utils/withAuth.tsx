@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { useAccessToken } from "../../contexts/auth/hooks";
 import { authorizedRoute, unauthorizeRoute } from "./contants/route";
 import { useValidateToken } from "../../hooks";
 
@@ -15,7 +14,6 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     // const accountSetupCb = useApi((api) =>
     //   api.webbackoffice.shouldDoAccountSetup()
     // );
-
     useEffect(() => {
       const isLoggedIn = !!tokenValidated;
       setIsAuthenticated(isLoggedIn);

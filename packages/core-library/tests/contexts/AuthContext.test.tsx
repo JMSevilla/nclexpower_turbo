@@ -15,7 +15,7 @@ jest.mock("../../hooks/useApi", () => ({
     .fn()
     .mockReturnValue({ loading: false, execute: jest.fn() }),
 }));
-jest.mock("next/router", () => ({
+jest.mock("../../core/router", () => ({
   useRouter: jest.fn(),
 }));
 
@@ -34,6 +34,11 @@ describe("useAuthContext", () => {
       logout: expect.any(Function),
       register: expect.any(Function),
       setIsAuthenticated: expect.any(Function),
+      verificationPreparation: expect.any(Object),
+      setVerificationPreparation: expect.any(Function),
+      setAccessToken: expect.any(Function),
+      setRefreshToken: expect.any(Function),
+      setSingleCookie: expect.any(Function),
     });
   });
 });

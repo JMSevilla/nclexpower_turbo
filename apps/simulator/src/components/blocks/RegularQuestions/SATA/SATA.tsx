@@ -1,4 +1,4 @@
-import { Paper } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { useForm, useFieldArray, useFormState, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,7 +33,7 @@ export const SATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, choic
 
   const { ErrorMessageHandler } = useErrorHandler({
     isValid: form.formState.isValid,
-    errorMessage: 'At least one item must be selected',
+    errorMessage: 'At least two item must be selected',
   });
 
   useFormSubmissionBindingHooks({
@@ -45,18 +45,16 @@ export const SATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, choic
   });
 
   return (
-    <div className="h-full px-10 py-5">
-      <Paper elevation={3}>
-        <FormProvider {...form}>
-          <div className="py-8 px-16">
-            <p className="p-2 py-4">{question}</p>
-            <div className="">
-              <div className="w-full">
-                <p className="flex py-3 pt-0">
-                  <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
-                </p>
-              </div>
-              <div className="px-4">
+    <Box className="p-2 h-full tracking-tight">
+      <FormProvider {...form}>
+        <Grid container rowSpacing={1} justifyContent={'center'} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Paper sx={{ width: '70%' }}>
+            <Box className="h-full w-full p-4">
+              <Box>
+                <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
+                {question}
+              </Box>
+              <Box className="p-5">
                 {fields?.length > 0 &&
                   fields.map((item, idx) => (
                     <ol key={idx}>
@@ -68,12 +66,14 @@ export const SATAQuestion: React.FC<Props> = ({ handleSubmit, regSataAtom, choic
                       />
                     </ol>
                   ))}
-              </div>
-            </div>
-          </div>
-        </FormProvider>
-      </Paper>
-      <ErrorMessageHandler />
-    </div>
+              </Box>
+            </Box>
+          </Paper>
+        </Grid>
+        <Box className="ml-36">
+          <ErrorMessageHandler />
+        </Box>
+      </FormProvider>
+    </Box>
   );
 };

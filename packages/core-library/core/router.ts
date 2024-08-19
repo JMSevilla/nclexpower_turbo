@@ -1,9 +1,6 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
-import { usePageLoaderContext } from "../contexts/PageLoaderContext";
-import { useApi } from "../hooks";
-import { hasClientKeyRoute } from "./utils/contants/route";
 
 type StaticRoutes = Record<
   | "home"
@@ -13,7 +10,8 @@ type StaticRoutes = Record<
   | "account_setup"
   | "login"
   | "account_verification_otp"
-  | "account_forgot_password", //we can register all our static routes here.
+  | "account_forgot_password"
+  | "reset_link_success", //we can register all our static routes here.
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -33,6 +31,19 @@ const STATIC_ROUTES: StaticRoutes = {
   login: "/login",
   account_verification_otp: "/account/verification/otp",
   account_forgot_password: "/account/forgot-password",
+  reset_link_success: "/account/reset-link",
+};
+
+const routeTitles: Record<string, string> = {
+  "/": "Home",
+  "/hub": "Hub",
+  "/logout": "Logout",
+  "/404": "Page Not Found",
+  "/account_setup": "Account Setup",
+  "/login": "Login",
+  "/account/verification/otp": "Account Verification OTP",
+  "/account/forgot-password": "Forgot Password",
+  "/account/reset-link": "Reset Link Success",
 };
 
 export const useRouter = () => {
@@ -61,6 +72,7 @@ export const useRouter = () => {
   return {
     loading,
     staticRoutes: STATIC_ROUTES,
+    title: routeTitles[router.pathname],
     ...useMemo(
       () => ({
         ...router,

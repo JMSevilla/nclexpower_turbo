@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { ValidateTokenParams } from "../api/types";
 import { useExecuteToast } from "../contexts";
 import { useAccessToken } from "../contexts/auth/hooks";
@@ -14,7 +14,7 @@ export const useValidateToken = () => {
   );
 
   async function validateToken(params: ValidateTokenParams) {
-    if (!params.accessToken || accessToken) return;
+    if (!params.accessToken || !accessToken) return;
     try {
       return await validateTokenCb.execute({ ...params });
     } catch (error) {
@@ -26,7 +26,7 @@ export const useValidateToken = () => {
     }
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function handleValidateToken() {
       const result = await validateToken({
         accessToken: accessToken,

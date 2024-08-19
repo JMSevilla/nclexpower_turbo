@@ -2,16 +2,18 @@ import React, { useMemo } from "react";
 import { useWizardForm, WizardFormMap } from "core-library/hooks";
 import {
   SettingsManagementSteps,
-  CreateSettingsManagementSteps,
+  ChooseSettingsTypeStep,
   SettingsManagementStepProps,
-} from "./steps-config";
+} from "./ChooseSettingsTypeStep";
 import { DatabaseExcelComparison } from "./content/DatabaseExcelComparison";
-import { UploadFormType } from "../validation";
+import { SettingsSelectionType } from "../types";
+import { QuestionManagementTypeStep } from "./QuestionManagementSettingsTypeStep";
 
 export const useSettingsManagementWizardSteps = () => {
   const steps = useMemo(() => {
     return {
-      ...CreateSettingsManagementSteps,
+      ...ChooseSettingsTypeStep,
+      ...QuestionManagementTypeStep,
       DatabaseExcelComparison: {
         nextStep: "DatabaseExcelComparison",
         previousStep: "InitialSettingsSelection",
@@ -19,24 +21,27 @@ export const useSettingsManagementWizardSteps = () => {
       },
     } as WizardFormMap<
       Partial<SettingsManagementSteps>,
-      UploadFormType,
+      SettingsSelectionType,
       SettingsManagementStepProps
     >;
   }, []);
 
   const formWizardValues = (
-    prev: Partial<UploadFormType> | undefined,
-    values: Partial<UploadFormType>
-  ): Partial<{}> => ({
+    prev: Partial<SettingsSelectionType> | undefined,
+    values: Partial<SettingsSelectionType>
+  ): Partial<SettingsSelectionType> => ({
     ...prev,
     ...values,
   });
 
   const { renderStep } = useWizardForm<
     SettingsManagementSteps,
-    UploadFormType,
+    SettingsSelectionType,
     SettingsManagementStepProps
   >(steps, formWizardValues, "InitialSettingsSelection");
 
-  return renderStep;
+  return {
+    renderStep,
+    steps,
+  };
 };

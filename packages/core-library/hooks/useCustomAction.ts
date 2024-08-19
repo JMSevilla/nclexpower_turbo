@@ -1,5 +1,5 @@
 import { CustomActionHook } from "../types";
-import { useFormSubmissionAction } from "./useFormSubmissionAction";
+import { useFormSubmissionAction } from "./actions";
 
 interface Props {
   actionKey?: string;

@@ -47,7 +47,7 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
             </div>
             <div className="w-full flex gap-5 justify-center items-center py-5">
                 <div className="text-xs flex flex-col gap-2">{ProgramDescription.length > 0 && ProgramDescription.map((list, index) => (
-                    <div className='flex gap-2'>
+                    <div key={index} className='flex gap-2'>
                         <span><CheckCircleOutlineIcon sx={{ fontSize: 20 }} /></span>
                         <p>{list.label}</p>
                     </div>
@@ -56,17 +56,7 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
             <div className="w-full flex gap-5 py-5 justify-center items-center px-2 font-semibold">
                 <button
                     className={`${ProgramTitle === 1 ? 'bg-[#08474b]' : 'bg-[#0c225c]'} text-white w-full py-2 rounded-lg`}
-                    onClick={() =>
-                        handleSelectProduct({
-                            amount: cardData.pricing.price,
-                            currency: cardData.pricing.currency,
-                            productName: cardData.productName,
-                            productDescription: cardData.productDescription,
-                            programTitle: cardData.programTitle,
-                            pricingId: cardData.pricingId,
-                            productId: cardData.id,
-                            programType: cardData.programType // 0 = 23 Days : 1 = 8 Days
-                        })}>
+                >
                     Get Started
                 </button>
             </div>

@@ -49,7 +49,10 @@ export const CategoryForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
           name="categoryType"
           options={[
             { label: "PRICING", value: 0 },
-            { label: "REPORT_ISSUE", value: 1 },
+            { label: "REPORT ISSUE", value: 1 },
+            { label: "CLIENT NEEDS", value: 2 },
+            { label: "CONTENT AREA", value: 3 },
+            { label: "COGNITIVE LEVEL", value: 4 },
           ]}
           label="Select Category type"
         />

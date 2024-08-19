@@ -6,6 +6,8 @@ import { SidebarButton } from "./SidebarButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { usePathname } from "next/navigation";
 import { NavigationType } from "../../types/navigation";
+import { NCLEXYellowLogo } from "../../assets";
+import Image from "next/image";
 
 type SideBarPropsType = {
   menu: NavigationType[];
@@ -49,13 +51,11 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           borderColor="divider"
           height={70}
         >
-          <Typography
-            component="span"
-            fontWeight="bold"
-            color="primary"
-          >
-            WEB BACKOFFICE
-          </Typography>
+          <Image
+            style={{ width: 170 }}
+            src={NCLEXYellowLogo}
+            alt="NCLEXLogo"
+          />
 
           <Box position="absolute" right={5}>
             <IconButton onClick={setOpen}>
