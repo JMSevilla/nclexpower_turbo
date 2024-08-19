@@ -1,23 +1,26 @@
 import * as yup from "yup";
 import { QuestionSelectionOptions, RegularQuestionSelectionOptions } from "../../../types";
 
-export const regularAnswersSchema = yup.object({
-  answer: yup.string().required().default(''),
+export const regularSATAAnswersSchema = yup.object({
+  answer: yup.string().required("This field is required").default(''),
   answerKey: yup.boolean().default(false)
 })
 
-export const regularQuestionsFormSchema =
-  yup.object({
-    cognitiveLevel: yup.string().required().default(''),
-    clientNeeds: yup.string().required().default(''),
-    contentArea: yup.string().required().default(''),
-    question: yup.string().required().default(''),
-    answers: yup.array(regularAnswersSchema).min(2).required()
+export const regularMCQAnswersSchema = yup.object({
+  answer: yup.string().required("This field is required").default(''),
+  answerKey: yup.boolean().required()
+})
+
+export const regularQuestionsFormSchema = yup.object({
+    cognitiveLevel: yup.string().required("Cognitive level is required").default(''),
+    clientNeeds: yup.string().required("Client needs is required").default(''),
+    contentArea: yup.string().required("Content area is required").default(''),
+    question: yup.string().required("Question is required").default(''),
+    answers: yup.array(regularSATAAnswersSchema).min(2).required(),
   })
 
 export const containedRegularQuestionSchema = yup.object({
   type: yup.mixed<RegularQuestionSelectionOptions>(),
-  questionnaires: yup.array(regularQuestionsFormSchema),
+  questionnaires: yup.array(regularQuestionsFormSchema).min(1,{message: "You must submit questionnaires"}),
   main_type: yup.mixed<QuestionSelectionOptions>(),
-  //   add more schema..
 });
