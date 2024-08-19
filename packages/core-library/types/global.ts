@@ -134,7 +134,7 @@ interface InfoProp {
 }
 export interface FooterProps {
   list: ColumnProp[];
-  info: InfoProp
+  info: InfoProp;
 }
 
 export interface SliderConfigType {
@@ -150,23 +150,26 @@ export interface SliderConfigType {
 }
 
 export interface SelectedProductType {
-  pricingId: string,
-  productId: string,
+  pricingId: string;
+  productId: string;
   amount: number;
   currency: string;
   productName: string;
   productDescription: string;
   programTitle: number;
-  programType: number
-
+  programType: number;
+  inclusions: {
+    // temporarily placed just to addressed the ticket. https://app.clickup.com/t/86epzggjz
+    features: string[];
+  };
 }
 
 export type NavigationItemType = {
-  id: number
-  label: string
-  path?: string
-  icon?: React.ReactNode
-  subItem?: NavigationItemType[]
-}
+  id: number;
+  label: string;
+  path?: string;
+  icon?: React.ReactNode;
+  subItem?: NavigationItemType[];
+};
 
 export type IntentValueType = string | undefined | null;
