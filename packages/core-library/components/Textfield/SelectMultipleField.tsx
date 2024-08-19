@@ -28,6 +28,7 @@ type BaseSelectFieldProps = {
   variant?: TextFieldProps["variant"];
   placeholder?: TextFieldProps["placeholder"];
   multiple?: boolean;
+  "data-testid"?: string;
 };
 
 export function MultipleSelect({
@@ -44,6 +45,9 @@ export function MultipleSelect({
 }: BaseSelectFieldProps) {
   return (
     <div>
+      {helperText && (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      )}
       <TextField
         select
         label={label}
@@ -52,6 +56,7 @@ export function MultipleSelect({
         onChange={onChange}
         placeholder={placeholder}
         SelectProps={{ multiple }}
+        data-testid={rest["data-testid"] || `${value}-field`}
         {...rest}
       >
         {options.map((option, index) => (
@@ -60,9 +65,6 @@ export function MultipleSelect({
           </MenuItem>
         ))}
       </TextField>
-      {helperText && (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
-      )}
     </div>
   );
 }
