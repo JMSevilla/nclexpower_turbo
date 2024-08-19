@@ -56,7 +56,6 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
             src={NCLEXYellowLogo}
             alt="NCLEXLogo"
           />
-
           <Box position="absolute" right={5}>
             <IconButton onClick={setOpen}>
               <KeyboardArrowLeftIcon
