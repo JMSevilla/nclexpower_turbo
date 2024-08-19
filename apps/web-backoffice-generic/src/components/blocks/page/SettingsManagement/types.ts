@@ -22,3 +22,4 @@ export type FormValueType = {
   question: string,
   answers_option: AnswerOptionType[]
 }
+export type QuestionSelectionOptions = "Regular" | "Case Study";

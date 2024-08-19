@@ -29,6 +29,8 @@ import {
   useCreateCustomer,
   useGetIrtThetaCalcScratch,
   useGetRegularQuestionDDCategory,
+  useCreateReportIssue,
+  useGetCategoryByType,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -47,6 +49,8 @@ import {
   ReportedIssuesResponse,
   CreateCustomerParams,
   ThetaCalcScratchResponse,
+  ReportIssueType,
+  GetCategoryType,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -178,7 +182,24 @@ interface BusinessQueryContextValue {
     accountId: string
   ) => UseQueryResult<ThetaCalcScratchResponse[] | undefined, any>;
 
-  businessQueryGetRegularQuestionDDCategory: (queryKey: string[], type: number) => UseQueryResult<any | undefined, any>
+  businessQueryGetRegularQuestionDDCategory: (
+    queryKey: string[],
+    type: number
+  ) => UseQueryResult<any | undefined, any>;
+
+  businessQueryCreateReportIssue: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<number, AxiosError<unknown, any>>,
+    any,
+    ReportIssueType,
+    unknown
+  >;
+
+  businessQueryGetReportCategories: (
+    queryKey: string[],
+    type: number
+  ) => UseQueryResult<any | undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -212,8 +233,10 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetAllReportedIssues = useGetAllReportedIssues;
   const businessQueryCreateCustomer = useCreateCustomer;
   const businessQueryGetThetaCalcScratch = useGetIrtThetaCalcScratch;
-  const businessQueryGetRegularQuestionDDCategory = useGetRegularQuestionDDCategory
-
+  const businessQueryGetRegularQuestionDDCategory =
+    useGetRegularQuestionDDCategory;
+  const businessQueryCreateReportIssue = useCreateReportIssue;
+  const businessQueryGetReportCategories = useGetCategoryByType;
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -239,7 +262,9 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetAllReportedIssues,
         businessQueryCreateCustomer,
         businessQueryGetThetaCalcScratch,
-        businessQueryGetRegularQuestionDDCategory
+        businessQueryGetRegularQuestionDDCategory,
+        businessQueryCreateReportIssue,
+        businessQueryGetReportCategories,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { RegularQuestionSelectionOptions } from "../../../types";
+import { QuestionSelectionOptions, RegularQuestionSelectionOptions } from "../../../types";
 
 export const regularAnswersSchema = yup.object({
   answer: yup.string().required().default(''),
@@ -17,6 +17,7 @@ export const regularQuestionsFormSchema =
 
 export const containedRegularQuestionSchema = yup.object({
   type: yup.mixed<RegularQuestionSelectionOptions>(),
-  questionnaires: yup.array(regularQuestionsFormSchema)
+  questionnaires: yup.array(regularQuestionsFormSchema),
+  main_type: yup.mixed<QuestionSelectionOptions>(),
   //   add more schema..
 });

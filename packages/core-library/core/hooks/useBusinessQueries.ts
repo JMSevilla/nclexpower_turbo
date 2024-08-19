@@ -22,6 +22,7 @@ import {
   CreateCustomerParams,
   ReportedIssuesResponse,
   ThetaCalcScratchResponse,
+  ReportIssueType,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -395,6 +396,40 @@ export const useGetIrtThetaCalcScratch = (
     { staleTime: Infinity }
   );
 };
+
+export const useCreateReportIssue = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const submissionCreateReportIssueCb = useApiCallback(
+    async (api, args: ReportIssueType) =>
+      await api.web.web_create_report_issue(args)
+  );
+  return useAppMutation<
+    AxiosResponse<number, AxiosError>,
+    ReportIssueType
+  >(async (data) => {
+    const result = await submissionCreateReportIssueCb.execute({ ...data });
+    return result;
+  }, opt);
+};
+
+export const useGetCategoryByType = (
+  queryKey: string[], type: number
+): UseQueryResult<any | undefined, any> => {
+  const getCategoryByType = useApi((api) =>
+    api.web.get_category_by_type(type)
+  );
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getCategoryByType.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
 
 export const useGetRegularQuestionDDCategory = (
   queryKey: string[], type: number
