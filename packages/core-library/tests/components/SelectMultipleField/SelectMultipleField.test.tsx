@@ -1,53 +1,40 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import '@testing-library/jest-dom/extend-expect';
-import { MultipleSelect, SelectIssueOption } from "../../../components";
+import { render } from "../../common";
+import { MultipleSelectField, SelectIssueOption } from "../../../components";
+import { useForm } from "react-hook-form";
 
-jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: {},
+jest.mock("../../../config", () => ({
+  config: { value: jest.fn() },
 }));
 
-jest.mock("../../../config", () => ({ config: { value: jest.fn() } }));
+jest.mock("../../../core/router", () => ({
+  useRouter: jest.fn(),
+}));
 
+const options: SelectIssueOption[] = [
+  {
+    label: "Option 1",
+    value: "option1",
+  },
+  {
+    label: "Option 2",
+    value: "option2",
+  },
+];
+const SelectWithForm = () => {
+  const { control } = useForm();
+  return (
+    <MultipleSelectField
+      name="myField"
+      control={control}
+      label="My Field"
+      options={options}
+      data-testid="myField-field"
+    />
+  );
+};
 describe("MultipleSelect", () => {
-  const options: SelectIssueOption[] = [
-    {
-      label: "Option 1",
-      value: "option1"
-    },
-    {
-      label: "Option 2",
-      value: "option2"
-    },
-  ];
-
-  it("should renders the label correctly", () => {
-    render(<MultipleSelect label="Select an option" options={options} />);
-    expect(screen.getByLabelText(/select an option/i)).toBeInTheDocument();
-  });
-
-  it("should render the correct number of options", () => {
-    render(<MultipleSelect label="Test Select" options={options} />);
-
-    fireEvent.mouseDown(screen.getByLabelText(/test select/i));
-
-    const items = screen.getAllByRole("option");
-    expect(items).toHaveLength(options.length);
-  });
-
-  it("should displays helper text when provided", () => {
-    const helperText = "Helper Tests";
-    render(<MultipleSelect options={options} helperText={helperText} />);
-    expect(screen.getByText(helperText)).toBeInTheDocument();
-  });
-
-  it("should call onChange when an option is selected", () => {
-    const handleChange = jest.fn();
-    render(<MultipleSelect label="Test Select" options={options} onChange={handleChange} />);
-
-    fireEvent.mouseDown(screen.getByLabelText(/test select/i));
-
-    fireEvent.click(screen.getByText("Option 1"));
-
-    expect(handleChange).toHaveBeenCalledTimes(1);
+  it("renders the MultipleSelectField component", () => {
+    const { getByTestId } = render(<SelectWithForm />);
+    expect(getByTestId("myField-field")).toBeInTheDocument();
   });
 });

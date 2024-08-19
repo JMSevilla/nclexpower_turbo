@@ -27,6 +27,7 @@ type BaseSelectFieldProps = {
   variant?: TextFieldProps["variant"];
   placeholder?: TextFieldProps["placeholder"];
   multiple?: boolean;
+  "data-testid"?: string;
 };
 
 export function MultipleSelect({
@@ -54,6 +55,7 @@ export function MultipleSelect({
         onChange={onChange}
         placeholder={placeholder}
         SelectProps={{ multiple }}
+        data-testid={rest["data-testid"] || `${value}-field`}
         {...rest}
       >
         {options.map((option, index) => (
