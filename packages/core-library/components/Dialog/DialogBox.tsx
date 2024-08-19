@@ -49,6 +49,7 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
         {!hideCloseButton && (
           <Box width="100%" display="flex" justifyContent="flex-end">
             <IconButton
+              data-testid="close"
               color="primary"
               size="small"
               sx={{ height: 32, width: 32, fontSize: 32 }}
