@@ -9,7 +9,9 @@ import {
   ConfirmPaymentResponse,
   CreateCustomerParams,
   CreatePaymentIntentParams,
+  GetCategoryType,
   PaymentIntentResponse,
+  ReportIssueType,
   ResendCodeParams,
   ResetPasswordParams,
   SelectEmailResponse,
@@ -128,5 +130,20 @@ export class WebApi {
     return this.axios.get<string>(
       `/api/v2/internal/baseInternal/get-client-key?${qs.stringify({ pageRoute })}`
     );
+  }
+
+  public web_create_report_issue(params: ReportIssueType) {
+    return this.axios.post<number>(
+      `/api/v1/Customer/create-report-issue`,
+      params
+    );
+  }
+
+  public async get_category_by_type(type: number) {
+    return await this.axios.get("/api/v1/Category/get-category-by-type", {
+      params: {
+        CategoryType: type
+      }
+    });
   }
 }
