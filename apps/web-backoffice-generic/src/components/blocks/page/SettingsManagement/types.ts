@@ -8,3 +8,4 @@ export type SettingsSelectionType = yup.InferType<
 export type ChooseSettingsOptions = "CONFIG" | "AUTOMATION";
 export type SettingsSelectionOptions = "DBEXCEL" | "QM";
 export type RegularQuestionSelectionOptions = "MCQ" | "SATA";
+export type QuestionSelectionOptions = "Regular" | "Case Study";
