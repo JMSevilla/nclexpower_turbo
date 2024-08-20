@@ -1,11 +1,9 @@
 import {
   ContainedRegularQuestionType,
-  RegularQuestionsFormType,
 } from "@/components/blocks/page/SettingsManagement/steps/content/simulator/types";
 import {
   Button,
   Card,
-  HelperText,
   MultipleSelectField,
 } from "core-library/components";
 import AddIcon from "@mui/icons-material/Add";
@@ -19,8 +17,6 @@ import { ControlledRichTextEditor } from "@/components/RichTextEditor/RichTextEd
 import { AnswerOptions } from "@/components/AnswerOptions/AnswerOptions";
 import { useRegularQuestionForm } from "@/components/blocks/page/SettingsManagement/steps/content/simulator/steps/content/useRegularQuestionForm";
 import { initQuestionsValues } from "@/core/constant/initQuestionsValues";
-import { FormHelperText } from "core-library/components/Textfield/TextField";
-import { error } from "console";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -39,7 +35,6 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   const [isCurrentPage, setIsCurrentPage] = useState(false);
   const {
     appendQuestionnaire,
-    form,
     parentForm,
     parentFormState,
     questionnaireFields,
@@ -47,10 +42,9 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     updateQuestionnaire,
   } = useRegularQuestionForm(values);
 
-  const { errors, isValid } = parentFormState;
+  const { isValid } = parentFormState;
 
-  const { control, handleSubmit } = form;
-  const { handleSubmit: confirmCreation } = parentForm;
+  const { handleSubmit: confirmCreation, control, getValues, setValue } = parentForm;
 
   const { businessQueryGetRegularQuestionDDCategory } =
     useBusinessQueryContext();
@@ -68,12 +62,13 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   );
 
   const updateValues = (nextPageIndex?: number) => {
-    const defaultValues =
-      questionnaireFields[nextPageIndex ?? selectedPageIndex - 1];
-    if (defaultValues) {
-      form.reset({ ...defaultValues });
-    } else {
-      form.reset({ ...initQuestionsValues });
+    const questionIndex = nextPageIndex ?? selectedPageIndex - 1
+    const questionnaire = getValues(`questionnaires.${questionIndex}`);
+
+    if (questionnaire) {
+      setValue(`questionnaires.${questionIndex}`, questionnaire)
+      setValue(`questionnaires.${questionIndex}.question`, questionnaire.question)
+      setValue(`questionnaires.${questionIndex}.answers`, questionnaire.answers)
     }
   };
 
@@ -81,13 +76,15 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setSelectedPageIndex(page);
   };
 
-  const handleAddForm = (value: RegularQuestionsFormType) => {
+  const handleAddForm = () => {
     if (isCurrentPage) {
-      updateQuestionnaire(selectedPageIndex - 1, { ...value });
+      updateQuestionnaire(selectedPageIndex - 1, getValues(`questionnaires.${selectedPageIndex - 1}`));
       return;
     }
-    appendQuestionnaire({ ...value });
-    setSelectedPageIndex((prev) => prev + 1);
+
+    appendQuestionnaire({ ...initQuestionsValues });
+    setSelectedPageIndex(prev => prev + 1)
+
   };
 
   const handleRemove = () => {
@@ -96,7 +93,6 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   };
 
   const handleContinue = (values: ContainedRegularQuestionType) => {
-    console.log(values);
     if (isValid) {
       nextStep({ ...values });
     }
@@ -104,8 +100,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   useEffect(() => {
     updateValues();
-    const isCurrentQuestionnaire =
-      selectedPageIndex - 1 !== questionnaireFields.length;
+    const isCurrentQuestionnaire = questionnaireFields.length !== 0 && selectedPageIndex !== questionnaireFields.length;
     setIsCurrentPage(isCurrentQuestionnaire);
   }, [selectedPageIndex]);
 
@@ -123,7 +118,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           Create regular question <br /> ({values.type})
         </p>
       </div>
-      <FormProvider {...form}>
+      <FormProvider {...parentForm}>
         <div className="w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10">
           <div className="h-fit w-full flex justify-end text-xs gap-2">
             <Button
@@ -137,7 +132,8 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <p>Delete Form</p>
             </Button>
             <Button
-              onClick={handleSubmit(handleAddForm)}
+              disabled={!isValid}
+              onClick={handleAddForm}
               className="bg-[#37BEC7] items-center py-2 text-xs text-white font-semibold rounded-xl leading-3 hover:bg-[#2a98a0] disabled:saturate-0"
             >
               <span>
@@ -151,7 +147,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <MultipleSelectField
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
-                name={"clientNeeds"}
+                name={`questionnaires.${selectedPageIndex - 1}.clientNeeds`}
                 label="Client Needs Category :"
                 options={ClientNeeds ?? []}
                 variant="standard"
@@ -159,7 +155,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <MultipleSelectField
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
-                name="contentArea"
+                name={`questionnaires.${selectedPageIndex - 1}.contentArea`}
                 label="Content Area :"
                 options={ContentArea ?? []}
                 variant="standard"
@@ -168,7 +164,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                 variant="standard"
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
-                name="cognitiveLevel"
+                name={`questionnaires.${selectedPageIndex - 1}.cognitiveLevel`}
                 label="Cognitive Level :"
                 options={CognitiveLevel ?? []}
               />
@@ -181,7 +177,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                     control={control}
                     editorClassName="max-h-[200px] overflow-auto"
                     editorFor="questions"
-                    name="question"
+                    name={`questionnaires.${selectedPageIndex - 1}.question`}
                   />
                 </Card>
               </div>
@@ -189,6 +185,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                 <p className="text-md font-semibold">Answer Options :</p>
                 <div>
                   <AnswerOptions
+                    questionIndex={selectedPageIndex - 1}
                     questionType="regularQuestion"
                     questionnaireType="SATA"
                   />
@@ -201,7 +198,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
       <div className="w-full flex">
         <div className="w-1/2 flex justify-start">
           <Pagination
-            count={questionnaireFields.length + 1}
+            count={questionnaireFields.length}
             onChange={handlePaginate}
             page={selectedPageIndex}
             variant="outlined"

@@ -59,7 +59,7 @@ export function ControlledRichTextEditor<T extends FieldValues>({
           }
           immediatelyRender={false}
         >
-          <CustomMenuBar editorFor={editorFor} content={value.toString()} />
+          <CustomMenuBar editorFor={editorFor} content={value?.toString() ?? ""} />
         </EditorProvider>
       )}
     />

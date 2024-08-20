@@ -1,6 +1,4 @@
-import { RegularQuestionsFormType } from '@/components/blocks/page/SettingsManagement/steps/content/simulator/types';
-
-export const initQuestionsValues: RegularQuestionsFormType = {
+export const initQuestionsValues = {
     clientNeeds: '',
     question: '',
     cognitiveLevel: '',

@@ -5,20 +5,22 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import { useFieldArray } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
-import { RegularQuestionsFormType } from "@/components/blocks/page/SettingsManagement/steps/content/simulator/types";
+import { ContainedRegularQuestionType, RegularQuestionsFormType } from "@/components/blocks/page/SettingsManagement/steps/content/simulator/types";
 import { IconButton } from "@mui/material";
 
-type SATAPropsType = {};
+type SATAPropsType = {
+  questionIndex: number
+};
 
-export const SATA: React.FC<SATAPropsType> = () => {
+export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
   const {
-    append: appenAnswer,
+    append: appendAnswer,
     fields: answerFields,
     remove: removeAnswer,
-  } = useFieldArray<RegularQuestionsFormType>({ name: `answers` });
+  } = useFieldArray<ContainedRegularQuestionType>({ name: `questionnaires.${questionIndex}.answers` });
 
   const handleAppendFields = () => {
-    appenAnswer({ answer: "", answerKey: false });
+    appendAnswer({ answer: "", answerKey: false });
   };
 
   const handleRemoveFields = (index: number) => {
@@ -34,12 +36,12 @@ export const SATA: React.FC<SATAPropsType> = () => {
             key={index}
           >
             <ControlledCheckbox
-              name={`answers.${index}.answerKey`}
+              name={`questionnaires.${questionIndex}.answers.${index}.answerKey`}
               sx={{ margin: 0 }}
             />
             <div className="w-full flex-1 p-2">
               <ControlledTextField
-                name={`answers.${index}.answer`}
+                name={`questionnaires.${questionIndex}.answers.${index}.answer`}
                 className=" flex-1  border-none outline-none  placeholder:text-sm  w-full"
                 rows={5}
                 sx={{ border: "none", outline: 0 }}

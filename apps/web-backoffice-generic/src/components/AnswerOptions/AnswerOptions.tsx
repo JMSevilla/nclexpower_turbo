@@ -5,16 +5,17 @@ import React from 'react'
 type AnswerOptionsType = {
     questionType: "regularQuestion" | "caseStudy",
     questionnaireType: "MCQ" | "SATA"
+    questionIndex: number
 }
 
-export const AnswerOptions: React.FC<AnswerOptionsType> = ({ questionType, questionnaireType }) => {
+export const AnswerOptions: React.FC<AnswerOptionsType> = ({ questionType, questionnaireType, questionIndex }) => {
 
     if (questionType === 'regularQuestion') {
         switch (questionnaireType) {
             case "MCQ":
                 return <MCQ />
             case "SATA":
-                return <SATA />
+                return <SATA questionIndex={questionIndex} />
         };
     }
     else if (questionType === 'caseStudy') {
