@@ -40,7 +40,7 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                   <AlertMessageV2Provider>
                     <TourContextProvider steps={TourSteps}>
                       <ToolbarSettingsProvider>
-                        {hasAccessToken && <Header logout={logout} />}
+                        {hasAccessToken && <Header logout={logout} current={itemselect[0]?.current} />}
                         <PageContainer selectedItem={itemselect}>
                           <div className="min-h-[65dvh] flex flex-col justify-between questionnaire-step-8">
                             <LoadablePageContent loading={loading}>
@@ -58,7 +58,10 @@ export const Layout: React.FC<Props> = ({ questionaire, data }) => {
                           </div>
                         </PageContainer>
                         {hasAccessToken && (
-                          <Footer actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'} loading={loading} />
+                          <Footer
+                            actionKey={itemselect?.length > 0 ? itemselect[0].actionKey : 'no-action-key'}
+                            loading={loading}
+                          />
                         )}
                       </ToolbarSettingsProvider>
                     </TourContextProvider>

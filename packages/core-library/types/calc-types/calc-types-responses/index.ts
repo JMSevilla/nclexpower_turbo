@@ -10,6 +10,7 @@ export type CalcItemSelectResponseItem = {
   actionKey: string;
   cnCateg: number;
   correct: string;
+  current: number;
   choices: string;
   typeOfQuestion: string;
 };

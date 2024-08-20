@@ -50,7 +50,7 @@ export const ApplicationProvider: React.FC<React.PropsWithChildren<Ssr>> = ({ ch
     refetch: loadSelectionQuestion,
     data: selectQuestionData,
     isLoading,
-    isFetching
+    isFetching,
   } = businessQuerySelectQuestions(['selectquestion'], questionData);
 
   // Prevent re-render of selectQuestionCb.execute({ ...questionData }) on initial mount
@@ -152,6 +152,7 @@ function mapQuestions(questions: CalcItemSelectResponseItem[]) {
     actionKey: question.actionKey,
     cnCateg: question.cnCateg,
     correct: question.correct,
+    current: question.current,
     choices: question.choices,
     typeOfQuestion: question.typeOfQuestion,
   }));
