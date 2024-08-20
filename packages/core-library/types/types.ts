@@ -32,6 +32,7 @@ export interface PricingParams {
 }
 
 export interface ProductParams {
+  features: string[];
   productName: string;
   pricingId: string;
   categoryId: string;

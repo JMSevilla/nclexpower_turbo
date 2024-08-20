@@ -260,3 +260,19 @@ export type Verify2FAParams = {
   password: string;
   appName: string;
 };
+
+export type ReportIssueType = {
+  email: string;
+  categoryId: string;
+  description: string;
+  systemProduct: number;
+}
+
+export type GetCategoryType = {
+  id: string;
+  categoryName: string;
+  categoryDescription: string;
+  categoryType: number;
+  createdAt: string;
+  updatedAt: string;
+}

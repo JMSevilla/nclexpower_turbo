@@ -34,6 +34,18 @@ const STATIC_ROUTES: StaticRoutes = {
   reset_link_success: "/account/reset-link",
 };
 
+const routeTitles: Record<string, string> = {
+  "/": "Home",
+  "/hub": "Hub",
+  "/logout": "Logout",
+  "/404": "Page Not Found",
+  "/account_setup": "Account Setup",
+  "/login": "Login",
+  "/account/verification/otp": "Account Verification OTP",
+  "/account/forgot-password": "Forgot Password",
+  "/account/reset-link": "Reset Link Success",
+};
+
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
@@ -60,6 +72,7 @@ export const useRouter = () => {
   return {
     loading,
     staticRoutes: STATIC_ROUTES,
+    title: routeTitles[router.pathname],
     ...useMemo(
       () => ({
         ...router,
