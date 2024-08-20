@@ -25,9 +25,10 @@ export const buttonStyle = {
 
 type Props = {
   logout: () => void;
-}
+  current: number;
+};
 
-export const Header: React.FC<Props> = ({ logout }) => {
+export const Header: React.FC<Props> = ({ logout, current }) => {
   const { timeRemaining, duration: timeDuration } = useCountdown({ timeRemaining: '04:00:00', duration: '01:00:00' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setIsOpen } = useTour();
@@ -81,9 +82,13 @@ export const Header: React.FC<Props> = ({ logout }) => {
               </Box>
               <Box flexGrow={0}>
                 <div className="header-step-5">
-                  <Tooltip title="3 of 5 pages">
+                  <Tooltip title="current page">
                     <Button sx={{ color: 'white', fontSize: 'small' }}>
-                      <AutoStoriesIcon fontSize="small" style={{ fontFamily: 'Arial, sans-serif' }} /> : 3 of 5
+                      <AutoStoriesIcon
+                        fontSize="small"
+                        style={{ fontFamily: 'Arial, sans-serif', marginRight: '2px' }}
+                      />{' '}
+                      : {current}
                     </Button>
                   </Tooltip>
                 </div>
