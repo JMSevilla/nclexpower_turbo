@@ -6,11 +6,13 @@ on:
       - mdev
       - "feature/*"
       - "hotfix/*"
+      - "release/*"
   pull_request:
     branches:
       - mdev
       - "feature/*"
       - "hotfix/*"
+      - "release/*"
 
 jobs:
   build_and_test_core_library:
