@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         clearSingleCookie();
         router.push((route) => route.login);
       }
-    } catch (e) { }
+    } catch (e) {}
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -135,6 +135,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               }
             );
             setIsAuthenticated(true);
+            await router.push((route) => route.hub);
           },
           register: async (data: RegisterParams) => {
             const result = await registerCb.execute({
@@ -151,7 +152,13 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setRefreshToken,
           setSingleCookie,
         }),
-        [isAuthenticated, accessToken, refreshToken, verificationPreparation, loading]
+        [
+          isAuthenticated,
+          accessToken,
+          refreshToken,
+          verificationPreparation,
+          loading,
+        ]
       )}
     >
       {children}
