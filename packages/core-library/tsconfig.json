@@ -1,7 +1,7 @@
 {
   "extends": "../typescript-config/react-library.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
       "@mui/icons-material/*": ["../../node_modules/@mui/icons-material/*"]
     }
