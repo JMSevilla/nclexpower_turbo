@@ -1,4 +1,3 @@
-import { Button, Card, ControlledCheckbox } from "core-library/components";
 import { ControlledTextField } from "core-library/components/Textfield/TextField";
 import React from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -7,6 +6,7 @@ import { useFieldArray } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
 import { IconButton } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
+import { Button, Card, ControlledCheckbox } from "../../../..";
 
 type SATAPropsType = {
   questionIndex: number;
