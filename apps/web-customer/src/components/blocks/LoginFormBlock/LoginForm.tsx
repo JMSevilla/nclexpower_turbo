@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import {
-  loginSchema,
-  LoginFormType,
-} from "core-library/components/blocks/LoginFormBlock/validation";
+import { LoginFormType, loginSchema } from "core-library/system";
 import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { GoogleIcon } from "../../icons/GoogleIcon";
 import { TextField } from "core-library/components";
