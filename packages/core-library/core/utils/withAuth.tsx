@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import { authorizedRoute, unauthorizeRoute } from "./contants/route";
 import { useValidateToken } from "../../hooks";
 
-const withAuth = (WrappedComponent: React.ComponentType) => {
-  const Wrapper = (props: any) => {
+const withAuth = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+): React.FC<P> => {
+  const Wrapper: React.FC<P> = (props: P) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
