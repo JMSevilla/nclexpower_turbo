@@ -20,6 +20,8 @@ export const config = {
       SYSENV: processEnv.NEXT_PRIVATE_SYSENV!,
       LOCALFE: processEnv.NEXT_PRIVATE_LOCALFE,
       STRIPE_URL_JS: processEnv.NEXT_PRIVATE_STRIPE_URL,
+      COOKIE_SCRIPT_URL: processEnv.NEXT_PRIVATE_COOKIE_SCRIPT_URL,
+      COOKIE_DOMAIN_SCRIPT: processEnv.NEXT_PRIVATE_COOKIE_DOMAIN_SCRIPT,
     };
   },
 };
