@@ -14,8 +14,6 @@ type MenuButtonPropsType = CustomMenusType & {
 }
 
 export const MenuButtons = ({ editor, editorFor }: MenuButtonPropsType) => {
-    const editorFocus = editor.chain().focus()
-    const editorCan = editor.can()
 
     const createButton = (label: string,
         onClick: () => void,
@@ -30,38 +28,38 @@ export const MenuButtons = ({ editor, editorFor }: MenuButtonPropsType) => {
         });
 
     const typographyStyles = [
-        createButton('bold', () => editorFocus.toggleBold().run(), <FormatBoldIcon />, !editorCan.chain().focus().toggleBold().run(), editor.isActive('bold')),
-        createButton('Italic', () => editorFocus.toggleItalic().run(), <FormatItalicIcon />, !editorCan.chain().focus().toggleItalic().run(), editor.isActive('italic')),
-        createButton('Underline', () => editorFocus.toggleUnderline().run(), <FormatUnderlinedIcon />, !editorCan.chain().focus().toggleUnderline().run(), editor.isActive('underline')),
+        createButton('bold', () => editor.chain().focus().toggleBold().run(), <FormatBoldIcon />, !editor.can().chain().focus().toggleBold().run(), editor.isActive('bold')),
+        createButton('Italic', () => editor.chain().focus().toggleItalic().run(), <FormatItalicIcon />, !editor.can().chain().focus().toggleItalic().run(), editor.isActive('italic')),
+        createButton('Underline', () => editor.chain().focus().toggleUnderline().run(), <FormatUnderlinedIcon />, !editor.can().chain().focus().toggleUnderline().run(), editor.isActive('underline')),
     ]
 
     const headings = [
-        createButton('Paragraph', () => editorFocus.setParagraph().run(), undefined, false, editor.isActive('paragraph')),
-        createButton('Heading', () => editorFocus.toggleHeading({ level: 2 }).run(), undefined, false, editor.isActive('heading', { level: 2 }))
+        createButton('Paragraph', () => editor.chain().focus().setParagraph().run(), undefined, false, editor.isActive('paragraph')),
+        createButton('Heading', () => editor.chain().focus().toggleHeading({ level: 2 }).run(), undefined, false, editor.isActive('heading', { level: 2 }))
     ]
 
     const listStyles = [
-        createButton('Unordered list', () => editorFocus.toggleBulletList().run(), <FormatListBulletedIcon />, false, editor.isActive('bulletList')),
-        createButton('Ordered list', () => editorFocus.toggleOrderedList().run(), <FormatListNumberedIcon />, false, editor.isActive('orderedList')),
-        createButton('Sink list', () => editorFocus.sinkListItem('listItem').run(), undefined, !editor.can().sinkListItem('listItem'), false),
-        createButton('Lift list', () => editorFocus.liftListItem('listItem').run(), undefined, !editor.can().liftListItem('listItem'), false),
+        createButton('Unordered list', () => editor.chain().focus().toggleBulletList().run(), <FormatListBulletedIcon />, false, editor.isActive('bulletList')),
+        createButton('Ordered list', () => editor.chain().focus().toggleOrderedList().run(), <FormatListNumberedIcon />, false, editor.isActive('orderedList')),
+        createButton('Sink list', () => editor.chain().focus().sinkListItem('listItem').run(), undefined, !editor.can().sinkListItem('listItem'), false),
+        createButton('Lift list', () => editor.chain().focus().liftListItem('listItem').run(), undefined, !editor.can().liftListItem('listItem'), false),
     ]
 
     const tableButtons: MenuButtonType[] = [
-        createButton('Insert Table', () => editorFocus.insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()),
-        createButton('Add column before', () => editorFocus.addColumnBefore().run(), undefined, !editorCan.addColumnBefore()),
-        createButton('Add column after', () => editorFocus.addColumnAfter().run(), undefined, !editorCan.addColumnAfter()),
-        createButton('Delete column', () => editorFocus.deleteColumn().run(), undefined, !editorCan.deleteColumn()),
-        createButton('Add row before', () => editorFocus.addRowBefore().run(), undefined, !editorCan.addRowBefore()),
-        createButton('Add row after', () => editorFocus.addRowAfter().run(), undefined, !editorCan.addRowAfter()),
-        createButton('Delete row', () => editorFocus.deleteRow().run(), undefined, !editorCan.deleteRow()),
-        createButton('Delete table', () => editorFocus.deleteTable().run(), undefined, !editorCan.deleteTable()),
-        createButton('Merge or Split', () => editorFocus.mergeOrSplit().run(), undefined, !editorCan.mergeOrSplit()),
+        createButton('Insert Table', () => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()),
+        createButton('Add column before', () => editor.chain().focus().addColumnBefore().run(), undefined, !editor.can().addColumnBefore()),
+        createButton('Add column after', () => editor.chain().focus().addColumnAfter().run(), undefined, !editor.can().addColumnAfter()),
+        createButton('Delete column', () => editor.chain().focus().deleteColumn().run(), undefined, !editor.can().deleteColumn()),
+        createButton('Add row before', () => editor.chain().focus().addRowBefore().run(), undefined, !editor.can().addRowBefore()),
+        createButton('Add row after', () => editor.chain().focus().addRowAfter().run(), undefined, !editor.can().addRowAfter()),
+        createButton('Delete row', () => editor.chain().focus().deleteRow().run(), undefined, !editor.can().deleteRow()),
+        createButton('Delete table', () => editor.chain().focus().deleteTable().run(), undefined, !editor.can().deleteTable()),
+        createButton('Merge or Split', () => editor.chain().focus().mergeOrSplit().run(), undefined, !editor.can().mergeOrSplit()),
     ];
 
     const revertButtons: MenuButtonType[] = [
-        createButton('Undo', () => editorFocus.undo().run(), <UndoIcon />, !editorCan.chain().focus().undo().run()),
-        createButton('Redo', () => editorFocus.redo().run(), <RedoIcon />, !editorCan.chain().focus().redo().run()),
+        createButton('Undo', () => editor.chain().focus().undo().run(), <UndoIcon />, !editor.can().chain().focus().undo().run()),
+        createButton('Redo', () => editor.chain().focus().redo().run(), <RedoIcon />, !editor.can().chain().focus().redo().run()),
     ];
 
     const getButtons = () => {

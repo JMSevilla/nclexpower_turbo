@@ -26,7 +26,7 @@ export class WebApiBackOffice {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance
-  ) {}
+  ) { }
   public tokenInformation() {
     /* get tokenize informations */
     return this.axios.get<CmsTokens>("");
@@ -77,8 +77,8 @@ export class WebApiBackOffice {
       return await this.axios.get<CmsGlobals>(
         contentAccessKey
           ? `/api/content-api/api/v2/content/authorized-globals?${qs.stringify({
-              contentAccessKey: "",
-            })}`
+            contentAccessKey: "",
+          })}`
           : `/api/v2/content/BaseContent/unauthorized-globals?${qs.stringify({ tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
@@ -203,5 +203,13 @@ export class WebApiBackOffice {
 
   public async getAllReportedIssues() {
     return await this.axios.get("/api/v1/Customer/get-all-report-issues");
+  }
+
+  public async getRegularQuestionDDCategory(type: number) {
+    return await this.axios.get("/api/v1/Category/get-category-by-type", {
+      params: {
+        CategoryType: type
+      }
+    });
   }
 }

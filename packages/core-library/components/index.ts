@@ -49,3 +49,5 @@ export * from "./Tabs/Tabs";
 export * from "./Tabs/Tab";
 export * from "./Tabs/TabsDesktop";
 export * from "./Tabs/TabPanel";
+
+export * from "./Checkbox/Checkbox"

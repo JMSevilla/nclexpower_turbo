@@ -28,6 +28,7 @@ import {
   useGetAllReportedIssues,
   useCreateCustomer,
   useGetIrtThetaCalcScratch,
+  useGetRegularQuestionDDCategory,
   useCreateReportIssue,
   useGetCategoryByType,
 } from "../core/hooks/useBusinessQueries";
@@ -181,6 +182,11 @@ interface BusinessQueryContextValue {
     accountId: string
   ) => UseQueryResult<ThetaCalcScratchResponse[] | undefined, any>;
 
+  businessQueryGetRegularQuestionDDCategory: (
+    queryKey: string[],
+    type: number
+  ) => UseQueryResult<any | undefined, any>;
+
   businessQueryCreateReportIssue: (
     opt?: MutOpt<AxiosResponse<number, AxiosError>>
   ) => UseMutationResult<
@@ -191,8 +197,9 @@ interface BusinessQueryContextValue {
   >;
 
   businessQueryGetReportCategories: (
-    queryKey: string[], type: number
-  ) => UseQueryResult<any | undefined, any>
+    queryKey: string[],
+    type: number
+  ) => UseQueryResult<any | undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -226,6 +233,8 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetAllReportedIssues = useGetAllReportedIssues;
   const businessQueryCreateCustomer = useCreateCustomer;
   const businessQueryGetThetaCalcScratch = useGetIrtThetaCalcScratch;
+  const businessQueryGetRegularQuestionDDCategory =
+    useGetRegularQuestionDDCategory;
   const businessQueryCreateReportIssue = useCreateReportIssue;
   const businessQueryGetReportCategories = useGetCategoryByType;
   return (
@@ -253,8 +262,9 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetAllReportedIssues,
         businessQueryCreateCustomer,
         businessQueryGetThetaCalcScratch,
+        businessQueryGetRegularQuestionDDCategory,
         businessQueryCreateReportIssue,
-        businessQueryGetReportCategories
+        businessQueryGetReportCategories,
       }}
     >
       {children}

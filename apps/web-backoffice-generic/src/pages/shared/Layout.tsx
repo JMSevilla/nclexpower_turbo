@@ -15,7 +15,7 @@ import { ContentLoader } from "core-library/router";
 import { useValidateToken } from "core-library/hooks";
 import { theme } from "core-library/contents/theme/theme";
 
-interface Props {}
+interface Props { }
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { loading, logout } = useAuthContext();
