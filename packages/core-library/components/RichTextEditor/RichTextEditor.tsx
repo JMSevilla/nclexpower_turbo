@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { EditorProvider } from "@tiptap/react";
 import { Box } from "@mui/material";
-import { useSanitizedInputs } from "core-library/hooks";
+
 import { CustomMenuBar } from "./CustomMenus";
 import { extensions } from "./config/extentions-config";
 import { CustomMenusType } from "../../types/editor-type";
 import { Controller, FieldValues } from "react-hook-form";
-import { ControlledField } from "core-library/types";
-import { FormHelperText } from "core-library/components/Textfield/TextField";
+import { ControlledField } from "../Textfield";
+import { useSanitizedInputs } from "../../hooks";
+import { FormHelperText } from "../FormHelperText/FormHelperText";
 
 type RichTextEditorPropsType = CustomMenusType & {
   onChange?(html: string): void;
