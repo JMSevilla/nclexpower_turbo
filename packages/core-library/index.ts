@@ -11,3 +11,4 @@ export * from "./contents/cms/inject-tokens";
 export * from "./contents/cms/parse-cms";
 export * from "./Layout";
 export * from "./Page";
+export * from "./utils";

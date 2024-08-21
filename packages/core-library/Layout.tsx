@@ -45,7 +45,7 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
           <NotificationsContextProvider>
             <Box minHeight="100vh" display="flex" flexDirection="column">
               <Header
-                onLogout={() => {}}
+                onLogout={() => { }}
                 tenant={tenant}
                 menu={contentData.menu}
                 pageKey={contentData.page?.pageKey?.value}

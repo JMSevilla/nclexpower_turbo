@@ -1,13 +1,12 @@
-import { Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { ControlledRadioGroup } from '@/components/RadioGroup';
 import { McqSsValidationType, RowSchema } from '@/core/schema/mcq/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormSubmissionBindingHooks } from '@repo/core-library/hooks/index';
-import { datatypes } from '@repo/core-library';
-import { ParsedChoices } from '@repo/core-library/types';
+import { useFormSubmissionBindingHooks } from 'core-library/hooks/index';
+import { ParsedChoices } from 'core-library/types';
 
 interface Props {
   mcqAtom: McqSsValidationType | undefined;
@@ -34,23 +33,22 @@ export const MCQ: React.FC<Props> = ({ handleSubmit, mcqAtom, choices, question 
   });
 
   return (
-    <div className="p-2 h-full tracking-tight">
+    <Box className="p-2 h-full tracking-tight">
       <FormProvider {...form}>
         <Grid container rowSpacing={1} justifyContent={'center'} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Paper sx={{ width: '70%' }}>
-            <div className="h-full w-full p-4">
-              <div>
+            <Box className="h-full w-full p-4">
+              <Box>
                 <NearMeIcon className="h-6 rotate-45 text-[#86BCEA] mr-2 pb-1" />
                 {question}
-              </div>
-
-              <div className="p-5">
+              </Box>
+              <Box className="p-5">
                 <ControlledRadioGroup radio={choices} control={control} name={`mcqss`} />
-              </div>
-            </div>
+              </Box>
+            </Box>
           </Paper>
         </Grid>
       </FormProvider>
-    </div>
+    </Box>
   );
 };

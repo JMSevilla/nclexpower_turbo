@@ -1,1 +1,1 @@
-export { getServerSideProps, Page as default } from "../src/Page";
+export { AccessPage as default } from '../pages/login';

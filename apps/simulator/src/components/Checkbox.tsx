@@ -1,13 +1,8 @@
-import {
-  Stack,
-  FormControlLabel,
-  Checkbox as MuiCheckbox,
-  CheckboxProps,
-  Typography,
-} from "@mui/material";
+import { Stack, FormControlLabel, Checkbox as MuiCheckbox, CheckboxProps, Typography } from '@mui/material';
 
-import { Controller, FieldValues } from "react-hook-form";
-import { ControlledField } from "@repo/core-library/types/ControlledField";
+import { Controller, FieldValues } from 'react-hook-form';
+import { ControlledField } from 'core-library/types';
+import { FormHelperText } from '.';
 
 type Props = CheckboxProps & {
   label?: string;
@@ -16,28 +11,22 @@ type Props = CheckboxProps & {
   showErrorMessage?: boolean;
 };
 
-export const Checkbox: React.FC<Props> = ({
-  label,
-  helperText,
-  error,
-  showErrorMessage = true,
-  ...rest
-}) => {
+export const Checkbox: React.FC<Props> = ({ label, helperText, error, showErrorMessage = true, ...rest }) => {
   return (
-    <div className="w-full flex flex-col pl-5">
+    <Stack gap={1}>
       <FormControlLabel
         sx={{
-          color: (theme) => (error ? theme.palette.error.main : "CurrentColor"),
+          color: theme => (error ? theme.palette.error.main : 'CurrentColor'),
         }}
         control={<MuiCheckbox {...rest} />}
-        label={<Typography>{label}</Typography>}
+        label={<Typography variant="caption">{label}</Typography>}
       />
-    </div>
+      {helperText && showErrorMessage && <FormHelperText error={error}>{helperText}</FormHelperText>}
+    </Stack>
   );
 };
 
-type ControlledCheckboxProps<T extends FieldValues> = ControlledField<T> &
-  Props;
+type ControlledCheckboxProps<T extends FieldValues> = ControlledField<T> & Props;
 
 export function ControlledCheckbox<T extends FieldValues>({
   control,
@@ -50,14 +39,13 @@ export function ControlledCheckbox<T extends FieldValues>({
       control={control}
       name={name}
       shouldUnregister={shouldUnregister}
-      render={({
-        field: { onChange, onBlur, value },
-        fieldState: { error },
-      }) => (
+      render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <Checkbox
           onChange={onChange}
           onBlur={onBlur}
           checked={value ?? false}
+          error={Boolean(error?.message)}
+          helperText={error?.message}
           {...rest}
         />
       )}

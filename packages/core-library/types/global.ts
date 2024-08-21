@@ -119,3 +119,72 @@ interface IconsEntity {
   };
   type: string;
 }
+
+interface ItemProp {
+  label: string;
+  path: string;
+}
+interface ColumnProp {
+  items: ItemProp[];
+}
+interface InfoProp {
+  address: string;
+  phone: string;
+  website: string;
+}
+export interface FooterProps {
+  list: ColumnProp[];
+  info: InfoProp;
+}
+
+export interface SliderConfigType {
+  sliderConfig: {
+    infinite: boolean;
+    slidesToShow: number;
+    slidesToScroll: number;
+    autoplay: boolean;
+    speed: number;
+    autoplaySpeed: number;
+    cssEase: string;
+  };
+}
+
+export interface SelectedProductType {
+  pricingId: string;
+  productId: string;
+  amount: number;
+  currency: string;
+  productName: string;
+  productDescription: string;
+  programTitle: number;
+  programType: number;
+  inclusions: {
+    features: string[];
+  };
+}
+export interface ProductCardType {
+  id: string;
+  productName: string;
+  productDescription: string;
+  programType: number;
+  programTitle: number;
+  pricingId: string;
+  pricing: {
+    price: number;
+    currency: string;
+  };
+  inclusions: {
+    // temporarily placed just to addressed the ticket. https://app.clickup.com/t/86epzggjz
+    features: string[];
+  };
+}
+
+export type NavigationItemType = {
+  id: number;
+  label: string;
+  path?: string;
+  icon?: React.ReactNode;
+  subItem?: NavigationItemType[];
+};
+
+export type IntentValueType = string | undefined | null;

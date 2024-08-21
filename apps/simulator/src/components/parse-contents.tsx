@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { MCQBlock, CaseStudyContainer, SATABlockQuestionaire } from './blocks';
-import { useSimulatorGlobals } from '@/core/context/SimulatorContext';
-import { datatypes } from '@repo/core-library';
-import { AnimatedBoxSkeleton, ComponentLoader } from '@repo/core-library/components';
+import React from 'react';
+import { MCQBlock, SATABlock } from './blocks';
+import { datatypes } from 'core-library';
 import { MobileErrorDialog } from './Dialog/MobileErrorDialog';
-import { useMobileDetection } from '@repo/core-library/contexts/MobileDetectionContext';
-import { useApplicationContext } from '@/core/context/AppContext';
+import { useMobileDetection } from 'core-library/contexts/MobileDetectionContext';
 interface Props {
   questionType: string;
   itemSelected: datatypes.CalcItemSelectResponseItem[];
 }
 
 export const ParseContents: React.FC<Props> = ({ questionType, itemSelected }) => {
-  const { loading } = useApplicationContext();
   const { isMobile } = useMobileDetection();
 
   if (isMobile) {
     return <MobileErrorDialog isMobile={isMobile} />;
   }
 
-  if (loading) {
-    return <ComponentLoader disableMarginBottom={false} />;
+  if (questionType === 'MCQ') {
+    if (itemSelected && itemSelected.length > 0) {
+      const key = itemSelected.filter(key => key.typeOfQuestion == questionType);
+      if (key.length > 0) {
+        return <MCQBlock choices={key[0].choices} question={key[0].question} questionType={questionType} />;
+      }
+    }
   }
 
-  if (questionType === 'RegularQuestion') {
+  if (questionType === 'SATA') {
     if (itemSelected && itemSelected.length > 0) {
-      const regularQKey = itemSelected.filter(key => key.questionType == questionType);
-      if (regularQKey.length > 0) {
-        return <MCQBlock choices={regularQKey[0].choices} question={regularQKey[0].question} />;
+      const key = itemSelected.filter(key => key.typeOfQuestion == questionType);
+      if (key.length > 0) {
+        return <SATABlock choices={key[0].choices} question={key[0].question} questionType={questionType} />;
       }
     }
   }
