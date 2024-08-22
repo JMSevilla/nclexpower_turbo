@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button, Card, Grid } from "@mui/material";
+import { Box, Card, Grid } from "@mui/material";
+import { Button } from "core-library/components";
 import { TextField } from "core-library/components";
 import { ContactFormType } from "./validation";
 import { Control, UseFormHandleSubmit  } from "react-hook-form";
@@ -7,7 +8,7 @@ import { ContactMock } from "@/core/constant/ContactPageMock/ContactMock";
 import { SocialMediaMock } from "@/core/constant/ContactPageMock/SocialMediaMock";
 import Image from "next/image";
 import Link from "next/link";
-import ContactIcon from "../../../assets/contact/contactIcon.png";
+import { ContactIcon } from "core-library/assets";
 
 interface FormValues {
   control: Control<ContactFormType>;
@@ -69,7 +70,7 @@ export const ContactForm: React.FC<FormValues> = ({
             </Grid>
             <Grid item xs={12} sx={{ marginTop: 4 }}>
               <Button
-                type="submit"
+                onClick={handleSubmit(onSubmit)}
                 variant="contained"
                 fullWidth
                 sx={{ px: 4, py: 2, backgroundColor: "#0F2A71"}}

@@ -6,7 +6,7 @@ export const contactSchema = yup.object({
     .string()
     .matches(/^\d*$/, "Phone number must be a valid number")
     .required("Phone number is required")
-    .default(""), // Default as empty string
+    .default(""),
   email: yup
     .string()
     .email("Invalid email")
