@@ -5,23 +5,21 @@ interface Props {
   subTitle: string;
 }
 
-import location from "../../../assets/contact/location.png";
-import mail from "../../../assets/contact/mail.png";
-import phone from "../../../assets/contact/phone.png";
+import { ContactLocation, ContactMail, ContactPhone } from "core-library/assets";
 
 export const ContactMock: Props[] = [
   {
-    icon: location,
+    icon: ContactLocation,
     title: "Location",
     subTitle: "1700 Eureka Rd Ste 155 Roseville, California 95661"
   },
   {
-    icon: phone,
+    icon: ContactPhone,
     title: "Contact Number",
     subTitle: "1-866-800-3030",
   },
   {
-    icon: mail,
+    icon: ContactMail,
     title: "Email Address",
     subTitle: "info@nclexpower.com",
   },
