@@ -1,9 +1,8 @@
 import React from "react";
-import withAuth from "core-library/core/utils/withAuth";
-import { SettingsManagementPageBlock } from "@/components";
+import { ParseBlocks } from "core-library/system";
 
 const InternalApplicationSettings: React.FC = () => {
-  return <SettingsManagementPageBlock />;
+  return <ParseBlocks blocks="SettingsBlock" />;
 };
 
-export default withAuth(InternalApplicationSettings);
+export default InternalApplicationSettings;

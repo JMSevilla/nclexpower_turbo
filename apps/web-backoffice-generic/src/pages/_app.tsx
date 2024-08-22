@@ -6,7 +6,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./index.css";
 import "./mui.css";
-import Page from "../pages/shared/Page";
+import { ParseContents } from "core-library/system";
 import { default as Router } from "next/router";
 import Script from "next/script";
 import NProgress from "nprogress";
@@ -46,11 +46,11 @@ export default function App({ Component, pageProps }: AppProps) {
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
         </Head>
-        <Page>
+        <ParseContents appName={config.value.BASEAPP}>
           <Suspense>
             <Component {...pageProps} />
           </Suspense>
-        </Page>
+        </ParseContents>
       </CookiesProvider>
     </CacheProvider>
   );
