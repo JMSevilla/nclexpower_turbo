@@ -24,12 +24,7 @@ export function ContactFormBlock() {
       false
     );
 
-    reset({
-      name: "",
-      phone: "",
-      email: "",
-      message: ""
-    });
+    reset();
   };
 
   return (

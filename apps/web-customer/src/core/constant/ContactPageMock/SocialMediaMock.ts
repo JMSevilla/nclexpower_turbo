@@ -5,23 +5,21 @@ interface Props {
   link: string;
 }
 
-import facebook from "../../../assets/contact/facebook.png";
-import twitter from "../../../assets/contact/twitter.png";
-import instagram from "../../../assets/contact/instagram.png";
+import { ContactFacebook, ContactTwitter, ContactInstagram } from "core-library/assets";
 
 export const SocialMediaMock: Props[] = [
   {
-    icon: facebook,
+    icon: ContactFacebook,
     title: "Facebook",
     link: "https://www.facebook.com/",
   },
   {
-    icon: twitter,
+    icon: ContactTwitter,
     title: "Twitter",
     link: "https://www.twitter.com/",
   },
   {
-    icon: instagram,
+    icon: ContactInstagram,
     title: "Instagram",
     link: "https://www.instagram.com/",
   },
