@@ -1,5 +1,4 @@
 import { SxProps, Theme } from "@mui/material/styles";
-import zIndex from '@mui/material/styles/zIndex';
 import { useScroll } from "core-library";
 import { useRouter } from "next/router";
 
