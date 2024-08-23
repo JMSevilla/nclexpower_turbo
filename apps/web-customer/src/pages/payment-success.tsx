@@ -4,10 +4,8 @@ import { Button } from "core-library/components";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import Image from "next/image";
 import { confirmedCreation, useRouter } from "core-library";
-import React, { useEffect } from "react";
+import React from "react";
 import { GetServerSideProps } from "next";
-import { useCustomerCreation } from "@/core/hooks/useCustomerCreation";
-import { CreateCustomerDumpParams } from "core-library/api/types";
 
 interface Props {
   success: boolean;
@@ -22,7 +20,6 @@ const PaymentSuccess: React.FC<Props> = ({
 }) => {
   const router = useRouter();
   const [confirmValue] = useConfirmedIntent();
-  const { createCustomerAsync } = useCustomerCreation();
 
   const returnLogin = () => router.push((route) => route.login);
 
