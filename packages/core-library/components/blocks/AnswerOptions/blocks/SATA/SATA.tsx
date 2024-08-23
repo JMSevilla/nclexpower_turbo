@@ -3,7 +3,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import { useFieldArray } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { Button, Card, ControlledCheckbox } from "../../../..";
 import { ControlledTextField } from "../../../../Textfield/TextField";
@@ -30,34 +30,40 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
   };
 
   return (
-    <Card>
-      <div className="w-full h-[200px]  rounded-md p-2 flex flex-col gap-2 overflow-y-auto">
+    <Card sx={{ width: 1 }}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        minHeight="200px"
+        maxHeight="400px"
+        overflow="auto"
+        gap={1}
+      >
         {answerFields.map((answer, index) => (
-          <div
-            className="w-full flex rounded-md   text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-between"
+          <Box
             key={index}
+            display="flex"
+            width={1}
+            flex={1}
+            alignItems="center"
           >
             <ControlledCheckbox
               name={`questionnaires.${questionIndex}.answers.${index}.answerKey`}
               sx={{ margin: 0 }}
             />
-            <div className="w-full flex-1 p-2">
+            <Box flex={1}>
               <ControlledTextField
                 name={`questionnaires.${questionIndex}.answers.${index}.answer`}
-                className=" flex-1  border-none outline-none  placeholder:text-sm  w-full"
                 rows={5}
                 sx={{ border: "none", outline: 0 }}
                 placeholder="Enter answer"
               />
-            </div>
+            </Box>
 
-            <IconButton
-              onClick={() => handleRemoveFields(index)}
-              className="text-red-500"
-            >
+            <IconButton onClick={() => handleRemoveFields(index)} color="error">
               <DeleteOutlineIcon />
             </IconButton>
-          </div>
+          </Box>
         ))}
 
         <Button
@@ -67,9 +73,9 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
           <span>
             <AddIcon />
           </span>
-          <p>Add Answer Option</p>
+          <Typography variant="body2">Add Answer Option</Typography>
         </Button>
-      </div>
+      </Box>
     </Card>
   );
 };

@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import React, { useEffect, useState } from "react";
-import { Pagination } from "@mui/material";
+import { Box, Pagination, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { FormProvider } from "react-hook-form";
 import { ContainedRegularQuestionType } from "../../types";
@@ -116,45 +116,45 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   }, [selectedPageIndex]);
 
   return (
-    <div className="flex flex-col items-center p-5 gap-y-10">
-      <div className="flex w-full">
-        <Button
-          onClick={previousStep}
-          className="flex items-center justify-center bg-transparent shadow-none text-black hover:bg-transparent hover:shadow-none hover:scale-105 transition-all duration-150"
-        >
+    <Box padding={4}>
+      <Box display="flex" width={1} pb={3} position="relative">
+        <Button onClick={previousStep} sx={{ zIndex: 2 }}>
           <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
-          <p className="underline">Go Back</p>
+          <Typography>Go Back</Typography>
         </Button>
-        <p className="text-center font-bold pl-[30%]">
-          Create regular question <br /> ({values.type})
-        </p>
-      </div>
+        <Box sx={{ position: "absolute", zIndex: 1 }} width={1}>
+          <Typography variant="body2" fontWeight={600} textAlign="center">
+            Create regular question <br /> ({values.type})
+          </Typography>
+        </Box>
+      </Box>
       <FormProvider {...parentForm}>
-        <div className="w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10">
-          <div className="h-fit w-full flex justify-end text-xs gap-2">
-            <Button
-              onClick={handleRemove}
-              sx={{ minWidth: "none" }}
-              className="bg-red-700 items-center w-fit text-xs py-2 flex text-white font-semibold rounded-xl  hover:bg-red-800 disabled:saturate-0"
-            >
-              <span>
-                <DeleteOutlineIcon />
-              </span>
-              <p>Delete Form</p>
+        <Box
+          width={1}
+          height={1}
+          boxShadow={1}
+          flexDirection={"column"}
+          borderRadius={2}
+          p={4}
+          className="w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10"
+        >
+          <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
+            <Button onClick={handleRemove} sx={{ minWidth: "none" }}>
+              <DeleteOutlineIcon />
+              <Typography variant="body2">Delete Form</Typography>
             </Button>
             <Button
-              disabled={!isValid}
+              // disabled={!isValid}
               onClick={handleAddForm}
-              className="bg-[#37BEC7] items-center py-2 text-xs text-white font-semibold rounded-xl leading-3 hover:bg-[#2a98a0] disabled:saturate-0"
             >
-              <span>
-                <AddIcon />
-              </span>
-              <p>{!isCurrentPage ? "Add Form" : "Update Form"}</p>
+              <AddIcon />
+              <Typography variant="body2">
+                {!isCurrentPage ? "Add Form" : "Update Form"}
+              </Typography>
             </Button>
-          </div>
-          <div className="w-full flex gap-10">
-            <div className="w-1/3 h-full flex flex-col gap-5  ">
+          </Box>
+          <Box width="100%" display="flex" gap={4}>
+            <Box flex={1} display="flex" flexDirection="column">
               <MultipleSelectField
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
@@ -179,10 +179,10 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                 label="Cognitive Level :"
                 options={CognitiveLevel ?? []}
               />
-            </div>
-            <div className="w-2/3 h-full flex flex-col gap-5 items-end  py-5">
-              <div className="w-full rounded-md">
-                <p className="text-md font-semibold">Question :</p>
+            </Box>
+            <Box flex={2} display="flex" flexDirection="column" gap={4}>
+              <Box>
+                <Typography variant="body2">Question :</Typography>
                 <Card>
                   <ControlledRichTextEditor
                     control={control}
@@ -191,22 +191,25 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                     name={`questionnaires.${selectedPageIndex - 1}.question`}
                   />
                 </Card>
-              </div>
-              <div className="w-full">
-                <p className="text-md font-semibold">Answer Options :</p>
-                <div>
-                  <AnswerOptions
-                    questionIndex={selectedPageIndex - 1}
-                    questionType="regularQuestion"
-                    questionnaireType="SATA"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </Box>
+              <Box>
+                <Typography variant="body2">Answer option:</Typography>
+                <AnswerOptions
+                  questionIndex={selectedPageIndex - 1}
+                  questionType="regularQuestion"
+                  questionnaireType="SATA"
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
       </FormProvider>
-      <div className="w-full flex">
+      <Box
+        display="flex"
+        pt={4}
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <div className="w-1/2 flex justify-start">
           <Pagination
             count={questionnaireFields.length}
@@ -221,13 +224,13 @@ export const CreateRegularQuestion: React.FC<Props> = ({
         <div className="w-1/2 flex justify-end">
           <Button
             onClick={confirmCreation(handleContinue)}
-            disabled={!isValid}
+            // disabled={!isValid}
             className="bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150"
           >
             Continue
           </Button>
         </div>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
