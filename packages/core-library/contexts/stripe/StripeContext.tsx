@@ -10,7 +10,7 @@ import React, {
 import { loadStripe } from "@stripe/stripe-js";
 import { CreatePaymentIntentParams } from "../../api/types";
 import { useBusinessQueryContext } from "../BusinessQuery";
-import { useCheckoutIntent } from '../auth/hooks';
+import { useCheckoutIntent } from "../auth/hooks";
 
 interface Props {
   publishableKey: string;
@@ -41,7 +41,7 @@ export const StripeContextProvider: React.FC<
   const { businessQueryCreatePaymentIntent, businessQueryGetOrderNumber } =
     useBusinessQueryContext();
   const { mutateAsync, isLoading } = businessQueryCreatePaymentIntent();
-  const [, setCheckoutIntent] = useCheckoutIntent()
+  const [, setCheckoutIntent] = useCheckoutIntent();
   const {
     data: dataOrderNumber,
     refetch: refetchOrderNumber,
@@ -63,11 +63,10 @@ export const StripeContextProvider: React.FC<
     params: CreatePaymentIntentParams
   ) {
     const result = await mutateAsync({ ...params });
-    setCheckoutIntent(result.data.paymentIntentId)
+    setCheckoutIntent(result.data.paymentIntentId);
     setClientSecret(result.data.clientSecret);
     setPaymentIntentId(result.data.paymentIntentId);
   }
-
 
   async function getOrderNumber() {
     if (!orderNumber) {
@@ -105,7 +104,7 @@ export const StripeContextProvider: React.FC<
       {stripePromise && clientSecret ? (
         <Elements
           stripe={stripePromise}
-          options={{ clientSecret, loader: "never" }}
+          options={{ clientSecret, loader: "auto" }}
         >
           {children}
         </Elements>

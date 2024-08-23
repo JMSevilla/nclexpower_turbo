@@ -5,7 +5,7 @@ import {
   ValidateResetLinkTokenParams,
 } from "core-library/api/types";
 import { useRouter } from "core-library";
-import { NotfoundBlock } from "@/components/blocks/NotFoundBlock/NotFoundBlock";
+import { NotFoundBlock } from "@/components/blocks/NotFoundBlock/NotFoundBlock";
 import { useEffect, useState } from "react";
 import { PageLoader } from "core-library/components";
 import { useExecuteToast } from "core-library/contexts";
@@ -31,7 +31,7 @@ export function ResetPasswordPage() {
   const { auth, uId }: QueryParams = router.query;
 
   if (!auth || !uId) {
-    return <NotfoundBlock />;
+    return <NotFoundBlock />;
   }
 
   async function validate() {
