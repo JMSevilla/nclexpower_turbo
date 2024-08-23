@@ -22,10 +22,7 @@ import {
 import { IntentValueType } from "core-library/types/global";
 import { Encryption } from "core-library/utils/Encryption";
 import { config } from "core-library/config";
-import {
-  ConfirmPaymentParams,
-  CreateCustomerDumpParams,
-} from "core-library/api/types";
+import { CreateCustomerDumpParams } from "core-library/api/types";
 import { useExecuteToast } from "core-library/contexts";
 import { useApiCallback } from "core-library/hooks";
 interface Props {
