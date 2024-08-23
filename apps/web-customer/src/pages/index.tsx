@@ -20,7 +20,6 @@ const Home: React.FC<Props> = ({ generatedNonce }) => {
   const { scrollTop } = useScroll();
   const { ToTopButtonSx } = useWebHeaderStyles();
 
-
   return (
     <React.Fragment>
       <CSPHead nonce={generatedNonce} />
