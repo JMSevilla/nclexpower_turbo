@@ -11,8 +11,8 @@ import {
   ControlledRichTextEditor,
   AnswerOptions,
 } from "core-library/components";
-import { useRegularQuestionForm } from './hooks/useRegularQuestionForm';
-import { initQuestionsValues } from '../../../../../constants/constants';
+import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
+import { initQuestionsValues } from "../../../../../constants/constants";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -45,7 +45,12 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const { isValid } = parentFormState;
 
-  const { handleSubmit: confirmCreation, control, getValues, setValue } = parentForm;
+  const {
+    handleSubmit: confirmCreation,
+    control,
+    getValues,
+    setValue,
+  } = parentForm;
 
   const { businessQueryGetRegularQuestionDDCategory } =
     useBusinessQueryContext();
@@ -109,7 +114,6 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     }
   };
 
-
   useEffect(() => {
     updateValues();
     const isCurrentQuestionnaire =
@@ -118,10 +122,16 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setIsCurrentPage(isCurrentQuestionnaire);
   }, [selectedPageIndex]);
 
-
   return (
     <Box padding={4}>
-      <Box display="flex" justifyContent={"space-between"} alignItems={"center"} width={1} pb={3} position="relative">
+      <Box
+        display="flex"
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        width={1}
+        pb={3}
+        position="relative"
+      >
         <Button onClick={previousStep} sx={{ zIndex: 2 }}>
           <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
           <Typography>Go Back</Typography>
@@ -132,7 +142,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           </Typography>
         </Box>
 
-        <Box >
+        <Box>
           <Typography variant="body2" fontWeight={600} textAlign="center">
             Question no. {selectedPageIndex ?? questionnaireFields.length}
           </Typography>
@@ -158,7 +168,10 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <DeleteOutlineIcon />
               <Typography variant="body2">Delete Form</Typography>
             </Button>
-            <Button disabled={!isCurrentPage && !isValid} onClick={handleAddForm}>
+            <Button
+              disabled={!isCurrentPage && !isValid}
+              onClick={handleAddForm}
+            >
               <AddIcon />
               <Typography variant="body2">
                 {!isCurrentPage ? "Add Form" : "Update Form"}
