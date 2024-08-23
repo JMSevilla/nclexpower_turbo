@@ -3,12 +3,14 @@ import { ContainedRegularQuestionType } from "./types";
 import {
   CreateRegularQuestion,
   QuestionTypeSelection,
+  QuestionSummary,
 } from "./steps/content/index";
 import { SuccessPage } from "./steps/content/SuccessPage";
 
 export type QuestionTypeFormSteps =
   | "InitialQuestionTypeSelection"
   | "CreateRegularQuestion"
+  | "QuestionSummary"
   | "SuccessPage";
 
 export interface QuestionTypeStepProps {
@@ -25,8 +27,13 @@ export const ChooseQuestionTypeStep = {
   },
   CreateRegularQuestion: {
     previousStep: "InitialQuestionTypeSelection",
-    nextStep: "SuccessPage", // Move this to Step 3
+    nextStep: "QuestionSummary", // Move this to Step 3
     content: (props) => <CreateRegularQuestion {...props} />,
+  },
+  QuestionSummary: {
+    previousStep: "CreateRegularQuestion",
+    nextStep: "SuccessPage", // Move this to Step 3
+    content: (props) => <QuestionSummary {...props} />,
   },
   SuccessPage: {
     previousStep: "CreateRegularQuestion",
