@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-export const NotfoundBlock: React.FC = () => {
+export const NotFoundBlock: React.FC = () => {
   const router = useRouter();
 
   const Back = () => {

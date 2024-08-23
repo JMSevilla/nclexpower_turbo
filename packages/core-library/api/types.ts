@@ -128,9 +128,13 @@ export interface ThetaCalcScratchResponse {
 }
 
 export interface ConfirmPaymentParams {
-  paymentIntentId: string | null;
-  email: string | undefined;
-  paymentMethodId: string | undefined;
+  email: string;
+  firstname: string;
+  middlename?: string | undefined;
+  lastname: string;
+  orderNumber: string;
+  productId: string;
+  amount: number;
 }
 
 export interface ConfirmPaymentResponse {
@@ -177,6 +181,17 @@ export interface CreateCustomerParams {
   orderNumber: string;
   productId: string;
   totalAmount: number;
+}
+
+export interface CreateCustomerDumpParams {
+  firstname: string;
+  middlename: string | null;
+  lastname: string;
+  email: string;
+  orderNumber: string;
+  productId: string;
+  totalAmount: number;
+  paymentIntentId: string;
 }
 
 export type DiscrepanciesResponse = {
@@ -266,7 +281,7 @@ export type ReportIssueType = {
   categoryId: string;
   description: string;
   systemProduct: number;
-}
+};
 
 export type GetCategoryType = {
   id: string;
@@ -275,4 +290,4 @@ export type GetCategoryType = {
   categoryType: number;
   createdAt: string;
   updatedAt: string;
-}
+};
