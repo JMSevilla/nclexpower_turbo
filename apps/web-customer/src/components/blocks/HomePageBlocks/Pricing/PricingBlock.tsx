@@ -7,7 +7,7 @@ import { Encryption } from "core-library/utils/Encryption";
 import { config } from "core-library/config";
 import { useEncryptItem } from "core-library/contexts/auth/hooks";
 
-interface Props { }
+interface Props {}
 
 export const PricingBlock: React.FC<Props> = (props) => {
   const [nurseType, setNurseType] = useState<number>(1);
@@ -18,6 +18,7 @@ export const PricingBlock: React.FC<Props> = (props) => {
   const router = useRouter();
 
   const handleSelectProduct = (product: SelectedProductType) => {
+    alert("Called");
     const key = config.value.SECRET_KEY;
     const encyptedData = Encryption(
       JSON.stringify({ ...product }),
@@ -81,7 +82,8 @@ export const PricingBlock: React.FC<Props> = (props) => {
               filteredItems.map((item, index) => (
                 <div
                   className={`cursor-pointer border-2 border-transparent transition-all duration-300 ${nurseType == 1 ? "hover:border-[#08474b] hover:border-2 hover:scale-105 rounded-lg hover:-mt-2" : "hover:border-[#0c225c] hover:border-2 rounded-lg hover:-mt-2"}`}
-                  key={index}>
+                  key={index}
+                >
                   <PricingCard
                     cardData={item}
                     handleSelectProduct={handleSelectProduct}
