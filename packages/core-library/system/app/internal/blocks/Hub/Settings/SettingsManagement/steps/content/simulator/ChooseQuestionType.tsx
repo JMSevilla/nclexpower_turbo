@@ -36,8 +36,7 @@ export const ChooseQuestionTypeStep = {
     content: (props) => <QuestionSummary {...props} />,
   },
   SuccessPage: {
-    previousStep: "CreateRegularQuestion",
-    nextStep: "InitialQuestionTypeSelection",
+    previousStep: "QuestionSummary",
     content: (props) => <SuccessPage {...props} />,
   },
 } as WizardFormMap<
