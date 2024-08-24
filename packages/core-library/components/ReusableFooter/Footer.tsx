@@ -120,32 +120,6 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 ))}
             </Grid>
           </Grid>
-          {/* <Grid item xs={2} sm={4} md={4} sx={{ width: "10%", display: "flex", justifyContent: "center" }}>
-            <Button
-              onClick={() => scrollTop()}
-              sx={{
-                height: "40px",
-                width: "40px",
-                minWidth: "40px",
-                bgcolor: "#f3c402",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                "&:hover": {
-                  bgcolor: "#f3c402",
-                },
-              }}
-            >
-              <NorthIcon
-                sx={{
-                  width: "25px",
-                  height: "25px",
-                }}
-                className="text-[#0f2a71]"
-              />
-            </Button>
-          </Grid> */}
         </Grid>
         <div className="text-xs">
           <p className="w-full text-center pt-4">
