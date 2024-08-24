@@ -1,11 +1,17 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
-import { extractClassifierFromGlobals } from "../types";
-import { useTenantContext, useContentDataContext } from "../contexts";
 
 type StaticRoutes = Record<
-  "home" | "hub" | "logout" | "page_not_found" | "account_setup" | "login",
+  | "home"
+  | "hub"
+  | "logout"
+  | "page_not_found"
+  | "account_setup"
+  | "login"
+  | "account_verification_otp"
+  | "account_forgot_password"
+  | "reset_link_success", //we can register all our static routes here.
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -16,30 +22,43 @@ type PathParameters = {
   query?: ParsedQuery<any>;
 };
 
+const STATIC_ROUTES: StaticRoutes = {
+  home: "/",
+  hub: "/hub",
+  logout: "/logout",
+  page_not_found: "/404",
+  account_setup: "/account_setup",
+  login: "/login",
+  account_verification_otp: "/account/verification/otp",
+  account_forgot_password: "/account/forgot-password",
+  reset_link_success: "/account/reset-link",
+};
+
+const routeTitles: Record<string, string> = {
+  "/": "Home",
+  "/hub": "Hub",
+  "/logout": "Logout",
+  "/404": "Page Not Found",
+  "/account_setup": "Account Setup",
+  "/login": "Login",
+  "/account/verification/otp": "Account Verification OTP",
+  "/account/forgot-password": "Forgot Password",
+  "/account/reset-link": "Reset Link Success",
+};
+
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
-  const { tenant } = useTenantContext();
-  const contentData = useContentDataContext();
-
-  const staticRoutes = (
-    contentData?.globals
-      ? extractClassifierFromGlobals(
-        "global_routes",
-        contentData.globals
-      )?.reduce(
-        (routes, route) => ({
-          ...routes,
-          [route.key.value]: route.value.value,
-        }),
-        {}
-      )
-      : {}
-  ) as StaticRoutes;
+  const staticRoutes = {} as StaticRoutes;
 
   useEffect(() => {
-    const start = () => setLoading(true);
-    const end = () => setLoading(false);
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
     router.events.on("routeChangeError", end);
@@ -52,7 +71,8 @@ export const useRouter = () => {
 
   return {
     loading,
-    staticRoutes,
+    staticRoutes: STATIC_ROUTES,
+    title: routeTitles[router.pathname],
     ...useMemo(
       () => ({
         ...router,
@@ -64,57 +84,76 @@ export const useRouter = () => {
   };
 
   async function push(
-    path: string | PathFromRoutes,
+    path: string | PathFromRoutes | { pathname: string },
     options?: TransitionOptions
   ) {
-    return typeof path === "string"
-      ? router.push(
-        routeUrl(path),
-        addTenantSlug(path),
-        configuredRouteOptions(options)
-      )
-      : router.push(
-        routeUrl(path(staticRoutes)),
-        addTenantSlug(path(staticRoutes)),
+    if (typeof path === "string") {
+      return router.push(routeUrl(path), path, configuredRouteOptions(options));
+    } else if (typeof path === "function") {
+      const resolvedPath = path(STATIC_ROUTES);
+      return router.push(
+        routeUrl(resolvedPath),
+        resolvedPath,
         configuredRouteOptions(options)
       );
+    } else {
+      return router.push(
+        routeUrl(path.pathname),
+        path.pathname,
+        configuredRouteOptions(options)
+      );
+    }
   }
 
   async function replace(
-    path: string | PathFromRoutes,
+    path: string | PathFromRoutes | { pathname: string },
     options?: TransitionOptions
   ) {
-    return typeof path === "string"
-      ? router.replace(routeUrl(path), path, configuredRouteOptions(options))
-      : router.replace(
-        routeUrl(path(staticRoutes)),
-        path(staticRoutes),
+    if (typeof path === "string") {
+      return router.replace(
+        routeUrl(path),
+        path,
         configuredRouteOptions(options)
       );
+    } else if (typeof path === "function") {
+      const resolvedPath = path(STATIC_ROUTES);
+      return router.replace(
+        routeUrl(resolvedPath),
+        resolvedPath,
+        configuredRouteOptions(options)
+      );
+    } else {
+      return router.replace(
+        routeUrl(path.pathname),
+        path.pathname,
+        configuredRouteOptions(options)
+      );
+    }
   }
 
   function navigate(
     fn: (
-      path: string | PathFromRoutes,
+      path: string | PathFromRoutes | { pathname: string },
       options?: TransitionOptions
     ) => Promise<boolean>
   ) {
     return async (
-      path: string | PathFromRoutes | PathParameters,
+      path: string | PathFromRoutes | PathParameters | { pathname: string },
       options?: TransitionOptions
     ) => {
       setLoading(true);
-      if (typeof path === "string") {
+      if (typeof path === "string" || typeof path === "function") {
         return await fn(path, options);
       }
 
-      if (typeof path === "function") {
-        return await fn(path, options);
+      if (typeof path === "object" && "pathname" in path) {
+        return await fn(path.pathname, options);
       }
 
       try {
         const stringifiedPath = qs.stringifyUrl({
-          url: typeof path.url === "string" ? path.url : path.url(staticRoutes),
+          url:
+            typeof path.url === "string" ? path.url : path.url(STATIC_ROUTES),
           query: path.query,
         });
 
@@ -126,20 +165,12 @@ export const useRouter = () => {
     };
   }
 
-  function addTenantSlug(path: string): string {
-    const tenantUrl = tenant?.tenantUrl.value.split("/")?.[1];
-    if (tenantUrl && path.split("/")?.[1] != tenantUrl) {
-      return tenantUrl + path;
-    }
-    return path;
-  }
-
   function routeUrl(path: string) {
-    return path === staticRoutes.home ||
+    return path === STATIC_ROUTES.home ||
       path.includes("http://") ||
       path.includes("https://")
       ? path
-      : "/[...slug]";
+      : path;
   }
 };
 

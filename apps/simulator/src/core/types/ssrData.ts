@@ -1,4 +1,4 @@
-import { datatypes } from '@repo/core-library';
+import { datatypes } from 'core-library';
 import React, { ReactNode } from 'react';
 
 export type SsrQuestionaireContentProps = {
@@ -128,11 +128,7 @@ export type SsrMockQuestionaireAnswer = {
 export type RegularQuestion = {
   choices: string;
   question: string;
-};
-
-export type SataRegularQuestion = {
-  question: string;
-  choices: OptionType[];
+  questionType: string;
 };
 
 export type MCQTable = {

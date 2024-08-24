@@ -6,13 +6,13 @@ export type CalcItemSelectResponseItem = {
   lNum: string;
   qId: number;
   hasContainer: number;
-  qLNum: number;
   question: string;
   actionKey: string;
-  questionType: string;
   cnCateg: number;
   correct: string;
+  current: number;
   choices: string;
+  typeOfQuestion: string;
 };
 
 export type CalcItemSelectValues = {

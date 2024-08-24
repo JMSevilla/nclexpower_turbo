@@ -1,24 +1,23 @@
 import { Box } from '@mui/material'
 import { LoginForm } from './LoginForm'
-import { LoginFormType } from './validation'
-import { useState } from 'react'
-import { StringValue } from '../../../types/common'
+import { LoginParams } from '../../../types/types'
 
-
-type Props = {
-    id: string,
-    parameters?: { values: { key: StringValue; value: StringValue }[] };
+interface Props {
+    onSubmit: (value: LoginParams) => void,
+    isLoading: boolean
 }
 
-export const LoginFormBlock: React.FC<Props> = ({ id, parameters }) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-
-    async function onSubmit(values: LoginFormType) {
-        console.log("values : ", values)
-    }
-
+export function LoginFormBlock({ onSubmit, isLoading }: Props) {
     return (
-        <Box id={id}>
+        <Box
+            display='flex'
+            justifyContent="center"
+            alignItems="center"
+            flexGrow={1}
+            sx={{
+                height: '100%',
+            }}
+        >
             <LoginForm onSubmit={onSubmit} submitLoading={isLoading} />
         </Box>
     )

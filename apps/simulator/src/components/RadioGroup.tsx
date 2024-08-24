@@ -1,3 +1,4 @@
+import { useToolbarSettings } from '@/core/context/ToolbarSettingsContext';
 import {
   FormControlLabel,
   FormControlLabelProps,
@@ -8,8 +9,8 @@ import {
   Typography,
   TypographyProps,
 } from '@mui/material';
-import { datatypes } from '@repo/core-library';
-import { ControlledField } from '@repo/core-library/types';
+import { datatypes } from 'core-library';
+import { ControlledField } from 'core-library/types';
 import { Controller, FieldValues } from 'react-hook-form';
 
 type Props = Pick<RadioGroupProps, 'value' | 'sx' | 'onBlur'> & {
@@ -34,11 +35,12 @@ export type RadioProps = MuiRadioProps &
   };
 
 export const Radio: React.FC<RadioProps> = ({ value, label, labelProps, color, radioContainerProps, ...rest }) => {
+  const { textZoomStyle } = useToolbarSettings();
   return (
     <FormControlLabel
       value={value}
       control={<MuiRadio size="small" sx={{ ...(!color && sx) }} {...rest} />}
-      label={<Typography {...labelProps}>{label}</Typography>}
+      label={<Typography style={textZoomStyle}{...labelProps}>{label}</Typography>}
       {...radioContainerProps}
     />
   );

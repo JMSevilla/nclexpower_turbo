@@ -1,21 +1,21 @@
-import React from 'react';
-import { FormHelperText } from '../../components/FormHelperText'; 
+import React, { ReactElement, ReactNode } from 'react';
+import { FormHelperText } from '../../components/FormHelperText';
 
 type ErrorHandlerProps = {
-    isValid: boolean;
-    errorMessage: string;
+  isValid: boolean;
+  errorMessage: string;
 };
 
 export const useErrorHandler = ({ isValid, errorMessage }: ErrorHandlerProps) => {
-    const ErrorMessage: React.FC = () => {
-        return (
-            <div className="px-8 py-4">
-                {errorMessage && !isValid && (
-                    <FormHelperText error={true}>{errorMessage}</FormHelperText>
-                )}
-            </div>
-        );
-    };
+  const ErrorMessage = (): ReactNode | ReactElement | JSX.Element => {
+    return (
+      <div className="px-8 py-4">
+        {errorMessage && !isValid && <FormHelperText error={true}>{errorMessage}</FormHelperText>}
+      </div>
+    );
+  };
 
-    return ErrorMessage;
+  return {
+    ErrorMessageHandler: ErrorMessage,
+  };
 };

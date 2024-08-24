@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "@repo/core-library/config";
+import { config } from "./config";
 
 // export async function initializedCms() {
 //   const response = axios.get(`${config.value.MockDB}/questionaire`);
@@ -33,7 +33,7 @@ export async function initializeLoadPTestHimem() {
 
 export async function initializeLoadPrepareTrackItem() {
   const response = await fetch(
-    `${apiUrl}/v1/api/baseAppload/processor-prep-track-item`,
+    `${config.value.API_URL}/v1/api/baseAppload/processor-prep-track-item`,
     {
       headers: {
         "Content-Type": "application/json",

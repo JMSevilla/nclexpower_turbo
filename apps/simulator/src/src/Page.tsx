@@ -1,10 +1,12 @@
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { cmsInit } from '@repo/core-library';
+import { cmsInit } from 'core-library';
 import { Layout as LayoutComponent } from './Layout';
 import { ApplicationProvider } from '@/core/context/AppContext';
-import { ErrorBox } from '@repo/core-library/components';
-
+import { ErrorBox } from 'core-library/components';
+import { BusinessQueryContextProvider, AuthProvider } from 'core-library/contexts';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 interface Props {
   data?: any;
   error?: any;
@@ -22,11 +24,20 @@ export const Page: NextPage<Props> = ({ data, error }) => {
   const Layout = dynamic<React.ComponentProps<typeof LayoutComponent>>(() => import('./Layout').then(c => c.Layout), {
     ssr: false,
   });
-  console.log('data', data);
+  console.log('slug', data);
+  const queryClient = new QueryClient({});
+
   return (
-    <ApplicationProvider data={data}>
-      <Layout questionaire={data?.prefetchQ} data={data} />
-    </ApplicationProvider>
+    <QueryClientProvider client={queryClient}>
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+      <BusinessQueryContextProvider>
+        <ApplicationProvider data={data}>
+          <AuthProvider>
+            <Layout questionaire={data?.prefetchQ} data={data} />
+          </AuthProvider>
+        </ApplicationProvider>
+      </BusinessQueryContextProvider>
+    </QueryClientProvider>
   );
 };
 
@@ -34,17 +45,19 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
   const querySlugs = query['slug'];
   try {
     const slug = (querySlugs as string[]) || resolvedUrl;
-    // const prefetchQ = await cmsInit.initializedCms();
-    // const prefetchHeader = await cmsInit.initializedHeader();
-    const loadPTestHimem = await cmsInit.initializeLoadPTestHimem();
-    const loadPreTrackItem = await cmsInit.initializeLoadPrepareTrackItem();
+    let slugs: string[];
 
+    if (Array.isArray(querySlugs)) {
+      slugs = querySlugs as string[];
+    } else if (typeof querySlugs === 'string') {
+      slugs = [querySlugs];
+    } else {
+      slugs = []; // Default value or error handling if needed
+    }
     return {
       props: {
         data: {
-          slug,
-          loadPTestHimem,
-          loadPreTrackItem,
+          slug: slugs,
         },
       },
     };
