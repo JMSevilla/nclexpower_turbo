@@ -1,9 +1,9 @@
 import React from "react";
 import { ContainedRegularQuestionType } from "../../types";
 import { Box, Grid, Typography, Accordion } from "@mui/material";
-import { RegularQAccordion } from "../../../../../../../../../../../../components";
+import { Button, SummaryAccordion } from "core-library/components";
+import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { useForm } from "react-hook-form";
-import { Height } from "@mui/icons-material";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -12,20 +12,63 @@ interface Props {
   next: () => void;
 }
 
-const accordionItems = [
-  { title: "Accordion 1", content: "Content for accordion 1" },
-  { title: "Accordion 2", content: "Content for accordion 2" },
-  { title: "Accordion 3", content: "Content for accordion 3" },
-];
-
 export const QuestionSummary: React.FC<Props> = ({
   nextStep,
   values,
+  previousStep,
   next,
 }) => {
-  const form = useForm({
-    mode: "all",
-  });
+
+// const questionnaire = [
+//     {
+//       answers: [
+//         {
+//           answer: "Answer 1",
+//           answerKey: false
+//         },
+//         {
+//           answer: "Answer 2",
+//           answerKey: true
+//         }
+//       ],
+//       question: "<p>Sample Question 1</p>",
+//       contentArea: "Content Area 1",
+//       clientNeeds: "Client Needs 1",
+//       cognitiveLevel: "Cognitive Level 1"
+//     },
+//     {
+//       answers: [
+//         {
+//           answer: "Answer 1",
+//           answerKey: false
+//         },
+//         {
+//           answer: "Answer 2",
+//           answerKey: true
+//         }
+//       ],
+//       question: "<p>Sample Question 1</p>",
+//       contentArea: "Content Area 1",
+//       clientNeeds: "Client Needs 1",
+//       cognitiveLevel: "Cognitive Level 1"
+//     },
+//     {
+//       answers: [
+//         {
+//           answer: "Answer 1",
+//           answerKey: false
+//         },
+//         {
+//           answer: "Answer 2",
+//           answerKey: true
+//         }
+//       ],
+//       question: "<p>Sample Question 1</p>",
+//       contentArea: "Content Area 1",
+//       clientNeeds: "Client Needs 1",
+//       cognitiveLevel: "Cognitive Level 1"
+//     },
+//   ]
 
   return (
     <Grid
@@ -37,35 +80,50 @@ export const QuestionSummary: React.FC<Props> = ({
       <Box
         display="flex"
         width="100%"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
         marginBottom="25px"
+        position="relative"
       >
-        <Typography variant="h4">Question and Answer Summary</Typography>
-        <Typography variant="h4">({values.type})</Typography>
+        <Button onClick={previousStep} sx={{ zIndex: 2 }}>
+          <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
+          <Typography>Go Back</Typography>
+        </Button>
+        <Box 
+          display="flex" 
+          flexDirection="column" 
+          justifyContent="center" 
+          alignItems="center" 
+          width="100%" 
+          sx={{
+            position: "absolute", 
+            zIndex: 1
+            }}
+          >
+          <Typography variant="h4">Question and Answer Summary</Typography>
+          <Typography variant="h4">({values.type})</Typography>          
+        </Box>
       </Box>
       <Box
         width="100%"
         display="flex"
         flexDirection="column"
+        marginX="25px"
         gap="8px"
-        height="50vh"
-        style={{
-          overflowY: "auto",
-        }}
       >
         {values.questionnaires &&
           values.questionnaires.map((item, index) => (
-            <RegularQAccordion
-              clientNeeds={item.clientNeeds}
-              cognitivelevel={item.cognitiveLevel}
-              contentArea={item.contentArea}
-              question={item.question}
-              answers={item.answers}
+            <SummaryAccordion
+              item={item}
+              type={values.type}
               index={index}
             />
           ))}
+      </Box>
+      <Box display="flex" justifyContent="end" width="100%" marginTop="20px">
+        <div></div>
+          <Button
+          >
+            Continue
+          </Button>        
       </Box>
     </Grid>
   );
