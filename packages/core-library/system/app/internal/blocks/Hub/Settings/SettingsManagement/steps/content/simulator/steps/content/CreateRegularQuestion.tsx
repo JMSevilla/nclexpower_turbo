@@ -12,7 +12,7 @@ import { initQuestionsValues } from "../../../../../constants/constants";
 import {
   ControlledRichTextEditor,
   AnswerOptions,
-} from "../../../../../../../../../../../../components";
+} from "core-library/components";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
