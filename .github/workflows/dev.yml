@@ -3,13 +3,11 @@ name: Dev CI/CD Pipeline
 on:
   push:
     branches:
-      - mdev
       - "feature/*"
       - "hotfix/*"
       - "release/*"
   pull_request:
     branches:
-      - mdev
       - "feature/*"
       - "hotfix/*"
       - "release/*"
