@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { NCLEXYellowLogo } from "../../assets";
-import NorthIcon from "@mui/icons-material/North";
 import { FooterProps } from "../../types/global";
 import { useMemo } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -9,7 +8,6 @@ import { useRouteBasedVisibility } from "../../hooks";
 import { HideFooter } from "./HideFooter";
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { scrollTop } = useScroll();
   const yearData = new Date().getFullYear();
   const memoYear = useMemo(() => yearData, [yearData]);
   const { isHidden } = useRouteBasedVisibility(HideFooter);
