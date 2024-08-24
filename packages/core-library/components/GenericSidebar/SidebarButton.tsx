@@ -6,21 +6,27 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
+
 import { NavigationItemType } from "../../types/global";
 import { config } from "../../config";
+import { useAuthContext } from '../../contexts';
+// import { useRouter } from '../../core';
 
 type SidebarButtonProps = {
   navigation: NavigationItemType;
   pathname: string;
 };
 
+type FullPathType = string | undefined | any
+
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
+  const { isAuthenticated } = useAuthContext()
 
   const handleNavigate = () => {
-    const fullPath = navigation.path
+    const fullPath: FullPathType = isAuthenticated
       ? `${config.value.BASEHUB}${navigation.path}`
-      : `${config.value.BASEHUB}`;
+      : navigation.path;
     router.push({
       pathname: fullPath,
     });

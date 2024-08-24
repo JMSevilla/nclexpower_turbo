@@ -22,16 +22,16 @@ export const CompanyInfo = {
 
 export const UnauthorizedHeader = [
     { id: 1, label: "Home", path: "/" },
-    { id: 2, label: "About" },
+    { id: 2, label: "About", path: "/about" },
     { id: 3, label: "Contact Us", path: "/contact" },
     { id: 4, label: "Login", path: "/login" },
 ]
 
 export const AuthorizedHeader = [
-    { id: 1, label: "Dashboard" },
-    { id: 2, label: "Programs" },
-    { id: 3, label: "Inquire" },
-    { id: 4, label: "User" },
+    { id: 1, label: "Dashboard", path: "" },
+    { id: 2, label: "Programs", path: "/programs" },
+    { id: 3, label: "Inquire", path: "/inquire" },
+    { id: 4, label: "User", path: "/user" },
 ]
 
 export const settings = {
