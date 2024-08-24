@@ -5,4 +5,5 @@ export interface WebHeaderStylesType {
     drawerHeader: SxProps<Theme>;
     headerLinkSx: SxProps<Theme>;
     loginButtonSx: SxProps<Theme>;
+    ToTopButtonSx: SxProps<Theme>;
 }

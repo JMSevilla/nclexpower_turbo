@@ -1,15 +1,13 @@
 import Image from "next/image";
 import { NCLEXYellowLogo } from "../../assets";
-import NorthIcon from "@mui/icons-material/North";
 import { FooterProps } from "../../types/global";
 import { useMemo } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useScroll } from "../../core";
 import { useRouteBasedVisibility } from "../../hooks";
 import { HideFooter } from "./HideFooter";
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { scrollTop } = useScroll();
   const yearData = new Date().getFullYear();
   const memoYear = useMemo(() => yearData, [yearData]);
   const { isHidden } = useRouteBasedVisibility(HideFooter);
@@ -110,32 +108,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 ))}
             </Box>
           </Box>
-          <Box sx={{ width: "10%", display: "flex", justifyContent: "center" }}>
-            <Button
-              onClick={() => scrollTop()}
-              sx={{
-                height: "40px",
-                width: "40px",
-                minWidth: "40px",
-                bgcolor: "#f3c402",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                "&:hover": {
-                  bgcolor: "#f3c402",
-                },
-              }}
-            >
-              <NorthIcon
-                sx={{
-                  width: "25px",
-                  height: "25px",
-                }}
-                className="text-[#0f2a71]"
-              />
-            </Button>
-          </Box>
+
         </Box>
         <div className="text-xs">
           <p className="w-full text-center pt-4">
