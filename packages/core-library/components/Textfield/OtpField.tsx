@@ -206,12 +206,20 @@ export const OtpField: React.FC<
       const { key } = event;
 
       if (key === "Backspace" || key === "Delete") {
-        setPin((prevPin) => prevPin.map((v, i) => (index === i ? "" : v)));
-        const prev = index - 1;
-        if (prev > -1 && pin[index] === "") {
-          refs.current[prev].current?.focus();
-        }
-        return;
+        setPin((prevPin) => {
+          const newPin = prevPin.map((v, i) => (index === i ? "" : v));
+  
+          const prev = index - 1;
+          if (prev > -1 && prevPin[index] === "") {
+            refs.current[prev]?.current?.focus();
+          }
+  
+          onChange?.(newPin.join(""));
+  
+          return newPin;
+        });
+  
+        return; 
       }
 
       if (!isSingleDigitNumber(key)) return;
