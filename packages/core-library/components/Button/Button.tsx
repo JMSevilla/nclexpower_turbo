@@ -38,6 +38,7 @@ export interface ButtonProps
   error?: boolean;
   helperText?: string;
   "data-testid"?: string;
+  endIcon?: MuiButtonProps["endIcon"]
 }
 
 const LOADER_SIZE = 20;
@@ -93,6 +94,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       href,
       buttonActionType,
       resetTime,
+      endIcon,
       ...props
     },
     ref
@@ -169,6 +171,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           type={buttonActionType}
           {...role}
           {...props}
+          endIcon={endIcon}
         >
           {remainingTime > 0 ? (
             <HelperText

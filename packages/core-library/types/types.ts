@@ -60,6 +60,16 @@ export interface PaginationData {
   hasPreviousPage: boolean;
 }
 
+export interface internalAccountType{
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgurl: string;
+  username: string;
+  password: string;
+}
+
 export type DataTableRow = Record<string, string>;
 
 export type PaginatedSortResult = ReturnType<typeof usePaginatedSort>;
