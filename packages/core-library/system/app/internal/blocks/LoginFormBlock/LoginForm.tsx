@@ -1,4 +1,5 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button } from "../../../../../components/Button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -7,7 +8,9 @@ import { TextField } from "../../../../../components/forms/TextField";
 import { useFormFocusOnError } from "../../../../../hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { LoginIcon } from "../../../../../assets";
+import { CoreZigmaLogo } from "../../../../../assets";
+import { Checkbox } from "../../../../../components";
+import { useShowPassword } from "./useShowPassword";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -22,84 +25,120 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   });
 
   const { control, handleSubmit, clearErrors, setFocus, formState } = form;
-
+  const { showPassword, handleClickShowPassword } = useShowPassword();
   useFormFocusOnError<LoginFormType>(formState.errors, setFocus);
 
   return (
-    <Box sx={{ height: "auto" }}>
-      <Box
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 3,
+      }}
+    >
+      <Image
+        src={CoreZigmaLogo}
+        alt="CoreZigma"
+        style={{
+          width: "150px",
+          height: "150px",
+          objectFit: "cover",
+          marginBottom: "10px",
+        }}
+      />
+      <Typography
+        variant="h4"
+        sx={{ marginY: 2, color: "#3C31DD", fontWeight: "700" }}
+      >
+        Welcome Back!
+      </Typography>
+      <Typography variant="body2" sx={{ marginBottom: 4, color: "#757575" }}>
+        Please enter your login credentials below.
+      </Typography>
+
+      <TextField<LoginFormType>
+        name="email"
+        control={control}
+        placeholder="Enter your email"
+        type="email"
+        onBlur={() => clearErrors()}
         sx={{
-          display: "flex",
+          marginBottom: 2,
           borderRadius: "10px",
-          padding: "40px",
-          gap: "20px",
+          fontSize: "14px",
+        }}
+        inputProps={{
+          style: { borderRadius: "10px" },
+        }}
+      />
+      <TextField<LoginFormType>
+        name="password"
+        type={showPassword ? "text" : "password"}
+        control={control}
+        placeholder="Enter your password"
+        endAdornment={
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={handleClickShowPassword}
+            edge="end"
+            sx={{ fontSize: "10px" }}
+          >
+            {showPassword ? <Visibility /> : <VisibilityOff />}
+          </IconButton>
+        }
+        onBlur={() => clearErrors()}
+        sx={{
+          marginBottom: 2,
+          borderRadius: "10px",
+          fontSize: "14px",
+        }}
+        inputProps={{
+          style: { borderRadius: "10px" },
+        }}
+      />
+
+      <Grid
+        container
+        sx={{
+          marginY: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "300px",
         }}
       >
-        <Image
-          src={LoginIcon}
-          alt="Login Icon"
-          loading="lazy"
-          width={320}
-          height={120}
+        <Checkbox
+          label="Keep me logged in"
+          sx={{ borderRadius: 4, fontSize: "14px" }}
         />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography
-            variant="h2"
-            sx={{ marginY: "10px", color: "#3C31DD", fontWeight: "700" }}
-          >
-            Welcome Back!
-          </Typography>
-          <Typography variant="caption" sx={{ marginY: "5px" }}>
-            Please enter login details below
-          </Typography>
-          <TextField<LoginFormType>
-            name="email"
-            control={control}
-            placeholder="Enter your email"
-            type="email"
-            onBlur={() => clearErrors()}
-            sx={{ borderRadius: "10px" }}
-            inputProps={{ style: { borderRadius: "10px" } }}
-          />
-          <TextField<LoginFormType>
-            name="password"
-            type="password"
-            control={control}
-            placeholder="Enter your password"
-            onBlur={() => clearErrors()}
-            sx={{ borderRadius: "10px" }}
-            inputProps={{ style: { borderRadius: "10px" } }}
-          />
-
-          <Typography
-            className="ml-1 font pt-sans-narrow-bold underline text-darkBlue cursor-pointer"
-            component="span"
-            variant="caption"
-            sx={{ marginTop: "10px" }}
+        <Typography component="span" variant="caption">
+          <Link
+            href="/forgotpassword"
+            style={{ textDecoration: "none", color: "#3C31DD" }}
           >
             Forgot Password?
-          </Typography>
+          </Link>
+        </Typography>
+      </Grid>
 
-          <Button
-            fullWidth
-            onClick={handleSubmit(onSubmit)}
-            variant="contained"
-            sx={{
-              backgroundColor: "#3C31DD",
-              height: "10px",
-              borderRadius: "10px",
-              marginTop: "30px",
-            }}
-          >
-            Login
-          </Button>
-        </Box>
-      </Box>
+      <Button
+        disabled={submitLoading}
+        loading={submitLoading}
+        onClick={handleSubmit(onSubmit)}
+        variant="contained"
+        sx={{
+          backgroundColor: "#3C31DD",
+          height: "45px",
+          borderRadius: "10px",
+          marginTop: "10px",
+          width: "300px",
+          textTransform: "none",
+        }}
+      >
+        Sign In
+      </Button>
     </Box>
   );
 };
