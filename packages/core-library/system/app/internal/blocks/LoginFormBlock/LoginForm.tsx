@@ -1,10 +1,13 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { Button } from "../../../../../components/Button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { loginSchema, LoginFormType } from "./validation";
 import { TextField } from "../../../../../components/forms/TextField";
 import { useFormFocusOnError } from "../../../../../hooks";
+import Image from "next/image";
+import Link from "next/link";
+import { LoginIcon } from "../../../../../assets";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -23,30 +26,80 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   useFormFocusOnError<LoginFormType>(formState.errors, setFocus);
 
   return (
-    <Grid container direction="column" width={0.5} rowSpacing={4} gap={2}>
-      <Grid item md={6} lg={4}>
-        <TextField<LoginFormType>
-          name="email"
-          control={control}
-          label="Email"
-          type="email"
-          onBlur={() => clearErrors()}
+    <Box sx={{ height: "auto" }}>
+      <Box
+        sx={{
+          display: "flex",
+          borderRadius: "10px",
+          padding: "40px",
+          gap: "20px",
+        }}
+      >
+        <Image
+          src={LoginIcon}
+          alt="Login Icon"
+          loading="lazy"
+          width={320}
+          height={120}
         />
-      </Grid>
-      <Grid item md={6} lg={4}>
-        <TextField<LoginFormType>
-          name="password"
-          type="password"
-          control={control}
-          label="Password"
-          onBlur={() => clearErrors()}
-        />
-      </Grid>
-      <Box marginTop={5}>
-        <Button fullWidth onClick={handleSubmit(onSubmit)} variant="contained">
-          Login
-        </Button>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{ marginY: "10px", color: "#3C31DD", fontWeight: "700" }}
+          >
+            Welcome Back!
+          </Typography>
+          <Typography variant="caption" sx={{ marginY: "5px" }}>
+            Please enter login details below
+          </Typography>
+          <TextField<LoginFormType>
+            name="email"
+            control={control}
+            placeholder="Enter your email"
+            type="email"
+            onBlur={() => clearErrors()}
+            sx={{ borderRadius: "10px" }}
+            inputProps={{ style: { borderRadius: "10px" } }}
+          />
+          <TextField<LoginFormType>
+            name="password"
+            type="password"
+            control={control}
+            placeholder="Enter your password"
+            onBlur={() => clearErrors()}
+            sx={{ borderRadius: "10px" }}
+            inputProps={{ style: { borderRadius: "10px" } }}
+          />
+
+          <Typography
+            className="ml-1 font pt-sans-narrow-bold underline text-darkBlue cursor-pointer"
+            component="span"
+            variant="caption"
+            sx={{ marginTop: "10px" }}
+          >
+            Forgot Password?
+          </Typography>
+
+          <Button
+            fullWidth
+            onClick={handleSubmit(onSubmit)}
+            variant="contained"
+            sx={{
+              backgroundColor: "#3C31DD",
+              height: "10px",
+              borderRadius: "10px",
+              marginTop: "30px",
+            }}
+          >
+            Login
+          </Button>
+        </Box>
       </Box>
-    </Grid>
+    </Box>
   );
 };
