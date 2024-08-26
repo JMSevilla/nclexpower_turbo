@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthProvider } from "../contexts";
+import { AuthProvider, ToastProvider } from "../contexts";
 import { Page } from "./Page";
 
 export type SystemTypes = "webc_app" | "webdev_app";
@@ -13,7 +13,9 @@ export const ParseContents: React.FC<React.PropsWithChildren<Props>> = ({
 }) => {
   return (
     <AuthProvider>
-      <Page appName={appName}>{children}</Page>
+      <ToastProvider>
+        <Page appName={appName}>{children}</Page>
+      </ToastProvider>
     </AuthProvider>
   );
 };

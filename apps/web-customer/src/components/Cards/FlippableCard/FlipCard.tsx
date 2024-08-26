@@ -11,10 +11,10 @@ export const FlipCard: React.FC<FlipCardProps> = ({ frontImage, backImage }) => 
         <div className="flip-card">
             <div className="flip-card-inner">
                 <div className="flip-card-front">
-                    <Image src={frontImage} alt="FrontFaceCard" className="h-[400px] w-[220px] rounded-md" />
+                    <Image src={frontImage} alt="FrontFaceCard" className="h-[400px] min-w-[220px] rounded-md" />
                 </div>
                 <div className="flip-card-back">
-                    <Image src={backImage} alt="BackFaceCard" className="h-[400px] w-[220px] rounded-md" />
+                    <Image src={backImage} alt="BackFaceCard" className="h-[400px] min-w-[220px] rounded-md" />
                 </div>
             </div>
         </div>
