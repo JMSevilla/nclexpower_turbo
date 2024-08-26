@@ -16,8 +16,8 @@ export const Alert: React.FC<Props> = ({ severity, isExpired, ...props }) => {
   const { title, description, remainingDays, remainingMonths, validUntil } = props;
 
   const validRemainingMonths= remainingMonths !== undefined && `${remainingMonths} month${remainingMonths > 1 ? 's' : ''},`
-  const validRemainingDays= remainingDays !== undefined && ` ${remainingDays} day${remainingDays > 1 ? 's' : ''} remaining`
-  const isExpiring = remainingMonths && remainingMonths <= 2 && !isExpired;
+  const validRemainingDays= remainingDays !== undefined && ` ${remainingDays} day${remainingDays > 1 ? 's' : ''} left`
+  const isExpiring = validRemainingMonths && remainingMonths <= 1 && !isExpired;
 
   return (
     <MuiAlert severity={severity}>
