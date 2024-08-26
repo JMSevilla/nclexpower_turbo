@@ -1,5 +1,5 @@
 import React from "react";
-import { BusinessQueryContextProvider, ToastProvider } from "../../../contexts";
+import { BusinessQueryContextProvider } from "../../../contexts";
 import { NavigationType } from "../../../types/navigation";
 import { QueryClient } from "react-query";
 import Layout from "./Layout";
@@ -27,8 +27,7 @@ export const InternalPageEntryPoint: React.FC<
   return (
     <React.Fragment>
       <BusinessQueryContextProvider>
-        <ToastProvider>
-          <Layout
+      <Layout
             isAuthenticated={isAuthenticated}
             loading={loading}
             logout={logout}
@@ -37,7 +36,6 @@ export const InternalPageEntryPoint: React.FC<
             tokenValidated={tokenValidated}
             children={children}
           />
-        </ToastProvider>
       </BusinessQueryContextProvider>
     </React.Fragment>
   );
