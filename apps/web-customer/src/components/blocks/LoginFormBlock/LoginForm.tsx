@@ -15,6 +15,7 @@ import CoreZigma from "../../images/CoreZigma.png";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Link from "next/link";
 import Image from "next/image";
+import { LoginBG } from "core-library/assets";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -77,9 +78,22 @@ export const LoginForm: React.FC<Props> = ({
           },
         }}
       >
-        <Box className="none xl:w-full xl:h-screen xl:bg-login xl:bg-no-repeat xl:border-white xl:rounded-3xl xl:border-8">
+        <Image
+          src={LoginBG}
+          alt="CoreZigma"
+          style={{
+            width: "825px",
+            height: "100%",
+            objectFit: "cover",
+            position: 'absolute',
+            border: '8px solid white',
+            borderRadius: '24px',
+            zIndex: -1
+          }}
+        />
+        <Box className="flex z-0 items-center justify-center">
           <div className="flex items-center justify-center h-screen flex-col">
-            <h4 className="pt-sans-caption-bold text-white text-5xl mb-2">
+            <h4 className="pt-sans-caption-bold text-white text-6xl mb-2 z-1">
               Welcome to <span className="text-yellow">NCLEX Power</span>
             </h4>
             <h5 className="pt-sans-regular text-white text-2xl">
@@ -166,7 +180,7 @@ export const LoginForm: React.FC<Props> = ({
                 <Checkbox
                   checked={rememberMe}
                   onChange={handleChangeRememberMe}
-                  label="Keep me logged in"
+                  label="Remember me"
                   sx={{ borderRadius: 4 }}
                 />
                 <Typography
@@ -190,12 +204,14 @@ export const LoginForm: React.FC<Props> = ({
                   loading={submitLoading}
                   variant="contained"
                   fullWidth
-                  className="hover:bg-hoverBlue"
                   sx={{
                     px: 4,
                     py: 2,
                     backgroundColor: "#0F2A71",
                     borderRadius: "10px",
+                    '&:hover': {
+                      backgroundColor: '#00173F',
+                    },
                   }}
                   onClick={handleSubmit(onSubmit)}
                 >
@@ -211,7 +227,8 @@ export const LoginForm: React.FC<Props> = ({
               </div>
               <div className="flex items-center justify-center w-full">
                 <Button
-                  className="w-full justify-center rounded-lg py-3 border-slate-300 shadow-md"
+                  sx={{ paddingY: 1.5, borderRadius: 2, boxShadow: 2 }}
+                  fullWidth
                   variant="outlined"
                 >
                   <span className="mr-4 pt-sans-narrow-regular text-lg text-black normal-case ">
