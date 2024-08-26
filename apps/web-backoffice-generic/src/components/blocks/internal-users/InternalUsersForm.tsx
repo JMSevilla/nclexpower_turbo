@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
 };
 
-export const InternalUsersForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
+export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
   const form = useForm<AccountSetupType>({
     mode: 'all',
     resolver: yupResolver(accountSetupSchema),
@@ -100,5 +100,5 @@ export const InternalUsersForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         </Card>
       </Grid>
     </FormProvider>
-  );
-};
+  )
+}
