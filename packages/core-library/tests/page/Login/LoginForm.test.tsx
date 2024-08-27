@@ -1,4 +1,4 @@
-import { act, render, screen, fireEvent } from "../../common";
+import { render, screen, fireEvent } from "../../common";
 import { LoginForm } from "../../../system/app/internal/blocks/LoginFormBlock/LoginForm";
 
 const mockOnSubmit = jest.fn();
