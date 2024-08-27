@@ -72,6 +72,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
         inputProps={{
           style: { borderRadius: "10px" },
         }}
+        data-testid="email-input"
       />
       <TextField<LoginFormType>
         name="password"
@@ -84,6 +85,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
             onClick={handleClickShowPassword}
             edge="end"
             sx={{ fontSize: "10px" }}
+            data-testid="toggle-password"
           >
             {showPassword ? <Visibility /> : <VisibilityOff />}
           </IconButton>
@@ -97,6 +99,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
         inputProps={{
           style: { borderRadius: "10px" },
         }}
+        data-testid="password-input"
       />
 
       <Grid
@@ -112,11 +115,13 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
         <Checkbox
           label="Keep me logged in"
           sx={{ borderRadius: 4, fontSize: "14px" }}
+          data-testid="checkbox"
         />
         <Typography component="span" variant="caption">
           <Link
             href="/forgotpassword"
             style={{ textDecoration: "none", color: "#3C31DD" }}
+            data-testid="forgotpassword"
           >
             Forgot Password?
           </Link>
@@ -128,6 +133,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
         loading={submitLoading}
         onClick={handleSubmit(onSubmit)}
         variant="contained"
+        data-testid="signin"
         sx={{
           backgroundColor: "#3C31DD",
           height: "45px",
