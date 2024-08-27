@@ -1,6 +1,6 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type StaticRoutes = Record<
   | "home"
@@ -22,7 +22,7 @@ type PathParameters = {
   query?: ParsedQuery<any>;
 };
 
-const STATIC_ROUTES: StaticRoutes = {
+export const STATIC_ROUTES: StaticRoutes = {
   home: "/",
   hub: "/hub",
   logout: "/logout",
@@ -48,7 +48,7 @@ const routeTitles: Record<string, string> = {
 
 export const useRouter = () => {
   const router = useNextRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = React.useState(false);
   const staticRoutes = {} as StaticRoutes;
 
   useEffect(() => {
@@ -164,15 +164,16 @@ export const useRouter = () => {
       }
     };
   }
-
-  function routeUrl(path: string) {
-    return path === STATIC_ROUTES.home ||
-      path.includes("http://") ||
-      path.includes("https://")
-      ? path
-      : path;
-  }
 };
 
-const configuredRouteOptions = (options?: TransitionOptions) =>
+
+export function routeUrl(path: string) {
+  return path === STATIC_ROUTES.home ||
+    path.includes("http://") ||
+    path.includes("https://")
+    ? path
+    : path;
+}
+
+export const configuredRouteOptions = (options?: TransitionOptions) =>
   options ? { scroll: true, ...options } : { scroll: true };
