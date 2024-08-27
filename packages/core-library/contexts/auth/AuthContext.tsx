@@ -67,8 +67,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const registerCb = useApiCallback((api, data: RegisterParams) =>
     api.web.web_account_setup(data)
   );
-  const internalAccountCb = useApiCallback((api, data: internalAccountType) =>
-    api.web.web_create_internal_account(data)
+  const internalAccountCb = useApiCallback(
+    async (api, args: internalAccountType) => await api.auth.web_create_internal_account(args)
   );
   const loading = loginCb.loading || registerCb.loading || internalAccountCb.loading;
 
@@ -142,10 +142,17 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
             await router.push((route) => route.hub);
           },
           register: async (data: RegisterParams) => {
-            const result = await registerCb.execute({
-              ...data,
-              appName: "webdev_app",
-            });
+            let result;
+            if (data.appName === "webdev_app") {
+              result = await registerCb.execute({
+                ...data,
+                appName: "webdev_app",
+              });
+            } else {
+              result = await internalAccountCb.execute({
+                ...data,
+              });
+            }
             return result?.data;
           },
           createInternalAccount: async (data: internalAccountType) => {

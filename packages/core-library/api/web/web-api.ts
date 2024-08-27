@@ -10,7 +10,6 @@ import {
   CreateCustomerDumpParams,
   CreateCustomerParams,
   CreatePaymentIntentParams,
-  GetCategoryType,
   PaymentIntentResponse,
   ReportIssueType,
   ResendCodeParams,
@@ -153,11 +152,5 @@ export class WebApi {
         CategoryType: type,
       },
     });
-  }
-  public web_create_internal_account(params: internalAccountType) {
-    return this.axios.post<number>(
-      "/api/v2/internal/baseInternal/internal-account-creation/",
-      params
-    );
   }
 }
