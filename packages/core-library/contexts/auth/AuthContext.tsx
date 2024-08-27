@@ -20,8 +20,7 @@ const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
   login(email: string, password: string): Promise<void>;
-  register(data: RegisterParams): Promise<number>;
-  createInternalAccount(data: internalAccountType): Promise<number>;
+  register(data: RegisterParams | internalAccountType): Promise<number>;
   logout(): Promise<void>;
   setIsAuthenticated: (value: boolean) => void;
   verificationPreparation: OTPPreparation;
@@ -153,12 +152,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
                 ...data,
               });
             }
-            return result?.data;
-          },
-          createInternalAccount: async (data: internalAccountType) => {
-            const result = await internalAccountCb.execute({
-              ...data,
-            });
             return result?.data;
           },
           logout,
