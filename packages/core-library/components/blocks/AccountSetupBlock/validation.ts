@@ -8,7 +8,7 @@ export const AccountSetupSchema = yup.object({
     email: yup.string().email().required().default(""),
     username: yup.string().required().default(""),
     password: yup.string().min(6).required().default(""),
-    appName: yup.string().default(''),
+    appName: yup.string().default('webdev_app'),
 })
 
 export type AccountSetupType = yup.InferType<typeof AccountSetupSchema>
