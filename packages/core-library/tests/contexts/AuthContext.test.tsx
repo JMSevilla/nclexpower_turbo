@@ -31,7 +31,6 @@ describe("useAuthContext", () => {
       isAuthenticated: true,
       loading: false,
       login: expect.any(Function),
-      createInternalAccount: expect.any(Function),
       logout: expect.any(Function),
       register: expect.any(Function),
       setIsAuthenticated: expect.any(Function),
