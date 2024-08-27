@@ -2,7 +2,7 @@ import Image from "next/image";
 import { NCLEXYellowLogo } from "../../assets";
 import { FooterProps } from "../../types/global";
 import { useMemo } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useScroll } from "../../core";
 import { useRouteBasedVisibility } from "../../hooks";
 import { HideFooter } from "./HideFooter";
@@ -22,23 +22,27 @@ export const Footer: React.FC<FooterProps> = (props) => {
           backgroundColor: "#040814",
           paddingY: 5,
           fontFamily: "PT Sans",
+          flexGrow: 1
         }}
       >
-        <Box
+        <Grid
+          container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 2, md: 12 }}
           sx={{
             display: "flex",
             width: "100%",
           }}
         >
           {props.list.length > 0 && (
-            <Box
+            <Grid
+              item xs={12} sm={12} md={4}
               sx={{
                 display: "flex",
                 alignItems: "start",
-                justifyContent: "end",
+                justifyContent: "center",
                 width: "25%",
                 gap: 5,
                 paddingRight: 5,
+
               }}
             >
               <Image
@@ -46,14 +50,14 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 src={NCLEXYellowLogo}
                 alt="NCLEXLogo"
               />
-            </Box>
+            </Grid>
           )}
-          <Box sx={{ display: "flex", width: "60%" }}>
-            <Box sx={{ width: "40%" }}>
+          <Grid xs={2} sm={12} md={8} sx={{ display: "flex", width: "60%" }}>
+            <Grid item xs={12} sm={1} md={4} sx={{ width: "40%" }}>
               <Typography sx={{ marginBottom: 5 }}>
                 {props.info.address}
               </Typography>
-              <Box
+              <Grid
                 sx={{
                   marginBottom: 10,
                   gap: 2,
@@ -81,10 +85,11 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 >
                   {props.info.website}
                 </Typography>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
 
-            <Box
+            <Grid
+              item xs={12} sm={1} md={4}
               sx={{
                 width: "60%",
                 display: "flex",
@@ -106,10 +111,9 @@ export const Footer: React.FC<FooterProps> = (props) => {
                     </ul>
                   </div>
                 ))}
-            </Box>
-          </Box>
-
-        </Box>
+            </Grid>
+          </Grid>
+        </Grid>
         <div className="text-xs">
           <p className="w-full text-center pt-4">
             NCLEX-RN® and NCLEX-PN® are registered trademarks of the National
