@@ -175,4 +175,4 @@ export const useRouter = () => {
 };
 
 const configuredRouteOptions = (options?: TransitionOptions) =>
-  options ? { scroll: false, ...options } : { scroll: false };
+  options ? { scroll: true, ...options } : { scroll: true };
