@@ -6,13 +6,19 @@ import React, { useEffect, useState } from "react";
 import { Box, Pagination, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { FormProvider } from "react-hook-form";
-import { ContainedRegularQuestionType } from "../../types";
+import {
+  ContainedRegularQuestionType,
+  RegularQuestionsFormType,
+} from "../../types";
 import { useRegularQuestionForm } from "./useRegularQuestionForm";
 import { initQuestionsValues } from "../../../../../constants/constants";
+import { useAtom, atom } from "jotai";
+
 import {
   ControlledRichTextEditor,
   AnswerOptions,
 } from "core-library/components";
+import { CreateRegularAtom } from "../../useAtomic";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -27,8 +33,10 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   values,
   next,
 }) => {
+  const [questionnaireAtom, setQuestionnireAtom] = useAtom(CreateRegularAtom);
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [isCurrentPage, setIsCurrentPage] = useState(false);
+
   const {
     appendQuestionnaire,
     parentForm,
@@ -102,6 +110,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   };
 
   const handleContinue = (values: ContainedRegularQuestionType) => {
+    setQuestionnireAtom(values);
     if (isValid) {
       nextStep({ ...values });
     }

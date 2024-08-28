@@ -1,74 +1,27 @@
 import React from "react";
 import { ContainedRegularQuestionType } from "../../types";
-import { Box, Grid, Typography, Accordion } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { Button, SummaryAccordion } from "core-library/components";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
-import { useForm } from "react-hook-form";
+import { Alert } from "core-library/components";
+import ConfirmationModal from "core-library/components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+import { useAtom } from "jotai";
+import { CreateRegularAtom } from "../../useAtomic";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
   previousStep(): void;
-  values: Partial<ContainedRegularQuestionType>;
   next: () => void;
 }
 
 export const QuestionSummary: React.FC<Props> = ({
   nextStep,
-  values,
   previousStep,
   next,
 }) => {
+  const [questionnaireAtom] = useAtom(CreateRegularAtom);
 
-// const questionnaire = [
-//     {
-//       answers: [
-//         {
-//           answer: "Answer 1",
-//           answerKey: false
-//         },
-//         {
-//           answer: "Answer 2",
-//           answerKey: true
-//         }
-//       ],
-//       question: "<p>Sample Question 1</p>",
-//       contentArea: "Content Area 1",
-//       clientNeeds: "Client Needs 1",
-//       cognitiveLevel: "Cognitive Level 1"
-//     },
-//     {
-//       answers: [
-//         {
-//           answer: "Answer 1",
-//           answerKey: false
-//         },
-//         {
-//           answer: "Answer 2",
-//           answerKey: true
-//         }
-//       ],
-//       question: "<p>Sample Question 1</p>",
-//       contentArea: "Content Area 1",
-//       clientNeeds: "Client Needs 1",
-//       cognitiveLevel: "Cognitive Level 1"
-//     },
-//     {
-//       answers: [
-//         {
-//           answer: "Answer 1",
-//           answerKey: false
-//         },
-//         {
-//           answer: "Answer 2",
-//           answerKey: true
-//         }
-//       ],
-//       question: "<p>Sample Question 1</p>",
-//       contentArea: "Content Area 1",
-//       clientNeeds: "Client Needs 1",
-//       cognitiveLevel: "Cognitive Level 1"
-//     },
-//   ]
+  const onSubmit = () => {};
 
   return (
     <Grid
@@ -77,53 +30,60 @@ export const QuestionSummary: React.FC<Props> = ({
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
     >
-      <Box
-        display="flex"
-        width="100%"
-        marginBottom="25px"
-        position="relative"
-      >
-        <Button onClick={previousStep} sx={{ zIndex: 2 }}>
+      <Box display="flex" width="100%" marginBottom="25px" position="relative">
+        <Button onClick={previousStep} sx={{ zIndex: 1 }}>
           <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
           <Typography>Go Back</Typography>
         </Button>
-        <Box 
-          display="flex" 
-          flexDirection="column" 
-          justifyContent="center" 
-          alignItems="center" 
-          width="100%" 
+        <Box
+          marginTop="30px"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          width="100%"
+          height="100%"
           sx={{
-            position: "absolute", 
-            zIndex: 1
-            }}
-          >
-          <Typography variant="h4">Question and Answer Summary</Typography>
-          <Typography variant="h4">({values.type})</Typography>          
+            position: "absolute",
+            zIndex: 0,
+          }}
+        >
+          <Typography variant="h5">
+            <b>Question and Answer Summary</b>
+          </Typography>
+          <Typography variant="h5">
+            <b>({questionnaireAtom?.type})</b>
+          </Typography>
+          <Alert
+            severity="info"
+            title="By clicking the Continue button, you will send the information you have entered."
+          />
         </Box>
       </Box>
       <Box
+        marginTop="45px"
         width="100%"
+        minHeight="350px"
         display="flex"
         flexDirection="column"
         marginX="25px"
         gap="8px"
+        sx={{
+          backgroundColor: "#F3F3F3",
+          borderRadius: "10px",
+        }}
       >
-        {values.questionnaires &&
-          values.questionnaires.map((item, index) => (
+        {questionnaireAtom?.questionnaires &&
+          questionnaireAtom?.questionnaires.map((item, index) => (
             <SummaryAccordion
               item={item}
-              type={values.type}
+              type={questionnaireAtom.type || ""}
               index={index}
             />
           ))}
       </Box>
       <Box display="flex" justifyContent="end" width="100%" marginTop="20px">
-        <div></div>
-          <Button
-          >
-            Continue
-          </Button>        
+        <ConfirmationModal handleSubmit={onSubmit} />
       </Box>
     </Grid>
   );
