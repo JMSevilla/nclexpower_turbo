@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { Button, Card, ControlledCheckbox } from "../../../..";
 import { ControlledTextField } from "../../../../Textfield/TextField";
@@ -15,11 +15,13 @@ type SATAPropsType = {
 export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
   const {
     append: appendAnswer,
-    fields: answerFields,
     remove: removeAnswer,
+    replace: replaceFields,
   } = useFieldArray<ContainedRegularQuestionType>({
     name: `questionnaires.${questionIndex}.answers`,
   });
+  const { getValues } = useFormContext<ContainedRegularQuestionType>()
+  const answerFields = getValues(`questionnaires.${questionIndex}.answers`)
 
   const handleAppendFields = () => {
     appendAnswer({ answer: "", answerKey: false });
@@ -29,47 +31,61 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
     removeAnswer(index);
   };
 
+  if (!answerFields) return null
+
   return (
-    <Card>
-      <div className="w-full h-[200px]  rounded-md p-2 flex flex-col gap-2 overflow-y-auto">
+    <Card sx={{ width: 1 }}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        minHeight="200px"
+        maxHeight="300px"
+        overflow="auto"
+        gap={1}
+      >
         {answerFields.map((answer, index) => (
-          <div
-            className="w-full flex rounded-md   text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-between"
+          <Box
             key={index}
+            display="flex"
+            width={1}
+            flex={1}
+            alignItems="center"
           >
             <ControlledCheckbox
               name={`questionnaires.${questionIndex}.answers.${index}.answerKey`}
               sx={{ margin: 0 }}
             />
-            <div className="w-full flex-1 p-2">
+            <Typography variant='body2' pr={2}>{index + 1}.</Typography>
+            <Box flex={1}>
               <ControlledTextField
                 name={`questionnaires.${questionIndex}.answers.${index}.answer`}
-                className=" flex-1  border-none outline-none  placeholder:text-sm  w-full"
                 rows={5}
                 sx={{ border: "none", outline: 0 }}
                 placeholder="Enter answer"
               />
-            </div>
+            </Box>
+            {index > 4 &&
+              <IconButton onClick={() => handleRemoveFields(index)} color="error">
+                <DeleteOutlineIcon />
+              </IconButton>
+            }
 
-            <IconButton
-              onClick={() => handleRemoveFields(index)}
-              className="text-red-500"
-            >
-              <DeleteOutlineIcon />
-            </IconButton>
-          </div>
+          </Box>
         ))}
 
-        <Button
-          onClick={handleAppendFields}
-          className="w-full h-10 flex rounded-md text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-center text-[#37BEC7] font-semibold hover:bg-[#2a98a0] transition-colors duration-150 hover:text-white disabled:saturate-0"
-        >
-          <span>
-            <AddIcon />
-          </span>
-          <p>Add Answer Option</p>
-        </Button>
-      </div>
+
+      </Box>
+      <Button
+        sx={{ marginTop: 4 }}
+        disabled={answerFields.length >= 8}
+        onClick={handleAppendFields}
+        className="w-full h-10 flex rounded-md text-sm items-center px-5 bg-[#d7f2f4] border-[#37BEC7] border justify-center text-[#37BEC7] font-semibold hover:bg-[#2a98a0] transition-colors duration-150 hover:text-white disabled:saturate-0"
+      >
+        <span>
+          <AddIcon />
+        </span>
+        <Typography variant="body2">Add Answer Option</Typography>
+      </Button>
     </Card>
   );
 };
