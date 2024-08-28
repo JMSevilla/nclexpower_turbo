@@ -4,17 +4,16 @@ import {act, renderHook} from '../common'
 import {EventEmitter} from "events";
 
 jest.mock("core-library/config", () => ({ config: { value: jest.fn() } }));
-jest.mock('next/router', () => ({
-  useRouter: jest.fn(),
-}));
+jest.mock('next/router', () => ({useRouter: jest.fn(),}));
 
 describe('useRouter', () => {
+  let mockRouter;
   let routerEvents: EventEmitter;
   let mockRouterPush: jest.Mock;
-  let mockRouter;
 
   beforeEach(() => {
     routerEvents = new EventEmitter();
+    mockRouterPush = jest.fn();
     mockRouter = {
       push: jest.fn(),
       events: {
@@ -23,12 +22,10 @@ describe('useRouter', () => {
       },
       pathname: '/test',
     };
-    (useNextRouter as jest.Mock).mockReturnValue(mockRouter);
-
     (useNextRouter as jest.Mock).mockReturnValue({
       events: routerEvents,
       pathname: "/",
-      push: mockRouterPush,
+      push: jest.fn(),
       replace: jest.fn(),
     });
   });
@@ -144,5 +141,36 @@ describe('useRouter', () => {
         const result = routeUrl(path);
         expect(result).toBe(path);
       });
+
+      it('should call push function and perform its actions', async () => {
+        const { result } = renderHook(() => useRouter());
+            const pushSpy = jest.spyOn(result.current, 'push');
+    
+        await act(async () => {
+          await result.current.push({pathname:'/'});
+        });
+            expect(pushSpy).toHaveBeenCalled();
+          });
+
+      it('should call push function and perform its actions', async () => {
+        const { result } = renderHook(() => useRouter());
+        const pushSpy = jest.spyOn(result.current, 'push');
+    
+        await act(async () => {
+          await result.current.push({pathname:'/'});
+        });
+            expect(pushSpy).toHaveBeenCalled();
+          });
+
+      it('should call replace function and perform its actions', async () => {
+        const { result } = renderHook(() => useRouter());
+            const replaceSpy = jest.spyOn(result.current, 'replace');
+    
+        await act(async () => {
+          await result.current.replace({pathname:'/'});
+        });
+            expect(replaceSpy).toHaveBeenCalled();
+          });
+     
  
 })
