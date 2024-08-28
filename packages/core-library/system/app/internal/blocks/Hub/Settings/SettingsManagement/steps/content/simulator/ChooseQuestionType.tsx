@@ -27,12 +27,12 @@ export const ChooseQuestionTypeStep = {
   },
   CreateRegularQuestion: {
     previousStep: "InitialQuestionTypeSelection",
-    nextStep: "QuestionSummary", // Move this to Step 3
+    nextStep: "QuestionSummary",
     content: (props) => <CreateRegularQuestion {...props} />,
   },
   QuestionSummary: {
     previousStep: "CreateRegularQuestion",
-    nextStep: "SuccessPage", // Move this to Step 3
+    nextStep: "SuccessPage",
     content: (props) => <QuestionSummary {...props} />,
   },
   SuccessPage: {
