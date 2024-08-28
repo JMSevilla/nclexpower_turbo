@@ -8,12 +8,6 @@ jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }));
 
-const mockRouteUrl = jest.fn((path) => path);
-const mockConfiguredRouteOptions = jest.fn((options) => ({
-  scroll: true,
-  ...options,
-}));
-
 describe('useRouter', () => {
   let routerEvents: EventEmitter;
   let mockRouterPush: jest.Mock;
