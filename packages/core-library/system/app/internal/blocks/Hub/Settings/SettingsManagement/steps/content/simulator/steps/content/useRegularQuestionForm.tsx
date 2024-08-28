@@ -2,15 +2,16 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ContainedRegularQuestionType } from "../../types";
 import { initQuestionsValues } from "../../../../../constants/constants";
-import { containedRegularQuestionSchema } from "../../validation";
+import { answerOptionsSchema, containedRegularQuestionSchema } from "../../validation";
 
 export const useRegularQuestionForm = (
   values: Partial<ContainedRegularQuestionType>
 ) => {
   const parentForm = useForm<ContainedRegularQuestionType>({
-    mode: "onSubmit",
+    mode: "all",
     resolver: yupResolver(containedRegularQuestionSchema),
-    defaultValues: { ...values, questionnaires: [initQuestionsValues] },
+    context: { type: values.type },
+    defaultValues: { questionnaires: [initQuestionsValues(values.type)], ...values, },
   });
 
   const { control: parentControl, formState: parentFormState } = parentForm;
