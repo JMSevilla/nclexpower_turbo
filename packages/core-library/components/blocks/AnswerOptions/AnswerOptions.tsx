@@ -4,19 +4,21 @@ import { SATA } from "./blocks/SATA/SATA";
 
 type AnswerOptionsType = {
   questionType: "regularQuestion" | "caseStudy";
-  questionnaireType: "MCQ" | "SATA";
+  questionnaireType?: "MCQ" | "SATA";
   questionIndex: number;
 };
 
-export const AnswerOptions: React.FC<AnswerOptionsType> = ({
+export const AnswerOptions = ({
   questionType,
   questionnaireType,
   questionIndex,
-}) => {
+}: AnswerOptionsType) => {
+  if (!questionnaireType) return;
+
   if (questionType === "regularQuestion") {
     switch (questionnaireType) {
       case "MCQ":
-        return <MCQ />;
+        return <MCQ questionIndex={questionIndex} />;
       case "SATA":
         return <SATA questionIndex={questionIndex} />;
     }
@@ -28,4 +30,4 @@ export const AnswerOptions: React.FC<AnswerOptionsType> = ({
   }
 
   return null;
-};
+}
