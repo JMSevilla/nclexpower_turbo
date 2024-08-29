@@ -1,6 +1,6 @@
 import React from "react";
 import { OTPSchema, OTPType } from "../../../core/Schema";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "core-library/components";
 import { ControlledOtpField } from "core-library/components";
@@ -30,6 +30,15 @@ const OTPForm: React.FC<Props> = ({
 
   const { handleSubmit, control } = form;
 
+  const otpValue = useWatch({
+    control,
+    name: "otp",
+  });
+
+  const disabledOtp = otpValue?.length !== 6
+
+  
+
   return (
     <section className="h-screen flex items-center justify-center flex-col font-['Poppins']">
       <Image className='w-80' src={OTP} alt="ImageOne" />
@@ -56,7 +65,7 @@ const OTPForm: React.FC<Props> = ({
             className='hover:bg-hoverBlue'
             sx={{ px: 4, py: 2, backgroundColor: '#0F2A71', mt: 2 }}
             loading={submitLoading}
-            disabled={submitLoading}
+            disabled={submitLoading || disabledOtp}
             onClick={handleSubmit(onSubmit)}
           >
             Continue
