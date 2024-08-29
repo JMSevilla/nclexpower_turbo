@@ -1,5 +1,3 @@
-import React from "react";
-// import { render, screen, fireEvent } from "@testing-library/react";
 import { fireEvent, render, screen } from "core-library/tests/common";
 import "@testing-library/jest-dom";
 import { QuestionSummary } from "../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content";
