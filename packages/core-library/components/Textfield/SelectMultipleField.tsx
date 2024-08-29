@@ -7,10 +7,9 @@ import {
   TextFieldProps,
 } from "@mui/material";
 
-export type SelectIssueOption = {
-  //beejay change this to SelectOption or any type name will do.
+export type SelectOption = {
   label: string;
-  value: string;
+  value: string | number;
   xvalue?: number;
   categoryName?: string
 };
@@ -20,7 +19,7 @@ type BaseSelectFieldProps = {
   helperText?: string;
   error?: boolean;
   required?: boolean;
-  options: SelectIssueOption[];
+  options: SelectOption[];
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   value?: string | string[];
   onBlur?: () => void;
@@ -61,7 +60,7 @@ export function MultipleSelect({
         {...rest}
       >
         {options.map((option, index) => (
-          <MenuItem key={`${option.value}-${index}`} value={option.value || option.categoryName}>
+          <MenuItem key={`${option.value}-${index}`} value={option.value !== undefined ? option.value : option.categoryName}>
             {option.label || option.categoryName}
           </MenuItem>
         ))}

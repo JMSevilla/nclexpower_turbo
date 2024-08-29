@@ -68,6 +68,7 @@ export interface internalAccountType{
   imgurl: string;
   username: string;
   password: string;
+  accessLevel: number;
 }
 
 export type DataTableRow = Record<string, string>;

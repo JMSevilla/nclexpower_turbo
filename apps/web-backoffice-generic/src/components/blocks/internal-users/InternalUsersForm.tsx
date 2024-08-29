@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 import { accountSetupSchema, AccountSetupType } from './validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
-import { TextField, Button } from 'core-library/components';
+import { TextField, Button, MultipleSelectField } from 'core-library/components';
 import SendIcon from '@mui/icons-material/Send';
 import { useFormFocusOnError } from 'core-library/hooks';
+import { AccountLevel } from '@/core/constant/accountLevel';
 
 type Props = {
   onSubmit: (value: AccountSetupType) => void;
@@ -32,8 +33,17 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
 
   return (
     <FormProvider {...form}>
-      <Grid container direction="column" rowSpacing={4} gap={5} sx={{ mt: 12 }}>
+      <Grid container direction="column" rowSpacing={4} gap={5}>
         <Card sx={{ padding: 6 }}>
+          <h1 className='font-bold text-2xl'>Account Level</h1>
+          <hr className='my-4' />
+          <MultipleSelectField
+            control={control}
+            name="accessLevel"
+            options={AccountLevel}
+            label={"Select Access Level"}
+            sx={{ marginY: 2, borderRadius: '10px', width: '100%' }}
+          />
           <h1 className='font-bold text-2xl'>Personal Information</h1>
           <hr className='my-4' />
           <div className="flex gap-4">
