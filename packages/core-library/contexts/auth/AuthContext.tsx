@@ -20,7 +20,8 @@ const context = createContext<{
   loading: boolean;
   isAuthenticated: boolean;
   login(email: string, password: string): Promise<void>;
-  register(data: RegisterParams | internalAccountType): Promise<number>;
+  register(data: RegisterParams): Promise<number>;
+  internal(data: internalAccountType): Promise<number>;
   logout(): Promise<void>;
   setIsAuthenticated: (value: boolean) => void;
   verificationPreparation: OTPPreparation;
@@ -141,17 +142,16 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
             await router.push((route) => route.hub);
           },
           register: async (data: RegisterParams) => {
-            let result;
-            if (data.appName === "webdev_app") {
-              result = await registerCb.execute({
-                ...data,
-                appName: "webdev_app",
-              });
-            } else {
-              result = await internalAccountCb.execute({
-                ...data,
-              });
-            }
+            const result = await registerCb.execute({
+              ...data,
+              appName: "webdev_app",
+            });
+            return result?.data;
+          },
+          internal: async (data: internalAccountType) => {
+            const result = await internalAccountCb.execute({
+              ...data,
+            });
             return result?.data;
           },
           logout,
