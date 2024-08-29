@@ -3,8 +3,13 @@ import { useRouter as useNextRouter } from 'next/router';
 import {act, renderHook} from '../common'
 import {EventEmitter} from "events";
 
-jest.mock("core-library/config", () => ({ config: { value: jest.fn() } }));
-jest.mock('next/router', () => ({useRouter: jest.fn(),}));
+jest.mock("./../config", () => ({ 
+  config: { value: jest.fn() } 
+}));
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
 
 describe('useRouter', () => {
   let mockRouter;
@@ -160,7 +165,4 @@ describe('useRouter', () => {
         });
             expect(replaceSpy).toHaveBeenCalled();
           });
-          
-     
- 
 })
