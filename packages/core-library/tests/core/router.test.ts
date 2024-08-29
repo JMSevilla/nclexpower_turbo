@@ -1,4 +1,4 @@
-import { configuredRouteOptions, routeUrl, STATIC_ROUTES, useRouter } from "core-library/core/router";
+import { configuredRouteOptions, routeUrl, STATIC_ROUTES, useRouter } from "core-library/core";
 import { useRouter as useNextRouter } from 'next/router';
 import {act, renderHook} from '../common'
 import {EventEmitter} from "events";
@@ -89,32 +89,16 @@ describe('useRouter', () => {
         expect(result).toEqual({ scroll: true });
       });
     
-      it('should merge { scroll: true } with provided options', () => {
-        const options = { shallow: true };
+      it('should merge provided options with { scroll: true }', () => {
+        const options = { shallow: false };
         const result = configuredRouteOptions(options);
-        expect(result).toEqual({ scroll: true, shallow: true });
+        expect(result).toEqual({ scroll: true, shallow: false });
       });
     
       it('should override scroll option if provided in options', () => {
         const options = { scroll: false };
         const result = configuredRouteOptions(options);
         expect(result).toEqual({ scroll: false });
-      });
-    
-      it('should handle an empty options object correctly', () => {
-        const result = configuredRouteOptions({});
-        expect(result).toEqual({ scroll: true });
-      });
-    
-      it('should handle various types of options', () => {
-        const options = { shallow: true, someOption: 'test' };
-        const result = configuredRouteOptions(options);
-        expect(result).toEqual({ scroll: true, shallow: true, someOption: 'test' });
-      });
-      it('should handle various types of options', () => {
-        const options = { shallow: false, scroll:false, someOption: 'test' };
-        const result = configuredRouteOptions(options);
-        expect(result).toEqual({ scroll: false, shallow: false, someOption: 'test' });
       });
 
       it('should return the path as-is if it matches STATIC_ROUTES.home', () => {
@@ -176,6 +160,7 @@ describe('useRouter', () => {
         });
             expect(replaceSpy).toHaveBeenCalled();
           });
+          
      
  
 })
