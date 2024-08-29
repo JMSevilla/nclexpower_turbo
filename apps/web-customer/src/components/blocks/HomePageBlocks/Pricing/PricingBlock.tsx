@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PricingCard from "./PricingComponent/PricingCard";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { SelectedProductType } from "core-library/types/global";
-import { useRouter } from "core-library/core/router";
+import { useRouter } from "core-library/core";
 import { Encryption } from "core-library/utils/Encryption";
 import { config } from "core-library/config";
 import { useEncryptItem } from "core-library/contexts/auth/hooks";

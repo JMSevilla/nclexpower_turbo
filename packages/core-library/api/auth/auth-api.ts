@@ -8,6 +8,7 @@ import {
   ValidateTokenParams,
   Verify2FAParams,
 } from "../types";
+import { internalAccountType } from "../../types/types";
 
 export class AuthApi {
   constructor(
@@ -45,5 +46,12 @@ export class AuthApi {
 
   public validateToken(params: ValidateTokenParams) {
     return this.ssrAxios.post<number>(`/api/security/validate-token`, params);
+  }
+
+  public web_create_internal_account(params: internalAccountType) {
+    return this.axios.post<number>(
+      "/api/v2/internal/baseInternal/internal-account-creation/",
+      params
+    );
   }
 }

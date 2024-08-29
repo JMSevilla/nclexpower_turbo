@@ -1,5 +1,5 @@
 import { AxiosError, AxiosInstance } from "axios";
-import { RegisterParams } from "../../types/types";
+import { internalAccountType, RegisterParams } from "../../types/types";
 import qs from "query-string";
 import { config } from "../../config";
 import {
@@ -10,7 +10,6 @@ import {
   CreateCustomerDumpParams,
   CreateCustomerParams,
   CreatePaymentIntentParams,
-  GetCategoryType,
   PaymentIntentResponse,
   ReportIssueType,
   ResendCodeParams,
