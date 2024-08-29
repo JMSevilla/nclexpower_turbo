@@ -1,9 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { useAuthContext } from '../../contexts';
 import { useRouter } from '../../core';
-import { SidebarButton } from '../../components/GenericSidebar/SidebarButton';
-import { render, screen, fireEvent } from '../common';
-import { ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 jest.mock("../../config", () => ({
     config: { value: jest.fn() },
@@ -16,19 +13,6 @@ jest.mock("../../core/router", () => ({
 jest.mock('../../contexts', () => ({
     useAuthContext: jest.fn(),
 }));
-
-const navigationMockAuthenticated = {
-    id: 0,
-    path: '/hub/Home',
-    label: 'Home'
-}
-
-const navigationMockUnauthenticated = {
-    id: 0,
-    path: '/hub/Home',
-    label: 'Home',
-    icon: <></>
-}
 
 const mockFn = jest.fn()
 
@@ -80,6 +64,6 @@ describe("Web Customer Sidebar", () => {
         (useAuthContext as jest.Mock).mockReturnValue({ isAuthenticated: false });
         const {result} = renderHook(() => useAuthContext())
         expect(result.current.isAuthenticated).toBe(false)
-    })
+    })  
 
 })

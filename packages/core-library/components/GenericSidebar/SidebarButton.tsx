@@ -14,18 +14,12 @@ type SidebarButtonProps = {
   pathname: string;
 };
 
-type FullPathType = string | undefined | any
-
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
-  const { isAuthenticated } = useAuthContext()
 
   const handleNavigate = () => {
-    const fullPath: FullPathType = isAuthenticated
-      ? `${config.value.BASEHUB}${navigation.path}`
-      : navigation.path;
     router.push({
-      pathname: fullPath,
+      pathname: navigation.path ?? '/', 
     });
   };
 
