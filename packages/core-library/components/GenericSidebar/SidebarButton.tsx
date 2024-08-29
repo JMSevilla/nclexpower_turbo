@@ -7,19 +7,19 @@ import {
 } from "@mui/material";
 import { NavigationItemType } from "../../types/global";
 import { config } from "../../config";
-import { useAuthContext } from '../../contexts';
-import { useRouter } from '../../core';
+import { useAuthContext } from "../../contexts";
+import { useRouter } from "../../core";
 
 type SidebarButtonProps = {
   navigation: NavigationItemType;
   pathname: string;
 };
 
-type FullPathType = string | undefined | any
+type FullPathType = string | undefined | any;
 
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
-  const { isAuthenticated } = useAuthContext()
+  const { isAuthenticated } = useAuthContext();
 
   const handleNavigate = () => {
     const fullPath: FullPathType = isAuthenticated
