@@ -1,4 +1,4 @@
-import { configuredRouteOptions, routeUrl, STATIC_ROUTES, useRouter } from "core-library/core";
+import { configuredRouteOptions, routeUrl, STATIC_ROUTES, useRouter } from '../../core';
 import { useRouter as useNextRouter } from 'next/router';
 import {act, renderHook} from '../common'
 import {EventEmitter} from "events";
