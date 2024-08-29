@@ -16,6 +16,7 @@ import {
   CurrenciesResponse,
   DiscrepanciesResponse,
   FileUploadParams,
+  GetAllInternalAccount,
   PricingListResponse,
   ProductListResponse,
   ProductSetStatusParams,
@@ -211,5 +212,11 @@ export class WebApiBackOffice {
         CategoryType: type
       }
     });
+  }
+
+  public async getAllInternalAccount() {
+    return await this.axios.get<GetAllInternalAccount[]>(
+      `/api/v2/internal/baseInternal/internal-all-accounts`
+    );
   }
 }

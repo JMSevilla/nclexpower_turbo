@@ -82,21 +82,26 @@ const AuthenticatedMenu: NavigationType[] = [
     icon: <PersonIcon color="primary" fontSize="small" />,
     children: [
       {
-        id: 6,
+        id: 7,
         label: "Create Internal User",
         path: "/mu/manage-users",
+      },
+      {
+        id: 8,
+        label: "Manage Internal User",
+        path: "/mu/view-users",
       },
     ],
   },
   {
-    id: 7,
+    id: 9,
     label: "Settings",
     path: "/settings/internal-application-settings",
     icon: <SettingsIcon color="primary" />,
   },
 
   {
-    id: 8,
+    id: 10,
     label: "Reports",
     path: "/reports/reported-issues",
     icon: <ReportIcon color="primary" />,
