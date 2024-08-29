@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import { NavigationItemType } from "../../types/global";
 import { config } from "../../config";
-import { useAuthContext } from '../../contexts';
 import { useRouter } from '../../core';
 
 type SidebarButtonProps = {
