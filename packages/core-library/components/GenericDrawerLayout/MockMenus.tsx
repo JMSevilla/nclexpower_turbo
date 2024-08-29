@@ -79,8 +79,14 @@ const AuthenticatedMenu: NavigationType[] = [
   {
     id: 6,
     label: "Manage Users",
-    path: "/",
     icon: <PersonIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 6,
+        label: "Create Internal User",
+        path: "/mu/manage-users",
+      },
+    ],
   },
   {
     id: 7,
