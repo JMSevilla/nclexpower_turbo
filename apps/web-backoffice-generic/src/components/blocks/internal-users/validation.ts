@@ -13,7 +13,7 @@ export const accountSetupSchema = yup.object({
     .required("Please confirm your new password")
     .oneOf([yup.ref("password")], "Passwords must match")
     .default(""),
-    appName: yup.string().default(''),
+    accessLevel: yup.number().required('Access Level is required.'),
 })
 
 export type AccountSetupType = yup.InferType<typeof accountSetupSchema>
