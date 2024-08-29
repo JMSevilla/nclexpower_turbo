@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "../../../Button/Button"; // Make sure this path is correct
-import { DialogBox } from "core-library/components/Dialog/DialogBox"; // Ensure this component is imported correctly
+import { Button } from "../../../Button/Button";
+import { DialogBox } from "core-library/components/Dialog/DialogBox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box, Typography } from "@mui/material";
-import { ContainedRegularQuestionType } from "../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types"; // Ensure this import path is correct
 
 type Props = {
   onClick: () => void;
