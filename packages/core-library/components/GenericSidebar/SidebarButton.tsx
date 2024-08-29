@@ -5,12 +5,12 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 import { NavigationItemType } from "../../types/global";
 import { config } from "../../config";
 import { useAuthContext } from '../../contexts';
-// import { useRouter } from '../../core';
+import { useRouter } from '../../core';
 
 type SidebarButtonProps = {
   navigation: NavigationItemType;
