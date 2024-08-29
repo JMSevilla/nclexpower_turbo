@@ -1,6 +1,8 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, fireEvent, renderHook, screen } from "../common";
 import { useAuthContext } from '../../contexts';
 import { useRouter } from '../../core';
+import { SidebarButton } from "../../components/GenericSidebar/SidebarButton";
+import { render } from "@testing-library/react";
 
 jest.mock("../../config", () => ({
     config: { value: jest.fn() },
@@ -25,7 +27,6 @@ describe("Web Customer Sidebar", () => {
     });
 
     it('should navigate to authenticated link', () => {
-        (useAuthContext as jest.Mock).mockReturnValue({ isAuthenticated: true });
         const { result } = renderHook(() => useRouter())
         const { push } = result.current
 
@@ -40,7 +41,6 @@ describe("Web Customer Sidebar", () => {
     })
 
     it('should navigate to unauthenticated link', () => {
-        (useAuthContext as jest.Mock).mockReturnValue({ isAuthenticated: false });
         const { result } = renderHook(() => useRouter())
         const { push } = result.current
 
@@ -65,5 +65,21 @@ describe("Web Customer Sidebar", () => {
         const {result} = renderHook(() => useAuthContext())
         expect(result.current.isAuthenticated).toBe(false)
     })  
+
+    it('should navigate to the correct path when clicked', () => {
+        const mockPush = jest.fn();
+        const navigationMock = { id: 0, path: '/test-path', label: 'Test Label' };
+    
+        (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
+    
+        render(<SidebarButton navigation={navigationMock} pathname="/" />);
+    
+        const button = screen.getByRole('button');
+        fireEvent.click(button);
+    
+        expect(mockPush).toHaveBeenCalledWith({
+          pathname: navigationMock.path,
+        });
+      });
 
 })
