@@ -111,6 +111,11 @@ describe('useRouter', () => {
         const result = configuredRouteOptions(options);
         expect(result).toEqual({ scroll: true, shallow: true, someOption: 'test' });
       });
+      it('should handle various types of options', () => {
+        const options = { shallow: false, scroll:false, someOption: 'test' };
+        const result = configuredRouteOptions(options);
+        expect(result).toEqual({ scroll: false, shallow: false, someOption: 'test' });
+      });
 
       it('should return the path as-is if it matches STATIC_ROUTES.home', () => {
         const path = STATIC_ROUTES.home;
