@@ -1,9 +1,7 @@
-import React from "react";
 import { fireEvent, render, screen } from "core-library/tests/common";
 import "@testing-library/jest-dom";
 import { SummaryAccordion } from "../../components";
 
-// Mocking necessary dependencies
 jest.mock("../../config", () => ({
   config: { value: jest.fn() },
 }));
