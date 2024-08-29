@@ -3,7 +3,7 @@ import { useRouter as useNextRouter } from 'next/router';
 import {act, renderHook} from '../common'
 import {EventEmitter} from "events";
 
-jest.mock("./../config", () => ({ 
+jest.mock("../../config", () => ({ 
   config: { value: jest.fn() } 
 }));
 
