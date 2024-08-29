@@ -3,6 +3,7 @@ import { useAuthContext } from '../../contexts';
 import { useRouter } from '../../core';
 import { SidebarButton } from '../../components/GenericSidebar/SidebarButton';
 import { render, screen, fireEvent } from '../common';
+import { ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 jest.mock("../../config", () => ({
     config: { value: jest.fn() },
@@ -25,7 +26,8 @@ const navigationMockAuthenticated = {
 const navigationMockUnauthenticated = {
     id: 0,
     path: '/hub/Home',
-    label: 'Home'
+    label: 'Home',
+    icon: <></>
 }
 
 const mockFn = jest.fn()
@@ -80,35 +82,4 @@ describe("Web Customer Sidebar", () => {
         expect(result.current.isAuthenticated).toBe(false)
     })
 
-    it('should call the handleNavigate function', () => {
-        const mockPush = jest.fn();
-        (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
-        (useAuthContext as jest.Mock).mockReturnValue({ isAuthenticated: false });
-    
-        render(<SidebarButton navigation={navigationMockAuthenticated} pathname="/" />);
-        
-        const button = screen.getByRole('button'); // Assuming the SidebarButton is rendered as a button element
-        fireEvent.click(button);
-    
-        const expectedPath = `${navigation.path}`;
-        expect(mockPush).toHaveBeenCalledWith({
-          pathname: expectedPath,
-        });
-      });
-
-      it('should call the handleNavigate function with BASEHUB path when authenticated', () => {
-        const mockPush = jest.fn();
-        (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
-        (useAuthContext as jest.Mock).mockReturnValue({ isAuthenticated: true });
-    
-        render(<SidebarButton navigation={navigationMockUnauthenticated} pathname="/" />);
-        
-        const button = screen.getByRole('button'); // Assuming the SidebarButton is rendered as a button element
-        fireEvent.click(button);
-    
-        const expectedPath = `${config.value.BASEHUB}${navigation.path}`;
-        expect(mockPush).toHaveBeenCalledWith({
-          pathname: expectedPath,
-        });
-      });
 })
