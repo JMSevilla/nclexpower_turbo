@@ -4,11 +4,11 @@ import { useAuthContext, useExecuteToast } from "core-library/contexts";
 import { AccountSetupType } from "./validation";
 
 export default function InternalUsersBlock() {
-  const { internal, loading } = useAuthContext();
+  const { createInternal, loading } = useAuthContext();
   const toast = useExecuteToast();
 
   async function onSubmit(value: AccountSetupType) {
-    await internal(value);
+    await createInternal(value);
     toast.executeToast("Successfully Added", "top-right", false, { type: "success" });
   }
 
