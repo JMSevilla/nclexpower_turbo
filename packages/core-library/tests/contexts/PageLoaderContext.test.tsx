@@ -4,9 +4,9 @@
 // import { render } from '@testing-library/react';
 // import { useEffect } from 'react';
 
-jest.mock("../../config", () => ({
-  config: { value: jest.fn() },
-}));
+// jest.mock("../../config", () => ({
+//   config: { value: jest.fn() },
+// }));
 
 // jest.mock('../../hooks', () => ({
 //   usePageLoader: jest.fn(),
