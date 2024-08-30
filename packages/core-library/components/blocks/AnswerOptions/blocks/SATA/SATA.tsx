@@ -63,7 +63,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
               />
             </Box>
             {index > 4 &&
-              <IconButton onClick={() => handleRemoveFields(index)} color="error">
+              <IconButton data-testid={`answer-option-remove-${index}`} onClick={() => handleRemoveFields(index)} color="error">
                 <DeleteOutlineIcon />
               </IconButton>
             }
@@ -72,6 +72,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
         ))}
       </Box>
       <Button
+        data-testid='answer-option-append'
         sx={{ marginTop: 4 }}
         disabled={answerFields.length >= 8}
         onClick={handleAppendFields}

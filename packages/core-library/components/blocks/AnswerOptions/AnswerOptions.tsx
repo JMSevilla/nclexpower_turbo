@@ -4,7 +4,7 @@ import { SATA } from "./blocks/SATA/SATA";
 
 export type AnswerOptionsType = {
   questionType: "regularQuestion" | "caseStudy";
-  questionnaireType: "MCQ" | "SATA";
+  questionnaireType?: "MCQ" | "SATA";
   questionIndex: number;
 };
 
