@@ -12,6 +12,7 @@ import {
   AnswerOptions,
 } from "core-library/components";
 import { useRegularQuestionForm } from './hooks/useRegularQuestionForm';
+import { initQuestionsValues } from '../../../../../constants/constants';
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
