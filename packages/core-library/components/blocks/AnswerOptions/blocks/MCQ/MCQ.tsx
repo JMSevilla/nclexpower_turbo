@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Box, IconButton, RadioGroup } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { ControlledTextField } from "../../../../Textfield/TextField";
-import { ControlledRadio, Card } from 'core-library/components';
+import { ControlledRadio, Card } from '../../../../';
 
 type MCQPropsType = {
   questionIndex: number;
