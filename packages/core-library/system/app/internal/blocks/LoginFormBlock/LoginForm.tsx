@@ -49,7 +49,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
         }}
       />
       <Typography
-        variant="h4"
+        variant="h3"
         sx={{ marginY: 2, color: "#3C31DD", fontWeight: "700" }}
       >
         Welcome Back!
@@ -119,8 +119,8 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
         />
         <Typography component="span" variant="caption">
           <Link
-            href="/forgotpassword"
-            style={{ textDecoration: "none", color: "#3C31DD" }}
+            href="/account/forgot-password"
+            style={{ textDecoration: "underline", color: "#3C31DD" }}
             data-testid="forgotpassword"
           >
             Forgot Password?
@@ -141,6 +141,9 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
           marginTop: "10px",
           width: "300px",
           textTransform: "none",
+          "&:hover": {
+            backgroundColor: "black",
+          },
         }}
       >
         Sign In
