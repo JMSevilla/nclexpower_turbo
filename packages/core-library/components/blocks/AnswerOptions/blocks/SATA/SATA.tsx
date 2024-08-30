@@ -4,7 +4,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Button, Card, ControlledCheckbox } from "../../../..";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
-import { ControlledTextField } from 'core-library/components/Textfield/TextField';
+import { ControlledTextField } from "../../../../Textfield/TextField";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 type SATAPropsType = {
