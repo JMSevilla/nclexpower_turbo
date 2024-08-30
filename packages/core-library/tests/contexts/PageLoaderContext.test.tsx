@@ -1,7 +1,6 @@
-import { screen } from '../common';
+import { screen, render } from '../common';
 import { usePageLoader } from '../../hooks';
 import { PageLoaderContextProvider, usePageLoaderContext } from '../../contexts/PageLoaderContext';
-import { render } from '@testing-library/react';
 import { useEffect } from 'react';
 
 jest.mock("../../config", () => ({
@@ -11,6 +10,11 @@ jest.mock("../../config", () => ({
 jest.mock('../../hooks', () => ({
   usePageLoader: jest.fn(),
 }));
+
+jest.mock("../../core/router", () => ({
+    useRouter: jest.fn(),
+  }));
+  
 describe('PageLoaderContextProvider', () => {
   it('should provide the context values correctly', () => {
     (usePageLoader as jest.Mock).mockReturnValue({ isPageLoading: false });
