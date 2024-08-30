@@ -1,8 +1,8 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ContainedRegularQuestionType } from "../../types";
-import { initQuestionsValues } from "../../../../../constants/constants";
-import { answerOptionsSchema, containedRegularQuestionSchema } from "../../validation";
+import { ContainedRegularQuestionType } from '../../../types';
+import { containedRegularQuestionSchema } from '../../../validation';
+import { initQuestionsValues } from '../../../../../../constants/constants';
 
 export const useRegularQuestionForm = (
   values: Partial<ContainedRegularQuestionType>
