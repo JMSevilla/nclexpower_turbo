@@ -16,7 +16,8 @@ type SidebarButtonProps = {
 
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
-  
+  const path = router.pathname
+
   const handleNavigate = () => {
     router.push({
       pathname: navigation.path ?? '/', 
@@ -26,7 +27,7 @@ export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   return (
     <Box width="100%" p={1}>
       <Box overflow="hidden" borderRadius={3}>
-        <ListItemButton component="a" onClick={handleNavigate}>
+        <ListItemButton disabled={navigation.path == path} component="a" onClick={handleNavigate}>
           <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
           <ListItemText>
             <Typography variant="body2" fontSize={13}>
