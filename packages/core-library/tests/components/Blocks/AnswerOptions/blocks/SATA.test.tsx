@@ -5,8 +5,6 @@ import { getAllByRole, render, waitFor } from '@testing-library/react';
 import { ContainedRegularQuestionType } from '../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types';
 import { initAnswerValues, initQuestionsValues } from '../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/constants/constants';
 
-
-
 jest.mock("../../../../../config", () => ({
     getConfig: jest
         .fn()
@@ -24,9 +22,7 @@ jest.mock("react-hook-form", () => ({
     useFormContext: jest.fn(),
 }));
 
-
 const MOCK_QUESTIONTYPE = "SATA"
-
 
 describe('SATA', () => {
     const mockAppend = jest.fn();
@@ -47,7 +43,6 @@ describe('SATA', () => {
         jest.resetAllMocks();
     });
 
-
     it('Should render when answer fields exist', () => {
 
         const { result } = renderHook(() => useForm<ContainedRegularQuestionType>({
@@ -60,7 +55,6 @@ describe('SATA', () => {
         expect(screen.getByTestId("sata-answer")).toBeInTheDocument()
 
     })
-
 
     it('Should not render the sata answer options when answer fields is not existing', () => {
 
@@ -75,7 +69,6 @@ describe('SATA', () => {
         expect(container).toBeEmptyDOMElement()
     })
 
-
     it('Should render a 5 checkboxes', () => {
 
         (useFormContext as jest.Mock).mockReturnValue({
@@ -89,12 +82,10 @@ describe('SATA', () => {
         expect(getAllByRole('checkbox')).toHaveLength(5)
     })
 
-
     it('Should Call the function append onclick', () => {
         (useFormContext as jest.Mock).mockReturnValue({
             getValues: jest.fn(() => (initQuestionsValues(MOCK_QUESTIONTYPE).answers)),
         });
-
 
         const { result } = renderHook(() => useForm())
         const form = result.current
@@ -122,11 +113,8 @@ describe('SATA', () => {
 
         fireEvent.click(removeButton);
 
-
         expect(mockRemove).toHaveBeenCalledTimes(1)
         expect(mockRemove).toHaveBeenCalledWith(5)
     })
 
 })
-
-
