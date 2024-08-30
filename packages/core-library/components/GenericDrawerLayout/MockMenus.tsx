@@ -10,6 +10,7 @@ import {
   AccountCircle as AccountCircleIcon,
 } from "@mui/icons-material";
 import { NavigationType } from "../../types/navigation";
+import { useAuthNavigation } from "../../core/hooks/useAuthNavigation";
 
 const AuthenticatedMenu: NavigationType[] = [
   {
@@ -79,8 +80,14 @@ const AuthenticatedMenu: NavigationType[] = [
   {
     id: 6,
     label: "Manage Users",
-    path: "/",
     icon: <PersonIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 6,
+        label: "Create Internal User",
+        path: "/mu/manage-users",
+      },
+    ],
   },
   {
     id: 7,
@@ -122,8 +129,7 @@ const UnauthencatedMenu: NavigationType[] = [
 
 export const mockMenus = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
-    return AuthenticatedMenu;
+    return useAuthNavigation(AuthenticatedMenu);
   }
-
   return [];
 };

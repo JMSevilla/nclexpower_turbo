@@ -10,7 +10,7 @@ import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
-import { LoginParams, RegisterParams } from "../../types/types";
+import { internalAccountType, LoginParams, RegisterParams } from "../../types/types";
 import { CookieSetOptions, useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
 import { useRouter } from "../../core";
@@ -21,6 +21,7 @@ const context = createContext<{
   isAuthenticated: boolean;
   login(email: string, password: string): Promise<void>;
   register(data: RegisterParams): Promise<number>;
+  createInternal(data: internalAccountType): Promise<number>;
   logout(): Promise<void>;
   setIsAuthenticated: (value: boolean) => void;
   verificationPreparation: OTPPreparation;
@@ -66,7 +67,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const registerCb = useApiCallback((api, data: RegisterParams) =>
     api.web.web_account_setup(data)
   );
-  const loading = loginCb.loading || registerCb.loading;
+  const internalAccountCb = useApiCallback(
+    async (api, args: internalAccountType) => await api.auth.web_create_internal_account(args)
+  );
+  const loading = loginCb.loading || registerCb.loading || internalAccountCb.loading;
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -85,7 +89,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         clearSingleCookie();
         router.push((route) => route.login);
       }
-    } catch (e) {}
+    } catch (e) { }
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -141,6 +145,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
             const result = await registerCb.execute({
               ...data,
               appName: "webdev_app",
+            });
+            return result?.data;
+          },
+          createInternal: async (data: internalAccountType) => {
+            const result = await internalAccountCb.execute({
+              ...data,
             });
             return result?.data;
           },

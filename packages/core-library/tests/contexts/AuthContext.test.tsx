@@ -33,6 +33,7 @@ describe("useAuthContext", () => {
       login: expect.any(Function),
       logout: expect.any(Function),
       register: expect.any(Function),
+      createInternal: expect.any(Function),
       setIsAuthenticated: expect.any(Function),
       verificationPreparation: expect.any(Object),
       setVerificationPreparation: expect.any(Function),
