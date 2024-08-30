@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { Box, IconButton, RadioGroup } from "@mui/material";
+import { useFormContext } from "react-hook-form";
+import { Box, RadioGroup } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { ControlledTextField } from "../../../../Textfield/TextField";
 import { ControlledRadio, Card } from '../../../../';
@@ -10,24 +10,14 @@ type MCQPropsType = {
 };
 
 export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
-  const {
-    append: appendAnswer,
-    remove: removeAnswer,
-  } = useFieldArray<ContainedRegularQuestionType>({
-    name: `questionnaires.${questionIndex}.answers`,
-  });
   const { setValue, getValues, control, trigger } = useFormContext<ContainedRegularQuestionType>()
 
   const [checked, setChecked] = useState<number>();
-  const handleRemoveFields = (index: number) => {
-    removeAnswer(index);
-  };
 
   const handleRadioChange = (val: string) => {
     const selectedAnswer = parseInt(val);
     setChecked(selectedAnswer);
   };
-
 
   useEffect(() => {
     const { questionnaires } = getValues()
@@ -77,11 +67,6 @@ export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
                   placeholder="Enter answer"
                 />
               </Box>
-              <IconButton
-                onClick={() => handleRemoveFields(index)}
-                color="error"
-              >
-              </IconButton>
             </Box>
           ))}
         </Box>
