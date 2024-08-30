@@ -1,22 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from '../core'
 
 type PageLoaderReturnType = {
     isPageLoading: boolean
+    handleRouteChangeStart: () => void
+    handleRouteChangeComplete: () => void
 }
 
 export const usePageLoader = (): PageLoaderReturnType => {
     const [isPageLoading, setIsPageLoading] = useState<boolean>(false)
     const router = useRouter()
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleRouteChangeStart = () => {
             setIsPageLoading(true)
     }
 
     const handleRouteChangeComplete = () => {
-        setTimeout(() => {
-            setIsPageLoading(false)
-        },2000)
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            setIsPageLoading(false);
+        }, 2000);
     }
 
     useEffect(() => {
@@ -28,5 +34,5 @@ export const usePageLoader = (): PageLoaderReturnType => {
         };
     }, [])
 
-    return { isPageLoading }
+    return { isPageLoading, handleRouteChangeStart, handleRouteChangeComplete }
 }
