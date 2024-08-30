@@ -104,10 +104,9 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   };
 
   const handleContinue = (values: ContainedRegularQuestionType) => {
-    console.log(values)
-    // if (isValid) {
-    //   nextStep({ ...values });
-    // }
+    if (isValid) {
+      nextStep({ ...values });
+    }
   };
 
 
