@@ -1,7 +1,12 @@
 import React from 'react';
-import { render, renderHook, screen } from '@testing-library/react';
+import { render} from '@testing-library/react';
+import { renderHook, screen } from '../common';
 import { usePageLoader } from '../../hooks';
 import { PageLoaderContextProvider, usePageLoaderContext } from '../../contexts/PageLoaderContext';
+
+jest.mock("../../config", () => ({
+  config: { value: jest.fn() },
+}));
 
 jest.mock('../../../core-library/components', () => ({
   PageLoader: () => <div>Loading...</div>,
@@ -87,6 +92,4 @@ describe('PageLoaderContextProvider', () => {
       expect(error).toEqual(new Error("PageLoaderContextProvider should be used"));
     }
   });
-
- 
 });
