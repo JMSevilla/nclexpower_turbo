@@ -3,6 +3,8 @@ import { useRouter } from '../core'
 
 type PageLoaderReturnType = {
     isPageLoading: boolean
+    handleRouteChangeStart: () => void
+    handleRouteChangeComplete: () => void
 }
 
 export const usePageLoader = (): PageLoaderReturnType => {
@@ -32,5 +34,5 @@ export const usePageLoader = (): PageLoaderReturnType => {
         };
     }, [])
 
-    return { isPageLoading }
+    return { isPageLoading, handleRouteChangeStart, handleRouteChangeComplete }
 }
