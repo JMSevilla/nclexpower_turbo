@@ -32,7 +32,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
   if (!answerFields) return null
 
   return (
-    <Card sx={{ width: 1 }} data-testid="mcq">
+    <Card sx={{ width: 1 }} data-testid="sata-answer">
       <Box
         display="flex"
         flexDirection="column"

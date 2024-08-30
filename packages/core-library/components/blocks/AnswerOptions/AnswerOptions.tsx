@@ -2,18 +2,17 @@ import React from "react";
 import { MCQ } from "./blocks/MCQ/MCQ";
 import { SATA } from "./blocks/SATA/SATA";
 
-type AnswerOptionsType = {
+export type AnswerOptionsType = {
   questionType: "regularQuestion" | "caseStudy";
-  questionnaireType?: "MCQ" | "SATA";
+  questionnaireType: "MCQ" | "SATA";
   questionIndex: number;
 };
 
-export const AnswerOptions = ({
+export const AnswerOptions: React.FC<AnswerOptionsType> = ({
   questionType,
   questionnaireType,
   questionIndex,
-}: AnswerOptionsType) => {
-  if (!questionnaireType) return;
+}) => {
 
   if (questionType === "regularQuestion") {
     switch (questionnaireType) {
