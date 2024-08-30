@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Box, IconButton, Typography } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { Button, Card, ControlledCheckbox } from "../../../..";
-import { ControlledTextField } from "../../../../Textfield/TextField";
+import { ControlledTextField } from 'core-library/components/Textfield/TextField';
 
 type SATAPropsType = {
   questionIndex: number;
@@ -16,7 +16,6 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
   const {
     append: appendAnswer,
     remove: removeAnswer,
-    replace: replaceFields,
   } = useFieldArray<ContainedRegularQuestionType>({
     name: `questionnaires.${questionIndex}.answers`,
   });
@@ -34,7 +33,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
   if (!answerFields) return null
 
   return (
-    <Card sx={{ width: 1 }}>
+    <Card sx={{ width: 1 }} data-testid="mcq">
       <Box
         display="flex"
         flexDirection="column"
@@ -72,8 +71,6 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
 
           </Box>
         ))}
-
-
       </Box>
       <Button
         sx={{ marginTop: 4 }}
