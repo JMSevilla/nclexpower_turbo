@@ -5,9 +5,8 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/router";
 import { NavigationItemType } from "../../types/global";
-import { config } from "../../config";
+import { useRouter } from '../../core';
 
 type SidebarButtonProps = {
   navigation: NavigationItemType;
@@ -16,13 +15,10 @@ type SidebarButtonProps = {
 
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
-
+  
   const handleNavigate = () => {
-    const fullPath = navigation.path
-      ? `${config.value.BASEHUB}${navigation.path}`
-      : `${config.value.BASEHUB}`;
     router.push({
-      pathname: fullPath,
+      pathname: navigation.path ?? '/', 
     });
   };
 
