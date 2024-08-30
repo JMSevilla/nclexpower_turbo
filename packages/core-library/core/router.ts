@@ -1,6 +1,6 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type StaticRoutes = Record<
   | "home"
@@ -11,7 +11,8 @@ type StaticRoutes = Record<
   | "login"
   | "account_verification_otp"
   | "account_forgot_password"
-  | "reset_link_success", //we can register all our static routes here.
+  | "reset_link_success" //we can register all our static routes here.
+  | "about",
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -32,6 +33,7 @@ export const STATIC_ROUTES: StaticRoutes = {
   account_verification_otp: "/account/verification/otp",
   account_forgot_password: "/account/forgot-password",
   reset_link_success: "/account/reset-link",
+  about: "/about",
 };
 
 const routeTitles: Record<string, string> = {
@@ -44,11 +46,12 @@ const routeTitles: Record<string, string> = {
   "/account/verification/otp": "Account Verification OTP",
   "/account/forgot-password": "Forgot Password",
   "/account/reset-link": "Reset Link Success",
+  "/about": "About",
 };
 
 export const useRouter = () => {
   const router = useNextRouter();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
   const staticRoutes = {} as StaticRoutes;
 
   useEffect(() => {
