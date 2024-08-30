@@ -16,7 +16,7 @@ type SidebarButtonProps = {
 
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
-  const path = router.pathname
+  const path = router?.pathname
 
   const handleNavigate = () => {
     router.push({

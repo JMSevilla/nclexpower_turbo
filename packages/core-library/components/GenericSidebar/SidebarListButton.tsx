@@ -23,7 +23,7 @@ export const SidebarListButton = ({
 }: SidebarListButtonProps) => {
   const [open, setOpen] = useState<boolean>(true);
   const router = useRouter();
-  const path = router.pathname
+  const path = router?.pathname
 
   const handleCollapseButton = () => {
     setOpen((prev) => !prev);
