@@ -33,7 +33,7 @@ export const SidebarListButton = ({
     <Box width="100%">
       <Box padding={1}>
         <Box overflow="hidden" borderRadius={3}>
-          <ListItemButton  disabled={navigation.path == path} onClick={handleCollapseButton}>
+          <ListItemButton disabled={navigation.path == path} onClick={handleCollapseButton}>
             <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
             <ListItemText>
               <Typography variant="body2" fontWeight={600} fontSize={13}>
