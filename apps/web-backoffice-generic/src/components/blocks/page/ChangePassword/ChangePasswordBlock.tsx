@@ -21,7 +21,6 @@ export function ChangePasswordBlock() {
   } = useShowPassword();
 
   const handleSubmitQandA = (data: SecurityQuestionAndAnswerType) => {
-    console.log("sec q and a: ", data);
     const selectedQuestionId = parseInt(data.securityQuestion, 10);
     const userAnswer = data.securityAnswer.trim().toLowerCase();
 
