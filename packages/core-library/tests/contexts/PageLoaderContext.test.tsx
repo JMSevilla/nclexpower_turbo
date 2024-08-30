@@ -1,6 +1,5 @@
 import React from 'react';
-import { render} from '@testing-library/react';
-import { renderHook, screen } from '../common';
+import { renderHook, screen, render } from '../common';
 import { usePageLoader } from '../../hooks';
 import { PageLoaderContextProvider, usePageLoaderContext } from '../../contexts/PageLoaderContext';
 
