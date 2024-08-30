@@ -1,16 +1,17 @@
 import React from 'react';
-import { renderHook, screen, render } from '../common';
-// import {  PageLoader} from '../../components';
+import { renderHook, screen } from '../common';
+// import { PageLoader} from '../../components';
 import { usePageLoader } from '../../hooks';
 import { PageLoaderContextProvider, usePageLoaderContext } from '../../contexts/PageLoaderContext';
+import { render } from '@testing-library/react';
 
 jest.mock("../../config", () => ({
   config: { value: jest.fn() },
 }));
 
-jest.mock('../../components', () => ({
-  PageLoader: () => <div>Loading...</div>,
-}));
+// jest.mock('../../components', () => ({
+//   PageLoader: () => <div>Loading...</div>,
+// }));
 
 jest.mock('../../hooks', () => ({
   usePageLoader: jest.fn(),
