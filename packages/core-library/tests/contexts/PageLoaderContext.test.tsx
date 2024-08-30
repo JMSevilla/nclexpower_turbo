@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderHook, screen, render } from '../common';
+// import {  PageLoader} from '../../components';
 import { usePageLoader } from '../../hooks';
 import { PageLoaderContextProvider, usePageLoaderContext } from '../../contexts/PageLoaderContext';
 
@@ -7,7 +8,7 @@ jest.mock("../../config", () => ({
   config: { value: jest.fn() },
 }));
 
-jest.mock('../../../core-library/components', () => ({
+jest.mock('../../components', () => ({
   PageLoader: () => <div>Loading...</div>,
 }));
 
