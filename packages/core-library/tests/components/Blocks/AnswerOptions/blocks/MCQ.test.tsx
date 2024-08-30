@@ -3,15 +3,6 @@ import { MCQ } from '../../../../../components/blocks/AnswerOptions/blocks/MCQ/M
 import { fireEvent, renderHook, screen } from '../../../../common'
 import { render } from '@testing-library/react';
 
-
-jest.mock("react-hook-form", () => ({
-    ...jest.requireActual("react-hook-form"),
-    useFieldArray: jest.fn(() => ({
-        append: jest.fn(),
-        remove: jest.fn(),
-    })),
-}));
-
 jest.mock("../../../../../config", () => ({
     getConfig: jest
         .fn()
@@ -22,9 +13,6 @@ jest.mock("../../../../../config", () => ({
 jest.mock("../../../../../core/router", () => ({
     useRouter: jest.fn(),
 }));
-
-
-
 
 describe('MCQ', () => {
     it('Should render the mcq block', () => {
