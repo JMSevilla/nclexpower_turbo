@@ -1,17 +1,12 @@
 import {
     FormControlLabel,
-    FormControlLabelProps,
     Radio as MuiRadio,
-    RadioGroup as MuiRadioGroup,
-    RadioGroupProps,
     RadioProps as MuiRadioProps,
     TypographyProps,
     Typography,
 } from '@mui/material';
 import { Controller, FieldValues } from 'react-hook-form';
 import { ControlledField } from '../Textfield';
-
-
 
 type Props = MuiRadioProps & {
     checked?: boolean;
@@ -27,9 +22,7 @@ const sx: MuiRadioProps['sx'] = {
     },
 };
 
-
 export type ControlledRadioProps<T extends FieldValues> = ControlledField<T> & Props;
-
 
 export function ControlledRadio<T extends FieldValues>({
     name,
@@ -46,6 +39,7 @@ export function ControlledRadio<T extends FieldValues>({
             name={name}
             render={({ field: { onChange, value } }) => (
                 <FormControlLabel
+                    data-testid="controlled-radio"
                     value={mappingValue}
                     onChange={onChange}
                     checked={Boolean(value)}

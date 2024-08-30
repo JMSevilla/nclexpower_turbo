@@ -4,7 +4,6 @@ export const initAnswerValues = { answer: "", answerKey: false };
 
 export const initQuestionsValues = (questionnaireType: RegularQuestionSelectionOptions | undefined) => {
 
-
   const answers = questionnaireType === "MCQ"
     ? Array(4).fill(initAnswerValues)
     : questionnaireType === "SATA"
