@@ -1,6 +1,5 @@
 import * as yup from "yup";
 import { QuestionSelectionOptions, RegularQuestionSelectionOptions } from "../../../types";
-import { initAnswerValues } from '../../../constants/constants';
 
 export const answerOptionsSchema = yup.object().shape({
   answers: yup.array(
@@ -10,9 +9,13 @@ export const answerOptionsSchema = yup.object().shape({
     }))
     .when('$type', {
       is: "SATA",
-      then: (schema) => schema.min(5).max(8).required().default(Array(5).fill(initAnswerValues)),
-      otherwise: (schema) => schema.max(4).required().default(Array(4)
-        .fill(initAnswerValues))
+      then: (schema) => schema.min(5).max(8).required()
+        .test("select-atleast-2", "You must select atleast 2 correct answer", (val) => val.filter((val) => val.answerKey === true).length > 2),
+      otherwise: (schema) => schema.max(4).required()
+        .test("select-atleast-1", "Select ateleast 1 corrrect answer", (val) => {
+          if (val.some((val) => val.answerKey === true))
+            return true
+        })
     })
 });
 

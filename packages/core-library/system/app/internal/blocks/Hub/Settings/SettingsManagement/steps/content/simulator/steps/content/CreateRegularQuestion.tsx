@@ -7,12 +7,11 @@ import { Box, Pagination, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { FormProvider } from "react-hook-form";
 import { ContainedRegularQuestionType } from "../../types";
-import { useRegularQuestionForm } from "./useRegularQuestionForm";
-import { initQuestionsValues } from "../../../../../constants/constants";
 import {
   ControlledRichTextEditor,
   AnswerOptions,
 } from "core-library/components";
+import { useRegularQuestionForm } from './hooks/useRegularQuestionForm';
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -45,12 +44,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const { isValid } = parentFormState;
 
-  const {
-    handleSubmit: confirmCreation,
-    control,
-    getValues,
-    setValue,
-  } = parentForm;
+  const { handleSubmit: confirmCreation, control, getValues, setValue } = parentForm;
 
   const { businessQueryGetRegularQuestionDDCategory } =
     useBusinessQueryContext();
@@ -109,10 +103,12 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   };
 
   const handleContinue = (values: ContainedRegularQuestionType) => {
-    if (isValid) {
-      nextStep({ ...values });
-    }
+    console.log(values)
+    // if (isValid) {
+    //   nextStep({ ...values });
+    // }
   };
+
 
   useEffect(() => {
     updateValues();
