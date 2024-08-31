@@ -1,7 +1,6 @@
 import { FormProvider, useFieldArray, useForm, useFormContext } from 'react-hook-form';
 import { SATA } from '../../../../../components/blocks/AnswerOptions/blocks/SATA/SATA';
-import { fireEvent, renderHook, screen } from '../../../../common'
-import { getAllByRole, render, waitFor } from '@testing-library/react';
+import { fireEvent, renderHook, screen, render } from '../../../../common'
 import { ContainedRegularQuestionType } from '../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types';
 import { initAnswerValues, initQuestionsValues } from '../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/constants/constants';
 

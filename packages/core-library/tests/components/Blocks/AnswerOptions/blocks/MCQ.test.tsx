@@ -1,7 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { MCQ } from '../../../../../components/blocks/AnswerOptions/blocks/MCQ/MCQ';
-import { fireEvent, renderHook, screen } from '../../../../common'
-import { render } from '@testing-library/react';
+import { fireEvent, renderHook, screen, render } from '../../../../common'
 
 jest.mock("../../../../../config", () => ({
     getConfig: jest
