@@ -2,11 +2,10 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Box, IconButton, Typography } from "@mui/material";
-import { Button, Card, ControlledCheckbox } from "../../../..";
+import { Button, Card, ControlledCheckbox, ControlledTextField } from "../../../..";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { StyledBox } from '../../content/StyledBox';
-import { ControlledTextField } from '../../../../Textfield/TextField';
 
 type SATAPropsType = {
   questionIndex: number;
