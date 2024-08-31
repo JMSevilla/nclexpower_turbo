@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "core-library/tests/common";
+import { fireEvent, screen } from "../../common";
 import { render } from "@testing-library/react";
 import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content";
 import { SummaryAccordion } from "../../../components";
