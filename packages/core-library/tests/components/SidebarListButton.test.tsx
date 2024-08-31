@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react';
-import { screen } from '../common';
+import { screen,render } from '../common';
 import { SidebarListButton } from '../../components/GenericSidebar/SidebarListButton';
 
 jest.mock("../../config", () => ({
