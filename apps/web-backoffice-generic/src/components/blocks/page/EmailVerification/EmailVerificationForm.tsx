@@ -4,7 +4,6 @@ import {
   ForgotPasswordType,
 } from "../../../../core/schema/ForgotPasswordForm/validation";
 import { Alert, TextField, Button } from "core-library/components";
-
 import { LottieAnimation } from "../../../../components/LottieAnimation/LottieAnimation";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
