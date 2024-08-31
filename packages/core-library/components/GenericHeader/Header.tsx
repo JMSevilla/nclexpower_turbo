@@ -31,9 +31,10 @@ export const Header: React.FC<Props> = ({
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-
+  
   const { isMobile } = useResolution();
   const router = useRouter();
+  const path = router.pathname
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/" });
@@ -98,6 +99,7 @@ export const Header: React.FC<Props> = ({
                       menu.map((navigation, index) => (
                         <Grid item key={index}>
                           <Button
+                          disabled={navigation.path == path}
                             sx={
                               navigation.label === "Login"
                                 ? loginButtonSx

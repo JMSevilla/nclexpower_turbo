@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { PageLoader } from "../components";
 import React from "react";
-import { useRouter } from "../core";
+import { usePageLoader } from "../hooks";
 
 const context = createContext<{
   isLoading: boolean;
@@ -26,13 +26,7 @@ export const PageLoaderContextProvider: React.FC<
 > = ({ children, loading }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isCalculationsLoaded, setIsCalculationsLoaded] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsCalculationsLoaded(false);
-    }, 2000);
-  }, [isLoading, isCalculationsLoaded]);
+  const {isPageLoading} = usePageLoader()
 
   return (
     <context.Provider
@@ -43,7 +37,7 @@ export const PageLoaderContextProvider: React.FC<
         setIsCalculationsLoaded,
       }}
     >
-      {isLoading || isCalculationsLoaded ? <PageLoader /> : <>{children}</>}
+      {isPageLoading ? <PageLoader /> : <>{children}</>}
     </context.Provider>
   );
 };
