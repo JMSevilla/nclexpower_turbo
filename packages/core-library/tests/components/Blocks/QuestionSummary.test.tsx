@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "../../common";
 import { render } from "@testing-library/react";
 import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content";
-import { SummaryAccordion } from "../../../components";
+import { SummaryAccordion } from "../../../components/blocks/Accordion/SummaryAccordion";
 import ConfirmationModal from "../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 
 jest.mock("../../../config", () => ({
