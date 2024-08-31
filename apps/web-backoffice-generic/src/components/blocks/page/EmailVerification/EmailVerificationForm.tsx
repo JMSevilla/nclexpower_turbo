@@ -21,7 +21,7 @@ interface Props {
   isExpired?: boolean;
 }
 
-export const ForgotPasswordForm: React.FC<Props> = ({
+export const EmailVerificationForm: React.FC<Props> = ({
   onSubmit,
   submitLoading,
   showAlert,
