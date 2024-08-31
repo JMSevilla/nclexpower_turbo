@@ -4,6 +4,7 @@ import { Box, RadioGroup } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { ControlledTextField } from "../../../../Textfield/TextField";
 import { ControlledRadio, Card } from '../../../../';
+import { StyledBox } from '../../content/StyledBox';
 
 type MCQPropsType = {
   questionIndex: number;
@@ -11,8 +12,8 @@ type MCQPropsType = {
 
 export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
   const { setValue, getValues, control, trigger } = useFormContext<ContainedRegularQuestionType>()
-
   const [checked, setChecked] = useState<number>();
+  const NUMBER_OF_OPTIONS = 4
 
   const handleRadioChange = (val: string) => {
     const selectedAnswer = parseInt(val);
@@ -20,38 +21,30 @@ export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
   };
 
   useEffect(() => {
+    if (checked === undefined) return
     const { questionnaires } = getValues()
+    const updatedAnswers = questionnaires?.[questionIndex]?.answers;
 
-    if (setValue && checked !== undefined) {
-      const updatedAnswers = questionnaires?.[questionIndex]?.answers;
-      if (updatedAnswers) {
-        updatedAnswers.map((_, index) => {
-          setValue(
-            `questionnaires.${questionIndex}.answers.${index}.answerKey`,
-            index === checked
-          );
-          trigger(`questionnaires.${questionIndex}.answers.${index}.answerKey`)
-        });
-      }
+    if (updatedAnswers) {
+      updatedAnswers.map((_, index) => {
+        const isChecked = index === checked
+        setValue(
+          `questionnaires.${questionIndex}.answers.${index}.answerKey`,
+          isChecked
+        );
+        trigger(`questionnaires.${questionIndex}.answers.${index}.answerKey`)
+      });
     }
 
     setChecked(undefined)
 
-  }, [checked, questionIndex]);
+  }, [checked, questionIndex, setValue, trigger, getValues, setChecked]);
 
   return (
     <Card sx={{ width: 1 }} data-testid="mcq-answer">
       <RadioGroup onChange={(value) => handleRadioChange(value.target.value)}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          minHeight="200px"
-          maxHeight="400px"
-          overflow="auto"
-          padding={3}
-          gap={1}
-        >
-          {Array.from({ length: 4 }).map((_, index) => (
+        <StyledBox>
+          {Array.from({ length: NUMBER_OF_OPTIONS }).map((_, index) => (
             <Box key={index} display="flex" flex={1} alignItems="center">
               <ControlledRadio
                 control={control}
@@ -69,8 +62,9 @@ export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
               </Box>
             </Box>
           ))}
-        </Box>
+        </StyledBox>
       </RadioGroup>
     </Card>
   );
 }
+
