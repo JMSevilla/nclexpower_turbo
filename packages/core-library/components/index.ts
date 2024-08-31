@@ -52,4 +52,3 @@ export * from "./Tabs/TabPanel";
 export * from "./Checkbox/Checkbox";
 export * from "./RichTextEditor/RichTextEditor";
 export * from "./blocks/AnswerOptions/AnswerOptions";
-export * from "./LottieAnimation/LottieAnimation";
