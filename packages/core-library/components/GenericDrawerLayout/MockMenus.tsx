@@ -72,6 +72,18 @@ const AuthenticatedMenu: NavigationType[] = [
     ],
   },
   {
+    id: 3,
+    label: "Content Management",
+    icon: <FeedIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 4,
+        label: "Content Approval",
+        path: "/acam/question-approval",
+      }
+    ],
+  },
+  {
     id: 5,
     label: "Results",
     path: "/",
