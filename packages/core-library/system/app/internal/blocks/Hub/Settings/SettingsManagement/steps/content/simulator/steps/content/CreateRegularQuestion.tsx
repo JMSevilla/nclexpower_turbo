@@ -2,23 +2,19 @@ import { Button, Card, MultipleSelectField } from "core-library/components";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
-import React, { useEffect, useState } from "react";
+import { useAtom, atom } from "jotai";
+import React, { useEffect, useMemo, useState } from "react";
 import { Box, Pagination, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { FormProvider } from "react-hook-form";
-import {
-  ContainedRegularQuestionType,
-  RegularQuestionsFormType,
-} from "../../types";
-import { useRegularQuestionForm } from "./useRegularQuestionForm";
-import { initQuestionsValues } from "../../../../../constants/constants";
-import { useAtom, atom } from "jotai";
-
+import { ContainedRegularQuestionType } from "../../types";
 import {
   ControlledRichTextEditor,
   AnswerOptions,
 } from "core-library/components";
 import { CreateRegularAtom } from "../../useAtomic";
+import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
+import { initQuestionsValues } from "../../../../../constants/constants";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -46,6 +42,11 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     updateQuestionnaire,
   } = useRegularQuestionForm(values);
 
+  const selectedPageToIndex = useMemo(
+    () => Math.max(0, selectedPageIndex - 1),
+    [selectedPageIndex]
+  );
+
   const { isValid } = parentFormState;
 
   const {
@@ -70,8 +71,8 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     4
   );
 
-  const updateValues = (nextPageIndex?: number) => {
-    const questionIndex = nextPageIndex ?? selectedPageIndex - 1;
+  const updateValues = () => {
+    const questionIndex = selectedPageToIndex;
     const questionnaire = getValues(`questionnaires.${questionIndex}`);
 
     if (questionnaire) {
@@ -80,6 +81,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
         `questionnaires.${questionIndex}.question`,
         questionnaire.question
       );
+
       setValue(
         `questionnaires.${questionIndex}.answers`,
         questionnaire.answers
@@ -94,19 +96,20 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   const handleAddForm = () => {
     if (isCurrentPage) {
       updateQuestionnaire(
-        selectedPageIndex - 1,
-        getValues(`questionnaires.${selectedPageIndex - 1}`)
+        selectedPageToIndex,
+        getValues(`questionnaires.${selectedPageToIndex}`)
       );
       return;
     }
 
-    appendQuestionnaire({ ...initQuestionsValues });
+    appendQuestionnaire({ ...initQuestionsValues(values.type) });
     setSelectedPageIndex((prev) => prev + 1);
   };
 
   const handleRemove = () => {
-    removeQuestionnaire(selectedPageIndex - 1);
-    updateValues(selectedPageIndex);
+    removeQuestionnaire(selectedPageToIndex);
+    updateValues();
+    setSelectedPageIndex(selectedPageToIndex);
   };
 
   const handleContinue = (values: ContainedRegularQuestionType) => {
@@ -126,7 +129,14 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   return (
     <Box padding={4}>
-      <Box display="flex" width={1} pb={3} position="relative">
+      <Box
+        display="flex"
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        width={1}
+        pb={3}
+        position="relative"
+      >
         <Button onClick={previousStep} sx={{ zIndex: 2 }}>
           <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
           <Typography>Go Back</Typography>
@@ -136,7 +146,14 @@ export const CreateRegularQuestion: React.FC<Props> = ({
             Create regular question <br /> ({values.type})
           </Typography>
         </Box>
+
+        <Box>
+          <Typography variant="body2" fontWeight={600} textAlign="center">
+            Question no. {selectedPageIndex ?? questionnaireFields.length}
+          </Typography>
+        </Box>
       </Box>
+
       <FormProvider {...parentForm}>
         <Box
           width={1}
@@ -148,12 +165,16 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           className="w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10"
         >
           <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
-            <Button onClick={handleRemove} sx={{ minWidth: "none" }}>
+            <Button
+              onClick={handleRemove}
+              sx={{ minWidth: "none" }}
+              disabled={questionnaireFields.length === 1}
+            >
               <DeleteOutlineIcon />
               <Typography variant="body2">Delete Form</Typography>
             </Button>
             <Button
-              // disabled={!isValid}
+              disabled={!isCurrentPage && !isValid}
               onClick={handleAddForm}
             >
               <AddIcon />
@@ -167,7 +188,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <MultipleSelectField
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
-                name={`questionnaires.${selectedPageIndex - 1}.clientNeeds`}
+                name={`questionnaires.${selectedPageToIndex}.clientNeeds`}
                 label="Client Needs Category :"
                 options={ClientNeeds ?? []}
                 variant="standard"
@@ -175,7 +196,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <MultipleSelectField
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
-                name={`questionnaires.${selectedPageIndex - 1}.contentArea`}
+                name={`questionnaires.${selectedPageToIndex}.contentArea`}
                 label="Content Area :"
                 options={ContentArea ?? []}
                 variant="standard"
@@ -184,7 +205,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                 variant="standard"
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
-                name={`questionnaires.${selectedPageIndex - 1}.cognitiveLevel`}
+                name={`questionnaires.${selectedPageToIndex}.cognitiveLevel`}
                 label="Cognitive Level :"
                 options={CognitiveLevel ?? []}
               />
@@ -197,16 +218,16 @@ export const CreateRegularQuestion: React.FC<Props> = ({
                     control={control}
                     editorClassName="max-h-[200px] overflow-auto"
                     editorFor="questions"
-                    name={`questionnaires.${selectedPageIndex - 1}.question`}
+                    name={`questionnaires.${selectedPageToIndex}.question`}
                   />
                 </Card>
               </Box>
               <Box>
                 <Typography variant="body2">Answer option:</Typography>
                 <AnswerOptions
-                  questionIndex={selectedPageIndex - 1}
+                  questionIndex={selectedPageToIndex}
                   questionType="regularQuestion"
-                  questionnaireType="SATA"
+                  questionnaireType={values.type}
                 />
               </Box>
             </Box>
@@ -219,26 +240,22 @@ export const CreateRegularQuestion: React.FC<Props> = ({
         alignItems="center"
         justifyContent="space-between"
       >
-        <div className="w-1/2 flex justify-start">
-          <Pagination
-            count={questionnaireFields.length}
-            onChange={handlePaginate}
-            page={selectedPageIndex}
-            variant="outlined"
-            shape="rounded"
-            showFirstButton
-            showLastButton
-          />
-        </div>
-        <div className="w-1/2 flex justify-end">
-          <Button
-            onClick={confirmCreation(handleContinue)}
-            // disabled={!isValid}
-            className="bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150"
-          >
-            Continue
-          </Button>
-        </div>
+        <Pagination
+          count={questionnaireFields.length}
+          onChange={handlePaginate}
+          page={selectedPageToIndex + 1}
+          variant="outlined"
+          shape="rounded"
+          showFirstButton
+          showLastButton
+        />
+        <Button
+          onClick={confirmCreation(handleContinue)}
+          disabled={!isValid}
+          className="bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150"
+        >
+          Continue
+        </Button>
       </Box>
     </Box>
   );
