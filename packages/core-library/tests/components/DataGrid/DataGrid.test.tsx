@@ -1,6 +1,5 @@
 import { render, screen } from "../../common";
 import { DataGrid } from "../../../components";
-import { GridColDef } from "@mui/x-data-grid";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -11,7 +10,7 @@ jest.mock("../../../core/router", () => ({
 }));
 
 describe('DataGrid Component', () => {
-  const mockColumns: GridColDef[] = [
+  const mockColumns = [
     { field: 'id', headerName: 'ID', width: 150 },
     { field: 'name', headerName: 'Name', width: 150 },
   ];
