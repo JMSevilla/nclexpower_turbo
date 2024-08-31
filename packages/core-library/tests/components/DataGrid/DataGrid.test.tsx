@@ -9,6 +9,10 @@ jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
 }));
 
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {},
+}));
+
 jest.mock("../../../core/router", () => ({
   useRouter: jest.fn(),
 }));
