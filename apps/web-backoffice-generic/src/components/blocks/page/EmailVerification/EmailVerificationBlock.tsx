@@ -1,15 +1,15 @@
-import { ForgotPasswordForm } from "./ForgotPasswordForm";
+import { ForgotPasswordForm } from "./EmailVerificationForm";
 import { useState } from "react";
 import {
   ForgotPasswordAtom,
   ForgotPasswordType,
-} from "../../../../core/schema/ForgotPasswordForm/validation";
+} from "../../../../../../../apps/web-backoffice-generic/src/core/schema/ForgotPasswordForm/validation";
 import { useRouter } from "core-library/core/router";
 import { useApiCallback } from "core-library/hooks";
 import { useAtom } from "jotai";
 import { useExecuteToast } from "core-library/contexts";
 
-export function ForgotPasswordFormBlock() {
+export function EmailVerificationBlock() {
   const [, setAtomEmail] = useAtom(ForgotPasswordAtom);
   const [isExpired, setIsExpired] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -39,7 +39,7 @@ export function ForgotPasswordFormBlock() {
 
       if (!result.data.accountIsFound) {
         executeToast(
-          "The account you are trying to accecss is not found.",
+          "The account you are trying to access is not found.",
           "top-right",
           false,
           { type: "error" }

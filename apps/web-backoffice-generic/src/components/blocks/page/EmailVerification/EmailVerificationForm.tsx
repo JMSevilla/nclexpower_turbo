@@ -3,12 +3,15 @@ import {
   forgotPasswordSchema,
   ForgotPasswordType,
 } from "../../../../core/schema/ForgotPasswordForm/validation";
-import { Alert, TextField } from "core-library/components";
+import {
+  Alert,
+  TextField,
+  Button,
+  LottieAnimation,
+} from "core-library/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "core-library/components";
-import Link from "next/link";
-import Lottie from "lottie-react";
+import { Link } from "core-library/components";
 import { ForgotPasswordImage } from "core-library/assets";
 
 interface Props {
@@ -40,9 +43,10 @@ export const ForgotPasswordForm: React.FC<Props> = ({
     <section className="w-full h-full flex justify-center items-center">
       <Box className="container-sm flex flex-col lg:flex-row items-center justify-center w-full space-x-0 px-8 lg:space-x-14 lg:px-4">
         <div className="flex">
-          <Lottie
+          <LottieAnimation
             animationData={ForgotPasswordImage}
-            style={{ width: 280, height: 280 }}
+            width={280}
+            height={280}
           />
         </div>
 
@@ -68,6 +72,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                 width: "100%",
               }}
               inputProps={{ style: { padding: 15, borderRadius: "10px" } }}
+              data-testid="email-input"
             />
             {showAlert && (
               <div className="pt-2">
@@ -100,6 +105,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({
                 loading={submitLoading}
                 onClick={handleSubmit(onSubmit)}
                 disabled={!isValid || submitLoading}
+                data-testid="continue-button"
               >
                 Continue
               </Button>
@@ -110,7 +116,11 @@ export const ForgotPasswordForm: React.FC<Props> = ({
             <p className="text-[16px]">Already know your password?</p>
             <Link
               href="/login"
-              className="text-[16px] underline font-semibold text-blue"
+              sx={{
+                fontSize: "16px",
+                color: "blue",
+                textDecoration: "none",
+              }}
             >
               Sign In
             </Link>
