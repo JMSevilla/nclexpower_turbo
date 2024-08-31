@@ -1,7 +1,7 @@
-import { ForgotPasswordFormBlock } from "../../components/blocks/page/ForgotPassword/ForgotPasswordBlock";
+import { EmailVerificationBlock } from "../../components/blocks/page/EmailVerification/EmailVerificationBlock";
 
-function ForgotPasswordPage() {
-  return <ForgotPasswordFormBlock />;
+function EmailVerificationPage() {
+  return <EmailVerificationBlock />;
 }
 
-export default ForgotPasswordPage;
+export default EmailVerificationPage;
