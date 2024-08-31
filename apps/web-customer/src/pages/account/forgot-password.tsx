@@ -17,5 +17,4 @@ export const ForgotPassword:React.FC<Props> = ({generatedNonce}) => {
 
 
 export const getServerSideProps: GetServerSideProps = withCSP();
-
 export default ForgotPassword;
