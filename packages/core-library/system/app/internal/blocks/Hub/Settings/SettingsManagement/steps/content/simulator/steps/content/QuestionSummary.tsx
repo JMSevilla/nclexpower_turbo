@@ -51,7 +51,7 @@ export const QuestionSummary: React.FC<Props> = ({
           <Typography variant="h5">
             <b>Question and Answer Summary</b>
           </Typography>
-          <Typography variant="h5">
+          <Typography variant="h5" data-testid={`questionType`}>
             <b>({questionnaireAtom?.type})</b>
           </Typography>
           <Alert
