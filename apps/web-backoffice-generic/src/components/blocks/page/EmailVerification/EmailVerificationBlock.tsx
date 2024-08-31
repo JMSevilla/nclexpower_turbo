@@ -1,4 +1,4 @@
-import { ForgotPasswordForm } from "./EmailVerificationForm";
+import { EmailVerificationForm } from "./EmailVerificationForm";
 import { useState } from "react";
 import {
   ForgotPasswordAtom,
@@ -22,7 +22,7 @@ export function EmailVerificationBlock() {
   );
 
   return (
-    <ForgotPasswordForm
+    <EmailVerificationForm
       onSubmit={handleSubmit}
       submitLoading={emailCb.loading}
       isExpired={isExpired}
