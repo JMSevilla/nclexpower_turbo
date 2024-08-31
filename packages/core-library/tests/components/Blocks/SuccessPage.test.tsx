@@ -1,8 +1,8 @@
-import { SuccessPage } from "core-library/system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/SuccessPage";
+import { SuccessPage } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/SuccessPage";
 import { fireEvent, screen } from "../../common";
 import { render } from "@testing-library/react";
-import { ContainedRegularQuestionType } from "core-library/system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
-import { useRouter } from "core-library/core";
+import { ContainedRegularQuestionType } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
+import { useRouter } from "../../../core";
 
 const mockNextStep = jest.fn();
 const mockPreviousStep = jest.fn();
@@ -17,9 +17,9 @@ const mockCSValues: ContainedRegularQuestionType = {
 };
 const mockUseRouter = useRouter as jest.Mock;
 
-jest.mock("core-library/config", () => ({ config: { value: jest.fn() } }));
+jest.mock("../../../config", () => ({ config: { value: jest.fn() } }));
 
-jest.mock("core-library/core/router", () => ({
+jest.mock("../../../core/router", () => ({
   useRouter: jest.fn(),
 }));
 
