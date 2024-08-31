@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Box, RadioGroup } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
-import { ControlledTextField } from "../../../../Textfield/TextField";
-import { ControlledRadio, Card } from '../../../../';
+import { ControlledRadio, Card , ControlledTextField } from '../../../../';
 import { StyledBox } from '../../content/StyledBox';
 
 type MCQPropsType = {
