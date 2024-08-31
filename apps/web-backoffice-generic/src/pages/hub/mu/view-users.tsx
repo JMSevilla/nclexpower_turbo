@@ -92,7 +92,7 @@ export default function ViewUsers() {
         <Alert
           severity="info"
           title="Manage Internal Users"
-          description="Get lists all reported issues with their details for efficient tracking and management."
+          description="Get lists all internal users with their details for efficient tracking and management."
         />
         <Card elevation={4}>
           <DataGrid
@@ -106,6 +106,7 @@ export default function ViewUsers() {
               border: 1,
               padding: 4
             }}
+            data-testid="data-grid"
           />
         </Card>
       </Container>
