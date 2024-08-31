@@ -1,7 +1,7 @@
 import { NotFoundPage } from "core-library/assets";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useRouter } from "core-library";
 
 export const NotFoundBlock: React.FC = () => {
   const router = useRouter();
