@@ -4,8 +4,9 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Button, Card, ControlledCheckbox } from "../../../..";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
-import { ControlledTextField } from "../../../../Textfield/TextField";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { StyledBox } from '../../content/StyledBox';
+import { ControlledTextField } from '../../../../Textfield/TextField';
 
 type SATAPropsType = {
   questionIndex: number;
@@ -33,14 +34,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
 
   return (
     <Card sx={{ width: 1 }} data-testid="sata-answer">
-      <Box
-        display="flex"
-        flexDirection="column"
-        minHeight="200px"
-        maxHeight="300px"
-        overflow="auto"
-        gap={1}
-      >
+      <StyledBox>
         {answerFields.map((answer, index) => (
           <Box
             key={index}
@@ -70,7 +64,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
 
           </Box>
         ))}
-      </Box>
+      </StyledBox>
       <Button
         data-testid='answer-option-append'
         sx={{ marginTop: 4 }}
