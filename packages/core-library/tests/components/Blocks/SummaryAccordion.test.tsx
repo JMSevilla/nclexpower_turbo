@@ -1,16 +1,16 @@
-import { fireEvent, render, screen } from "core-library/tests/common";
-import "@testing-library/jest-dom";
-import { SummaryAccordion } from "../../components";
+import { fireEvent, screen } from "../../common";
+import { render } from "@testing-library/react";
+import { SummaryAccordion } from "../../../components";
 
-jest.mock("../../config", () => ({
+jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
 }));
 
-jest.mock("../../core/router", () => ({
+jest.mock("../../../core/router", () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock("../../hooks", () => ({
+jest.mock("../../../hooks", () => ({
   useSanitizedInputs: () => ({
     purifyInputs: (input: string) => input,
   }),

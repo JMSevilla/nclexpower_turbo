@@ -73,7 +73,7 @@ export const SummaryAccordion: React.FC<Props> = ({ item, type, index }) => {
             cognitiveLevel={item.cognitiveLevel}
             contentArea={item.contentArea}
             answers={item.answers}
-            type={type}
+            type={type as "SATA" | "MCQ"}
             index={index}
           />
         </AccordionDetails>
