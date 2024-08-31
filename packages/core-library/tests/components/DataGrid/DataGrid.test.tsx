@@ -3,14 +3,7 @@ import { DataGrid } from "../../../components";
 import { GridColDef } from "@mui/x-data-grid";
 
 jest.mock("../../../config", () => ({
-  getConfig: jest
-    .fn()
-    .mockReturnValue({ publicRuntimeConfig: { processEnv: {} } }),
   config: { value: jest.fn() },
-}));
-
-jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: {},
 }));
 
 jest.mock("../../../core/router", () => ({
@@ -56,5 +49,4 @@ describe('DataGrid Component', () => {
     const grid = screen.getByRole('grid');
     expect(grid).toHaveAttribute('aria-multiselectable', 'false');
   });
-
 });
