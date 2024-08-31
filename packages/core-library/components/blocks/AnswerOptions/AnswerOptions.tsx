@@ -2,9 +2,9 @@ import React from "react";
 import { MCQ } from "./blocks/MCQ/MCQ";
 import { SATA } from "./blocks/SATA/SATA";
 
-type AnswerOptionsType = {
+export type AnswerOptionsType = {
   questionType: "regularQuestion" | "caseStudy";
-  questionnaireType: "MCQ" | "SATA";
+  questionnaireType?: "MCQ" | "SATA";
   questionIndex: number;
 };
 
@@ -13,10 +13,11 @@ export const AnswerOptions: React.FC<AnswerOptionsType> = ({
   questionnaireType,
   questionIndex,
 }) => {
+
   if (questionType === "regularQuestion") {
     switch (questionnaireType) {
       case "MCQ":
-        return <MCQ />;
+        return <MCQ questionIndex={questionIndex} />;
       case "SATA":
         return <SATA questionIndex={questionIndex} />;
     }
@@ -28,4 +29,4 @@ export const AnswerOptions: React.FC<AnswerOptionsType> = ({
   }
 
   return null;
-};
+}
