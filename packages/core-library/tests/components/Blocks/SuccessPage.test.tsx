@@ -2,7 +2,7 @@ import { SuccessPage } from "../../../system/app/internal/blocks/Hub/Settings/Se
 import { fireEvent, screen } from "../../common";
 import { render } from "@testing-library/react";
 import { ContainedRegularQuestionType } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
-import { useRouter } from "../../../core";
+import { useRouter } from "../../../core/router";
 
 const mockNextStep = jest.fn();
 const mockPreviousStep = jest.fn();
@@ -17,7 +17,9 @@ const mockCSValues: ContainedRegularQuestionType = {
 };
 const mockUseRouter = useRouter as jest.Mock;
 
-jest.mock("../../../config", () => ({ config: { value: jest.fn() } }));
+jest.mock("../../../config", () => ({
+  config: { value: jest.fn() },
+}));
 
 jest.mock("../../../core/router", () => ({
   useRouter: jest.fn(),
