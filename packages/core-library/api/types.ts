@@ -376,3 +376,9 @@ export interface CustomerTokenizeInformations {
   email: string;
   imgUrl: string;
 }
+export type RevokeParams = {
+  accessToken: string;
+  refreshToken: string;
+  appName: string;
+  email: string;
+};
