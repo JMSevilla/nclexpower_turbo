@@ -1,11 +1,14 @@
 import { useSessionStorage } from "../../hooks";
-import { IntentValueType } from '../../types/global';
+import { IntentValueType } from "../../types/global";
 
 export const useAccessToken = () =>
   useSessionStorage<string | undefined>("accessToken", undefined);
 
 export const useRefreshToken = () =>
   useSessionStorage<string | undefined>("refreshToken", undefined);
+
+export const useEmail = () =>
+  useSessionStorage<string | undefined>("email", undefined);
 
 export const useEncryptItem = () =>
   useSessionStorage<string | undefined>("SessionItem", undefined);

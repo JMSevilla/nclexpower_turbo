@@ -8,13 +8,18 @@ import {
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
-import { useAccessToken, useRefreshToken } from "./hooks";
+import { useAccessToken, useEmail, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
-import { internalAccountType, LoginParams, RegisterParams } from "../../types/types";
+import {
+  internalAccountType,
+  LoginParams,
+  RegisterParams,
+} from "../../types/types";
 import { CookieSetOptions, useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
 import { useRouter } from "../../core";
 import { useExecuteToast } from "../ToastContext";
+import { RevokeParams } from "../../api/types";
 
 const context = createContext<{
   loading: boolean;
@@ -56,21 +61,30 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     useState<OTPPreparation>({} as OTPPreparation);
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
+  const [email, setEmail] = useEmail();
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
   const [, , clearAccessToken] = useAccessToken();
   const [, , clearRefreshToken] = useRefreshToken();
+
   const loginCb = useApiCallback((api, data: LoginParams) =>
     api.auth.login(data)
   );
   const registerCb = useApiCallback((api, data: RegisterParams) =>
     api.web.web_account_setup(data)
   );
-  const internalAccountCb = useApiCallback(
-    async (api, args: internalAccountType) => await api.auth.web_create_internal_account(args)
+
+  const revokeCb = useApiCallback((api, data: RevokeParams) =>
+    api.auth.revokeToken(data)
   );
-  const loading = loginCb.loading || registerCb.loading || internalAccountCb.loading;
+
+  const internalAccountCb = useApiCallback(
+    async (api, args: internalAccountType) =>
+      await api.auth.web_create_internal_account(args)
+  );
+  const loading =
+    loginCb.loading || registerCb.loading || internalAccountCb.loading;
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -83,15 +97,25 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const logout = useCallback(async () => {
     try {
       if (refreshToken && accessToken) {
+        await revokeCb.execute({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          appName: config.value.BASEAPP,
+          email: email ?? "no-email",
+        });
+
+        setIsAuthenticated(false);
         clearCookies();
         clearAccessToken();
         clearRefreshToken();
         clearSingleCookie();
-        router.push((route) => route.login);
+
+        setTimeout(() => {
+          router.push((route) => route.login);
+        }, 100);
       }
-    } catch (e) { }
-    setIsAuthenticated(false);
-  }, [refreshToken, accessToken]);
+    } catch (e) {}
+  }, [refreshToken, accessToken, revokeCb, router]);
 
   return (
     <context.Provider
@@ -105,6 +129,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               password,
               appName: config.value.BASEAPP,
             });
+            setEmail(email);
             if (result.data.is2FaEnabled) {
               const prepareVerification = {
                 email: email,
@@ -161,6 +186,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setAccessToken,
           setRefreshToken,
           setSingleCookie,
+          setEmail,
         }),
         [
           isAuthenticated,

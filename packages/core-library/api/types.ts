@@ -291,3 +291,10 @@ export type GetCategoryType = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type RevokeParams = {
+  accessToken: string;
+  refreshToken: string;
+  appName: string;
+  email: string;
+};

@@ -7,6 +7,7 @@ jest.mock("../../config", () => ({
 jest.mock("../../contexts/auth/hooks", () => ({
   useAccessToken: jest.fn().mockReturnValue(["token", jest.fn(), jest.fn()]),
   useRefreshToken: jest.fn().mockReturnValue(["token", jest.fn(), jest.fn()]),
+  useEmail: jest.fn().mockReturnValue(["email", jest.fn(), jest.fn()]),
 }));
 jest.mock("../../hooks/useSessionStorage");
 jest.mock("../../hooks/useApi", () => ({
@@ -40,6 +41,7 @@ describe("useAuthContext", () => {
       setAccessToken: expect.any(Function),
       setRefreshToken: expect.any(Function),
       setSingleCookie: expect.any(Function),
+      setEmail: expect.any(Function),
     });
   });
 });

@@ -5,6 +5,7 @@ import {
   LoginResponse,
   RefreshParams,
   RefreshTokenResponse,
+  RevokeParams,
   ValidateTokenParams,
   Verify2FAParams,
 } from "../types";
@@ -40,6 +41,13 @@ export class AuthApi {
   public verify_2fa(params: Verify2FAParams) {
     return this.ssrAxios.post<LoginResponse>(
       `/api/security/otp/verify-2fa`,
+      params
+    );
+  }
+
+  public revokeToken(params: RevokeParams) {
+    return this.axios.post<LoginParams>(
+      `/api/v2/internal/baseInternal/revoke-token`,
       params
     );
   }
