@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../../Button/Button";
-import { DialogBox } from "core-library/components/Dialog/DialogBox";
+import { DialogBox } from "../../DialogBox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box, Typography } from "@mui/material";
 
