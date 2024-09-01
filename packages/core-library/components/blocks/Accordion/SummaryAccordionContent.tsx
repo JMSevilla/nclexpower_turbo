@@ -1,20 +1,20 @@
 import { Box, Checkbox, Grid, Radio, styled, Typography } from "@mui/material";
 import { useCallback } from "react";
 
-type AnswerProps = {
+export type AnswerProps = {
   answer: string;
-  answerKey: boolean;
+  answerKey: NonNullable<boolean | undefined>;
 };
 
 export interface ContentProps {
   clientNeeds: string;
   cognitiveLevel: string;
   contentArea: string;
-  answers: AnswerProps[];
+  answers?: AnswerProps[];
   index?: number;
 }
 
-interface SummaryAccordionContentProps extends ContentProps {
+export interface SummaryAccordionContentProps extends ContentProps {
   type: "SATA" | "MCQ";
 }
 
@@ -44,6 +44,7 @@ export const SummaryAccordionContent: React.FC<SummaryAccordionContentProps> = (
 ) => {
   const { clientNeeds, cognitiveLevel, contentArea, answers, type, index } =
     props;
+
   const renderType = useCallback(
     (type: string, answerKey: boolean) => {
       switch (type) {
@@ -79,13 +80,11 @@ export const SummaryAccordionContent: React.FC<SummaryAccordionContentProps> = (
       <Grid item xs={8}>
         <Typography color="#8E2ADD">Answer Option :</Typography>
         <AnswersBox>
-          {answers.length > 0 &&
-            answers.map(({ answer, answerKey }, idx) => (
+          {answers &&
+            answers?.map(({ answer, answerKey }, idx) => (
               <Box key={idx} display="flex" alignItems="center" paddingX="10px">
-                <>
-                  {renderType(type, answerKey)}
-                  <Typography>{answer}</Typography>
-                </>
+                {renderType(type, answerKey)}
+                <Typography>{answer}</Typography>
               </Box>
             ))}
         </AnswersBox>

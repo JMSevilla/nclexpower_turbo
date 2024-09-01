@@ -54,3 +54,4 @@ export * from "./RichTextEditor/RichTextEditor";
 export * from "./blocks/AnswerOptions/AnswerOptions";
 export * from "./Radio/Radio"
 export * from "./Textfield/TextField"
+export * from "./blocks/Accordion/SummaryAccordion"
