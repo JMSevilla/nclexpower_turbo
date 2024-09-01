@@ -1,8 +1,20 @@
-import withAuth from "core-library/core/utils/withAuth";
 import { LoginFormBlock } from "../components/blocks/LoginFormBlock/LoginFormBlock";
+import CSPHead from "core-library/components/CSPHead";
+import { GetServerSideProps } from "next";
+import { withCSP } from "core-library";
 
-function LoginPage() {
-  return <LoginFormBlock />;
+interface Props {
+  generatedNonce: string;
 }
 
-export default withAuth(LoginPage);
+const LoginPage : React.FC<Props> = ({generatedNonce}) => {
+  return (
+  <>
+    <CSPHead nonce={generatedNonce} />
+    <LoginFormBlock />
+  </>
+)}
+
+export const getServerSideProps: GetServerSideProps = withCSP();
+
+export default LoginPage
