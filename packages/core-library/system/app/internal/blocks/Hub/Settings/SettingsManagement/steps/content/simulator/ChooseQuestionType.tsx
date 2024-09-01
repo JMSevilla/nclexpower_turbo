@@ -1,4 +1,4 @@
-import { WizardFormMap } from "core-library/hooks";
+import { WizardFormMap } from "../../../../../../../../../../hooks";
 import { ContainedRegularQuestionType } from "./types";
 import {
   CreateRegularQuestion,
