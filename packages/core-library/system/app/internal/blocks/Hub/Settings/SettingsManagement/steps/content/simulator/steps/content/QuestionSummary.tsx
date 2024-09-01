@@ -1,10 +1,13 @@
 import React from "react";
 import { ContainedRegularQuestionType } from "../../types";
 import { Box, Grid, Typography } from "@mui/material";
-import { Button, SummaryAccordion } from "core-library/components";
+import {
+  Button,
+  SummaryAccordion,
+  Alert,
+} from "../../../../../../../../../../../../components";
+import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
-import { Alert } from "core-library/components";
-import ConfirmationModal from "core-library/components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { useAtom } from "jotai";
 import { CreateRegularAtom } from "../../useAtomic";
 
