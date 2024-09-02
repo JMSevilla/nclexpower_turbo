@@ -17,7 +17,7 @@ const TabContent: React.FC = () => {
           lineHeight={35}
           lineColor="#6A5ACD"
           borderRadius={2}
-          containerProps={{ mb: 5 }}
+          containerProps={{ mb: 10 }}
           textProps={{ color: "text.primary", fontWeight: "bold" }}
       />
       <Box 
@@ -28,10 +28,10 @@ const TabContent: React.FC = () => {
           boxShadow: 3,
           backgroundColor: '#fff',
           display: 'flex',
-          justifyContent: 'flex-start', // Align content to the left
+          justifyContent: 'flex-start',
         }}
       >
-        <Box sx={{ flexGrow: 1 }}> {/* Ensure the Tabs are aligned to the left */}
+        <Box sx={{ flexGrow: 1 }}>
           <Tabs tabsItem={questionTabs} />
         </Box>
       </Box>
