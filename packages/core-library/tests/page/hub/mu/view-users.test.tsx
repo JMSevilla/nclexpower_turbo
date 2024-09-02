@@ -1,5 +1,6 @@
-import { screen, render } from "../../../common";
+import { act, screen, render } from "../../../common";
 import { DataGrid } from "../../../../components";
+import ViewUsers from "../../../../../../apps/web-backoffice-generic/src/pages/hub/mu/view-users"
 
 jest.mock("../../../../config", () => ({
   getConfig: jest
@@ -44,6 +45,8 @@ jest.mock('@mui/x-data-grid', () => {
   };
 });
 
+jest.mock('../../../../hooks/useApi');
+
 describe('ViewUsers Page', () => {
   const mockColumns = [
     { field: 'id', headerName: 'ID' },
@@ -54,6 +57,24 @@ describe('ViewUsers Page', () => {
     { id: 1, name: 'John Doe' },
     { id: 2, name: 'Jane Doe' },
   ];
+
+  it('should render the alert with the correct title and description', async () => {
+    await act(async () => {
+      render(<ViewUsers />);
+    });
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Manage Internal Users');
+    expect(screen.getByText(/Get lists all internal users/i)).toBeInTheDocument();
+  });
+
+  it('should render the data grid', async () => {
+    await act(async () => {
+      render(<ViewUsers />);
+    });
+
+    const dataGrid = screen.getByTestId('data-grid');
+    expect(dataGrid).toBeInTheDocument();
+  });
 
   it('should render with given rows and columns', () => {
     render(<DataGrid data-testid="data-grid" rows={mockRows} columns={mockColumns} isLoading={false} initPageSize={10} />);
