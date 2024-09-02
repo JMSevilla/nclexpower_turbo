@@ -1,4 +1,4 @@
-import { screen, render } from "core-library/tests/common";
+import { screen, render } from "../../../common";
 import { DataGrid } from "../../../../components";
 
 jest.mock("../../../../config", () => ({
