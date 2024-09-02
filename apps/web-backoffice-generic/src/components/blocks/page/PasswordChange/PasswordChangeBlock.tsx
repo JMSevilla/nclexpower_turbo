@@ -70,7 +70,10 @@ export function PasswordChangeBlock() {
             </Box>
           </Box>
 
-          <div className="flex order-1 lg:order-2">
+          <div
+            className="flex order-1 lg:order-2"
+            data-testid="lottie-animation"
+          >
             <LottieAnimation animationData={ChangePasswordImage} />
           </div>
         </Box>
