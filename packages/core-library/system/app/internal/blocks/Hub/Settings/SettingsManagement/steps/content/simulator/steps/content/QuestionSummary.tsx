@@ -86,7 +86,10 @@ export const QuestionSummary: React.FC<Props> = ({
           ))}
       </Box>
       <Box display="flex" justifyContent="end" width="100%" marginTop="20px">
-        <ConfirmationModal handleSubmit={onSubmit} />
+        <ConfirmationModal
+          dialogContent='Are you sure you want to continue?'
+          customButton={<Button>Continue</Button>}
+          handleSubmit={onSubmit} />
       </Box>
     </Grid>
   );
