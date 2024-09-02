@@ -15,8 +15,9 @@ export function BackToChangeEmail({ href, text }: BackToChangeEmailProps) {
         textDecoration: "none",
       }}
       href={href}
+      data-testid="changeEmail-link"
     >
-      <ArrowBackIosNewIcon fontSize="inherit" /> {text}
+      <ArrowBackIosNewIcon fontSize="inherit" data-testid="back-icon" /> {text}
     </Link>
   );
 }
