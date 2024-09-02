@@ -22,7 +22,6 @@ export function submittedResult() {
     called: true,
   };
 }
-// const queryClient = new QueryClient();
 
 export const render = (
   ui: ReactElement,
