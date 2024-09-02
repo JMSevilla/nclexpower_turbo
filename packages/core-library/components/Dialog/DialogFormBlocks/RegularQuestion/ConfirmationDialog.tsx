@@ -7,9 +7,11 @@ import { Box, Typography } from "@mui/material";
 type Props = {
   onClick: () => void;
   handleSubmit: () => void;
+  dialogContent: string;
+  confirmButtonText?: string;
 };
 
-const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit }) => {
+const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit, dialogContent, confirmButtonText }) => {
   return (
     <Box
       width="100%"
@@ -32,7 +34,7 @@ const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h4">Are you sure you want to continue?</Typography>
+        <Typography variant="h4">{dialogContent}</Typography>
       </Box>
       <Box
         width="360px"
@@ -45,7 +47,7 @@ const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit }) => {
           Cancel
         </Button>
         <Button onClick={handleSubmit} size="medium">
-          Submit
+          {confirmButtonText || "Submit"}
         </Button>
       </Box>
     </Box>
@@ -54,10 +56,13 @@ const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit }) => {
 
 interface ConfirmationModalProps {
   handleSubmit: () => void;
+  customButton: React.ReactElement | React.ReactNode
+  dialogContent: string;
+  confirmButtonText?: string;
 }
 
 export default function ConfirmationModal({
-  handleSubmit,
+  handleSubmit, dialogContent, customButton, confirmButtonText
 }: ConfirmationModalProps) {
   const [open, setOpen] = useState(false);
 
@@ -66,7 +71,7 @@ export default function ConfirmationModal({
 
   return (
     <>
-      <Button onClick={handleClickOpen}>Continue</Button>
+      <Box onClick={handleClickOpen} role="button">{customButton}</Box>
       <DialogBox
         handleClose={handleClose}
         loading={false}
@@ -76,8 +81,10 @@ export default function ConfirmationModal({
         sx={{ zIndex: 1 }}
       >
         <ContinueModalContent
+          dialogContent={dialogContent}
           onClick={handleClose}
           handleSubmit={handleSubmit}
+          confirmButtonText={confirmButtonText}
         />
       </DialogBox>
     </>
