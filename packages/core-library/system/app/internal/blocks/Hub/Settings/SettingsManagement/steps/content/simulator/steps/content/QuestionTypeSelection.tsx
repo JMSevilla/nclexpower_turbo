@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, InformationTitle } from "core-library/components";
+import { Card } from "../../../../../../../../../../../../components";
 import { Box, Grid, Divider, Typography } from "@mui/material";
 import { ContainedRegularQuestionType } from "../../types";
 import { useForm } from "react-hook-form";
