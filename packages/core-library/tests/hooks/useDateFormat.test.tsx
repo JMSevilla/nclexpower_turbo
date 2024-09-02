@@ -1,10 +1,10 @@
-import { useDateFormat } from "../../core/hooks";
-import { renderHook } from "core-library/tests/common";
+import { useDateFormat } from "../../../../apps/web-backoffice-generic/src/core/hooks";
+import { renderHook } from "../common"
 import { format, parseISO } from 'date-fns';
 
-jest.mock("core-library/config", () => ({ config: { value: jest.fn() } }));
+jest.mock("../../config", () => ({ config: { value: jest.fn() } }));
 
-jest.mock("core-library/core/router", () => ({
+jest.mock("../../core", () => ({
   useRouter: jest.fn(),
 }));
 
