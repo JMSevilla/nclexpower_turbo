@@ -1,14 +1,14 @@
 import { screen, render } from "core-library/tests/common";
-import { DataGrid } from "core-library/components";
+import { DataGrid } from "../../../../components";
 
-jest.mock("core-library/config", () => ({
+jest.mock("../../../../config", () => ({
   getConfig: jest
     .fn()
     .mockReturnValue({ publicRuntimeConfig: { processEnv: {} } }),
   config: { value: jest.fn() },
 }));
 
-jest.mock("core-library/core/router", () => ({
+jest.mock("../../../../core/router", () => ({
   useRouter: jest.fn(),
 }));
 
