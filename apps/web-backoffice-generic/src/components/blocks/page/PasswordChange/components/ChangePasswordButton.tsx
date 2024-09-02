@@ -27,6 +27,7 @@ export function ChangePasswordButton({
             backgroundColor: "black",
           },
         }}
+        data-testid="changePassword-button"
       >
         {validSecQAndSecA ? "Change Password" : "Submit"}
       </Button>
