@@ -1,11 +1,9 @@
 import React from 'react';
 import { Alert, DataGrid } from 'core-library/components';
-import { Box, Card, Container, Typography } from '@mui/material';
+import { Box, Card, Container } from '@mui/material';
 import { useColumns } from 'core-library/hooks';
 import { useBusinessQueryContext } from 'core-library/contexts';
 import { useDateFormat } from '../../../core/hooks';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ViewUsers() {
   const { businessQueryGetAllInternalAccount } = useBusinessQueryContext();
@@ -21,7 +19,7 @@ export default function ViewUsers() {
         flex: 1,
         renderCell: (rows) => {
           const { tokenizeInformation } = rows.row;
-          return <Typography sx={{ textDecoration: 'underline', alignItems: 'center' }}>{tokenizeInformation.email}</Typography>;
+          return tokenizeInformation.email
         }
       },
       {
@@ -30,7 +28,7 @@ export default function ViewUsers() {
         flex: 1,
         renderCell: (rows) => {
           const { tokenizeInformation } = rows.row;
-          return <Typography>{tokenizeInformation.firstname}</Typography>;
+          return tokenizeInformation.firstname
         }
       },
       {
@@ -57,7 +55,7 @@ export default function ViewUsers() {
         flex: 1,
         renderCell: (params) => {
           const { accessGroup } = params.row;
-          return <Typography sx={{ textAlign: 'center' }}>{accessGroup.accessLevel}</Typography>;
+          return <span className='flex justify-center'>{accessGroup.accessLevel}</span>
         }
       },
       {
@@ -67,21 +65,6 @@ export default function ViewUsers() {
         sortable: true,
         minWidth: 200,
         valueGetter: (date) => getFormattedDate(date)
-      },
-      {
-        field: 'actions',
-        headerName: 'Actions',
-        flex: 1,
-        sortable: false,
-        filterable: false,
-        renderCell: () => {
-          return (
-            <>
-              <EditIcon sx={{ color: '#ffd000', fontSize: '1.5rem' }} />
-              <DeleteIcon sx={{ color: '#ef233c', fontSize: '1.5rem' }} />
-            </>
-          );
-        }
       },
     ],
   });
@@ -94,22 +77,16 @@ export default function ViewUsers() {
           title="Manage Internal Users"
           description="Get lists all internal users with their details for efficient tracking and management."
         />
-        <Card elevation={4}>
+        <Card sx={{ mt: 5, width: "100%", padding: 4 }} elevation={5}>
           <DataGrid
-            rows={data ?? []}
             columns={columns}
-            isLoading={false}
             initPageSize={10}
-            getRowHeight={() => 'auto'}
-            sx={{
-              boxShadow: 2,
-              border: 1,
-              padding: 4
-            }}
+            rows={data ?? []}
+            isLoading={false}
             data-testid="data-grid"
           />
         </Card>
       </Container>
-    </Box>
+    </Box >
   );
 }
