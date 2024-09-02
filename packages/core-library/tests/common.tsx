@@ -22,7 +22,7 @@ export function submittedResult() {
     called: true,
   };
 }
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 export const render = (
   ui: ReactElement,
@@ -31,7 +31,7 @@ export const render = (
   rtlRender(ui, {
     wrapper: ({ children }) => (
       <BusinessQueryContextProvider>
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={new QueryClient()}>
           <ThemeProvider theme={theme()}>
             <HeaderTitleContextProvider>
               <FormSubmissionContextProvider>
