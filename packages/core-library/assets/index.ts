@@ -32,3 +32,6 @@ export const ContactTwitter = require("./contact/twitter.png");
 export const ContactLocation = require("./contact/location.png");
 export const ContactMail = require("./contact/mail.png");
 export const ContactPhone = require("./contact/phone.png");
+
+export const ForgotPasswordImage = require("./forgotpassword/ForgotPasswordImage.json");
+export const ChangePasswordImage = require("./forgotpassword/ChangePasswordImage.json");
