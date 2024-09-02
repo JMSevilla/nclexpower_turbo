@@ -20,6 +20,7 @@ import { initQuestionsValues } from "../../../../../constants/constants";
 import { useAtom, atom } from "jotai";
 
 import { CreateRegularAtom } from "../../useAtomic";
+import ConfirmationModal from '../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog';
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -116,9 +117,13 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setQuestionnireAtom(values);
     if (isValid) {
       nextStep({ ...values });
+      next()
     }
   };
 
+  const handlePrevious = () => {
+    previousStep()
+  }
 
   useEffect(() => {
     updateValues();
@@ -131,11 +136,24 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   return (
     <Box padding={4}>
-      <Box display="flex" justifyContent={"space-between"} alignItems={"center"} width={1} pb={3} position="relative">
-        <Button onClick={previousStep} sx={{ zIndex: 2 }}>
-          <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
-          <Typography>Go Back</Typography>
-        </Button>
+      <Box
+        display="flex"
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        width={1}
+        pb={3}
+        position="relative"
+      >
+        <ConfirmationModal
+          dialogContent='This action will reset all forms.'
+          confirmButtonText="Confirm"
+          customButton={
+            <Button sx={{ zIndex: 2 }}>
+              <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
+              <Typography>Go Back</Typography>
+            </Button>}
+          handleSubmit={handlePrevious} />
+
         <Box sx={{ position: "absolute", zIndex: 1 }} width={1}>
           <Typography variant="body2" fontWeight={600} textAlign="center">
             Create regular question <br /> ({values.type})
