@@ -1,5 +1,5 @@
 import { useSessionStorage } from "../../hooks";
-import { IntentValueType } from '../../types/global';
+import { IntentValueType } from "../../types/global";
 
 export const useAccessToken = () =>
   useSessionStorage<string | undefined>("accessToken", undefined);
@@ -15,3 +15,12 @@ export const useCheckoutIntent = () =>
 
 export const useConfirmedIntent = () =>
   useSessionStorage<IntentValueType>("ConfirmedIntent", undefined);
+
+export const useSecretClient = () =>
+  useSessionStorage<string | undefined>("secretKey", undefined);
+
+export const useOrderNumber = () =>
+  useSessionStorage<string | undefined>("orderNumber", undefined);
+
+export const usePaymentIntentId = () =>
+  useSessionStorage<string | undefined>("pi", undefined);
