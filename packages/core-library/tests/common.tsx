@@ -6,6 +6,7 @@ import {
   BusinessQueryContextProvider,
   FormSubmissionContextProvider,
   HeaderTitleContextProvider,
+  StripeContextProvider,
 } from "../contexts";
 import { theme } from "../contents/theme/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -31,13 +32,15 @@ export const render = (
     wrapper: ({ children }) => (
       <BusinessQueryContextProvider>
         <QueryClientProvider client={new QueryClient()}>
-          <ThemeProvider theme={theme()}>
-            <HeaderTitleContextProvider>
-              <FormSubmissionContextProvider>
-                {children}
-              </FormSubmissionContextProvider>
-            </HeaderTitleContextProvider>
-          </ThemeProvider>
+          <StripeContextProvider publishableKey="">
+            <ThemeProvider theme={theme()}>
+              <HeaderTitleContextProvider>
+                <FormSubmissionContextProvider>
+                  {children}
+                </FormSubmissionContextProvider>
+              </HeaderTitleContextProvider>
+            </ThemeProvider>
+          </StripeContextProvider>
         </QueryClientProvider>
       </BusinessQueryContextProvider>
     ),
