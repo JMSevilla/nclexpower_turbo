@@ -81,7 +81,8 @@ export const PricingBlock: React.FC<Props> = (props) => {
               filteredItems.map((item, index) => (
                 <div
                   className={`cursor-pointer border-2 border-transparent transition-all duration-300 ${nurseType == 1 ? "hover:border-[#08474b] hover:border-2 hover:scale-105 rounded-lg hover:-mt-2" : "hover:border-[#0c225c] hover:border-2 rounded-lg hover:-mt-2"}`}
-                  key={index}>
+                  key={index}
+                >
                   <PricingCard
                     cardData={item}
                     handleSelectProduct={handleSelectProduct}
