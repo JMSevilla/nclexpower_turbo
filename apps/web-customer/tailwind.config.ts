@@ -61,6 +61,8 @@ const config: Config = {
         'pricing': "url(\'../assets/PricingBGLogo.jpg')",
         'login': "url(\'../assets/LoginBG.png')",
         'success-payment': "url(\'../assets/SuccessPaymentBG.png')",
+        'PN': "url(\'../assets/PNBackground.png')",
+        'RN': "url(\'../assets/RNBackground.png')",
       }
     },
   },
