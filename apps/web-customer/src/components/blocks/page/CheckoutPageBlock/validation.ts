@@ -1,5 +1,3 @@
-import { ConfirmPaymentParams } from "core-library/api/types";
-import { atom } from "jotai";
 import * as yup from "yup";
 
 export const checkoutSchema = yup.object().shape({
