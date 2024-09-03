@@ -7,6 +7,9 @@ import { useRouter } from "../../../core/router";
 const mockNextStep = jest.fn();
 const mockPreviousStep = jest.fn();
 const mockFn = jest.fn();
+const mockreset = jest.fn();
+const mockresetStep = jest.fn();
+
 const mockRegularValues: ContainedRegularQuestionType = {
   type: "MCQ",
   main_type: "Regular",
@@ -37,6 +40,8 @@ describe("Success Page", () => {
         previousStep={mockPreviousStep}
         values={mockRegularValues}
         next={mockFn}
+        reset={mockreset}
+        resetStep={mockresetStep}
       />
     );
     expect(
@@ -52,6 +57,8 @@ describe("Success Page", () => {
         previousStep={mockPreviousStep}
         values={mockCSValues}
         next={mockFn}
+        reset={mockreset}
+        resetStep={mockresetStep}
       />
     );
     expect(
@@ -67,6 +74,8 @@ describe("Success Page", () => {
         previousStep={mockPreviousStep}
         values={mockRegularValues}
         next={mockFn}
+        reset={mockreset}
+        resetStep={mockresetStep}
       />
     );
 
@@ -81,6 +90,8 @@ describe("Success Page", () => {
         previousStep={mockPreviousStep}
         values={mockCSValues}
         next={mockFn}
+        reset={mockreset}
+        resetStep={mockresetStep}
       />
     );
 
@@ -95,6 +106,8 @@ describe("Success Page", () => {
         previousStep={mockPreviousStep}
         values={mockRegularValues}
         next={mockFn}
+        reset={mockreset}
+        resetStep={mockresetStep}
       />
     );
 
@@ -109,6 +122,8 @@ describe("Success Page", () => {
         previousStep={mockPreviousStep}
         values={mockCSValues}
         next={mockFn}
+        reset={mockreset}
+        resetStep={mockresetStep}
       />
     );
 

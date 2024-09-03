@@ -17,10 +17,8 @@ import {
 } from "../../types";
 import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
 import { initQuestionsValues } from "../../../../../constants/constants";
-import { useAtom, atom } from "jotai";
-
-import { CreateRegularAtom } from "../../useAtomic";
-import ConfirmationModal from '../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog';
+import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+import { CreateQuestionLoader } from "./loader";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -35,9 +33,19 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   values,
   next,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [questionnaireAtom, setQuestionnireAtom] = useAtom(CreateRegularAtom);
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [isCurrentPage, setIsCurrentPage] = useState(false);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000); // 3000 milliseconds = 3 seconds
+
+  //   // Cleanup the timeout if the component is unmounted before the timeout is completed
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const {
     appendQuestionnaire,
@@ -117,13 +125,13 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setQuestionnireAtom(values);
     if (isValid) {
       nextStep({ ...values });
-      next()
+      next();
     }
   };
 
   const handlePrevious = () => {
-    previousStep()
-  }
+    previousStep();
+  };
 
   useEffect(() => {
     updateValues();
@@ -133,6 +141,9 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setIsCurrentPage(isCurrentQuestionnaire);
   }, [selectedPageIndex]);
 
+  if (isLoading) {
+    return <CreateQuestionLoader />;
+  }
 
   return (
     <Box padding={4}>
@@ -145,14 +156,17 @@ export const CreateRegularQuestion: React.FC<Props> = ({
         position="relative"
       >
         <ConfirmationModal
-          dialogContent='This action will reset all forms.'
+          dialogContent="This action will reset all forms."
           confirmButtonText="Confirm"
+          isLoading={false}
           customButton={
             <Button sx={{ zIndex: 2 }}>
               <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
               <Typography>Go Back</Typography>
-            </Button>}
-          handleSubmit={handlePrevious} />
+            </Button>
+          }
+          handleSubmit={handlePrevious}
+        />
 
         <Box sx={{ position: "absolute", zIndex: 1 }} width={1}>
           <Typography variant="body2" fontWeight={600} textAlign="center">
