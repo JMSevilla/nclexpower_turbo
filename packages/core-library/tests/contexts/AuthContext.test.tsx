@@ -1,8 +1,11 @@
+import React from "react";
 import { useAuthContext, AuthProvider } from "../../contexts";
-import { renderHook } from "../common";
+import { useRouter } from "../../core/router";
+import { useApiCallback } from "../../hooks/useApi";
+import { renderHook, waitFor } from "../common";
 
 jest.mock("../../config", () => ({
-  config: { value: jest.fn() },
+  config: { value: { BASEAPP: "mockAppName" } },
 }));
 jest.mock("../../contexts/auth/hooks", () => ({
   useAccessToken: jest.fn().mockReturnValue(["token", jest.fn(), jest.fn()]),
@@ -12,12 +15,20 @@ jest.mock("../../contexts/auth/hooks", () => ({
 jest.mock("../../hooks/useSessionStorage");
 jest.mock("../../hooks/useApi", () => ({
   useApi: jest.fn().mockReturnValue({ loading: false }),
-  useApiCallback: jest
-    .fn()
-    .mockReturnValue({ loading: false, execute: jest.fn() }),
+  useApiCallback: jest.fn().mockImplementation((asyncFn) => ({
+    loading: false,
+    execute: jest.fn(async (args) => asyncFn(null, args)),
+  })),
 }));
 jest.mock("../../core/router", () => ({
-  useRouter: jest.fn(),
+  useRouter: jest.fn().mockReturnValue({ push: jest.fn() }),
+}));
+
+jest.mock("../../hooks/useCookie", () => ({
+  useSingleCookie: jest.fn().mockReturnValue([null, jest.fn(), jest.fn()]),
+}));
+jest.mock("../../hooks/useClearCookies", () => ({
+  useClearCookies: jest.fn().mockReturnValue([jest.fn()]),
 }));
 
 describe("useAuthContext", () => {
@@ -43,5 +54,105 @@ describe("useAuthContext", () => {
       setSingleCookie: expect.any(Function),
       setEmail: expect.any(Function),
     });
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  it("should revoke tokens, clear cookies, and redirect to login", async () => {
+    const mockRevokeCb = jest.fn();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      loading: false,
+      execute: mockRevokeCb,
+    });
+
+    const mockClearCookies =
+      require("../../hooks/useClearCookies").useClearCookies()[0];
+    const mockClearAccessToken =
+      require("../../contexts/auth/hooks").useAccessToken()[2];
+    const mockClearRefreshToken =
+      require("../../contexts/auth/hooks").useRefreshToken()[2];
+    const mockClearSingleCookie =
+      require("../../hooks/useCookie").useSingleCookie()[2];
+    const mockRouterPush = useRouter().push;
+
+    const { result } = renderHook(() => useAuthContext(), {
+      wrapper: ({ children }: React.PropsWithChildren<{}>) => (
+        <AuthProvider>{children}</AuthProvider>
+      ),
+    });
+
+    await waitFor(async () => {
+      await result.current.logout();
+    });
+
+    jest.runAllTimers();
+
+    expect(mockRevokeCb).toHaveBeenCalledWith({
+      accessToken: "token",
+      refreshToken: "token",
+      appName: "mockAppName",
+      email: "email",
+    });
+
+    expect(mockClearCookies).toHaveBeenCalled();
+    expect(mockClearAccessToken).toHaveBeenCalled();
+    expect(mockClearRefreshToken).toHaveBeenCalled();
+    expect(mockClearSingleCookie).toHaveBeenCalled();
+
+    expect(mockRouterPush).toHaveBeenCalledWith(expect.any(Function));
+  });
+
+  it("should not redirect to login and not trigger logout if revoke callback is not called", async () => {
+    const mockRevokeCb = jest.fn().mockRejectedValue(new Error("Failed"));
+    (useApiCallback as jest.Mock).mockReturnValue({
+      loading: false,
+      execute: mockRevokeCb,
+    });
+
+    const mockClearCookies =
+      require("../../hooks/useClearCookies").useClearCookies()[0];
+    const mockClearAccessToken =
+      require("../../contexts/auth/hooks").useAccessToken()[2];
+    const mockClearRefreshToken =
+      require("../../contexts/auth/hooks").useRefreshToken()[2];
+    const mockClearSingleCookie =
+      require("../../hooks/useCookie").useSingleCookie()[2];
+    const mockRouterPush = useRouter().push;
+
+    const { result } = renderHook(() => useAuthContext(), {
+      wrapper: ({ children }: React.PropsWithChildren<{}>) => (
+        <AuthProvider>{children}</AuthProvider>
+      ),
+    });
+
+    await waitFor(async () => {
+      await result.current.logout();
+    });
+
+    jest.runAllTimers();
+
+    // Assertions
+    expect(mockRevokeCb).toHaveBeenCalled();
+    expect(mockRevokeCb).toHaveBeenCalledWith({
+      accessToken: "token",
+      refreshToken: "token",
+      appName: "mockAppName",
+      email: "email",
+    });
+    expect(mockClearCookies).not.toHaveBeenCalled();
+    expect(mockClearAccessToken).not.toHaveBeenCalled();
+    expect(mockClearRefreshToken).not.toHaveBeenCalled();
+    expect(mockClearSingleCookie).not.toHaveBeenCalled();
+    expect(mockRouterPush).not.toHaveBeenCalled();
   });
 });
