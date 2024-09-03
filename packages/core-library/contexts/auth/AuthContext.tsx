@@ -8,7 +8,12 @@ import {
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
-import { useAccessToken, useEmail, useRefreshToken } from "./hooks";
+import {
+  useAccessToken,
+  useAccountId,
+  useRefreshToken,
+  useEmail,
+} from "./hooks";
 import { useApiCallback } from "../../hooks";
 import {
   internalAccountType,
@@ -61,6 +66,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     useState<OTPPreparation>({} as OTPPreparation);
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
+  const [accountId, setAccountId] = useAccountId();
   const [email, setEmail] = useEmail();
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
@@ -152,6 +158,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               );
               return;
             }
+            setAccountId(result.data.accountId);
             setAccessToken(result.data.accessTokenResponse.accessToken);
             setRefreshToken(result.data.accessTokenResponse.refreshToken);
             setSingleCookie(

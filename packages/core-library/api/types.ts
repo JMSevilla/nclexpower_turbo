@@ -40,6 +40,7 @@ export interface LoginResponse {
   responseCode: number | undefined;
   is2FaEnabled: boolean;
   twoFactorCodeExpiryTime: string;
+  accountId: string;
 }
 
 export interface RefreshTokenResponse {
@@ -253,6 +254,12 @@ export type ValidateTokenParams = {
   appName: string;
 };
 
+export type ValidateTokenizeParams = {
+  accessToken: string | undefined;
+  appName: string;
+  accountId: string;
+};
+
 export type RegularQuestionTypeParams = {
   questionType: string;
   description: string;
@@ -331,3 +338,25 @@ export type GetAllInternalAccount = {
   createdAt: string;
   updatedAt: string;
 };
+
+export interface SensitiveInformations {
+  tokenizeInformation: TokenizeInformations;
+  customerTokenizationInformation: CustomerTokenizeInformations;
+}
+export interface TokenizeInformations {
+  id: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgurl: string;
+}
+
+export interface CustomerTokenizeInformations {
+  id: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgUrl: string;
+}

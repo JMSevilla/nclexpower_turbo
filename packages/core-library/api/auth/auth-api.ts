@@ -5,6 +5,8 @@ import {
   LoginResponse,
   RefreshParams,
   RefreshTokenResponse,
+  SensitiveInformations,
+  ValidateTokenizeParams,
   RevokeParams,
   ValidateTokenParams,
   Verify2FAParams,
@@ -54,6 +56,13 @@ export class AuthApi {
 
   public validateToken(params: ValidateTokenParams) {
     return this.ssrAxios.post<number>(`/api/security/validate-token`, params);
+  }
+
+  public validateTokenizeInformation(params: ValidateTokenizeParams) {
+    return this.ssrAxios.post<SensitiveInformations>(
+      `/api/security/validate-tokenize`,
+      params
+    );
   }
 
   public web_create_internal_account(params: internalAccountType) {

@@ -27,3 +27,6 @@ export const useOrderNumber = () =>
 
 export const usePaymentIntentId = () =>
   useSessionStorage<string | undefined>("pi", undefined);
+
+export const useAccountId = () =>
+  useSessionStorage<string | undefined>("uid", undefined);
