@@ -1,3 +1,5 @@
+import { CreateRegularAtom } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/useAtomic";
+
 export type AccessTokenResponse = {
   tokenType: string;
   accessToken: string;
@@ -292,35 +294,24 @@ export type GetCategoryType = {
   updatedAt: string;
 };
 
-export type credentialsType = {
-  id: string;
-  username: string;
-  password: string;
+export type MainContentAnswerCollectionDtos =  {
+  answer: string,
+  answerKey: boolean
 }
 
-export type tokenizeInformationType = { 
-  id: string;
-  firstname: string;
-  middlename: string;
-  lastname: string;
-  email: string;
-  imgurl: string;
+export type  MainContentCollectionsDtos =    {
+  cognitiveLevel: string,
+  clientNeeds: string,
+  contentArea: string,
+  question: string,
+  mainContentAnswerCollectionDtos: MainContentAnswerCollectionDtos[]
 }
 
-export type accessGroupType = {
-  id: string;
-  accessLevel: number;
-}
-
-export type GetAllInternalAccount = {
-  id: string;
-  credentialsId: string;
-  credentials: credentialsType[];
-  tokenizeInformationId: string;
-  tokenizeInformation: tokenizeInformationType[];
-  accessGroupId: string; 
-  accessGroup: accessGroupType[];
-  accountStatusEnum: number;
-  createdAt: string;
-  updatedAt: string;
+export type CreateRegularType = {
+  email: string,
+  contentDto: {
+    type: string,
+    mainType: string,
+    mainContentCollectionsDtos: MainContentCollectionsDtos[]
+  }
 }
