@@ -15,6 +15,7 @@ import {
 import { ContentLoader } from "../../../router";
 import { theme } from "../../../contents/theme/theme";
 import { NavigationType } from "../../../types/navigation";
+import { AccountSetupContextProvider } from '../../../contexts/AccountSetupContext';
 
 interface Props {
   mockMenu: NavigationType[];
@@ -36,33 +37,35 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({
 }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme()}>
-        <CssBaseline />
-        <TabsContextProvider>
-          <ExpirationContextProvider logout={logout}>
-            <DialogContextProvider>
-              <DrawerLayout
-                menu={mockMenu}
-                isAuthenticated={isAuthenticated && tokenValidated}
-                onLogout={logout}
-              >
-                <ContentLoader loading={loading}>
-                  <PageContainer stickOut={false}>
-                    <ToastProvider>
-                      <ControlledToast
-                        autoClose={5000}
-                        hideProgressBar={false}
-                      />
-                      {children}
-                    </ToastProvider>
-                  </PageContainer>
-                </ContentLoader>
-              </DrawerLayout>
-            </DialogContextProvider>
-          </ExpirationContextProvider>
-        </TabsContextProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+      <AccountSetupContextProvider>
+        <ThemeProvider theme={theme()}>
+          <CssBaseline />
+          <TabsContextProvider>
+            <ExpirationContextProvider logout={logout}>
+              <DialogContextProvider>
+                <DrawerLayout
+                  menu={mockMenu}
+                  isAuthenticated={isAuthenticated && tokenValidated}
+                  onLogout={logout}
+                >
+                  <ContentLoader loading={loading}>
+                    <PageContainer stickOut={false}>
+                      <ToastProvider>
+                        <ControlledToast
+                          autoClose={5000}
+                          hideProgressBar={false}
+                        />
+                        {children}
+                      </ToastProvider>
+                    </PageContainer>
+                  </ContentLoader>
+                </DrawerLayout>
+              </DialogContextProvider>
+            </ExpirationContextProvider>
+          </TabsContextProvider>
+        </ThemeProvider>
+      </AccountSetupContextProvider>
+    </QueryClientProvider >
   );
 };
 

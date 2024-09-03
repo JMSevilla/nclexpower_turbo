@@ -12,31 +12,10 @@ const withAuth = <P extends object>(
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const { tokenValidated, loading } = useValidateToken();
 
-    // Uncomment for creation of admin account
-    // const accountSetupCb = useApi((api) =>
-    //   api.webbackoffice.shouldDoAccountSetup()
-    // );
     useEffect(() => {
       const isLoggedIn = !!tokenValidated;
       setIsAuthenticated(isLoggedIn);
-      setIsLoading(false); // Comment this setter when account setup function is active
-
-      // Uncomment for creation of admin account
-      // async function accountSetup(url: string) {
-      //   const executeSetup = await accountSetupCb.execute()
-      //   const isAccountExist = executeSetup.data
-
-      //   if (url !== '/accountsetup' && !isAccountExist) {
-      //     router.replace('/accountsetup')
-      //   }
-      //   else if (isAccountExist && url === '/accountsetup') {
-      //     router.back()
-      //   }
-      //   else {
-      //     setIsLoading(false);
-      //   }
-      // }
-      // accountSetup(router.asPath)
+      setIsLoading(false);
 
       async function authorizationDetection(url: string) {
         if (tokenValidated) {
