@@ -12,7 +12,7 @@ jest.mock("next/router", () => ({
     useRouter: jest.fn(),
 }));
 
-jest.mock('../../hooks', () => ({
+jest.mock('../../hooks/useValidateToken', () => ({
     useValidateToken: jest.fn(),
 }));
 
