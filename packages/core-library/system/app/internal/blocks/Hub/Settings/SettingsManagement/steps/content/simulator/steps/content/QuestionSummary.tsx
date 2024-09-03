@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ContainedRegularQuestionType } from "../../types";
 import { Box, Grid, Typography } from "@mui/material";
 import {
@@ -10,6 +10,9 @@ import ConfirmationModal from "../../../../../../../../../../../../components/Di
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { useAtom } from "jotai";
 import { CreateRegularAtom } from "../../useAtomic";
+import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
+import { MainContentCollectionsDtos } from "../../../../../../../../../../../../api/types";
+import { CreateQuestionLoader } from "./loader";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -22,9 +25,64 @@ export const QuestionSummary: React.FC<Props> = ({
   previousStep,
   next,
 }) => {
+  const [loading, setLoading] = useState(true);
   const [questionnaireAtom] = useAtom(CreateRegularAtom);
 
-  const onSubmit = () => {};
+  const { businessQueryCreateRegularQuestion } = useBusinessQueryContext();
+  const { mutateAsync, isLoading } = businessQueryCreateRegularQuestion();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
+
+    // Cleanup the timeout if the component is unmounted before the timeout is completed
+    return () => clearTimeout(timer);
+  }, []);
+
+  const convertToCreateRegularType = (
+    containedRegularQuestion: ContainedRegularQuestionType
+  ) => {
+    const mainContentCollectionsDtos: MainContentCollectionsDtos[] = (
+      containedRegularQuestion.questionnaires || []
+    ).map((item) => ({
+      cognitiveLevel: item.cognitiveLevel,
+      clientNeeds: item.clientNeeds,
+      contentArea: item.contentArea,
+      question: item.question,
+      mainContentAnswerCollectionDtos: (item.answers || []).map(
+        (answerItem) => ({
+          answer: answerItem.answer,
+          answerKey: answerItem.answerKey as boolean,
+        })
+      ),
+    }));
+
+    return {
+      email: "test@testaccount.com",
+      contentDto: {
+        type: containedRegularQuestion.type,
+        mainType: containedRegularQuestion.main_type,
+        mainContentCollectionsDtos: mainContentCollectionsDtos,
+      },
+    };
+  };
+
+  async function onSubmit() {
+    if (questionnaireAtom) {
+      const res = await mutateAsync(
+        convertToCreateRegularType(questionnaireAtom)
+      );
+      if (res.data === 200) {
+        nextStep({});
+        next();
+      }
+    }
+  }
+
+  if (loading) {
+    return <CreateQuestionLoader />;
+  }
 
   return (
     <Grid
@@ -87,9 +145,11 @@ export const QuestionSummary: React.FC<Props> = ({
       </Box>
       <Box display="flex" justifyContent="end" width="100%" marginTop="20px">
         <ConfirmationModal
-          dialogContent='Are you sure you want to continue?'
+          dialogContent="Are you sure you want to continue?"
           customButton={<Button>Continue</Button>}
-          handleSubmit={onSubmit} />
+          handleSubmit={onSubmit}
+          isLoading={isLoading}
+        />
       </Box>
     </Grid>
   );

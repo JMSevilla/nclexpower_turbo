@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Box } from "@mui/material";
 import { Alert } from "core-library/components";
 import { useSettingsManagementWizardSteps } from "./steps/useSteps";
-import { useActiveSteps } from "core-library/hooks";
+import { useActiveSteps, useBeforeUnload } from "core-library/hooks";
 
 export const SettingsManagementPageForm = () => {
   const { renderStep: render, steps } = useSettingsManagementWizardSteps();
@@ -10,6 +10,8 @@ export const SettingsManagementPageForm = () => {
   const stepLabels = stepKeys.map((step) =>
     step.replace(/([A-Z])/g, " $1").trim()
   );
+
+  useBeforeUnload(true);
 
   const { activeStep, next, previous } = useActiveSteps(stepLabels.length);
   return (

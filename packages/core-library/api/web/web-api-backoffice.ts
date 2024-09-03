@@ -13,6 +13,7 @@ import qs from "query-string";
 import { CategoryListResponse } from "../../types/category-response";
 import {
   CategoryFormParams,
+  CreateRegularType,
   CurrenciesResponse,
   DiscrepanciesResponse,
   FileUploadParams,
@@ -185,6 +186,13 @@ export class WebApiBackOffice {
   public createRegularType(params: RegularQuestionTypeParams) {
     return this.axios.post<number>(
       `/api/v1/Category/create-regular-type`,
+      params
+    );
+  }
+
+  public createRegularQuestion(params: CreateRegularType ) {
+    return this.axios.post(
+      `/api/v2/content/baseContent/create-content`,
       params
     );
   }
