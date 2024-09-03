@@ -14,20 +14,26 @@ export const useSensitiveInformation = () => {
   const [internalInfo, setInternalInfo] = useState<TokenizeInformations>();
   const [customerInfo, setCustomerInfo] =
     useState<CustomerTokenizeInformations>();
+  const [error, setError] = useState<string | null>(null);
   const validateTokenizeCb = useApiCallback(
     async (api, args: ValidateTokenizeParams) =>
       await api.auth.validateTokenizeInformation(args)
   );
 
   async function validateTokenizeInformation() {
-    const validateParams: ValidateTokenizeParams = {
-      accessToken: accessToken,
-      accountId: accountId ?? "no-account-id",
-      appName: config.value.BASEAPP,
-    };
-    const result = await validateTokenizeCb.execute({ ...validateParams });
-    setInternalInfo(result.data.tokenizeInformation);
-    setCustomerInfo(result.data.customerTokenizationInformation);
+    try {
+      const validateParams: ValidateTokenizeParams = {
+        accessToken: accessToken,
+        accountId: accountId ?? "no-account-id",
+        appName: config.value.BASEAPP,
+      };
+      const result = await validateTokenizeCb.execute({ ...validateParams });
+      setInternalInfo(result.data.tokenizeInformation);
+      setCustomerInfo(result.data.customerTokenizationInformation);
+    } catch (err) {
+      setError("Failed to validate tokenize information");
+      console.error(err);
+    }
   }
 
   useEffect(() => {
@@ -38,5 +44,6 @@ export const useSensitiveInformation = () => {
   return {
     internal: internalInfo,
     customer: customerInfo,
+    error,
   };
 };
