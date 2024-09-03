@@ -7,7 +7,7 @@ import { Encryption } from "core-library/utils/Encryption";
 import { config } from "core-library/config";
 import { useEncryptItem } from "core-library/contexts/auth/hooks";
 
-interface Props {}
+interface Props { }
 
 export const PricingBlock: React.FC<Props> = (props) => {
   const [nurseType, setNurseType] = useState<number>(1);
@@ -18,7 +18,6 @@ export const PricingBlock: React.FC<Props> = (props) => {
   const router = useRouter();
 
   const handleSelectProduct = (product: SelectedProductType) => {
-    alert("Called");
     const key = config.value.SECRET_KEY;
     const encyptedData = Encryption(
       JSON.stringify({ ...product }),
