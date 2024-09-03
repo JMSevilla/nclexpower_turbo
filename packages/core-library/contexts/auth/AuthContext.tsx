@@ -8,9 +8,13 @@ import {
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
-import { useAccessToken, useRefreshToken } from "./hooks";
+import { useAccessToken, useAccountId, useRefreshToken } from "./hooks";
 import { useApiCallback } from "../../hooks";
-import { internalAccountType, LoginParams, RegisterParams } from "../../types/types";
+import {
+  internalAccountType,
+  LoginParams,
+  RegisterParams,
+} from "../../types/types";
 import { CookieSetOptions, useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
 import { useRouter } from "../../core";
@@ -56,6 +60,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     useState<OTPPreparation>({} as OTPPreparation);
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
+  const [accountId, setAccountId] = useAccountId();
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
@@ -68,9 +73,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     api.web.web_account_setup(data)
   );
   const internalAccountCb = useApiCallback(
-    async (api, args: internalAccountType) => await api.auth.web_create_internal_account(args)
+    async (api, args: internalAccountType) =>
+      await api.auth.web_create_internal_account(args)
   );
-  const loading = loginCb.loading || registerCb.loading || internalAccountCb.loading;
+  const loading =
+    loginCb.loading || registerCb.loading || internalAccountCb.loading;
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -89,7 +96,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
         clearSingleCookie();
         router.push((route) => route.login);
       }
-    } catch (e) { }
+    } catch (e) {}
     setIsAuthenticated(false);
   }, [refreshToken, accessToken]);
 
@@ -127,6 +134,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               );
               return;
             }
+            setAccountId(result.data.accountId);
             setAccessToken(result.data.accessTokenResponse.accessToken);
             setRefreshToken(result.data.accessTokenResponse.refreshToken);
             setSingleCookie(
