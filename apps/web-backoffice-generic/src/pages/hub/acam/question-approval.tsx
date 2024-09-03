@@ -27,12 +27,11 @@ const TabContent: React.FC = () => {
           p: 2,
           boxShadow: 3,
           backgroundColor: '#fff',
-          display: 'flex',
-          justifyContent: 'flex-start',
+          display: 'flex'
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Tabs tabsItem={questionTabs} />
+          <Tabs tabsItem={questionTabs} justifyContent="flex-start" />
         </Box>
       </Box>
     </Box>
