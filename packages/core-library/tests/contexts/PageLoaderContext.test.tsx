@@ -10,15 +10,13 @@ jest.mock("../../config", () => ({
   config: { value: jest.fn() },
 }));
 
-jest.mock("../../hooks", () => ({
+jest.mock("../../hooks/usePageLoader", () => ({
   usePageLoader: jest.fn(),
 }));
 
 jest.mock("../../hooks/useApi", () => ({
   useApi: jest.fn().mockReturnValue({ loading: false }),
-  useApiCallback: jest
-    .fn()
-    .mockReturnValue({ loading: false, execute: jest.fn() }),
+  useApiCallback: jest.fn(),
 }));
 
 jest.mock("../../core/router", () => ({
