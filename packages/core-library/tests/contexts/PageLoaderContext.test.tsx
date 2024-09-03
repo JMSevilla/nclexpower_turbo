@@ -1,26 +1,41 @@
-import { screen, render } from '../common';
-import { usePageLoader } from '../../hooks';
-import { PageLoaderContextProvider, usePageLoaderContext } from '../../contexts/PageLoaderContext';
-import { useEffect } from 'react';
+import { screen, render } from "../common";
+import { usePageLoader } from "../../hooks";
+import {
+  PageLoaderContextProvider,
+  usePageLoaderContext,
+} from "../../contexts/PageLoaderContext";
+import { useEffect } from "react";
 
 jest.mock("../../config", () => ({
   config: { value: jest.fn() },
 }));
 
-jest.mock('../../hooks', () => ({
+jest.mock("../../hooks", () => ({
   usePageLoader: jest.fn(),
 }));
 
+jest.mock("../../hooks/useApi", () => ({
+  useApi: jest.fn().mockReturnValue({ loading: false }),
+  useApiCallback: jest
+    .fn()
+    .mockReturnValue({ loading: false, execute: jest.fn() }),
+}));
+
 jest.mock("../../core/router", () => ({
-    useRouter: jest.fn(),
-  }));
-  
-describe('PageLoaderContextProvider', () => {
-  it('should provide the context values correctly', () => {
+  useRouter: jest.fn(),
+}));
+
+describe("PageLoaderContextProvider", () => {
+  it("should provide the context values correctly", () => {
     (usePageLoader as jest.Mock).mockReturnValue({ isPageLoading: false });
 
     const TestComponent = () => {
-      const { isLoading, isCalculationsLoaded, setIsLoading, setIsCalculationsLoaded } = usePageLoaderContext();
+      const {
+        isLoading,
+        isCalculationsLoaded,
+        setIsLoading,
+        setIsCalculationsLoaded,
+      } = usePageLoaderContext();
       useEffect(() => {
         setIsLoading(false);
         setIsCalculationsLoaded(false);
@@ -40,7 +55,7 @@ describe('PageLoaderContextProvider', () => {
       </PageLoaderContextProvider>
     );
 
-    expect(screen.getByText('isLoading: false')).toBeInTheDocument();
-    expect(screen.getByText('isCalculationsLoaded: false')).toBeInTheDocument();
+    expect(screen.getByText("isLoading: false")).toBeInTheDocument();
+    expect(screen.getByText("isCalculationsLoaded: false")).toBeInTheDocument();
   });
 });
