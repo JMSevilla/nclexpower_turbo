@@ -1,14 +1,14 @@
 import React from 'react';
-import { screen, waitFor, render } from "../common";
+import { screen, waitFor, render, renderHook } from "../common";
 import withAuth from '../../core/utils/withAuth';
 import { useValidateToken } from '../../hooks';
-import { useRouter } from 'next/router';
+import { useRouter } from '../../core';
 
 jest.mock("../../config", () => ({
     config: { value: jest.fn() }
 }));
 
-jest.mock("next/router", () => ({
+jest.mock("../../core/router", () => ({
     useRouter: jest.fn(),
 }));
 
@@ -53,9 +53,12 @@ describe("withAuth HOC", () => {
             tokenValidated: false,
             loading: true,
         });
+        const { result } = renderHook(() => useRouter())
+        const { replace } = result.current
+
         render(<WrappedComponent />);
         expect(screen.queryByText("Protected Component")).not.toBeInTheDocument();
-        expect(mockRouter.replace).not.toHaveBeenCalled();
+        expect(replace).not.toHaveBeenCalled();
     });
 
     it("redirects authenticated users from /404 to /hub", () => {
