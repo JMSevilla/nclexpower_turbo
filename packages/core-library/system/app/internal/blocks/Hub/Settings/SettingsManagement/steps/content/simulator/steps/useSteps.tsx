@@ -37,7 +37,7 @@ export const useQuestionManagementWizardSteps = (
     ...values,
   });
 
-  const { renderStep } = useWizardForm<
+  const { renderStep, reset } = useWizardForm<
     QuestionTypeFormSteps,
     ContainedRegularQuestionType,
     QuestionTypeStepProps
@@ -48,12 +48,17 @@ export const useQuestionManagementWizardSteps = (
     step.replace(/([A-Z])/g, " $1").trim()
   );
 
-  const { activeStep, next, previous } = useActiveSteps(stepLabels.length);
+  const {
+    activeStep,
+    next,
+    previous,
+    reset: resetStep,
+  } = useActiveSteps(stepLabels.length);
   return {
     render: (
       <React.Fragment>
         <Stepper activeStep={activeStep} steps={stepLabels} />
-        {renderStep({ isLoading: false, next, previous })}
+        {renderStep({ isLoading: false, next, previous, resetStep, reset })}
       </React.Fragment>
     ),
   };
