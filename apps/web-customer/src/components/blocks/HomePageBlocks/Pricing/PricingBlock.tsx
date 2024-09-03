@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PricingCard from "./PricingComponent/PricingCard";
 import { useBusinessQueryContext } from "core-library/contexts";
 import { SelectedProductType } from "core-library/types/global";
-import { useRouter } from "core-library/core/router";
+import { useRouter } from "core-library/core";
 import { Encryption } from "core-library/utils/Encryption";
 import { config } from "core-library/config";
 import { useEncryptItem } from "core-library/contexts/auth/hooks";
@@ -81,7 +81,8 @@ export const PricingBlock: React.FC<Props> = (props) => {
               filteredItems.map((item, index) => (
                 <div
                   className={`cursor-pointer border-2 border-transparent transition-all duration-300 ${nurseType == 1 ? "hover:border-[#08474b] hover:border-2 hover:scale-105 rounded-lg hover:-mt-2" : "hover:border-[#0c225c] hover:border-2 rounded-lg hover:-mt-2"}`}
-                  key={index}>
+                  key={index}
+                >
                   <PricingCard
                     cardData={item}
                     handleSelectProduct={handleSelectProduct}

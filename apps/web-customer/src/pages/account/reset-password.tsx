@@ -4,19 +4,25 @@ import {
   ResetPasswordParams,
   ValidateResetLinkTokenParams,
 } from "core-library/api/types";
-import { useRouter } from "core-library";
+import { useRouter, withCSP } from "core-library";
 import { NotFoundBlock } from "@/components/blocks/NotFoundBlock/NotFoundBlock";
 import { useEffect, useState } from "react";
 import { PageLoader } from "core-library/components";
 import { useExecuteToast } from "core-library/contexts";
 import { ChangePasswordType } from "@/core/Schema";
+import CSPHead from "core-library/components/CSPHead";
+import { GetServerSideProps } from "next";
 
 interface QueryParams {
   uId?: string;
   auth?: string;
 }
 
-export function ResetPasswordPage() {
+interface Props{
+  generatedNonce: string;
+}
+
+const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
   const resetPasswordCb = useApiCallback(
     async (api, args: ResetPasswordParams) =>
       await api.web.web_reset_password(args)
@@ -29,10 +35,6 @@ export function ResetPasswordPage() {
   );
   const router = useRouter();
   const { auth, uId }: QueryParams = router.query;
-
-  if (!auth || !uId) {
-    return <NotFoundBlock />;
-  }
 
   async function validate() {
     if (!auth || !uId) return;
@@ -48,13 +50,20 @@ export function ResetPasswordPage() {
     setAuthorized(result.data);
     return;
   }
+
   useEffect(() => {
     validate();
   }, [auth, uId]);
 
-  if (validateCb.loading || !authorized) return <PageLoader />;
+  if (validateCb.loading) return <PageLoader />;
+  if (!auth || !uId || !authorized) return <NotFoundBlock />;
 
-  return <ChangePasswordBlock onSubmit={handleSubmit} />;
+  return (
+    <>
+    <CSPHead nonce={generatedNonce} />
+  <ChangePasswordBlock onSubmit={handleSubmit} />
+  </>
+  );
 
   async function handleSubmit(values: ChangePasswordType) {
     try {
@@ -101,5 +110,7 @@ export function ResetPasswordPage() {
     }
   }
 }
+
+export const getServerSideProps: GetServerSideProps = withCSP();
 
 export default ResetPasswordPage;

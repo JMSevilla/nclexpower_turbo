@@ -23,6 +23,7 @@ import {
   ReportedIssuesResponse,
   ThetaCalcScratchResponse,
   ReportIssueType,
+  GetAllInternalAccount,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -442,6 +443,23 @@ export const useGetRegularQuestionDDCategory = (
     queryKey,
     async () => {
       const result = await getClientNeeds.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
+};
+
+export const useGetAllInternalAccounts = (
+  queryKey: string[]
+): UseQueryResult<GetAllInternalAccount[] | undefined, any> => {
+  const getAllInternalAccount = useApi((api) =>
+    api.webbackoffice.getAllInternalAccount()
+  );
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getAllInternalAccount.execute();
       return result.data;
     },
     { staleTime: Infinity }

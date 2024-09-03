@@ -1,8 +1,9 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Button } from "core-library/components";
-import { useRouter } from "core-library";
+import { Button } from "../../../../../../../../../../../../components";
+import { useRouter } from "../../../../../../../../../../../../core";
 import { ContainedRegularQuestionType } from "../../types";
+import { Box, styled, Typography } from "@mui/material";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -10,6 +11,14 @@ interface Props {
   values: Partial<ContainedRegularQuestionType>;
   next: () => void;
 }
+
+const MainButton = styled(Button)(({ theme }) => ({
+  padding: "4px",
+  marginX: "10px",
+  minHeight: "25vh",
+  borderRight: `2px solid ${theme.palette.primary.main}`,
+  justifyContent: "center",
+}));
 
 export const SuccessPage: React.FC<Props> = (props) => {
   const { values, nextStep, next } = props;
@@ -31,30 +40,55 @@ export const SuccessPage: React.FC<Props> = (props) => {
   };
 
   return (
-    <div
+    <Box
+      height="450px"
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      padding="1rem"
       data-testid={`${type_identifier}-question`}
-      className="h-[650px] flex flex-col items-center justify-center p-5 gap-y-10"
     >
       <CheckCircleIcon sx={{ fontSize: 100, color: "#37BEC7" }} />
-      <p className="font-semibold text-xl">
+      <Typography
+        variant="inherit"
+        paddingY="32px"
+        fontWeight="semibold"
+        fontSize="30px"
+      >
         {values.main_type} Questions Successfully Added
-      </p>
-      <div className="flex gap-5">
+      </Typography>
+      <Box display="flex" gap="16px">
         <Button
           data-testid="create-new"
           onClick={() => handleGoToList(NextLocation)}
-          className="bg-transparent text-[#37BEC7] shadow-none rounded-full items-center justify-center hover:bg-transparent hover:underline hover:shadow-none"
+          sx={{
+            backgroundColor: "#7222B1",
+            height: "45px",
+            borderRadius: "10px",
+            marginTop: "10px",
+            width: "250px",
+            textTransform: "none",
+          }}
         >
           <p>Go to {values.main_type} Question List</p>
         </Button>
         <Button
           data-testid="create-new-button"
           onClick={handleCreateNew}
-          className="bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-white font-semibold rounded-full leading-3 transition-colors duration-150"
+          sx={{
+            backgroundColor: "#7222B1",
+            height: "45px",
+            borderRadius: "10px",
+            marginTop: "10px",
+            width: "250px",
+            textTransform: "none",
+          }}
         >
           <p>Create New</p>
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

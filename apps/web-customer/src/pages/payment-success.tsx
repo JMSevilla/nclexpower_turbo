@@ -1,25 +1,36 @@
 import { Paper } from "@mui/material";
 import { CoreZigmaLogo, PaymentBadge } from "core-library/assets";
 import { Button } from "core-library/components";
-import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
+import {
+  useConfirmedIntent,
+  useOrderNumber,
+  usePaymentIntentId,
+  useSecretClient,
+} from "core-library/contexts/auth/hooks";
 import Image from "next/image";
 import { confirmedCreation, useRouter } from "core-library";
-import React from "react";
+import React, { useEffect } from "react";
 import { GetServerSideProps } from "next";
+import CSPHead from "core-library/components/CSPHead";
 
 interface Props {
   success: boolean;
   message?: string;
   paymentIntentId?: string;
+  generatedNonce?: string | undefined | any;
 }
 
 const PaymentSuccess: React.FC<Props> = ({
   success,
   message,
+  generatedNonce,
   paymentIntentId, // can use if incase.
 }) => {
   const router = useRouter();
   const [confirmValue] = useConfirmedIntent();
+  const [, , clearPaymentIntent] = usePaymentIntentId();
+  const [, , clearOrderNumber] = useOrderNumber();
+  const [, , clearSecretClient] = useSecretClient();
 
   const returnLogin = () => router.push((route) => route.login);
 
@@ -39,7 +50,15 @@ const PaymentSuccess: React.FC<Props> = ({
     );
   }
 
+  useEffect(() => {
+    clearOrderNumber();
+    clearPaymentIntent();
+    clearSecretClient();
+  }, [success, confirmValue]);
+
   return (
+    <>
+    <CSPHead nonce={generatedNonce} />
     <div className=" w-screen h-screen flex items-center justify-center bg-success-payment bg-cover">
       <div className="container w-full flex flex-col items-center h-3/4">
         <Paper
@@ -83,6 +102,7 @@ const PaymentSuccess: React.FC<Props> = ({
         />
       </div>
     </div>
+    </>
   );
 };
 
@@ -117,4 +137,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   }
 };
 
-export default PaymentSuccess;
+export default PaymentSuccess

@@ -26,12 +26,12 @@ import { CreateCustomerDumpParams } from "core-library/api/types";
 import { useExecuteToast } from "core-library/contexts";
 import { useApiCallback } from "core-library/hooks";
 interface Props {
-  orderNumber: string | null;
+  orderNumber: string | undefined;
   productId: string | undefined;
   amount: number | undefined;
   stripe: Stripe | null;
   elements: StripeElements | null;
-  paymentIntentId: string | null;
+  paymentIntentId: string | undefined;
 }
 
 export const CheckoutPageBlock: React.FC<Props> = ({

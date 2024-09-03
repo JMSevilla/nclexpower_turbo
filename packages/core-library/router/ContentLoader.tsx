@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ComponentLoader } from '../components';
-import { useRouter } from '../core';
 import { usePageLoader } from '../hooks';
 
 interface Props {
@@ -12,7 +11,6 @@ export const ContentLoader: React.FC<React.PropsWithChildren<Props>> = ({
     children, loading
 }) => {
     const { isPageLoading } = usePageLoader()
-
     const hasLoading = loading || isPageLoading
 
     return (

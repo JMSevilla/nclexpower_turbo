@@ -71,7 +71,6 @@ export function LoginFormBlock() {
 
       try {
         await login(data.email, passwordToUse);
-        router.push({ pathname: '/hub' })
       } catch (err) {
         toast.executeToast("Something went wrong", "top-right", false, {
           toastId: 0,
