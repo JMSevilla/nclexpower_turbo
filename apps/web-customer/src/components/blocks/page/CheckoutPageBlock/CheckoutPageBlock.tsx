@@ -131,11 +131,15 @@ export const CheckoutPageBlock: React.FC<Props> = ({
   );
 
   return (
-    <div className="w-full h-fit flex flex-col gap-2">
+    <div className="w-full h-full flex flex-col gap-2 form-font font-semibold">
+      <p className="border-b border-slate-400 mb-2 pb-2 text-slate-500">Contact Information</p>
+      <LinkAuthenticationElement onChange={handleEmailChange} />
       <ControlledTextField
         name="firstname"
         control={control}
         label="First Name"
+        placeholder="First Name"
+        className="shadow-sm shadow-zinc-200"
       />
       <div className="flex gap-2 w-full">
         <div className="w-1/2">
@@ -145,12 +149,16 @@ export const CheckoutPageBlock: React.FC<Props> = ({
             shouldUnregister
             name="middlename"
             label="Middlename"
+            placeholder="Middle Name"
             disabled={hasNoMiddleName}
+            className="shadow-sm shadow-zinc-200"
+            sx={{fontFamily: 'PT Sans'}}
           />
           <ControlledCheckbox
             control={control}
             name="hasNoMiddleName"
             label="I do not have a middlename"
+            sx={{fontSize: 12, lineHeight:1.2}}
           />
         </div>
         <div className="w-1/2">
@@ -158,14 +166,16 @@ export const CheckoutPageBlock: React.FC<Props> = ({
             name="lastname"
             control={control}
             label="Last Name"
+            placeholder="Last Name"
+            className="shadow-sm shadow-zinc-200"
           />
         </div>
       </div>
-      <LinkAuthenticationElement onChange={handleEmailChange} />
+      <p className="border-b border-slate-400 mb-2 pb-2 text-slate-500">Card Information</p>
       <PaymentElement />
       <Button
         onClick={handleSubmit(confirmPayment)}
-        className=" bg-gradient-to-b from-[#2253c3] to-[#6593ff] px-5 py-2 text-white font-semibold rounded-2xl self-end mt-5"
+        sx={{background:'#0F2A71', borderRadius: 1, marginTop:2}}
       >
         Confirm Payment
       </Button>
