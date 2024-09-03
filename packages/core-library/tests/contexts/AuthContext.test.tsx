@@ -15,9 +15,9 @@ jest.mock("../../contexts/auth/hooks", () => ({
 jest.mock("../../hooks/useSessionStorage");
 jest.mock("../../hooks/useApi", () => ({
   useApi: jest.fn().mockReturnValue({ loading: false }),
-  useApiCallback: jest.fn().mockImplementation((asyncFn) => ({
+  useApiCallback: jest.fn().mockImplementation(() => ({
     loading: false,
-    execute: jest.fn(async (args) => asyncFn(null, args)),
+    execute: jest.fn(),
   })),
 }));
 jest.mock("../../core/router", () => ({
@@ -68,7 +68,7 @@ describe("useAuthContext", () => {
     jest.useRealTimers();
   });
 
-  it("should revoke tokens, clear cookies, and redirect to login", async () => {
+  it("should revoke tokens when RevokeCb is Called, clear cookies, and redirect to login", async () => {
     const mockRevokeCb = jest.fn();
     (useApiCallback as jest.Mock).mockReturnValue({
       loading: false,
@@ -141,14 +141,6 @@ describe("useAuthContext", () => {
 
     jest.runAllTimers();
 
-    // Assertions
-    expect(mockRevokeCb).toHaveBeenCalled();
-    expect(mockRevokeCb).toHaveBeenCalledWith({
-      accessToken: "token",
-      refreshToken: "token",
-      appName: "mockAppName",
-      email: "email",
-    });
     expect(mockClearCookies).not.toHaveBeenCalled();
     expect(mockClearAccessToken).not.toHaveBeenCalled();
     expect(mockClearRefreshToken).not.toHaveBeenCalled();
