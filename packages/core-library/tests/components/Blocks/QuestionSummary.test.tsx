@@ -3,6 +3,7 @@ import { render } from "@testing-library/react";
 import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content";
 import { SummaryAccordion } from "../../../components/blocks/Accordion/SummaryAccordion";
 import ConfirmationModal from "../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+import { Button } from '../../../components';
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -86,6 +87,11 @@ describe("QuestionSummary Component", () => {
       cognitiveLevel: "Cognitive Level 3",
     },
   ];
+
+  const MODAL_DEFAULT_PROPS = {
+    customButton: <>test</>,
+    dialogContent: "test",
+  }
 
   const mockType = "SATA";
 
@@ -181,16 +187,16 @@ describe("QuestionSummary Component", () => {
   });
 
   it("renders the ConfirmationModal button", () => {
-    render(<ConfirmationModal handleSubmit={mockHandleSubmit} />);
+    render(<ConfirmationModal {...MODAL_DEFAULT_PROPS} handleSubmit={mockHandleSubmit} />);
 
-    const button = screen.getByRole("button", { name: /continue/i });
+    const button = screen.getByRole("button", { name: /test/i });
     expect(button).toBeInTheDocument();
   });
 
   it("opens the modal and calls handleSubmit when the button is clicked", async () => {
-    render(<ConfirmationModal handleSubmit={mockHandleSubmit} />);
+    render(<ConfirmationModal {...MODAL_DEFAULT_PROPS} handleSubmit={mockHandleSubmit} />);
 
-    const triggerButton = screen.getByRole("button", { name: /continue/i });
+    const triggerButton = screen.getByRole("button", { name: /test/i });
     fireEvent.click(triggerButton);
 
     const modal = await screen.findByRole("dialog");
