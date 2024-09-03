@@ -298,3 +298,36 @@ export type RevokeParams = {
   appName: string;
   email: string;
 };
+
+export type credentialsType = {
+  id: string;
+  username: string;
+  password: string;
+};
+
+export type tokenizeInformationType = {
+  id: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgurl: string;
+};
+
+export type accessGroupType = {
+  id: string;
+  accessLevel: number;
+};
+
+export type GetAllInternalAccount = {
+  id: string;
+  credentialsId: string;
+  credentials: credentialsType[];
+  tokenizeInformationId: string;
+  tokenizeInformation: tokenizeInformationType[];
+  accessGroupId: string;
+  accessGroup: accessGroupType[];
+  accountStatusEnum: number;
+  createdAt: string;
+  updatedAt: string;
+};

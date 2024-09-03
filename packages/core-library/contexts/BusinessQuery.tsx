@@ -31,6 +31,7 @@ import {
   useGetRegularQuestionDDCategory,
   useCreateReportIssue,
   useGetCategoryByType,
+  useGetAllInternalAccounts,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -51,6 +52,7 @@ import {
   ThetaCalcScratchResponse,
   ReportIssueType,
   GetCategoryType,
+  GetAllInternalAccount,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -200,6 +202,10 @@ interface BusinessQueryContextValue {
     queryKey: string[],
     type: number
   ) => UseQueryResult<any | undefined, any>;
+
+  businessQueryGetAllInternalAccount: (
+    queryKey: string[]
+  ) => UseQueryResult<GetAllInternalAccount[] | undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -237,6 +243,7 @@ export const BusinessQueryContextProvider: React.FC<
     useGetRegularQuestionDDCategory;
   const businessQueryCreateReportIssue = useCreateReportIssue;
   const businessQueryGetReportCategories = useGetCategoryByType;
+  const businessQueryGetAllInternalAccount = useGetAllInternalAccounts;
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -265,6 +272,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetRegularQuestionDDCategory,
         businessQueryCreateReportIssue,
         businessQueryGetReportCategories,
+        businessQueryGetAllInternalAccount,
       }}
     >
       {children}

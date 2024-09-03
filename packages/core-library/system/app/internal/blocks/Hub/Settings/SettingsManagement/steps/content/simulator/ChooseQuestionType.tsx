@@ -1,14 +1,16 @@
-import { WizardFormMap } from "core-library/hooks";
+import { WizardFormMap } from "../../../../../../../../../../hooks";
 import { ContainedRegularQuestionType } from "./types";
 import {
   CreateRegularQuestion,
   QuestionTypeSelection,
+  QuestionSummary,
 } from "./steps/content/index";
 import { SuccessPage } from "./steps/content/SuccessPage";
 
 export type QuestionTypeFormSteps =
   | "InitialQuestionTypeSelection"
   | "CreateRegularQuestion"
+  | "QuestionSummary"
   | "SuccessPage";
 
 export interface QuestionTypeStepProps {
@@ -25,12 +27,16 @@ export const ChooseQuestionTypeStep = {
   },
   CreateRegularQuestion: {
     previousStep: "InitialQuestionTypeSelection",
-    nextStep: "SuccessPage", // Move this to Step 3
+    nextStep: "QuestionSummary",
     content: (props) => <CreateRegularQuestion {...props} />,
   },
-  SuccessPage: {
+  QuestionSummary: {
     previousStep: "CreateRegularQuestion",
-    nextStep: "InitialQuestionTypeSelection",
+    nextStep: "SuccessPage",
+    content: (props) => <QuestionSummary {...props} />,
+  },
+  SuccessPage: {
+    previousStep: "QuestionSummary",
     content: (props) => <SuccessPage {...props} />,
   },
 } as WizardFormMap<
