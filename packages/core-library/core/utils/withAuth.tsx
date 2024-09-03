@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/router";
 import { authorizedRoute, unauthorizeRoute } from "./contants/route";
 import { useValidateToken } from "../../hooks";
+import { useRouter } from '../router';
 
 const withAuth = <P extends object>(
   WrappedComponent: React.ComponentType<P>
