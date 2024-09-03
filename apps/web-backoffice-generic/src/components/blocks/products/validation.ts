@@ -1,11 +1,11 @@
-import { TEXT_REGEX } from "core-library";
+import { STRING_REGEX } from "core-library";
 import * as yup from "yup";
 
 export const productSchema = yup.object({
-  productName: yup.string().required("Product name is required").default("").matches(TEXT_REGEX, "Special characters not allowed"),
+  productName: yup.string().required("Product name is required").default("").matches(STRING_REGEX, "Special characters not allowed"),
   pricingId: yup.string().required("Select pricing").default(""),
   categoryId: yup.string().required("Select category").default(""),
-  productDescription: yup.string().notRequired().default("").matches(TEXT_REGEX, "Special characters not allowed"),
+  productDescription: yup.string().notRequired().default("").matches(STRING_REGEX, "Special characters not allowed"),
   programType: yup.number().required("Select program type").default(0),
   programTitle: yup.number().required("Select program title").default(0),
   features: yup
