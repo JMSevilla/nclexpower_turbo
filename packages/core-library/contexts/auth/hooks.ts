@@ -18,3 +18,12 @@ export const useCheckoutIntent = () =>
 
 export const useConfirmedIntent = () =>
   useSessionStorage<IntentValueType>("ConfirmedIntent", undefined);
+
+export const useSecretClient = () =>
+  useSessionStorage<string | undefined>("secretKey", undefined);
+
+export const useOrderNumber = () =>
+  useSessionStorage<string | undefined>("orderNumber", undefined);
+
+export const usePaymentIntentId = () =>
+  useSessionStorage<string | undefined>("pi", undefined);

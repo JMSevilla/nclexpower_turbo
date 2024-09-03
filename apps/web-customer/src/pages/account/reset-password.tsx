@@ -36,10 +36,6 @@ const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
   const router = useRouter();
   const { auth, uId }: QueryParams = router.query;
 
-  if (!auth || !uId) {
-    return <NotFoundBlock />;
-  }
-
   async function validate() {
     if (!auth || !uId) return;
     const result = await validateCb.execute({
@@ -54,11 +50,13 @@ const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
     setAuthorized(result.data);
     return;
   }
+
   useEffect(() => {
     validate();
   }, [auth, uId]);
 
-  if (validateCb.loading || !authorized) return <PageLoader />;
+  if (validateCb.loading) return <PageLoader />;
+  if (!auth || !uId || !authorized) return <NotFoundBlock />;
 
   return (
     <>

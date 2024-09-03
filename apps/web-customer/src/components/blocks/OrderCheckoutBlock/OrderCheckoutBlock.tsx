@@ -9,14 +9,14 @@ import { NotFoundBlock } from "../NotFoundBlock/NotFoundBlock";
 
 interface Props {}
 interface CheckoutPageProps {
-  clientSecret: string | null;
+  clientSecret: string | undefined;
   stripePromise: Promise<Stripe | null> | null;
-  orderNumber: string | null;
+  orderNumber: string | undefined;
   productId: string | undefined;
   amount: number | undefined;
   stripe: Stripe | null;
   elements: StripeElements | null;
-  paymentIntentId: string | null;
+  paymentIntentId: string | undefined;
 }
 
 function useSafeStripe() {
