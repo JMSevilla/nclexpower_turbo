@@ -1,10 +1,15 @@
 import { Paper } from "@mui/material";
 import { CoreZigmaLogo, PaymentBadge } from "core-library/assets";
 import { Button } from "core-library/components";
-import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
+import {
+  useConfirmedIntent,
+  useOrderNumber,
+  usePaymentIntentId,
+  useSecretClient,
+} from "core-library/contexts/auth/hooks";
 import Image from "next/image";
 import { confirmedCreation, useRouter } from "core-library";
-import React from "react";
+import React, { useEffect } from "react";
 import { GetServerSideProps } from "next";
 import CSPHead from "core-library/components/CSPHead";
 
@@ -23,6 +28,9 @@ const PaymentSuccess: React.FC<Props> = ({
 }) => {
   const router = useRouter();
   const [confirmValue] = useConfirmedIntent();
+  const [, , clearPaymentIntent] = usePaymentIntentId();
+  const [, , clearOrderNumber] = useOrderNumber();
+  const [, , clearSecretClient] = useSecretClient();
 
   const returnLogin = () => router.push((route) => route.login);
 
@@ -41,6 +49,12 @@ const PaymentSuccess: React.FC<Props> = ({
       </div>
     );
   }
+
+  useEffect(() => {
+    clearOrderNumber();
+    clearPaymentIntent();
+    clearSecretClient();
+  }, [success, confirmValue]);
 
   return (
     <>
