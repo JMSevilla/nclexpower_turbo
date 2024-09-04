@@ -7,7 +7,6 @@ import {
   useSecretClient,
   useOrderNumber,
   usePaymentIntentId,
-  useEmail,
 } from "../../../contexts/auth/hooks";
 import { renderHook } from "../../common";
 
@@ -32,11 +31,6 @@ describe("Custom session storage hooks", () => {
       "accessToken",
       undefined
     );
-  });
-
-  it("should call useSessionStorage for useEmail with correct arguments", () => {
-    renderHook(() => useEmail());
-    expect(mockUseSessionStorage).toHaveBeenCalledWith("email", undefined);
   });
 
   it("should call useSessionStorage for useRefreshToken with correct arguments", () => {
