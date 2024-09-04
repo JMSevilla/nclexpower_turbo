@@ -1,5 +1,5 @@
 import React from "react";
-import { AnimatedBoxSkeleton } from "core-library/components";
+import { AnimatedBoxSkeleton } from "../../../../../../../../../../../../components";
 import { Box, Grid } from "@mui/material";
 
 export const QuestionTypeSelectionLoader: React.FC = () => {
