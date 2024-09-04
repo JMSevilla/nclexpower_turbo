@@ -40,31 +40,6 @@ jest.mock("../../../contexts", () => ({
   }),
 }));
 
-// jest.mock(
-//   "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/utils/convertToCreateRegularType",
-//   () => ({
-//     convertToCreateRegularType: jest.fn().mockReturnValue({
-//       email: "mock@example.com",
-//       contentDto: {
-//         type: "mockType",
-//         mainType: "mockMainType",
-//         mainContentCollectionsDtos: [
-//           {
-//             cognitiveLevel: "Mock Level",
-//             clientNeeds: "Mock Needs",
-//             contentArea: "Mock Area",
-//             question: "Mock Question",
-//             mainContentAnswerCollectionDtos: [
-//               { answer: "Mock Answer 1", answerKey: true },
-//               { answer: "Mock Answer 2", answerKey: false },
-//             ],
-//           },
-//         ],
-//       },
-//     }),
-//   })
-// );
-
 describe("QuestionSummary Component", () => {
   const mockNextStep = jest.fn();
   const mockPreviousStep = jest.fn();
