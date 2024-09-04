@@ -25,6 +25,8 @@ interface Props {
   previousStep(): void;
   values: Partial<ContainedRegularQuestionType>;
   next: () => void;
+  previous: () => void;
+  reset: () => void;
 }
 
 export const CreateRegularQuestion: React.FC<Props> = ({
@@ -32,20 +34,19 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   previousStep,
   values,
   next,
+  previous,
+  reset,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [questionnaireAtom, setQuestionnireAtom] = useAtom(CreateRegularAtom);
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [isCurrentPage, setIsCurrentPage] = useState(false);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3000); // 3000 milliseconds = 3 seconds
-
-  //   // Cleanup the timeout if the component is unmounted before the timeout is completed
-  //   return () => clearTimeout(timer);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   const {
     appendQuestionnaire,
@@ -136,6 +137,8 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const handlePrevious = () => {
     previousStep();
+    previous();
+    reset();
   };
 
   useEffect(() => {
@@ -194,7 +197,6 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           flexDirection={"column"}
           borderRadius={2}
           p={4}
-          className="w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10"
         >
           <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
             <Button
@@ -281,11 +283,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           showFirstButton
           showLastButton
         />
-        <Button
-          onClick={confirmCreation(handleContinue)}
-          disabled={!isValid}
-          className="bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150"
-        >
+        <Button onClick={confirmCreation(handleContinue)} disabled={!isValid}>
           Continue
         </Button>
       </Box>
