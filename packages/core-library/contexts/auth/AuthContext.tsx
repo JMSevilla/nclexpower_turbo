@@ -8,13 +8,8 @@ import {
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
-import {
-  useAccessToken,
-  useAccountId,
-  useRefreshToken,
-  useEmail,
-} from "./hooks";
-import { useApiCallback } from "../../hooks";
+import { useAccessToken, useAccountId, useRefreshToken } from "./hooks";
+import { useApiCallback, useSensitiveInformation } from "../../hooks";
 import {
   internalAccountType,
   LoginParams,
@@ -67,12 +62,17 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
   const [accountId, setAccountId] = useAccountId();
-  const [email, setEmail] = useEmail();
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
   const [, , clearAccessToken] = useAccessToken();
   const [, , clearRefreshToken] = useRefreshToken();
+  const [, , clearAccountID] = useAccountId();
+  const {
+    customer,
+    internal,
+    loading: dataloading,
+  } = useSensitiveInformation();
 
   const loginCb = useApiCallback((api, data: LoginParams) =>
     api.auth.login(data)
@@ -90,7 +90,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
       await api.auth.web_create_internal_account(args)
   );
   const loading =
-    loginCb.loading || registerCb.loading || internalAccountCb.loading;
+    loginCb.loading ||
+    registerCb.loading ||
+    internalAccountCb.loading ||
+    dataloading;
 
   useEffect(() => {
     setIsAuthenticated(!!accessToken);
@@ -101,27 +104,30 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   }, [isAuthenticated]);
 
   const logout = useCallback(async () => {
+    if (typeof internal === "undefined" || typeof customer === "undefined")
+      return;
+
     try {
-      if (refreshToken && accessToken) {
+      if (refreshToken && accessToken && accountId) {
         await revokeCb.execute({
           accessToken: accessToken,
           refreshToken: refreshToken,
           appName: config.value.BASEAPP,
-          email: email ?? "no-email",
+          email: internal.email || customer.email || "",
         });
-
-        setIsAuthenticated(false);
-        clearCookies();
-        clearAccessToken();
-        clearRefreshToken();
-        clearSingleCookie();
-
-        setTimeout(() => {
-          router.push((route) => route.login);
-        }, 100);
       }
-    } catch (e) {}
-  }, [refreshToken, accessToken, revokeCb, router]);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsAuthenticated(false);
+      clearCookies();
+      clearAccessToken();
+      clearRefreshToken();
+      clearSingleCookie();
+      clearAccountID();
+      await router.push((route) => route.login);
+    }
+  }, [refreshToken, accessToken, accountId, loading, customer, internal]);
 
   return (
     <context.Provider
@@ -135,7 +141,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               password,
               appName: config.value.BASEAPP,
             });
-            setEmail(email);
+
             if (result.data.is2FaEnabled) {
               const prepareVerification = {
                 email: email,
@@ -193,7 +199,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setAccessToken,
           setRefreshToken,
           setSingleCookie,
-          setEmail,
         }),
         [
           isAuthenticated,
