@@ -25,7 +25,7 @@ export const ChooseQuestionTypeStep = {
   InitialQuestionTypeSelection: {
     previousStep: "InitialQuestionTypeSelection",
     nextStep: "CreateRegularQuestion",
-    content: (props) => <QuestionSummary {...props} />,
+    content: (props) => <QuestionTypeSelection {...props} />,
   },
   CreateRegularQuestion: {
     previousStep: "InitialQuestionTypeSelection",

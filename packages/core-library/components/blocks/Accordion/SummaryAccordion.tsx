@@ -38,6 +38,7 @@ export const SummaryAccordion: React.FC<Props> = ({ item, type, index }) => {
   return (
     <div>
       <Accordion
+        data-testid="summary-accordion"
         key={index}
         expanded={expanded === `panel${index}`}
         onChange={handleChange(`panel${index}`)}

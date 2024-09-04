@@ -12,66 +12,40 @@ import { useAtom } from "jotai";
 import { CreateRegularAtom } from "../../useAtomic";
 import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
 import { MainContentCollectionsDtos } from "../../../../../../../../../../../../api/types";
-import { CreateQuestionLoader } from "./loader";
+import { SummaryAccordionLoader } from "./loader";
+import { useSensitiveInformation } from "../../../../../../../../../../../../hooks";
+import { convertToCreateRegularType } from "../../utils/convertToCreateRegularType";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
   previousStep(): void;
   next: () => void;
+  previous: () => void;
 }
 
 export const QuestionSummary: React.FC<Props> = ({
   nextStep,
   previousStep,
   next,
+  previous,
 }) => {
   const [loading, setLoading] = useState(true);
   const [questionnaireAtom] = useAtom(CreateRegularAtom);
 
   const { businessQueryCreateRegularQuestion } = useBusinessQueryContext();
   const { mutateAsync, isLoading } = businessQueryCreateRegularQuestion();
+  const { internal } = useSensitiveInformation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setLoading(false);
-    }, 3000); // 3000 milliseconds = 3 seconds
-
-    // Cleanup the timeout if the component is unmounted before the timeout is completed
-    return () => clearTimeout(timer);
+    }, 3000);
   }, []);
-
-  const convertToCreateRegularType = (
-    containedRegularQuestion: ContainedRegularQuestionType
-  ) => {
-    const mainContentCollectionsDtos: MainContentCollectionsDtos[] = (
-      containedRegularQuestion.questionnaires || []
-    ).map((item) => ({
-      cognitiveLevel: item.cognitiveLevel,
-      clientNeeds: item.clientNeeds,
-      contentArea: item.contentArea,
-      question: item.question,
-      mainContentAnswerCollectionDtos: (item.answers || []).map(
-        (answerItem) => ({
-          answer: answerItem.answer,
-          answerKey: answerItem.answerKey as boolean,
-        })
-      ),
-    }));
-
-    return {
-      email: "test@testaccount.com",
-      contentDto: {
-        type: containedRegularQuestion.type,
-        mainType: containedRegularQuestion.main_type,
-        mainContentCollectionsDtos: mainContentCollectionsDtos,
-      },
-    };
-  };
 
   async function onSubmit() {
     if (questionnaireAtom) {
       const res = await mutateAsync(
-        convertToCreateRegularType(questionnaireAtom)
+        convertToCreateRegularType(questionnaireAtom, internal)
       );
       if (res.data === 200) {
         nextStep({});
@@ -81,7 +55,7 @@ export const QuestionSummary: React.FC<Props> = ({
   }
 
   if (loading) {
-    return <CreateQuestionLoader />;
+    return <SummaryAccordionLoader />;
   }
 
   return (
@@ -117,7 +91,7 @@ export const QuestionSummary: React.FC<Props> = ({
           </Typography>
           <Alert
             severity="info"
-            title="By clicking the Continue button, you will send the information you have entered."
+            title="Please ensure all information is accurate before proceeding."
           />
         </Box>
       </Box>
