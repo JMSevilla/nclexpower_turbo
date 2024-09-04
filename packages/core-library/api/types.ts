@@ -40,6 +40,7 @@ export interface LoginResponse {
   responseCode: number | undefined;
   is2FaEnabled: boolean;
   twoFactorCodeExpiryTime: string;
+  accountId: string;
 }
 
 export interface RefreshTokenResponse {
@@ -253,6 +254,12 @@ export type ValidateTokenParams = {
   appName: string;
 };
 
+export type ValidateTokenizeParams = {
+  accessToken: string | undefined;
+  appName: string;
+  accountId: string;
+};
+
 export type RegularQuestionTypeParams = {
   questionType: string;
   description: string;
@@ -296,9 +303,40 @@ export type credentialsType = {
   id: string;
   username: string;
   password: string;
-}
+};
 
-export type tokenizeInformationType = { 
+export type tokenizeInformationType = {
+  id: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgurl: string;
+};
+
+export type accessGroupType = {
+  id: string;
+  accessLevel: number;
+};
+
+export type GetAllInternalAccount = {
+  id: string;
+  credentialsId: string;
+  credentials: credentialsType[];
+  tokenizeInformationId: string;
+  tokenizeInformation: tokenizeInformationType[];
+  accessGroupId: string;
+  accessGroup: accessGroupType[];
+  accountStatusEnum: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export interface SensitiveInformations {
+  tokenizeInformation: TokenizeInformations;
+  customerTokenizationInformation: CustomerTokenizeInformations;
+}
+export interface TokenizeInformations {
   id: string;
   firstname: string;
   middlename: string;
@@ -307,20 +345,11 @@ export type tokenizeInformationType = {
   imgurl: string;
 }
 
-export type accessGroupType = {
+export interface CustomerTokenizeInformations {
   id: string;
-  accessLevel: number;
-}
-
-export type GetAllInternalAccount = {
-  id: string;
-  credentialsId: string;
-  credentials: credentialsType[];
-  tokenizeInformationId: string;
-  tokenizeInformation: tokenizeInformationType[];
-  accessGroupId: string; 
-  accessGroup: accessGroupType[];
-  accountStatusEnum: number;
-  createdAt: string;
-  updatedAt: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgUrl: string;
 }
