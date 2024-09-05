@@ -66,7 +66,6 @@ const ContinueModalContent: React.FC<Props> = ({
           Cancel
         </Button>
         <Button
-          data-testid="submit-button"
           loading={isLoading}
           onClick={handleSubmit}
           size="medium"
