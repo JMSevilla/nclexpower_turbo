@@ -10,7 +10,12 @@ import React, {
 import { loadStripe } from "@stripe/stripe-js";
 import { CreatePaymentIntentParams } from "../../api/types";
 import { useBusinessQueryContext } from "../BusinessQuery";
-import { useCheckoutIntent } from '../auth/hooks';
+import {
+  useCheckoutIntent,
+  useOrderNumber,
+  usePaymentIntentId,
+  useSecretClient,
+} from "../auth/hooks";
 
 interface Props {
   publishableKey: string;
@@ -18,10 +23,10 @@ interface Props {
 
 const context = createContext<{
   stripePromise: Promise<Stripe | null> | null;
-  clientSecret: string | null;
-  paymentIntentId: string | null;
+  clientSecret: string | undefined;
+  paymentIntentId: string | undefined;
   isLoading: boolean;
-  orderNumber: string | null;
+  orderNumber: string | undefined;
   createPaymentIntentWithClientSecret(
     params: CreatePaymentIntentParams
   ): Promise<void>;
@@ -41,15 +46,15 @@ export const StripeContextProvider: React.FC<
   const { businessQueryCreatePaymentIntent, businessQueryGetOrderNumber } =
     useBusinessQueryContext();
   const { mutateAsync, isLoading } = businessQueryCreatePaymentIntent();
-  const [, setCheckoutIntent] = useCheckoutIntent()
+  const [, setCheckoutIntent] = useCheckoutIntent();
   const {
     data: dataOrderNumber,
     refetch: refetchOrderNumber,
     isLoading: orderNumberLoading,
   } = businessQueryGetOrderNumber(["getOrderNumber"]);
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
-  const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [clientSecret, setClientSecret] = useSecretClient();
+  const [paymentIntentId, setPaymentIntentId] = usePaymentIntentId();
+  const [orderNumber, setOrderNumber] = useOrderNumber();
   const [stripePromise, setStripePromise] =
     useState<Promise<Stripe | null> | null>(null);
 
@@ -63,11 +68,10 @@ export const StripeContextProvider: React.FC<
     params: CreatePaymentIntentParams
   ) {
     const result = await mutateAsync({ ...params });
-    setCheckoutIntent(result.data.paymentIntentId)
+    setCheckoutIntent(result.data.paymentIntentId);
     setClientSecret(result.data.clientSecret);
     setPaymentIntentId(result.data.paymentIntentId);
   }
-
 
   async function getOrderNumber() {
     if (!orderNumber) {
@@ -76,6 +80,7 @@ export const StripeContextProvider: React.FC<
   }
 
   useEffect(() => {
+    if (typeof dataOrderNumber === "undefined") return;
     setOrderNumber(dataOrderNumber);
   }, [dataOrderNumber]);
 
@@ -105,7 +110,7 @@ export const StripeContextProvider: React.FC<
       {stripePromise && clientSecret ? (
         <Elements
           stripe={stripePromise}
-          options={{ clientSecret, loader: "never" }}
+          options={{ clientSecret, loader: "auto" }}
         >
           {children}
         </Elements>

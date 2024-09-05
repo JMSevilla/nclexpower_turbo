@@ -1,8 +1,14 @@
 import React from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Card, Grid } from "@mui/material";
+import { Button } from "core-library/components";
 import { TextField } from "core-library/components";
 import { ContactFormType } from "./validation";
-import { Control, UseFormHandleSubmit } from "react-hook-form";
+import { Control, UseFormHandleSubmit  } from "react-hook-form";
+import { ContactMock } from "@/core/constant/ContactPageMock/ContactMock";
+import { SocialMediaMock } from "@/core/constant/ContactPageMock/SocialMediaMock";
+import Image from "next/image";
+import Link from "next/link";
+import { ContactIcon } from "core-library/assets";
 
 interface FormValues {
   control: Control<ContactFormType>;
@@ -16,73 +22,90 @@ export const ContactForm: React.FC<FormValues> = ({
   onSubmit,
 }) => {
   return (
-    <section className="w-full h-screen flex items-center justify-center">
-      <div className="absolute w-full h-screen z-0 bg-pricing "></div>
-      <Grid container sx={{ width: "60%", zIndex: 1 }}>
-        <Grid item xl={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
-          <div className="flex items-center p-12 justify-center flex-col bg-white border rounded-md">
-            <div className="text-center mb-5">
-              <Typography
-                variant="h3"
-                component="span"
-                sx={{
-                  color: "#007AB7",
-                  fontFamily: "Poppins",
-                  fontWeight: "bold",
-                }}
+    <>
+    <Box className='relative flex justify-center lg:mt-[-180px] mb-20'>
+      <Card className="h-auto w-full lg:w-[1120px] flex flex-col lg:flex-row bg-white justify-between drop-shadow-md" sx={{borderRadius: '20px'}}>
+        <div className="flex flex-col w-full lg:w-1/2 bg-white p-6 sm:p-8 lg:p-16">
+          <p className="text-xl sm:text-2xl lg:text-3xl font-bold font-ptSans text-[#232323]">
+            Send us a <span className="text-xl sm:text-2xl lg:text-3xl font-bold font-ptSans text-darkBlue">message</span>
+          </p>
+          <p className="text-sm sm:text-md lg:text-lg font-normal font-ptSans text-darkGray mt-2">
+            Fill out the form below, and we’ll get back to you soon.
+          </p>
+          
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid item xs={12} sx={{ marginY: 1, display: "flex", gap: 1 }}>
+              <TextField
+                name="name"
+                control={control}
+                placeholder="Name"
+                sx={{borderRadius: '5px'}}
+              />
+            </Grid>
+            <Grid item xs={12} sx={{ marginY: 1, display: "flex", gap: 1 }}>
+              <TextField
+                name="email"
+                control={control}
+                placeholder="Email"
+                sx={{borderRadius: '5px'}}
+              />
+            </Grid>
+            <Grid item xs={12} sx={{ marginY: 1, display: "flex", gap: 1 }}>
+              <TextField
+                name="phone"
+                control={control}
+                placeholder="Phone"
+                sx={{borderRadius: '5px'}}
+              />
+            </Grid>
+            <Grid item xs={12} sx={{ marginY: 2 }}>
+              <TextField
+                multiline
+                rows={5}
+                control={control}
+                name="message"
+                placeholder="Message..."
+                sx={{borderRadius: '5px'}}
+              />
+            </Grid>
+            <Grid item xs={12} sx={{ marginTop: 4 }}>
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                variant="contained"
+                fullWidth
+                sx={{ px: 4, py: 2, backgroundColor: "#0F2A71"}}
               >
-                Connect with us
-              </Typography>
-              <p>The NCLEX team would love to hear from you.</p>
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-              <Grid item lg={12} sx={{ marginY: 2, display: "flex", gap: 1 }}>
-                <TextField
-                  name="firstName"
-                  control={control}
-                  label="First Name"
-                />
-                <TextField
-                  name="lastName"
-                  control={control}
-                  label="Last Name"
-                />
-              </Grid>
-              <Grid item lg={12} sx={{ marginY: 2 }}>
-                <TextField name="email" control={control} label="Email" />
-              </Grid>
-              <Grid item lg={12} sx={{ marginY: 2 }}>
-                <TextField
-                  multiline
-                  rows={5}
-                  control={control}
-                  name="message"
-                  label="Message"
-                  placeholder="Kindly enter your message here..."
-                />
-              </Grid>
-              <Box
-                sx={{
-                  gridColumn: "span 10",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 4,
-                }}
-              >
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  color="primary"
-                  sx={{ px: 4, py: 2 }}
-                >
-                  Submit
-                </Button>
-              </Box>
-            </form>
+                Submit
+              </Button>
+            </Grid>
+          </form>
+        </div>
+
+        <div className="flex flex-col w-full lg:w-1/2 bg-hoverBlue p-6 sm:p-8 lg:p-16 space-y-6 sm:space-y-8 lg:space-y-16 relative">
+          <p className="text-xl sm:text-2xl lg:text-3xl font-bold font-ptSans text-white">
+            Contact Info
+          </p>
+          <div className="flex flex-col gap-6 sm:gap-8">
+            {ContactMock.map((item, index) => (
+              <div className="flex gap-4 sm:gap-8 items-center" key={index}>
+                <Image src={item.icon} alt={item.title} width={24} height={32}/>
+                <p className="text-sm sm:text-md lg:text-xl text-white font-normal break-normal">
+                  {item.subTitle}
+                </p>
+              </div>
+            ))}
           </div>
-        </Grid>
-      </Grid>
-    </section>
+          <div className="flex gap-4 sm:gap-8">
+            {SocialMediaMock.map((item, index) => (
+              <Link href={item.link} key={index} target="_blank" rel="noopener noreferrer">
+                <Image src={item.icon} alt={item.title} width={24} height={24} />
+              </Link>
+            ))}
+          </div>
+          <Image src={ContactIcon} alt="Contact Icon" className="absolute bottom-0 right-0 hidden sm:block"/>
+        </div>
+      </Card>
+    </Box>
+  </>
   );
 };

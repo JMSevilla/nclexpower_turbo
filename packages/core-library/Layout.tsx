@@ -45,16 +45,12 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
           <NotificationsContextProvider>
             <Box minHeight="100vh" display="flex" flexDirection="column">
               <Header
-                onLogout={() => { }}
+                onLogout={() => {}}
                 tenant={tenant}
                 menu={contentData.menu}
                 pageKey={contentData.page?.pageKey?.value}
               />
-              <PageContainer
-                stickOut={contentData.page?.showAsStickOut?.value}
-                loading={contentData.loading}
-                page={contentData.page}
-              >
+              <PageContainer stickOut={contentData.page?.showAsStickOut?.value}>
                 <LoadablePageContent
                   page={contentData.page}
                   loading={contentData.loading}
