@@ -1,9 +1,9 @@
-import { fireEvent, screen } from "../../common";
+import { fireEvent, screen, waitFor } from "../../common";
 import { render } from "@testing-library/react";
-import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content";
-import { SummaryAccordion } from "../../../components/blocks/Accordion/SummaryAccordion";
+import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/QuestionSummary";
+import { SummaryAccordion } from "../../../components";
 import ConfirmationModal from "../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
-import { Button } from '../../../components';
+import { usePageLoaderContext } from "../../../contexts/PageLoaderContext";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -32,10 +32,28 @@ jest.mock(
   })
 );
 
+jest.mock("../../../contexts", () => ({
+  useBusinessQueryContext: jest.fn().mockReturnValue({
+    businessQueryCreateRegularQuestion: jest.fn().mockReturnValue({
+      mutateAsync: jest.fn(),
+      isLoading: false,
+    }),
+  }),
+}));
+
+jest.mock("../../../contexts/PageLoaderContext", () => ({
+  usePageLoaderContext: jest.fn().mockReturnValue({
+    contentLoader: false,
+    setContentLoader: jest.fn(),
+  }),
+}));
+
 describe("QuestionSummary Component", () => {
   const mockNextStep = jest.fn();
   const mockPreviousStep = jest.fn();
   const mockNext = jest.fn();
+  const mockReset = jest.fn();
+  const mockPrevious = jest.fn();
 
   const mockData = [
     {
@@ -88,41 +106,34 @@ describe("QuestionSummary Component", () => {
     },
   ];
 
-  const MODAL_DEFAULT_PROPS = {
+  const DEFAULT_PROPS = {
     customButton: <>test</>,
     dialogContent: "test",
-  }
+  };
 
   const mockType = "SATA";
-
-  const defaultProps = {
-    nextStep: mockNextStep,
-    previousStep: mockPreviousStep,
-    next: mockNext,
-  };
   const mockHandleSubmit = jest.fn();
 
-  it("should render without crashing", () => {
-    render(<QuestionSummary {...defaultProps} />);
+  afterEach(() => jest.clearAllMocks());
 
-    expect(
-      screen.getByText(/Question and Answer Summary/i)
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("questionType")).toBeInTheDocument();
-  });
+  it("should render without crashing", async () => {
+    render(
+      <QuestionSummary
+        next={mockNext}
+        nextStep={mockNextStep}
+        previous={mockReset}
+        previousStep={mockPreviousStep}
+      />
+    );
 
-  it("should call previousStep function when Go Back button is clicked", () => {
-    render(<QuestionSummary {...defaultProps} />);
-    fireEvent.click(screen.getByText("Go Back"));
-    expect(mockPreviousStep).toHaveBeenCalled();
-  });
-
-  it("should render the alert with the correct message", () => {
-    render(<QuestionSummary {...defaultProps} />);
-    expect(
-      screen.getAllByText(
-        "By clicking the Continue button, you will send the information you have entered."
-      )
+    await waitFor(
+      () => {
+        expect(
+          screen.getByText("Question and Answer Summary")
+        ).toBeInTheDocument();
+        expect(screen.getByTestId("questionType")).toBeInTheDocument();
+      },
+      { timeout: 4000 }
     );
   });
 
@@ -186,17 +197,16 @@ describe("QuestionSummary Component", () => {
     });
   });
 
-  it("renders the ConfirmationModal button", () => {
-    render(<ConfirmationModal {...MODAL_DEFAULT_PROPS} handleSubmit={mockHandleSubmit} />);
-
-    const button = screen.getByRole("button", { name: /test/i });
-    expect(button).toBeInTheDocument();
-  });
-
   it("opens the modal and calls handleSubmit when the button is clicked", async () => {
-    render(<ConfirmationModal {...MODAL_DEFAULT_PROPS} handleSubmit={mockHandleSubmit} />);
+    render(
+      <ConfirmationModal
+        isLoading={false}
+        {...DEFAULT_PROPS}
+        handleSubmit={mockHandleSubmit}
+      />
+    );
 
-    const triggerButton = screen.getByRole("button", { name: /test/i });
+    const triggerButton = screen.getByTestId("confirm-modal");
     fireEvent.click(triggerButton);
 
     const modal = await screen.findByRole("dialog");

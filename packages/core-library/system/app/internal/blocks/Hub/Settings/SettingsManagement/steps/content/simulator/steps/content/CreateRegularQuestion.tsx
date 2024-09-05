@@ -7,7 +7,6 @@ import {
 } from "../../../../../../../../../../../../components";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { useAtom } from "jotai";
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Pagination, Typography } from "@mui/material";
@@ -17,13 +16,17 @@ import { ContainedRegularQuestionType } from "../../types";
 import { CreateRegularAtom } from "../../useAtomic";
 import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
 import { initQuestionsValues } from "../../../../../constants/constants";
-import ConfirmationModal from '../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog';
+import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+import { CreateQuestionLoader } from "./loader";
+import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
   previousStep(): void;
   values: Partial<ContainedRegularQuestionType>;
   next: () => void;
+  previous: () => void;
+  reset: () => void;
 }
 
 export const CreateRegularQuestion: React.FC<Props> = ({
@@ -31,10 +34,23 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   previousStep,
   values,
   next,
+  previous,
+  reset,
 }) => {
+  const { contentLoader, setContentLoader } = usePageLoaderContext();
   const [questionnaireAtom, setQuestionnireAtom] = useAtom(CreateRegularAtom);
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [isCurrentPage, setIsCurrentPage] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setContentLoader(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timeout);
+      setContentLoader(true);
+    };
+  }, []);
 
   const {
     appendQuestionnaire,
@@ -119,13 +135,14 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setQuestionnireAtom(values);
     if (isValid) {
       nextStep({ ...values });
-      next()
+      next();
     }
   };
 
   const handlePrevious = () => {
-    previousStep()
-  }
+    previousStep();
+    reset();
+  };
 
   useEffect(() => {
     updateValues();
@@ -134,6 +151,10 @@ export const CreateRegularQuestion: React.FC<Props> = ({
       selectedPageIndex !== questionnaireFields.length;
     setIsCurrentPage(isCurrentQuestionnaire);
   }, [selectedPageIndex]);
+
+  if (contentLoader) {
+    return <CreateQuestionLoader />;
+  }
 
   return (
     <Box padding={4}>
@@ -146,14 +167,12 @@ export const CreateRegularQuestion: React.FC<Props> = ({
         position="relative"
       >
         <ConfirmationModal
-          dialogContent='This action will reset all forms.'
+          dialogContent="This action will reset all forms."
           confirmButtonText="Confirm"
-          customButton={
-            <Button sx={{ zIndex: 2 }}>
-              <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
-              <Typography>Go Back</Typography>
-            </Button>}
-          handleSubmit={handlePrevious} />
+          isLoading={false}
+          customButton="Confirm"
+          handleSubmit={handlePrevious}
+        />
 
         <Box sx={{ position: "absolute", zIndex: 1 }} width={1}>
           <Typography variant="body2" fontWeight={600} textAlign="center">
@@ -176,7 +195,6 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           flexDirection={"column"}
           borderRadius={2}
           p={4}
-          className="w-full h-full flex flex-col shadow-md border border-slate-300 rounded-lg p-10"
         >
           <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
             <Button
@@ -263,11 +281,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           showFirstButton
           showLastButton
         />
-        <Button
-          onClick={confirmCreation(handleContinue)}
-          disabled={!isValid}
-          className="bg-[#37BEC7] hover:bg-[#2a98a0] py-5 w-44 text-sm text-white font-semibold rounded-xl leading-3 transition-colors duration-150"
-        >
+        <Button onClick={confirmCreation(handleContinue)} disabled={!isValid}>
           Continue
         </Button>
       </Box>

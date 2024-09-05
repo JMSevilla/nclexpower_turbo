@@ -17,6 +17,8 @@ export interface QuestionTypeStepProps {
   isLoading: boolean;
   next: () => void;
   previous: () => void;
+  reset: () => void;
+  resetStep: () => void;
 }
 
 export const ChooseQuestionTypeStep = {
@@ -37,6 +39,7 @@ export const ChooseQuestionTypeStep = {
   },
   SuccessPage: {
     previousStep: "QuestionSummary",
+    nextStep: "InitialQuestionTypeSelection",
     content: (props) => <SuccessPage {...props} />,
   },
 } as WizardFormMap<

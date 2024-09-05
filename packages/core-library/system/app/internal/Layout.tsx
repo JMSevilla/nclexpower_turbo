@@ -15,7 +15,8 @@ import {
 import { ContentLoader } from "../../../router";
 import { theme } from "../../../contents/theme/theme";
 import { NavigationType } from "../../../types/navigation";
-import { AccountSetupContextProvider } from '../../../contexts/AccountSetupContext';
+import { AccountSetupContextProvider } from "../../../contexts/AccountSetupContext";
+import { PageLoaderContextProvider } from "../../../contexts/PageLoaderContext";
 
 interface Props {
   mockMenu: NavigationType[];
@@ -50,13 +51,15 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({
                 >
                   <ContentLoader loading={loading}>
                     <PageContainer stickOut={false}>
-                      <ToastProvider>
-                        <ControlledToast
-                          autoClose={5000}
-                          hideProgressBar={false}
-                        />
-                        {children}
-                      </ToastProvider>
+                      <PageLoaderContextProvider>
+                        <ToastProvider>
+                          <ControlledToast
+                            autoClose={5000}
+                            hideProgressBar={false}
+                          />
+                          {children}
+                        </ToastProvider>
+                      </PageLoaderContextProvider>
                     </PageContainer>
                   </ContentLoader>
                 </DrawerLayout>
@@ -65,7 +68,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({
           </TabsContextProvider>
         </ThemeProvider>
       </AccountSetupContextProvider>
-    </QueryClientProvider >
+    </QueryClientProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ContainedRegularQuestionType } from "../../types";
 import { Box, Grid, Typography } from "@mui/material";
 import {
@@ -10,21 +10,58 @@ import ConfirmationModal from "../../../../../../../../../../../../components/Di
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { useAtom } from "jotai";
 import { CreateRegularAtom } from "../../useAtomic";
+import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
+import { SummaryAccordionLoader } from "./loader";
+import { useSensitiveInformation } from "../../../../../../../../../../../../hooks";
+import { convertToCreateRegularType } from "../../utils/convertToCreateRegularType";
+import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
   previousStep(): void;
   next: () => void;
+  previous: () => void;
 }
 
 export const QuestionSummary: React.FC<Props> = ({
   nextStep,
   previousStep,
   next,
+  previous,
 }) => {
   const [questionnaireAtom] = useAtom(CreateRegularAtom);
 
-  const onSubmit = () => {};
+  const { businessQueryCreateRegularQuestion } = useBusinessQueryContext();
+  const { mutateAsync, isLoading } = businessQueryCreateRegularQuestion();
+  const { internal } = useSensitiveInformation();
+
+  const { contentLoader, setContentLoader } = usePageLoaderContext();
+
+  useEffect(() => {
+    setContentLoader(true);
+    setTimeout(() => {
+      setContentLoader(false);
+    }, 3000);
+  }, []);
+
+  async function onSubmit() {
+    try {
+      if (questionnaireAtom) {
+        await mutateAsync(
+          convertToCreateRegularType(questionnaireAtom, internal)
+        );
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    } finally {
+      nextStep({});
+      next();
+    }
+  }
+
+  if (contentLoader) {
+    return <SummaryAccordionLoader />;
+  }
 
   return (
     <Grid
@@ -59,7 +96,7 @@ export const QuestionSummary: React.FC<Props> = ({
           </Typography>
           <Alert
             severity="info"
-            title="By clicking the Continue button, you will send the information you have entered."
+            title="Please ensure all information is accurate before proceeding."
           />
         </Box>
       </Box>
@@ -87,9 +124,11 @@ export const QuestionSummary: React.FC<Props> = ({
       </Box>
       <Box display="flex" justifyContent="end" width="100%" marginTop="20px">
         <ConfirmationModal
-          dialogContent='Are you sure you want to continue?'
-          customButton={<Button>Continue</Button>}
-          handleSubmit={onSubmit} />
+          dialogContent="Are you sure you want to continue?"
+          customButton="Continue"
+          handleSubmit={onSubmit}
+          isLoading={isLoading}
+        />
       </Box>
     </Grid>
   );

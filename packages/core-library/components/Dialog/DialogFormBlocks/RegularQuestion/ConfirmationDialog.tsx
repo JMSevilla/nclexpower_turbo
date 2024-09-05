@@ -3,15 +3,23 @@ import { Button } from "../../../Button/Button";
 import { DialogBox } from "../../DialogBox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box, Typography } from "@mui/material";
+import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 
 type Props = {
   onClick: () => void;
   handleSubmit: () => void;
   dialogContent: string;
   confirmButtonText?: string;
+  isLoading: boolean;
 };
 
-const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit, dialogContent, confirmButtonText }) => {
+const ContinueModalContent: React.FC<Props> = ({
+  onClick,
+  handleSubmit,
+  dialogContent,
+  confirmButtonText,
+  isLoading,
+}) => {
   return (
     <Box
       width="100%"
@@ -23,7 +31,7 @@ const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit, dialogCo
     >
       <ErrorOutlineIcon
         style={{
-          fontSize: "65px",
+          fontSize: "75px",
           color: "#FCC019",
         }}
       />
@@ -43,10 +51,32 @@ const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit, dialogCo
         gap="25px"
         marginTop="10px"
       >
-        <Button onClick={onClick} type="Secondary" size="medium">
+        <Button
+          onClick={onClick}
+          type="Secondary"
+          size="medium"
+          sx={{
+            height: "45px",
+            borderRadius: "10px",
+            marginTop: "10px",
+            width: "300px",
+            textTransform: "none",
+          }}
+        >
           Cancel
         </Button>
-        <Button onClick={handleSubmit} size="medium">
+        <Button
+          loading={isLoading}
+          onClick={handleSubmit}
+          size="medium"
+          sx={{
+            height: "45px",
+            borderRadius: "10px",
+            marginTop: "10px",
+            width: "300px",
+            textTransform: "none",
+          }}
+        >
           {confirmButtonText || "Submit"}
         </Button>
       </Box>
@@ -56,13 +86,18 @@ const ContinueModalContent: React.FC<Props> = ({ onClick, handleSubmit, dialogCo
 
 interface ConfirmationModalProps {
   handleSubmit: () => void;
-  customButton: React.ReactElement | React.ReactNode
+  customButton: React.ReactElement | React.ReactNode;
   dialogContent: string;
   confirmButtonText?: string;
+  isLoading: boolean;
 }
 
 export default function ConfirmationModal({
-  handleSubmit, dialogContent, customButton, confirmButtonText
+  handleSubmit,
+  dialogContent,
+  customButton,
+  confirmButtonText,
+  isLoading,
 }: ConfirmationModalProps) {
   const [open, setOpen] = useState(false);
 
@@ -71,7 +106,16 @@ export default function ConfirmationModal({
 
   return (
     <>
-      <Box onClick={handleClickOpen} role="button">{customButton}</Box>
+      <Box data-testid="confirm-modal" onClick={handleClickOpen} role="button">
+        {customButton == "Continue" ? (
+          <Button>Continue</Button>
+        ) : (
+          <Button sx={{ zIndex: 2 }}>
+            <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
+            <Typography>Go Back</Typography>
+          </Button>
+        )}
+      </Box>
       <DialogBox
         handleClose={handleClose}
         loading={false}
@@ -85,6 +129,7 @@ export default function ConfirmationModal({
           onClick={handleClose}
           handleSubmit={handleSubmit}
           confirmButtonText={confirmButtonText}
+          isLoading={isLoading}
         />
       </DialogBox>
     </>

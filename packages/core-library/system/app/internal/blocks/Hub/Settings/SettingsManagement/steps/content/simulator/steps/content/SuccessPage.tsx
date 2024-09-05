@@ -10,18 +10,12 @@ interface Props {
   previousStep(): void;
   values: Partial<ContainedRegularQuestionType>;
   next: () => void;
+  reset: () => void;
+  resetStep: () => void;
 }
 
-const MainButton = styled(Button)(({ theme }) => ({
-  padding: "4px",
-  marginX: "10px",
-  minHeight: "25vh",
-  borderRight: `2px solid ${theme.palette.primary.main}`,
-  justifyContent: "center",
-}));
-
 export const SuccessPage: React.FC<Props> = (props) => {
-  const { values, nextStep, next } = props;
+  const { values, nextStep, next, reset, resetStep } = props;
   const type_identifier =
     values.main_type == "Regular" ? "regular" : "case-study";
   const NextLocation =
@@ -32,7 +26,8 @@ export const SuccessPage: React.FC<Props> = (props) => {
 
   const handleCreateNew = () => {
     nextStep({});
-    next();
+    resetStep();
+    reset();
   };
 
   const handleGoToList = (value?: string) => {
@@ -61,14 +56,14 @@ export const SuccessPage: React.FC<Props> = (props) => {
       </Typography>
       <Box display="flex" gap="16px">
         <Button
+          type="Secondary"
           data-testid="create-new"
           onClick={() => handleGoToList(NextLocation)}
           sx={{
-            backgroundColor: "#7222B1",
             height: "45px",
             borderRadius: "10px",
             marginTop: "10px",
-            width: "250px",
+            width: "300px",
             textTransform: "none",
           }}
         >
@@ -82,7 +77,7 @@ export const SuccessPage: React.FC<Props> = (props) => {
             height: "45px",
             borderRadius: "10px",
             marginTop: "10px",
-            width: "250px",
+            width: "300px",
             textTransform: "none",
           }}
         >
