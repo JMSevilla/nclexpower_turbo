@@ -7,7 +7,7 @@ import {
 } from "../../../../../../../../../../../../components";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
+import { useAtom } from "jotai";
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Pagination, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
@@ -19,6 +19,8 @@ import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
 import { initQuestionsValues } from "../../../../../constants/constants";
 import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { CreateQuestionLoader } from "./loader";
+import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
+import { CreateRegularAtom } from "../../useAtomic";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -37,15 +39,19 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   previous,
   reset,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const { contentLoader, setContentLoader } = usePageLoaderContext();
   const [questionnaireAtom, setQuestionnireAtom] = useAtom(CreateRegularAtom);
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [isCurrentPage, setIsCurrentPage] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
+    const timeout = setTimeout(() => {
+      setContentLoader(false);
     }, 3000);
+    return () => {
+      clearTimeout(timeout);
+      setContentLoader(true);
+    };
   }, []);
 
   const {
@@ -132,7 +138,6 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const handlePrevious = () => {
     previousStep();
-    previous();
     reset();
   };
 
@@ -144,7 +149,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
     setIsCurrentPage(isCurrentQuestionnaire);
   }, [selectedPageIndex]);
 
-  if (isLoading) {
+  if (contentLoader) {
     return <CreateQuestionLoader />;
   }
 
@@ -162,12 +167,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           dialogContent="This action will reset all forms."
           confirmButtonText="Confirm"
           isLoading={false}
-          customButton={
-            <Button sx={{ zIndex: 2 }}>
-              <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
-              <Typography>Go Back</Typography>
-            </Button>
-          }
+          customButton="Confirm"
           handleSubmit={handlePrevious}
         />
 
