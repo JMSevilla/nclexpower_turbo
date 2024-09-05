@@ -299,6 +299,13 @@ export type GetCategoryType = {
   updatedAt: string;
 };
 
+export type RevokeParams = {
+  accessToken: string;
+  refreshToken: string;
+  appName: string;
+  email: string;
+};
+
 export type credentialsType = {
   id: string;
   username: string;
