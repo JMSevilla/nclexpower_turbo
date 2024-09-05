@@ -190,8 +190,8 @@ export class WebApiBackOffice {
     );
   }
 
-  public createRegularQuestion(params: CreateRegularType ) {
-    return this.axios.post(
+  public async createRegularQuestion(params: CreateRegularType ) {
+    return await this.axios.post<number>(
       `/api/v2/content/baseContent/create-content`,
       params
     );
