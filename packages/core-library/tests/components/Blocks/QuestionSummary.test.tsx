@@ -197,19 +197,6 @@ describe("QuestionSummary Component", () => {
     });
   });
 
-  // it("renders the ConfirmationModal button", () => {
-  //   render(
-  //     <ConfirmationModal
-  //       isLoading={false}
-  //       {...DEFAULT_PROPS}
-  //       handleSubmit={mockHandleSubmit}
-  //     />
-  //   );/
-
-  //   const button = screen.getByTestId("submit-button");
-  //   expect(button).toBeInTheDocument();
-  // });
-
   it("opens the modal and calls handleSubmit when the button is clicked", async () => {
     render(
       <ConfirmationModal
