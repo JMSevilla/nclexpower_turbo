@@ -30,31 +30,17 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <CacheProvider value={cache}>
-      <CookiesProvider>
-        {config.value.COOKIE_SCRIPT_URL &&
-          config.value.COOKIE_DOMAIN_SCRIPT && (
-            <>
-              <Script
-                type="text/javascript"
-                strategy="beforeInteractive"
-                src={config.value.COOKIE_SCRIPT_URL}
-                data-domain-script={config.value.COOKIE_DOMAIN_SCRIPT}
-              />
-              <Script type="text/javascript">{`function OptanonWrapper() {}`}</Script>
-            </>
-          )}
-        <Head>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </Head>
-        <Page>
-          <Suspense>
-            <Component {...pageProps} />
-          </Suspense>
-        </Page>
-      </CookiesProvider>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <Page>
+        <Suspense>
+          <Component {...pageProps} />
+        </Suspense>
+      </Page>
     </CacheProvider>
   );
 }
