@@ -127,7 +127,6 @@ export const QuestionSummary: React.FC<Props> = ({
           dialogContent="Are you sure you want to continue?"
           customButton="Continue"
           handleSubmit={onSubmit}
-          data-testid="confirm-modal"
           isLoading={isLoading}
         />
       </Box>
