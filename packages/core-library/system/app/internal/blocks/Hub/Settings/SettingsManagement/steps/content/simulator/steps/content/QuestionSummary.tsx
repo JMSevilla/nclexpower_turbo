@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ContainedRegularQuestionType } from "../../types";
 import { Box, Grid, Typography } from "@mui/material";
 import {
@@ -11,10 +11,10 @@ import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { useAtom } from "jotai";
 import { CreateRegularAtom } from "../../useAtomic";
 import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
-import { MainContentCollectionsDtos } from "../../../../../../../../../../../../api/types";
 import { SummaryAccordionLoader } from "./loader";
 import { useSensitiveInformation } from "../../../../../../../../../../../../hooks";
 import { convertToCreateRegularType } from "../../utils/convertToCreateRegularType";
+import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -29,32 +29,37 @@ export const QuestionSummary: React.FC<Props> = ({
   next,
   previous,
 }) => {
-  const [loading, setLoading] = useState(true);
   const [questionnaireAtom] = useAtom(CreateRegularAtom);
 
   const { businessQueryCreateRegularQuestion } = useBusinessQueryContext();
   const { mutateAsync, isLoading } = businessQueryCreateRegularQuestion();
   const { internal } = useSensitiveInformation();
 
+  const { contentLoader, setContentLoader } = usePageLoaderContext();
+
   useEffect(() => {
+    setContentLoader(true);
     setTimeout(() => {
-      setLoading(false);
+      setContentLoader(false);
     }, 3000);
   }, []);
 
   async function onSubmit() {
-    if (questionnaireAtom) {
-      const res = await mutateAsync(
-        convertToCreateRegularType(questionnaireAtom, internal)
-      );
-      if (res.data === 200) {
-        nextStep({});
-        next();
+    try {
+      if (questionnaireAtom) {
+        await mutateAsync(
+          convertToCreateRegularType(questionnaireAtom, internal)
+        );
       }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    } finally {
+      nextStep({});
+      next();
     }
   }
 
-  if (loading) {
+  if (contentLoader) {
     return <SummaryAccordionLoader />;
   }
 
@@ -120,8 +125,9 @@ export const QuestionSummary: React.FC<Props> = ({
       <Box display="flex" justifyContent="end" width="100%" marginTop="20px">
         <ConfirmationModal
           dialogContent="Are you sure you want to continue?"
-          customButton={<Button>Continue</Button>}
+          customButton="Continue"
           handleSubmit={onSubmit}
+          data-testid="confirm-modal"
           isLoading={isLoading}
         />
       </Box>
