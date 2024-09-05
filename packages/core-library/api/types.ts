@@ -322,6 +322,13 @@ export type CreateRegularType = {
     mainContentCollectionsDtos: MainContentCollectionsDtos[]
   }
 }
+export type RevokeParams = {
+  accessToken: string;
+  refreshToken: string;
+  appName: string;
+  email: string;
+};
+
 export type credentialsType = {
   id: string;
   username: string;

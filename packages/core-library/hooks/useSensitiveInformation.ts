@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAccessToken, useAccountId } from "../contexts/auth/hooks";
 import {
   CustomerTokenizeInformations,
@@ -37,13 +37,16 @@ export const useSensitiveInformation = () => {
   }
 
   useEffect(() => {
-    if (!accountId || !accessToken) return;
+    if (!accountId || !accessToken || !accountId) return;
     validateTokenizeInformation();
-  }, [accountId, accessToken]);
+  }, [accountId, accessToken, accountId]);
 
   return {
-    internal: internalInfo,
-    customer: customerInfo,
+    ...useMemo(() => ({
+      internal: internalInfo,
+      customer: customerInfo,
+    }), [internalInfo, customerInfo]),
     error,
+    loading: validateTokenizeCb.loading,
   };
 };
