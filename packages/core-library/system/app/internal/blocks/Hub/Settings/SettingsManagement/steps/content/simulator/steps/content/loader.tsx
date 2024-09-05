@@ -4,27 +4,25 @@ import { Box, Grid } from "@mui/material";
 
 export const QuestionTypeSelectionLoader: React.FC = () => {
   return (
-    <>
-      <Grid
-        sx={{ mt: 3 }}
-        container
-        rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      >
-        <Grid item xs={6}>
-          <AnimatedBoxSkeleton height={135} light={true} />
-        </Grid>
-        <Grid item xs={6}>
-          <AnimatedBoxSkeleton height={135} light={true} />
-        </Grid>
+    <Grid
+      sx={{ mt: 3 }}
+      container
+      rowSpacing={1}
+      columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+    >
+      <Grid item xs={6}>
+        <AnimatedBoxSkeleton height={135} light={true} />
       </Grid>
-    </>
+      <Grid item xs={6}>
+        <AnimatedBoxSkeleton height={135} light={true} />
+      </Grid>
+    </Grid>
   );
 };
 
 export const CreateQuestionLoader: React.FC = () => {
   return (
-    <>
+    <Grid>
       <Box
         marginTop="10px"
         paddingX="8px"
@@ -61,7 +59,6 @@ export const CreateQuestionLoader: React.FC = () => {
         </Box>
       </Box>
       <Box
-        //
         height="80px"
         display="flex"
         justifyContent="end"
@@ -86,13 +83,13 @@ export const CreateQuestionLoader: React.FC = () => {
           </Box>
         </Box>
       </Box>
-    </>
+    </Grid>
   );
 };
 
 export const SummaryAccordionLoader: React.FC = () => {
   return (
-    <>
+    <Grid>
       <Box
         marginTop="10px"
         paddingX="8px"
@@ -145,6 +142,6 @@ export const SummaryAccordionLoader: React.FC = () => {
           </Box>
         </Box>
       </Box>
-    </>
+    </Grid>
   );
 };

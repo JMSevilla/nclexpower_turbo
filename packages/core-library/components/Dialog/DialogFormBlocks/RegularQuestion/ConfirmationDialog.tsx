@@ -3,6 +3,7 @@ import { Button } from "../../../Button/Button";
 import { DialogBox } from "../../DialogBox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box, Typography } from "@mui/material";
+import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 
 type Props = {
   onClick: () => void;
@@ -65,6 +66,7 @@ const ContinueModalContent: React.FC<Props> = ({
           Cancel
         </Button>
         <Button
+          data-testid="submit-button"
           loading={isLoading}
           onClick={handleSubmit}
           size="medium"
@@ -105,8 +107,15 @@ export default function ConfirmationModal({
 
   return (
     <>
-      <Box onClick={handleClickOpen} role="button">
-        {customButton}
+      <Box data-testid="confirm-modal" onClick={handleClickOpen} role="button">
+        {customButton == "Continue" ? (
+          <Button>Continue</Button>
+        ) : (
+          <Button sx={{ zIndex: 2 }}>
+            <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
+            <Typography>Go Back</Typography>
+          </Button>
+        )}
       </Box>
       <DialogBox
         handleClose={handleClose}
