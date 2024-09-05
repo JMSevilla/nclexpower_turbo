@@ -40,15 +40,15 @@ export const QuestionTypeSelection: React.FC<Props> = ({
 
   const { contentLoader, setContentLoader } = usePageLoaderContext();
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setContentLoader(false);
-  //   }, 3000);
-  //   return () => {
-  //     clearTimeout(timeout);
-  //     setContentLoader(true);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setContentLoader(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timeout);
+      setContentLoader(true);
+    };
+  }, []);
 
   useEffect(() => {
     reset({
