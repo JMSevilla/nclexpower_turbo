@@ -9,7 +9,11 @@ import {
 import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
 import { useAccessToken, useAccountId, useRefreshToken } from "./hooks";
-import { useApiCallback, useSensitiveInformation } from "../../hooks";
+import {
+  useApiCallback,
+  useSensitiveInformation,
+  clearSession,
+} from "../../hooks";
 import {
   internalAccountType,
   LoginParams,
@@ -65,9 +69,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
-  const [, , clearAccessToken] = useAccessToken();
-  const [, , clearRefreshToken] = useRefreshToken();
-  const [, , clearAccountID] = useAccountId();
   const {
     customer,
     internal,
@@ -121,10 +122,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     } finally {
       setIsAuthenticated(false);
       clearCookies();
-      clearAccessToken();
-      clearRefreshToken();
       clearSingleCookie();
-      clearAccountID();
+      clearSession();
       await router.push((route) => route.login);
     }
   }, [refreshToken, accessToken, accountId, loading, customer, internal]);
