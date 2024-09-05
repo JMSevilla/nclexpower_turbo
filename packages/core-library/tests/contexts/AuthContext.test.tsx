@@ -85,12 +85,10 @@ describe("useAuthContext", () => {
 
     const mockClearCookies =
       require("../../hooks/useClearCookies").useClearCookies()[0];
-    const mockClearAccessToken =
-      require("../../contexts/auth/hooks").useAccessToken()[2];
-    const mockClearRefreshToken =
-      require("../../contexts/auth/hooks").useRefreshToken()[2];
     const mockClearSingleCookie =
       require("../../hooks/useCookie").useSingleCookie()[2];
+    const mockClearSession =
+      require("../../hooks/useSessionStorage").clearSession;
     const mockRouterPush = useRouter().push;
 
     jest.mock("../../hooks/useSensitiveInformation", () => ({
@@ -123,17 +121,15 @@ describe("useAuthContext", () => {
     });
 
     expect(mockClearCookies).toHaveBeenCalled();
-    expect(mockClearAccessToken).toHaveBeenCalled();
-    expect(mockClearRefreshToken).toHaveBeenCalled();
     expect(mockClearSingleCookie).toHaveBeenCalled();
+    expect(mockClearSession).toHaveBeenCalled();
     expect(mockRouterPush).toHaveBeenCalledWith(expect.any(Function));
   });
 
   it("should not redirect to login and not trigger logout if revoke callback is not called", async () => {
     const mockClearCookies = jest.fn();
-    const mockClearAccessToken = jest.fn();
-    const mockClearRefreshToken = jest.fn();
     const mockClearSingleCookie = jest.fn();
+    const mockClearSession = jest.fn();
     const mockRouterPush = jest.fn();
 
     const { result } = renderHook(() => useAuthContext(), {
@@ -147,9 +143,8 @@ describe("useAuthContext", () => {
     });
 
     expect(mockClearCookies).not.toHaveBeenCalled();
-    expect(mockClearAccessToken).not.toHaveBeenCalled();
-    expect(mockClearRefreshToken).not.toHaveBeenCalled();
     expect(mockClearSingleCookie).not.toHaveBeenCalled();
+    expect(mockClearSession).not.toHaveBeenCalled();
     expect(mockRouterPush).not.toHaveBeenCalled();
   });
 });
