@@ -301,27 +301,27 @@ export type GetCategoryType = {
   updatedAt: string;
 };
 
-export type MainContentAnswerCollectionDtos =  {
-  answer: string,
-  answerKey: boolean
-}
+export type MainContentAnswerCollectionDtos = {
+  answer: string;
+  answerKey: boolean;
+};
 
-export type  MainContentCollectionsDtos =    {
-  cognitiveLevel: string,
-  clientNeeds: string,
-  contentArea: string,
-  question: string,
-  mainContentAnswerCollectionDtos: MainContentAnswerCollectionDtos[]
-}
+export type MainContentCollectionsDtos = {
+  cognitiveLevel: string;
+  clientNeeds: string;
+  contentArea: string;
+  question: string;
+  mainContentAnswerCollectionDtos: MainContentAnswerCollectionDtos[];
+};
 
 export type CreateRegularType = {
-  email: string,
+  email: string;
   contentDto: {
-    type: string,
-    mainType: string,
-    mainContentCollectionsDtos: MainContentCollectionsDtos[]
-  }
-}
+    type: string;
+    mainType: string;
+    mainContentCollectionsDtos: MainContentCollectionsDtos[];
+  };
+};
 export type credentialsType = {
   id: string;
   username: string;

@@ -1,7 +1,10 @@
 import withAuth from "../../../core/utils/withAuth";
-import { HubBlock } from "./blocks/Hub/HubBlock";
-import { SettingsManagementPageBlock } from "./blocks/Hub/Settings/SettingsManagement/SettingsManagementPageBlock";
-import { LoginFormBlock } from "./blocks/LoginFormBlock/LoginFormBlock";
+import {
+  HubBlock,
+  LoginFormBlock,
+  SettingsManagementPageBlock,
+  QuestionApprovalBlock,
+} from "./blocks";
 import { ParseBlocksProps } from "./types";
 
 const ParseBlocks: React.FC<ParseBlocksProps> = (props) => {
@@ -15,6 +18,8 @@ const ParseBlocks: React.FC<ParseBlocksProps> = (props) => {
       return <HubBlock cards={cards} />;
     case "SettingsBlock":
       return <SettingsManagementPageBlock />;
+    case "QuestionApprovalBlock":
+      return <QuestionApprovalBlock />;
     default:
       return null;
   }
