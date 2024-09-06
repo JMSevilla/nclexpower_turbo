@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
-import { NextPage } from "next";
-import React, { ReactElement, ReactNode, Suspense } from "react";
+import React, { Suspense } from "react";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -12,26 +11,36 @@ import "./mui.css";
 import "../styles/password-strength-meter.css";
 import Page from "./shared/Page";
 import Head from "next/head";
+import { default as Router } from "next/router";
+import NProgress from "nprogress";
+import "core-library/styles/global.css";
+import "core-library/styles/nprogress.css";
+import { useEmotionCache } from "core-library/hooks";
+import Script from "next/script";
+import { CacheProvider } from "@emotion/react";
+import { CookiesProvider } from "react-cookie";
+import { config } from "core-library/config";
 
-export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
+export default function App({ Component, pageProps }: AppProps) {
+  const cache = useEmotionCache();
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <React.Fragment>
+    <CacheProvider value={cache}>
       <Head>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Page children={getLayout(<Component {...pageProps} />)} />
-    </React.Fragment>
+      <Page>
+        <Suspense>
+          <Component {...pageProps} />
+        </Suspense>
+      </Page>
+    </CacheProvider>
   );
 }
