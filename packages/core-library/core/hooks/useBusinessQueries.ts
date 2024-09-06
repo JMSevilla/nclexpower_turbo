@@ -5,7 +5,6 @@ import {
   CalcItemSelectResponseItem,
   ItemSelectTypes,
   RegularAnswer,
-  
 } from "../../types";
 import { AxiosError, AxiosResponse } from "axios";
 import { CategoryListResponse } from "../../types/category-response";
@@ -24,8 +23,6 @@ import {
   ReportedIssuesResponse,
   ThetaCalcScratchResponse,
   ReportIssueType,
-  GetAllInternalAccount,
-  CreateRegularType
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -450,36 +447,3 @@ export const useGetRegularQuestionDDCategory = (
     { staleTime: Infinity }
   );
 };
-
-export const useGetAllInternalAccounts = (
-  queryKey: string[]
-): UseQueryResult<GetAllInternalAccount[] | undefined, any> => {
-  const getAllInternalAccount = useApi((api) =>
-    api.webbackoffice.getAllInternalAccount()
-  );
-
-  return useQuery<ApiServiceErr>(
-    queryKey,
-    async () => {
-      const result = await getAllInternalAccount.execute();
-      return result.data;
-    },
-    { staleTime: Infinity }
-  );
-}
-
-export const useCreateRegularQuestion = (
-  opt?: MutOpt<AxiosResponse<number, AxiosError>>
-) => {
-  const CreateRegularQuestionCb = useApiCallback(
-    async (api, args: CreateRegularType) =>
-      await api.webbackoffice.createRegularQuestion(args)
-  );
-  return useAppMutation<
-    AxiosResponse<number, AxiosError>,
-    CreateRegularType
-  >(async (data) => {
-    const result = await CreateRegularQuestionCb.execute({ ...data });
-    return result;
-  }, opt);
-}

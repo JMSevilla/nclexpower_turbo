@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material";
 import {
   Button,
   MultipleSelectField,
-  SelectOption,
+  SelectIssueOption,
 } from "core-library/components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -34,7 +34,7 @@ export const ProductForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   useFormFocusOnError<ProductFormType>(formState.errors, setFocus);
 
   // mock inclusions
-  const inclusions: SelectOption[] = [
+  const inclusions: SelectIssueOption[] = [
     {
       label: "Inclusions 1 test",
       value: "Inclusions 1 test",

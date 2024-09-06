@@ -1,4 +1,9 @@
-import { HeaderTitleBlock, TextBlock, PanelBlock } from "../../components";
+import {
+  HeaderTitleBlock,
+  TextBlock,
+  PanelBlock,
+  LoginFormBlock,
+} from "../../components";
 import { appColorsFromPrimary } from "../theme/theme";
 import { Typography } from "@mui/material";
 import { CallToAction } from "../../types/common";

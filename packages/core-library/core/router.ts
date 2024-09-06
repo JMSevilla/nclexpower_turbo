@@ -11,8 +11,7 @@ type StaticRoutes = Record<
   | "login"
   | "account_verification_otp"
   | "account_forgot_password"
-  | "reset_link_success" //we can register all our static routes here.
-  | "about",
+  | "reset_link_success", //we can register all our static routes here.
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -23,7 +22,7 @@ type PathParameters = {
   query?: ParsedQuery<any>;
 };
 
-export const STATIC_ROUTES: StaticRoutes = {
+const STATIC_ROUTES: StaticRoutes = {
   home: "/",
   hub: "/hub",
   logout: "/logout",
@@ -33,7 +32,6 @@ export const STATIC_ROUTES: StaticRoutes = {
   account_verification_otp: "/account/verification/otp",
   account_forgot_password: "/account/forgot-password",
   reset_link_success: "/account/reset-link",
-  about: "/about",
 };
 
 const routeTitles: Record<string, string> = {
@@ -46,7 +44,6 @@ const routeTitles: Record<string, string> = {
   "/account/verification/otp": "Account Verification OTP",
   "/account/forgot-password": "Forgot Password",
   "/account/reset-link": "Reset Link Success",
-  "/about": "About",
 };
 
 export const useRouter = () => {
@@ -167,16 +164,15 @@ export const useRouter = () => {
       }
     };
   }
+
+  function routeUrl(path: string) {
+    return path === STATIC_ROUTES.home ||
+      path.includes("http://") ||
+      path.includes("https://")
+      ? path
+      : path;
+  }
 };
 
-
-export function routeUrl(path: string) {
-  return path === STATIC_ROUTES.home ||
-    path.includes("http://") ||
-    path.includes("https://")
-    ? path
-    : path;
-}
-
-export const configuredRouteOptions = (options?: TransitionOptions) =>
-  options ? { scroll: true, ...options } : { scroll: true };
+const configuredRouteOptions = (options?: TransitionOptions) =>
+  options ? { scroll: false, ...options } : { scroll: false };

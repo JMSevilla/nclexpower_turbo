@@ -19,15 +19,14 @@
     "@stripe/stripe-js": "^4.0.0",
     "@tailwindcss/forms": "^0.5.7",
     "@types/react-slick": "^0.23.13",
-    "core-library": "*",
     "dompurify": "^3.1.5",
+    "core-library": "*",
     "isomorphic-dompurify": "^2.13.0",
+    "next-transpile-modules": "^10.0.1",
     "jotai": "^2.9.1",
     "json2mq": "^0.2.0",
     "lodash.debounce": "^4.0.8",
     "next": "14.2.4",
-    "next-transpile-modules": "^10.0.1",
-    "nprogress": "^0.2.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
@@ -40,7 +39,6 @@
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
-    "@types/nprogress": "^0.2.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
@@ -48,7 +46,7 @@
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "5.5.4",
+    "typescript": "^5",
     "typescript-config": "*"
   }
 }

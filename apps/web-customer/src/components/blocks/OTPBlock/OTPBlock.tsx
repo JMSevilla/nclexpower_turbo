@@ -2,7 +2,7 @@ import OTPForm from "./OTPForm";
 import { OTPType } from "../../../core/Schema";
 import { useBeforeUnload } from "core-library/hooks";
 import { useOtpVerification } from "@/core/hooks/useOtpVerification";
-import { NotFoundBlock } from "../NotFoundBlock/NotFoundBlock";
+import { NotfoundBlock } from "../NotFoundBlock/NotFoundBlock";
 
 const OTPBlock: React.FC = () => {
   const {
@@ -17,7 +17,7 @@ const OTPBlock: React.FC = () => {
   useBeforeUnload(true);
 
   if (!verificationPreparation.email) {
-    return <NotFoundBlock />;
+    return <NotfoundBlock />;
   }
 
   return (

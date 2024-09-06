@@ -1,13 +1,19 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { CmsPage } from "../../types/page";
+import { NotificationsConsumer } from "../NotificationsConsumer";
 
 interface Props {
+  loading?: boolean;
   stickOut?: boolean;
+  page: CmsPage | null;
 }
 
 export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
   children,
+  loading,
   stickOut,
+  page,
 }) => {
   return (
     <Box
@@ -21,6 +27,14 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
       alignItems="center"
       justifyContent="flex-start"
     >
+      {!loading && (
+        <Box
+          width="100%"
+          // mt={(theme) => ({ xs: theme.sizes.mobileHeaderHeight, md: 0 })}
+        >
+          <NotificationsConsumer page={page} />
+        </Box>
+      )}
       <Box
         flex={1}
         width="100%"
@@ -32,7 +46,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
         sx={{
           width: (theme) => ({
             xs: "100%",
-            sm: stickOut ? "660px" : "100%",
+            // sm: stickOut ? theme.sizes.stickOutPageWidth : "100%",
           }),
         }}
       >
@@ -44,19 +58,22 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
           alignSelf="center"
           mr="auto"
           ml="auto"
-          py={5}
+          pt={12}
+          pb={24}
           width="100%"
           height="100%"
-          sx={{
-            maxWidth: (theme) => ({
-              xs: "100vw",
-              md: stickOut ? "660px" : "1440px",
-            }),
-            px: (theme) => ({
-              xs: "0px",
-              md: "0px",
-            }),
-          }}
+          // sx={{
+          //   maxWidth: (theme) => ({
+          //     xs: "100vw",
+          //     md: stickOut
+          //       ? theme.sizes.stickOutPageWidth
+          //       : theme.sizes.contentWidth,
+          //   }),
+          //   px: (theme) => ({
+          //     xs: theme.sizes.mobileContentPaddingX,
+          //     md: theme.sizes.contentPaddingX,
+          //   }),
+          // }}
         >
           {children}
         </Box>

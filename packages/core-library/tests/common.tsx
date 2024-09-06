@@ -6,10 +6,8 @@ import {
   BusinessQueryContextProvider,
   FormSubmissionContextProvider,
   HeaderTitleContextProvider,
-  StripeContextProvider,
 } from "../contexts";
 import { theme } from "../contents/theme/theme";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 export * from "@testing-library/react";
 
@@ -31,17 +29,13 @@ export const render = (
   rtlRender(ui, {
     wrapper: ({ children }) => (
       <BusinessQueryContextProvider>
-        <QueryClientProvider client={new QueryClient()}>
-          <StripeContextProvider publishableKey="">
-            <ThemeProvider theme={theme()}>
-              <HeaderTitleContextProvider>
-                <FormSubmissionContextProvider>
-                  {children}
-                </FormSubmissionContextProvider>
-              </HeaderTitleContextProvider>
-            </ThemeProvider>
-          </StripeContextProvider>
-        </QueryClientProvider>
+        <ThemeProvider theme={theme()}>
+          <HeaderTitleContextProvider>
+            <FormSubmissionContextProvider>
+              {children}
+            </FormSubmissionContextProvider>
+          </HeaderTitleContextProvider>
+        </ThemeProvider>
       </BusinessQueryContextProvider>
     ),
     ...options,

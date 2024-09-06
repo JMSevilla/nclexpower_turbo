@@ -1,5 +1,5 @@
 import { render } from "../../common";
-import { MultipleSelectField, SelectOption } from "../../../components";
+import { MultipleSelectField, SelectIssueOption } from "../../../components";
 import { useForm } from "react-hook-form";
 
 jest.mock("../../../config", () => ({
@@ -10,7 +10,7 @@ jest.mock("../../../core/router", () => ({
   useRouter: jest.fn(),
 }));
 
-const options: SelectOption[] = [
+const options: SelectIssueOption[] = [
   {
     label: "Option 1",
     value: "option1",
