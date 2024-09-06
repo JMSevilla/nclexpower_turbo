@@ -5,9 +5,13 @@ import {
   LoginResponse,
   RefreshParams,
   RefreshTokenResponse,
+  SensitiveInformations,
+  ValidateTokenizeParams,
+  RevokeParams,
   ValidateTokenParams,
   Verify2FAParams,
 } from "../types";
+import { internalAccountType } from "../../types/types";
 
 export class AuthApi {
   constructor(
@@ -43,7 +47,28 @@ export class AuthApi {
     );
   }
 
+  public revokeToken(params: RevokeParams) {
+    return this.axios.post<LoginParams>(
+      `/api/v2/internal/baseInternal/revoke-token`,
+      params
+    );
+  }
+
   public validateToken(params: ValidateTokenParams) {
     return this.ssrAxios.post<number>(`/api/security/validate-token`, params);
+  }
+
+  public validateTokenizeInformation(params: ValidateTokenizeParams) {
+    return this.ssrAxios.post<SensitiveInformations>(
+      `/api/security/validate-tokenize`,
+      params
+    );
+  }
+
+  public web_create_internal_account(params: internalAccountType) {
+    return this.axios.post<number>(
+      "/api/v2/internal/baseInternal/internal-account-creation/",
+      params
+    );
   }
 }

@@ -31,6 +31,8 @@ import {
   useGetRegularQuestionDDCategory,
   useCreateReportIssue,
   useGetCategoryByType,
+  useGetAllInternalAccounts,
+  useCreateRegularQuestion,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -51,6 +53,8 @@ import {
   ThetaCalcScratchResponse,
   ReportIssueType,
   GetCategoryType,
+  GetAllInternalAccount,
+  CreateRegularType,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -177,6 +181,16 @@ interface BusinessQueryContextValue {
     CreateCustomerParams,
     unknown
   >;
+
+  businessQueryCreateRegularQuestion: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<number, AxiosError<unknown, any>>,
+    any,
+    CreateRegularType,
+    unknown
+  >;
+
   businessQueryGetThetaCalcScratch: (
     queryKey: string[],
     accountId: string
@@ -200,6 +214,10 @@ interface BusinessQueryContextValue {
     queryKey: string[],
     type: number
   ) => UseQueryResult<any | undefined, any>;
+
+  businessQueryGetAllInternalAccount: (
+    queryKey: string[]
+  ) => UseQueryResult<GetAllInternalAccount[] | undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -237,6 +255,8 @@ export const BusinessQueryContextProvider: React.FC<
     useGetRegularQuestionDDCategory;
   const businessQueryCreateReportIssue = useCreateReportIssue;
   const businessQueryGetReportCategories = useGetCategoryByType;
+  const businessQueryGetAllInternalAccount = useGetAllInternalAccounts;
+  const businessQueryCreateRegularQuestion = useCreateRegularQuestion;
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -265,6 +285,8 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetRegularQuestionDDCategory,
         businessQueryCreateReportIssue,
         businessQueryGetReportCategories,
+        businessQueryGetAllInternalAccount,
+        businessQueryCreateRegularQuestion,
       }}
     >
       {children}

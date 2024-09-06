@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CoreZigmaLogo } from "core-library/assets";
 import Link from "next/link";
 import Image from "next/image";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Button } from "core-library/components";
 
 interface Props {
@@ -45,6 +46,16 @@ export const ForgotPasswordForm: React.FC<Props> = ({
           alignItems: "center",
         }}
       >
+        <Link
+          href="/"
+          className="flex items-center justify-end xl:px-60 px-40 cursor-pointer text-darkBlue ml-[470px] "
+        >
+          <ArrowBackIosNewIcon fontSize="small" />
+          <span className="pt-sans-narrow-regular ml-1 underline text-[20px]">
+            Back
+          </span>
+        </Link>
+
         <div className="flex items-center justify-center py-14">
           <Image
             src={CoreZigmaLogo}

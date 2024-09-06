@@ -5,7 +5,7 @@ import Emailsent from "../../../../assets/message.png";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { ForgotPasswordAtom } from "@/core";
-import { NotfoundBlock } from "../../NotFoundBlock/NotFoundBlock";
+import { NotFoundBlock } from "../../NotFoundBlock/NotFoundBlock";
 
 export const ResetLinkBlock: React.FC = () => {
   const [email] = useAtom(ForgotPasswordAtom);
@@ -16,7 +16,7 @@ export const ResetLinkBlock: React.FC = () => {
   };
 
   if (!email?.email) {
-    return <NotfoundBlock />;
+    return <NotFoundBlock />;
   }
 
   return (

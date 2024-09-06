@@ -21,13 +21,13 @@ import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
 import { HideHeader } from "../../core/constant/HideHeader";
 
-interface Props { }
+interface Props {}
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
   const theme = useTheme();
   const { publishableKey } = useStripeConfig();
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, logout } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
   const headerStyles = useWebHeaderStyles();
   const [confirmValue] = useConfirmedIntent();
@@ -46,6 +46,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
                   isAuthenticated={isAuthenticated}
                   headerStyles={headerStyles}
                   hiddenHeaderPathnames={HideHeader}
+                  onLogout={logout}
                 >
                   {children}
                   <Footer info={CompanyInfo} list={list} />
