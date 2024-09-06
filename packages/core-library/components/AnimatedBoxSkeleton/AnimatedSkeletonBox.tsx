@@ -16,7 +16,9 @@ export const AnimatedBoxSkeleton = styled(Box)<StyledProps>(
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: light ? "#F3F3F3" : "#fcfdff",
+    backgroundColor: light
+      ? "#fff"
+      : "#fcfdff",
 
     "&::after": {
       content: '""',
@@ -29,9 +31,8 @@ export const AnimatedBoxSkeleton = styled(Box)<StyledProps>(
       height: "100%",
       backgroundRepeat: "no-repeat",
       backgroundImage: `
-      linear-gradient(to right, transparent 10%, ${
-        light ? "#E7E7E7" : "#81c3f9"
-      }, transparent)
+      linear-gradient(to right, transparent 10%, ${light ? "#81c3f9" : "#81c3f9"
+        }, transparent)
     `,
       transform: "translateX(-100%)",
 

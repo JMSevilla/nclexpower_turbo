@@ -1,38 +1,29 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from '../core'
+
 
 type PageLoaderReturnType = {
     isPageLoading: boolean
-    handleRouteChangeStart: () => void
-    handleRouteChangeComplete: () => void
 }
+
 
 export const usePageLoader = (): PageLoaderReturnType => {
     const [isPageLoading, setIsPageLoading] = useState<boolean>(false)
     const router = useRouter()
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    const handleRouteChangeStart = () => {
-            setIsPageLoading(true)
-    }
-
-    const handleRouteChangeComplete = () => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        timeoutRef.current = setTimeout(() => {
-            setIsPageLoading(false);
-        }, 2000);
-    }
 
     useEffect(() => {
+        const handleRouteChangeStart = () => setIsPageLoading(true);
+        const handleRouteChangeComplete = () => setIsPageLoading(false);
+
         router.events.on("routeChangeStart", handleRouteChangeStart);
         router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
         return () => {
             router.events.off("routeChangeStart", handleRouteChangeStart);
             router.events.off("routeChangeComplete", handleRouteChangeComplete);
         };
     }, [])
 
-    return { isPageLoading, handleRouteChangeStart, handleRouteChangeComplete }
+
+    return { isPageLoading }
 }

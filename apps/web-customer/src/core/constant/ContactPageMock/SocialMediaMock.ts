@@ -1,26 +1,23 @@
-import { StaticImageData } from "next/image";
-interface Props {
-  icon: StaticImageData;
-  title: string;
-  link: string;
-}
+import * as Icon from '@mui/icons-material';
+import { SvgIconComponent } from '@mui/icons-material';
 
-import { ContactFacebook, ContactTwitter, ContactInstagram } from "core-library/assets";
+interface Props {
+  icon: SvgIconComponent;
+}
 
 export const SocialMediaMock: Props[] = [
   {
-    icon: ContactFacebook,
-    title: "Facebook",
-    link: "https://www.facebook.com/",
+    icon: Icon.Facebook
   },
   {
-    icon: ContactTwitter,
-    title: "Twitter",
-    link: "https://www.twitter.com/",
+    icon: Icon.Instagram
+
   },
   {
-    icon: ContactInstagram,
-    title: "Instagram",
-    link: "https://www.instagram.com/",
+    icon: Icon.Twitter
+
   },
-]
+  {
+    icon: Icon.LinkedIn
+  }
+];

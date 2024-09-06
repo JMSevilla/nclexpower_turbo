@@ -13,11 +13,9 @@ import qs from "query-string";
 import { CategoryListResponse } from "../../types/category-response";
 import {
   CategoryFormParams,
-  CreateRegularType,
   CurrenciesResponse,
   DiscrepanciesResponse,
   FileUploadParams,
-  GetAllInternalAccount,
   PricingListResponse,
   ProductListResponse,
   ProductSetStatusParams,
@@ -190,13 +188,6 @@ export class WebApiBackOffice {
     );
   }
 
-  public async createRegularQuestion(params: CreateRegularType ) {
-    return await this.axios.post<number>(
-      `/api/v2/content/baseContent/create-content`,
-      params
-    );
-  }
-
   public async getAllProducts() {
     return await this.axios.get<ProductListResponse[]>(
       `/api/v1/Product/internal-products-list`
@@ -220,11 +211,5 @@ export class WebApiBackOffice {
         CategoryType: type
       }
     });
-  }
-
-  public async getAllInternalAccount() {
-    return await this.axios.get<GetAllInternalAccount[]>(
-      `/api/v2/internal/baseInternal/internal-all-accounts`
-    );
   }
 }

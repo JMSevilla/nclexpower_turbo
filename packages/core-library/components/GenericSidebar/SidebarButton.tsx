@@ -5,8 +5,9 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import { NavigationItemType } from "../../types/global";
-import { useRouter } from "../../core";
+import { config } from "../../config";
 
 type SidebarButtonProps = {
   navigation: NavigationItemType;
@@ -15,18 +16,20 @@ type SidebarButtonProps = {
 
 export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
   const router = useRouter();
-  const path = router?.pathname
 
   const handleNavigate = () => {
+    const fullPath = navigation.path
+      ? `${config.value.BASEHUB}${navigation.path}`
+      : `${config.value.BASEHUB}`;
     router.push({
-      pathname: navigation.path ?? "/",
+      pathname: fullPath,
     });
   };
 
   return (
     <Box width="100%" p={1}>
       <Box overflow="hidden" borderRadius={3}>
-        <ListItemButton disabled={navigation.path == path} component="a" onClick={handleNavigate}>
+        <ListItemButton component="a" onClick={handleNavigate}>
           <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
           <ListItemText>
             <Typography variant="body2" fontSize={13}>

@@ -26,10 +26,14 @@ function ReportedIssues() {
                 sortable: true,
             },
             {
-                field: 'categoryId',
-                headerName: 'Category ID',
+                field: 'category.categoryName',
+                headerName: 'Category',
                 flex: 1,
                 sortable: true,
+                renderCell: (rows) => {
+                    const { category } = rows.row
+                    return category.categoryName
+                }
             },
             {
                 field: 'systemProduct',

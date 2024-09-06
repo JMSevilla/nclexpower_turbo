@@ -17,10 +17,7 @@ export const useActiveSteps = (MAX_LENGTH_ARRAY: number) => {
     }
     setActiveStep(activeStep - 1);
   };
-
-  const reset = () => setActiveStep(0);
   return {
-    reset,
     activeStep,
     setActiveStep,
     next,

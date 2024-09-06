@@ -10,7 +10,6 @@ import { NavigationType } from "../../types/navigation";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Divider } from "@mui/material";
 import { SidebarButton } from "./SidebarButton";
-import { useRouter } from "../../core";
 
 type SidebarListButtonProps = {
   navigation: NavigationType;
@@ -22,8 +21,6 @@ export const SidebarListButton = ({
   pathname,
 }: SidebarListButtonProps) => {
   const [open, setOpen] = useState<boolean>(true);
-  const router = useRouter();
-  const path = router?.pathname
 
   const handleCollapseButton = () => {
     setOpen((prev) => !prev);
@@ -33,7 +30,7 @@ export const SidebarListButton = ({
     <Box width="100%">
       <Box padding={1}>
         <Box overflow="hidden" borderRadius={3}>
-          <ListItemButton disabled={navigation.path == path} onClick={handleCollapseButton}>
+          <ListItemButton onClick={handleCollapseButton}>
             <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
             <ListItemText>
               <Typography variant="body2" fontWeight={600} fontSize={13}>

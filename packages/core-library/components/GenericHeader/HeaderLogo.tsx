@@ -12,10 +12,6 @@ export const HeaderLogo: React.FC<Props> = ({}) => {
   const NCLEXLogo =
     router.pathname === "/404" || isScrolled ? NCLEXBlueLogo : NCLEXYellowLogo;
 
-    const clickHandle = () =>{
-      router.push('/')
-    }
-
   return (
     <Box
       position="relative"
@@ -38,7 +34,7 @@ export const HeaderLogo: React.FC<Props> = ({}) => {
           md: theme.typography.h3.fontSize,
         })}
       >
-        <Image width={150} src={NCLEXLogo} alt="NCLEX Logo" onClick={clickHandle}/>
+        <Image width={150} src={NCLEXLogo} alt="NCLEX Logo" />
       </Typography>
     </Box>
   );

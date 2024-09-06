@@ -4,25 +4,19 @@ import {
   ResetPasswordParams,
   ValidateResetLinkTokenParams,
 } from "core-library/api/types";
-import { useRouter, withCSP } from "core-library";
-import { NotFoundBlock } from "@/components/blocks/NotFoundBlock/NotFoundBlock";
+import { useRouter } from "core-library";
+import { NotfoundBlock } from "@/components/blocks/NotFoundBlock/NotFoundBlock";
 import { useEffect, useState } from "react";
 import { PageLoader } from "core-library/components";
 import { useExecuteToast } from "core-library/contexts";
 import { ChangePasswordType } from "@/core/Schema";
-import CSPHead from "core-library/components/CSPHead";
-import { GetServerSideProps } from "next";
 
 interface QueryParams {
   uId?: string;
   auth?: string;
 }
 
-interface Props{
-  generatedNonce: string;
-}
-
-const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
+export function ResetPasswordPage() {
   const resetPasswordCb = useApiCallback(
     async (api, args: ResetPasswordParams) =>
       await api.web.web_reset_password(args)
@@ -35,6 +29,10 @@ const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
   );
   const router = useRouter();
   const { auth, uId }: QueryParams = router.query;
+
+  if (!auth || !uId) {
+    return <NotfoundBlock />;
+  }
 
   async function validate() {
     if (!auth || !uId) return;
@@ -50,20 +48,13 @@ const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
     setAuthorized(result.data);
     return;
   }
-
   useEffect(() => {
     validate();
   }, [auth, uId]);
 
-  if (validateCb.loading) return <PageLoader />;
-  if (!auth || !uId || !authorized) return <NotFoundBlock />;
+  if (validateCb.loading || !authorized) return <PageLoader />;
 
-  return (
-    <>
-    <CSPHead nonce={generatedNonce} />
-  <ChangePasswordBlock onSubmit={handleSubmit} />
-  </>
-  );
+  return <ChangePasswordBlock onSubmit={handleSubmit} />;
 
   async function handleSubmit(values: ChangePasswordType) {
     try {
@@ -110,7 +101,5 @@ const ResetPasswordPage:React.FC<Props> = ({generatedNonce}) => {
     }
   }
 }
-
-export const getServerSideProps: GetServerSideProps = withCSP();
 
 export default ResetPasswordPage;

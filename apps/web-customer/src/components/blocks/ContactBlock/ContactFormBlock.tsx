@@ -14,7 +14,7 @@ export function ContactFormBlock() {
     defaultValues: contactSchema.getDefault(),
   });
 
-  const { handleSubmit, control, reset } = form;
+  const { handleSubmit, control } = form;
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
@@ -23,8 +23,6 @@ export function ContactFormBlock() {
       "top-right",
       false
     );
-
-    reset();
   };
 
   return (

@@ -1,15 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { PageLoader } from "../components";
 import React from "react";
-import { usePageLoader } from "../hooks";
+import { useRouter } from "../core";
 
 const context = createContext<{
   isLoading: boolean;
   isCalculationsLoaded: boolean;
   setIsLoading(status: boolean): void;
   setIsCalculationsLoaded(status: boolean): void;
-  contentLoader: boolean;
-  setContentLoader(status: boolean): void;
 }>(undefined as any);
 
 interface Props {
@@ -28,17 +26,14 @@ export const PageLoaderContextProvider: React.FC<
 > = ({ children, loading }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isCalculationsLoaded, setIsCalculationsLoaded] = useState(true);
-  const [contentLoader, setContentLoader] = useState(true);
-  const { isPageLoading } = usePageLoader();
+
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setContentLoader(false);
-    }, 3000);
-    return () => {
-      clearTimeout(timeout);
-      setContentLoader(true);
-    };
-  }, []);
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsCalculationsLoaded(false);
+    }, 2000);
+  }, [isLoading, isCalculationsLoaded]);
+
   return (
     <context.Provider
       value={{
@@ -46,11 +41,9 @@ export const PageLoaderContextProvider: React.FC<
         setIsLoading,
         isCalculationsLoaded,
         setIsCalculationsLoaded,
-        contentLoader,
-        setContentLoader,
       }}
     >
-      {isPageLoading ? <PageLoader /> : <>{children}</>}
+      {isLoading || isCalculationsLoaded ? <PageLoader /> : <>{children}</>}
     </context.Provider>
   );
 };
