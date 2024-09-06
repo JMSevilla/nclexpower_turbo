@@ -9,5 +9,5 @@ interface Props {
 
 // datagrid list.
 export const ApprovalListView: React.FC<Props> = ({ nextStep }) => {
-  return <Card sx={{ mt: 5, p: 5 }}>test</Card>;
+  return <Card sx={{ mt: 5, p: 5 }}>Data grid should place here.</Card>;
 };
