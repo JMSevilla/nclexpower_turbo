@@ -2,27 +2,24 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Box, IconButton, Typography } from "@mui/material";
-import {
-  Button,
-  Card,
-  ControlledCheckbox,
-  ControlledTextField,
-} from "../../../..";
+import { Button, Card, ControlledCheckbox, ControlledTextField } from "../../../..";
 import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { StyledBox } from "../../content/StyledBox";
+import { StyledBox } from '../../content/StyledBox';
 
 type SATAPropsType = {
   questionIndex: number;
 };
 
 export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
-  const { append: appendAnswer, remove: removeAnswer } =
-    useFieldArray<ContainedRegularQuestionType>({
-      name: `questionnaires.${questionIndex}.answers`,
-    });
-  const { getValues } = useFormContext<ContainedRegularQuestionType>();
-  const answerFields = getValues(`questionnaires.${questionIndex}.answers`);
+  const {
+    append: appendAnswer,
+    remove: removeAnswer,
+  } = useFieldArray<ContainedRegularQuestionType>({
+    name: `questionnaires.${questionIndex}.answers`,
+  });
+  const { getValues } = useFormContext<ContainedRegularQuestionType>()
+  const answerFields = getValues(`questionnaires.${questionIndex}.answers`)
 
   const handleAppendFields = () => {
     appendAnswer({ answer: "", answerKey: false });
@@ -32,7 +29,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
     removeAnswer(index);
   };
 
-  if (!answerFields) return null;
+  if (!answerFields) return null
 
   return (
     <Card sx={{ width: 1 }} data-testid="sata-answer">
@@ -49,9 +46,7 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
               name={`questionnaires.${questionIndex}.answers.${index}.answerKey`}
               sx={{ margin: 0 }}
             />
-            <Typography variant="body2" pr={2}>
-              {index + 1}.
-            </Typography>
+            <Typography variant='body2' pr={2}>{index + 1}.</Typography>
             <Box flex={1}>
               <ControlledTextField
                 name={`questionnaires.${questionIndex}.answers.${index}.answer`}
@@ -60,20 +55,17 @@ export const SATA: React.FC<SATAPropsType> = ({ questionIndex }) => {
                 placeholder="Enter answer"
               />
             </Box>
-            {index > 4 && (
-              <IconButton
-                data-testid={`answer-option-remove-${index}`}
-                onClick={() => handleRemoveFields(index)}
-                color="error"
-              >
+            {index > 4 &&
+              <IconButton data-testid={`answer-option-remove-${index}`} onClick={() => handleRemoveFields(index)} color="error">
                 <DeleteOutlineIcon />
               </IconButton>
-            )}
+            }
+
           </Box>
         ))}
       </StyledBox>
       <Button
-        data-testid="answer-option-append"
+        data-testid='answer-option-append'
         sx={{ marginTop: 4 }}
         disabled={answerFields.length >= 8}
         onClick={handleAppendFields}
