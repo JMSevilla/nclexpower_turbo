@@ -17,6 +17,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
 }
+
+.form-font{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
+}
+
 .pt-sans-narrow-regular {
     font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 400;
@@ -38,6 +43,12 @@ body {
 .pt-sans-bold {
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
+    font-style: normal;
+}
+
+.pt-sans-narrow-semibold {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 600;
     font-style: normal;
 }
 .pt-sans-caption-regular {
@@ -154,6 +165,18 @@ code {
     50% {
         transform: translateY(0);
         animation-timing-function: cubic-bezier(0, 0, 0.2, 0);
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 

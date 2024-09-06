@@ -7,9 +7,10 @@ import { TabsItem } from "../../core/utils/contants/tabs-item";
 interface Props {
   id?: string;
   tabsItem: TabsItem[];
+  justifyContent?: 'flex-start' | 'center' | 'flex-end';
 }
 
-export const Tabs: React.FC<Props> = ({ id, tabsItem }) => {
+export const Tabs: React.FC<Props> = ({ id, tabsItem, justifyContent}) => {
   const { isMobile } = useResolution();
   const [selected, setSelected] = useState(1);
   const tabs = tabsHeader(tabsItem);
@@ -19,7 +20,7 @@ export const Tabs: React.FC<Props> = ({ id, tabsItem }) => {
   return (
     <Grid container spacing={12}>
       {!isMobile && (
-        <Grid container item xs={12} justifyContent="center">
+        <Grid container item xs={12} justifyContent={justifyContent}>
           {tabs.map((tab, index) => (
             <Grid item key={tab.id}>
               <TabButton
@@ -45,7 +46,7 @@ export const Tabs: React.FC<Props> = ({ id, tabsItem }) => {
       {isMobile
         ? tabs?.map((tab, index) => (
             <Grid item xs={12} key={tab.id}>
-              {/* blocks here??? */}
+              {tab.content}
               {tabs.length - 1 !== index && (
                 <Box
                   mt={12}

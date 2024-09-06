@@ -26,6 +26,7 @@ type BaseSelectFieldProps = {
   size?: TextFieldProps["size"];
   variant?: TextFieldProps["variant"];
   placeholder?: TextFieldProps["placeholder"];
+  disabled?: boolean;
 };
 
 export function SelectField({
