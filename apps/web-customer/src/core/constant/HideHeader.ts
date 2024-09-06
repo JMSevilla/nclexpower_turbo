@@ -3,9 +3,9 @@ export const HideHeader = [
   "/login",
   "/account/verification/otp",
   "/payment-success",
-  "/order-summary",
   "/account/forgot-password",
   "/account/reset-link",
   "/maintenance",
   "/account/reset-password",
+  "/customer/payment/checkout",
 ];

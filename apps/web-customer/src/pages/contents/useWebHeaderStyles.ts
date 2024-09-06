@@ -4,9 +4,7 @@ import { useRouter } from "next/router";
 
 export const useWebHeaderStyles = () => {
   const { isScrolled } = useScroll();
-
   const router = useRouter();
-
   const isScrolledOrRoute = router.pathname === "/404" || isScrolled;
 
   const drawerHeader: SxProps<Theme> = {
@@ -20,6 +18,10 @@ export const useWebHeaderStyles = () => {
     fontFamily: "PT Sans, sans-serif",
     textTransform: "none",
     fontSize: "16px",
+    ":disabled":{
+      color:!isScrolledOrRoute ? "white" : "black",
+      textDecoration:'underline'
+    }
   };
 
   const loginButtonSx = {
@@ -32,9 +34,31 @@ export const useWebHeaderStyles = () => {
     "&:hover": {
       backgroundColor: isScrolledOrRoute ? "#071c51" : "#cca406",
     },
+    ":disabled":{
+      color:!isScrolledOrRoute ? "#071c51" : "#cca406",
+      textDecoration:'underline'
+    }
   };
 
-  return { drawerHeader, headerLinkSx, loginButtonSx };
+  const ToTopButtonSx = {
+    position: 'fixed',
+    zIndex: 10000,
+    bottom: '50px',
+    right: '50px',
+    height: "40px",
+    width: "40px",
+    minWidth: "40px",
+    bgcolor: "#f3c402",
+    borderRadius: "50%",
+    display: isScrolled ? 'flex' : 'none',
+    alignItems: "center",
+    justifyContent: "center",
+    "&:hover": {
+      bgcolor: "#f3c402",
+    },
+  };
+
+  return { drawerHeader, headerLinkSx, loginButtonSx, ToTopButtonSx };
 };
 
 export default useWebHeaderStyles;
