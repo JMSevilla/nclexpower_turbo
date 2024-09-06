@@ -12,15 +12,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Box, Pagination, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
 import { FormProvider } from "react-hook-form";
-import {
-  ContainedRegularQuestionType
-} from "../../types";
+import { ContainedRegularQuestionType } from "../../types";
+import { CreateRegularAtom } from "../../useAtomic";
 import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
 import { initQuestionsValues } from "../../../../../constants/constants";
 import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { CreateQuestionLoader } from "./loader";
 import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
-import { CreateRegularAtom } from "../../useAtomic";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -177,7 +175,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           </Typography>
         </Box>
 
-        <Box >
+        <Box>
           <Typography variant="body2" fontWeight={600} textAlign="center">
             Question no. {selectedPageIndex ?? questionnaireFields.length}
           </Typography>

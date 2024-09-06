@@ -6,7 +6,6 @@ import {
   Typography,
 } from "@mui/material";
 import { NavigationItemType } from "../../types/global";
-import { config } from "../../config";
 import { useRouter } from '../../core';
 
 type SidebarButtonProps = {

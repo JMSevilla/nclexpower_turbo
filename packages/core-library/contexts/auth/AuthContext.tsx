@@ -163,6 +163,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               );
               return;
             }
+            setAccountId(result.data.accountId);
             setAccessToken(result.data.accessTokenResponse.accessToken);
             setRefreshToken(result.data.accessTokenResponse.refreshToken);
             setSingleCookie(
