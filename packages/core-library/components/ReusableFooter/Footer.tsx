@@ -22,11 +22,13 @@ export const Footer: React.FC<FooterProps> = (props) => {
           backgroundColor: "#040814",
           paddingY: 5,
           fontFamily: "PT Sans",
-          flexGrow: 1
+          flexGrow: 1,
         }}
       >
         <Grid
-          container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 2, md: 12 }}
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 2, sm: 2, md: 12 }}
           sx={{
             display: "flex",
             width: "100%",
@@ -34,7 +36,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
         >
           {props.list.length > 0 && (
             <Grid
-              item xs={12} sm={12} md={4}
+              item
+              xs={12}
+              sm={12}
+              md={4}
               sx={{
                 display: "flex",
                 alignItems: "start",
@@ -42,7 +47,6 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 width: "25%",
                 gap: 5,
                 paddingRight: 5,
-
               }}
             >
               <Image
@@ -89,7 +93,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
             </Grid>
 
             <Grid
-              item xs={12} sm={1} md={4}
+              item
+              xs={12}
+              sm={1}
+              md={4}
               sx={{
                 width: "60%",
                 display: "flex",
