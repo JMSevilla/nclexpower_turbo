@@ -52,8 +52,8 @@ export * from "./Tabs/TabPanel";
 export * from "./Checkbox/Checkbox";
 export * from "./RichTextEditor/RichTextEditor";
 export * from "./blocks/AnswerOptions/AnswerOptions";
-export * from "./Radio/Radio"
-export * from "./Textfield/TextField"
-export * from "./blocks/Accordion/SummaryAccordion"
+export * from "./Radio/Radio";
+export * from "./Textfield/TextField";
+export * from "./blocks/Accordion/SummaryAccordion";
 
-export * from "./Dialog/DialogFormBlocks"
+export * from "./Dialog/DialogFormBlocks";
