@@ -29,9 +29,9 @@ export const NotFoundBlock: React.FC = () => {
           to the previous page.
         </p>
 
-        <div className="flex justify-center">
+        <div className="w-full flex justify-center">
           <button
-            className="mt-4 flex w-[100px] md:w-[120px] h-[45px] md:h-[55px] py-[10px] md:py-[13px] justify-center items-center flex-shrink-0 bg-[#0F2A71] rounded-[10px] text-[#FFFDF1] text-center font-ptSansNarrow font-bold leading-none md:leading-[36px]"
+            className="mt-4 flex w-full md:w-[120px] h-[45px] md:h-[55px] py-[10px] md:py-[13px] justify-center items-center flex-shrink-0 bg-[#0F2A71] rounded-[10px] text-[#FFFDF1] text-center font-ptSansNarrow font-bold leading-none md:leading-[36px]"
             onClick={Back}
           >
             GO BACK
