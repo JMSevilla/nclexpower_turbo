@@ -51,11 +51,7 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           borderColor="divider"
           height={70}
         >
-          <Image
-            style={{ width: 170 }}
-            src={NCLEXYellowLogo}
-            alt="NCLEXLogo"
-          />
+          <Image style={{ width: 170 }} src={NCLEXYellowLogo} alt="NCLEXLogo" />
           <Box position="absolute" right={5}>
             <IconButton onClick={setOpen}>
               <KeyboardArrowLeftIcon
@@ -70,8 +66,8 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
         </Box>
         {menu &&
           menu.length > 0 &&
-          menu.map((navigation) => (
-            <React.Fragment key={navigation.id}>
+          menu.map((navigation, index) => (
+            <React.Fragment key={index}>
               {navigation.children && navigation.children.length > 0 ? (
                 <SidebarListButton
                   navigation={navigation}
