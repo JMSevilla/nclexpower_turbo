@@ -10,8 +10,6 @@ interface Props {
   label: string;
   icon?: React.ReactNode;
   accountItem: NavigationType[];
-  anchorEl?: HTMLElement | null;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   onLogout?: () => void;
 }
 
@@ -19,13 +17,18 @@ export const AccountMenu: React.FC<Props> = ({
   icon,
   label,
   accountItem,
-  anchorEl,
-  onClick,
   onLogout,
 }) => {
+
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<null | number>(null);
+
   const openMenu = Boolean(anchorEl);
   const id = openMenu ? "simple-popper" : undefined;
-  const [expandedIndex, setExpandedIndex] = useState<null | number>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
 
   const handleParentClick = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -36,7 +39,7 @@ export const AccountMenu: React.FC<Props> = ({
       <Button
         sx={{ gap: 2 }}
         aria-describedby={id}
-        onClick={onClick}
+        onClick={handleClick}
         variant="outlined"
         data-testid="account-menu-button"
       >
@@ -83,7 +86,9 @@ export const AccountMenu: React.FC<Props> = ({
                       }}
                     >
                       {subMenu.icon}{" "}
-                      <Typography variant="button"> {subMenu.label}</Typography>
+                      <Typography variant="button">
+                        {subMenu.label}
+                      </Typography>
                     </Button>
                   ))}
               </div>
