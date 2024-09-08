@@ -6,7 +6,7 @@ import { SidebarButton } from "./SidebarButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { usePathname } from "next/navigation";
 import { NavigationType } from "../../types/navigation";
-import { NCLEXYellowLogo } from "../../assets";
+import { NCLEXBlueLogo } from "../../assets";
 import Image from "next/image";
 
 type SideBarPropsType = {
@@ -51,7 +51,11 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           borderColor="divider"
           height={70}
         >
-          <Image style={{ width: 170 }} src={NCLEXYellowLogo} alt="NCLEXLogo" />
+          <Image
+            style={{ width: 150, marginRight: "15px" }}
+            src={NCLEXBlueLogo}
+            alt="NCLEXLogo"
+          />
           <Box position="absolute" right={5}>
             <IconButton onClick={setOpen}>
               <KeyboardArrowLeftIcon
