@@ -7,7 +7,7 @@ export const accountSetupSchema = yup.object({
     middlename: yup.string().optional().default("").matches(STRING_REGEX, "Special characters not allowed"),
     imgurl: yup.string().optional().default("none"),
     email: yup.string().email("Invalid email").required('Email is required').default(""),
-    username: yup.string().required('Username is required').default("").matches(STRING_REGEX, "Special characters not allowed"),
+    username: yup.string().required('Username is required').default(""),
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required').default(""),
     confirmPassword: yup
     .string()
