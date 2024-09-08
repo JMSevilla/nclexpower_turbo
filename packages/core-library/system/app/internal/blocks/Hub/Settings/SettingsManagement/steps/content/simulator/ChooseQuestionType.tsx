@@ -4,14 +4,21 @@ import {
   CreateRegularQuestion,
   QuestionTypeSelection,
   QuestionSummary,
-} from "./steps/content/index";
+} from "./steps/content";
 import { SuccessPage } from "./steps/content/SuccessPage";
+import { CaseNameSelection } from "./steps/content/casestudy/CaseNameSelection";
 
 export type QuestionTypeFormSteps =
   | "InitialQuestionTypeSelection"
   | "CreateRegularQuestion"
   | "QuestionSummary"
   | "SuccessPage";
+
+export type CaseStudyQuestionTypeFormSteps =
+  | "InitialCaseNameSelection"
+  | "CaseStudyQuestionCreation";
+
+export type CreationType = "Regular" | "CaseStudy";
 
 export interface QuestionTypeStepProps {
   isLoading: boolean;
@@ -45,5 +52,17 @@ export const ChooseQuestionTypeStep = {
 } as WizardFormMap<
   Partial<QuestionTypeFormSteps>,
   ContainedRegularQuestionType,
+  QuestionTypeStepProps
+>;
+
+export const ChooseCaseStudyQuestionType = {
+  InitialCaseNameSelection: {
+    previousStep: "InitialCaseNameSelection",
+    nextStep: "CaseStudyQuestionCreation",
+    content: (props) => <CaseNameSelection {...props} />,
+  },
+} as WizardFormMap<
+  Partial<CaseStudyQuestionTypeFormSteps>,
+  {},
   QuestionTypeStepProps
 >;

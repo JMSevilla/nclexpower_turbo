@@ -9,6 +9,8 @@ import {
 import { SettingsSelectionType } from "../../../types";
 import { useModal } from "core-library/hooks";
 import { useQuestionManagementWizardSteps } from "./steps/useSteps";
+import { RegularQuestionCreationBlock } from "./blocks/regular/RegularQuestionCreationBlock";
+import { CaseStudyQuestionCreationBlock } from "./blocks/casestudy/CaseStudyQuestionCreationBlock";
 
 interface Props {
   nextStep(values: Partial<SettingsSelectionType>): void;
@@ -21,20 +23,18 @@ export const QuestionManagement: React.FC<Props> = ({
   previousStep,
   previous,
 }) => {
-  const saveConfirmationModal = useModal<unknown>();
-  const { render } = useQuestionManagementWizardSteps(
-    () => {},
-    saveConfirmationModal
-  );
-
   const tabs = useMemo<Array<TabOption>>(
     () => [
       {
         key: "Regular Question",
-        content: <React.Fragment>{render}</React.Fragment>,
+        content: <RegularQuestionCreationBlock />,
+      },
+      {
+        key: "Case Study Question",
+        content: <CaseStudyQuestionCreationBlock />,
       },
     ],
-    [render]
+    []
   );
   function handlePrevious() {
     previous();
