@@ -198,7 +198,13 @@ code {
     transform-style: preserve-3d;
 }
 
-.flip-card:hover .flip-card-inner {
+@media (min-width: 768px) {
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+}
+
+.flipped .flip-card-inner {
     transform: rotateY(180deg);
 }
 
