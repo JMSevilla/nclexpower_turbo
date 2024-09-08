@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
+import LoginPage from "./login";
 
 export default function Home() {
-  return <Typography variant="button">Home</Typography>;
+  return <LoginPage />;
 }
