@@ -48,7 +48,7 @@ export const DrawerLayout: React.FC<
 
   return (
     <Box display="flex">
-      {(isAuthenticated || isMobile) && (
+      {menu.length > 0 && (isAuthenticated || isMobile) && (
         <Sidebar
           isMobile={isMobile}
           menu={menu}
