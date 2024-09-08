@@ -1,24 +1,24 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useScroll } from "core-library";
+import React, { useMemo } from "react";
 import {
   WizardFormMap,
   useActiveSteps,
-  useModal,
   useWizardForm,
 } from "core-library/hooks";
 import {
+  CaseStudyQuestionTypeFormSteps,
+  ChooseCaseStudyQuestionType,
   ChooseQuestionTypeStep,
+  CreationType,
   QuestionTypeFormSteps,
   QuestionTypeStepProps,
 } from "../ChooseQuestionType";
-import { ContainedRegularQuestionType } from "../types";
+import {
+  ContainedCaseStudyQuestionType,
+  ContainedRegularQuestionType,
+} from "../types";
 import { Stepper } from "core-library/components";
 
-export const useQuestionManagementWizardSteps = (
-  onSubmit: VoidFunction,
-  saveConfirmationModal: ReturnType<typeof useModal>,
-  isSummaryView?: boolean
-) => {
+export const useQuestionManagementWizardSteps = () => {
   const steps = useMemo(() => {
     return {
       ...ChooseQuestionTypeStep,
@@ -42,6 +42,50 @@ export const useQuestionManagementWizardSteps = (
     ContainedRegularQuestionType,
     QuestionTypeStepProps
   >(steps, formWizardValues, "InitialQuestionTypeSelection");
+
+  const stepKeys = Object.keys(steps);
+  const stepLabels = stepKeys.map((step) =>
+    step.replace(/([A-Z])/g, " $1").trim()
+  );
+
+  const {
+    activeStep,
+    next,
+    previous,
+    reset: resetStep,
+  } = useActiveSteps(stepLabels.length);
+  return {
+    render: (
+      <React.Fragment>
+        <Stepper activeStep={activeStep} steps={stepLabels} />
+        {renderStep({ isLoading: false, next, previous, resetStep, reset })}
+      </React.Fragment>
+    ),
+  };
+};
+
+export const useCaseStudyQuestionManagementWizardSteps = () => {
+  const steps = useMemo(() => {
+    return { ...ChooseCaseStudyQuestionType } as WizardFormMap<
+      Partial<CaseStudyQuestionTypeFormSteps>,
+      ContainedCaseStudyQuestionType,
+      QuestionTypeStepProps
+    >;
+  }, []);
+
+  const formWizardValues = (
+    prev: Partial<ContainedCaseStudyQuestionType> | undefined,
+    values: Partial<ContainedCaseStudyQuestionType>
+  ): Partial<ContainedCaseStudyQuestionType> => ({
+    ...prev,
+    ...values,
+  });
+
+  const { renderStep, reset } = useWizardForm<
+    CaseStudyQuestionTypeFormSteps,
+    ContainedCaseStudyQuestionType,
+    QuestionTypeStepProps
+  >(steps, formWizardValues, "InitialCaseNameSelection");
 
   const stepKeys = Object.keys(steps);
   const stepLabels = stepKeys.map((step) =>
