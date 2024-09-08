@@ -9,7 +9,6 @@ import {
   Chip,
   InputAdornment,
 } from "@mui/material";
-import { Cancel as CancelIcon } from "@mui/icons-material";
 
 export type SelectOption = {
   label: string;
@@ -77,8 +76,11 @@ export function MultipleSelect({
         placeholder={placeholder}
         SelectProps={{
           multiple,
-          renderValue: (value: unknown) => {
-            const selected = value as string[];
+          renderValue: (selected: unknown) => {
+            if (!Array.isArray(selected)) {
+              return selected as string;
+            }
+
             return (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                 {selected.map((val) => (
