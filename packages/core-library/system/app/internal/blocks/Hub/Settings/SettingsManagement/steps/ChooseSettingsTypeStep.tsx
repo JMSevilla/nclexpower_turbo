@@ -13,6 +13,7 @@ export type SettingsManagementSteps =
 export interface SettingsManagementStepProps {
   isLoading: boolean;
   previous: () => void;
+  reset: () => void;
 }
 
 export const ChooseSettingsTypeStep = {

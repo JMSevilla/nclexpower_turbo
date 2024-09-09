@@ -137,6 +137,23 @@ describe("QuestionSummary Component", () => {
     );
   });
 
+  it("should call previousStep and previous when handle backbutton invoke", () => {
+    render(
+      <QuestionSummary
+        next={mockNext}
+        nextStep={mockNextStep}
+        previous={mockReset}
+        previousStep={mockPreviousStep}
+      />
+    );
+
+    const backButton = screen.getByRole("button", { name: /Go Back/i });
+    fireEvent.click(backButton);
+
+    expect(mockPreviousStep).toHaveBeenCalled;
+    expect(mockPrevious).toHaveBeenCalled;
+  });
+
   it("renders each accordion with the correct question", () => {
     mockData.forEach((item, index) => {
       render(<SummaryAccordion item={item} type={mockType} index={index} />);
