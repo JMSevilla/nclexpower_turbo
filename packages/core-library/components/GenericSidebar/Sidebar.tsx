@@ -70,8 +70,8 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
         </Box>
         {menu &&
           menu.length > 0 &&
-          menu.map((navigation) => (
-            <React.Fragment key={navigation.id}>
+          menu.map((navigation, index) => (
+            <React.Fragment key={index}>
               {navigation.children && navigation.children.length > 0 ? (
                 <SidebarListButton
                   navigation={navigation}
