@@ -34,9 +34,18 @@ export const CustomMenuBar: React.FC<CustomMenuBarPropsType> = ({
         <Box gap={1} display="flex" flexWrap={"wrap"}>
           {editor && (
             <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-              <div className="p-2 flex rounded-md bg-white gap-1">
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 1,
+                  borderRadius: 6,
+                  backgroundColor: "white",
+                  padding: 2,
+                }}
+                boxShadow={4}
+              >
                 <EditorButtonGroup menus={menus} />
-              </div>
+              </Box>
             </BubbleMenu>
           )}
         </Box>

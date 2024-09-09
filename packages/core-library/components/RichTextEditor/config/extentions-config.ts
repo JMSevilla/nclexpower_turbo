@@ -5,13 +5,17 @@ import TableHeader from '@tiptap/extension-table-header'
 import TableRow, { TableRowOptions } from '@tiptap/extension-table-row'
 import Underline, { UnderlineOptions } from '@tiptap/extension-underline'
 import BulletList from '@tiptap/extension-bullet-list'
+import Placeholder, { PlaceholderOptions } from '@tiptap/extension-placeholder'
 import OrderedList from '@tiptap/extension-ordered-list'
 import ListItem from '@tiptap/extension-list-item'
 import { Extension, Node } from '@tiptap/core'
 import { Mark } from '@tiptap/core'
 
-export const extensions: (Extension<StarterKitOptions, any> | Mark<UnderlineOptions, any> | Node<TableRowOptions, any>)[] = [
+export const extensions: (Extension<StarterKitOptions, any> | Extension<PlaceholderOptions, any> | Mark<UnderlineOptions, any> | Node<TableRowOptions, any>)[] = [
     ListItem,
+    Placeholder.configure({
+        placeholder: "Enter your question"
+    }),
     StarterKit.configure({
         heading: {
             HTMLAttributes: {

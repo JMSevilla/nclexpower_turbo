@@ -112,7 +112,7 @@ export default function ConfirmationModal({
         ) : (
           <Button sx={{ zIndex: 2 }}>
             <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
-            <Typography>Go Back</Typography>
+            <Typography>Previous</Typography>
           </Button>
         )}
       </Box>

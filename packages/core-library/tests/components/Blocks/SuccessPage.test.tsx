@@ -1,4 +1,4 @@
-import { SuccessPage } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/SuccessPage";
+import { SuccessPage } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/regular/SuccessPage";
 import { fireEvent, screen } from "../../common";
 import { render } from "@testing-library/react";
 import { ContainedRegularQuestionType } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
