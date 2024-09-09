@@ -70,7 +70,11 @@ export function LoginFormBlock() {
       }
 
       try {
-        await login(data.email, passwordToUse);
+        const encryptedPassPayload = Encryption(
+          data.password,
+          key ?? "no-secret-key"
+        );
+        await login(data.email, encryptedPassPayload);
       } catch (err) {
         toast.executeToast("Something went wrong", "top-right", false, {
           toastId: 0,
