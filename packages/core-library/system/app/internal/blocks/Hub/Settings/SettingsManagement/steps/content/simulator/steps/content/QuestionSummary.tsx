@@ -44,6 +44,11 @@ export const QuestionSummary: React.FC<Props> = ({
     }, 3000);
   }, []);
 
+  const handleBackButton = () => {
+    previousStep();
+    previous();
+  };
+
   async function onSubmit() {
     try {
       if (questionnaireAtom) {
@@ -71,7 +76,7 @@ export const QuestionSummary: React.FC<Props> = ({
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
     >
       <Box display="flex" width="100%" marginBottom="25px" position="relative">
-        <Button onClick={previousStep} sx={{ zIndex: 1 }}>
+        <Button onClick={handleBackButton} sx={{ zIndex: 1 }}>
           <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
           <Typography>Go Back</Typography>
         </Button>

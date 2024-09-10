@@ -68,7 +68,12 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const { isValid } = parentFormState;
 
-  const { handleSubmit: confirmCreation, control, getValues, setValue } = parentForm;
+  const {
+    handleSubmit: confirmCreation,
+    control,
+    getValues,
+    setValue,
+  } = parentForm;
 
   const { businessQueryGetRegularQuestionDDCategory } =
     useBusinessQueryContext();
@@ -136,6 +141,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const handlePrevious = () => {
     previousStep();
+    previous();
     reset();
   };
 
@@ -200,7 +206,10 @@ export const CreateRegularQuestion: React.FC<Props> = ({
               <DeleteOutlineIcon />
               <Typography variant="body2">Delete Form</Typography>
             </Button>
-            <Button disabled={!isCurrentPage && !isValid} onClick={handleAddForm}>
+            <Button
+              disabled={!isCurrentPage && !isValid}
+              onClick={handleAddForm}
+            >
               <AddIcon />
               <Typography variant="body2">
                 {!isCurrentPage ? "Add Form" : "Update Form"}

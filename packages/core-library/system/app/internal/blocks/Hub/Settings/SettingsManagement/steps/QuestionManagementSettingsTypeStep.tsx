@@ -10,6 +10,7 @@ export type QuestionManagementSteps = QuestionManagementFormSteps;
 export interface QuestionManagementStepProps {
   isLoading: boolean;
   previous: () => void;
+  reset: () => void;
 }
 
 export const QuestionManagementTypeStep = {
