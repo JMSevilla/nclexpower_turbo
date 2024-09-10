@@ -5,12 +5,12 @@ import { SidebarListButton } from "./SidebarListButton";
 import { SidebarButton } from "./SidebarButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { usePathname } from "next/navigation";
-import { NavigationType } from "../../types/navigation";
 import { NCLEXBlueLogo } from "../../assets";
 import Image from "next/image";
+import { MenuItems } from "../../api/types";
 
 type SideBarPropsType = {
-  menu: NavigationType[];
+  menu: Array<MenuItems>;
   open: boolean;
   setOpen: () => void;
   variant?: "persistent" | "permanent" | "temporary";
@@ -70,18 +70,23 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
         </Box>
         {menu &&
           menu.length > 0 &&
-          menu.map((navigation, index) => (
-            <React.Fragment key={index}>
-              {navigation.children && navigation.children.length > 0 ? (
-                <SidebarListButton
-                  navigation={navigation}
-                  pathname={pathname}
-                />
-              ) : (
-                <SidebarButton navigation={navigation} pathname={pathname} />
-              )}
-            </React.Fragment>
-          ))}
+          menu
+            .filter(
+              (menus, index, self) =>
+                self.findIndex((m) => m.id === menus.id) === index
+            )
+            .map((navigation, index) => (
+              <React.Fragment key={index}>
+                {navigation.children && navigation.children.length > 0 ? (
+                  <SidebarListButton
+                    navigation={navigation}
+                    pathname={pathname}
+                  />
+                ) : (
+                  <SidebarButton navigation={navigation} pathname={pathname} />
+                )}
+              </React.Fragment>
+            ))}
       </List>
     </Drawer>
   );

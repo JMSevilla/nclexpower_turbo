@@ -1,11 +1,11 @@
 import React from "react";
 import { BusinessQueryContextProvider } from "../../../contexts";
-import { NavigationType } from "../../../types/navigation";
 import { QueryClient } from "react-query";
 import Layout from "./Layout";
+import { MenuItems } from "../../../api/types";
 
 interface Props {
-  mockMenu: NavigationType[];
+  mockMenu: Array<MenuItems>;
   tokenValidated: boolean;
   loading: boolean;
   queryClient: QueryClient;
@@ -27,15 +27,15 @@ export const InternalPageEntryPoint: React.FC<
   return (
     <React.Fragment>
       <BusinessQueryContextProvider>
-      <Layout
-            isAuthenticated={isAuthenticated}
-            loading={loading}
-            logout={logout}
-            mockMenu={mockMenu}
-            queryClient={queryClient}
-            tokenValidated={tokenValidated}
-            children={children}
-          />
+        <Layout
+          isAuthenticated={isAuthenticated}
+          loading={loading}
+          logout={logout}
+          mockMenu={mockMenu}
+          queryClient={queryClient}
+          tokenValidated={tokenValidated}
+          children={children}
+        />
       </BusinessQueryContextProvider>
     </React.Fragment>
   );
