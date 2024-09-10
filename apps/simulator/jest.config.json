@@ -1,11 +1,11 @@
 {
   "testEnvironment": "jsdom",
   "transform": {
-    "^.+\\.(ts|tsx)$": ["ts-jest", { "tsconfig": "tsconfig.jest.json" }],
+    "^.+\\.(ts|tsx)$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest"
   },
   "transformIgnorePatterns": [
-    "/node_modules/(?!swiper|ssr-window|dom7|@hookform/resolvers|react-dnd|core-dnd|dnd-core|@react-dnd)"
+    "/node_modules/(?!(@babel|react-dnd|dnd-core|react-dnd-html5-backend|@react-dnd|swiper|dom7|ssr-window)/)"
   ],
   "moduleNameMapper": {
     ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "jest-transform-stub"
