@@ -6,14 +6,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { NavigationType } from "../../types/navigation";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Divider } from "@mui/material";
 import { SidebarButton } from "./SidebarButton";
 import { useRouter } from "../../core";
+import { MenuItems } from "../../api/types";
+import { IconComponent } from "../GenericDrawerLayout/utils/icon-component";
 
 type SidebarListButtonProps = {
-  navigation: NavigationType;
+  navigation: MenuItems;
   pathname: string;
 };
 
@@ -23,7 +24,7 @@ export const SidebarListButton = ({
 }: SidebarListButtonProps) => {
   const [open, setOpen] = useState<boolean>(true);
   const router = useRouter();
-  const path = router?.pathname
+  const path = router?.pathname;
 
   const handleCollapseButton = () => {
     setOpen((prev) => !prev);
@@ -33,8 +34,11 @@ export const SidebarListButton = ({
     <Box width="100%">
       <Box padding={1}>
         <Box overflow="hidden" borderRadius={3}>
-          <ListItemButton disabled={navigation.path == path} onClick={handleCollapseButton}>
-            <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
+          <ListItemButton
+            disabled={navigation.path == path}
+            onClick={handleCollapseButton}
+          >
+            <ListItemIcon> {IconComponent(navigation.icon)}</ListItemIcon>
             <ListItemText>
               <Typography variant="body2" fontWeight={600} fontSize={13}>
                 {navigation.label}
@@ -54,13 +58,13 @@ export const SidebarListButton = ({
       </Box>
       {open && navigation.children
         ? navigation.children.length > 0 &&
-        navigation.children?.map((childNav, index) => (
-          <SidebarButton
-            navigation={childNav}
-            key={index}
-            pathname={pathname}
-          />
-        ))
+          navigation.children?.map((childNav, idx) => (
+            <SidebarButton
+              navigation={childNav}
+              key={idx}
+              pathname={pathname}
+            />
+          ))
         : null}
       <Divider />
     </Box>

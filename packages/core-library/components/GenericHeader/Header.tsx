@@ -1,16 +1,16 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
-import { NavigationType } from "../../types/navigation";
 import { useRouter } from "../../core";
 import { AccountMenu } from "../index";
 import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { WebHeaderStylesType } from "../../types/web-header-style";
 import { AccountMenuItem } from ".";
+import { MenuItems } from "../../api/types";
 
 export interface Props extends Partial<WebHeaderStylesType> {
-  menu?: NavigationType[];
+  menu?: Array<MenuItems>;
   isAuthenticated: boolean;
   drawerButton?: React.ReactNode;
   onLogout?: () => void;
