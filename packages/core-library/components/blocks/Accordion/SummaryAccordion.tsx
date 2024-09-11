@@ -24,8 +24,6 @@ interface Props {
 export const SummaryAccordion: React.FC<Props> = ({ item, type, index }) => {
   const [expanded, setExpanded] = useState<string | false>("panel0");
 
-  console.log(item);
-
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
@@ -50,7 +48,6 @@ export const SummaryAccordion: React.FC<Props> = ({ item, type, index }) => {
           aria-controls={`panel${index}-content`}
           id={`panel${index}-header`}
           sx={{
-            minHeight: "20px",
             backgroundColor: "#8E2ADD ",
             "&:hover": {
               backgroundColor: "#7222B1",
