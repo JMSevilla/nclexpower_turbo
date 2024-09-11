@@ -14,12 +14,12 @@ import {
 } from "../../../contexts";
 import { ContentLoader } from "../../../router";
 import { theme } from "../../../contents/theme/theme";
-import { NavigationType } from "../../../types/navigation";
 import { AccountSetupContextProvider } from "../../../contexts/AccountSetupContext";
 import { PageLoaderContextProvider } from "../../../contexts/PageLoaderContext";
+import { MenuItems } from "../../../api/types";
 
 interface Props {
-  mockMenu: NavigationType[];
+  mockMenu: Array<MenuItems>;
   tokenValidated: boolean;
   loading: boolean;
   queryClient: QueryClient;

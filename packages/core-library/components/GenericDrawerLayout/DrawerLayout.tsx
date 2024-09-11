@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Header } from "../GenericHeader/Header";
-import { NavigationType } from "../../types/navigation";
 import { Sidebar } from "../";
 import {
   useIsMounted,
@@ -11,9 +10,10 @@ import {
 import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 import { WebHeaderStylesType } from "../../types/web-header-style";
+import { MenuItems } from "../../api/types";
 
 type DrawerLayoutType = {
-  menu: NavigationType[];
+  menu: Array<MenuItems>;
   isAuthenticated: boolean;
   onLogout?: () => void;
   loading?: boolean;
