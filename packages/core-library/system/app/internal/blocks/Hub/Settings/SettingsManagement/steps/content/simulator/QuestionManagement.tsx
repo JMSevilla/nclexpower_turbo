@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Button,
   Card,
@@ -26,25 +26,6 @@ export const QuestionManagement: React.FC<Props> = ({
   previous,
   reset,
 }) => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (
-        router.pathname === "/hub/settings/internal-application-settings" &&
-        url !== "/hub/settings/internal-application-settings"
-      ) {
-        reset();
-      }
-    };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-    };
-  }, [router]);
-
   const tabs = useMemo<Array<TabOption>>(
     () => [
       {
@@ -75,7 +56,9 @@ export const QuestionManagement: React.FC<Props> = ({
       </Button>
       <TabsDesktop tabs={tabs} />
       {tabs.map((tab, index) => (
-        <TabPanel index={index}>{tab.content}</TabPanel>
+        <TabPanel key={index} index={index}>
+          {tab.content}
+        </TabPanel>
       ))}
     </Card>
   );
