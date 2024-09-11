@@ -43,6 +43,7 @@ export interface LoginResponse {
   is2FaEnabled: boolean;
   twoFactorCodeExpiryTime: string;
   accountId: string;
+  accessLevel: number;
 }
 
 export interface RefreshTokenResponse {
@@ -381,4 +382,30 @@ export type RevokeParams = {
   refreshToken: string;
   appName: string;
   email: string;
+};
+
+export type AuthorizedMenuParams = {
+  accountLevel: number;
+  menuEnvironments: number;
+  systemMenus: number;
+};
+
+export type AuthorizedMenu = {
+  id: string;
+  systemMenus: number;
+  accountLevel: number;
+  menuEnvironments: number;
+  menuItems: Array<MenuItems>;
+}[];
+
+export type MenuItems = MenuItemsChildren;
+
+export type MenuItemsChildren = {
+  id: string;
+  label: string;
+  path: string;
+  icon: string;
+  menuId: string;
+  parentId: string;
+  children: MenuItemsChildren[];
 };
