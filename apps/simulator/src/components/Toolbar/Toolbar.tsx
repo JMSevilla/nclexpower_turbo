@@ -8,6 +8,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useToolbarSettings } from '../../core/context/ToolbarSettingsContext';
+import { CustomTooltip } from 'core-library/components';
 
 export const ToolbarSettings: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -32,9 +33,11 @@ export const ToolbarSettings: React.FC = () => {
 
   return (
     <div>
-      <Button sx={buttonStyle} aria-describedby={id} type="button" onClick={handleClick}>
-        <SettingsIcon fontSize="large" sx={buttonStyle.IconStyle} />
-      </Button>
+      <CustomTooltip title="Settings">
+        <Button sx={buttonStyle} aria-describedby={id} type="button" onClick={handleClick}>
+          <SettingsIcon fontSize="large" sx={buttonStyle.IconStyle} />
+        </Button>
+      </CustomTooltip>
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <Box sx={{ border: 1, p: 1, bgcolor: '#007AB7' }}>
           <div className="flex items-center justify-center">
