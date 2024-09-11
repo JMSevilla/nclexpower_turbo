@@ -5,9 +5,9 @@ interface CustomTooltipProps extends TooltipProps {
   title: string;
 }
 
-export const CustomTooltip: React.FC<React.PropsWithChildren<CustomTooltipProps>> = ({  title, children,...props}) => {
+export const CustomTooltip: React.FC<React.PropsWithChildren<CustomTooltipProps>> = ({  title, children}) => {
   return (
-    <Tooltip title={title}{...props}>
+    <Tooltip title={title}>
       {children}
     </Tooltip>
   );

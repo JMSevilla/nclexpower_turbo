@@ -118,7 +118,7 @@ export const Header: React.FC<Props> = ({ logout, current }) => {
               <ReportIssueDialog />
             </div>
             <div className="header-step-7 flex items-center">
-              <CustomTooltip title="refresh">
+              <CustomTooltip title="Refresh">
                 <Button onClick={refresh} sx={{ color: '#F3F3F3' }}>
                   <RefreshIcon fontSize="medium" />
                 </Button>

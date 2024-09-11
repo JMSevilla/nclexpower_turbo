@@ -31,6 +31,12 @@ export const ToolbarSettings: React.FC = () => {
     },
   };
 
+  const toolTipData = [
+    {icon: <ZoomOutIcon fontSize="medium" onClick={handleZoomOutText}/>, title: "Zoom Out"},
+    {icon: <RestartAltIcon fontSize="medium" onClick={handleResetTextZoom}/>, title: "Reset"},
+    {icon: <ZoomInIcon fontSize="medium" onClick={handleZoomInText}/>, title: "Zoom In"}
+  ]
+
   return (
     <div>
       <CustomTooltip title="Settings">
@@ -41,15 +47,14 @@ export const ToolbarSettings: React.FC = () => {
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <Box sx={{ border: 1, p: 1, bgcolor: '#007AB7' }}>
           <div className="flex items-center justify-center">
-            <Button sx={iconStyle} onClick={handleZoomOutText}>
-              <ZoomOutIcon fontSize="medium" />
-            </Button>
-            <Button sx={iconStyle} onClick={handleResetTextZoom}>
-              <RestartAltIcon fontSize="medium" />
-            </Button>
-            <Button sx={iconStyle} onClick={handleZoomInText}>
-              <ZoomInIcon fontSize="medium" />
-            </Button>
+            {toolTipData.map((item,index)=>(
+              <CustomTooltip title={item.title}>
+                <Button sx={iconStyle}>
+                  {item.icon} 
+                </Button>
+            </CustomTooltip>
+            ))}
+            
           </div>
         </Box>
       </Popper>
