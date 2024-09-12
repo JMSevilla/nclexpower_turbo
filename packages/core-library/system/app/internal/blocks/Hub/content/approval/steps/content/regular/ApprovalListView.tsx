@@ -20,7 +20,6 @@ const mockData = [
   }
 ];
 
-// datagrid list.
 export const ApprovalListView: React.FC<Props> = ({ nextStep }) => {
     const { columns } = useColumns({
       columns: [
