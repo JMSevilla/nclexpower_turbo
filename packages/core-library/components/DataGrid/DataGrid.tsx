@@ -30,6 +30,7 @@ export const DataGrid: React.FC<Props> = ({
             disableColumnMenu
             loading={isLoading}
             rowSelection={false}
+            checkboxSelection={true}
             initialState={{
                 pagination: {
                     paginationModel: {
