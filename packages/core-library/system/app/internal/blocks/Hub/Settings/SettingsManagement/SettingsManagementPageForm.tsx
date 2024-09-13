@@ -4,6 +4,7 @@ import { Alert } from "core-library/components";
 import { useSettingsManagementWizardSteps } from "./steps/useSteps";
 import { useActiveSteps, useBeforeUnload } from "core-library/hooks";
 import { useRouter } from "../../../../../../../core";
+import { useResetOnRouteChange } from "../../../../../../../core/hooks/useResetOnRouteChange";
 
 export const SettingsManagementPageForm = () => {
   const { renderStep: render, steps } = useSettingsManagementWizardSteps();
@@ -18,18 +19,7 @@ export const SettingsManagementPageForm = () => {
     stepLabels.length
   );
 
-  const [isRoute, setIsRoute] = useState<boolean>(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.route === "/hub/settings/internal-application-settings") {
-      setIsRoute(true);
-    }
-  }, [isRoute]);
-
-  if (!isRoute) {
-    reset();
-  }
+  useResetOnRouteChange({ resetStep: reset });
 
   return (
     <Box>

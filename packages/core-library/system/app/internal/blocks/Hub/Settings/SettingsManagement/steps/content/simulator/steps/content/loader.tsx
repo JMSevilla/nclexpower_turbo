@@ -2,8 +2,6 @@ import React from "react";
 import { AnimatedBoxSkeleton } from "../../../../../../../../../../../../components";
 import { Box, Grid } from "@mui/material";
 
-const isTrue = true.toString();
-
 export const QuestionTypeSelectionLoader: React.FC = () => {
   return (
     <Grid
@@ -13,10 +11,10 @@ export const QuestionTypeSelectionLoader: React.FC = () => {
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
     >
       <Grid item xs={6}>
-        <AnimatedBoxSkeleton height={135} light={isTrue} />
+        <AnimatedBoxSkeleton height={135} light={"true"} />
       </Grid>
       <Grid item xs={6}>
-        <AnimatedBoxSkeleton height={135} light={isTrue} />
+        <AnimatedBoxSkeleton height={135} light={"true"} />
       </Grid>
     </Grid>
   );
@@ -35,7 +33,7 @@ export const CreateQuestionLoader: React.FC = () => {
         justifyContent="space-between"
       >
         <Box width="155px">
-          <AnimatedBoxSkeleton height={50} light={isTrue} />
+          <AnimatedBoxSkeleton height={50} light={"true"} />
         </Box>
         <Box
           marginTop="5px"
@@ -46,18 +44,18 @@ export const CreateQuestionLoader: React.FC = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <AnimatedBoxSkeleton height={25} light={isTrue} />
+          <AnimatedBoxSkeleton height={25} light={"true"} />
           <Box
             width="85px"
             display="flex"
             justifyContent="center"
             alignItems="center"
           >
-            <AnimatedBoxSkeleton height={25} light={isTrue} />
+            <AnimatedBoxSkeleton height={25} light={"true"} />
           </Box>
         </Box>
         <Box width="185px">
-          <AnimatedBoxSkeleton height={20} light={isTrue} />
+          <AnimatedBoxSkeleton height={20} light={"true"} />
         </Box>
       </Box>
       <Box
@@ -67,8 +65,8 @@ export const CreateQuestionLoader: React.FC = () => {
         alignItems="center"
       >
         <Box width="335px" display="flex" gap="8px">
-          <AnimatedBoxSkeleton height={50} light={isTrue} />
-          <AnimatedBoxSkeleton height={50} light={isTrue} />
+          <AnimatedBoxSkeleton height={50} light={"true"} />
+          <AnimatedBoxSkeleton height={50} light={"true"} />
         </Box>
       </Box>
       <Box
@@ -78,10 +76,10 @@ export const CreateQuestionLoader: React.FC = () => {
         justifyContent="end"
         alignItems="center"
       >
-        <AnimatedBoxSkeleton height={350} light={isTrue} />
+        <AnimatedBoxSkeleton height={350} light={"true"} />
         <Box width="100%">
           <Box width="155px" sx={{ float: "right", marginTop: "10px" }}>
-            <AnimatedBoxSkeleton height={50} light={isTrue} />
+            <AnimatedBoxSkeleton height={50} light={"true"} />
           </Box>
         </Box>
       </Box>
@@ -102,7 +100,7 @@ export const SummaryAccordionLoader: React.FC = () => {
         justifyContent="space-between"
       >
         <Box width="155px">
-          <AnimatedBoxSkeleton height={50} light={isTrue} />
+          <AnimatedBoxSkeleton height={50} light={"true"} />
         </Box>
         <Box
           marginTop="5px"
@@ -113,17 +111,17 @@ export const SummaryAccordionLoader: React.FC = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <AnimatedBoxSkeleton height={25} light={isTrue} />
+          <AnimatedBoxSkeleton height={25} light={"true"} />
           <Box
             width="85px"
             display="flex"
             justifyContent="center"
             alignItems="center"
           >
-            <AnimatedBoxSkeleton height={25} light={isTrue} />
+            <AnimatedBoxSkeleton height={25} light={"true"} />
           </Box>
           <Box width="650px" marginTop="16px">
-            <AnimatedBoxSkeleton height={20} light={isTrue} />
+            <AnimatedBoxSkeleton height={20} light={"true"} />
           </Box>
         </Box>
         <Box width="185px"></Box>
@@ -137,10 +135,10 @@ export const SummaryAccordionLoader: React.FC = () => {
         justifyContent="end"
         alignItems="center"
       >
-        <AnimatedBoxSkeleton height={350} light={isTrue} />
+        <AnimatedBoxSkeleton height={350} light={"true"} />
         <Box width="100%">
           <Box width="155px" sx={{ float: "right", marginTop: "10px" }}>
-            <AnimatedBoxSkeleton height={50} light={isTrue} />
+            <AnimatedBoxSkeleton height={50} light={"true"} />
           </Box>
         </Box>
       </Box>
