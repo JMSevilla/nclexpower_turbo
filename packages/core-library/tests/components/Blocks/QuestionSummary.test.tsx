@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from "../../common";
 import { render } from "@testing-library/react";
-import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/QuestionSummary";
+import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/regular/QuestionSummary";
 import { SummaryAccordion } from "../../../components";
 import ConfirmationModal from "../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { usePageLoaderContext } from "../../../contexts/PageLoaderContext";
@@ -147,7 +147,7 @@ describe("QuestionSummary Component", () => {
       />
     );
 
-    const backButton = screen.getByRole("button", { name: /Go Back/i });
+    const backButton = screen.getByRole("button", { name: /Previous/i });
     fireEvent.click(backButton);
 
     expect(mockPreviousStep).toHaveBeenCalled;
