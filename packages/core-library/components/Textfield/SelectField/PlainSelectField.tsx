@@ -38,7 +38,12 @@ export const PlainSelectField: React.FC<PlainSelectFieldProps> = ({
           return (
             <option
               key={i}
-              value={option.value ?? option.branch_id ?? option.id}
+              value={
+                option.value ??
+                option.branch_id ??
+                option.id ??
+                option.categoryName
+              }
             >
               {option.name ??
                 option.branchName ??

@@ -1,8 +1,8 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Button } from "../../../../../../../../../../../../components";
-import { useRouter } from "../../../../../../../../../../../../core";
-import { ContainedRegularQuestionType } from "../../types";
+import { Button } from "../../../../../../../../../../../../../components";
+import { useRouter } from "../../../../../../../../../../../../../core";
+import { ContainedRegularQuestionType } from "../../../types";
 import { Box, styled, Typography } from "@mui/material";
 
 interface Props {
