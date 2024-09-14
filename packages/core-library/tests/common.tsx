@@ -10,6 +10,8 @@ import {
 } from "../contexts";
 import { theme } from "../contents/theme/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export * from "@testing-library/react";
 
@@ -31,17 +33,19 @@ export const render = (
   rtlRender(ui, {
     wrapper: ({ children }) => (
       <BusinessQueryContextProvider>
-        <QueryClientProvider client={new QueryClient()}>
-          <StripeContextProvider publishableKey="">
-            <ThemeProvider theme={theme()}>
-              <HeaderTitleContextProvider>
-                <FormSubmissionContextProvider>
-                  {children}
-                </FormSubmissionContextProvider>
-              </HeaderTitleContextProvider>
-            </ThemeProvider>
-          </StripeContextProvider>
-        </QueryClientProvider>
+        <DndProvider backend={HTML5Backend}>
+          <QueryClientProvider client={new QueryClient()}>
+            <StripeContextProvider publishableKey="">
+              <ThemeProvider theme={theme()}>
+                <HeaderTitleContextProvider>
+                  <FormSubmissionContextProvider>
+                    {children}
+                  </FormSubmissionContextProvider>
+                </HeaderTitleContextProvider>
+              </ThemeProvider>
+            </StripeContextProvider>
+          </QueryClientProvider>
+        </DndProvider>
       </BusinessQueryContextProvider>
     ),
     ...options,

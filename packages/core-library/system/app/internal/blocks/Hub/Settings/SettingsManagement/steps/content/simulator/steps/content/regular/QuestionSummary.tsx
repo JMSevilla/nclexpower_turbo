@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { ContainedRegularQuestionType } from "../../types";
+import { ContainedRegularQuestionType } from "../../../types";
 import { Box, Grid, Typography } from "@mui/material";
 import {
   Button,
   SummaryAccordion,
   Alert,
-} from "../../../../../../../../../../../../components";
-import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+} from "../../../../../../../../../../../../../components";
+import ConfirmationModal from "../../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { useAtom } from "jotai";
-import { CreateRegularAtom } from "../../useAtomic";
-import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
-import { SummaryAccordionLoader } from "./loader";
-import { useSensitiveInformation } from "../../../../../../../../../../../../hooks";
-import { convertToCreateRegularType } from "../../utils/convertToCreateRegularType";
-import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
+import { CreateRegularAtom } from "../../../useAtomic";
+import { useBusinessQueryContext } from "../../../../../../../../../../../../../contexts";
+import { SummaryAccordionLoader } from "../loader";
+import { useSensitiveInformation } from "../../../../../../../../../../../../../hooks";
+import { convertToCreateRegularType } from "../../../utils/convertToCreateRegularType";
+import { usePageLoaderContext } from "../../../../../../../../../../../../../contexts/PageLoaderContext";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -59,6 +59,11 @@ export const QuestionSummary: React.FC<Props> = ({
     }
   }
 
+  const handleBackButton = () => {
+    previousStep();
+    previous();
+  };
+
   if (contentLoader) {
     return <SummaryAccordionLoader />;
   }
@@ -71,9 +76,9 @@ export const QuestionSummary: React.FC<Props> = ({
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
     >
       <Box display="flex" width="100%" marginBottom="25px" position="relative">
-        <Button onClick={previousStep} sx={{ zIndex: 1 }}>
+        <Button onClick={handleBackButton} sx={{ zIndex: 1 }}>
           <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
-          <Typography>Go Back</Typography>
+          <Typography>Previous</Typography>
         </Button>
         <Box
           marginTop="30px"
@@ -119,6 +124,7 @@ export const QuestionSummary: React.FC<Props> = ({
               item={item}
               type={questionnaireAtom.type || ""}
               index={index}
+              key={index}
             />
           ))}
       </Box>
