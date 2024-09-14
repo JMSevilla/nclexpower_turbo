@@ -27,3 +27,6 @@ export const usePaymentIntentId = () =>
 
 export const useAccountId = () =>
   useSessionStorage<string | undefined>("uid", undefined);
+
+export const useAccessLevel = () =>
+  useSessionStorage<number | undefined>("al", undefined);

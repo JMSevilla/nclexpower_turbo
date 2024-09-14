@@ -1,7 +1,13 @@
 import * as yup from "yup";
-import { containedRegularQuestionSchema, } from "./validation";
-
+import {
+  containedRegularQuestionSchema,
+  containedCaseStudyQuestionSchema,
+} from "./validation";
 
 export type ContainedRegularQuestionType = yup.InferType<
   typeof containedRegularQuestionSchema
+>;
+
+export type ContainedCaseStudyQuestionType = yup.InferType<
+  typeof containedCaseStudyQuestionSchema
 >;

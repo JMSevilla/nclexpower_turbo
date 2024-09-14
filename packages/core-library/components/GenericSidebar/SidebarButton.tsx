@@ -5,11 +5,12 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { NavigationItemType } from "../../types/global";
 import { useRouter } from "../../core";
+import { MenuItems } from "../../api/types";
+import { IconComponent } from "../GenericDrawerLayout/utils/icon-component";
 
 type SidebarButtonProps = {
-  navigation: NavigationItemType;
+  navigation: MenuItems;
   pathname: string;
 };
 
@@ -31,7 +32,7 @@ export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
           component="a"
           onClick={handleNavigate}
         >
-          <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
+          <ListItemIcon> {IconComponent(navigation.icon)}</ListItemIcon>
           <ListItemText>
             <Typography variant="body2" fontSize={13}>
               {navigation.label}

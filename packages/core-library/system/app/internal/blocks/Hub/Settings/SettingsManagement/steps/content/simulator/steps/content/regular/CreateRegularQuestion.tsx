@@ -1,24 +1,26 @@
 import {
   Button,
   Card,
-  MultipleSelectField,
   ControlledRichTextEditor,
   AnswerOptions,
-} from "../../../../../../../../../../../../components";
+} from "../../../../../../../../../../../../../components";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useAtom } from "jotai";
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Pagination, Typography } from "@mui/material";
-import { useBusinessQueryContext } from "../../../../../../../../../../../../contexts";
+import { useBusinessQueryContext } from "../../../../../../../../../../../../../contexts";
 import { FormProvider } from "react-hook-form";
-import { ContainedRegularQuestionType } from "../../types";
-import { CreateRegularAtom } from "../../useAtomic";
-import { useRegularQuestionForm } from "./hooks/useRegularQuestionForm";
-import { initQuestionsValues } from "../../../../../constants/constants";
-import ConfirmationModal from "../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
-import { CreateQuestionLoader } from "./loader";
-import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
+import { ContainedRegularQuestionType } from "../../../types";
+import { CreateRegularAtom } from "../../../useAtomic";
+import { useRegularQuestionForm } from "../hooks/useRegularQuestionForm";
+import { initQuestionsValues } from "../../../../../../constants/constants";
+import ConfirmationModal from "../../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+import { CreateQuestionLoader } from "../loader";
+import { usePageLoaderContext } from "../../../../../../../../../../../../../contexts/PageLoaderContext";
+import { GenericSelectField } from "../../../../../../../../../../../../../components/Textfield/GenericSelectField";
+import { GetCategoryType } from "../../../../../../../../../../../../../api/types";
+import { useSelectfieldOptions } from "../hooks/useSelectfieldOptions";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
@@ -41,6 +43,8 @@ export const CreateRegularQuestion: React.FC<Props> = ({
   const [questionnaireAtom, setQuestionnireAtom] = useAtom(CreateRegularAtom);
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [isCurrentPage, setIsCurrentPage] = useState(false);
+  const { cleanedClientNeeds, cleanedCognitiveLevel, cleanedContentArea } =
+    useSelectfieldOptions();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -68,22 +72,12 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const { isValid } = parentFormState;
 
-  const { handleSubmit: confirmCreation, control, getValues, setValue } = parentForm;
-
-  const { businessQueryGetRegularQuestionDDCategory } =
-    useBusinessQueryContext();
-  const { data: ClientNeeds } = businessQueryGetRegularQuestionDDCategory(
-    ["getClientNeeds"],
-    2
-  );
-  const { data: ContentArea } = businessQueryGetRegularQuestionDDCategory(
-    ["getContentArea"],
-    3
-  );
-  const { data: CognitiveLevel } = businessQueryGetRegularQuestionDDCategory(
-    ["getCognitiveLevel"],
-    4
-  );
+  const {
+    handleSubmit: confirmCreation,
+    control,
+    getValues,
+    setValue,
+  } = parentForm;
 
   const updateValues = () => {
     const questionIndex = selectedPageToIndex;
@@ -136,6 +130,7 @@ export const CreateRegularQuestion: React.FC<Props> = ({
 
   const handlePrevious = () => {
     previousStep();
+    previous();
     reset();
   };
 
@@ -194,13 +189,16 @@ export const CreateRegularQuestion: React.FC<Props> = ({
           <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
             <Button
               onClick={handleRemove}
-              sx={{ minWidth: "none" }}
+              sx={{ minWidth: "none", backgroundColor: "red" }}
               disabled={questionnaireFields.length === 1}
             >
               <DeleteOutlineIcon />
               <Typography variant="body2">Delete Form</Typography>
             </Button>
-            <Button disabled={!isCurrentPage && !isValid} onClick={handleAddForm}>
+            <Button
+              disabled={!isCurrentPage && !isValid}
+              onClick={handleAddForm}
+            >
               <AddIcon />
               <Typography variant="body2">
                 {!isCurrentPage ? "Add Form" : "Update Form"}
@@ -208,39 +206,38 @@ export const CreateRegularQuestion: React.FC<Props> = ({
             </Button>
           </Box>
           <Box width="100%" display="flex" gap={4}>
-            <Box flex={1} display="flex" flexDirection="column">
-              <MultipleSelectField
+            <Box width="45%" display="flex" gap={3} flexDirection="column">
+              <GenericSelectField
                 control={control}
                 sx={{ width: "100%", mb: 2 }}
                 name={`questionnaires.${selectedPageToIndex}.clientNeeds`}
                 label="Client Needs Category :"
-                options={ClientNeeds ?? []}
+                options={cleanedClientNeeds ?? []}
                 variant="standard"
               />
-              <MultipleSelectField
+              <GenericSelectField
                 control={control}
-                sx={{ width: "100%", mb: 2 }}
+                sx={{ width: "100%" }}
                 name={`questionnaires.${selectedPageToIndex}.contentArea`}
                 label="Content Area :"
-                options={ContentArea ?? []}
+                options={cleanedContentArea ?? []}
                 variant="standard"
               />
-              <MultipleSelectField
+              <GenericSelectField
                 variant="standard"
                 control={control}
-                sx={{ width: "100%", mb: 2 }}
+                sx={{ width: "100%" }}
                 name={`questionnaires.${selectedPageToIndex}.cognitiveLevel`}
                 label="Cognitive Level :"
-                options={CognitiveLevel ?? []}
+                options={cleanedCognitiveLevel ?? []}
               />
             </Box>
-            <Box flex={2} display="flex" flexDirection="column" gap={4}>
-              <Box>
+            <Box width="55%" display="flex" flexDirection="column" gap={4}>
+              <Box maxWidth={1}>
                 <Typography variant="body2">Question :</Typography>
-                <Card>
+                <Card sx={{ maxHeight: "200px", overflow: "auto" }}>
                   <ControlledRichTextEditor
                     control={control}
-                    editorClassName="max-h-[200px] overflow-auto"
                     editorFor="questions"
                     name={`questionnaires.${selectedPageToIndex}.question`}
                   />
