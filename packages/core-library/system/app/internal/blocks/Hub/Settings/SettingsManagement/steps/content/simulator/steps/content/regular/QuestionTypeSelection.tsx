@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "../../../../../../../../../../../../components";
+import { Card } from "../../../../../../../../../../../../../components";
 import { Box, Grid, Divider, Typography } from "@mui/material";
-import { ContainedRegularQuestionType } from "../../types";
+import { ContainedRegularQuestionType } from "../../../types";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegularQuestionSelectionOptions } from "../../../../../types";
-import { QuestionTypeSelectionLoader } from "./loader";
-import { usePageLoaderContext } from "../../../../../../../../../../../../contexts/PageLoaderContext";
+import { RegularQuestionSelectionOptions } from "../../../../../../types";
+import { QuestionTypeSelectionLoader } from "../loader";
+import { usePageLoaderContext } from "../../../../../../../../../../../../../contexts/PageLoaderContext";
 
 interface Props {
   nextStep(values: Partial<ContainedRegularQuestionType>): void;
