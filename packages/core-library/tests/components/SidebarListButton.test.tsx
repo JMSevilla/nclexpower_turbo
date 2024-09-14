@@ -1,40 +1,54 @@
-import { screen,render } from '../common';
-import { SidebarListButton } from '../../components/GenericSidebar/SidebarListButton';
+import { screen, render, fireEvent } from "../common";
+import { SidebarListButton } from "../../components/GenericSidebar/SidebarListButton";
+import { MenuItemsChildren } from "../../api/types";
+import { IconComponent } from "../../components/GenericDrawerLayout/utils/icon-component";
 
 jest.mock("../../config", () => ({
-    config: { value: jest.fn() },
+  config: { value: jest.fn() },
 }));
 
 jest.mock("../../core/router", () => ({
-    useRouter: jest.fn(),
+  useRouter: jest.fn(),
+}));
+
+jest.mock("../../components/GenericDrawerLayout/utils/icon-component", () => ({
+  IconComponent: jest.fn(),
 }));
 
 const mockNavigation = {
-    id:0,
-    path: '/',
-    label: 'Home',
-    icon: <span>Icon</span>,
-    children: [
-        {
-        id:0,
-        path: '/child',
-        label: 'Child',
-        icon: <span>Child Icon</span>,
-        children: [],
-        },
-    ],
-};
+  id: "test-id",
+  children: [
+    {
+      id: "child-id",
+      label: "Child",
+      path: "/child-path",
+      icon: "ChildIcon",
+      menuId: "child-menu-id",
+      parentId: "test-id",
+      children: [],
+    },
+  ],
+  icon: "FeedIcon",
+  label: "Test Label",
+  menuId: "test-menu-id",
+  parentId: "test-parent-id",
+  path: "/test-path",
+} as MenuItemsChildren;
 
-describe('SidebarListButton', () => {
-  it('should render the component with the provided props', () => {
-    render(<SidebarListButton navigation={mockNavigation} pathname="/" />);
-
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Icon')).toBeInTheDocument();
+describe("SidebarListButton", () => {
+  beforeEach(() => {
+    (IconComponent as jest.Mock).mockReturnValue(<span>FeedIcon</span>);
   });
 
-  it('should not render children if `open` is false', () => {
-    render(<SidebarListButton navigation={{ ...mockNavigation, children: [] }} pathname="/" />);
-    expect(screen.queryByText('Child')).toBeNull();
+  it("should render the component with the provided props", () => {
+    render(<SidebarListButton navigation={mockNavigation} pathname="/" />);
+
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+  });
+
+  it("should call IconComponent with correct icon name", () => {
+    render(<SidebarListButton navigation={mockNavigation} pathname="/" />);
+
+    expect(IconComponent).toHaveBeenCalledWith("FeedIcon");
   });
 });

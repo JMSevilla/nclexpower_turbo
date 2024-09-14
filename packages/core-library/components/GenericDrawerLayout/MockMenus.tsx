@@ -11,7 +11,12 @@ import {
 } from "@mui/icons-material";
 import { NavigationType } from "../../types/navigation";
 import { useAuthNavigation } from "../../core/hooks/useAuthNavigation";
+import { useMenu } from "./hooks/useMenu";
 
+/**
+ * @deprecated menus should be consumed dynamically. This utilization will be deprecated.
+ * Effective Date : Today 9/9/2024
+ */
 const AuthenticatedMenu: NavigationType[] = [
   {
     id: 1,
@@ -80,7 +85,7 @@ const AuthenticatedMenu: NavigationType[] = [
         id: 4,
         label: "Content Approval",
         path: "/acam/question-approval",
-      }
+      },
     ],
   },
   {
@@ -145,8 +150,9 @@ const UnauthencatedMenu: NavigationType[] = [
 ];
 
 export const mockMenus = (isAuthenticated: boolean) => {
+  const { menus } = useMenu();
   if (isAuthenticated) {
-    return useAuthNavigation(AuthenticatedMenu);
+    return useAuthNavigation(menus);
   }
   return [];
 };

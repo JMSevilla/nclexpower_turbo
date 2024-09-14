@@ -42,7 +42,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
             <StripeContextProvider publishableKey={publishableKey}>
               <LoadablePageContent>
                 <DrawerLayout
-                  menu={headerMenu}
+                  menu={[]}
                   isAuthenticated={isAuthenticated}
                   headerStyles={headerStyles}
                   hiddenHeaderPathnames={HideHeader}

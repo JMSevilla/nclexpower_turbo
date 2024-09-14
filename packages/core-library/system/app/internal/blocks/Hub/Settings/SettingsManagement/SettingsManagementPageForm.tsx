@@ -13,7 +13,9 @@ export const SettingsManagementPageForm = () => {
 
   useBeforeUnload(true);
 
-  const { activeStep, next, previous } = useActiveSteps(stepLabels.length);
+  const { activeStep, next, previous, reset } = useActiveSteps(
+    stepLabels.length
+  );
   return (
     <Box>
       <Container>
@@ -26,6 +28,7 @@ export const SettingsManagementPageForm = () => {
         {render({
           isLoading: true,
           previous,
+          reset,
         })}
       </Container>
     </Box>
