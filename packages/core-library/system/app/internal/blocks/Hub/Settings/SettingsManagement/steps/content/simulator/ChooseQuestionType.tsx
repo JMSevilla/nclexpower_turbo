@@ -7,6 +7,7 @@ import {
 } from "./steps/content";
 import { SuccessPage } from "./steps/content/SuccessPage";
 import { CaseNameSelection } from "./steps/content/casestudy/CaseNameSelection";
+import { CreateCaseStudyQuestion } from "./steps/content/casestudy/CaseStudyCreation/CreateCaseStudyQuestion";
 
 export type QuestionTypeFormSteps =
   | "InitialQuestionTypeSelection"
@@ -60,6 +61,11 @@ export const ChooseCaseStudyQuestionType = {
     previousStep: "InitialCaseNameSelection",
     nextStep: "CaseStudyQuestionCreation",
     content: (props) => <CaseNameSelection {...props} />,
+  },
+  CaseStudyQuestionCreation: {
+    previousStep: "InitialCaseNameSelection",
+    nextStep: "CaseStudyQuestionCreation",
+    content: (props) => <CreateCaseStudyQuestion {...props} />,
   },
 } as WizardFormMap<
   Partial<CaseStudyQuestionTypeFormSteps>,

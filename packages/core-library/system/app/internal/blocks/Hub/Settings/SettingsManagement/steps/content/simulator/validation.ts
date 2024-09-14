@@ -73,6 +73,26 @@ export const containedRegularQuestionSchema = yup
 
 /* Case study schema */
 
+const bgInfoContent = yup.object({
+  seqNum: yup.number().default(1),
+  seqContent: yup.string().default("Input Text Here"),
+});
+
+const itemInfoContent = yup.object({
+  quesType: yup.string(),
+  maxPoints: yup.string(),
+  seqNum: yup.number(),
+  answer: yup.string(),
+});
+
+export const caseStudyQuestionsFormSchema = yup.object({
+  nurseNotes: yup.array(bgInfoContent).default([]),
+  hxPhy: yup.array(bgInfoContent).default([]),
+  labs: yup.array(bgInfoContent).default([]),
+  orders: yup.array(bgInfoContent).default([]),
+  answer: yup.array(itemInfoContent).default([]), // For Answer Section
+});
+
 export const containedCaseStudyQuestionSchema = yup
   .object({
     caseName: yup
@@ -81,4 +101,5 @@ export const containedCaseStudyQuestionSchema = yup
       .required("Select atleast 1 case name")
       .default([]),
   })
-  .required();
+  .required()
+  .concat(caseStudyQuestionsFormSchema);

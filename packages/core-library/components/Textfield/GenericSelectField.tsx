@@ -36,6 +36,7 @@ export type BaseSelectFieldProps = Omit<
   containerProps?: StackProps;
   labelProps?: InputLabelProps;
   value?: string;
+  width?: string | number;
   transformValue?: (value: string) => any | undefined;
   getValue?: (value: any) => string;
   onChange?: (...event: any[]) => void;
@@ -55,6 +56,7 @@ export function SelectField<T extends boolean>({
   containerProps = {},
   labelProps = {},
   modalOptions,
+  width = "100%",
   onChange,
   transformValue = (v: string) => v,
   getValue = (value: any) => value,
@@ -62,7 +64,7 @@ export function SelectField<T extends boolean>({
   ...rest
 }: SelectFieldProps<T>) {
   return (
-    <Stack width={"100%"}>
+    <Stack width={width}>
       <Stack gap={1} {...containerProps}>
         {label && (
           <InputLabel error={error} required={required} {...labelProps}>
@@ -94,6 +96,7 @@ export type ControlledSelectFieldProps<
 export function GenericSelectField<T extends FieldValues, U extends boolean>({
   control,
   name,
+  width,
   onChange: origOnChange,
   transformValue = (v: string) => v,
   shouldUnregister,
@@ -118,6 +121,7 @@ export function GenericSelectField<T extends FieldValues, U extends boolean>({
           onBlur={onBlur}
           inputRef={ref}
           value={value ?? ""}
+          width={width}
           {...rest}
         />
       )}
