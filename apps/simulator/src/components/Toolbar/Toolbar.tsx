@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { buttonStyle } from '../Header/Header';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { CustomTooltip } from 'core-library/components';
-import { ToolTipData } from '@/core/constant/toolTipData';
+import { ToolTipData } from '@/core/constant/toolTipDataConstant';
 
 export const ToolbarSettings: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
