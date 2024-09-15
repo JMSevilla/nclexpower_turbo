@@ -14,6 +14,7 @@ import { CategoryListResponse } from "../../types/category-response";
 import {
   AuthorizedMenu,
   AuthorizedMenuParams,
+  AuthorizedRoutes,
   CategoryFormParams,
   CreateRegularType,
   CurrenciesResponse,
@@ -66,6 +67,12 @@ export class WebApiBackOffice {
     return this.axios.post<AuthorizedMenu>(
       `/api/v2/content/BaseContent/get-authorized-menus`,
       params
+    );
+  }
+
+  public getContentRoutes(uid: string | undefined) {
+    return this.axios.get<Array<AuthorizedRoutes>>(
+      `/api/v2/internal/baseInternal/internal-auth-routes?accountId=${uid}`
     );
   }
 

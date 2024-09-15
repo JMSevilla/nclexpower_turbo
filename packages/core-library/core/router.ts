@@ -1,7 +1,6 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
-
 type StaticRoutes = Record<
   | "home"
   | "hub"
@@ -53,6 +52,7 @@ export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
   const staticRoutes = {} as StaticRoutes;
+  // const { validate } = useMenu();
 
   useEffect(() => {
     const start = () => {
@@ -168,7 +168,6 @@ export const useRouter = () => {
     };
   }
 };
-
 
 export function routeUrl(path: string) {
   return path === STATIC_ROUTES.home ||
