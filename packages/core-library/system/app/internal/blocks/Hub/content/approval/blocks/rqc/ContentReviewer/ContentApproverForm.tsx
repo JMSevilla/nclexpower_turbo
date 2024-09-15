@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { ApproverData } from "./ContentReviewerData";
+import { Box, Chip, Typography } from "@mui/material";
+import { contentApprovers } from "./ContentReviewerData";
 import { Button, Card, TextField } from "../../../../../../../../../../components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { approverSchema, approverType } from "./validation";
@@ -10,7 +10,6 @@ import ReplyIcon from '@mui/icons-material/Reply';
 type Props = {}
 
 export default function ContentApproverForm({ }: Props) {
-
   const form = useForm<approverType>({
     mode: "all",
     resolver: yupResolver(approverSchema),
@@ -69,10 +68,10 @@ export default function ContentApproverForm({ }: Props) {
           </Card>
         </CustomPopover>
       </Box>
-
       <Box>
-        {ApproverData.map((item, index) => (
+        {contentApprovers.map((item, index) => (
           <div key={index}>
+            <Chip sx={{ backgroundColor: '#560bad', color: '#F3F3F3', marginBottom: 4 }} label={item.content} />
             <Typography sx={{ fontSize: '1rem', color: "#606060" }}>
               Approver name: {item.approver}
             </Typography>
@@ -85,7 +84,6 @@ export default function ContentApproverForm({ }: Props) {
           </div>
         ))}
       </Box>
-
     </FormProvider>
   )
 }

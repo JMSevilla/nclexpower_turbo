@@ -1,16 +1,21 @@
-export const ContentReviewerData = [{
-  qType: "Regular Question",
+export const author = [{
+  author: "John Doe",
+  createdDate: "September 14, 2024",
+}]
+
+export const mainContent = [{
+  type: "Regular Question",
   question: "The nurse is caring for a client who is in Buck traction. Which of the following would require immediate intervention?",
   cognitiveLevel: "Knowledge",
   contentArea: "Adult Health: Cardiovascular",
   clientNeeds: "Management of Care",
-  answer: [
-    { option: "A pillow is placed under the knee.",}, 
-    { option: "The foot is 2 in (5 cm) away from the foot plate." },
-    { option:  "The weights attached to the pulley are 6 in (15 cm) from the floor." },
-    { option: "A pillow is placed under the lower leg with the heel off the bed." }
+  mainContentAnswerCollections: [
+    { answer: "A pillow is placed under the knee.",}, 
+    { answer: "The foot is 2 in (5 cm) away from the foot plate." },
+    { answer:  "The weights attached to the pulley are 6 in (15 cm) from the floor." },
+    { answer: "A pillow is placed under the lower leg with the heel off the bed." }
   ],
-  correctAnswer: "The weights attached to the pulley are 6 in (15 cm) from the floor.",
+  answerKey: "The weights attached to the pulley are 6 in (15 cm) from the floor.",
 }]
 
 export const RadioData = [
@@ -20,8 +25,9 @@ export const RadioData = [
   { title: "Reject", value: "Reject" },
 ];
 
-export const ApproverData = [
+export const contentApprovers = [
   {
+    content: "Regular Question",
     approver: "John Doe",
     comment: "Example comment displaying the comment of approver.",
     createdAt: "September 14, 2024"

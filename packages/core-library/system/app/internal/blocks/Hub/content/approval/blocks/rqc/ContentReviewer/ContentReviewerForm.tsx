@@ -4,15 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { crbSchema, crbType } from './validation';
-import { ContentReviewerData, RadioData } from "./ContentReviewerData";
-import { useState } from 'react';
+import { author, mainContent, RadioData } from "./ContentReviewerData";
 import { CustomPopover } from '../../../../../../../../../../components/Popover/Popover';
 
 type Props = {}
 
 export default function ContentReviewerForm({ }: Props) {
-  const [popperOpen, setPopperOpen] = useState<boolean>(true);
-
   const form = useForm<crbType>({
     mode: "all",
     resolver: yupResolver(crbSchema),
@@ -24,22 +21,30 @@ export default function ContentReviewerForm({ }: Props) {
 
   const onSubmit = (values: crbType) => {
     console.log("Selected Option:", values);
-    setPopperOpen(false);
     reset();
   };
 
   return (
     <FormProvider {...form}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "space-between", marginBottom: 4 }}>
-        <Typography sx={{ fontSize: '2rem', fontWeight: 'bold', color: '#560bad' }}>
-          Content Details:
-        </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
+        <Box>
+          <Typography sx={{ fontSize: '2rem', fontWeight: 'bold', color: '#560bad' }}>
+            Content Details:
+          </Typography>
+          {author.map((item, index) => (
+            <Box key={index}>
+              <Typography sx={{ fontSize: '1rem', color: '#606060' }}>Author Details: </Typography>
+              <Typography sx={{ fontSize: '1rem', color: '#606060' }}>{item.author}</Typography>
+              <Typography sx={{ fontSize: '1rem', color: '#606060' }}>{item.createdDate}</Typography>
+            </Box>
+          ))}
+        </Box>
         <Chip sx={{ backgroundColor: 'transparent', color: '#560bad', border: "1px solid #560bad" }} label="Pending" />
       </Box>
       <Box sx={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: "end" }}>
         <CustomPopover
           icon={<ArrowDropDownIcon />}
-          open={popperOpen}
+          open={true}
           label='Review Changes'
           sx={{
             px: 4,
@@ -96,10 +101,10 @@ export default function ContentReviewerForm({ }: Props) {
           </Card>
         </CustomPopover>
       </Box>
-      {ContentReviewerData.map((item, index) => (
+      {mainContent.map((item, index) => (
         <Box key={index} sx={{ marginBottom: 4 }}>
           <Box sx={{ display: 'flex', flexDirection: "flex-col", alignItems: 'center', marginBottom: 4 }}>
-            <Chip sx={{ backgroundColor: '#560bad', color: '#F3F3F3' }} label={item.qType} />
+            <Chip sx={{ backgroundColor: '#560bad', color: '#F3F3F3' }} label={item.type} />
           </Box>
           <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: 4, color: "#560bad" }}>
             {item.question}
@@ -117,13 +122,13 @@ export default function ContentReviewerForm({ }: Props) {
             <Typography sx={{ fontSize: '1.2rem', fontWeight: "bold", color: "#560bad", marginTop: 4 }}>
               Answer Options :
             </Typography>
-            {item.answer.map((answerItem, idx) => (
+            {item.mainContentAnswerCollections.map((answerItem, idx) => (
               <ol key={idx} className='mb-4'>
-                <li>{answerItem.option}</li>
+                <li>{answerItem.answer}</li>
               </ol>
             ))}
             <Box sx={{ backgroundColor: "#560bad", padding: 4, color: "#F3F3F3" }}>
-              Correct Answer: {item.correctAnswer}
+              Correct Answer: {item.answerKey}
             </Box>
             <hr className='my-4' />
           </div>

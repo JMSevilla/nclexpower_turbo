@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Popover, { PopoverProps } from '@mui/material/Popover';
-import Button from '@mui/material/Button';
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
+import { Button } from '../Button/Button';
 
 interface Props extends PopoverProps {
   icon?: React.ReactElement;

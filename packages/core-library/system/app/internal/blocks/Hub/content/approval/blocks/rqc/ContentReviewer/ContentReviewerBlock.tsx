@@ -1,8 +1,6 @@
-import { Box, Card } from '@mui/material';
-
 import ContentApproverForm from './ContentApproverForm';
 import ContentReviewerForm from './ContentReviewerForm';
-import { Button } from '../../../../../../../../../../components';
+import { Button, Card } from '../../../../../../../../../../components';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 
 type Props = {
@@ -17,7 +15,7 @@ export default function ContentReviewerBlock({ nextStep, previousStep }: Props) 
   };
 
   return (
-    <Card sx={{ padding: 6, height: '100vh' }}>
+    <Card sx={{ padding: 6, height: '110vh' }}>
       <Button
         onClick={handlePreviousStep}
         sx={{
