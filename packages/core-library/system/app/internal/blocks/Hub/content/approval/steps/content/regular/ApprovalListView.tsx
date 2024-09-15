@@ -1,13 +1,24 @@
 import React from "react";
-import { Card } from "../../../../../../../../../../components";
+import { Button, Card } from "../../../../../../../../../../components";
 
-interface Props {
-  nextStep(values: {}): void;
+export interface ApprovalProps {
+  nextStep({ }): void;
   previousStep(): void;
   values: {};
 }
 
-// datagrid list.
-export const ApprovalListView: React.FC<Props> = ({ nextStep }) => {
-  return <Card sx={{ mt: 5, p: 5 }}>test</Card>;
+export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
+  const handleSelection = () => {
+    nextStep({});
+  };
+
+  return (
+    <>
+      <Button onClick={() => handleSelection()}>
+        Review Content
+      </Button>
+
+      <Card sx={{ mt: 5, p: 5 }}>test</Card>
+    </>
+  );
 };
