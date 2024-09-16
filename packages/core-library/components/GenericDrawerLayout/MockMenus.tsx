@@ -12,6 +12,8 @@ import {
 import { NavigationType } from "../../types/navigation";
 import { useAuthNavigation } from "../../core/hooks/useAuthNavigation";
 import { useMenu } from "./hooks/useMenu";
+import { useRouter } from "../../core";
+import { AuthorizedRoutes, MenuItems } from "../../api/types";
 
 /**
  * @deprecated menus should be consumed dynamically. This utilization will be deprecated.
@@ -149,9 +151,38 @@ const UnauthencatedMenu: NavigationType[] = [
   },
 ];
 
-export const mockMenus = (isAuthenticated: boolean) => {
-  const { menus } = useMenu();
-  if (isAuthenticated) {
+type PrepareMenu = {
+  isAuthenticated: boolean;
+  menus: MenuItems[];
+  loading: boolean;
+};
+
+export const normalizePath = (path: string) =>
+  path.replace(/\/+$/, "").toLowerCase();
+
+export const pathExists = (
+  routes: AuthorizedRoutes[],
+  path: string
+): boolean => {
+  const basePath = "/hub";
+
+  const findPath = (items: AuthorizedRoutes[]): boolean => {
+    for (const item of items) {
+      const fullPath = normalizePath(`${basePath}${item.value}`);
+      if (fullPath === normalizePath(path)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  return findPath(routes);
+};
+
+export const prepareMenus = (props: PrepareMenu) => {
+  const { isAuthenticated, loading, menus } = props;
+
+  if (isAuthenticated && !loading) {
     return useAuthNavigation(menus);
   }
   return [];

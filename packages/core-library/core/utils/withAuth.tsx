@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { authorizedRoute, unauthorizeRoute } from "./contants/route";
 import { useValidateToken } from "../../hooks";
-import { useRouter } from '../router';
+import { useRouter } from "../router";
 
 const withAuth = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -19,15 +19,7 @@ const withAuth = <P extends object>(
 
       async function authorizationDetection(url: string) {
         if (tokenValidated) {
-          if (
-            !isLoggedIn &&
-            authorizedRoute.some((route) => url.startsWith(route))
-          ) {
-            router.replace("/login");
-          } else if (
-            isLoggedIn &&
-            unauthorizeRoute.some((route) => url === route)
-          ) {
+          if (isLoggedIn && unauthorizeRoute.some((route) => url === route)) {
             router.replace("/hub");
           } else if (isLoggedIn && url === "/404") {
             router.replace("/hub");
@@ -52,8 +44,7 @@ const withAuth = <P extends object>(
 
     return (isAuthenticated &&
       !unauthorizeRoute.some((route) => router.pathname === route)) ||
-      (!isAuthenticated &&
-        !authorizedRoute.some((route) => router.pathname.startsWith(route))) ? (
+      !isAuthenticated ? (
       <WrappedComponent {...props} />
     ) : null;
   };
