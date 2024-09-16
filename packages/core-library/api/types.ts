@@ -409,3 +409,9 @@ export type MenuItemsChildren = {
   parentId: string;
   children: MenuItemsChildren[];
 };
+
+export type AuthorizedRoutes = {
+  id: string;
+  label: string;
+  value: string;
+};
