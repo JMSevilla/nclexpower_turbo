@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { buttonStyle } from '../Header/Header';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { CustomTooltip } from 'core-library/components';
-import { ToolTipData } from '@/core/constant/toolTipDataConstant';
+import { ToolTipIcons } from '@/core/constant/toolTipData';
 
 export const ToolbarSettings: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -25,7 +25,7 @@ export const ToolbarSettings: React.FC = () => {
       </CustomTooltip>
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <Box sx={{ border: 1, p: 1, bgcolor: '#007AB7' }}>
-          <ToolTipData/>
+          <ToolTipIcons/>
         </Box>
       </Popper>
     </div>

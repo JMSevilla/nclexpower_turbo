@@ -14,7 +14,7 @@ const iconStyle = {
     },
   };
 
-export const ToolTipData = () => {
+export const ToolTipIcons = () => {
     const { handleZoomInText, handleZoomOutText, handleResetTextZoom } = useToolbarSettings();
     const data = [
         { icon: <ZoomOutIcon fontSize="medium" onClick={handleZoomOutText} />, title: "Zoom Out" },
