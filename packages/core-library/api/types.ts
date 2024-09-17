@@ -415,3 +415,88 @@ export type AuthorizedRoutes = {
   label: string;
   value: string;
 };
+
+
+export interface AuthorizedContentsType {
+  id: string
+  contentApprovers: ContentApprover[]
+  contentAuthorId: string
+  author: Author
+  contentRevisionsId: string
+  revisions: Revisions
+  contentId: string
+  mainContent: MainContent
+  mainContentStatus: number
+  workflow: number
+  implementationSchedule: string
+  createdDate: string
+  updatedDate: string
+  timeZone: string
+}
+
+export interface ContentApprover {
+  id: string
+  contentId: string
+  content: string
+  approverId: string
+  approver: Approver
+}
+
+export interface Approver extends User { }
+
+export interface Author extends User { }
+
+export interface User {
+  id: string
+  accountId: string
+  createdDate: string
+  updatedDate: string
+}
+
+export interface Revisions {
+  id: string
+  contentId: string
+  mainContent: MainContent
+  adminId: string
+  highlights: Highlight[]
+  revisionStatus: number
+  createdDate: string
+}
+
+export interface MainContent {
+  id: string
+  type: string
+  mainType: string
+  mainContentCollections: MainContentCollection[]
+  createdDate: string
+  updatedDate: string
+}
+
+export interface MainContentCollection {
+  id: string
+  cognitiveLevel: string
+  clientNeeds: string
+  contentArea: string
+  question: string
+  mainContentAnswerCollections: MainContentAnswerCollection[]
+}
+
+export interface MainContentAnswerCollection {
+  id: string
+  answer: string
+  answerKey: boolean
+}
+
+export interface Highlight {
+  id: string
+  highlightedText: string
+  comment: string
+  startPosition: number
+  endPosition: number
+}
+
+
+export type WebGetContentsParams = {
+  MainType: "Regular" | "Case Study";
+  AccountId: string
+}

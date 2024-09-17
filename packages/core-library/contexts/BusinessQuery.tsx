@@ -33,6 +33,7 @@ import {
   useGetCategoryByType,
   useGetAllInternalAccounts,
   useCreateRegularQuestion,
+  useGetContents,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -55,6 +56,8 @@ import {
   GetCategoryType,
   GetAllInternalAccount,
   CreateRegularType,
+  AuthorizedContentsType,
+  WebGetContentsParams,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -218,6 +221,10 @@ interface BusinessQueryContextValue {
   businessQueryGetAllInternalAccount: (
     queryKey: string[]
   ) => UseQueryResult<GetAllInternalAccount[] | undefined, any>;
+
+  businessQueryGetContents: (queryKey: string[],
+    args: WebGetContentsParams
+  ) => UseQueryResult<AuthorizedContentsType[] | undefined, any>
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -257,6 +264,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetReportCategories = useGetCategoryByType;
   const businessQueryGetAllInternalAccount = useGetAllInternalAccounts;
   const businessQueryCreateRegularQuestion = useCreateRegularQuestion;
+  const businessQueryGetContents = useGetContents
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -287,6 +295,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetReportCategories,
         businessQueryGetAllInternalAccount,
         businessQueryCreateRegularQuestion,
+        businessQueryGetContents
       }}
     >
       {children}
