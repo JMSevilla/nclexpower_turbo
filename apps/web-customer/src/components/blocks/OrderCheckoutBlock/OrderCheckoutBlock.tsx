@@ -49,14 +49,14 @@ const OrderCheckout: React.FC<Props> = (props) => {
   const orderDetail = useDecryptOrder();
   const { paymentIntentId, clientSecret, stripePromise, orderNumber } =
     useStripeContext();
-  const { stripe, elements, error, isStripeReady } = useSafeStripe();
+  const { stripe, elements, isStripeReady } = useSafeStripe();
   const ProgramTitle = orderDetail?.programTitle;
   const ProgramType = orderDetail?.programType;
 
   if (!isStripeReady || !orderDetail) return;
 
   if (!stripe || !elements) {
-    return;
+    return <NotFoundBlock />;
   }
 
   return (
