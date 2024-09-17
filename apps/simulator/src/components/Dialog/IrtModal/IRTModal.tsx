@@ -8,7 +8,7 @@ import { IrtThethaZeroCumm } from './IrtZeroCumm';
 import { useSessionStorage } from 'core-library/hooks';
 import { Card, CardContent, Button, Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { DataTable, DataTableHeader } from 'core-library/components';
+import { CustomTooltip, DataTable, DataTableHeader } from 'core-library/components';
 import { IrtThetaCalcScratch } from './IrtThetaCalcScratch';
 import { ThetaCalcScratchResponse } from 'core-library/api/types';
 import { useApplicationContext } from '../../../core/context/AppContext';
@@ -110,10 +110,11 @@ export const IRTsModal: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Button onClick={handleClickOpen} sx={{ color: '#F3F3F3' }}>
-        <TextSnippetIcon fontSize="medium" />
-      </Button>
-
+      <CustomTooltip title="IRT">
+        <Button onClick={handleClickOpen} sx={{ color: '#F3F3F3' }}>
+          <TextSnippetIcon fontSize="medium" />
+        </Button>
+      </CustomTooltip>
       <CustomDialog
         close={handleClose}
         open={open}
