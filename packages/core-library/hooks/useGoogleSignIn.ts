@@ -17,7 +17,7 @@ export const useGoogleSignIn = () => {
   const router = useRouter();
   const [accountId, setAccountId] = useAccountId();
   const [accessLevel, setAccessLevel] = useAccessLevel();
-  const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
+  const [, setSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [accessToken, setAccessToken] = useAccessToken();
   const [ssoDetails, setSsoDetails] = useState<SsoExtraDetails>();
