@@ -1,9 +1,18 @@
 import React from 'react'
+import {
+  AboutUsHeroBlock,
+  OurHistoryBlock,
+  MeetOurTeamBlock,
+  FAQBlock,
+} from "./index";
 
 export const AboutUsBlock = () => {
   return (
-    <div className='h-screen flex items-center justify-center'>
-    <p>About Us</p>
-  </div>
+    <>
+      <AboutUsHeroBlock/>
+      <OurHistoryBlock/>
+      <FAQBlock/>
+      <MeetOurTeamBlock/>
+    </>
   )
 }
