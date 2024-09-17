@@ -9,9 +9,11 @@ const OTPBlock: React.FC = () => {
     loading,
     waitTime,
     resendLoading,
-    executeVerify2faCb,
+    executeVerify2faCb: nonSsoExecute,
     verificationPreparation,
     resendOtp,
+    executeSsoVerify2faCb: ssoExecute,
+    ssoDetails,
   } = useOtpVerification();
 
   useBeforeUnload(true);
@@ -31,7 +33,14 @@ const OTPBlock: React.FC = () => {
   );
 
   async function handleSubmit(values: OTPType) {
-    await executeVerify2faCb({
+    if (ssoDetails?.procedure === "sso") {
+      await ssoExecute({
+        email: verificationPreparation.email,
+        code: values.otp,
+      });
+    }
+
+    await nonSsoExecute({
       email: verificationPreparation.email,
       password: verificationPreparation.password,
       appName: verificationPreparation.appName,

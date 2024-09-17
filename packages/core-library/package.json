@@ -92,6 +92,7 @@
         "jsonwebtoken": "^9.0.2",
         "jwt-decode": "^3.1.2",
         "next": "^13.4.19",
+        "next-auth": "^4.24.7",
         "next-transpile-modules": "^10.0.1",
         "nprogress": "^0.2.0",
         "qs": "^6.13.0",

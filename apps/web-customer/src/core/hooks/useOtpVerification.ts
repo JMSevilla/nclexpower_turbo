@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { useApiCallback } from "core-library/hooks";
-import {
-  OTPPreparation,
-  useAuthContext,
-  useExecuteToast,
-} from "core-library/contexts";
+import { useApiCallback, useGoogleSignIn } from "core-library/hooks";
+import { useAuthContext, useExecuteToast } from "core-library/contexts";
 import { useRouter } from "core-library/core/router";
 import {
+  OTPPreparation,
   ResendCodeParams,
+  SsoExtraDetails,
+  SsoVerify2FAParams,
   Verify2FAParams,
   VerifyCodeParams,
 } from "core-library/api/types";
@@ -16,6 +15,7 @@ import { parseTokenId } from "core-library/contexts/auth/access-token";
 interface OtpVerificationResult {
   verifyOtp: (params: VerifyCodeParams) => Promise<void>;
   executeVerify2faCb: (props: Verify2FAParams) => Promise<void>;
+  executeSsoVerify2faCb: (props: SsoVerify2FAParams) => Promise<void>;
   waitTime: number;
   loading: boolean;
   resendLoading: boolean;
@@ -25,6 +25,7 @@ interface OtpVerificationResult {
   resetTime: number;
   setResetTime: Dispatch<SetStateAction<number>>;
   verificationPreparation: OTPPreparation;
+  ssoDetails: SsoExtraDetails | undefined;
 }
 
 export const useOtpVerification = (): OtpVerificationResult => {
@@ -34,6 +35,9 @@ export const useOtpVerification = (): OtpVerificationResult => {
   );
   const verify2faCb = useApiCallback(
     async (api, args: Verify2FAParams) => await api.auth.verify_2fa(args)
+  );
+  const ssoVerify2faCb = useApiCallback(
+    async (api, args: SsoVerify2FAParams) => await api.auth.sso_verify_2fa(args)
   );
   const resendCb = useApiCallback(
     async (api, args: ResendCodeParams) =>
@@ -51,6 +55,7 @@ export const useOtpVerification = (): OtpVerificationResult => {
     setRefreshToken,
     setSingleCookie,
   } = useAuthContext();
+  const { ssoDetails, setSsoDetails } = useGoogleSignIn();
 
   const verifyOtp = async (props: VerifyCodeParams) => {
     try {
@@ -104,8 +109,40 @@ export const useOtpVerification = (): OtpVerificationResult => {
     }
   };
 
+  const executeSsoVerify2faCb = async (props: SsoVerify2FAParams) => {
+    try {
+      const result = await ssoVerify2faCb.execute({ ...props });
+      if (result.data.responseCode === 500) {
+        toast.executeToast(
+          "Invalid verification code. Please try again",
+          "top-right",
+          false,
+          { type: "error" }
+        );
+        return;
+      }
+      setAccessToken(result.data.accessTokenResponse.accessToken);
+      setRefreshToken(result.data.accessTokenResponse.refreshToken);
+      setSingleCookie(
+        parseTokenId(result.data.accessTokenResponse.accessToken),
+        {
+          path: "/",
+          sameSite: "strict",
+          secure: process.env.NODE_ENV === "production",
+          domain: `.${window.location.hostname}`,
+        }
+      );
+      setIsAuthenticated(true);
+      await router.push((route) => route.hub);
+    } catch (error) {
+      console.error("Something went wrong", error);
+      setError("Something went wrong. Please try again later.");
+    }
+  };
+
   const executeVerify2faCb = async (props: Verify2FAParams) => {
     try {
+      setSsoDetails(undefined);
       const result = await verify2faCb.execute({ ...props });
       if (result.data.responseCode === 500) {
         toast.executeToast(
@@ -199,5 +236,7 @@ export const useOtpVerification = (): OtpVerificationResult => {
     resetTime,
     executeVerify2faCb,
     verificationPreparation,
+    executeSsoVerify2faCb,
+    ssoDetails,
   };
 };
