@@ -1,5 +1,5 @@
 import { BackButton, CheckoutPageBlock } from "@/components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import WestIcon from "@mui/icons-material/West";
 import { Stripe, StripeElements } from "@stripe/stripe-js";
 import { useStripeContext } from "core-library/contexts";
@@ -52,8 +52,26 @@ const OrderCheckout: React.FC<Props> = (props) => {
   const { stripe, elements, error } = useSafeStripe();
   const ProgramTitle = orderDetail?.programTitle;
   const ProgramType = orderDetail?.programType;
+  const [showNone, setShowNone] = useState(true);
+  const [showNotFound, setShowNotFound] = useState(false);
 
-  if (error) {
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setShowNone(false)
+        setShowNotFound(true)
+        return;
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  if (error && showNone) {
+    return;
+  }
+
+  if (error && showNotFound) {
     return <NotFoundBlock />;
   }
 
