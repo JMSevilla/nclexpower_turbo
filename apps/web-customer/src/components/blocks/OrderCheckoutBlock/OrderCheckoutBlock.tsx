@@ -29,14 +29,14 @@ function useSafeStripe() {
   try {
     const stripe = useStripe();
     const elements = useElements();
+    const isStripeReady = stripe && elements;
 
     if (!stripe || !elements) {
       throw new Error("Stripe Elements context not found.");
     }
-
-    return { stripe, elements, error: null };
+    return { stripe, elements, error: null, isStripeReady };
   } catch (error) {
-    return { stripe: null, elements: null, error };
+    return { stripe: null, elements: null, error, isStripeReady: null };
   }
 }
 
@@ -49,30 +49,14 @@ const OrderCheckout: React.FC<Props> = (props) => {
   const orderDetail = useDecryptOrder();
   const { paymentIntentId, clientSecret, stripePromise, orderNumber } =
     useStripeContext();
-  const { stripe, elements, error } = useSafeStripe();
+  const { stripe, elements, error, isStripeReady } = useSafeStripe();
   const ProgramTitle = orderDetail?.programTitle;
   const ProgramType = orderDetail?.programType;
-  const [showNone, setShowNone] = useState(true);
-  const [showNotFound, setShowNotFound] = useState(false);
 
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setShowNone(false)
-        setShowNotFound(true)
-        return;
-      }, 2000);
+  if (!isStripeReady || !orderDetail) return;
 
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
-
-  if (error && showNone) {
+  if (!stripe || !elements) {
     return;
-  }
-
-  if (error && showNotFound) {
-    return <NotFoundBlock />;
   }
 
   return (
