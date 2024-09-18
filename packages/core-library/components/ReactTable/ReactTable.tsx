@@ -5,7 +5,7 @@ import { getCoreRowModel, useReactTable, flexRender, ColumnDef, Column, OnChange
 import { getCommonPinningStyles } from './content/CommonPinningStyle';
 import { TablePaginationActions } from './TablePaginationActions';
 import { StyledTableRow } from './content/StyledTableRow';
-import { CheckBoxColumn } from './constant/checkBoxColumn';
+import { CheckBoxColumn } from './constant/CheckBoxColumn';
 
 interface Props<T> {
     columns: ColumnDef<T>[],
