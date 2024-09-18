@@ -1,4 +1,5 @@
 import { CreateRegularAtom } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/useAtomic";
+import { QuestionSelectionOptions } from '../system/app/internal/blocks/Hub/Settings/SettingsManagement/types';
 
 export type AccessTokenResponse = {
   tokenType: string;
@@ -437,30 +438,29 @@ export type AuthorizedRoutes = {
   value: string;
 };
 
-
-export interface AuthorizedContentsType {
-  id: string
-  contentApprovers: ContentApprover[]
-  contentAuthorId: string
-  author: Author
-  contentRevisionsId: string
-  revisions: Revisions
-  contentId: string
-  mainContent: MainContent
-  mainContentStatus: number
-  workflow: number
-  implementationSchedule: string
-  createdDate: string
-  updatedDate: string
-  timeZone: string
+export interface AuthorizedContentsResponseType {
+  id: string;
+  contentApprovers: ContentApprover[];
+  contentAuthorId: string;
+  author: Author;
+  contentRevisionsId: string;
+  revisions: Revisions;
+  contentId: string;
+  mainContent: MainContent;
+  mainContentStatus: number;
+  workflow: number;
+  implementationSchedule: string;
+  createdDate: string;
+  updatedDate: string;
+  timeZone: string;
 }
 
 export interface ContentApprover {
-  id: string
-  contentId: string
-  content: string
-  approverId: string
-  approver: Approver
+  id: string;
+  contentId: string;
+  content: string;
+  approverId: string;
+  approver: Approver;
 }
 
 export interface Approver extends User { }
@@ -468,56 +468,55 @@ export interface Approver extends User { }
 export interface Author extends User { }
 
 export interface User {
-  id: string
-  accountId: string
-  createdDate: string
-  updatedDate: string
+  id: string;
+  accountId: string;
+  createdDate: string;
+  updatedDate: string;
 }
 
 export interface Revisions {
-  id: string
-  contentId: string
-  mainContent: MainContent
-  adminId: string
-  highlights: Highlight[]
-  revisionStatus: number
-  createdDate: string
+  id: string;
+  contentId: string;
+  mainContent: MainContent;
+  adminId: string;
+  highlights: Highlight[];
+  revisionStatus: number;
+  createdDate: string;
 }
 
 export interface MainContent {
-  id: string
-  type: string
-  mainType: string
-  mainContentCollections: MainContentCollection[]
-  createdDate: string
-  updatedDate: string
+  id: string;
+  type: string;
+  mainType: string;
+  mainContentCollections: MainContentCollection[];
+  createdDate: string;
+  updatedDate: string;
 }
 
 export interface MainContentCollection {
-  id: string
-  cognitiveLevel: string
-  clientNeeds: string
-  contentArea: string
-  question: string
-  mainContentAnswerCollections: MainContentAnswerCollection[]
+  id: string;
+  cognitiveLevel: string;
+  clientNeeds: string;
+  contentArea: string;
+  question: string;
+  mainContentAnswerCollections: MainContentAnswerCollection[];
 }
 
 export interface MainContentAnswerCollection {
-  id: string
-  answer: string
-  answerKey: boolean
+  id: string;
+  answer: string;
+  answerKey: boolean;
 }
 
 export interface Highlight {
-  id: string
-  highlightedText: string
-  comment: string
-  startPosition: number
-  endPosition: number
+  id: string;
+  highlightedText: string;
+  comment: string;
+  startPosition: number;
+  endPosition: number;
 }
-
 
 export type WebGetContentsParams = {
-  MainType: "Regular" | "Case Study";
-  AccountId: string
-}
+  MainType: QuestionSelectionOptions;
+  AccountId: string;
+};

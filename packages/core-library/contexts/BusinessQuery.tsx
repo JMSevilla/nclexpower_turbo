@@ -56,7 +56,7 @@ import {
   GetCategoryType,
   GetAllInternalAccount,
   CreateRegularType,
-  AuthorizedContentsType,
+  AuthorizedContentsResponseType,
   WebGetContentsParams,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
@@ -222,9 +222,10 @@ interface BusinessQueryContextValue {
     queryKey: string[]
   ) => UseQueryResult<GetAllInternalAccount[] | undefined, any>;
 
-  businessQueryGetContents: (queryKey: string[],
+  businessQueryGetContents: (
+    queryKey: string[],
     args: WebGetContentsParams
-  ) => UseQueryResult<AuthorizedContentsType[] | undefined, any>
+  ) => UseQueryResult<AuthorizedContentsResponseType[] | undefined, any>;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -264,7 +265,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetReportCategories = useGetCategoryByType;
   const businessQueryGetAllInternalAccount = useGetAllInternalAccounts;
   const businessQueryCreateRegularQuestion = useCreateRegularQuestion;
-  const businessQueryGetContents = useGetContents
+  const businessQueryGetContents = useGetContents;
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -295,7 +296,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetReportCategories,
         businessQueryGetAllInternalAccount,
         businessQueryCreateRegularQuestion,
-        businessQueryGetContents
+        businessQueryGetContents,
       }}
     >
       {children}

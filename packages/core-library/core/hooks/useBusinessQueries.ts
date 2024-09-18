@@ -26,7 +26,7 @@ import {
   ReportIssueType,
   GetAllInternalAccount,
   CreateRegularType,
-  AuthorizedContentsType,
+  AuthorizedContentsResponseType,
   WebGetContentsParams
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
@@ -488,7 +488,7 @@ export const useCreateRegularQuestion = (
 
 export const useGetContents = (
   queryKey: string[], args: WebGetContentsParams
-): UseQueryResult<AuthorizedContentsType[] | undefined, any> => {
+): UseQueryResult<AuthorizedContentsResponseType[] | undefined, any> => {
   const getRegularQuestions = useApi((api) =>
     api.webbackoffice.web_get_regular_question(args)
   );

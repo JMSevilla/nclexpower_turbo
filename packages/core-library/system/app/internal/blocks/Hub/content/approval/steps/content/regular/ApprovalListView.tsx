@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import {
   Alert,
+  AnimatedBoxSkeleton,
   Button,
   Card,
-  DataGrid,
+  ReactTable,
 } from "../../../../../../../../../../components";
-import { Box, Container, IconButton, Switch } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useColumns } from "core-library/hooks";
+import { Box, Container, ListItemButton, Switch } from "@mui/material";
 import { useBusinessQueryContext } from "../../../../../../../../../../contexts";
 import { useAccountId } from "../../../../../../../../../../contexts/auth/hooks";
-import { GridRenderCellParams } from "@mui/x-data-grid";
+import { GridMoreVertIcon, GridRenderCellParams } from "@mui/x-data-grid";
+import { ColumnDef, Row, RowModel } from '@tanstack/react-table';
+import { AuthorizedContentsResponseType } from '../../../../../../../../../../api/types';
+import { CustomPopover } from '../../../../../../../../../../components/Popover/Popover';
 
 export interface ApprovalProps {
-  nextStep({}): void;
+  nextStep({ }): void;
   previousStep(): void;
   values: {};
 }
@@ -23,52 +25,63 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
   const [multiple, setMultiple] = useState<boolean>(false);
   const accountId = getAccountId ?? "no-account-id";
   const { businessQueryGetContents } = useBusinessQueryContext();
-  const { data } = businessQueryGetContents(["getAuthorizeContentContents"], {
+  const [selectedRows, setSelectedRows] = useState<Row<AuthorizedContentsResponseType>[]>()
+  const { data, isLoading } = businessQueryGetContents(["getAuthorizeContentContents"], {
     MainType: "Regular",
     AccountId: accountId,
   });
 
-  const { columns } = useColumns({
-    columns: [
-      {
-        field: "id",
-        headerName: "ID",
-        minWidth: 140,
-        flex: 1,
-      },
-      {
-        field: "contentId",
-        headerName: "Content ID",
-        minWidth: 200,
-        flex: 1,
-      },
-      {
-        field: "author.id",
-        headerName: "Author ID",
-        minWidth: 200,
-        flex: 1,
-        renderCell: (params) => params.row.author.id,
-      },
-      {
-        field: "actions",
-        headerName: "Actions",
-        minWidth: 300,
-        flex: 1,
-        renderCell: (params) => (
-          <Box>
-            <IconButton
-              sx={{ mt: 2, mb: 2, ml: 2 }}
-              onClick={() => handleApproval(params)}
-            >
-              <MoreVertIcon fontSize="small" />
-            </IconButton>
-          </Box>
-        ),
-      },
-    ],
-  });
+  const columns: ColumnDef<AuthorizedContentsResponseType>[] = [
+    {
+      id: "id",
+      header: 'ID',
+      accessorKey: 'id',
+      enablePinning: true,
+    },
+    {
+      id: 'contentsId',
+      header: 'ContentID',
+      accessorKey: 'contentId',
+    },
+    {
+      id: 'authorId',
+      header: 'Author Id',
+      accessorKey: 'author.id',
+    },
+    {
+      id: 'mainContentType',
+      header: 'Main Type',
+      accessorKey: 'mainContent.mainType',
+    },
+    {
+      id: 'mainContentStatus',
+      header: 'Status',
+      accessorKey: 'mainContentStatus',
+    },
+    {
+      id: 'createdDate',
+      header: 'Created At',
+      accessorKey: 'createdDate',
+    },
+    {
+      id: "action",
+      header: 'Actions',
+      cell: (params) => (
+        <Box>
 
-  const handleApproval = (rowData: GridRenderCellParams) => {};
+          <CustomPopover open={true} label='Actions' icon={<GridMoreVertIcon fontSize="small" />}>
+
+            <ListItemButton sx={{ bgcolor: 'green', color: 'white' }}>Approve</ListItemButton>
+            <ListItemButton sx={{ bgcolor: 'red', color: 'white' }}>Reject</ListItemButton>
+          </CustomPopover>
+        </Box>
+      )
+    },
+  ]
+
+  const handleSelectedRows = (rowData: RowModel<AuthorizedContentsResponseType>) => {
+    setSelectedRows(rowData.rows)
+  };
 
   const handleMultipleSelection = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -89,6 +102,8 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
           description="View and manage the approval list, including content revisions and schedules."
         />
         <Card sx={{ mt: 5, p: 4, width: "100%" }} elevation={5}>
+
+
           <Box
             display="flex"
             alignItems="center"
@@ -98,19 +113,15 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
               <Switch checked={multiple} onChange={handleMultipleSelection} />{" "}
               Multiple Selection
             </Box>
-            <Box>
+            <Box paddingY={4}>
               <Button onClick={() => handleSelection()}>Review Content</Button>
             </Box>
           </Box>
-
-          <DataGrid
-            checkboxSelection={true}
-            columns={columns}
-            initPageSize={10}
-            rows={data ?? []}
-            isLoading={false}
-            data-testid="approval-list-grid"
-          />
+          <ReactTable<AuthorizedContentsResponseType>
+            rightPinnedIds={["action"]}
+            checkBoxSelection={multiple}
+            selectedRows={handleSelectedRows}
+            columns={columns} data={data ?? []} />
         </Card>
       </Container>
     </Box>
