@@ -21,7 +21,7 @@ import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
 import { HideHeader } from "../../core/constant/HideHeader";
 
-interface Props {}
+interface Props { }
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
@@ -42,7 +42,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
             <StripeContextProvider publishableKey={publishableKey}>
               <LoadablePageContent>
                 <DrawerLayout
-                  menu={[]}
+                  menu={headerMenu}
                   isAuthenticated={isAuthenticated}
                   headerStyles={headerStyles}
                   hiddenHeaderPathnames={HideHeader}

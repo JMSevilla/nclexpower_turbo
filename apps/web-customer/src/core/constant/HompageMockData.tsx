@@ -1,3 +1,5 @@
+import { MenuItems } from 'core-library/api/types';
+
 export const list = [
     {
         items: [
@@ -20,19 +22,83 @@ export const CompanyInfo = {
     website: 'info@nclexpower.com',
 };
 
-export const UnauthorizedHeader = [
-    { id: 1, label: "Home", path: "/" },
-    { id: 2, label: "About", path: "/about" },
-    { id: 3, label: "Contact Us", path: "/contact" },
-    { id: 4, label: "Login", path: "/login" },
-]
+export const UnauthorizedHeader: MenuItems[] = [
+    {
+        id: '1',
+        label: 'Home',
+        path: '/',
+        icon: 'home_icon',
+        menuId: 'menu1',
+        parentId: '',
+        children: [],
+    },
+    {
+        id: '2',
+        label: 'About',
+        path: '/about',
+        icon: 'about_icon',
+        menuId: 'menu2',
+        parentId: '',
+        children: [],
+    },
+    {
+        id: '3',
+        label: 'Contact Us',
+        path: '/contact',
+        icon: 'contact_icon',
+        menuId: 'menu3',
+        parentId: '',
+        children: [],
+    },
+    {
+        id: '4',
+        label: 'Login',
+        path: '/login',
+        icon: 'login_icon',
+        menuId: 'menu4',
+        parentId: '',
+        children: [],
+    }
+];
 
-export const AuthorizedHeader = [
-    { id: 1, label: "Dashboard", path: "" },
-    { id: 2, label: "Programs", path: "/programs" },
-    { id: 3, label: "Inquire", path: "/inquire" },
-    { id: 4, label: "User", path: "/user" },
-]
+export const AuthorizedHeader: MenuItems[] = [
+    {
+        id: '1',
+        label: 'Dashboard',
+        path: '',
+        icon: 'dashboard_icon',
+        menuId: 'menu1',
+        parentId: '',
+        children: [],
+    },
+    {
+        id: '2',
+        label: 'Programs',
+        path: '/programs',
+        icon: 'programs_icon',
+        menuId: 'menu2',
+        parentId: '',
+        children: [],
+    },
+    {
+        id: '3',
+        label: 'Inquire',
+        path: '/inquire',
+        icon: 'inquire_icon',
+        menuId: 'menu3',
+        parentId: '',
+        children: [],
+    },
+    {
+        id: '4',
+        label: 'User',
+        path: '/user',
+        icon: 'user_icon',
+        menuId: 'menu4',
+        parentId: '',
+        children: [],
+    }
+];
 
 export const settings = {
     infinite: true,
