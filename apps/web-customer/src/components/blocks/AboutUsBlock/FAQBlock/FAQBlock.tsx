@@ -2,33 +2,39 @@ import React from "react";
 import { CroppedCoreZigma, TransparentCoreZigma } from "core-library/assets";
 import Image from "next/image";
 import { FAQItemBlock } from "./FAQItem";
-import CustomTabs from "../../../../components/Tabs/CustomTabs";
 import { Box } from "@mui/material";
+import { TabsItem } from "core-library/core/utils/contants/tabs-item";
+import { Tabs } from "core-library/components";
 
 export const FAQBlock = () => {
-  const faqTabs = [
+  const faqTabs: TabsItem[] = [
     {
-      label: "NCLEXPower and the CORE-Zigma System",
+      id: 1,
+      title: "NCLEXPower and the CORE-Zigma System",
       content: <FAQItemBlock topic="About NCLEX" />,
     },
     {
-      label: "About Program and Access",
+      id: 2,
+      title: "About Program and Access",
       content: <FAQItemBlock topic="About Program and Access" />,
     },
     {
-      label: "About Payment",
+      id: 3,
+      title: "About Payment",
       content: <FAQItemBlock topic="About Payment" />,
     },
     {
-      label: "Comments and Feedback",
+      id: 4,
+      title: "Comments and Feedback",
       content: <FAQItemBlock topic="Comments and Feedback" />,
     },
   ];
 
   const tabStyles = {
+    background: "transparent",
     selectedColor: "#0F2A71",
     defaultColor: "#000000",
-    borderBottom: "2px solid #000000",
+    borderBottom: "2px solid #0F2A71"
   };
 
   const FAQHeader = () => (
@@ -64,7 +70,7 @@ export const FAQBlock = () => {
       <BackgroundImages />
       <Box className="flex flex-col mx-auto items-center justify-center p-12 w-auto lg:w-[1200px]">
         <FAQHeader />
-        <CustomTabs tabs={faqTabs} tabStyles={tabStyles}/>
+        <Tabs tabsItem={faqTabs} justifyContent="center" customStyle={tabStyles}/>
       </Box>
     </section>
   );

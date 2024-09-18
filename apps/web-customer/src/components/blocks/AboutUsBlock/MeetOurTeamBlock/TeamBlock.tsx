@@ -9,8 +9,9 @@ interface TeamBlockProps {
 }
 
 export const TeamBlock: React.FC<TeamBlockProps> = ({ data, icon, iconAlt }) => (
-  <Box className="flex flex-col lg:flex-row items-end bg-[#D7DCE8E5] rounded-[8px] md:w-[400px] lg:w-full">
-    <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-6 lg:p-12 w-full">
+<Box className="flex w-full mx-auto justify-center mt-0 lg:mt-[-40px]">
+    <Box className="flex flex-col lg:flex-row items-end bg-[#D7DCE8E5] rounded-[8px]">
+    <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-6 lg:p-12">
       {data.map((item) => {
         const { id, name, division } = item;
         return (
@@ -27,4 +28,6 @@ export const TeamBlock: React.FC<TeamBlockProps> = ({ data, icon, iconAlt }) => 
     </Box>
     <Image src={icon} alt={iconAlt} width={208} height={228} className="lg:block hidden" />
   </Box>
+</Box>
+  
 );

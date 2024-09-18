@@ -3,12 +3,14 @@ import { Box } from "@mui/material"
 import { nursesMockData, engineersMockData, executivesMockData } from "../../../../core/constant/AboutUsMock/MeetOurTeamMock"
 import { NurseIcon, EngineerIcon } from "core-library/assets"
 import { TeamBlock } from "./TeamBlock"
-import CustomTabs from "../../../../components/Tabs/CustomTabs"
+import { Tabs } from "core-library/components"
+import { TabsItem } from "core-library/core/utils/contants/tabs-item"
 
 export const MeetOurTeamBlock = () => {
-    const tabs = [
+      const tabs: TabsItem[] = [
         {
-          label: 'Nurses',
+          id: 1,
+          title: 'Nurses',
           content: (
             <TeamBlock
               data={nursesMockData}
@@ -18,7 +20,8 @@ export const MeetOurTeamBlock = () => {
           ),
         },
         {
-          label: 'Engineers',
+          id: 2,
+          title: 'Engineers',
           content: (
             <TeamBlock
               data={engineersMockData}
@@ -28,6 +31,13 @@ export const MeetOurTeamBlock = () => {
           ),
         },
       ];
+    
+      const tabStyles = {
+        background: "transparent",
+        selectedColor: "#F4C501",
+        defaultColor: "#ffffff",
+        borderBottom: "2px solid #F4C501",
+      };
 
     return (
       <section className="w-full h-auto overflow-hidden bg-darkBlue pb-10">
@@ -54,8 +64,7 @@ export const MeetOurTeamBlock = () => {
               })}
             </div>
           </div>
-
-          <CustomTabs tabs={tabs} />
+          <Tabs tabsItem={tabs} justifyContent="center" customStyle={tabStyles}/>
         </Box>
       </section>
     );

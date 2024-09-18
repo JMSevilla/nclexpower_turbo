@@ -6,19 +6,23 @@ import { faqMockData } from "@/core/constant/AboutUsMock/FAQMock";
 interface AccordionContentProps {
   description?: string[];
   subDescription?: string[];
-}
+};
+
+interface FAQItemBlockProps {
+  topic: string;
+};
+
+const renderListItems = (items: string[], className: string, marginLeft: string) => (
+  <ul style={{ listStyleType: "disc", marginLeft }} className={`flex flex-col gap-2 ${className}`}>
+    {items.map((item, idx) => (
+      <li key={idx} className="font-ptSansNarrow text-[14px] lg:text-[16px] font-bold text-[#6C6C6C]">
+        {item}
+      </li>
+    ))}
+  </ul>
+);
 
 const AccordionContent: React.FC<AccordionContentProps> = ({ description, subDescription }) => {
-  const renderListItems = (items: string[], className: string, marginLeft: string) => (
-    <ul style={{ listStyleType: "disc", marginLeft }} className={`flex flex-col gap-2 ${className}`}>
-      {items.map((item, idx) => (
-        <li key={idx} className="font-ptSansNarrow text-[14px] lg:text-[16px] font-bold text-[#6C6C6C]">
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-
   return (
     <div className="flex flex-col gap-2">
       {description && renderListItems(description, "gap-4", "20px")}
@@ -26,10 +30,6 @@ const AccordionContent: React.FC<AccordionContentProps> = ({ description, subDes
     </div>
   );
 };
-
-interface FAQItemBlockProps {
-  topic: string;
-}
 
 export const FAQItemBlock: React.FC<FAQItemBlockProps> = ({ topic }) => {
   const { control } = useForm();
@@ -41,7 +41,7 @@ export const FAQItemBlock: React.FC<FAQItemBlockProps> = ({ topic }) => {
     }));
 
   return (
-    <section className="mt-10">
+    <section className="mt-0 lg:mt-[-20px]">
       <ControlledAccordion
         items={accordionItems}
         control={control}
