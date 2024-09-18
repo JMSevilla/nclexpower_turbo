@@ -24,6 +24,7 @@ type Props = {
   handleChangeRememberMe: (event: React.ChangeEvent<HTMLInputElement>) => void;
   savedData: SavedDataProps | null;
   handleBack: () => void;
+  signInWithGoogle: () => void;
 };
 
 export const LoginForm: React.FC<Props> = ({
@@ -33,6 +34,7 @@ export const LoginForm: React.FC<Props> = ({
   handleChangeRememberMe,
   savedData,
   handleBack,
+  signInWithGoogle,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -59,18 +61,18 @@ export const LoginForm: React.FC<Props> = ({
           src={LoginBG}
           alt="CoreZigma"
           sx={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            position: 'absolute',
-            border: '8px solid white',
-            borderRadius: '24px',
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            border: "8px solid white",
+            borderRadius: "24px",
             zIndex: -1,
-            '@media (max-width: 1600px)': {
-              width: '650px',
+            "@media (max-width: 1600px)": {
+              width: "650px",
             },
-            '@media (min-width: 1550px)': {
-              width: '825px',
+            "@media (min-width: 1550px)": {
+              width: "825px",
             },
           }}
         />
@@ -176,8 +178,8 @@ export const LoginForm: React.FC<Props> = ({
                     py: 2,
                     backgroundColor: "#0F2A71",
                     borderRadius: "10px",
-                    '&:hover': {
-                      backgroundColor: '#00173F',
+                    "&:hover": {
+                      backgroundColor: "#00173F",
                     },
                   }}
                   onClick={handleSubmit(onSubmit)}
@@ -197,6 +199,7 @@ export const LoginForm: React.FC<Props> = ({
                   sx={{ paddingY: 1.5, borderRadius: 2, boxShadow: 2 }}
                   fullWidth
                   variant="outlined"
+                  onClick={signInWithGoogle}
                 >
                   <span className="mr-4 pt-sans-narrow-regular text-lg text-black normal-case ">
                     Sign in with Google
@@ -218,6 +221,5 @@ export const LoginForm: React.FC<Props> = ({
         </div>
       </div>
     </div>
-
   );
 };
