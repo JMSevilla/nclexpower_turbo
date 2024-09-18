@@ -1,26 +1,35 @@
 import { Box, Typography } from "@mui/material";
-import { ContainedCaseStudyQuestionType } from "../../../../../types";
 import {
   Button,
   Card,
   ControlledRichTextEditor,
-  SelectOption,
 } from "../../../../../../../../../../../../../../../components";
-import { tabsSequence } from "../../../../../../../../constants/constants";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import {
+  initBgValues,
+  tabsSequence,
+} from "../../../../../../../../constants/constants";
 import { GenericSelectField } from "../../../../../../../../../../../../../../../components/Textfield/GenericSelectField";
-import { useFieldArray } from "react-hook-form";
 
-export const NurseNotesTab = () => {
-  const { append, fields } = useFieldArray<ContainedCaseStudyQuestionType>({
-    name: "nurseNotes",
+interface Props {
+  type: string;
+}
+
+export const BackgroundInfoTab = ({ type }: Props) => {
+  type bgInfoType = Record<string, { seqNum: number; seqContent: string }[]>;
+  const { control, getValues, setValue, reset } = useFormContext<bgInfoType>();
+  const { append } = useFieldArray({
+    control,
+    name: type,
   });
+  const valueArray = getValues(`${type}`);
 
   return (
     <>
-      {fields.length > 0
-        ? fields.map((tab, index) => (
+      {valueArray && valueArray.length > 0
+        ? valueArray.map((tab, index) => (
             <Box
-              key={tab.id}
+              // key={tab.id}
               sx={{
                 justifyContent: "center",
                 display: "flex",
@@ -37,27 +46,23 @@ export const NurseNotesTab = () => {
               >
                 <Typography>Sequence No.</Typography>
                 <GenericSelectField
-                  name={`nurseNotes.${index}.seqNum`}
+                  name={`${type}.${index}.seqNum`}
                   options={tabsSequence ?? []}
                   width="20%"
+                  defaultValue={`${type}.seqNum`}
                 />
               </Box>
               <Card>
                 <ControlledRichTextEditor
                   editorClassName="max-h-[200px] overflow-auto"
                   editorFor="questions"
-                  name={`nurseNotes.${index}.seqContent`}
+                  name={`${type}.${index}.seqContent`}
                 />
               </Card>
             </Box>
           ))
         : "Add a sequence"}
-      <Button
-        sx={{ marginTop: 5 }}
-        onClick={() => {
-          append({});
-        }}
-      >
+      <Button sx={{ marginTop: 5 }} onClick={() => append(initBgValues)}>
         + Add More Info
       </Button>
     </>

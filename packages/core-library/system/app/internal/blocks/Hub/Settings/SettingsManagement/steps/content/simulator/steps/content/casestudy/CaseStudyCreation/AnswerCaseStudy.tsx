@@ -4,7 +4,7 @@ import {
   Card,
   ControlledRichTextEditor,
 } from "../../../../../../../../../../../../../../components";
-import { GenericSelectField } from "../../../../../../../../../../../../../../components/Textfield/GenericSelectField";
+import { GenericSelectField } from "../../../../../../../../../../../../../../components";
 import {
   maxPoints,
   questionType,

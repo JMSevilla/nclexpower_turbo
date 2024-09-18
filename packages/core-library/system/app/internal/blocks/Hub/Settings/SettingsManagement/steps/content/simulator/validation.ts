@@ -74,8 +74,8 @@ export const containedRegularQuestionSchema = yup
 /* Case study schema */
 
 const bgInfoContent = yup.object({
-  seqNum: yup.number().default(1),
-  seqContent: yup.string().default("Input Text Here"),
+  seqNum: yup.number().transform((value) => parseInt(value)),
+  seqContent: yup.string(),
 });
 
 const itemInfoContent = yup.object({
@@ -85,12 +85,44 @@ const itemInfoContent = yup.object({
   answer: yup.string(),
 });
 
+const caseStudyAnswerFormSchema = yup.object({
+  questionnaires: yup
+    .array()
+    .of(
+      yup.object().shape({
+        maxPoints: yup.number().required(),
+        sequenceNum: yup.number().required(),
+        questionType: yup.string().required(),
+        itemNumber: yup.number().required(),
+        itemStem: yup.string().required(),
+        transitionHeader: yup.string().nullable(),
+        answerOptions: yup
+          .array()
+          .of(
+            yup.object().shape({
+              optionName: yup.string().required(),
+              options: yup
+                .array()
+                .of(
+                  yup.object().shape({
+                    answer: yup.string().required(),
+                    answerKey: yup.boolean().required(),
+                  })
+                )
+                .required(),
+            })
+          )
+          .nullable(),
+      })
+    )
+    .required(),
+});
+
 export const caseStudyQuestionsFormSchema = yup.object({
   nurseNotes: yup.array(bgInfoContent).default([]),
   hxPhy: yup.array(bgInfoContent).default([]),
   labs: yup.array(bgInfoContent).default([]),
   orders: yup.array(bgInfoContent).default([]),
-  answer: yup.array(itemInfoContent).default([]), // For Answer Section
 });
 
 export const containedCaseStudyQuestionSchema = yup

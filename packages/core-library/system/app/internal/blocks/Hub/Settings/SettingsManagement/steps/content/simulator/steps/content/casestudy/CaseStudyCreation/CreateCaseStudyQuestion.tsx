@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ContainedCaseStudyQuestionType } from "../../../../types";
 import {
   Button,
@@ -10,8 +10,8 @@ import { AnswerCaseStudy } from "./AnswerCaseStudy";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { containedCaseStudyQuestionSchema } from "../../../../validation";
-import { tabs } from "../../../../../../../constants/constants";
 import ConfirmationModal from "../../../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
+import { BackgroundInfoTab } from "./components/BackgroundInfoTab";
 
 interface Props {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -30,10 +30,22 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
   previous,
   reset,
 }) => {
-  const form = useForm({
+  const form = useForm<ContainedCaseStudyQuestionType>({
     mode: "all",
     resolver: yupResolver(containedCaseStudyQuestionSchema),
   });
+  const [selectedIndex, setSelectedIndex] = useState<number>();
+
+  const { getValues, control, reset: formReset } = form;
+
+  const updateValues = () => {
+    const updatedValues: any = {};
+
+    formReset({
+      ...getValues(),
+      ...updatedValues,
+    });
+  };
 
   const handlePrevious = () => {
     previousStep();
@@ -41,15 +53,44 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
     reset();
   };
 
-  const TabsItemInfo = tabs.map(({ id, title, component: Component }) => ({
-    id,
-    title,
-    content: (
-      <Box sx={{ border: "black" }}>
-        <Component />
-      </Box>
-    ),
-  }));
+  const BGInfoTabs = [
+    {
+      id: 0,
+      title: "Nurse Notes",
+      content: (
+        <Box sx={{ border: "black" }}>
+          <BackgroundInfoTab type="nurseNotes" />
+        </Box>
+      ),
+    },
+    {
+      id: 1,
+      title: "HxPhy",
+      content: (
+        <Box sx={{ border: "black" }}>
+          <BackgroundInfoTab type="hxPhy" />
+        </Box>
+      ),
+    },
+    {
+      id: 2,
+      title: "Labs",
+      content: (
+        <Box sx={{ border: "black" }}>
+          <BackgroundInfoTab type="labs" />
+        </Box>
+      ),
+    },
+    {
+      id: 3,
+      title: "Orders",
+      content: (
+        <Box sx={{ border: "black" }}>
+          <BackgroundInfoTab type="orders" />
+        </Box>
+      ),
+    },
+  ];
 
   const generateTabsItemQuestion = (count: number) => {
     return Array.from({ length: count }, (_, index) => ({
@@ -59,9 +100,13 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
     }));
   };
 
+  useEffect(() => {
+    updateValues();
+  }, [selectedIndex, control]);
+
   const TabsItemQuestion = generateTabsItemQuestion(6);
 
-  const watch = useWatch({ control: form.control });
+  const watch = useWatch({ control: control });
 
   console.log("watch : ", watch);
 
@@ -106,7 +151,11 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
               maxHeight: "750px",
             }}
           >
-            <Tabs width="fit-content" tabsItem={TabsItemInfo} />
+            <Tabs
+              width="fit-content"
+              selectedTabIndex={(value) => setSelectedIndex(value)}
+              tabsItem={BGInfoTabs}
+            />
           </Card>
           <Card
             sx={{
@@ -116,7 +165,7 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
             }}
           >
             {/* Answer Part cc: Jacob */}
-            <Tabs width="fit-content" tabsItem={TabsItemQuestion} />
+            {/* <Tabs width="fit-content" tabsItem={TabsItemQuestion} /> */}
           </Card>
         </Box>
       </FormProvider>

@@ -1,18 +1,5 @@
 import { SelectOption } from "../../../../../../../../components";
 import { RegularQuestionSelectionOptions } from "../types";
-import {
-  HxPhyTab,
-  LabTab,
-  NurseNotesTab,
-  OrderTab,
-} from "../steps/content/simulator/steps/content/casestudy/CaseStudyCreation/components";
-
-export const tabs = [
-  { id: 0, title: "Nurse Notes", component: NurseNotesTab },
-  { id: 1, title: "HxPhy", component: HxPhyTab },
-  { id: 2, title: "Labs", component: LabTab },
-  { id: 3, title: "Orders", component: OrderTab },
-];
 
 export const questionType = [
   { value: "SATA", label: "SATA" },
@@ -35,6 +22,8 @@ export const maxPoints: SelectOption[] = Array.from(
     label: String(index + 1),
   })
 );
+
+export const initBgValues = { seqNum: 0, seqContent: "" };
 
 export const initAnswerValues = { answer: "", answerKey: false };
 
