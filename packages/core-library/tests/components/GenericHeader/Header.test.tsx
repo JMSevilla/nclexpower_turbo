@@ -3,6 +3,7 @@ import { Header, Props } from "../../../components/GenericHeader/Header";
 import { useRouter } from "../../../core";
 import { useResolution } from "../../../hooks";
 import { NavigationType } from "../../../types/navigation";
+import { MenuItems } from "../../../api/types";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -22,7 +23,7 @@ const DEFAULT_PROPS: Props = {
   menu: [
     { label: "Home", path: "/" },
     { label: "Login", path: "/login" },
-  ] as NavigationType[],
+  ] as MenuItems[],
   drawerButton: <button>Drawer</button>,
   onLogout: jest.fn(),
   drawerHeader: {},

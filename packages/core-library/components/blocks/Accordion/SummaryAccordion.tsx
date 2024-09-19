@@ -54,6 +54,10 @@ export const SummaryAccordion: React.FC<Props> = ({ item, type, index }) => {
             },
             borderRadius: "10px",
             paddingX: "10px",
+            margin: 0,
+            "& .MuiAccordionSummary-content": {
+              margin: "0 !important",
+            },
           }}
         >
           <Box>

@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from "../../common";
 import { render } from "@testing-library/react";
-import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/QuestionSummary";
+import { QuestionSummary } from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/steps/content/regular/QuestionSummary";
 import { SummaryAccordion } from "../../../components";
 import ConfirmationModal from "../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { usePageLoaderContext } from "../../../contexts/PageLoaderContext";
@@ -135,6 +135,23 @@ describe("QuestionSummary Component", () => {
       },
       { timeout: 4000 }
     );
+  });
+
+  it("should call previousStep and previous when handle backbutton invoke", () => {
+    render(
+      <QuestionSummary
+        next={mockNext}
+        nextStep={mockNextStep}
+        previous={mockReset}
+        previousStep={mockPreviousStep}
+      />
+    );
+
+    const backButton = screen.getByRole("button", { name: /Previous/i });
+    fireEvent.click(backButton);
+
+    expect(mockPreviousStep).toHaveBeenCalled;
+    expect(mockPrevious).toHaveBeenCalled;
   });
 
   it("renders each accordion with the correct question", () => {

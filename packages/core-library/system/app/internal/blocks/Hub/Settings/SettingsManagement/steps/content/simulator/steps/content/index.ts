@@ -1,3 +1,3 @@
-export * from './CreateRegularQuestion'
-export * from './QuestionTypeSelection'
-export * from './QuestionSummary'
+export * from './regular/CreateRegularQuestion'
+export * from './regular/QuestionTypeSelection'
+export * from './regular/QuestionSummary'
