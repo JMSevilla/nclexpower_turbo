@@ -29,7 +29,7 @@ export const BackgroundInfoTab = ({ type }: Props) => {
       {valueArray && valueArray.length > 0
         ? valueArray.map((tab, index) => (
             <Box
-              // key={tab.id}
+              key={index}
               sx={{
                 justifyContent: "center",
                 display: "flex",

@@ -105,10 +105,7 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
   }, [selectedIndex, control]);
 
   const TabsItemQuestion = generateTabsItemQuestion(6);
-
   const watch = useWatch({ control: control });
-
-  console.log("watch : ", watch);
 
   return (
     <Box>
