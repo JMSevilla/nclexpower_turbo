@@ -12,6 +12,7 @@ import { MenuItem } from "../../types/menu";
 import qs from "query-string";
 import { CategoryListResponse } from "../../types/category-response";
 import {
+  AuthorizedContentsResponseType,
   AuthorizedMenu,
   AuthorizedMenuParams,
   AuthorizedRoutes,
@@ -25,6 +26,7 @@ import {
   ProductListResponse,
   ProductSetStatusParams,
   RegularQuestionTypeParams,
+  WebGetContentsParams,
 } from "../types";
 
 export class WebApiBackOffice {
@@ -241,6 +243,12 @@ export class WebApiBackOffice {
   public async getAllInternalAccount() {
     return await this.axios.get<GetAllInternalAccount[]>(
       `/api/v2/internal/baseInternal/internal-all-accounts`
+    );
+  }
+
+  public async web_get_regular_question(params: WebGetContentsParams) {
+    return await this.axios.post<AuthorizedContentsResponseType[]>(
+      `/api/v2/content/BaseContent/authorized-contents?${qs.stringify({ ...params })}`
     );
   }
 }

@@ -5,7 +5,7 @@ import {
   CalcItemSelectResponseItem,
   ItemSelectTypes,
   RegularAnswer,
-  
+
 } from "../../types";
 import { AxiosError, AxiosResponse } from "axios";
 import { CategoryListResponse } from "../../types/category-response";
@@ -25,7 +25,9 @@ import {
   ThetaCalcScratchResponse,
   ReportIssueType,
   GetAllInternalAccount,
-  CreateRegularType
+  CreateRegularType,
+  AuthorizedContentsResponseType,
+  WebGetContentsParams
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -482,4 +484,21 @@ export const useCreateRegularQuestion = (
     const result = await CreateRegularQuestionCb.execute({ ...data });
     return result;
   }, opt);
+}
+
+export const useGetContents = (
+  queryKey: string[], args: WebGetContentsParams
+): UseQueryResult<AuthorizedContentsResponseType[] | undefined, any> => {
+  const getRegularQuestions = useApi((api) =>
+    api.webbackoffice.web_get_regular_question(args)
+  );
+
+  return useQuery<ApiServiceErr>(
+    queryKey,
+    async () => {
+      const result = await getRegularQuestions.execute();
+      return result.data;
+    },
+    { staleTime: Infinity }
+  );
 }
