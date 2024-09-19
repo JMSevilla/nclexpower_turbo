@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "core-library/tests/common";
-import { ProgramListAccordion } from "../../../../components/ProgramListAccordion/ProgramListAccordion";
+import { AccordionList } from "../../../../components/AccordionList/AccordionList";
 import { StandardProgramListType } from "../../../../core/types/programList";
 import useCalculateProgramProgress from "../../../../core/hooks/useCalculateProgramProgress";
 import { CardioVascular, WelcomeProgram } from "core-library/assets";
@@ -47,14 +47,14 @@ describe("ProgramListAccordion Component", () => {
   });
 
   it("should render the program titles correctly", () => {
-    render(<ProgramListAccordion program={mockPrograms} />);
+    render(<AccordionList program={mockPrograms} />);
 
     expect(screen.getByText("Test Program 1")).toBeInTheDocument();
     expect(screen.getByText("Test Program 2")).toBeInTheDocument();
   });
 
   it("should toggle the accordion panel when clicked", () => {
-    render(<ProgramListAccordion program={mockPrograms} />);
+    render(<AccordionList program={mockPrograms} />);
 
     expect(screen.queryByText("Intro Video")).not.toBeVisible();
     expect(screen.queryByText("Simulator")).not.toBeVisible();
@@ -72,7 +72,7 @@ describe("ProgramListAccordion Component", () => {
   });
 
   it("should show progress if the program is in progress", () => {
-    render(<ProgramListAccordion program={mockPrograms} />);
+    render(<AccordionList program={mockPrograms} />);
 
     expect(screen.getByText("50%")).toBeInTheDocument();
   });

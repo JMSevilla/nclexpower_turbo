@@ -1,38 +1,58 @@
-import React, { useState } from 'react'
-import Image from 'next/image';
-import { Box } from '@mui/material';
-import { AvailableWhiteIcon, InProgressWhiteIcon, CompletedWhiteIcon } from 'core-library/assets';
-import { StandardProgramListType } from '../../../../core/types/programList';
-import useCalculateProgramProgress from '../../../../core/hooks/useCalculateProgramProgress';
-import { CustomModal } from '../../../../components/Modal/CustomModal';
-import { ProgressCircle } from '../../../../components/ProgressCircle/ProgressCircle';
+import React, { useState } from "react";
+import Image from "next/image";
+import { Box } from "@mui/material";
+import {
+  AvailableWhiteIcon,
+  InProgressWhiteIcon,
+  CompletedWhiteIcon,
+} from "core-library/assets";
+import { StandardProgramListType } from "../../../../core/types/programList";
+import useCalculateProgramProgress from "../../../../core/hooks/useCalculateProgramProgress";
+import { ProgressCircle } from "../../../../components/ProgressCircle/ProgressCircle";
+import { DialogBox } from "core-library/components/Dialog/DialogBox";
+import { ProgramGridContent } from "./ProgramGridContent";
 
-  interface Props {
-    program: StandardProgramListType[];
-  }
-  
-  export const ProgramGridView: React.FC<Props> = ({ program }) => {
-    const [selectedProgramId, setSelectedProgramId] = useState<number | null>(null);
-    const [showModal, setShowModal] = useState<boolean>(false);
-    const progress = useCalculateProgramProgress(program);
+interface Props {
+  program: StandardProgramListType[];
+}
 
-    const handleModalOpen = (programId: number) => {
-        setSelectedProgramId(programId);
-        setShowModal(true);
-    };
-    
-    const handleModalClose = () => {
-        setSelectedProgramId(null);
-        setShowModal(false);
-    };
+export const ProgramGridView: React.FC<Props> = ({ program }) => {
+  const [selectedProgramId, setSelectedProgramId] = useState<number | null>(
+    null
+  );
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const progress = useCalculateProgramProgress(program);
 
-    const selectedProgram = program.find((program) => program.programId === selectedProgramId);
-      
-    return (
-      <>
-        <Box data-testid='grid-view' className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full fadeIn">
-          {program.map((item) => {
-            const { programId, title, programStatus, programImage, sections } = item;
+  const handleModalOpen = (programId: number) => {
+    setSelectedProgramId(programId);
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setSelectedProgramId(null);
+    setShowModal(false);
+  };
+
+  const selectedProgram = program.find(
+    (program) => program.programId === selectedProgramId
+  );
+
+  return (
+    <>
+      <Box
+        data-testid="grid-view"
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full fadeIn"
+      >
+        {program.length === 0 ? (
+          <>
+            <h4 className="font-ptSansNarrow text-center text-gray-500">
+              No programs available at the moment.
+            </h4>
+          </>
+        ) : (
+          program.map((item) => {
+            const { programId, title, programStatus, programImage, sections } =
+              item;
             return (
               <>
                 <Box
@@ -94,17 +114,25 @@ import { ProgressCircle } from '../../../../components/ProgressCircle/ProgressCi
                 </Box>
               </>
             );
-          })}
-          {selectedProgram && (
-            <CustomModal
-              title={selectedProgram.title}
-              sections={selectedProgram.sections}
-              showModal={showModal}
-              closeModal={handleModalClose}
-            />
-          )}
-        </Box>
-      </>
-    );
-  };
-  
+          })
+        )}
+        {selectedProgram && (
+          <DialogBox
+            hideCloseButton
+            handleClose={handleModalClose}
+            open={showModal}
+            borderRadius="16px"
+            children={
+              <ProgramGridContent
+                sections={selectedProgram.sections}
+                title={selectedProgram.title}
+                closeModal={handleModalClose}
+              />
+            }
+            maxWidth="xs"
+          />
+        )}
+      </Box>
+    </>
+  );
+};

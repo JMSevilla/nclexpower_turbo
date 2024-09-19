@@ -12,10 +12,11 @@ import React from "react";
 
 interface Props extends DialogProps {
   handleClose: () => void;
-  loading: boolean;
+  loading?: boolean;
   header?: string;
   hideCloseButton?: boolean;
   maxWidth?: DialogProps["maxWidth"];
+  borderRadius?: string;
 }
 
 export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
@@ -26,6 +27,7 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
   open,
   hideCloseButton,
   maxWidth = "md",
+  borderRadius = "0px",
   ...props
 }) => {
   return (
@@ -34,7 +36,13 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
       maxWidth={maxWidth}
       open={open}
       onClose={handleClose}
-      sx={{ zIndex: 1301 }}
+      sx={{
+        zIndex: 1301,
+        "& .MuiDialog-paper": {
+          height: 'auto',
+          borderRadius: borderRadius,
+        },
+      }}
       {...props}
     >
       <DialogTitle
@@ -73,7 +81,7 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
           {header}
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{ px: { xs: 6, sm: 12 }, pb: { xs: 6, sm: 12 } }}>
+      <DialogContent sx={{ px: { xs: 6, sm: 12 }, pb: { xs: 6, sm: 12 }}}>
         {children}
       </DialogContent>
     </Dialog>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { ProgramListAccordion } from "../../../../components/ProgramListAccordion/ProgramListAccordion";
+import { AccordionList } from "../../../AccordionList/AccordionList";
 import { ProgramHeader } from "./ProgramHeader";
 import { ProgramGridView } from "./ProgramGridView";
 import { standardProgramList } from "../../../../core/constant/ProgramListMock/ProgramListMock";
@@ -21,7 +21,7 @@ export function ProgramListBlock(){
         />
         {listView ? (
           <div className="fadeIn">
-            <ProgramListAccordion program={standardProgramList} />
+            <AccordionList program={standardProgramList} />
           </div>
         ) : (
           <>
