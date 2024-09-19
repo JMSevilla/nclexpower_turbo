@@ -3,14 +3,17 @@ import {
   useSelectQuestionsQuery,
   useAppMutation,
   useCreatePaymentIntent,
+  useGetContents,
 } from "../../../core/hooks/useBusinessQueries";
-import { useApiCallback } from "../../../hooks";
+import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
 import { useMutation, useQuery } from "react-query";
 import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
+  AuthorizedContentsResponseType,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
+  WebGetContentsParams,
 } from "../../../api/types";
 
 jest.mock("../../../config", () => ({
@@ -19,6 +22,13 @@ jest.mock("../../../config", () => ({
 
 jest.mock("../../../hooks/useApi", () => ({
   useApiCallback: jest.fn().mockReturnValue({
+    loading: false,
+    result: {
+      data: {},
+    },
+    error: undefined,
+  }),
+  useApi: jest.fn().mockReturnValue({
     loading: false,
     result: {
       data: {},
@@ -172,5 +182,166 @@ describe("useCreatePaymentIntent", () => {
 
     expect(mockMutate).toHaveBeenCalled();
     expect(result.current.isLoading).toBe(false);
+  });
+});
+
+describe("useGetContents", () => {
+  const mockExecute = jest.fn();
+
+  it("should fetch and return authorized contents", async () => {
+    const mockData: AuthorizedContentsResponseType[] = [
+      {
+        id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        contentApprovers: [
+          {
+            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            contentId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            content: "string",
+            approverId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            approver: {
+              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              accountId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              createdDate: "2024-09-17T11:46:04.183Z",
+              updatedDate: "2024-09-17T11:46:04.183Z",
+            },
+          },
+        ],
+        contentAuthorId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        author: {
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          accountId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          createdDate: "2024-09-17T11:46:04.183Z",
+          updatedDate: "2024-09-17T11:46:04.183Z",
+        },
+        contentRevisionsId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        revisions: {
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          contentId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          mainContent: {
+            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            type: "string",
+            mainType: "string",
+            mainContentCollections: [
+              {
+                id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                cognitiveLevel: "string",
+                clientNeeds: "string",
+                contentArea: "string",
+                question: "string",
+                mainContentAnswerCollections: [
+                  {
+                    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    answer: "string",
+                    answerKey: true,
+                  },
+                ],
+              },
+            ],
+            createdDate: "2024-09-17T11:46:04.183Z",
+            updatedDate: "2024-09-17T11:46:04.183Z",
+          },
+          adminId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          highlights: [
+            {
+              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              highlightedText: "string",
+              comment: "string",
+              startPosition: 0,
+              endPosition: 0,
+            },
+          ],
+          revisionStatus: 0,
+          createdDate: "2024-09-17T11:46:04.183Z",
+        },
+        contentId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        mainContent: {
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          type: "string",
+          mainType: "string",
+          mainContentCollections: [
+            {
+              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              cognitiveLevel: "string",
+              clientNeeds: "string",
+              contentArea: "string",
+              question: "string",
+              mainContentAnswerCollections: [
+                {
+                  id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  answer: "string",
+                  answerKey: true,
+                },
+              ],
+            },
+          ],
+          createdDate: "2024-09-17T11:46:04.183Z",
+          updatedDate: "2024-09-17T11:46:04.183Z",
+        },
+        mainContentStatus: 0,
+        workflow: 0,
+        implementationSchedule: "2024-09-17T11:46:04.183Z",
+        createdDate: "2024-09-17T11:46:04.183Z",
+        updatedDate: "2024-09-17T11:46:04.183Z",
+        timeZone: "string",
+      },
+    ];
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: mockData,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useGetContents(["contents"], {
+        AccountId: "accountId",
+        MainType: "Regular"
+      })
+    );
+
+    expect(useQuery).toHaveBeenCalledWith(["contents"], expect.any(Function), {
+      staleTime: Infinity,
+    });
+
+    expect(result.current.data).toEqual(mockData);
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should handle loading state", () => {
+    (useQuery as jest.Mock).mockReturnValue({ isLoading: true });
+    const { result } = renderHook(() =>
+      useGetContents(["contents"], {
+        AccountId: "Acount-id",
+        MainType: "Regular"
+      })
+    );
+    expect(result.current.isLoading).toBe(true);
+    expect(result.current.data).toBeUndefined();
+  });
+
+  it("should handle error state", async () => {
+    const mockError = new Error("Failed to fetch data");
+    mockExecute.mockRejectedValue(mockError);
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: undefined,
+        isLoading: false,
+        error: mockError,
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useSelectQuestionsQuery(["questions"], {
+        accountId: "value",
+        shouldDisplayNextItem: false,
+        examGroupId: "",
+      })
+    );
+
+    expect(result.current.error).toEqual(mockError);
+    expect(result.current.data).toBeUndefined();
   });
 });
