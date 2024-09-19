@@ -6,6 +6,7 @@ export const CheckBoxColumn = <T,>(): ColumnDef<T>[] => [
         id: 'select',
         header: ({ table }) => (
             <Checkbox
+                data-testid="react-table-checkbox"
                 {
                 ...{
                     checked: table.getIsAllRowsSelected(),
@@ -18,6 +19,7 @@ export const CheckBoxColumn = <T,>(): ColumnDef<T>[] => [
         cell: ({ row }) => (
             <div className="px-1" >
                 <Checkbox
+                    data-testid="react-table-checkbox"
                     {...{
                         disabled: !row.getCanSelect(),
                         indeterminate: row.getIsSomeSelected(),

@@ -59,7 +59,7 @@ export const ReactTable = <T extends unknown>({ columns, data, ...rest }: Props<
     };
 
     return (
-        <Box>
+        <Box data-testid="react-table">
             <TableContainer>
                 <Table sx={{ minWidth: 650, width: "100%", overflow: "auto" }}>
                     <TableHead>
