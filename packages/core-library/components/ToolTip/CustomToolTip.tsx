@@ -1,16 +1,14 @@
-
 import React from 'react';
-import { Tooltip} from '@mui/material';
-import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
+import { Tooltip, TooltipProps} from '@mui/material';
 
-interface CustomTooltipProps  {
+interface CustomTooltipProps extends TooltipProps {
   title: string;
 }
 
-export const CustomTooltip: React.FC<CustomTooltipProps> = ({  title }) => {
+export const CustomTooltip: React.FC<React.PropsWithChildren<CustomTooltipProps>> = ({  title, children}) => {
   return (
-    <Tooltip title={title} >
-        <InfoTwoToneIcon style={{ marginRight: 4 }} />
+    <Tooltip title={title}>
+      {children}
     </Tooltip>
   );
 };
