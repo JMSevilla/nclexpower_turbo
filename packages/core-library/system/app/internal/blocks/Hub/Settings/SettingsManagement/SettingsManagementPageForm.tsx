@@ -3,7 +3,6 @@ import { Container, Box } from "@mui/material";
 import { Alert } from "core-library/components";
 import { useSettingsManagementWizardSteps } from "./steps/useSteps";
 import { useActiveSteps, useBeforeUnload } from "core-library/hooks";
-import { useRouter } from "../../../../../../../core";
 import { useResetOnRouteChange } from "../../../../../../../core/hooks/useResetOnRouteChange";
 
 export const SettingsManagementPageForm = () => {

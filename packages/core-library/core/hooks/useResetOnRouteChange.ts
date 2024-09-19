@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "../router";
 
+/* temporary implementation */
 interface Props {
     resetStep: () => void;
   }
