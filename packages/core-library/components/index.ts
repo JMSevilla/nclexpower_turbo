@@ -57,3 +57,4 @@ export * from "./Textfield/TextField";
 export * from "./blocks/Accordion/SummaryAccordion";
 
 export * from "./Dialog/DialogFormBlocks";
+export { GenericSelectField } from "../components/Textfield/GenericSelectField";

@@ -11,3 +11,5 @@ export type ContainedRegularQuestionType = yup.InferType<
 export type ContainedCaseStudyQuestionType = yup.InferType<
   typeof containedCaseStudyQuestionSchema
 >;
+
+export type tabsTypes = "nurseNotes" | "hxPhy" | "labs" | "orders";

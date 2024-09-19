@@ -1,6 +1,6 @@
-import LoginPage from "./login";
+import { ParseBlocks } from "core-library/system";
 import React from "react";
 
 export default function Home() {
-  return <LoginPage />;
+  return <ParseBlocks blocks="LoginFormBlock" />;
 }
