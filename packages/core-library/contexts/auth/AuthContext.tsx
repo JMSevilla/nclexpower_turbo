@@ -37,6 +37,7 @@ const context = createContext<{
   register(data: RegisterParams): Promise<number>;
   createInternal(data: internalAccountType): Promise<number>;
   logout(): Promise<void>;
+  softLogout: AsyncFunction;
   setIsAuthenticated: (value: boolean) => void;
   verificationPreparation: OTPPreparation;
   setVerificationPreparation: (value: OTPPreparation) => void;
@@ -128,6 +129,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     }
   }, [refreshToken, accessToken, accountId, loading, customer, internal]);
 
+  const softLogout = useCallback(async () => {
+    clearSession();
+  }, [refreshToken, accessToken]);
+
   return (
     <context.Provider
       value={useMemo(
@@ -200,6 +205,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setAccessToken,
           setRefreshToken,
           setSingleCookie,
+          softLogout,
         }),
         [
           isAuthenticated,

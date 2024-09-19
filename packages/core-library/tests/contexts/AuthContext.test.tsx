@@ -64,6 +64,7 @@ describe("useAuthContext", () => {
       setAccessToken: expect.any(Function),
       setRefreshToken: expect.any(Function),
       setSingleCookie: expect.any(Function),
+      softLogout: expect.any(Function),
     });
   });
 

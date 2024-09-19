@@ -34,7 +34,7 @@ export const TabButton = forwardRef<HTMLButtonElement, ButtonProps>(
           position: "relative",
           minHeight: "42px",
           height: "42px",
-          minWidth: 140,
+          minWidth: 60,
           typography: "body2",
           width: width ?? "167px",
           px: 1,
