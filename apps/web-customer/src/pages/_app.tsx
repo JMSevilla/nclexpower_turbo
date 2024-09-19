@@ -16,31 +16,34 @@ import NProgress from "nprogress";
 import "core-library/styles/global.css";
 import "core-library/styles/nprogress.css";
 import { useEmotionCache } from "core-library/hooks";
-import Script from "next/script";
 import { CacheProvider } from "@emotion/react";
-import { CookiesProvider } from "react-cookie";
-import { config } from "core-library/config";
+import { SessionProvider } from "next-auth/react";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const cache = useEmotionCache();
 
   return (
     <CacheProvider value={cache}>
-      <Head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </Head>
-      <Page>
-        <Suspense>
-          <Component {...pageProps} />
-        </Suspense>
-      </Page>
+      <SessionProvider session={session}>
+        <Head>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+          />
+        </Head>
+        <Page>
+          <Suspense>
+            <Component {...pageProps} />
+          </Suspense>
+        </Page>
+      </SessionProvider>
     </CacheProvider>
   );
 }

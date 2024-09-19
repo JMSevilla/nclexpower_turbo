@@ -19,6 +19,10 @@ export interface LoginParams {
   appName: string;
 }
 
+export interface SsoLoginParams {
+  email: string;
+}
+
 export interface CreatePaymentIntentParams {
   amount: number;
   currency: string;
@@ -286,6 +290,11 @@ export type Verify2FAParams = {
   appName: string;
 };
 
+export type SsoVerify2FAParams = {
+  email: string;
+  code: string;
+};
+
 export type ReportIssueType = {
   email: string;
   categoryId: string;
@@ -382,6 +391,18 @@ export type RevokeParams = {
   refreshToken: string;
   appName: string;
   email: string;
+};
+
+export type OTPPreparation = {
+  email: string;
+  password: string;
+  appName: string;
+  procedure?: string | undefined;
+};
+
+export type SsoExtraDetails = {
+  email: string;
+  procedure: string;
 };
 
 export type AuthorizedMenuParams = {

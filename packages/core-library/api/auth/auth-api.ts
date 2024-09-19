@@ -10,6 +10,8 @@ import {
   RevokeParams,
   ValidateTokenParams,
   Verify2FAParams,
+  SsoLoginParams,
+  SsoVerify2FAParams,
 } from "../types";
 import { internalAccountType } from "../../types/types";
 
@@ -45,6 +47,17 @@ export class AuthApi {
       `/api/security/otp/verify-2fa`,
       params
     );
+  }
+
+  public sso_verify_2fa(params: SsoVerify2FAParams) {
+    return this.ssrAxios.post<LoginResponse>(
+      `/api/security/otp/sso-verify-2fa`,
+      params
+    );
+  }
+
+  public ssoLogin(params: SsoLoginParams) {
+    return this.ssrAxios.post<LoginResponse>(`/api/auth/ssr/sso-login`, params);
   }
 
   public revokeToken(params: RevokeParams) {

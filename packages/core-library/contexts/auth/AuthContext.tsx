@@ -28,7 +28,7 @@ import { CookieSetOptions, useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
 import { useRouter } from "../../core";
 import { useExecuteToast } from "../ToastContext";
-import { RevokeParams } from "../../api/types";
+import { OTPPreparation, RevokeParams } from "../../api/types";
 
 const context = createContext<{
   loading: boolean;
@@ -37,6 +37,7 @@ const context = createContext<{
   register(data: RegisterParams): Promise<number>;
   createInternal(data: internalAccountType): Promise<number>;
   logout(): Promise<void>;
+  softLogout: AsyncFunction;
   setIsAuthenticated: (value: boolean) => void;
   verificationPreparation: OTPPreparation;
   setVerificationPreparation: (value: OTPPreparation) => void;
@@ -54,12 +55,6 @@ const context = createContext<{
   ) => void;
   setSingleCookie: (value: string | null, options?: CookieSetOptions) => void;
 }>(undefined as any);
-
-export type OTPPreparation = {
-  email: string;
-  password: string;
-  appName: string;
-};
 
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
@@ -134,6 +129,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     }
   }, [refreshToken, accessToken, accountId, loading, customer, internal]);
 
+  const softLogout = useCallback(async () => {
+    clearSession();
+  }, [refreshToken, accessToken]);
+
   return (
     <context.Provider
       value={useMemo(
@@ -152,6 +151,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
                 email: email,
                 password: password,
                 appName: config.value.BASEAPP,
+                procedure: "non-sso",
               } as OTPPreparation;
               setVerificationPreparation(prepareVerification);
               router.push((route) => route.account_verification_otp);
@@ -205,6 +205,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setAccessToken,
           setRefreshToken,
           setSingleCookie,
+          softLogout,
         }),
         [
           isAuthenticated,

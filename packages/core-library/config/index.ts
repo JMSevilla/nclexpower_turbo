@@ -24,6 +24,8 @@ export const config = {
       COOKIE_DOMAIN_SCRIPT: processEnv.NEXT_PRIVATE_COOKIE_DOMAIN_SCRIPT,
       ENVIRONMENT_MENU: processEnv.NEXT_PRIVATE_ENV_MENU,
       ACRONYM_APP: processEnv.NEXT_PRIVATE_ACROAPP,
+      GCID: processEnv.NEXT_PRIVATE_GOOGLE_CLIENT_ID!,
+      GCS: processEnv.NEXT_PRIVATE_GOOGLE_CLIENT_SECRET!,
     };
   },
 };
