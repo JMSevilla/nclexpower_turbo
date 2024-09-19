@@ -4,7 +4,7 @@ import { LoginForm } from "./LoginForm";
 import { config } from "core-library/config";
 import { Encryption } from "core-library/utils/Encryption";
 import { Decryption } from "core-library/utils/Decryption";
-import { useLocalStorage } from "core-library/hooks";
+import { useGoogleSignIn, useLocalStorage } from "core-library/hooks";
 import { useAuthContext, useExecuteToast } from "core-library/contexts";
 import { useRouter } from "core-library/core/router";
 
@@ -16,6 +16,7 @@ export interface SavedDataProps {
 
 export function LoginFormBlock() {
   const { login, loading } = useAuthContext();
+  const { signInWithGoogle } = useGoogleSignIn();
   const { setItem, getItem, removeItem } = useLocalStorage("rm");
   const [rememberMe, setRememberMe] = useState(false);
   const [savedData, setSavedData] = useState<SavedDataProps | null>(null);
@@ -108,6 +109,7 @@ export function LoginFormBlock() {
       rememberMe={rememberMe}
       savedData={savedData}
       handleBack={handleBack}
+      signInWithGoogle={signInWithGoogle}
     />
   );
 }
