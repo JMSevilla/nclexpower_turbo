@@ -4,7 +4,7 @@ import { keyframes, styled } from "@mui/system";
 const shineAnimation = keyframes`100% { transform: translateX(100%); }`;
 
 interface StyledProps {
-  light?: boolean;
+  light?: boolean | string;
 }
 
 export const AnimatedBoxSkeleton = styled(Box)<StyledProps>(
