@@ -1,6 +1,5 @@
 import { renderHook, act } from "../common";
 import { useApiCallback, useGoogleSignIn } from "../../hooks";
-import { STATIC_ROUTES, useRouter } from "../../core";
 import { signIn, useSession } from "next-auth/react";
 
 jest.mock("../../config", () => ({
