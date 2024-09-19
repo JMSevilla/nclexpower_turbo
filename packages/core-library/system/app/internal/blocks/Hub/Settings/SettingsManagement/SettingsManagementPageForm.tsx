@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Box } from "@mui/material";
 import { Alert } from "core-library/components";
 import { useSettingsManagementWizardSteps } from "./steps/useSteps";
 import { useActiveSteps, useBeforeUnload } from "core-library/hooks";
+import { useResetOnRouteChange } from "../../../../../../../core/hooks/useResetOnRouteChange";
 
 export const SettingsManagementPageForm = () => {
   const { renderStep: render, steps } = useSettingsManagementWizardSteps();
@@ -16,6 +17,9 @@ export const SettingsManagementPageForm = () => {
   const { activeStep, next, previous, reset } = useActiveSteps(
     stepLabels.length
   );
+
+  useResetOnRouteChange({ resetStep: reset });
+
   return (
     <Box>
       <Container>
