@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { ReactElement, ReactNode, useRef, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useRef, useState } from "react";
 import { TabButton } from "../Button/TabButton";
 import { useResolution } from "../../hooks";
 import { TabsItem } from "../../core/utils/contants/tabs-item";
@@ -7,15 +7,27 @@ import { TabsItem } from "../../core/utils/contants/tabs-item";
 interface Props {
   id?: string;
   tabsItem: TabsItem[];
-  justifyContent?: 'flex-start' | 'center' | 'flex-end';
+  justifyContent?: "flex-start" | "center" | "flex-end";
+  width?: string | number;
+  selectedTabIndex?: (value: number) => void;
 }
 
-export const Tabs: React.FC<Props> = ({ id, tabsItem, justifyContent}) => {
+export const Tabs: React.FC<Props> = ({
+  id,
+  tabsItem,
+  justifyContent,
+  width,
+  selectedTabIndex,
+}) => {
   const { isMobile } = useResolution();
   const [selected, setSelected] = useState(1);
   const tabs = tabsHeader(tabsItem);
   const selectedTab = tabs.find((tab) => tab.id === selected);
   const tabsRef = useRef<HTMLElement[]>([]);
+
+  useEffect(() => {
+    selectedTabIndex && selectedTabIndex(selected);
+  }, [selectedTabIndex]);
 
   return (
     <Grid container spacing={12}>
@@ -24,6 +36,7 @@ export const Tabs: React.FC<Props> = ({ id, tabsItem, justifyContent}) => {
           {tabs.map((tab, index) => (
             <Grid item key={tab.id}>
               <TabButton
+                width={width}
                 ref={(el) => {
                   tabsRef.current[tab.id] = el!;
                 }}
