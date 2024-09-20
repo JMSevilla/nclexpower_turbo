@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor} from "core-library/tests/common";
+import { render, screen, fireEvent, waitFor } from "../../../../../tests/common";
 import { ProgramListBlock } from "../../../../../../../apps/web-customer/src/components/blocks/HubBlocks/ProgramListBlock/ProgramListBlock";
 
 jest.mock("core-library/config", () => ({

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "core-library/tests/common";
+import { render, screen, fireEvent } from "../../../../../tests/common";
 import { ProgramHeader } from "../../../../../../../apps/web-customer/src/components/blocks/HubBlocks/ProgramListBlock/ProgramHeader";
 import { GridViewIcon, ListViewIcon } from "core-library/assets";
 
