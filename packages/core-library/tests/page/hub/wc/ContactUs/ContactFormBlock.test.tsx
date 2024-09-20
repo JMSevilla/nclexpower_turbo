@@ -1,16 +1,17 @@
+import React from "react";
 import { render, screen } from "../../../../../tests/common";
 import { ContactFormBlock } from "../../../../../../../apps/web-customer/src/components/blocks/ContactBlock/ContactFormBlock";
 
-jest.mock("core-library/config", () => ({
+jest.mock("../../../../../config", () => ({
   getConfig: jest
-    .fn()
-    .mockReturnValue({ publicRuntimeConfig: { processEnv: {} } }),
-  config: { value: jest.fn() },
+  .fn()
+  .mockReturnValue({ publicRuntimeConfig: { processEnv: {} }}),
+  config: { value: jest.fn()}
 }));
 
-jest.mock("core-library/core/router", () => ({
+jest.mock("../../../../../core/router", () => ({
   useRouter: () => ({
-    push: jest.fn(),
+      push: jest.fn(),
   }),
 }));
 

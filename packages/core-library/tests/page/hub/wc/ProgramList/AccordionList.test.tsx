@@ -1,17 +1,18 @@
+import React from "react";
 import { render, screen, fireEvent } from "../../../../../tests/common";
 import { AccordionList } from "../../../../../../../apps/web-customer/src/components/AccordionList/AccordionList";
 import { StandardProgramListType } from "../../../../../../../apps/web-customer/src/core/types/programList";
 import useCalculateProgramProgress from "../../../../../../../apps/web-customer/src/core/hooks/useCalculateProgramProgress";
 import { CardioVascular, WelcomeProgram } from "../../../../../assets";
 
-jest.mock("core-library/config", () => ({
+jest.mock("../../../../../config", () => ({
     getConfig: jest
     .fn()
     .mockReturnValue({ publicRuntimeConfig: { processEnv: {} }}),
     config: { value: jest.fn()}
 }));
 
-jest.mock("core-library/core/router", () => ({
+jest.mock("../../../../../core/router", () => ({
     useRouter: () => ({
         push: jest.fn(),
     }),
