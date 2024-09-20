@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "../../../../../tests/common";
 import { ProgramHeader } from "../../../../../../../apps/web-customer/src/components/blocks/HubBlocks/ProgramListBlock/ProgramHeader";
-import { GridViewIcon, ListViewIcon } from "core-library/assets";
+import { GridViewIcon, ListViewIcon } from "../../../../../assets";
 
 jest.mock("core-library/config", () => ({
   getConfig: jest

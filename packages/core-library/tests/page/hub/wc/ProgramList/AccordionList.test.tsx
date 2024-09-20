@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "../../../../../tests/common";
 import { AccordionList } from "../../../../../../../apps/web-customer/src/components/AccordionList/AccordionList";
 import { StandardProgramListType } from "../../../../../../../apps/web-customer/src/core/types/programList";
 import useCalculateProgramProgress from "../../../../../../../apps/web-customer/src/core/hooks/useCalculateProgramProgress";
-import { CardioVascular, WelcomeProgram } from "core-library/assets";
+import { CardioVascular, WelcomeProgram } from "../../../../../assets";
 
 jest.mock("core-library/config", () => ({
     getConfig: jest
