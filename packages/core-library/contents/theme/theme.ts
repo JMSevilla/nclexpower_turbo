@@ -63,6 +63,9 @@ export const appColorsFromPrimary = (primaryColor: string) => {
       "Green.400": "#429448",
       "Green.075": "#B3D4B6",
       "Green.025": "#F7FBF8",
+      "Blue.400": "#0018CC",
+      "Blue.075": "#979ED3",
+      "Blue.025": "#F1F1FA",
     },
     grey: "#ACACAC",
   };
@@ -112,8 +115,8 @@ export const theme = (tenant?: CmsTenant | null) => {
         light: appColors.ui_rag["Green.025"],
       },
       info: {
-        light: infoColors.lightenColor(80, 20),
-        main: info,
+        main: appColors.ui_rag["Blue.400"],
+        light: appColors.ui_rag["Blue.025"],
       },
       text: {
         secondary: "#525252",
@@ -236,10 +239,10 @@ export const theme = (tenant?: CmsTenant | null) => {
           "& a": {
             color: appColors.primary,
             "&:focus:not(.MuiButton-root, .MuiListItem-root &, .MuiListItemButton-root &)":
-              {
-                backgroundColor: appColors.ui_rag["Amber.400"],
-                outline: "none!important",
-              },
+            {
+              backgroundColor: appColors.ui_rag["Amber.400"],
+              outline: "none!important",
+            },
           },
           "& button:focus, a.MuiButton-root:focus": {
             border: "none",

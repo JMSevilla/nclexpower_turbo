@@ -22,11 +22,13 @@ export const Footer: React.FC<FooterProps> = (props) => {
           backgroundColor: "#040814",
           paddingY: 5,
           fontFamily: "PT Sans",
-          flexGrow: 1
+          flexGrow: 1,
         }}
       >
         <Grid
-          container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 2, md: 12 }}
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 2, sm: 2, md: 12 }}
           sx={{
             display: "flex",
             width: "100%",
@@ -34,7 +36,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
         >
           {props.list.length > 0 && (
             <Grid
-              item xs={12} sm={12} md={4}
+              item
+              xs={12}
+              sm={12}
+              md={4}
               sx={{
                 display: "flex",
                 alignItems: "start",
@@ -42,7 +47,6 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 width: "25%",
                 gap: 5,
                 paddingRight: 5,
-
               }}
             >
               <Image
@@ -52,17 +56,41 @@ export const Footer: React.FC<FooterProps> = (props) => {
               />
             </Grid>
           )}
-          <Grid xs={2} sm={12} md={8} sx={{ display: "flex", width: "60%" }}>
-            <Grid item xs={12} sm={1} md={4} sx={{ width: "40%" }}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={8}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              alignItems: "start",
+              width: "100%",
+            }}
+          >
+            <Grid
+              item
+              xs={12}
+              sm={7}
+              md={5}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: { xs: "center", sm: "start" },
+                textAlign: { xs: "center", sm: "start" }
+              }}>
               <Typography sx={{ marginBottom: 5 }}>
                 {props.info.address}
               </Typography>
               <Grid
                 sx={{
-                  marginBottom: 10,
+                  marginBottom: { xs: 5, md: 10 },
                   gap: 2,
+                  width: "70%",
                   display: "flex",
-                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  flexDirection: { xs: "row", sm: "column" },
                 }}
               >
                 <Typography
@@ -87,11 +115,13 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 </Typography>
               </Grid>
             </Grid>
-
             <Grid
-              item xs={12} sm={1} md={4}
+              item
+              xs={12}
+              sm={5}
+              md={4}
               sx={{
-                width: "60%",
+                width: "100%",
                 display: "flex",
                 justifyContent: "space-evenly",
                 alignItems: "start",
@@ -123,7 +153,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
             © {memoYear} NCLEXPower ™. All rights reserved.
           </p>
         </div>
-      </Box>
+      </Box >
     )
   );
 };

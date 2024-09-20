@@ -1,5 +1,5 @@
 import { BackButton, CheckoutPageBlock } from "@/components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import WestIcon from "@mui/icons-material/West";
 import { Stripe, StripeElements } from "@stripe/stripe-js";
 import { useStripeContext } from "core-library/contexts";
@@ -29,14 +29,14 @@ function useSafeStripe() {
   try {
     const stripe = useStripe();
     const elements = useElements();
+    const isStripeReady = stripe && elements;
 
     if (!stripe || !elements) {
       throw new Error("Stripe Elements context not found.");
     }
-
-    return { stripe, elements, error: null };
+    return { stripe, elements, error: null, isStripeReady };
   } catch (error) {
-    return { stripe: null, elements: null, error };
+    return { stripe: null, elements: null, error, isStripeReady: null };
   }
 }
 
@@ -49,11 +49,13 @@ const OrderCheckout: React.FC<Props> = (props) => {
   const orderDetail = useDecryptOrder();
   const { paymentIntentId, clientSecret, stripePromise, orderNumber } =
     useStripeContext();
-  const { stripe, elements, error } = useSafeStripe();
+  const { stripe, elements, isStripeReady } = useSafeStripe();
   const ProgramTitle = orderDetail?.programTitle;
   const ProgramType = orderDetail?.programType;
 
-  if (error) {
+  if (!isStripeReady || !orderDetail) return;
+
+  if (!stripe || !elements) {
     return <NotFoundBlock />;
   }
 

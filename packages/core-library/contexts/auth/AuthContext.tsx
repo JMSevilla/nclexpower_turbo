@@ -8,7 +8,12 @@ import {
 } from "react";
 import { useClearCookies } from "../../hooks/useClearCookies";
 import { parseTokenId } from "./access-token";
-import { useAccessToken, useAccountId, useRefreshToken } from "./hooks";
+import {
+  useAccessLevel,
+  useAccessToken,
+  useAccountId,
+  useRefreshToken,
+} from "./hooks";
 import {
   useApiCallback,
   useSensitiveInformation,
@@ -23,7 +28,7 @@ import { CookieSetOptions, useSingleCookie } from "../../hooks/useCookie";
 import { config } from "../../config";
 import { useRouter } from "../../core";
 import { useExecuteToast } from "../ToastContext";
-import { RevokeParams } from "../../api/types";
+import { OTPPreparation, RevokeParams } from "../../api/types";
 
 const context = createContext<{
   loading: boolean;
@@ -32,6 +37,7 @@ const context = createContext<{
   register(data: RegisterParams): Promise<number>;
   createInternal(data: internalAccountType): Promise<number>;
   logout(): Promise<void>;
+  softLogout: AsyncFunction;
   setIsAuthenticated: (value: boolean) => void;
   verificationPreparation: OTPPreparation;
   setVerificationPreparation: (value: OTPPreparation) => void;
@@ -50,12 +56,6 @@ const context = createContext<{
   setSingleCookie: (value: string | null, options?: CookieSetOptions) => void;
 }>(undefined as any);
 
-export type OTPPreparation = {
-  email: string;
-  password: string;
-  appName: string;
-};
-
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
@@ -66,6 +66,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [clearCookies] = useClearCookies();
   const [accessToken, setAccessToken] = useAccessToken();
   const [accountId, setAccountId] = useAccountId();
+  const [accessLevel, setAccessLevel] = useAccessLevel();
   const [, setSingleCookie, clearSingleCookie] = useSingleCookie();
   const [refreshToken, setRefreshToken] = useRefreshToken();
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
@@ -128,6 +129,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
     }
   }, [refreshToken, accessToken, accountId, loading, customer, internal]);
 
+  const softLogout = useCallback(async () => {
+    clearSession();
+  }, [refreshToken, accessToken]);
+
   return (
     <context.Provider
       value={useMemo(
@@ -146,6 +151,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
                 email: email,
                 password: password,
                 appName: config.value.BASEAPP,
+                procedure: "non-sso",
               } as OTPPreparation;
               setVerificationPreparation(prepareVerification);
               router.push((route) => route.account_verification_otp);
@@ -164,6 +170,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
               return;
             }
             setAccountId(result.data.accountId);
+            setAccessLevel(result.data.accessLevel);
             setAccessToken(result.data.accessTokenResponse.accessToken);
             setRefreshToken(result.data.accessTokenResponse.refreshToken);
             setSingleCookie(
@@ -198,6 +205,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setAccessToken,
           setRefreshToken,
           setSingleCookie,
+          softLogout,
         }),
         [
           isAuthenticated,

@@ -1,6 +1,13 @@
 import { atom } from "jotai";
-import { ContainedRegularQuestionType } from "./types";
+import {
+  ContainedCaseStudyQuestionType,
+  ContainedRegularQuestionType,
+} from "./types";
 
 export const CreateRegularAtom = atom<ContainedRegularQuestionType | undefined>(
-    undefined
-  );
+  undefined
+);
+
+export const CreateCaseStudyAtom = atom<
+  ContainedCaseStudyQuestionType | undefined
+>(undefined);

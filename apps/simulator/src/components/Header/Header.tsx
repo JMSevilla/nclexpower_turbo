@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Box, Tooltip, Typography, Button, LinearProgress } from '@mui/material';
+import { AppBar, Toolbar, Box, Typography, Button, LinearProgress } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
@@ -13,6 +13,7 @@ import { useTour } from '@reactour/tour';
 import { useLocalStorage } from 'core-library/hooks';
 import { useApplicationContext } from '../../core/context/AppContext';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { CustomTooltip } from 'core-library/components';
 
 export const buttonStyle = {
   backgroundColor: 'transparent',
@@ -82,7 +83,7 @@ export const Header: React.FC<Props> = ({ logout, current }) => {
               </Box>
               <Box flexGrow={0}>
                 <div className="header-step-5">
-                  <Tooltip title="current page">
+                  <CustomTooltip title="current page">
                     <Button sx={{ color: 'white', fontSize: 'small' }}>
                       <AutoStoriesIcon
                         fontSize="small"
@@ -90,7 +91,7 @@ export const Header: React.FC<Props> = ({ logout, current }) => {
                       />{' '}
                       : {current}
                     </Button>
-                  </Tooltip>
+                  </CustomTooltip>
                 </div>
               </Box>
             </Toolbar>
@@ -117,12 +118,16 @@ export const Header: React.FC<Props> = ({ logout, current }) => {
               <ReportIssueDialog />
             </div>
             <div className="header-step-7 flex items-center">
-              <Button onClick={refresh} sx={{ color: '#F3F3F3' }}>
-                <RefreshIcon fontSize="medium" />
-              </Button>
+              <CustomTooltip title="Refresh">
+                <Button onClick={refresh} sx={{ color: '#F3F3F3' }}>
+                  <RefreshIcon fontSize="medium" />
+                </Button>
+              </CustomTooltip>
               <IRTsModal />
               <ToolbarSettings />
-              <ExitToAppIcon onClick={logout} className="cursor-pointer" />
+              <CustomTooltip title="Exit">
+                <ExitToAppIcon onClick={logout} className="cursor-pointer" />
+              </CustomTooltip>
             </div>
           </Box>
         </AppBar>
