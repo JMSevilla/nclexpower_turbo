@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
+import { ParseBlocks } from "core-library/system";
+import React from "react";
 
 export default function Home() {
-  return <Typography variant="button">Home</Typography>;
+  return <ParseBlocks blocks="LoginFormBlock" />;
 }

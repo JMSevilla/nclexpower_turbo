@@ -46,6 +46,7 @@ const config: Config = {
         sideBarTabHover: "#253d53", // white gray
         blue: "#1a73e8", // blue
         darkBlue: "#0F2A71;", //login blue
+        mainBlue: "#102973",
         yellow: "#F4C501", // yellow
         accent: {
           DEFAULT: "#bd321c", //red,

@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { usePreventDuplicateSession } from "../../hooks";
 
 interface Props {
   stickOut?: boolean;
@@ -9,6 +10,7 @@ export const PageContainer: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   stickOut,
 }) => {
+  usePreventDuplicateSession();
   return (
     <Box
       component="main"

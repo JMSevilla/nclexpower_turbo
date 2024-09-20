@@ -14,6 +14,7 @@ jest.mock("../../contexts/auth/hooks", () => ({
   useAccessToken: jest.fn().mockReturnValue(["token", jest.fn(), jest.fn()]),
   useRefreshToken: jest.fn().mockReturnValue(["token", jest.fn(), jest.fn()]),
   useAccountId: jest.fn().mockReturnValue(["uid", jest.fn(), jest.fn()]),
+  useAccessLevel: jest.fn().mockReturnValue(["al", jest.fn(), jest.fn()]),
 }));
 jest.mock("../../hooks/useSessionStorage");
 jest.mock("../../hooks/useApi", () => ({
@@ -63,6 +64,7 @@ describe("useAuthContext", () => {
       setAccessToken: expect.any(Function),
       setRefreshToken: expect.any(Function),
       setSingleCookie: expect.any(Function),
+      softLogout: expect.any(Function),
     });
   });
 

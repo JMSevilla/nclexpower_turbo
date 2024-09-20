@@ -1,9 +1,19 @@
 import React from 'react'
+import {
+  AboutUsHeroBlock,
+  OurHistoryBlock,
+  MeetOurTeamBlock,
+  FAQBlock,
+} from "./index";
+import { Stack } from '@mui/material';
 
 export const AboutUsBlock = () => {
   return (
-    <div className='h-screen flex items-center justify-center'>
-    <p>About Us</p>
-  </div>
+    <Stack>
+      <AboutUsHeroBlock/>
+      <OurHistoryBlock/>
+      <FAQBlock/>
+      <MeetOurTeamBlock/>
+    </Stack>
   )
 }

@@ -1,4 +1,5 @@
 import { CreateRegularAtom } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/useAtomic";
+import { QuestionSelectionOptions } from '../system/app/internal/blocks/Hub/Settings/SettingsManagement/types';
 
 export type AccessTokenResponse = {
   tokenType: string;
@@ -17,6 +18,10 @@ export interface LoginParams {
   email: string;
   password: string;
   appName: string;
+}
+
+export interface SsoLoginParams {
+  email: string;
 }
 
 export interface CreatePaymentIntentParams {
@@ -43,6 +48,7 @@ export interface LoginResponse {
   is2FaEnabled: boolean;
   twoFactorCodeExpiryTime: string;
   accountId: string;
+  accessLevel: number;
 }
 
 export interface RefreshTokenResponse {
@@ -285,6 +291,11 @@ export type Verify2FAParams = {
   appName: string;
 };
 
+export type SsoVerify2FAParams = {
+  email: string;
+  code: string;
+};
+
 export type ReportIssueType = {
   email: string;
   categoryId: string;
@@ -301,34 +312,27 @@ export type GetCategoryType = {
   updatedAt: string;
 };
 
-export type MainContentAnswerCollectionDtos =  {
-  answer: string,
-  answerKey: boolean
-}
-
-export type  MainContentCollectionsDtos =    {
-  cognitiveLevel: string,
-  clientNeeds: string,
-  contentArea: string,
-  question: string,
-  mainContentAnswerCollectionDtos: MainContentAnswerCollectionDtos[]
-}
-
-export type CreateRegularType = {
-  email: string,
-  contentDto: {
-    type: string,
-    mainType: string,
-    mainContentCollectionsDtos: MainContentCollectionsDtos[]
-  }
-}
-export type RevokeParams = {
-  accessToken: string;
-  refreshToken: string;
-  appName: string;
-  email: string;
+export type MainContentAnswerCollectionDtos = {
+  answer: string;
+  answerKey: boolean;
 };
 
+export type MainContentCollectionsDtos = {
+  cognitiveLevel: string;
+  clientNeeds: string;
+  contentArea: string;
+  question: string;
+  mainContentAnswerCollectionDtos: MainContentAnswerCollectionDtos[];
+};
+
+export type CreateRegularType = {
+  email: string;
+  contentDto: {
+    type: string;
+    mainType: string;
+    mainContentCollectionsDtos: MainContentCollectionsDtos[];
+  };
+};
 export type credentialsType = {
   id: string;
   username: string;
@@ -383,3 +387,136 @@ export interface CustomerTokenizeInformations {
   email: string;
   imgUrl: string;
 }
+export type RevokeParams = {
+  accessToken: string;
+  refreshToken: string;
+  appName: string;
+  email: string;
+};
+
+export type OTPPreparation = {
+  email: string;
+  password: string;
+  appName: string;
+  procedure?: string | undefined;
+};
+
+export type SsoExtraDetails = {
+  email: string;
+  procedure: string;
+};
+
+export type AuthorizedMenuParams = {
+  accountLevel: number;
+  menuEnvironments: number;
+  systemMenus: number;
+};
+
+export type AuthorizedMenu = {
+  id: string;
+  systemMenus: number;
+  accountLevel: number;
+  menuEnvironments: number;
+  menuItems: Array<MenuItems>;
+}[];
+
+export type MenuItems = MenuItemsChildren;
+
+export type MenuItemsChildren = {
+  id: string;
+  label: string;
+  path: string;
+  icon: string;
+  menuId: string;
+  parentId: string;
+  children: MenuItemsChildren[];
+};
+
+export type AuthorizedRoutes = {
+  id: string;
+  label: string;
+  value: string;
+};
+
+export interface AuthorizedContentsResponseType {
+  id: string;
+  contentApprovers: ContentApprover[];
+  contentAuthorId: string;
+  author: Author;
+  contentRevisionsId: string;
+  revisions: Revisions;
+  contentId: string;
+  mainContent: MainContent;
+  mainContentStatus: number;
+  workflow: number;
+  implementationSchedule: string;
+  createdDate: string;
+  updatedDate: string;
+  timeZone: string;
+}
+
+export interface ContentApprover {
+  id: string;
+  contentId: string;
+  content: string;
+  approverId: string;
+  approver: Approver;
+}
+
+export interface Approver extends User { }
+
+export interface Author extends User { }
+
+export interface User {
+  id: string;
+  accountId: string;
+  createdDate: string;
+  updatedDate: string;
+}
+
+export interface Revisions {
+  id: string;
+  contentId: string;
+  mainContent: MainContent;
+  adminId: string;
+  highlights: Highlight[];
+  revisionStatus: number;
+  createdDate: string;
+}
+
+export interface MainContent {
+  id: string;
+  type: string;
+  mainType: string;
+  mainContentCollections: MainContentCollection[];
+  createdDate: string;
+  updatedDate: string;
+}
+
+export interface MainContentCollection {
+  id: string;
+  cognitiveLevel: string;
+  clientNeeds: string;
+  contentArea: string;
+  question: string;
+  mainContentAnswerCollections: MainContentAnswerCollection[];
+}
+
+export interface MainContentAnswerCollection {
+  id: string;
+  answer: string;
+  answerKey: boolean;
+}
+
+export interface Highlight {
+  id: string;
+  highlightedText: string;
+  comment: string;
+  startPosition: number;
+  endPosition: number;
+}
+
+export type WebGetContentsParams = {
+  MainType: QuestionSelectionOptions;
+  AccountId: string;
+};
