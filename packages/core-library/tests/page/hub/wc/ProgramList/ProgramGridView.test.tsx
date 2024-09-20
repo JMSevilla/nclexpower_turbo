@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "core-library/tests/common";
-import { ProgramGridView } from "../../../../components/blocks/HubBlocks/ProgramListBlock/ProgramGridView";
-import useCalculateProgramProgress from "../../../../core/hooks/useCalculateProgramProgress";
-import { StandardProgramListType } from "@/core/types/programList";
+import { ProgramGridView } from "../../../../../../../apps/web-customer/src/components/blocks/HubBlocks/ProgramListBlock/ProgramGridView";
+import useCalculateProgramProgress from "../../../../../../../apps/web-customer/src/core/hooks/useCalculateProgramProgress";
+import { StandardProgramListType } from "../../../../../../../apps/web-customer/src/core/types/programList";
 import { WelcomeProgram, CardioVascular} from "core-library/assets";
 
 jest.mock("core-library/config", () => ({
@@ -17,17 +17,17 @@ jest.mock("core-library/core/router", () => ({
     }),
 }));
 
-jest.mock("../../../../components/Modal/CustomModal", () => ({
-  CustomModal: jest.fn(({ closeModal }) => (
+jest.mock("../../../../../components/Dialog/DialogBox", () => ({
+  DialogBox: jest.fn(({ handleClose }) => (
     <div>
       <div data-testid="mock-modal">Mock Modal</div>
-      <button onClick={closeModal} data-testid="close-modal-button">Close</button>
+      <button onClick={handleClose} data-testid="close-modal-button">Close</button>
     </div>
   )),
     ProgressCircle: jest.fn(({ progress }) => <div>{`Progress: ${progress}%`}</div>),
   }));
   
-  jest.mock("../../../../core/hooks/useCalculateProgramProgress");
+  jest.mock("../../../../../../../apps/web-customer/src/core/hooks/useCalculateProgramProgress");
   
   const mockProgramData: StandardProgramListType[] = [
     {

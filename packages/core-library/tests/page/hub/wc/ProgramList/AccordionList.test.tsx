@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "core-library/tests/common";
-import { AccordionList } from "../../../../components/AccordionList/AccordionList";
-import { StandardProgramListType } from "../../../../core/types/programList";
-import useCalculateProgramProgress from "../../../../core/hooks/useCalculateProgramProgress";
+import { AccordionList } from "../../../../../../../apps/web-customer/src/components/AccordionList/AccordionList";
+import { StandardProgramListType } from "../../../../../../../apps/web-customer/src/core/types/programList";
+import useCalculateProgramProgress from "../../../../../../../apps/web-customer/src/core/hooks/useCalculateProgramProgress";
 import { CardioVascular, WelcomeProgram } from "core-library/assets";
 
 jest.mock("core-library/config", () => ({
@@ -39,7 +39,7 @@ const mockPrograms: StandardProgramListType[] = [
   },
 ];
 
-jest.mock('../../../../core/hooks/useCalculateProgramProgress', () => jest.fn());
+jest.mock('../../../../../../../apps/web-customer/src/core/hooks/useCalculateProgramProgress', () => jest.fn());
 
 describe("ProgramListAccordion Component", () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import { render, screen } from "core-library/tests/common";
-import { ContactFormBlock } from "../../../components/blocks/ContactBlock/ContactFormBlock";
+import { ContactFormBlock } from "../../../../../../../apps/web-customer/src/components/blocks/ContactBlock/ContactFormBlock";
 
 jest.mock("core-library/config", () => ({
   getConfig: jest

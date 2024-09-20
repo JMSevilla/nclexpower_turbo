@@ -1,4 +1,4 @@
-import { ContactHero } from "../../../components/blocks/ContactBlock/ContactHero";
+import { ContactHero } from "../../../../../../../apps/web-customer/src/components/blocks/ContactBlock/ContactHero";
 import { render, screen } from "core-library/tests/common";
 
 jest.mock("core-library/config", () => ({
