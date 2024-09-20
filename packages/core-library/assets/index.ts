@@ -24,8 +24,13 @@ export const PaymentBadge = require("./PaymentBadge.png");
 export const NotFoundPage = require("./NotFoundPage.png");
 export const UnderMaintenance = require("./UnderMaintenance.png");
 
+export const AboutUsBanner = require("./aboutus/aboutus-banner.svg");
+export const Arrow = require("./aboutus/arrow.svg");
+export const NurseIcon = require("./aboutus/nurse.png");
+export const EngineerIcon = require("./aboutus/engineer.png");
+
 export const ContactIcon = require("./contact/contactIcon.png");
-export const ContactUsBanner = require("./contact/ContactUsBanner.png");
+export const ContactUsBanner = require("./contact/ContactUsBanner.svg");
 export const ContactFacebook = require("./contact/facebook.png");
 export const ContactInstagram = require("./contact/instagram.png");
 export const ContactTwitter = require("./contact/twitter.png");

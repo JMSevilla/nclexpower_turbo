@@ -4,12 +4,19 @@ import { TabButton } from "../Button/TabButton";
 import { useResolution } from "../../hooks";
 import { TabsItem } from "../../core/utils/contants/tabs-item";
 
+interface CustomStyleProps {
+  background?: string;
+  selectedColor?: string;
+  defaultColor?: string;
+  borderBottom?: string;
+}
 interface Props {
   id?: string;
   tabsItem: TabsItem[];
   justifyContent?: "flex-start" | "center" | "flex-end";
   width?: string | number;
   selectedTabIndex?: (value: number) => void;
+  customStyle?: CustomStyleProps;
 }
 
 export const Tabs: React.FC<Props> = ({
@@ -18,6 +25,7 @@ export const Tabs: React.FC<Props> = ({
   justifyContent,
   width,
   selectedTabIndex,
+  customStyle
 }) => {
   const { isMobile } = useResolution();
   const [selected, setSelected] = useState(1);
@@ -44,6 +52,14 @@ export const Tabs: React.FC<Props> = ({
                 active={selected === tab.id}
                 href={`#tab-section-${index + 1}`}
                 sx={{
+                  "&:hover": {
+                    background: selected === tab.id ? customStyle?.background : "default",
+                  },
+                  width: "auto",
+                  background: selected === tab.id ? customStyle?.background : "default",
+                  border: "none",
+                  color: selected === tab.id ? customStyle?.selectedColor : customStyle?.defaultColor || 'default',
+                  borderBottom: selected === tab.id ? customStyle?.borderBottom : 'default',
                   marginLeft: tab.id !== 1 ? "-1px" : "unset",
                 }}
                 onClick={(e) => handleSelected(e, tab.id)}
