@@ -85,3 +85,5 @@ export const PatientUnitsCAT = require('./programslist/vector/20.patient-units-c
 export const RestDayThree = require('./programslist/vector/21.rest-day-three.svg');
 export const CaseStudies = require('./programslist/vector/22.case-studies.svg');
 export const FinalCAT = require('./programslist/vector/23.final-cat.svg');
+
+export const VerifyAccountBg = require('./verifyaccount/verify_account_bg.svg');
