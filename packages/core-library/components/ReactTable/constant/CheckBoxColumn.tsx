@@ -21,6 +21,7 @@ export const CheckBoxColumn = <T,>(): ColumnDef<T>[] => [
                 <Checkbox
                     data-testid="react-table-checkbox"
                     {...{
+                        checked:row.getIsSelected(),
                         disabled: !row.getCanSelect(),
                         indeterminate: row.getIsSomeSelected(),
                         onChange: row.getToggleSelectedHandler(),

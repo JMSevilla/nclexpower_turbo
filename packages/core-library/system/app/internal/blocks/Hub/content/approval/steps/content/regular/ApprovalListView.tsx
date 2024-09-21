@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import {
-  Alert,
-  AnimatedBoxSkeleton,
   Button,
   Card,
   ReactTable,
 } from "../../../../../../../../../../components";
-import { Box, Container, ListItemButton, Switch } from "@mui/material";
+import { Box, Container, ListItemButton, Switch, IconButton, Typography } from "@mui/material";
 import { useBusinessQueryContext } from "../../../../../../../../../../contexts";
 import { useAccountId } from "../../../../../../../../../../contexts/auth/hooks";
-import { GridMoreVertIcon, GridRenderCellParams } from "@mui/x-data-grid";
+import { GridMoreVertIcon } from "@mui/x-data-grid";
 import { ColumnDef, Row, RowModel } from '@tanstack/react-table';
 import { AuthorizedContentsResponseType } from '../../../../../../../../../../api/types';
 import { CustomPopover } from '../../../../../../../../../../components/Popover/Popover';
+import { useForm } from "react-hook-form"
+import { data } from "../mockdata";
+
 
 export interface ApprovalProps {
   nextStep({ }): void;
@@ -26,11 +27,11 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
   const accountId = getAccountId ?? "no-account-id";
   const { businessQueryGetContents } = useBusinessQueryContext();
   const [selectedRows, setSelectedRows] = useState<Row<AuthorizedContentsResponseType>[]>()
-  const { data, isLoading } = businessQueryGetContents(["getAuthorizeContentContents"], {
+  const { isLoading } = businessQueryGetContents(["getAuthorizeContentContents"], {
     MainType: "Regular",
     AccountId: accountId,
   });
-
+  
   const columns: ColumnDef<AuthorizedContentsResponseType>[] = [
     {
       id: "id",
@@ -69,8 +70,8 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
       cell: (params) => (
         <Box>
 
-          <CustomPopover open={true} label='Actions' icon={<GridMoreVertIcon fontSize="small" />}>
-
+          <CustomPopover open={true} label='Actions' withIcon iconButton={<GridMoreVertIcon fontSize="small" />}>
+            <ListItemButton onClick={handleSelection} sx={{ bgcolor: 'white', color: 'black' }}>View</ListItemButton>
             <ListItemButton sx={{ bgcolor: 'green', color: 'white' }}>Approve</ListItemButton>
             <ListItemButton sx={{ bgcolor: 'red', color: 'white' }}>Reject</ListItemButton>
           </CustomPopover>
@@ -78,6 +79,7 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
       )
     },
   ]
+
 
   const handleSelectedRows = (rowData: RowModel<AuthorizedContentsResponseType>) => {
     setSelectedRows(rowData.rows)
@@ -96,32 +98,43 @@ export const ApprovalListView: React.FC<ApprovalProps> = ({ nextStep }) => {
   return (
     <Box>
       <Container>
-        <Alert
-          severity="info"
-          title="Manage Approvals"
-          description="View and manage the approval list, including content revisions and schedules."
-        />
         <Card sx={{ mt: 5, p: 4, width: "100%" }} elevation={5}>
-
-
           <Box
             display="flex"
             alignItems="center"
             justifyContent="space-between"
           >
             <Box display="flex">
-              <Switch checked={multiple} onChange={handleMultipleSelection} />{" "}
+              <Switch checked={multiple} onChange={handleMultipleSelection} />
               Multiple Selection
             </Box>
             <Box paddingY={4}>
-              <Button onClick={() => handleSelection()}>Review Content</Button>
+              <CustomPopover
+                open={true}
+                withIcon={true}
+                iconButton={<GridMoreVertIcon fontSize="small" />}
+                sx={{
+                  px: 4,
+                  py: 2,
+                  backgroundColor: "#343a40",
+                  borderRadius: "10px",
+                  color: '#F3F3F3',
+                  '&:hover': {
+                    backgroundColor: '#212529',
+                  },
+                }}>
+              <ListItemButton onClick={handleSelection} sx={{ bgcolor: 'green', color: 'white' }}>Approve</ListItemButton>
+              <ListItemButton sx={{ bgcolor: 'red', color: 'white' }}>Reject</ListItemButton>
+                </CustomPopover>
             </Box>
           </Box>
           <ReactTable<AuthorizedContentsResponseType>
             rightPinnedIds={["action"]}
             checkBoxSelection={multiple}
             selectedRows={handleSelectedRows}
-            columns={columns} data={data ?? []} />
+            columns={columns} 
+            data={data ?? []} 
+              />
         </Card>
       </Container>
     </Box>
