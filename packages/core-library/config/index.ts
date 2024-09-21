@@ -26,6 +26,7 @@ export const config = {
       ACRONYM_APP: processEnv.NEXT_PRIVATE_ACROAPP,
       GCID: processEnv.NEXT_PRIVATE_GOOGLE_CLIENT_ID!,
       GCS: processEnv.NEXT_PRIVATE_GOOGLE_CLIENT_SECRET!,
+      NXTAUTH: processEnv.NEXT_PRIVATE_NEXTAUTH_SECRET!,
     };
   },
 };
