@@ -20,6 +20,7 @@ const options: SelectOption[] = [
     value: "option2",
   },
 ];
+
 const SelectWithForm = () => {
   const { control } = useForm();
   return (
