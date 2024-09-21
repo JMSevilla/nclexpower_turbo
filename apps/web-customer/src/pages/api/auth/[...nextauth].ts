@@ -9,6 +9,7 @@ export default NextAuth({
       clientSecret: config.value.GCS,
     }),
   ],
+  secret: config.value.NXTAUTH,
   callbacks: {
     async signIn({ account, profile }) {
       if (account?.provider === "google") {
