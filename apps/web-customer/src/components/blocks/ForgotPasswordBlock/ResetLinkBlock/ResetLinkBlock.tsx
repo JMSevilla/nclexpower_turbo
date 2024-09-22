@@ -6,7 +6,10 @@ import Link from "next/link";
 import { useAtom } from "jotai";
 import { ForgotPasswordAtom } from "@/core";
 import { NotFoundBlock } from "../../NotFoundBlock/NotFoundBlock";
-
+import { resetLink } from "core-library/assets";
+import CoreZigma from "../../../images/CoreZigma.png";
+import { Box, TextField } from "@mui/material";
+import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
 export const ResetLinkBlock: React.FC = () => {
   const [email] = useAtom(ForgotPasswordAtom);
   const router = useRouter();
@@ -15,63 +18,59 @@ export const ResetLinkBlock: React.FC = () => {
     router.replace((route) => route.login);
   };
 
-  if (!email?.email) {
-    return <NotFoundBlock />;
-  }
+  // if (!email?.email) {
+  //   return <NotFoundBlock />;
+  // }
 
   return (
-    <div className="h-screen flex justify-center items-center ">
-      <div className="flex justify-center items-center gap-10 shadow-xl rounded-3xl w-6/12 h-3/5">
-        <div className="relative bottom-8">
+    <div className="flex items-center justify-between w-full h-screen">
+      <div className="w-full hidden lg:block">
+        <Image
+          src={resetLink}
+          style={{ width: "1000px", height: "auto" }}
+          alt="resetLink"
+        />
+      </div>
+      <div className="flex items-center justify-end w-full h-screen bg-[#f3f4f8]">
+        <div className="flex flex-col items-center justify-center gap-5 ">
           <Image
-            className="w-40 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl "
-            src={Emailsent}
-            alt="EmailSent"
+            src={CoreZigma}
+            alt="CoreZigma"
+            style={{
+              width: "100px",
+              height: "auto",
+            }}
           />
-        </div>
-        <div>
-          <div className=" relative bottom-10 right-20 ">
-            <h1 className="text-[30px] pt-sans-bold pt-10 text-[#0f2a71]">
-              Password reset request sent
-            </h1>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <div className="pb-5">
-              <p className="pt-sans-caption text-[18px]  text-[#0f2a71]">
-                We’ve sent password reset instructions to:
+          <div className="flex items-center w-full justify-center flex-col gap-5">
+            <div className="flex items-start justify-start flex-col w-1/2 gap-5">
+              <p className="text-center text-[30px] pt-sans-bold font-bold text-[#0F2A71]">
+                Password reset request sent
               </p>
-              <p className="pt-sans-bold text-[22px] w-96 text-[#0f2a71] ">
-                {email?.email ?? "[[no-email]]"}
-              </p>
-            </div>
-            <div className="pb-2">
-              <p className="pt-sans-caption text-[18px] text-[#0f2a71]">
-                If it doesn’t arrive soon. Check your spam folder or
-              </p>
-              <Link
-                href="/account/forgot-password"
-                className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer text-[18px] "
-              >
-                send the email again.
-              </Link>
-            </div>
 
-            <p className="pb-6 pt-sans-caption text-[18px] text-[#0f2a71]  ">
-              Need help?
-              <span className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer underline">
-                <Link href="/contact"> Contact Support</Link>
-              </span>
-            </p>
+              <p className="text-start justify-start pt-sans-narrow-regular">
+                We&apos;ve sent password reset instructions to :
+              </p>
 
-            <div
-              className="cursor-pointer text-darkBlue text-[18px] relative top-8 "
-              onClick={handleBack}
-            >
-              <ArrowBackIcon fontSize="small" />
-              <span className="pt-sans-narrow-bold ml-1">
-                Return to the login screen
-              </span>
+              <p className=" pt-sans-narrow-regular rounded-md p-3 px-20 border-2 border-[#dddfeb] w-100px bg-[#e7eaf1] text-[#0F2A71]">
+                nclexPower_2024@gmail.com
+              </p>
+
+              <p className="w-50px pt-sans-narrow-regular">
+                If you don't see the email, check other places it might be, like
+                your junk, spam, or social folder, or{" "}
+                <span className="text-[#0F2A71] pt-sans-narrow-bold">
+                  send the email again.
+                </span>
+                <div className="w-50px flex flex-row text-start">
+                  <HelpOutlineRoundedIcon className=" text-[#0F2A71] gap-4" />
+                  <p className="text-[16px] pt-sans-narrow-bold text-[#0F2A71]">
+                    Need Help?
+                  </p>
+                  <p>
+                    Our customer support team is here for you. Contact Support
+                  </p>
+                </div>
+              </p>
             </div>
           </div>
         </div>
