@@ -8,6 +8,7 @@ import {
 import { DatabaseExcelComparison } from "./content/DatabaseExcelComparison";
 import { SettingsSelectionType } from "../types";
 import { QuestionManagementTypeStep } from "./QuestionManagementSettingsTypeStep";
+import { ReviewerSettings } from "./content/ReviewerSettings";
 
 export const useSettingsManagementWizardSteps = () => {
   const steps = useMemo(() => {
@@ -18,6 +19,10 @@ export const useSettingsManagementWizardSteps = () => {
         nextStep: "DatabaseExcelComparison",
         previousStep: "InitialSettingsSelection",
         content: (props) => <DatabaseExcelComparison {...props} />,
+      },
+      ReviewerSettings: {
+        previousStep: "InitialSettingsSelection",
+        content: (props) => <ReviewerSettings {...props} />,
       },
     } as WizardFormMap<
       Partial<SettingsManagementSteps>,
