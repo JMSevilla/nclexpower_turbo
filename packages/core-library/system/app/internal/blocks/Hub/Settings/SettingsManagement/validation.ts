@@ -7,6 +7,14 @@ export const uploadFormSchema = () => {
   });
 };
 
+const defaultReviewersDto = yup.object({
+  accountId: yup.string(),
+});
+
+export const setDefaultReviewerSchema = yup.object({
+  defaultReviewers: yup.array(defaultReviewersDto),
+});
+
 export const settingsSelectionSchema = yup
   .object({
     selection: yup.mixed<SettingsSelectionOptions>(),
