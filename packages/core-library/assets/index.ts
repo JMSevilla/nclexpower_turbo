@@ -40,6 +40,7 @@ export const ContactPhone = require("./contact/phone.png");
 
 export const ForgotPasswordImage = require("./forgotpassword/ForgotPasswordImage.json");
 export const ChangePasswordImage = require("./forgotpassword/ChangePasswordImage.json");
+export const ChangePasswordBG = require("./ChangePasswordBG.png");
 
 export const AvailableIcon = require('./programslist/icons/available.svg');
 export const AvailableWhiteIcon = require('./programslist/icons/available-white.svg');
