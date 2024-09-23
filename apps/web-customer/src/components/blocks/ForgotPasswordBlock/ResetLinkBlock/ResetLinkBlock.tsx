@@ -16,9 +16,9 @@ export const ResetLinkBlock: React.FC = () => {
     router.replace((route) => route.login);
   };
 
-  // if (!email?.email) {
-  //   return <NotFoundBlock />;
-  // }
+  if (!email?.email) {
+    return <NotFoundBlock />;
+  }
 
   return (
     <div className="flex items-center justify-between fixed w-full h-screen ">
