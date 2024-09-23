@@ -8,8 +8,9 @@ import { ForgotPasswordAtom } from "@/core";
 import { NotFoundBlock } from "../../NotFoundBlock/NotFoundBlock";
 import { resetLink } from "core-library/assets";
 import CoreZigma from "../../../images/CoreZigma.png";
-import { Box, TextField } from "@mui/material";
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+
 export const ResetLinkBlock: React.FC = () => {
   const [email] = useAtom(ForgotPasswordAtom);
   const router = useRouter();
@@ -31,46 +32,53 @@ export const ResetLinkBlock: React.FC = () => {
           alt="resetLink"
         />
       </div>
-      <div className="flex items-center justify-end w-full h-screen bg-[#f3f4f8]">
-        <div className="flex flex-col items-center justify-center gap-5 ">
-          <Image
-            src={CoreZigma}
-            alt="CoreZigma"
-            style={{
-              width: "100px",
-              height: "auto",
-            }}
-          />
-          <div className="flex items-center w-full justify-center flex-col gap-5">
-            <div className="flex items-start justify-start flex-col w-1/2 gap-5">
-              <p className="text-center text-[30px] pt-sans-bold font-bold text-[#0F2A71]">
-                Password reset request sent
-              </p>
-
-              <p className="text-start justify-start pt-sans-narrow-regular">
-                We&apos;ve sent password reset instructions to :
-              </p>
-
-              <p className=" pt-sans-narrow-regular rounded-md p-3 px-20 border-2 border-[#dddfeb] w-100px bg-[#e7eaf1] text-[#0F2A71]">
-                nclexPower_2024@gmail.com
-              </p>
-
-              <p className="w-50px pt-sans-narrow-regular">
-                If you don't see the email, check other places it might be, like
-                your junk, spam, or social folder, or{" "}
-                <span className="text-[#0F2A71] pt-sans-narrow-bold">
-                  send the email again.
+      <div className="flex flex-col items-center text-center p-10 justify-start w-full h-screen bg-[#f3f4f8]">
+        <div className="md:my-60 mx-10 space-y-10">
+          <div className="flex flex-col items-center justify-center md:ex">
+            <Image
+              src={CoreZigma}
+              alt="CoreZigma"
+              style={{ width: "100px", height: "auto" }}
+            />
+          </div>
+          <div className="">
+            <p className="text-[30px] pt-sans-bold font-bold text-[#0F2A71]">
+              Password reset request sent
+            </p>
+            <p className="text-[18px] text-start justify-start pt-sans-narrow-regular text-[#393A3A]">
+              We&apos;ve sent password reset instructions to :
+            </p>
+            <p className="text-[18px] pt-sans-narrow-bold rounded-md p-3 px-20 border-2 border-[#dddfeb] w-100px bg-[#e7eaf1] text-[#0F2A71]">
+              n{email?.email ?? "[[no-email]]"}
+            </p>
+            <p className="text-[18px] pt-sans-narrow-regular">
+              If you don&apos;t see the email, check other places it might be,
+              like your junk, spam, or social folder, or{" "}
+              <span className="text-[#0F2A71] pt-sans-narrow-bold">
+                send the email again.
+              </span>
+            </p>
+            <div className="w-full px-4 py-1 flex items-center bg-[#D9D9D966] rounded-lg gap-4">
+              <HelpOutlineRoundedIcon className=" text-[#0F2A71] gap-4" />
+              <div className="text-start">
+                <p className="text-[18px] pt-sans-narrow-bold text-[#0F2A71]">
+                  Need Help?
+                </p>
+                <p>
+                  Our customer support team is here for you. Contact Support
+                </p>
+              </div>
+            </div>
+            <div
+              className="flex items-center justify-end cursor-pointer text-darkBlue mt-5"
+              onClick={handleBack}
+            >
+              <div className="">
+                <ArrowBackIosNewIcon fontSize="medium" />
+                <span className="text-[18px] pt-sans-narrow-regular ml-1 underline underline-offset-1">
+                  Return to login
                 </span>
-                <div className="w-50px flex flex-row text-start">
-                  <HelpOutlineRoundedIcon className=" text-[#0F2A71] gap-4" />
-                  <p className="text-[16px] pt-sans-narrow-bold text-[#0F2A71]">
-                    Need Help?
-                  </p>
-                  <p>
-                    Our customer support team is here for you. Contact Support
-                  </p>
-                </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
