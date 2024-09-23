@@ -40,6 +40,7 @@ export const ContactPhone = require("./contact/phone.png");
 
 export const ForgotPasswordImage = require("./forgotpassword/ForgotPasswordImage.json");
 export const ChangePasswordImage = require("./forgotpassword/ChangePasswordImage.json");
+export const ChangePasswordBG = require("./ChangePasswordBG.png");
 
 export const AvailableIcon = require("./programslist/icons/available.svg");
 export const AvailableWhiteIcon = require("./programslist/icons/available-white.svg");
@@ -85,5 +86,7 @@ export const PatientUnitsCAT = require("./programslist/vector/20.patient-units-c
 export const RestDayThree = require("./programslist/vector/21.rest-day-three.svg");
 export const CaseStudies = require("./programslist/vector/22.case-studies.svg");
 export const FinalCAT = require("./programslist/vector/23.final-cat.svg");
+
+export const VerifyAccountBg = require("./verifyaccount/verify_account_bg.svg");
 
 export const resetLink = require("./resetlinkpage/Sent Message-amico.svg");
