@@ -1,6 +1,7 @@
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import Cancel from "@mui/icons-material/Cancel";
 import { SvgIconProps } from "@mui/material/SvgIcon";
+import ClearIcon from '@mui/icons-material/Clear';
 
 interface ValidationCriteria {
   isValid: boolean;
@@ -30,9 +31,9 @@ export const ValidationIndicators = ({
           {criterion.isValid ? (
             <CheckCircle sx={{ mr: 1 }} fontSize={iconSize} />
           ) : (
-            <Cancel sx={{ mr: 1 }} fontSize={iconSize} />
+            <Cancel sx={{ mr: 1, fontWeight: 700 }} fontSize={iconSize} />
           )}
-          {criterion.message}
+          <span className="pt-sans-narrow-regular text-lg">{criterion.message}</span>
         </li>
       ))}
     </ul>
