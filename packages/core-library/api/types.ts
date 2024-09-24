@@ -1,5 +1,5 @@
 import { CreateRegularAtom } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/useAtomic";
-import { QuestionSelectionOptions } from '../system/app/internal/blocks/Hub/Settings/SettingsManagement/types';
+import { QuestionSelectionOptions } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/types";
 
 export type AccessTokenResponse = {
   tokenType: string;
@@ -463,9 +463,9 @@ export interface ContentApprover {
   approver: Approver;
 }
 
-export interface Approver extends User { }
+export interface Approver extends User {}
 
-export interface Author extends User { }
+export interface Author extends User {}
 
 export interface User {
   id: string;
@@ -519,4 +519,26 @@ export interface Highlight {
 export type WebGetContentsParams = {
   MainType: QuestionSelectionOptions;
   AccountId: string;
+};
+
+export type GetDefaultReviewerResponse = {
+  accountId: string;
+  tokenizeInformation: GetDefaultReviewerDto;
+};
+
+export type GetDefaultReviewerDto = {
+  id: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  imgurl: string;
+};
+
+export type DefaultReviewerParams = {
+  defaultApproversDtos: DefaultReviewerDto[];
+};
+
+export type DefaultReviewerDto = {
+  accountId: string;
 };
