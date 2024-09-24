@@ -1,11 +1,12 @@
 import { useRouter } from "core-library/core/router";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Image from "next/image";
-import Emailsent from "../../../../assets/message.png";
-import Link from "next/link";
 import { useAtom } from "jotai";
 import { ForgotPasswordAtom } from "@/core";
 import { NotFoundBlock } from "../../NotFoundBlock/NotFoundBlock";
+import { resetLink } from "core-library/assets";
+import CoreZigma from "../../../images/CoreZigma.png";
+import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 export const ResetLinkBlock: React.FC = () => {
   const [email] = useAtom(ForgotPasswordAtom);
@@ -20,58 +21,67 @@ export const ResetLinkBlock: React.FC = () => {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center ">
-      <div className="flex justify-center items-center gap-10 shadow-xl rounded-3xl w-6/12 h-3/5">
-        <div className="relative bottom-8">
-          <Image
-            className="w-40 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl "
-            src={Emailsent}
-            alt="EmailSent"
-          />
-        </div>
-        <div>
-          <div className=" relative bottom-10 right-20 ">
-            <h1 className="text-[30px] pt-sans-bold pt-10 text-[#0f2a71]">
-              Password reset request sent
-            </h1>
+    <div className="flex items-center justify-between fixed w-full h-screen ">
+      <div className="w-full hidden lg:block ml-20">
+        <Image
+          src={resetLink}
+          style={{ width: "850px", height: "auto" }}
+          alt="resetLink"
+        />
+      </div>
+      <div className="flex flex-col text-center gap-7 justify-center h-screen bg-[#f3f4f8] md:px-10 w-35%">
+        <div className="px-10 lg:p-20 md:space-y-5">
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              src={CoreZigma}
+              alt="CoreZigma"
+              style={{ width: "100px", height: "auto" }}
+            />
           </div>
-
-          <div className="flex flex-col gap-4">
-            <div className="pb-5">
-              <p className="pt-sans-caption text-[18px]  text-[#0f2a71]">
-                We’ve sent password reset instructions to:
-              </p>
-              <p className="pt-sans-bold text-[22px] w-96 text-[#0f2a71] ">
-                {email?.email ?? "[[no-email]]"}
-              </p>
-            </div>
-            <div className="pb-2">
-              <p className="pt-sans-caption text-[18px] text-[#0f2a71]">
-                If it doesn’t arrive soon. Check your spam folder or
-              </p>
-              <Link
-                href="/account/forgot-password"
-                className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer text-[18px] "
-              >
+          <div className="text-center lg:text-left">
+            <p className="text-[28px] pt-sans-bold font-bold text-[#0F2A71] md:text-[30px]">
+              Password reset request sent
+            </p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[18px] text-start justify-start pt-sans-narrow-regular text-[#393A3A]">
+              We&apos;ve sent password reset instructions to :
+            </p>
+            <p className="text-[18px] pt-sans-narrow-bold rounded-md p-3 px-20 border-2 border-[#dddfeb] w-100px bg-[#e7eaf1] text-[#0F2A71]">
+              {email?.email ?? "[[no-email]]"}
+            </p>
+            <p className="text-[18px] pt-sans-narrow-regular md:text-left">
+              If you don&apos;t see the email, check other places it might be,
+              like your junk, spam, or social folder, or{" "}
+              <span className="text-[#0F2A71] pt-sans-narrow-bold">
                 send the email again.
-              </Link>
-            </div>
-
-            <p className="pb-6 pt-sans-caption text-[18px] text-[#0f2a71]  ">
-              Need help?
-              <span className="ml-1 font pt-sans-narrow-bold text-darkBlue cursor-pointer underline">
-                <Link href="/contact"> Contact Support</Link>
               </span>
             </p>
-
-            <div
-              className="cursor-pointer text-darkBlue text-[18px] relative top-8 "
-              onClick={handleBack}
-            >
-              <ArrowBackIcon fontSize="small" />
-              <span className="pt-sans-narrow-bold ml-1">
-                Return to the login screen
-              </span>
+          </div>
+          <div className="py-7">
+            <div className="w-full px-4 py-1 flex items-center bg-[#D9D9D966] rounded-lg gap-4">
+              <HelpOutlineRoundedIcon className=" text-[#0F2A71] gap-4" />
+              <div className="text-start">
+                <p className="text-[18px] pt-sans-narrow-bold text-[#0F2A71]">
+                  Need Help?
+                </p>
+                <p>
+                  Our customer support team is here for you. Contact Support
+                </p>
+              </div>
+            </div>
+            <div>
+              <div
+                className="flex items-center justify-end cursor-pointer text-darkBlue mt-5"
+                onClick={handleBack}
+              >
+                <div>
+                  <ArrowBackIosNewIcon fontSize="medium" />
+                  <span className="text-[18px] pt-sans-narrow-regular ml-1 underline underline-offset-1 pt-sans-narrow-bold">
+                    Return to login
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
