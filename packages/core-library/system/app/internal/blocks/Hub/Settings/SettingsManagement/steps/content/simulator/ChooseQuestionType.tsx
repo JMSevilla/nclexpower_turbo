@@ -17,7 +17,8 @@ export type QuestionTypeFormSteps =
 
 export type CaseStudyQuestionTypeFormSteps =
   | "InitialCaseNameSelection"
-  | "CaseStudyQuestionCreation";
+  | "CaseStudyQuestionCreation"
+  | "SuccessPage";
 
 export type CreationType = "Regular" | "CaseStudy";
 
@@ -66,6 +67,10 @@ export const ChooseCaseStudyQuestionType = {
     previousStep: "InitialCaseNameSelection",
     nextStep: "CaseStudyQuestionCreation",
     content: (props) => <CreateCaseStudyQuestion {...props} />,
+  },
+  SuccessPage: {
+    nextStep: "InitialCaseNameSelection",
+    content: (props) => <SuccessPage {...props} />,
   },
 } as WizardFormMap<
   Partial<CaseStudyQuestionTypeFormSteps>,
