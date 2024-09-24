@@ -115,9 +115,9 @@ const OtherConfigurations = (props: {
   };
 
   return (
-    <Box>
+    <Box sx={{ mb: 5 }}>
       <InformationTitle
-        text="Server & Automations configurations"
+        text="Server/Automations & Other configurations"
         lineWidth={6}
         lineHeight={35}
         lineColor="#6A5ACD"
@@ -148,12 +148,71 @@ const OtherConfigurations = (props: {
   );
 };
 
+const ContentManagementSystemSettings = (props: {
+  nextStep(values: Partial<SettingsSelectionType>): void;
+  values: Partial<SettingsSelectionType>;
+}) => {
+  const { reset, setValue } = useForm<ChooseSettingsStepFormType>({
+    resolver: yupResolver(chooseSettingsStepFormSchema),
+    mode: "all",
+    criteriaMode: "all",
+  });
+
+  useEffect(() => {
+    reset({
+      selection: props.values.selection,
+      chosen: props.values.chosen,
+    });
+  }, [props.values.selection, props.values.chosen]);
+
+  const handleSelection = (values: ChooseSettingsStepFormType) => {
+    setValue("chosen", values.chosen);
+    setValue("selection", values.selection);
+    props.nextStep({ chosen: values.chosen, selection: values.selection });
+  };
+
+  return (
+    <Box>
+      <InformationTitle
+        text="CMS & Reviewers Configurations"
+        lineWidth={6}
+        lineHeight={35}
+        lineColor="#6A5ACD"
+        borderRadius={2}
+        containerProps={{ mb: 5 }}
+        textProps={{ color: "text.primary", fontWeight: "bold" }}
+      />
+      <Grid
+        justifyContent="center"
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      >
+        <Grid item xs={4}>
+          <Card
+            hoverEffect
+            onClick={() =>
+              handleSelection({ chosen: "CMS", selection: "DEFAULTREVIEWER" })
+            }
+            elevation={5}
+            text="Default Reviewer Configuration"
+          />
+        </Grid>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={4}></Grid>
+      </Grid>
+    </Box>
+  );
+};
+
 export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
   return (
     <Card sx={{ mt: 5, p: 5 }}>
       <ChooseProductsConfigurations nextStep={nextStep} values={values} />
       <Divider>Other Configurations</Divider>
       <OtherConfigurations nextStep={nextStep} values={values} />
+      <Divider>Content Management System</Divider>
+      <ContentManagementSystemSettings nextStep={nextStep} values={values} />
     </Card>
   );
 };
