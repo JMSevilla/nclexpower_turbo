@@ -1,12 +1,20 @@
-import { Box, Button, Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Avatar,
+  InputBase,
+  InputAdornment,
+} from "@mui/material";
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { useRouter } from "../../core";
 import { AccountMenu } from "../index";
-import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
 import { WebHeaderStylesType } from "../../types/web-header-style";
 import { AccountMenuItem } from ".";
 import { MenuItems } from "../../api/types";
+import SearchIcon from "@mui/icons-material/Search";
+import { config } from "../../config";
 
 export interface Props extends Partial<WebHeaderStylesType> {
   menu?: Array<MenuItems>;
@@ -26,10 +34,13 @@ export const Header: React.FC<Props> = ({
   loginButtonSx,
   hidden,
 }) => {
-
   const { isMobile } = useResolution();
   const router = useRouter();
   const path = router.pathname;
+  const appName = config.value.BASEAPP;
+  const isInHub = router.pathname === "/hub";
+
+  const isInWebcHub = isAuthenticated && isInHub && appName === "webc_app";
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/login" });
@@ -67,6 +78,7 @@ export const Header: React.FC<Props> = ({
         {menu && menu.length > 0 && drawerButton && (
           <Grid item>{drawerButton}</Grid>
         )}
+
         <Grid
           container
           px={8}
@@ -95,6 +107,7 @@ export const Header: React.FC<Props> = ({
                   <HeaderLogo />
                 </Grid>
               )}
+
               <Grid item display="flex" alignItems="center">
                 {!isMobile && !isAuthenticated ? (
                   <Grid container gap={4} direction="row">
@@ -124,14 +137,46 @@ export const Header: React.FC<Props> = ({
             {isAuthenticated && <Grid item alignSelf="center"></Grid>}
             {isMobile && <Grid item></Grid>}
           </Grid>
+
           <Grid item xs={12} position="relative"></Grid>
+          {isInWebcHub && (
+            <Grid
+              item
+              sx={{
+                alignSelf: "center",
+                marginRight: 20,
+              }}
+              xs={3}
+            >
+              <InputBase
+                placeholder="Search"
+                sx={{
+                  bgcolor: "white",
+                  color: "black",
+                  borderRadius: 1,
+                  padding: "0 10px",
+                  width: "100%",
+                  border: "1px solid #ccc",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: "black", float: "right" }} />
+                  </InputAdornment>
+                }
+              />
+            </Grid>
+          )}
           {isAuthenticated && (
-            <AccountMenu
-              icon={<AccountCircleIcon color="primary" fontSize="small" />}
-              label="User"
-              accountItem={AccountMenuItem}
-              onLogout={handleLogout}
-            />
+            <Grid item>
+              <AccountMenu
+                icon={<Avatar src="/path-to-user-image.jpg" />}
+                label="User"
+                accountItem={AccountMenuItem}
+                onLogout={handleLogout}
+              />
+            </Grid>
           )}
         </Grid>
       </Box>
