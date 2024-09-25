@@ -21,11 +21,10 @@ import { Tooltip } from "../Tooltip";
 import { CmsTooltip } from "../../types/common";
 import { Input } from "../Input";
 import { InputLoader } from "../InputLoader";
-import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
-import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
+import { zxcvbn } from "@zxcvbn-ts/core";
 import React from "react";
 import { PasswordStrengthMeter } from "../Textfield/PasswordStrengthMeter";
-import { DialogProps } from '@mui/material/Dialog';
+import { DialogProps } from "@mui/material/Dialog";
 
 interface Props<T extends object> {
   name: Path<T>;
@@ -48,7 +47,7 @@ interface Props<T extends object> {
   multiline?: boolean;
   rows?: number;
   IsRegister?: boolean;
-  sx?: DialogProps['sx'];
+  sx?: DialogProps["sx"];
   inputProps?: OutlinedInputProps["inputProps"];
   endAdornment?: OutlinedInputProps["endAdornment"];
 }
@@ -106,7 +105,7 @@ export const TextFieldComponent = <T extends object>({
           <FormHelperText error>{fieldState?.error?.message}</FormHelperText>
         ) : (
           label !== null && (
-            <Typography component="label" htmlFor={field?.name} display="flex" >
+            <Typography component="label" htmlFor={field?.name} display="flex">
               {label ?? ""}
             </Typography>
           )
