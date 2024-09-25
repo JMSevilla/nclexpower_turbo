@@ -40,9 +40,9 @@ export const DrawerLayout: React.FC<
 
   const router = useRouter();
 
-  const isInHub = router.pathname === "/hub";
+  const isInHub = router.pathname.startsWith("/hub");
   const appName = config.value.BASEAPP;
-  const isInWebcHub = isAuthenticated && isInHub && appName === "webc_app";
+  const isInWebcHub = isAuthenticated && isInHub && appName.includes("c");
 
   const handleDrawer = () => {
     setOpen((prev) => !prev);

@@ -3,14 +3,21 @@ import { NCLEXYellowLogo } from "../../assets";
 import { FooterProps } from "../../types/global";
 import { useMemo } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { useScroll } from "../../core";
 import { useRouteBasedVisibility } from "../../hooks";
 import { HideFooter } from "./HideFooter";
+import { useRouter } from "../../core";
 
 export const Footer: React.FC<FooterProps> = (props) => {
   const yearData = new Date().getFullYear();
   const memoYear = useMemo(() => yearData, [yearData]);
-  const { isHidden } = useRouteBasedVisibility(HideFooter);
+  const router = useRouter();
+
+  const updatedHideFooter =
+    HideFooter.includes(router.pathname) || router.pathname.startsWith("/hub")
+      ? [...HideFooter, router.pathname]
+      : HideFooter;
+
+  const { isHidden } = useRouteBasedVisibility(updatedHideFooter);
 
   return (
     !isHidden && (
@@ -78,8 +85,9 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: { xs: "center", sm: "start" },
-                textAlign: { xs: "center", sm: "start" }
-              }}>
+                textAlign: { xs: "center", sm: "start" },
+              }}
+            >
               <Typography sx={{ marginBottom: 5 }}>
                 {props.info.address}
               </Typography>
@@ -153,7 +161,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
             © {memoYear} NCLEXPower ™. All rights reserved.
           </p>
         </div>
-      </Box >
+      </Box>
     )
   );
 };

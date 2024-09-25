@@ -38,9 +38,8 @@ export const Header: React.FC<Props> = ({
   const router = useRouter();
   const path = router.pathname;
   const appName = config.value.BASEAPP;
-  const isInHub = router.pathname === "/hub";
-
-  const isInWebcHub = isAuthenticated && isInHub && appName === "webc_app";
+  const isInHub = router.pathname.startsWith("/hub");
+  const isInWebcHub = isAuthenticated && isInHub && appName.includes("c");
 
   const handleNavigate = (path?: string) => {
     router.push({ pathname: path || "/login" });
