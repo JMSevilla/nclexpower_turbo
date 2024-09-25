@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
   const router = useRouter();
 
   const updatedHideFooter =
-    HideFooter.includes(router.pathname) || router.pathname.startsWith("/hub")
+    HideFooter.includes(router.pathname) || router.pathname?.startsWith("/hub")
       ? [...HideFooter, router.pathname]
       : HideFooter;
 

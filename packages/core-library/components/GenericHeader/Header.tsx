@@ -38,7 +38,7 @@ export const Header: React.FC<Props> = ({
   const router = useRouter();
   const path = router.pathname;
   const appName = config.value.BASEAPP;
-  const isInHub = router.pathname.startsWith("/hub");
+  const isInHub = router.pathname?.startsWith("/hub") || false;
   const isInWebcHub = isAuthenticated && isInHub && appName.includes("c");
 
   const handleNavigate = (path?: string) => {
