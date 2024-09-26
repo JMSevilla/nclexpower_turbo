@@ -57,7 +57,7 @@ export const DrawerLayout: React.FC<
   const customHeaderStyles = isInWebcHub
     ? {
         drawerHeader: {
-          bgcolor: "#001840",
+          bgcolor: "#00173F",
           color: "white",
         },
       }

@@ -9,7 +9,7 @@ import {
 import { useResolution } from "../../hooks";
 import { HeaderLogo } from "./HeaderLogo";
 import { useRouter } from "../../core";
-import { AccountMenu } from "../index";
+import { AccountMenu, BreadCrumbs } from "../index";
 import { WebHeaderStylesType } from "../../types/web-header-style";
 import { AccountMenuItem } from ".";
 import { MenuItems } from "../../api/types";
@@ -136,8 +136,19 @@ export const Header: React.FC<Props> = ({
             {isAuthenticated && <Grid item alignSelf="center"></Grid>}
             {isMobile && <Grid item></Grid>}
           </Grid>
-
           <Grid item xs={12} position="relative"></Grid>
+          {isInWebcHub && (
+            <Grid
+              item
+              xs={5}
+              sx={{
+                alignSelf: "center",
+                marginRight: 20,
+              }}
+            >
+              <BreadCrumbs />
+            </Grid>
+          )}
           {isInWebcHub && (
             <Grid
               item
@@ -167,6 +178,7 @@ export const Header: React.FC<Props> = ({
               />
             </Grid>
           )}
+
           {isAuthenticated && (
             <Grid item>
               <AccountMenu
