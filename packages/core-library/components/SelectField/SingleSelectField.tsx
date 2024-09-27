@@ -66,7 +66,7 @@ export function SingleSelectField({
             selected={selected}
           >
             {option.label ?? option.code}
-            {selected ? <CheckIcon color="info" /> : null}
+            {selected ? <CheckIcon key={`check-icon-${option.value ?? option.code}`} color="info" /> : null}
           </MenuItem>
         )}
       />
