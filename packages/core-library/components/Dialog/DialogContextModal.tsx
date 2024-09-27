@@ -3,6 +3,7 @@ import {
   CategoryDialogFormBlock,
   ProductDialogBlock,
   AutomationDBComparisonFormBlock,
+  ApprovalDialogBlock,
 } from "./DialogFormBlocks";
 import { ExcelRowRegularQuestion } from "../../core";
 
@@ -22,6 +23,8 @@ export const DialogContextModal: React.FC<Props> = ({
       return <ProductDialogBlock />;
     case "automation-db-comparison":
       return <AutomationDBComparisonFormBlock csvData={csvData ?? []} />;
+    case "approval":
+      return <ApprovalDialogBlock />;
     default:
       return null;
   }
