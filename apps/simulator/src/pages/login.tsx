@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { hooks } from 'core-library';
 import { useAccessToken, useRefreshToken } from 'core-library/contexts/auth/hooks';
 import { config } from 'core-library/config';
+import { useKeyDown } from 'core-library/hooks/useKeyDown';
 
 export const AccessPage = () => {
   const [isAthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -31,6 +32,8 @@ export const AccessPage = () => {
       });
     }
   }, [accessToken]);
+
+  useKeyDown('Enter', () => handleSubmit(onSubmit)());
 
   const form = useForm({
     mode: 'onSubmit',
