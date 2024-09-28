@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import {
   Button,
   Card,
-  ControlledTextField,
+  TextField,
 } from "../../../../../../../../../../components";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { RouteManagementSchema } from "../../../validation";
@@ -12,9 +12,10 @@ interface Props {
 }
 
 export const RouteCreationForm = ({ type }: Props) => {
-  const { control: formControl, handleSubmit } = useFormContext();
+  const { control: formControl, handleSubmit } =
+    useFormContext<RouteManagementSchema>();
   const { append, fields } = useFieldArray<RouteManagementSchema>({
-    name: "submenu",
+    name: "children",
   });
 
   const onSubmit = (values: RouteManagementSchema) => {
@@ -38,12 +39,8 @@ export const RouteCreationForm = ({ type }: Props) => {
             borderRadius: "10px",
           }}
         >
-          <ControlledTextField
-            name="label"
-            control={formControl}
-            label="Label"
-          />
-          <ControlledTextField name="path" control={formControl} label="Path" />
+          <TextField name="label" control={formControl} label="Label" />
+          <TextField name="path" control={formControl} label="Path" />
         </Card>
       ) : (
         <Card
@@ -53,11 +50,7 @@ export const RouteCreationForm = ({ type }: Props) => {
             borderRadius: "10px",
           }}
         >
-          <ControlledTextField
-            name="label"
-            control={formControl}
-            label="Label"
-          />
+          <TextField name="label" control={formControl} label="Label" />
           <Card sx={{ marginTop: "10px", width: "100%", borderRadius: "10px" }}>
             {fields.map((menuItem, index) => (
               <Box
@@ -71,14 +64,14 @@ export const RouteCreationForm = ({ type }: Props) => {
                   justifyContent: "center",
                 }}
               >
-                <ControlledTextField
+                <TextField
                   control={formControl}
-                  name={`submenu[${index}].label`}
+                  name={`children.${index}.label`}
                   label="Sub menu Label"
                 />
-                <ControlledTextField
+                <TextField
                   control={formControl}
-                  name={`submenu[${index}].path`}
+                  name={`children.${index}.path`}
                   label="Sub menu Path"
                 />
               </Box>
@@ -94,7 +87,7 @@ export const RouteCreationForm = ({ type }: Props) => {
       )}
       <Button
         buttonActionType="submit"
-        onClick={handleSubmit(() => onSubmit)}
+        onClick={handleSubmit(onSubmit)}
         sx={{ borderRadius: "10px", width: "150px", alignSelf: "end" }}
       >
         Create Menu

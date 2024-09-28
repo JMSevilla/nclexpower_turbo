@@ -29,6 +29,7 @@ export const RouteCreationSidebar = ({ menus }: Props) => {
             <React.Fragment key={index}>
               {navigation.children && navigation.children.length > 0 ? (
                 <Box
+                  key={index}
                   sx={{
                     display: "flex",
                     alignItems: "start",
@@ -40,8 +41,8 @@ export const RouteCreationSidebar = ({ menus }: Props) => {
                     </Typography>
 
                     {navigation.children.length > 0 &&
-                      navigation.children.map((subMenu) => (
-                        <Typography sx={{ fontSize: "14px" }}>
+                      navigation.children.map((subMenu, index) => (
+                        <Typography key={index} sx={{ fontSize: "14px" }}>
                           {subMenu.label}
                         </Typography>
                       ))}

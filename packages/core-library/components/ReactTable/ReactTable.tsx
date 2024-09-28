@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import {
   Table,
   TableContainer,
@@ -136,24 +136,20 @@ export const ReactTable = <T extends { children?: T[] }>({
                     page * rowsPerPage + rowsPerPage
                   )
               : table.getRowModel().rows
-            ).map((row) => (
-              <>
-                <StyledTableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      sx={{ border: "1px" }}
-                      component="th"
-                      scope="row"
-                      style={{ ...getCommonPinningStyles(cell.column) }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </StyledTableRow>
-              </>
+            ).map((row, index) => (
+              <StyledTableRow key={index}>
+                {row.getVisibleCells().map((cell, index) => (
+                  <TableCell
+                    key={index}
+                    sx={{ border: "1px" }}
+                    component="th"
+                    scope="row"
+                    style={{ ...getCommonPinningStyles(cell.column) }}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </StyledTableRow>
             ))}
           </TableBody>
           <TableFooter>

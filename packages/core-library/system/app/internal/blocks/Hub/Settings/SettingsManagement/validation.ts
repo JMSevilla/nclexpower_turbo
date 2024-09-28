@@ -47,7 +47,7 @@ export const routeManagementSchema = yup.object({
     then: (schema) => schema.required("Path is required"),
     otherwise: (schema) => schema.notRequired(),
   }),
-  submenu: yup.array().when("type", {
+  children: yup.array().when("type", {
     is: "SubMenu",
     then: (schema) =>
       schema.of(subMenu).min(1, "At least one submenu is required"),
