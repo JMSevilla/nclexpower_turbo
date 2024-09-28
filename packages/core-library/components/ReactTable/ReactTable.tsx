@@ -78,12 +78,12 @@ export const ReactTable = <T extends { children?: T[] }>({
     },
     getSubRows: (row) => ("children" in row ? row.children : []),
     onExpandedChange: setExpanded,
-    getExpandedRowModel: getExpandedRowModel(),
     enableRowSelection: checkBoxSelection,
     columns: dataColumns ?? [],
     keepPinnedRows: true,
     data: data ?? [],
     getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     onGlobalFilterChange: setFiltering,
   });
 
