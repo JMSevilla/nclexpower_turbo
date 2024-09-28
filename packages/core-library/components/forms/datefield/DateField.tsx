@@ -11,7 +11,6 @@ import {
   Path,
   UnpackNestedValue,
 } from "react-hook-form";
-import { TextWithBoldedFirstWord } from "../../TextWithBoldedFirstWord";
 import { parseDate } from "../../../core";
 import { CmsTooltip } from "../../../types/common";
 import { Tooltip } from "../../Tooltip";
@@ -83,9 +82,9 @@ export const DateFieldComponent = <T extends object>({
         {fieldState?.error?.message ? (
           <FormHelperText error>{fieldState?.error?.message}</FormHelperText>
         ) : (
-          label === null && (
+          label !== null && (
             <Typography component="label" htmlFor={field?.name} display="flex">
-              {renderLabel()}
+              {label ?? ""}
             </Typography>
           )
         )}
@@ -129,16 +128,4 @@ export const DateFieldComponent = <T extends object>({
       )}
     </Grid>
   );
-
-  function renderLabel() {
-    if (label) {
-      return boldLabelFirstWord && typeof label === "string" ? (
-        <TextWithBoldedFirstWord text={label} />
-      ) : (
-        label
-      );
-    }
-
-    return "[[label_name]]";
-  }
 };

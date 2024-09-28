@@ -9,7 +9,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { SetDefaultReviewerType } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setDefaultReviewerSchema } from "../../validation";
-import { MultipleSelectField } from "../../../../../../../../../components";
+import {
+  MultipleSelectField,
+  DateFieldComponent,
+} from "../../../../../../../../../components";
 import { useApi, useApiCallback } from "../../../../../../../../../hooks";
 import { DefaultReviewerParams } from "../../../../../../../../../api/types";
 
@@ -59,6 +62,35 @@ const ContentManagementReviewers = ({ nextStep }: Props) => {
     await createDefaultReviewerCb.execute({ ...payload });
   }
 
+  const DEFAULT_PROPS = {
+    field: {
+      name: "financialAdviseDate" as never,
+      value: new Date("2021-01-01") as never,
+      onChange: () => {},
+      onBlur: () => {},
+      ref: () => {},
+    },
+    fieldState: {
+      invalid: false,
+      isTouched: false,
+      isDirty: false,
+      error: {
+        message: "",
+        type: "",
+      },
+      isValidating: false,
+    },
+    tooltip: {
+      text: "Test Tooltip",
+      header: "Tooltip Header",
+      html: "Tooltip HTML",
+    },
+    minDate: new Date("2020-01-01"),
+    maxDate: new Date("2030-01-01"),
+    boldLabelFirstWord: false,
+    label: "test",
+  };
+
   return (
     <Stack>
       <Box>
@@ -70,6 +102,11 @@ const ContentManagementReviewers = ({ nextStep }: Props) => {
             options={reviewers ?? []}
             multiple
             sx={{ mt: 3, width: "100%" }}
+          />
+          <DateFieldComponent
+            {...DEFAULT_PROPS}
+            label="test"
+            boldLabelFirstWord
           />
           <Button
             sx={{ float: "right", mt: 3, mb: 3 }}
