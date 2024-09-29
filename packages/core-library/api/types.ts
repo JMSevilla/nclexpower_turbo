@@ -453,6 +453,7 @@ export interface AuthorizedContentsResponseType {
   createdDate: string;
   updatedDate: string;
   timeZone: string;
+  children?: AuthorizedContentsResponseType[] | undefined;
 }
 
 export interface ContentApprover {
