@@ -90,3 +90,4 @@ export const FinalCAT = require("./programslist/vector/23.final-cat.svg");
 export const VerifyAccountBg = require("./verifyaccount/verify_account_bg.svg");
 
 export const resetLink = require("./resetlinkpage/Sent Message-amico.svg");
+export const DetectDevice = require("./DeviceDetection/DeviceDetection.svg");
