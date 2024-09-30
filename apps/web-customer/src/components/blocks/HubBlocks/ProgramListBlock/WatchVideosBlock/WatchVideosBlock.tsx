@@ -30,7 +30,7 @@ export function WatchVideosBlock() {
 
     if (programId) {
       const id = parseInt(programId as string, 10);
-      const programTitle = standardProgramList.find((item) => item.programId === id)?.title || " Welcome to CORE Zigma System ";
+      const programTitle = standardProgramList.find((item) => item.programId === id)?.title || "Welcome to CORE Zigma System";
       setSectionMainTitle(programTitle);
     }
   }, [router.query]);
