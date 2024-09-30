@@ -5,7 +5,6 @@ import {
   StackProps,
   Typography,
 } from "@mui/material";
-import type { Theme } from "@mui/material/styles";
 import React, {
   useRef,
   RefObject,
@@ -53,13 +52,14 @@ const ResendButton: React.FC<{
         <Typography
           onClick={handleClick}
           alignSelf="start"
-          fontSize="1.1rem"
+          fontSize="14px"
           fontWeight="bold"
           mt={1}
-          color="primary"
+          color="#0F2A71"
           sx={{
             cursor: "pointer",
           }}
+          className="font-ptSansNarrow"
         >
           Send new code
         </Typography>
@@ -81,11 +81,12 @@ const FormattedTime: React.FC<{ seconds: number; hideCanResend: boolean }> = ({
   return (
     <FormHelperText
       sx={{
-        fontWeight: 560,
-        fontSize: "1rem",
+        fontWeight: 700,
+        fontSize: "14px",
         mt: 1,
-        color: (theme) => theme.palette.grey[500],
+        color: "#6D7081"
       }}
+      className="font-ptSansNarrow"
     >
       {!canResend
         ? `Can resend after : ${formatted}`
@@ -263,17 +264,18 @@ export const OtpField: React.FC<
         <Stack direction="column" mx="auto">
           {label && <InputLabel error={error}>{label}</InputLabel>}
           <Stack
-            maxWidth={550}
             gap={gap}
-            mb={3}
+            mb={5}
             direction="row"
             justifyContent="space-round"
+            sx={{ borderRadius: '8px'}}
           >
             {pin.map((v, i) => (
               <TextField
                 sx={{
-                  width: ["100%", "100%"],
-                  height: [50, 60],
+                  width: "50px",
+                  height: "30px",
+                  borderRadius: '8px',
                   ...sx,
                 }}
                 tabIndex={i + 1}
@@ -283,10 +285,11 @@ export const OtpField: React.FC<
                   sx: {
                     px: 1,
                     py: 1.3,
-                    height: 50,
-                    width: "100%",
+                    width: "50px",
+                    height: "30px",
                     textAlign: "center",
                     border: "1px solid #007AB7",
+                    borderRadius: '8px'
                   },
                 }}
                 variant={variant}

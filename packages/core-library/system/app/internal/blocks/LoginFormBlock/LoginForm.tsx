@@ -11,6 +11,7 @@ import Link from "next/link";
 import { CoreZigmaLogo } from "../../../../../assets";
 import { Checkbox } from "../../../../../components";
 import { useShowPassword } from "./useShowPassword";
+import { useKeyDown } from "../../../../../hooks/useKeyDown";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -27,6 +28,8 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
   const { control, handleSubmit, clearErrors, setFocus, formState } = form;
   const { showPassword, handleClickShowPassword } = useShowPassword();
   useFormFocusOnError<LoginFormType>(formState.errors, setFocus);
+
+  useKeyDown("Enter", () => handleSubmit(onSubmit)());
 
   return (
     <Box

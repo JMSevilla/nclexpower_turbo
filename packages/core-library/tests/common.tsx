@@ -12,6 +12,9 @@ import { theme } from "../contents/theme/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import "@testing-library/jest-dom";
 
 export * from "@testing-library/react";
 
@@ -32,21 +35,23 @@ export const render = (
 ) =>
   rtlRender(ui, {
     wrapper: ({ children }) => (
-      <BusinessQueryContextProvider>
-        <DndProvider backend={HTML5Backend}>
-          <QueryClientProvider client={new QueryClient()}>
-            <StripeContextProvider publishableKey="">
-              <ThemeProvider theme={theme()}>
-                <HeaderTitleContextProvider>
-                  <FormSubmissionContextProvider>
-                    {children}
-                  </FormSubmissionContextProvider>
-                </HeaderTitleContextProvider>
-              </ThemeProvider>
-            </StripeContextProvider>
-          </QueryClientProvider>
-        </DndProvider>
-      </BusinessQueryContextProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <BusinessQueryContextProvider>
+          <DndProvider backend={HTML5Backend}>
+            <QueryClientProvider client={new QueryClient()}>
+              <StripeContextProvider publishableKey="">
+                <ThemeProvider theme={theme()}>
+                  <HeaderTitleContextProvider>
+                    <FormSubmissionContextProvider>
+                      {children}
+                    </FormSubmissionContextProvider>
+                  </HeaderTitleContextProvider>
+                </ThemeProvider>
+              </StripeContextProvider>
+            </QueryClientProvider>
+          </DndProvider>
+        </BusinessQueryContextProvider>
+      </LocalizationProvider>
     ),
     ...options,
   });

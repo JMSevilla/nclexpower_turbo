@@ -5,6 +5,10 @@ import { Logout as LogoutIcon } from "@mui/icons-material";
 import { NavigationType } from "../../types/navigation";
 import { useState } from "react";
 import { Button } from "../Button/Button";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { config } from "../../config";
+import { useRouter } from "../../core";
 interface Props {
   label: string;
   icon?: React.ReactNode;
@@ -18,7 +22,6 @@ export const AccountMenu: React.FC<Props> = ({
   accountItem,
   onLogout,
 }) => {
-
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<null | number>(null);
 
@@ -32,17 +35,38 @@ export const AccountMenu: React.FC<Props> = ({
   const handleParentClick = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
+
+  const router = useRouter();
+  const appName = config.value.BASEAPP;
+  const isInHub = router.pathname?.startsWith("/hub") || false;
+  const isInWebcHub = isInHub && appName.includes("c");
+
   return (
     <Box>
       <Button
         sx={{ gap: 2 }}
         aria-describedby={id}
         onClick={handleClick}
-        variant="outlined"
+        variant={isInWebcHub ? "text" : "outlined"}
         data-testid="account-menu-button"
       >
         {icon}
-        {label}
+        <Typography
+          sx={
+            isInWebcHub && {
+              fontFamily: "PT Sans",
+              fontSize: "16px",
+              color: "white",
+            }
+          }
+        >
+          {label}
+        </Typography>
+        {openMenu ? (
+          <KeyboardArrowUpIcon sx={isInWebcHub && { color: "white" }} />
+        ) : (
+          <KeyboardArrowDownIcon sx={isInWebcHub && { color: "white" }} />
+        )}
       </Button>
       <Popper
         sx={{ zIndex: 1500, width: "150px", textAlign: "center" }}
@@ -64,10 +88,27 @@ export const AccountMenu: React.FC<Props> = ({
               <div key={index}>
                 <Button
                   fullWidth
-                  sx={{ display: "flex", justifyContent: "space-between" }}
+                  sx={
+                    isInWebcHub
+                      ? {
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontFamily: "PT Sans",
+                          fontSize: "16px",
+                          color: "#00173F",
+                          backgroundColor: "#DBDFEA",
+                          "&:hover": {
+                            backgroundColor: "#DBDFEA",
+                          },
+                        }
+                      : {
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }
+                  }
                   onClick={() => handleParentClick(index)}
                 >
-                  {item.icon}{" "}
+                  {item.icon}
                   <Typography variant="button"> {item.label}</Typography>
                 </Button>
                 {expandedIndex === index &&
@@ -77,16 +118,29 @@ export const AccountMenu: React.FC<Props> = ({
                     <Button
                       key={subIndex}
                       fullWidth
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        paddingLeft: 4,
-                      }}
+                      sx={
+                        isInWebcHub
+                          ? {
+                              display: "flex",
+                              justifyContent: "space-between",
+                              fontFamily: "PT Sans",
+                              paddingLeft: 4,
+                              fontSize: "16px",
+                              color: "#00173F",
+                              backgroundColor: "#DBDFEA",
+                              "&:hover": {
+                                backgroundColor: "#DBDFEA",
+                              },
+                            }
+                          : {
+                              display: "flex",
+                              justifyContent: "space-between",
+                              paddingLeft: 4,
+                            }
+                      }
                     >
                       {subMenu.icon}{" "}
-                      <Typography variant="button">
-                        {subMenu.label}
-                      </Typography>
+                      <Typography variant="button">{subMenu.label}</Typography>
                     </Button>
                   ))}
               </div>
@@ -94,7 +148,24 @@ export const AccountMenu: React.FC<Props> = ({
           <Button
             onClick={onLogout}
             fullWidth
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={
+              isInWebcHub
+                ? {
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontFamily: "PT Sans",
+                    fontSize: "16px",
+                    color: "#00173F",
+                    backgroundColor: "#DBDFEA",
+                    "&:hover": {
+                      backgroundColor: "#DBDFEA",
+                    },
+                  }
+                : {
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }
+            }
             data-testid="logout-button"
           >
             <LogoutIcon fontSize="small" />{" "}
