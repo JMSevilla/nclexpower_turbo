@@ -73,7 +73,7 @@ export const AccordionList: React.FC<Props> = ({ program }) => {
                 onToggle={handleChange(panelId)}
               />
 
-              <CustomAccordionDetails sections={sections} />
+              <CustomAccordionDetails sections={sections} programId={programId}/>
             </StyledAccordion>
           );
         })

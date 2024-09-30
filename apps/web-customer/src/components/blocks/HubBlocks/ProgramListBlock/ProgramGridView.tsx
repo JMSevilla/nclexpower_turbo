@@ -127,6 +127,7 @@ export const ProgramGridView: React.FC<Props> = ({ program }) => {
                 sections={selectedProgram.sections}
                 title={selectedProgram.title}
                 closeModal={handleModalClose}
+                programId={selectedProgram.programId}
               />
             }
             maxWidth="xs"

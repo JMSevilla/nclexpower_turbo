@@ -5,7 +5,19 @@ export type SectionListType = {
     sectionType: string;
     sectionTitle: string;
     sectionStatus: string;
-}
+    sectionVideos?: SectionVideosType[];
+};
+
+export type SectionVideosType = {
+    secVidId: number;
+    secVidTitle: string;
+    secVidUrl: string;
+    secVidPlaceholder: StaticImageData;
+    secVidDuration: string;
+    secVidAuthor: string;
+    secVidAuthorImg: StaticImageData;
+    secVidDescription: string;
+};
 
 export type StandardProgramListType = {
     programId: number;

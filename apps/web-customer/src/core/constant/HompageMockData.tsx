@@ -74,7 +74,7 @@ export const AuthorizedHeader: MenuItems[] = [
     {
         id: '2',
         label: 'Programs',
-        path: '/programs',
+        path: '/hub/programs',
         icon: 'programs_icon',
         menuId: 'menu2',
         parentId: '',
