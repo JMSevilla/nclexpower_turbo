@@ -1,119 +1,150 @@
-import { FormProvider, useFieldArray, useForm, useFormContext } from 'react-hook-form';
-import { SATA } from '../../../../../components/blocks/AnswerOptions/blocks/SATA/SATA';
-import { fireEvent, renderHook, screen, render } from '../../../../common'
-import { ContainedRegularQuestionType } from '../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types';
-import { initAnswerValues, initQuestionsValues } from '../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/constants/constants';
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
+import { fireEvent, renderHook, screen, render } from "../../../../common";
+import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
+import {
+  initAnswerValues,
+  initQuestionsValues,
+} from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/constants/constants";
+import { SATA } from "../../../../../components/blocks/AnswerOptions/blocks/Regular/SATA/SATA";
 
 jest.mock("../../../../../config", () => ({
-    getConfig: jest
-        .fn()
-        .mockReturnValue({ publicRuntimeConfig: { processEnv: {} } }),
-    config: { value: jest.fn() },
+  getConfig: jest
+    .fn()
+    .mockReturnValue({ publicRuntimeConfig: { processEnv: {} } }),
+  config: { value: jest.fn() },
 }));
 
 jest.mock("../../../../../core/router", () => ({
-    useRouter: jest.fn(),
+  useRouter: jest.fn(),
 }));
 
 jest.mock("react-hook-form", () => ({
-    ...jest.requireActual("react-hook-form"),
-    useFieldArray: jest.fn(),
-    useFormContext: jest.fn(),
+  ...jest.requireActual("react-hook-form"),
+  useFieldArray: jest.fn(),
+  useFormContext: jest.fn(),
 }));
 
-const MOCK_QUESTIONTYPE = "SATA"
+const MOCK_QUESTIONTYPE = "SATA";
 
-describe('SATA', () => {
-    const mockAppend = jest.fn();
-    const mockRemove = jest.fn();
+describe("SATA", () => {
+  const mockAppend = jest.fn();
+  const mockRemove = jest.fn();
 
-    beforeEach(() => {
-        (useFormContext as jest.Mock).mockReturnValue({
-            getValues: jest.fn(() => ([])),
-        });
-
-        (useFieldArray as jest.Mock).mockReturnValue({
-            append: mockAppend,
-            remove: mockRemove,
-        });
+  beforeEach(() => {
+    (useFormContext as jest.Mock).mockReturnValue({
+      getValues: jest.fn(() => []),
     });
 
-    afterEach(() => {
-        jest.resetAllMocks();
+    (useFieldArray as jest.Mock).mockReturnValue({
+      append: mockAppend,
+      remove: mockRemove,
+    });
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it("Should render when answer fields exist", () => {
+    const { result } = renderHook(() =>
+      useForm<ContainedRegularQuestionType>({
+        defaultValues: {
+          questionnaires: [initQuestionsValues(MOCK_QUESTIONTYPE)],
+          type: MOCK_QUESTIONTYPE,
+        },
+      })
+    );
+
+    const form = result.current;
+
+    render(
+      <FormProvider {...form}>
+        <SATA questionIndex={1} />
+      </FormProvider>
+    );
+    expect(screen.getByTestId("sata-answer")).toBeInTheDocument();
+  });
+
+  it("Should not render the sata answer options when answer fields is not existing", () => {
+    (useFormContext as jest.Mock).mockReturnValue({
+      getValues: jest.fn(() => undefined),
     });
 
-    it('Should render when answer fields exist', () => {
+    const { result } = renderHook(() => useForm());
+    const form = result.current;
 
-        const { result } = renderHook(() => useForm<ContainedRegularQuestionType>({
-            defaultValues: { questionnaires: [initQuestionsValues(MOCK_QUESTIONTYPE)], type: MOCK_QUESTIONTYPE },
-        }))
+    const { container } = render(
+      <FormProvider {...form}>
+        <SATA questionIndex={1} />
+      </FormProvider>
+    );
+    expect(container).toBeEmptyDOMElement();
+  });
 
-        const form = result.current
+  it("Should render a 5 checkboxes", () => {
+    (useFormContext as jest.Mock).mockReturnValue({
+      getValues: jest.fn(() => initQuestionsValues(MOCK_QUESTIONTYPE).answers),
+    });
 
-        render(<FormProvider {...form}><SATA questionIndex={1} /></FormProvider>)
-        expect(screen.getByTestId("sata-answer")).toBeInTheDocument()
+    const { result } = renderHook(() => useForm());
+    const form = result.current;
 
-    })
+    const { getAllByRole } = render(
+      <FormProvider {...form}>
+        <SATA questionIndex={1} />
+      </FormProvider>
+    );
+    expect(getAllByRole("checkbox")).toHaveLength(5);
+  });
 
-    it('Should not render the sata answer options when answer fields is not existing', () => {
+  it("Should Call the function append onclick", () => {
+    (useFormContext as jest.Mock).mockReturnValue({
+      getValues: jest.fn(() => initQuestionsValues(MOCK_QUESTIONTYPE).answers),
+    });
 
-        (useFormContext as jest.Mock).mockReturnValue({
-            getValues: jest.fn(() => (undefined)),
-        });
+    const { result } = renderHook(() => useForm());
+    const form = result.current;
 
-        const { result } = renderHook(() => useForm())
-        const form = result.current
+    const { getByTestId } = render(
+      <FormProvider {...form}>
+        <SATA questionIndex={1} />
+      </FormProvider>
+    );
 
-        const { container } = render(<FormProvider {...form}><SATA questionIndex={1} /></FormProvider>)
-        expect(container).toBeEmptyDOMElement()
-    })
+    fireEvent.click(getByTestId("answer-option-append"));
 
-    it('Should render a 5 checkboxes', () => {
+    expect(mockAppend).toHaveBeenCalledTimes(1);
+    expect(mockAppend).toHaveBeenCalledWith({ answer: "", answerKey: false });
+  });
 
-        (useFormContext as jest.Mock).mockReturnValue({
-            getValues: jest.fn(() => (initQuestionsValues(MOCK_QUESTIONTYPE).answers)),
-        });
+  it("Should Call the function remove onclick", () => {
+    (useFormContext as jest.Mock).mockReturnValue({
+      getValues: jest.fn(() => [
+        ...initQuestionsValues(MOCK_QUESTIONTYPE).answers,
+        initAnswerValues,
+      ]),
+    });
 
-        const { result } = renderHook(() => useForm())
-        const form = result.current
+    const { result } = renderHook(() => useForm());
+    const form = result.current;
 
-        const { getAllByRole } = render(<FormProvider {...form}><SATA questionIndex={1} /></FormProvider>)
-        expect(getAllByRole('checkbox')).toHaveLength(5)
-    })
+    const { getAllByRole } = render(
+      <FormProvider {...form}>
+        <SATA questionIndex={1} />
+      </FormProvider>
+    );
+    expect(getAllByRole("checkbox")).toHaveLength(6);
 
-    it('Should Call the function append onclick', () => {
-        (useFormContext as jest.Mock).mockReturnValue({
-            getValues: jest.fn(() => (initQuestionsValues(MOCK_QUESTIONTYPE).answers)),
-        });
+    const removeButton = screen.getByTestId("answer-option-remove-5");
 
-        const { result } = renderHook(() => useForm())
-        const form = result.current
+    fireEvent.click(removeButton);
 
-        const { getByTestId } = render(<FormProvider {...form}><SATA questionIndex={1} /></FormProvider>)
-
-        fireEvent.click(getByTestId('answer-option-append'))
-
-        expect(mockAppend).toHaveBeenCalledTimes(1);
-        expect(mockAppend).toHaveBeenCalledWith({ answer: "", answerKey: false });
-    })
-
-    it('Should Call the function remove onclick', () => {
-        (useFormContext as jest.Mock).mockReturnValue({
-            getValues: jest.fn(() => ([...initQuestionsValues(MOCK_QUESTIONTYPE).answers, initAnswerValues])),
-        });
-
-        const { result } = renderHook(() => useForm())
-        const form = result.current
-
-        const { getAllByRole } = render(<FormProvider {...form}><SATA questionIndex={1} /></FormProvider>)
-        expect(getAllByRole('checkbox')).toHaveLength(6)
-
-        const removeButton = screen.getByTestId('answer-option-remove-5');
-
-        fireEvent.click(removeButton);
-
-        expect(mockRemove).toHaveBeenCalledTimes(1)
-        expect(mockRemove).toHaveBeenCalledWith(5)
-    })
-
-})
+    expect(mockRemove).toHaveBeenCalledTimes(1);
+    expect(mockRemove).toHaveBeenCalledWith(5);
+  });
+});
