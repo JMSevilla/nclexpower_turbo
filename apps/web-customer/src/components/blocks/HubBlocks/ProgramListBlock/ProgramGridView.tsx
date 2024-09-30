@@ -17,13 +17,13 @@ interface Props {
 }
 
 export const ProgramGridView: React.FC<Props> = ({ program }) => {
-  const [selectedProgramId, setSelectedProgramId] = useState<number | null>(
+  const [selectedProgramId, setSelectedProgramId] = useState<string | null>(
     null
   );
   const [showModal, setShowModal] = useState<boolean>(false);
   const progress = useCalculateProgramProgress(program);
 
-  const handleModalOpen = (programId: number) => {
+  const handleModalOpen = (programId: string) => {
     setSelectedProgramId(programId);
     setShowModal(true);
   };
@@ -106,7 +106,7 @@ export const ProgramGridView: React.FC<Props> = ({ program }) => {
                       </div>
                       <div className="flex justify-center md:justify-end w-full pr-0 md:pr-4">
                         <h4 className="text-white text-[18px] font-regular font-ptSansNarrow">
-                          {sections.length} Sections
+                          {sections ? sections.length : 0} Sections
                         </h4>
                       </div>
                     </div>
@@ -124,7 +124,7 @@ export const ProgramGridView: React.FC<Props> = ({ program }) => {
             borderRadius="16px"
             children={
               <ProgramGridContent
-                sections={selectedProgram.sections}
+                sections={selectedProgram.sections || []}
                 title={selectedProgram.title}
                 closeModal={handleModalClose}
                 programId={selectedProgram.programId}
