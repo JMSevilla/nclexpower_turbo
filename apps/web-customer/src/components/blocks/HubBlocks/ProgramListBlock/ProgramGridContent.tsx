@@ -10,19 +10,20 @@ interface Props {
   title: string;
   closeModal: () => void;
   sections: SectionListType[];
-  programId: number;
+  programId: string;
 }
 
 export const ProgramGridContent: React.FC<Props> = ({title, sections, closeModal, programId}) => {
-  const mappedSections = sections.map(({ sectionType, sectionTitle, sectionStatus, sectionVideos }) => ({
+  const mappedSections = sections.length > 0 ? sections.map(({ sectionType, sectionTitle, sectionStatus, sectionVideos }) => ({
     type: sectionType,
     title: sectionTitle,
     status: sectionStatus,
     videos: sectionVideos
-  }));
+  })) : [];
+
   const router = useRouter();
 
-  const handleShowVideos = (videos: SectionVideosType[], programId: number) => {
+  const handleShowVideos = (videos: SectionVideosType[], programId: string) => {
     const secVids = JSON.stringify(videos);
     const encodedSecVids = encodeURIComponent(secVids);
     router.push(`/hub/programs/watch?secVids=${encodedSecVids}&programId=${programId}`);
@@ -53,12 +54,13 @@ export const ProgramGridContent: React.FC<Props> = ({title, sections, closeModal
               Status
             </h4>
           </div>
-          {mappedSections.map((item, index) => {
-            const { type, title, status, videos } = item;
-            const hasVideos = videos !== undefined;
+          {mappedSections.length > 0 ? (
+            mappedSections.map((item, index) => {
+              const { type, title, status, videos } = item;
 
-            return (
-              <>
+              const hasVideos = videos && videos.length > 0;
+
+              return (
                 <div className="flex justify-between px-2" key={index}>
                   <div className="flex gap-2 items-center">
                     <Image
@@ -67,18 +69,12 @@ export const ProgramGridContent: React.FC<Props> = ({title, sections, closeModal
                       width={16}
                       height={16}
                     />
-                    {hasVideos ? (
-                      <h4
-                        onClick={() => handleShowVideos(videos, programId)}
-                        className="font-ptSansNarrow font-regular text-[16px] text-[#6C6C6C] hover:underline cursor-pointer"
-                      >
-                        {title}
-                      </h4>
-                    ) : (
-                      <h4 className="font-ptSansNarrow font-regular text-[16px] text-[#6C6C6C] hover:underline cursor-pointer">
-                        {title}
-                      </h4>
-                    )}
+                    <h4
+                      onClick={hasVideos ? () => handleShowVideos(videos, programId) : undefined}
+                      className="font-ptSansNarrow font-regular text-[16px] text-[#6C6C6C] hover:underline cursor-pointer"
+                    >
+                      {title}
+                    </h4>
                   </div>
                   <Image
                     src={getSectionStatusIcons(status)}
@@ -87,9 +83,11 @@ export const ProgramGridContent: React.FC<Props> = ({title, sections, closeModal
                     height={16}
                   />
                 </div>
-              </>
-            );
-          })}
+              );
+            })
+          ) : (
+            <div className="text-center text-gray-500">No available sections</div>
+          )}
         </div>
       </Box>
     </div>

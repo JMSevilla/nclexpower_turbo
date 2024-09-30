@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 
 export type SectionListType = {
-    sectionId: number;
+    sectionId: string;
     sectionType: string;
     sectionTitle: string;
     sectionStatus: string;
@@ -9,7 +9,7 @@ export type SectionListType = {
 };
 
 export type SectionVideosType = {
-    secVidId: number;
+    secVidId: string;
     secVidTitle: string;
     secVidUrl: string;
     secVidPlaceholder: StaticImageData;
@@ -20,9 +20,9 @@ export type SectionVideosType = {
 };
 
 export type StandardProgramListType = {
-    programId: number;
+    programId: string;
     title: string;
     programStatus: string;
     programImage: StaticImageData;
-    sections: SectionListType[];
+    sections?: SectionListType[];
 };

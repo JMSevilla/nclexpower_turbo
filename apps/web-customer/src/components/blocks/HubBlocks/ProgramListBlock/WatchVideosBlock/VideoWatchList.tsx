@@ -27,7 +27,8 @@ export const VideoWatchList: React.FC<VideoWatchListProps> = ({
         Watchlist
       </p>
       <div className="flex flex-col gap-2">
-        {sectionVideos?.map((item) => {
+      {sectionVideos && sectionVideos.length > 0 ? (
+        sectionVideos.map((item) => {
           const {
             secVidId,
             secVidTitle,
@@ -60,7 +61,10 @@ export const VideoWatchList: React.FC<VideoWatchListProps> = ({
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="font-ptSansNarrow text-center text-gray-500">No available videos</div>
+      )}
       </div>
     </div>
   );
