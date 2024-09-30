@@ -14,6 +14,7 @@ import ConfirmationModal from "../../../../../../../../../../../../../../compone
 import { BackgroundInfoTab } from "./components/BackgroundInfoTab";
 import { caseStudyQuestionnaires } from "../../../../../../../constants/constants";
 import { atom } from "jotai";
+import { useMapErrors } from "./hooks/useMappedErrors";
 
 interface Props {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -118,6 +119,8 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
   const BGInfoTabs = generateInfoTabs();
   const TabsItemQuestion = generateTabsItemQuestion(6);
 
+  const errors = useMapErrors(formState.errors);
+
   return (
     <Box>
       <FormProvider {...form}>
@@ -192,24 +195,45 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
           </Box>
         </Box>
       </FormProvider>
-      <Box
-        sx={{
-          width: "100%",
-          justifyContent: "space-between",
-          paddingX: 5,
-          display: "flex",
-          marginTop: 5,
-        }}
-      >
-        <ConfirmationModal
-          dialogContent="This action will reset all forms."
-          confirmButtonText="Confirm"
-          isLoading={false}
-          customButton="Confirm"
-          handleSubmit={handlePrevious}
-        />
 
-        <Button onClick={handleSubmit(onSubmit)}>Continue</Button>
+      <Box width="100%" display="flex" justifyContent="end">
+        <Box width="fit-content">
+          {Object.keys(errors).length > 0 && (
+            <Box m={3} p={3}>
+              <Box width="100%">
+                {Object.keys(errors).map((key, index) => (
+                  <Box key={index}>
+                    <Typography color="red" fontSize="11px">
+                      {errors[key]}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          )}
+        </Box>
+      </Box>
+
+      <Box>
+        <Box
+          sx={{
+            width: "100%",
+            justifyContent: "space-between",
+            paddingX: 5,
+            display: "flex",
+            marginTop: 5,
+          }}
+        >
+          <ConfirmationModal
+            dialogContent="This action will reset all forms."
+            confirmButtonText="Confirm"
+            isLoading={false}
+            customButton="Confirm"
+            handleSubmit={handlePrevious}
+          />
+
+          <Button onClick={handleSubmit(onSubmit)}>Continue</Button>
+        </Box>
       </Box>
     </Box>
   );
