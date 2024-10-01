@@ -3,14 +3,19 @@ import { SelectOption } from 'core-library/components';
 export const AccountLevel: SelectOption[] = [
   {
     label: 'Admin',
-    value: 0
+    value: 0,
+    xvalue: 0,
   },
   {
     label: 'Developer',
-    value: 1
+    value: 1,
+    xvalue: 1,
+
   },
   {
     label: 'Encoder',
-    value: 2
+    value: 2,
+    xvalue: 2,
+
   },
 ];
