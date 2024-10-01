@@ -9,8 +9,8 @@ import {
 
 type SelectOption = {
   label: string;
-  value: string;
-  xvalue: number;
+  value: string | number;
+  xvalue?: number;
 };
 
 type BaseSelectFieldProps = {

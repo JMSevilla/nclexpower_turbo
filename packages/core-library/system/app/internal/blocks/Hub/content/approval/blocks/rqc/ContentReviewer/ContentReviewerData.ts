@@ -5,6 +5,7 @@ export const author = [{
 
 export const mainContent = [{
   type: "Regular Question",
+  mainType: "MCQ",
   question: "The nurse is caring for a client who is in Buck traction. Which of the following would require immediate intervention?",
   cognitiveLevel: "Knowledge",
   contentArea: "Adult Health: Cardiovascular",
