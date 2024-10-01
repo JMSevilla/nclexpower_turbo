@@ -84,7 +84,7 @@ const bgInfoContent = yup.object({
 export const ddcAnswerOptionsSchema = yup
   .object({
     optionName: yup.string().required(),
-    options: yup.array(answerSchema).max(8),
+    options: yup.array(answerSchema).min(1).max(8),
   })
   .required();
 
@@ -136,10 +136,10 @@ const caseStudyAnswerFormSchema = yup.object({
             } else if (questionType.includes("MRSN")) {
               return yup
                 .array(answerSchema)
-                .when(["maxAnswer"], ([maxAnswer], schema) =>
+                .when(["maxAnswer", "itemNum"], ([maxAnswer, itemNum], schema) =>
                   schema.test(
                     "answerKey-test",
-                    ` ${maxAnswer} correct answer must be selected.`,
+                    `Question No. ${itemNum} ${maxAnswer ?? ""} correct answer must be selected.`,
                     (answers) => {
                       if (answers) {
                         const correctAnswersCount = answers.filter(

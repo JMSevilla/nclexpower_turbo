@@ -14,7 +14,7 @@ import ConfirmationModal from "../../../../../../../../../../../../../../compone
 import { BackgroundInfoTab } from "./components/BackgroundInfoTab";
 import { caseStudyQuestionnaires } from "../../../../../../../constants/constants";
 import { atom } from "jotai";
-import { useMapErrors } from "./hooks/useMappedErrors";
+import { ErrorMapping } from '../../../../../../../../../../../../../../components';
 
 interface Props {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -66,6 +66,7 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
       ...getValues(),
     });
   };
+  const { errors } = formState
 
   const onSubmit = async (values: ContainedCaseStudyQuestionType) => {
     console.log(values);
@@ -118,8 +119,6 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
 
   const BGInfoTabs = generateInfoTabs();
   const TabsItemQuestion = generateTabsItemQuestion(6);
-
-  const errors = useMapErrors(formState.errors);
 
   return (
     <Box>
@@ -195,25 +194,11 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
           </Box>
         </Box>
       </FormProvider>
-
       <Box width="100%" display="flex" justifyContent="end">
         <Box width="fit-content">
-          {Object.keys(errors).length > 0 && (
-            <Box m={3} p={3}>
-              <Box width="100%">
-                {Object.keys(errors).map((key, index) => (
-                  <Box key={index}>
-                    <Typography color="red" fontSize="11px">
-                      {errors[key]}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          )}
+          <ErrorMapping errors={errors} />
         </Box>
       </Box>
-
       <Box>
         <Box
           sx={{
@@ -231,7 +216,6 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
             customButton="Confirm"
             handleSubmit={handlePrevious}
           />
-
           <Button onClick={handleSubmit(onSubmit)}>Continue</Button>
         </Box>
       </Box>
