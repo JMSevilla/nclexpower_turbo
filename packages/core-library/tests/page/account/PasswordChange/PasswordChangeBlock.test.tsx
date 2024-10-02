@@ -1,5 +1,5 @@
-import { render, screen } from "core-library/tests/common";
-import { PasswordChangeBlock } from "core-library/system/app/internal/blocks";
+import { render, screen } from "../../../common";
+import { PasswordChangeBlock } from "../../../../system/app/internal/blocks";
 
 jest.mock("core-library/config", () => ({
   getConfig: jest
