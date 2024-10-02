@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Box, RadioGroup } from "@mui/material";
-import { ContainedRegularQuestionType } from "../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
-import { ControlledRadio, Card , ControlledTextField } from '../../../../';
-import { StyledBox } from '../../content/StyledBox';
+import { ContainedRegularQuestionType } from "../../../../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/types";
+import { ControlledRadio, Card, ControlledTextField } from "../../../../..";
+import { StyledBox } from "../content/StyledBox";
 
 type MCQPropsType = {
   questionIndex: number;
 };
 
 export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
-  const { setValue, getValues, control, trigger } = useFormContext<ContainedRegularQuestionType>()
+  const { setValue, getValues, control, trigger } =
+    useFormContext<ContainedRegularQuestionType>();
   const [checked, setChecked] = useState<number>();
-  const NUMBER_OF_OPTIONS = 4
+  const NUMBER_OF_OPTIONS = 4;
 
   const handleRadioChange = (val: string) => {
     const selectedAnswer = parseInt(val);
@@ -20,23 +21,22 @@ export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
   };
 
   useEffect(() => {
-    if (checked === undefined) return
-    const { questionnaires } = getValues()
+    if (checked === undefined) return;
+    const { questionnaires } = getValues();
     const updatedAnswers = questionnaires?.[questionIndex]?.answers;
 
     if (updatedAnswers) {
       updatedAnswers.map((_, index) => {
-        const isChecked = index === checked
+        const isChecked = index === checked;
         setValue(
           `questionnaires.${questionIndex}.answers.${index}.answerKey`,
           isChecked
         );
-        trigger(`questionnaires.${questionIndex}.answers.${index}.answerKey`)
+        trigger(`questionnaires.${questionIndex}.answers.${index}.answerKey`);
       });
     }
 
-    setChecked(undefined)
-
+    setChecked(undefined);
   }, [checked, questionIndex, setValue, trigger, getValues, setChecked]);
 
   return (
@@ -65,5 +65,4 @@ export const MCQ: React.FC<MCQPropsType> = ({ questionIndex }) => {
       </RadioGroup>
     </Card>
   );
-}
-
+};

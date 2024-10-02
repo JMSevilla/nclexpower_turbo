@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { EditorProvider } from "@tiptap/react";
-import { Box } from "@mui/material";
-
+import { EditorProvider, generateJSON } from "@tiptap/react";
 import { CustomMenuBar } from "./CustomMenus";
 import { extensions } from "./config/extentions-config";
 import { CustomMenusType } from "../../types/editor-type";
@@ -9,10 +6,13 @@ import { Controller, FieldValues } from "react-hook-form";
 import { ControlledField } from "../Textfield";
 import { useSanitizedInputs } from "../../hooks";
 import { FormHelperText } from "../FormHelperText/FormHelperText";
+import Placeholder from "@tiptap/extension-placeholder";
 
 type RichTextEditorPropsType = CustomMenusType & {
   onChange?(html: string): void;
   editorClassName?: string;
+  placeholder?: string;
+  customDependency?: string | number;
 };
 
 export type ControlledRichTextEditorProps<T extends FieldValues> =
@@ -24,15 +24,10 @@ export function ControlledRichTextEditor<T extends FieldValues>({
   onChange: originalOnchange,
   editorFor,
   editorClassName,
+  placeholder,
+  customDependency,
 }: ControlledRichTextEditorProps<T>) {
-  const { purifyInputs } = useSanitizedInputs({
-    config: { RETURN_TRUSTED_TYPE: true },
-  });
-  const handleChange = (html: string, onChange: (...event: any[]) => void) => {
-    const purifiedInputs = purifyInputs(html) as string;
-    onChange(purifiedInputs);
-    originalOnchange && originalOnchange(purifiedInputs);
-  };
+  const { purifyInputs } = useSanitizedInputs({});
 
   return (
     <Controller
@@ -44,13 +39,26 @@ export function ControlledRichTextEditor<T extends FieldValues>({
       }) => (
         <EditorProvider
           editorProps={{
-            attributes: { class: `min-h-[100px] p-4  ${editorClassName}` },
+            attributes: { class: `tiptap-field p-4  ${editorClassName}` },
           }}
-          enableContentCheck={true}
+          slotBefore={
+            <CustomMenuBar
+              customDependency={customDependency}
+              editorFor={editorFor}
+              content={value}
+            />
+          }
+          shouldRerenderOnTransaction={true}
+          content={value}
           onUpdate={({ editor }) => {
-            handleChange(editor.getHTML(), onChange);
+            onChange(purifyInputs(editor.getHTML()) as string);
           }}
-          extensions={extensions}
+          extensions={[
+            ...extensions,
+            Placeholder.configure({
+              placeholder: placeholder,
+            }),
+          ]}
           slotAfter={
             error?.message && (
               <FormHelperText error={!!error.message}>
@@ -58,13 +66,8 @@ export function ControlledRichTextEditor<T extends FieldValues>({
               </FormHelperText>
             )
           }
-          immediatelyRender={false}
-        >
-          <CustomMenuBar
-            editorFor={editorFor}
-            content={value?.toString() ?? ""}
-          />
-        </EditorProvider>
+          immediatelyRender={true}
+        />
       )}
     />
   );

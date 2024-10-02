@@ -1,3 +1,4 @@
+import { credentialsType } from './../api/types';
 import { useCallback, useReducer } from "react";
 import { DataTableHeader } from "../components";
 import { DataTableColumn } from "./page";
@@ -69,6 +70,12 @@ export interface internalAccountType{
   username: string;
   password: string;
   accessLevel: number;
+  routers: RouteType[];
+}
+
+export type RouteType = {
+  label: string;
+  value: string;
 }
 
 export type DataTableRow = Record<string, string>;
