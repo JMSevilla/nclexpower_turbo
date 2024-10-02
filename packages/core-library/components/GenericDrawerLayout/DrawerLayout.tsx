@@ -11,6 +11,8 @@ import { Main } from "./content/Main";
 import MenuIcon from "@mui/icons-material/Menu";
 import { WebHeaderStylesType } from "../../types/web-header-style";
 import { MenuItems } from "../../api/types";
+import { useRouter } from "../../core";
+import { config } from "../../config";
 
 type DrawerLayoutType = {
   menu: Array<MenuItems>;
@@ -36,6 +38,12 @@ export const DrawerLayout: React.FC<
   const [open, setOpen] = useState(true);
   const { isHidden } = useRouteBasedVisibility(hiddenHeaderPathnames ?? []);
 
+  const router = useRouter();
+
+  const isInHub = router.pathname?.startsWith("/hub") || false;
+  const appName = config.value.BASEAPP;
+  const isInWebcHub = isAuthenticated && isInHub && appName.includes("c");
+
   const handleDrawer = () => {
     setOpen((prev) => !prev);
   };
@@ -45,6 +53,15 @@ export const DrawerLayout: React.FC<
   }, [isMobile]);
 
   if (!mounted) return;
+
+  const customHeaderStyles = isInWebcHub
+    ? {
+        drawerHeader: {
+          bgcolor: "#00173F",
+          color: "white",
+        },
+      }
+    : headerStyles;
 
   return (
     <Box display="flex">
@@ -56,6 +73,7 @@ export const DrawerLayout: React.FC<
           setOpen={handleDrawer}
         />
       )}
+
       <Main open={open} isMobile={isMobile}>
         <Box
           display="flex"
@@ -64,7 +82,7 @@ export const DrawerLayout: React.FC<
           minHeight="100vh"
         >
           <Header
-            {...headerStyles}
+            {...customHeaderStyles}
             hidden={isHidden ?? false}
             drawerButton={
               ((!open && isAuthenticated) || isMobile) && (

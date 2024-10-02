@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { BubbleMenu, useCurrentEditor } from "@tiptap/react";
 import { Box } from "@mui/material";
 import { EditorButtonGroup } from "./EditorButtonGroup";
@@ -7,6 +7,7 @@ import { MenuButtons } from "./Menus";
 
 type CustomMenuBarPropsType = CustomMenusType & {
   content: string;
+  customDependency?: string | number;
 };
 
 export const CustomMenuBar: React.FC<CustomMenuBarPropsType> = ({
@@ -17,15 +18,16 @@ export const CustomMenuBar: React.FC<CustomMenuBarPropsType> = ({
 
   if (!editor) return null;
 
-  const menus = useMemo(
-    () => MenuButtons({ editor, editorFor }) ?? [],
-    [editor]
-  );
+  const menus = MenuButtons({ editor, editorFor });
 
   useEffect(() => {
-    const { setContent } = editor.commands;
-    setContent(content, false, { preserveWhitespace: true });
-  }, [content]);
+    if (!editor) return;
+    let { from, to } = editor.state.selection;
+    editor.commands.setContent(content, false, {
+      preserveWhitespace: "full",
+    });
+    editor.commands.setTextSelection({ from, to });
+  }, [editor, content]);
 
   switch (editorFor) {
     case "default":
@@ -58,7 +60,6 @@ export const CustomMenuBar: React.FC<CustomMenuBarPropsType> = ({
           flexWrap={"wrap"}
           borderBottom={1}
           borderColor={"#F0EEED"}
-          padding={3}
         >
           <EditorButtonGroup menus={menus} />
         </Box>

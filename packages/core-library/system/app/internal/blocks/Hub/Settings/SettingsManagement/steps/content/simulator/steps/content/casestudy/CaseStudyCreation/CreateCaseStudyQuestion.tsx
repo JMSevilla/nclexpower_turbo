@@ -12,6 +12,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { containedCaseStudyQuestionSchema } from "../../../../validation";
 import ConfirmationModal from "../../../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { BackgroundInfoTab } from "./components/BackgroundInfoTab";
+import { caseStudyQuestionnaires } from "../../../../../../../constants/constants";
+import { atom } from "jotai";
+import { ErrorMapping } from '../../../../../../../../../../../../../../components';
 
 interface Props {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -21,6 +24,13 @@ interface Props {
   previous: () => void;
   reset: () => void;
 }
+
+type transitionHeaderAtomType = {
+  seqNumber: number;
+  transitionHeader: string;
+};
+
+export const transitionHeaderAtom = atom<transitionHeaderAtomType>();
 
 export const CreateCaseStudyQuestion: React.FC<Props> = ({
   nextStep,
@@ -33,18 +43,33 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
   const form = useForm<ContainedCaseStudyQuestionType>({
     mode: "all",
     resolver: yupResolver(containedCaseStudyQuestionSchema),
+    defaultValues: {
+      questionnaires: Array.from({ length: 6 }, (_, index) => ({
+        ...caseStudyQuestionnaires,
+        itemNum: index + 1,
+      })),
+      caseName: values.caseName,
+    },
   });
-  const [selectedIndex, setSelectedIndex] = useState<number>();
 
-  const { getValues, control, reset: formReset } = form;
+  const [selectedIndex, setSelectedIndex] = useState<number>();
+  const {
+    getValues,
+    control,
+    reset: formReset,
+    formState,
+    handleSubmit,
+  } = form;
 
   const updateValues = () => {
-    const updatedValues: any = {};
-
     formReset({
       ...getValues(),
-      ...updatedValues,
     });
+  };
+  const { errors } = formState
+
+  const onSubmit = async (values: ContainedCaseStudyQuestionType) => {
+    console.log(values);
   };
 
   const handlePrevious = () => {
@@ -53,44 +78,32 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
     reset();
   };
 
-  const BGInfoTabs = [
+  const InfoTabs = [
     {
-      id: 0,
       title: "Nurse Notes",
-      content: (
-        <Box sx={{ border: "black" }}>
-          <BackgroundInfoTab type="nurseNotes" />
-        </Box>
-      ),
+      type: "nurseNotes",
     },
     {
-      id: 1,
       title: "HxPhy",
-      content: (
-        <Box sx={{ border: "black" }}>
-          <BackgroundInfoTab type="hxPhy" />
-        </Box>
-      ),
+      type: "hxPhy",
     },
     {
-      id: 2,
       title: "Labs",
-      content: (
-        <Box sx={{ border: "black" }}>
-          <BackgroundInfoTab type="labs" />
-        </Box>
-      ),
+      type: "labs",
     },
     {
-      id: 3,
       title: "Orders",
-      content: (
-        <Box sx={{ border: "black" }}>
-          <BackgroundInfoTab type="orders" />
-        </Box>
-      ),
+      type: "orders",
     },
   ];
+
+  const generateInfoTabs = () => {
+    return InfoTabs.map((tab, index) => ({
+      id: index,
+      title: tab.title,
+      content: <BackgroundInfoTab type={tab.type} />,
+    }));
+  };
 
   const generateTabsItemQuestion = (count: number) => {
     return Array.from({ length: count }, (_, index) => ({
@@ -104,8 +117,8 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
     updateValues();
   }, [selectedIndex, control]);
 
+  const BGInfoTabs = generateInfoTabs();
   const TabsItemQuestion = generateTabsItemQuestion(6);
-  const watch = useWatch({ control: control });
 
   return (
     <Box>
@@ -115,74 +128,96 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
             textAlign: "center",
             fontWeight: 700,
             textTransform: "uppercase",
-            paddingY: 10,
+            my: 8,
           }}
         >
           Question and Answer Creation
         </Typography>
-        <Typography
-          sx={{
-            textAlign: "center",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            paddingY: 10,
-          }}
-        >
-          Background Info
-        </Typography>
+
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
             alignItems: "start",
-            mt: 5,
+            width: "100%",
             gap: 5,
           }}
         >
-          <Card
-            sx={{
-              p: 5,
-              textAlign: "center",
-              width: "50%",
-              overflowY: "auto",
-              maxHeight: "750px",
-            }}
-          >
-            <Tabs
-              width="fit-content"
-              selectedTabIndex={(value) => setSelectedIndex(value)}
-              tabsItem={BGInfoTabs}
-            />
-          </Card>
-          <Card
-            sx={{
-              p: 5,
-              textAlign: "center",
-              width: "50%",
-            }}
-          >
-            {/* Answer Part cc: Jacob */}
-            {/* <Tabs width="fit-content" tabsItem={TabsItemQuestion} /> */}
-          </Card>
+          <Box width={"55%"}>
+            <Typography
+              sx={{
+                fontWeight: 600,
+                fontSize: "16px",
+                mb: 3,
+              }}
+            >
+              Background Info:
+            </Typography>
+            <Card
+              sx={{
+                width: "100%",
+                overflowY: "auto",
+                position: "relative",
+                borderRadius: "10px",
+                border: 1,
+                borderColor: "#8E2ADD",
+              }}
+            >
+              <Tabs
+                width="fit-content"
+                selectedTabIndex={(value) => setSelectedIndex(value)}
+                tabsItem={BGInfoTabs}
+              />
+            </Card>
+          </Box>
+          <Box height={"90%"} width={"45%"}>
+            <Typography
+              sx={{
+                fontWeight: 600,
+                fontSize: "16px",
+                mb: 3,
+              }}
+            >
+              Items:
+            </Typography>
+            <Card
+              sx={{
+                width: "100%",
+                overflowY: "auto",
+                position: "relative",
+                borderRadius: "10px",
+                border: 1,
+                borderColor: "#8E2ADD",
+              }}
+            >
+              <Tabs width="fit-content" tabsItem={TabsItemQuestion} />
+            </Card>
+          </Box>
         </Box>
       </FormProvider>
-      <Box
-        sx={{
-          width: "100%",
-          justifyContent: "space-between",
-          paddingX: 5,
-          display: "flex",
-          marginTop: 5,
-        }}
-      >
-        <ConfirmationModal
-          dialogContent="This action will reset all forms."
-          confirmButtonText="Confirm"
-          isLoading={false}
-          customButton="Confirm"
-          handleSubmit={handlePrevious}
-        />
-        <Button>Continue</Button>
+      <Box width="100%" display="flex" justifyContent="end">
+        <Box width="fit-content">
+          <ErrorMapping errors={errors} />
+        </Box>
+      </Box>
+      <Box>
+        <Box
+          sx={{
+            width: "100%",
+            justifyContent: "space-between",
+            paddingX: 5,
+            display: "flex",
+            marginTop: 5,
+          }}
+        >
+          <ConfirmationModal
+            dialogContent="This action will reset all forms."
+            confirmButtonText="Confirm"
+            isLoading={false}
+            customButton="Confirm"
+            handleSubmit={handlePrevious}
+          />
+          <Button onClick={handleSubmit(onSubmit)}>Continue</Button>
+        </Box>
       </Box>
     </Box>
   );

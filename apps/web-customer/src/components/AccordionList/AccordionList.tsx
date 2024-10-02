@@ -68,12 +68,12 @@ export const AccordionList: React.FC<Props> = ({ program }) => {
                 programImage={programImage}
                 title={title}
                 programStatus={programStatus}
-                sectionsCount={sections.length}
+                sectionsCount={sections?.length ?? 0}
                 progress={progress}
                 onToggle={handleChange(panelId)}
               />
 
-              <CustomAccordionDetails sections={sections} />
+              <CustomAccordionDetails sections={sections ?? []} programId={programId}/>
             </StyledAccordion>
           );
         })
