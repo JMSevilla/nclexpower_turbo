@@ -4,6 +4,9 @@ import { useMemo } from "react";
 export const useResolution = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isTablet = useMediaQuery(
+    theme.breakpoints.between("sm", "md")
+  );
 
-  return useMemo(() => ({ isMobile }), [isMobile]);
+  return useMemo(() => ({ isMobile, isTablet }), [isMobile, isTablet]);
 };

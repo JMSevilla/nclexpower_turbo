@@ -2,15 +2,25 @@ import React from "react";
 import { AccordionDetails, Box } from "@mui/material";
 import Image from "next/image";
 import { getSectionTypeIcons, getSectionStatusIcons } from "../../utils";
-import { SectionListType } from "../../core/types/programList";
+import { SectionListType, SectionVideosType } from "../../core/types/programList";
+import { useRouter } from "core-library";
 
 interface CustomAccordionDetailsProps {
   sections: SectionListType[];
+  programId: string;
 }
 
 export const CustomAccordionDetails: React.FC<CustomAccordionDetailsProps> = ({
-  sections,
+  sections, programId
 }) => {
+  const router = useRouter();
+  
+  const handleShowVideos = (sectionVids: SectionVideosType[], programId: string) => {
+    const secVids = JSON.stringify(sectionVids);
+    const encodedSecVids = encodeURIComponent(secVids);
+    router.push(`/hub/programs/watch?secVids=${encodedSecVids}&programId=${programId}`);
+  };
+
   return (
     <>
       <AccordionDetails>
@@ -25,9 +35,18 @@ export const CustomAccordionDetails: React.FC<CustomAccordionDetailsProps> = ({
           </div>
         </Box>
         <Box className="flex flex-col space-y-2 bg-white px-10 pt-4">
-          {sections.map((item) => {
-            const { sectionId, sectionType, sectionTitle, sectionStatus } =
-              item;
+        {sections.length > 0 ? (
+          sections.map((item) => {
+            const {
+              sectionId,
+              sectionType,
+              sectionTitle,
+              sectionStatus,
+              sectionVideos,
+            } = item;
+
+            const hasVideos = sectionVideos && sectionVideos.length > 0;
+
             return (
               <div
                 key={sectionId}
@@ -40,7 +59,10 @@ export const CustomAccordionDetails: React.FC<CustomAccordionDetailsProps> = ({
                     width={16}
                     height={16}
                   />
-                  <h4 className="font-ptSansNarrow font-regular text-[18px] text-[#6C6C6C] hover:underline cursor-pointer">
+                  <h4
+                    onClick={hasVideos ? () => handleShowVideos(sectionVideos, programId) : undefined}
+                    className="font-ptSansNarrow font-regular text-[18px] text-[#6C6C6C] hover:underline cursor-pointer"
+                  >
                     {sectionTitle}
                   </h4>
                 </div>
@@ -52,7 +74,11 @@ export const CustomAccordionDetails: React.FC<CustomAccordionDetailsProps> = ({
                 />
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="text-center text-gray-500">No available sections</div>
+        )}
+
         </Box>
       </AccordionDetails>
     </>
