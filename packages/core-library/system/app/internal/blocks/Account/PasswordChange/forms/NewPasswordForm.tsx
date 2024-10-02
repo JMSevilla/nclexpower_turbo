@@ -3,10 +3,7 @@ import { TextField } from "core-library/components";
 import { FormProvider, useForm, Control } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  combinedPasswordSchema,
-  CombinedPasswordType,
-} from "../../../../../core/schema/PasswordChangeSchema/validation";
+import { CombinedPasswordType, combinedPasswordSchema } from "../validation";
 
 interface Props {
   onSubmit: (values: CombinedPasswordType) => void;

@@ -1,11 +1,8 @@
 import { TextField, ControlledSelectField } from "core-library/components";
 import { FormProvider, useForm, Control } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SecurityQuestionAndAnswer } from "../../../../../core/constant/mockSecurityQuestionAndAnswer";
-import {
-  combinedPasswordSchema,
-  CombinedPasswordType,
-} from "../../../../../core/schema/PasswordChangeSchema/validation";
+import { SecurityQuestionAndAnswer } from "../Constant/mockSecurityQuestionAndAnswer";
+import { CombinedPasswordType, combinedPasswordSchema } from "../validation";
 
 interface Props {
   onSecQandASubmit: (values: CombinedPasswordType) => void;

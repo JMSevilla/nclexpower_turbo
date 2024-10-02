@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react';
-import { useForm, FormProvider, useWatch } from 'react-hook-form';
-import { Grid, Box } from '@mui/material';
-import { accountSetupSchema, AccountSetupType } from './validation';
-import { yupResolver } from '@hookform/resolvers/yup';
-import SendIcon from '@mui/icons-material/Send';
-import { useMenu } from 'core-library/components/GenericDrawerLayout/hooks/useMenu';
-import { AccountLevel } from '@/core/constant/accountLevel';
-import { Button, TextField, ControlledSelectField, InformationTitle, MultipleSelectField, Card } from 'core-library/components';
+import React, { useEffect } from "react";
+import { useForm, FormProvider, useWatch } from "react-hook-form";
+import { Grid, Box } from "@mui/material";
+import { accountSetupSchema, AccountSetupType } from "./validation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import SendIcon from "@mui/icons-material/Send";
+import { useMenu } from "core-library/components/GenericDrawerLayout/hooks/useMenu";
+import { AccountLevel } from "../../core/constant/accountLevel";
+import {
+  Button,
+  TextField,
+  ControlledSelectField,
+  InformationTitle,
+  MultipleSelectField,
+  Card,
+} from "core-library/components";
 
 type Props = {
   onSubmit: (value: AccountSetupType) => void;
@@ -25,16 +32,16 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
   const { routes } = useMenu();
   const { control, handleSubmit, setValue, clearErrors, watch } = form;
 
-  const email = useWatch({ control, name: 'email' });
+  const email = useWatch({ control, name: "email" });
 
   const internalRoutes = routes?.map((item) => ({
     label: item.label,
     value: item.value,
-  }))
+  }));
 
   useEffect(() => {
     if (email) {
-      setValue('username', email);
+      setValue("username", email);
     }
   }, [email, setValue]);
 
@@ -50,8 +57,14 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
 
   return (
     <FormProvider {...form}>
-      <Grid container direction="column" rowSpacing={4} gap={5} sx={{ paddingY: 12, paddingX: 30, height: "100%" }}>
-        <Card sx={{ padding: 6, marginTop: 4, height: 'auto' }}>
+      <Grid
+        container
+        direction="column"
+        rowSpacing={4}
+        gap={5}
+        sx={{ paddingY: 12, paddingX: 30, height: "100%" }}
+      >
+        <Card sx={{ padding: 6, marginTop: 4, height: "auto" }}>
           <div>
             <InformationTitle
               text="User Access Management"
@@ -69,7 +82,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 control={control}
                 label="First Name"
                 name="firstname"
-                sx={{ borderRadius: '5px' }}
+                sx={{ borderRadius: "5px" }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
@@ -78,7 +91,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 control={control}
                 label="Middle Name"
                 name="middlename"
-                sx={{ borderRadius: '5px' }}
+                sx={{ borderRadius: "5px" }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
@@ -87,7 +100,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 control={control}
                 label="Last Name"
                 name="lastname"
-                sx={{ borderRadius: '5px' }}
+                sx={{ borderRadius: "5px" }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
@@ -98,7 +111,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 control={control}
                 label="Email"
                 name="email"
-                sx={{ borderRadius: '5px' }}
+                sx={{ borderRadius: "5px" }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
@@ -110,7 +123,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 label="Password"
                 name="password"
                 type="password"
-                sx={{ borderRadius: '5px' }}
+                sx={{ borderRadius: "5px" }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
@@ -120,7 +133,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 label="Confirm Password"
                 name="confirmPassword"
                 type="password"
-                sx={{ borderRadius: '5px' }}
+                sx={{ borderRadius: "5px" }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
@@ -130,7 +143,7 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
             name="accessLevel"
             options={AccountLevel ?? []}
             label="Select Access Level"
-            sx={{ marginY: 2, borderRadius: '10px', width: '100%', }}
+            sx={{ marginY: 2, borderRadius: "10px", width: "100%" }}
           />
           <MultipleSelectField
             control={control}

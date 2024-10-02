@@ -61,4 +61,5 @@ export { GenericSelectField } from "../components/Textfield/GenericSelectField";
 
 export * from "./forms/datefield/DateField";
 export * from "./Breadcrumbs/Breadcrumbs";
-export * from "./ErrorMap/ErrorMap"
+export * from "./ErrorMap/ErrorMap";
+export * from "./LottieAnimation/LottieAnimation";

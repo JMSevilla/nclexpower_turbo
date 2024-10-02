@@ -1,11 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  combinedPasswordSchema,
-  CombinedPasswordType,
-} from "../../../../core/schema/PasswordChangeSchema/validation";
+import { CombinedPasswordType, combinedPasswordSchema } from "./validation";
 import { useState, useEffect } from "react";
-import { SecurityQuestionAndAnswer } from "../../../../core/constant/mockSecurityQuestionAndAnswer";
+import { SecurityQuestionAndAnswer } from "./Constant/mockSecurityQuestionAndAnswer";
 import { useExecuteToast } from "core-library/contexts";
 
 export default function usePasswordChange() {

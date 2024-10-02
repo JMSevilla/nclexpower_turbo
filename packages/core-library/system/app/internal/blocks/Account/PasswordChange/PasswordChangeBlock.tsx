@@ -6,7 +6,7 @@ import {
   Header,
 } from "./index";
 import { Box } from "@mui/material";
-import { LottieAnimation } from "../../../LottieAnimation/LottieAnimation";
+import { LottieAnimation } from "../../../../../../components";
 import { ChangePasswordImage } from "core-library/assets";
 import usePasswordChange from "./usePasswordChange";
 

@@ -1,9 +1,6 @@
 import { EmailVerificationForm } from "./EmailVerificationForm";
 import { useState } from "react";
-import {
-  ForgotPasswordAtom,
-  ForgotPasswordType,
-} from "../../../../../../../apps/web-backoffice-generic/src/core/schema/ForgotPasswordForm/validation";
+import { ForgotPasswordType, ForgotPasswordAtom } from "./validation";
 import { useRouter } from "core-library/core/router";
 import { useApiCallback } from "core-library/hooks";
 import { useAtom } from "jotai";

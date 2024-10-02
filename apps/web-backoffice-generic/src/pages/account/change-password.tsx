@@ -1,7 +1,7 @@
-import { PasswordChangeBlock } from "../../components/blocks/page/PasswordChange/PasswordChangeBlock";
+import { ParseBlocks } from "core-library/system";
 
 function ChangePasswordPage() {
-  return <PasswordChangeBlock />;
+  return <ParseBlocks blocks="PasswordChangeBlock" />;
 }
 
 export default ChangePasswordPage;

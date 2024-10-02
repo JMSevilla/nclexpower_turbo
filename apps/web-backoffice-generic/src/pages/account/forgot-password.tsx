@@ -1,7 +1,7 @@
-import { EmailVerificationBlock } from "../../components/blocks/page/EmailVerification/EmailVerificationBlock";
+import { ParseBlocks } from "core-library/system";
 
 function EmailVerificationPage() {
-  return <EmailVerificationBlock />;
+  return <ParseBlocks blocks="EmailVerificationBlock" />;
 }
 
 export default EmailVerificationPage;

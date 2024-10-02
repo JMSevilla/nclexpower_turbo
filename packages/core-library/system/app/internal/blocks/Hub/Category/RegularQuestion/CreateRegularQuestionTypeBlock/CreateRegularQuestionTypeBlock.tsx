@@ -1,6 +1,5 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { Alert, Card } from "core-library/components";
-import React from "react";
 import { RegularQuestionTypeFormBlock } from "./form/RegularQuestionTypeFormBlock";
 
 export const CreateRegularQuestionTypeBlock = () => {
