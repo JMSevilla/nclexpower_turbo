@@ -21,3 +21,4 @@ export type SettingsSelectionOptions =
 export type QuestionSelectionOptions = "Regular" | "Case Study";
 export type RegularQuestionSelectionOptions = "MCQ" | "SATA";
 export type MenuType = "Main" | "SubMenu" | null;
+export type CaseStudyQuestionSelectionOptions = "DDC" | "DND" | "SATA" | "MRSN";

@@ -1,10 +1,18 @@
 import React from "react";
-import { MCQ } from "./blocks/MCQ/MCQ";
-import { SATA } from "./blocks/SATA/SATA";
+import {
+  CaseStudyQuestionSelectionOptions,
+  RegularQuestionSelectionOptions,
+} from "../../../system/app/internal/blocks/Hub/Settings/SettingsManagement/types";
+import { MCQ } from "./blocks/Regular/MCQ/MCQ";
+import { SATA } from "./blocks/Regular/SATA/SATA";
+import { DDC } from "./blocks/CaseStudy/DDC/DDC";
+import { MRSN } from "./blocks/CaseStudy/MRSN/MRSN";
 
 export type AnswerOptionsType = {
   questionType: "regularQuestion" | "caseStudy";
-  questionnaireType?: "MCQ" | "SATA";
+  questionnaireType?:
+    | CaseStudyQuestionSelectionOptions
+    | RegularQuestionSelectionOptions;
   questionIndex: number;
 };
 
@@ -13,7 +21,6 @@ export const AnswerOptions: React.FC<AnswerOptionsType> = ({
   questionnaireType,
   questionIndex,
 }) => {
-
   if (questionType === "regularQuestion") {
     switch (questionnaireType) {
       case "MCQ":
@@ -23,10 +30,13 @@ export const AnswerOptions: React.FC<AnswerOptionsType> = ({
     }
   } else if (questionType === "caseStudy") {
     switch (questionnaireType) {
-      case "MCQ":
-        return <></>;
+      case "DDC":
+        return <DDC questionIndex={questionIndex} />;
+      case "SATA":
+        return <SATA questionIndex={questionIndex} />;
+      case "MRSN":
+        return <MRSN questionIndex={questionIndex} />;
     }
   }
-
   return null;
-}
+};
