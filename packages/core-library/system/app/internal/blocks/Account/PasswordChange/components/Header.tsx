@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Alert } from "core-library/components";
+import { Alert } from "../../../../../../../components";
 
 interface HeaderProps {
   showAlert?: boolean;

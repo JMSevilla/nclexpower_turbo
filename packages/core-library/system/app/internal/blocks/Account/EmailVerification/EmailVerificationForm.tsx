@@ -1,10 +1,9 @@
 import { Box } from "@mui/material";
 import { forgotPasswordSchema, ForgotPasswordType } from "./validation";
-import { Alert, TextField, Button } from "core-library/components";
+import { Alert, TextField, Button, Link } from "../../../../../../components";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "core-library/components";
-import { ForgotPasswordImage } from "core-library/assets";
+import { ForgotPasswordImage } from "../../../../../../assets";
 import { LottieAnimation } from "../PasswordChange/components/LottieAnimation/LottieAnimation";
 
 interface Props {

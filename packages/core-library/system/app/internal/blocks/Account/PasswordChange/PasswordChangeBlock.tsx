@@ -7,7 +7,7 @@ import {
 } from "./index";
 import { Box } from "@mui/material";
 import { LottieAnimation } from "./components/LottieAnimation/LottieAnimation";
-import { ChangePasswordImage } from "core-library/assets";
+import { ChangePasswordImage } from "../../../../../../assets";
 import usePasswordChange from "./usePasswordChange";
 
 export function PasswordChangeBlock() {

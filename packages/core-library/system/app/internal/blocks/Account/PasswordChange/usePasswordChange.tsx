@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CombinedPasswordType, combinedPasswordSchema } from "./validation";
 import { useState, useEffect } from "react";
 import { SecurityQuestionAndAnswer } from "./Constant/mockSecurityQuestionAndAnswer";
-import { useExecuteToast } from "core-library/contexts";
+import { useExecuteToast } from "../../../../../../contexts";
 
 export default function usePasswordChange() {
   const {

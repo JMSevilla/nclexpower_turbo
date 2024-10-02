@@ -1,4 +1,4 @@
-import { Button } from "core-library/components";
+import { Button } from "../../../../../../../components";
 
 interface ChangePasswordButtonProps {
   handleButtonClick: () => void;

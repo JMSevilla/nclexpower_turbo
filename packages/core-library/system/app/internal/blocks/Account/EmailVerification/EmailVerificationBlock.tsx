@@ -1,10 +1,10 @@
 import { EmailVerificationForm } from "./EmailVerificationForm";
 import { useState } from "react";
 import { ForgotPasswordType, ForgotPasswordAtom } from "./validation";
-import { useRouter } from "core-library/core/router";
-import { useApiCallback } from "core-library/hooks";
+import { useRouter } from "../../../../../../core";
+import { useApiCallback } from "../../../../../../hooks";
 import { useAtom } from "jotai";
-import { useExecuteToast } from "core-library/contexts";
+import { useExecuteToast } from "../../../../../../contexts";
 
 export function EmailVerificationBlock() {
   const [, setAtomEmail] = useAtom(ForgotPasswordAtom);

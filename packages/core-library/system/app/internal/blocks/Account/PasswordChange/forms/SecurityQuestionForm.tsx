@@ -1,4 +1,7 @@
-import { TextField, ControlledSelectField } from "core-library/components";
+import {
+  TextField,
+  ControlledSelectField,
+} from "../../../../../../../components";
 import { FormProvider, useForm, Control } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SecurityQuestionAndAnswer } from "../Constant/mockSecurityQuestionAndAnswer";

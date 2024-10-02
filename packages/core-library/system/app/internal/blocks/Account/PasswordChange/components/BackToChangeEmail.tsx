@@ -1,4 +1,4 @@
-import { Link } from "core-library/components";
+import { Link } from "../../../../../../../components";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 interface BackToChangeEmailProps {
