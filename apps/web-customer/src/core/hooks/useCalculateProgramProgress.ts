@@ -10,14 +10,14 @@ const useCalculateProgramProgress = (program: StandardProgramListType[]) => {
         let totalSections = 0;
 
         program.forEach((item) => {
-            const { sections, programStatus } = item;
-            if(programStatus === "progress") {
+            const { sections = [], programStatus } = item;
+            if (programStatus === "progress") {
                 totalSections += sections.length;
                 completedSections += sections.filter(section => section.sectionStatus === 'completed').length;
             }
         });
 
-        if(totalSections > 0) {
+        if (totalSections > 0) {
             totalProgress = Math.round((completedSections / totalSections) * 100);
         }
 

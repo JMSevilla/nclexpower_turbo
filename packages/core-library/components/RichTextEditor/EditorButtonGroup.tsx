@@ -12,7 +12,7 @@ export const EditorButtonGroup: React.FC<EditorButtonGroupPropsType> = ({
   return menus.map((button, index) => (
     <Box
       key={index}
-      sx={{ backgroundColor: button.isActive ? "purple" : "" }}
+      sx={{ backgroundColor: button.isActive ? "#8e2add" : "" }}
       borderRadius="5px"
     >
       <IconButton

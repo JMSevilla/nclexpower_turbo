@@ -13,9 +13,6 @@ import { Mark } from '@tiptap/core'
 
 export const extensions: (Extension<StarterKitOptions, any> | Extension<PlaceholderOptions, any> | Mark<UnderlineOptions, any> | Node<TableRowOptions, any>)[] = [
     ListItem,
-    Placeholder.configure({
-        placeholder: "Enter your question"
-    }),
     StarterKit.configure({
         heading: {
             HTMLAttributes: {

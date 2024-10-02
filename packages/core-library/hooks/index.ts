@@ -22,3 +22,4 @@ export * from "./useEmotionCache";
 export * from "./useSensitiveInformation";
 export * from "./useGoogleSignIn";
 export * from "./usePreventDuplicateSession";
+export * from './useMappedErrors'
