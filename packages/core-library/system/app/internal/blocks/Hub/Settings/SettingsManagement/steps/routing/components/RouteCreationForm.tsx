@@ -2,10 +2,12 @@ import { Box } from "@mui/material";
 import {
   Button,
   Card,
+  MultipleSelectField,
   TextField,
 } from "../../../../../../../../../../components";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { RouteManagementSchema } from "../../../validation";
+import { userRoleList } from "../constant/constant";
 
 interface Props {
   type: string;
@@ -39,6 +41,14 @@ export const RouteCreationForm = ({ type }: Props) => {
             borderRadius: "10px",
           }}
         >
+          <MultipleSelectField
+            control={formControl}
+            name="userRole"
+            label="User Role/s"
+            options={userRoleList ?? []}
+            multiple
+            sx={{ mt: 3, width: "100%" }}
+          />
           <TextField name="label" control={formControl} label="Label" />
           <TextField name="path" control={formControl} label="Path" />
         </Card>
@@ -50,6 +60,14 @@ export const RouteCreationForm = ({ type }: Props) => {
             borderRadius: "10px",
           }}
         >
+          <MultipleSelectField
+            control={formControl}
+            name="userRole"
+            label="User Role/s"
+            options={userRoleList ?? []}
+            multiple
+            sx={{ mt: 3, width: "100%" }}
+          />
           <TextField name="label" control={formControl} label="Label" />
           <Card sx={{ marginTop: "10px", width: "100%", borderRadius: "10px" }}>
             {fields.map((menuItem, index) => (
