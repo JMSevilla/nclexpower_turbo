@@ -37,6 +37,10 @@ export const subMenu = yup.object({
 });
 
 export const routeManagementSchema = yup.object({
+  userRole: yup
+    .array()
+    .min(1, "You can't leave this blank.")
+    .required("User Role is required"),
   label: yup.string().when("type", {
     is: (val: string) => val === "Main" || val === "SubMenu",
     then: (schema) => schema.required("Menu Label is required"),
