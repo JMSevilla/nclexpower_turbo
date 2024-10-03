@@ -1,4 +1,4 @@
-import { PasswordChangeBlock } from "core-library/system/app/internal/blocks";
+import { PasswordChangeBlock } from "../../components/Blocks/Account/PasswordChange/PasswordChangeBlock";
 
 function ChangePasswordPage() {
   return <PasswordChangeBlock />;

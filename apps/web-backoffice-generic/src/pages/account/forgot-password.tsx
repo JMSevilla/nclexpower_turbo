@@ -1,4 +1,4 @@
-import { EmailVerificationBlock } from "core-library/system/app/internal/blocks";
+import { EmailVerificationBlock } from "../../components/Blocks/Account/EmailVerification/EmailVerificationBlock";
 
 function EmailVerificationPage() {
   return <EmailVerificationBlock />;
