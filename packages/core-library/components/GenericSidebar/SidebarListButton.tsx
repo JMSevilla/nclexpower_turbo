@@ -86,7 +86,7 @@ export const SidebarListButton: React.FC<SidebarListButtonProps> = ({
             />
           ))
           : null}
-        {isAuthenticated ? showDivider && <Divider sx={dividerSx} /> : null}
+        {showDivider && <Divider sx={dividerSx} />}
       </Box>
     </Box >
   );
