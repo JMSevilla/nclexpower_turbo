@@ -1,4 +1,4 @@
-import { Header } from "../../../../components/blocks/page/PasswordChange";
+import { Header } from "core-library/system/app/internal/blocks/Account/PasswordChange";
 import { render, screen } from "core-library/tests/common";
 
 jest.mock("core-library/config", () => ({
