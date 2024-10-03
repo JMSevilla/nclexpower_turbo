@@ -1,18 +1,16 @@
+import { useState } from "react";
 import { SxProps, Theme } from "@mui/material/styles";
-import { useScroll } from "core-library";
-import { useRouter } from "next/router";
 
-export const useSidebarStyles = (open: boolean) => {
-    // const { isScrolled } = useScroll();
-    // const router = useRouter();
-    // const isScrolledOrRoute = router.pathname === "/404" || isScrolled;
+export const useWebSidebarStyles = () => {
+    const [open, setOpen] = useState(false);
+
+    const toggleSidebar = () => setOpen((prevOpen) => !prevOpen);
 
     const sidebarSx: SxProps<Theme> = {
         backgroundImage: "linear-gradient(90deg, #0F2A71 0%, #181E2F 100%)",
         margin: "10px",
         color: "white",
-        borderRadius: "8px"
-
+        borderRadius: "8px",
     };
 
     const arrowSx: SxProps<Theme> = {
@@ -34,7 +32,7 @@ export const useSidebarStyles = (open: boolean) => {
 
     const paddingSx: SxProps<Theme> = {
         padding: "0 !important",
-    }
+    };
 
     const activeSx: SxProps<Theme> = {
         color: "#F4C501",
@@ -51,7 +49,18 @@ export const useSidebarStyles = (open: boolean) => {
         opacity: "1 !important",
     };
 
-    return { sidebarSx, arrowSx, dividerSx, listItemIconSx, paddingSx, activeSx, hoverSx, opacitySx };
+    return {
+        sidebarSx,
+        arrowSx,
+        dividerSx,
+        listItemIconSx,
+        paddingSx,
+        activeSx,
+        hoverSx,
+        opacitySx,
+        open,
+        toggleSidebar,
+    };
 };
 
-export default useSidebarStyles;
+export default useWebSidebarStyles;
