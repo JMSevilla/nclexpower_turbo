@@ -1,6 +1,6 @@
 import React from "react";
-import { ChangePasswordButton } from "../../../../components/blocks/page/PasswordChange/index";
 import { render, screen, fireEvent } from "core-library/tests/common";
+import { ChangePasswordButton } from "core-library/system/app/internal/blocks/Account/PasswordChange";
 
 jest.mock("core-library/config", () => ({
   getConfig: jest

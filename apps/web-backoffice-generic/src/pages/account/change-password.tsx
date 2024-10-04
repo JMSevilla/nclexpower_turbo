@@ -1,4 +1,4 @@
-import { PasswordChangeBlock } from "../../components/blocks/page/PasswordChange/PasswordChangeBlock";
+import { PasswordChangeBlock } from "../../components/Blocks/Account/PasswordChange/PasswordChangeBlock";
 
 function ChangePasswordPage() {
   return <PasswordChangeBlock />;

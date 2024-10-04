@@ -1,6 +1,6 @@
 import React from "react";
-import { BackToChangeEmail } from "../../../../components/blocks/page/PasswordChange/index";
 import { render, screen } from "core-library/tests/common";
+import { BackToChangeEmail } from "core-library/system/app/internal/blocks/Account/PasswordChange";
 
 jest.mock("core-library/config", () => ({
   getConfig: jest

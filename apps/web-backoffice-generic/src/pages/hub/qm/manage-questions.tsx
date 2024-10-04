@@ -1,9 +1,9 @@
 import React from "react";
 import withAuth from "core-library/core/utils/withAuth";
-import { QuestionManagementPageBlock } from "@/components/blocks/page";
+import { ParseBlocks } from "core-library/system";
 
 const ManageQuestionsMainPage: React.FC = () => {
-  return <QuestionManagementPageBlock />;
+  return <ParseBlocks blocks="QuestionManagementPageBlock" />;
 };
 
 export default withAuth(ManageQuestionsMainPage);
