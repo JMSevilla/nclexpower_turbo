@@ -61,3 +61,21 @@ export const columns = [
     ),
   },
 ];
+
+export const userRoleList = [
+  {
+    id: 1,
+    label: "Admin",
+    value: "admin",
+  },
+  {
+    id: 2,
+    label: "Encoder",
+    value: "encoder",
+  },
+  {
+    id: 3,
+    label: "Developer",
+    value: "developer",
+  },
+];

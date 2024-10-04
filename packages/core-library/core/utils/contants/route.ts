@@ -13,10 +13,9 @@ const hubSubRoutes = [
 ]; //should be from the DB.
 
 export const authorizedRoute = generateNestedRoutes(hubBaseRoute, hubSubRoutes);
-export const unauthorizeRoute = ["/login", "/"];
+export const unauthorizeRoute = ["/login", "/", "/account/forgot-password"];
 
 export const hasClientKeyRoute = [
-  "/account/forgot-password",
   "/account/change-password",
   "/account/verification/otp",
 ];
