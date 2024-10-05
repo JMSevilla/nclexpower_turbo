@@ -16,6 +16,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Link from "next/link";
 import Image from "next/image";
 import { LoginBG } from "core-library/assets";
+import { useKeyDown } from "core-library/hooks/useKeyDown";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -52,6 +53,15 @@ export const LoginForm: React.FC<Props> = ({
       setValue("password", savedData.password);
     }
   }, [savedData, setValue]);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+  };
+
+  useKeyDown("Enter", () => handleSubmit(onSubmit)());
 
   return (
     <div className="flex items-center justify-between w-full h-screen">

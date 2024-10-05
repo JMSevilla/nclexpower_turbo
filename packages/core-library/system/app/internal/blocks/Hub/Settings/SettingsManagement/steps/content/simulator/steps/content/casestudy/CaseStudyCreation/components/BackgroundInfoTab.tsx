@@ -25,46 +25,85 @@ export const BackgroundInfoTab = ({ type }: Props) => {
   const valueArray = getValues(`${type}`);
 
   return (
-    <>
-      {valueArray && valueArray.length > 0
-        ? valueArray.map((tab, index) => (
+    <Box
+      sx={{
+        position: "relative",
+        maxHeight: "800px",
+        overflowY: "auto",
+        p: 3,
+      }}
+    >
+      {valueArray && valueArray.length > 0 ? (
+        valueArray.map((tab, index) => (
+          <Box
+            key={index}
+            sx={{
+              my: 2,
+              justifyContent: "center",
+              border: 1,
+              borderColor: "ButtonShadow",
+              display: "flex",
+              flexDirection: "column",
+              p: 3,
+            }}
+          >
             <Box
-              key={index}
               sx={{
-                justifyContent: "center",
                 display: "flex",
-                flexDirection: "column",
+                alignItems: "center",
+                width: "100%",
+                mb: 3,
               }}
             >
-              <Box
+              <Typography
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "100%",
-                  gap: 5,
+                  fontWeight: "600",
+                  fontSize: "16px",
+                  color: "#525252",
+                  mr: 5,
                 }}
               >
-                <Typography>Sequence No.</Typography>
-                <GenericSelectField
-                  name={`${type}.${index}.seqNum`}
-                  options={tabsSequence ?? []}
-                  width="20%"
-                  defaultValue={`${type}.seqNum`}
-                />
-              </Box>
-              <Card>
-                <ControlledRichTextEditor
-                  editorClassName="max-h-[200px] overflow-auto"
-                  editorFor="questions"
-                  name={`${type}.${index}.seqContent`}
-                />
-              </Card>
+                Sequence No. :
+              </Typography>
+              <GenericSelectField
+                name={`${type}.${index}.seqNum`}
+                options={tabsSequence ?? []}
+                width="20%"
+                defaultValue={`${type}.seqNum`}
+              />
             </Box>
-          ))
-        : "Add a sequence"}
-      <Button sx={{ marginTop: 5 }} onClick={() => append(initBgValues)}>
-        + Add More Info
-      </Button>
-    </>
+            <Box sx={{ textAlign: "start" }}>
+              <ControlledRichTextEditor
+                customDependency={type}
+                editorFor="casestudy"
+                placeholder="Add study..."
+                name={`${type}.${index}.seqContent`}
+              />
+            </Box>
+          </Box>
+        ))
+      ) : (
+        <></>
+      )}
+      <Box
+        sx={{
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <Button
+          sx={{
+            height: "45px",
+            borderRadius: "10px",
+            marginTop: "10px",
+            width: "100%",
+            textTransform: "none",
+          }}
+          onClick={() => append(initBgValues)}
+        >
+          + Add More Info
+        </Button>
+      </Box>
+    </Box>
   );
 };

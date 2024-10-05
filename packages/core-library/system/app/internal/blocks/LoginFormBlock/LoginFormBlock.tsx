@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { LoginForm } from "./LoginForm";
 import { LoginParams } from "../../../../../types/types";
-import { useAuthContext, useExecuteToast } from "core-library/contexts";
+import { useAuthContext, useExecuteToast } from "../../../../../contexts";
 
 export function LoginFormBlock() {
   const { login, loading } = useAuthContext();

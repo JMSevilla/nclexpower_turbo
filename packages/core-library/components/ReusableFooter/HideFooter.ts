@@ -7,4 +7,5 @@ export const HideFooter = [
   "/maintenance",
   "/account/reset-password",
   "/customer/payment/checkout",
+  "/hub",
 ];

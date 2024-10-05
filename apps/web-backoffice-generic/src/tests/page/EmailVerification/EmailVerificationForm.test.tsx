@@ -1,6 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "core-library/tests/common";
-import { EmailVerificationForm } from "../../../components/blocks/page/EmailVerification/EmailVerificationForm";
-
+import { EmailVerificationForm } from "core-library/system/app/internal/blocks/Account/EmailVerification/EmailVerificationForm";
 const onSubmitMock = jest.fn();
 
 jest.mock("core-library/config", () => ({

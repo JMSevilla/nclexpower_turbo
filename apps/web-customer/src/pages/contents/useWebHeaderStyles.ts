@@ -18,9 +18,9 @@ export const useWebHeaderStyles = () => {
     fontFamily: "PT Sans, sans-serif",
     textTransform: "none",
     fontSize: "16px",
-    ":disabled":{
-      color:!isScrolledOrRoute ? "white" : "black",
-      textDecoration:'underline'
+    ":disabled": {
+      color: !isScrolledOrRoute ? "white" : "black",
+      textDecoration: 'underline'
     }
   };
 
@@ -34,9 +34,9 @@ export const useWebHeaderStyles = () => {
     "&:hover": {
       backgroundColor: isScrolledOrRoute ? "#071c51" : "#cca406",
     },
-    ":disabled":{
-      color:!isScrolledOrRoute ? "#071c51" : "#cca406",
-      textDecoration:'underline'
+    ":disabled": {
+      color: !isScrolledOrRoute ? "#071c51" : "#cca406",
+      textDecoration: 'underline'
     }
   };
 
