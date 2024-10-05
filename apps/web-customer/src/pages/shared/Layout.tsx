@@ -20,6 +20,7 @@ import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
 import { HideHeader } from "../../core/constant/HideHeader";
+import { useWebSidebarStyles } from "@/pages/contents/useWebSidebarStyles";
 
 interface Props { }
 
@@ -30,6 +31,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const { isAuthenticated, logout } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
   const headerStyles = useWebHeaderStyles();
+  const sidebarStyles = useWebSidebarStyles();
   const [confirmValue] = useConfirmedIntent();
   usePaymentSuccessRedirect(confirmValue);
 
@@ -45,6 +47,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
                   menu={headerMenu}
                   isAuthenticated={isAuthenticated}
                   headerStyles={headerStyles}
+                  sidebarStyles={sidebarStyles}
                   hiddenHeaderPathnames={HideHeader}
                   onLogout={logout}
                 >

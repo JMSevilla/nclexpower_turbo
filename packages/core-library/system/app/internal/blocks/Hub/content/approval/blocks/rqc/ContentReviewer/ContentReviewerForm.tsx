@@ -103,8 +103,9 @@ export default function ContentReviewerForm({ }: Props) {
       </Box>
       {mainContent.map((item, index) => (
         <Box key={index} sx={{ marginBottom: 4 }}>
-          <Box sx={{ display: 'flex', flexDirection: "flex-col", alignItems: 'center', marginBottom: 4 }}>
+          <Box sx={{ display: 'flex', flexDirection: "flex-col", alignItems: 'center', marginBottom: 4, gap: 2 }}>
             <Chip sx={{ backgroundColor: '#560bad', color: '#F3F3F3' }} label={item.type} />
+            <Chip sx={{ backgroundColor: 'transparent', color: '#560bad', border: "1px solid #560bad" }} label={item.mainType} />
           </Box>
           <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: 4, color: "#560bad" }}>
             {item.question}

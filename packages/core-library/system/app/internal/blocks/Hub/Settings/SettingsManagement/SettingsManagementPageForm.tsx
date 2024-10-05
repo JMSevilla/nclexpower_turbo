@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Box } from "@mui/material";
-import { Alert } from "core-library/components";
+import { Alert } from "../../../../../../../components";
 import { useSettingsManagementWizardSteps } from "./steps/useSteps";
-import { useActiveSteps, useBeforeUnload } from "core-library/hooks";
+import { useActiveSteps, useBeforeUnload } from "../../../../../../../hooks";
 import { useResetOnRouteChange } from "../../../../../../../core/hooks/useResetOnRouteChange";
 
 export const SettingsManagementPageForm = () => {

@@ -4,7 +4,18 @@ import {
   LoginFormBlock,
   SettingsManagementPageBlock,
   QuestionApprovalBlock,
+  EmailVerificationBlock,
+  PasswordChangeBlock,
+  InternalUsersBlock,
+  ViewUserBlock,
+  CreatePricingBlock,
+  CreateProductBlock,
+  QuestionManagementPageBlock,
+  ReportedIssuesBlock,
+  CreateCategoryBlock,
+  CreateRegularQuestionTypeBlock,
 } from "./blocks";
+
 import { ParseBlocksProps } from "./types";
 
 const ParseBlocks: React.FC<ParseBlocksProps> = (props) => {
@@ -20,6 +31,26 @@ const ParseBlocks: React.FC<ParseBlocksProps> = (props) => {
       return <SettingsManagementPageBlock />;
     case "QuestionApprovalBlock":
       return <QuestionApprovalBlock />;
+    case "EmailVerificationBlock":
+      return <EmailVerificationBlock />;
+    case "PasswordChangeBlock":
+      return <PasswordChangeBlock />;
+    case "ViewUserBlock":
+      return <ViewUserBlock />;
+    case "InternalUsersBlock":
+      return <InternalUsersBlock />;
+    case "CreatePricingBlock":
+      return <CreatePricingBlock />;
+    case "CreateProductBlock":
+      return <CreateProductBlock />;
+    case "QuestionManagementPageBlock":
+      return <QuestionManagementPageBlock />;
+    case "ReportedIssuesBlock":
+      return <ReportedIssuesBlock />;
+    case "CreateRegularQuestionTypeBlock":
+      return <CreateRegularQuestionTypeBlock />;
+    case "CreateCategoryBlock":
+      return <CreateCategoryBlock />;
     default:
       return null;
   }

@@ -15,7 +15,7 @@ export default function ContentReviewerBlock({ nextStep, previousStep }: Props) 
   };
 
   return (
-    <Card sx={{ padding: 6, height: '110vh' }}>
+    <Card sx={{ padding: 6, height: 'auto' }}>
       <Button
         onClick={handlePreviousStep}
         sx={{

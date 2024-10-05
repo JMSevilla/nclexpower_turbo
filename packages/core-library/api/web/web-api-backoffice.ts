@@ -19,9 +19,11 @@ import {
   CategoryFormParams,
   CreateRegularType,
   CurrenciesResponse,
+  DefaultReviewerParams,
   DiscrepanciesResponse,
   FileUploadParams,
   GetAllInternalAccount,
+  GetDefaultReviewerResponse,
   PricingListResponse,
   ProductListResponse,
   ProductSetStatusParams,
@@ -89,6 +91,19 @@ export class WebApiBackOffice {
           "Content-Type": "multipart/form-data",
         },
       }
+    );
+  }
+
+  public getDefaultReviewer() {
+    return this.axios.get<GetDefaultReviewerResponse[]>(
+      `/api/v2/content/BaseContent/get-default-reviewer`
+    );
+  }
+
+  public createDefaultReviewer(params: DefaultReviewerParams) {
+    return this.axios.post(
+      `/api/v2/content/BaseContent/create-default-reviewer`,
+      params
     );
   }
 
