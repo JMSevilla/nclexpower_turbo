@@ -464,9 +464,9 @@ export interface ContentApprover {
   approver: Approver;
 }
 
-export interface Approver extends User {}
+export interface Approver extends User { }
 
-export interface Author extends User {}
+export interface Author extends User { }
 
 export interface User {
   id: string;

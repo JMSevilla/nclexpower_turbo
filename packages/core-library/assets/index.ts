@@ -93,4 +93,8 @@ export const authorSample = require('./programslist/watch/author-sample.svg');
 export const VerifyAccountBg = require("./verifyaccount/verify_account_bg.svg");
 
 export const resetLink = require("./resetlinkpage/Sent Message-amico.svg");
+
+export const keySquare = require("./key-square.svg")
+export const TRDSqaureWhite = require("./3d-square 1(1).svg")
+export const TRDSquare = require("./3d-square 1.svg")
 export const DetectDevice = require("./DeviceDetection/DeviceDetection.svg");

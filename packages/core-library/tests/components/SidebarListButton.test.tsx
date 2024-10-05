@@ -41,14 +41,21 @@ describe("SidebarListButton", () => {
   });
 
   it("should render the component with the provided props", () => {
-    render(<SidebarListButton navigation={mockNavigation} pathname="/" />);
+    render(<SidebarListButton navigation={mockNavigation} pathname="/" isAuthenticated={true} />);
 
     expect(screen.getByText("Test Label")).toBeInTheDocument();
   });
 
-  it("should call IconComponent with correct icon name", () => {
-    render(<SidebarListButton navigation={mockNavigation} pathname="/" />);
+  it("should call IconComponent with the correct icon name for FeedIcon", () => {
+    render(<SidebarListButton navigation={mockNavigation} pathname="/" isAuthenticated={true} />);
 
-    expect(IconComponent).toHaveBeenCalledWith("FeedIcon");
+    expect(IconComponent).toHaveBeenCalledWith("FeedIcon", expect.any(Boolean));
   });
+
+  it("should call IconComponent with the correct icon name for ChildIcon", () => {
+    render(<SidebarListButton navigation={mockNavigation} pathname="/" isAuthenticated={true} />);
+
+    expect(IconComponent).toHaveBeenCalledWith("ChildIcon", expect.any(Boolean));
+  });
+
 });

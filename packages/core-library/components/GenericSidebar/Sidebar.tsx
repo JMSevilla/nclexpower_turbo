@@ -1,31 +1,43 @@
 import React from "react";
-import { Drawer, IconButton, Typography } from "@mui/material";
+import { Button, Drawer, IconButton, SxProps, Theme, Typography } from "@mui/material";
 import { Box, List } from "@mui/material";
 import { SidebarListButton } from "./SidebarListButton";
 import { SidebarButton } from "./SidebarButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { useRouter } from "../../core";
 import { usePathname } from "next/navigation";
 import { NCLEXBlueLogo } from "../../assets";
 import Image from "next/image";
 import { MenuItems } from "../../api/types";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { WebSidebarStylesType } from "../../types/web-sidebar-styles";
 
-type SideBarPropsType = {
+interface SideBarPropsType extends Partial<WebSidebarStylesType> {
   menu: Array<MenuItems>;
   open: boolean;
   setOpen: () => void;
+  onLogout?: () => void;
   variant?: "persistent" | "permanent" | "temporary";
   isMobile?: boolean;
-};
+  isAuthenticated: boolean;
+}
 
 export const Sidebar: React.FC<SideBarPropsType> = ({
   menu,
   variant,
   open,
   setOpen,
+  onLogout,
   isMobile,
+  isAuthenticated,
+  sidebarSx,
+  arrowSx,
+  dividerSx,
+  paddingSx,
+  listItemIconSx,
+  hoverSx,
 }) => {
   const pathname = usePathname();
-
   return (
     <Drawer
       open={open}
@@ -39,6 +51,9 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           width: 240,
           boxSizing: "border-box",
           boxShadow: 1,
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
         },
       }}
     >
@@ -52,7 +67,7 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
           height={70}
         >
           <Image
-            style={{ width: 150, marginRight: "15px" }}
+            style={{ width: 150 }}
             src={NCLEXBlueLogo}
             alt="NCLEXLogo"
           />
@@ -81,9 +96,19 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
                   <SidebarListButton
                     navigation={navigation}
                     pathname={pathname}
+                    isAuthenticated={isAuthenticated}
+                    sidebarSx={sidebarSx}
+                    showDivider={false}
+                    listItemIconSx={listItemIconSx}
+                    paddingSx={paddingSx}
+                    hoverSx={hoverSx}
                   />
                 ) : (
-                  <SidebarButton navigation={navigation} pathname={pathname} />
+                  <SidebarButton
+                    navigation={navigation}
+                    pathname={pathname}
+                    isAuthenticated={isAuthenticated}
+                  />
                 )}
               </React.Fragment>
             ))}
