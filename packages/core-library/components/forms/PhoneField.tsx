@@ -127,9 +127,7 @@ const PhoneFieldComponent = <T extends object>({
                   MenuProps={{ sx: { maxHeight: "300px", width: "100%" } }}
                   color="primary"
                   IconComponent={KeyboardArrowDown}
-                  onChange={({ target }: any) =>
-                    onCountryCodeChanged(target.value)
-                  }
+                  onChange={({ target }) => onCountryCodeChanged(target.value)}
                   value={countryCode}
                 >
                   {phoneCodes.map((pc) => (
