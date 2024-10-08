@@ -100,12 +100,13 @@ export const Tabs: React.FC<Props> = ({
                     width: '100%',
                     textAlign: 'center',
                     mb: 2,
+                    py: 5,
                   }}
                 >
                   {tab.title}
                 </TabButton>
                 <Collapse in={selected === tab.id} timeout='auto' unmountOnExit>
-                  <Box mt={2}>{tab.content}</Box>
+                  <Box>{tab.content}</Box>
                 </Collapse>
               </Box>
             ))}
