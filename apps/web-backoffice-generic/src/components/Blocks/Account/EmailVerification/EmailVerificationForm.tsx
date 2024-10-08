@@ -4,7 +4,7 @@ import { Alert, TextField, Button, Link } from "core-library/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ForgotPasswordImage } from "core-library/assets";
-import { LottieAnimation } from "../PasswordChange/components/LottieAnimation/LottieAnimation";
+import { LottieAnimation } from "core-library/system/app/internal/blocks/Account/PasswordChange/components/LottieAnimation/LottieAnimation";
 
 interface Props {
   onSubmit: (values: ForgotPasswordType) => void;

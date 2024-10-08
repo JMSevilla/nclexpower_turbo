@@ -10,8 +10,6 @@ import { useState } from 'react';
 import ContentReviewerDialog from './ContentReviewerDialog';
 import ConfirmationModal from '../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog';
 
-type Props = {}
-
 function MainContent() {
   return (
     <div className="">
@@ -53,7 +51,7 @@ function MainContent() {
   )
 }
 
-export default function ContentReviewerForm({ }: Props) {
+export default function ContentReviewerForm() {
   const [isApproved, setIsApproved] = useState<boolean>(false);
 
   const form = useForm<crbType>({
