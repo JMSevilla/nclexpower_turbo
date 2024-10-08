@@ -42,7 +42,7 @@ export const Tabs: React.FC<Props> = ({
   return (
     <Grid container spacing={12}>
       {!isMobile && (
-        <Grid container item xs={12} justifyContent={justifyContent}>
+        <Grid container item xs={12} justifyContent={justifyContent} spacing={1}>
           {tabs.map((tab, index) => (
             <Grid item key={tab.id}>
               <TabButton

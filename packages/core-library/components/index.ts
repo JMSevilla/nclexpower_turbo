@@ -19,6 +19,7 @@ export * from "./page";
 export * from "./Header";
 export * from "./forms/FieldError";
 export * from "./forms/TextField";
+export * from "./forms/PhoneField";
 export * from "./blocks/HeaderTitleBlock";
 export * from "./blocks/PanelBlocks";
 export * from "./blocks/TextBlock";
