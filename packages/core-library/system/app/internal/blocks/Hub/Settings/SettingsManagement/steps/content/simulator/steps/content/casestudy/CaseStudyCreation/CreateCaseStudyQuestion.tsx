@@ -14,7 +14,7 @@ import ConfirmationModal from "../../../../../../../../../../../../../../compone
 import { BackgroundInfoTab } from "./components/BackgroundInfoTab";
 import { caseStudyQuestionnaires } from "../../../../../../../constants/constants";
 import { atom } from "jotai";
-import { ErrorMapping } from '../../../../../../../../../../../../../../components';
+import { ErrorMapping } from "../../../../../../../../../../../../../../components";
 
 interface Props {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -66,10 +66,12 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
       ...getValues(),
     });
   };
-  const { errors } = formState
+  const { errors } = formState;
 
   const onSubmit = async (values: ContainedCaseStudyQuestionType) => {
     console.log(values);
+    nextStep({ ...values });
+    next();
   };
 
   const handlePrevious = () => {
