@@ -34,8 +34,8 @@ export const Footer: React.FC<FooterProps> = (props) => {
       >
         <Grid
           container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 2, sm: 2, md: 12 }}
+          spacing={{ xs: 2, md: 1 }}
+          columns={{ xs: 2, sm: 2, md: 13 }}
           sx={{
             display: "flex",
             width: "100%",
@@ -53,7 +53,6 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 justifyContent: "center",
                 width: "25%",
                 gap: 5,
-                paddingRight: 5,
               }}
             >
               <Image
@@ -88,12 +87,12 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 textAlign: { xs: "center", sm: "start" },
               }}
             >
-              <Typography sx={{ marginBottom: 5 }}>
+              <Typography sx={{ marginBottom: 2 }}>
                 {props.info.address}
               </Typography>
               <Grid
                 sx={{
-                  marginBottom: { xs: 5, md: 10 },
+                  marginBottom: { xs: 2, md: 6 },
                   gap: 2,
                   width: "70%",
                   display: "flex",

@@ -19,6 +19,7 @@ export * from "./page";
 export * from "./Header";
 export * from "./forms/FieldError";
 export * from "./forms/TextField";
+export * from "./forms/PhoneField";
 export * from "./blocks/HeaderTitleBlock";
 export * from "./blocks/PanelBlocks";
 export * from "./blocks/TextBlock";
@@ -42,6 +43,7 @@ export * from "./ToolTip/CustomToolTip";
 export * from "./PageLoader";
 export * from "./Badge/CustomBadge";
 export * from "./CSPHead";
+export * from "./LottieAnimation/LottieAnimation";
 // rows
 export * from "./table/tableRows/category/CategoryOptionsTableRow";
 export * from "./Tabs/Tabs";
