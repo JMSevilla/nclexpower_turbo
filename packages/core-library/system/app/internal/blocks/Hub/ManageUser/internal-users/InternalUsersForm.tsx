@@ -53,7 +53,6 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
       );
       return { label: selectedOptions?.label || "", value };
     });
-    console.log(selectedObjects);
     return selectedObjects;
   }
 
