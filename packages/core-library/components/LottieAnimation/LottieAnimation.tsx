@@ -1,5 +1,6 @@
-import React from "react";
-import Lottie from "lottie-react";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 interface LottieAnimationProps {
   animationData: any;
@@ -14,7 +15,5 @@ export function LottieAnimation({
   height = 300,
   style = {},
 }: LottieAnimationProps) {
-  return (
-    <Lottie animationData={animationData} style={{ width, height, ...style }} />
-  );
+  return <Lottie animationData={animationData} style={{ width, height, ...style }} />;
 }

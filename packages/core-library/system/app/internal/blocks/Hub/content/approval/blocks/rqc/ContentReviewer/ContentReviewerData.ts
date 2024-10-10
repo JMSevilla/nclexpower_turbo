@@ -20,10 +20,10 @@ export const mainContent = [{
 }]
 
 export const RadioData = [
-  { title: "Approve", value: "Approve" },
-  { title: "Comment", value: "Comment" },
-  { title: "Request Changes", value: "Request Changes" },
-  { title: "Reject", value: "Reject" },
+  { title: "Approve", value: 0 },
+  { title: "Comment", value: 1 },
+  { title: "Request Changes", value: 2 },
+  { title: "Reject", value: 3 },
 ];
 
 export const contentApprovers = [

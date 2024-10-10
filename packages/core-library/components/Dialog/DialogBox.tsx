@@ -39,8 +39,13 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
       sx={{
         zIndex: 1301,
         "& .MuiDialog-paper": {
-          height: 'auto',
+          height: {
+            xs: '250px',
+            md: 'auto',
+            lg: 'auto',
+          },
           borderRadius: borderRadius,
+          overflowY: "auto",
         },
       }}
       {...props}
@@ -81,7 +86,10 @@ export const DialogBox: React.FC<React.PropsWithChildren<Props>> = ({
           {header}
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{ px: { xs: 6, sm: 12 }, pb: { xs: 6, sm: 12 }}}>
+      <DialogContent sx={{
+          px: { xs: 6, sm: 12 },
+          pb: { xs: 6, sm: 12 },
+        }}>
         {children}
       </DialogContent>
     </Dialog>
