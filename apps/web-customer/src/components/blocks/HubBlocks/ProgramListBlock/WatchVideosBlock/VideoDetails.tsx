@@ -1,4 +1,4 @@
-import { SectionVideosType } from "../../../../../core/types/programList";
+import { SectionVideosType } from "core-library/types/wc/programList";
 import Image from "next/image";
 
 interface VideoDetailsProps {

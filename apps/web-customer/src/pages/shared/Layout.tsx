@@ -14,7 +14,7 @@ import {
   CompanyInfo,
   CustomerMenus,
   list,
-} from "../../core/constant/HompageMockData";
+} from "core-library/core/utils/contants/wc/HomePageData";
 import { DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";

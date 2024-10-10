@@ -1,4 +1,4 @@
-import { SectionVideosType } from "../../../../../core/types/programList";
+import { SectionVideosType } from "core-library/types/wc/programList";
 import ReactPlayer from "react-player";
 import { useResolution } from "core-library/hooks";
 interface VideoPlayerProps {

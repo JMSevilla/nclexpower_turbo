@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { CloseIcon } from "core-library/assets";
 import Image from 'next/image';
-import { SectionListType, SectionVideosType } from '../../../../core/types/programList';
+import { SectionListType, SectionVideosType } from "core-library/types/wc/programList";
 import { getSectionTypeIcons, getSectionStatusIcons } from "../../../../utils";
 import { useRouter } from 'core-library';
 

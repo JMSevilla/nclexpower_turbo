@@ -2,11 +2,11 @@ import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useRouter } from "core-library";
-import { SectionVideosType } from "../../../../../core/types/programList";
-import { standardProgramList } from "../../../../../core/constant/ProgramListMock/ProgramListMock";
+import { SectionVideosType } from "core-library/types/wc/programList";
 import { VideoDetails } from "./VideoDetails";
 import { VideoWatchList } from "./VideoWatchList";
 import { VideoPlayer } from "./VideoPlayer";
+import useGetProgramList from "core-library/hooks/useGetProgramList";
 
 export function WatchVideosBlock() {
   const router = useRouter();
@@ -14,11 +14,12 @@ export function WatchVideosBlock() {
   const [selectedVid, setSelectedVid] = useState<SectionVideosType | null>(null);
   const [sectionMainTitle, setSectionMainTitle] = useState("");
   const [isWideScreen, setIsWideScreen] = useState(false);
-
+  const { programList } = useGetProgramList();
   const toggleWideScreen = () => setIsWideScreen((prev) => !prev);
 
   useEffect(() => {
     const { secVids, programId } = router.query;
+    const fetchedProgramList = programList ?? [];
 
     if (secVids) {
       const decodedVideos = JSON.parse(decodeURIComponent(secVids as string));
@@ -29,7 +30,7 @@ export function WatchVideosBlock() {
     }
 
     if (programId) {
-      const programTitle = standardProgramList.find((item) => item.programId === programId)?.title || "Welcome to CORE Zigma System";
+      const programTitle = fetchedProgramList?.find((item) => item.programId === programId)?.title || "Welcome to CORE Zigma System";
       setSectionMainTitle(programTitle);
     }
   }, [router.query]);
