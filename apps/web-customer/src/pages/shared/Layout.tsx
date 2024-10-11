@@ -20,7 +20,7 @@ import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
 import { HideHeader } from "../../core/constant/HideHeader";
-import { useWebSidebarStyles } from "@/pages/contents/useWebSidebarStyles";
+import { useWebSidebarStyles } from "@/utils/useWebSidebarStyles";
 import { theme } from "core-library/contents/theme/theme";
 
 interface Props {}
