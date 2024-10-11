@@ -7,7 +7,7 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Divider } from "@mui/material";
 import { SidebarButton } from "./SidebarButton";
@@ -35,10 +35,16 @@ export const SidebarListButton: React.FC<SidebarListButtonProps> = ({
   hoverSx,
   showDivider = true,
 }) => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   const path = router?.pathname;
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      setOpen(true);
+    }
+  }, [isAuthenticated]); 
+  
   const handleCollapseButton = () => {
     setOpen((prev) => !prev);
   };
@@ -74,22 +80,20 @@ export const SidebarListButton: React.FC<SidebarListButtonProps> = ({
             </Box>
           )}
         </Box>
-        {open && navigation.children
-          ? navigation.children.length > 0 &&
-            !navigation.hide &&
-            navigation.children?.map((childNav, idx) => (
-              <SidebarButton
-                navigation={childNav}
-                key={idx}
-                pathname={pathname}
-                isAuthenticated={isAuthenticated}
-                listItemIconSx={listItemIconSx}
-                paddingSx={paddingSx}
-                activeSx={activeSx}
-                hoverSx={hoverSx}
-              />
-            ))
-          : null}
+        {open && navigation.children && navigation.children.length > 0 && !navigation.hide && (
+          navigation.children.map((childNav, idx) => (
+            <SidebarButton
+              navigation={childNav}
+              key={idx}
+              pathname={pathname}
+              isAuthenticated={isAuthenticated}
+              listItemIconSx={listItemIconSx}
+              paddingSx={paddingSx}
+              activeSx={activeSx}
+              hoverSx={hoverSx}
+            />
+          ))
+        )}
         {showDivider && <Divider sx={dividerSx} />}
       </Box>
     </Box>
