@@ -15,18 +15,18 @@ import {
   CustomerMenus,
   list,
 } from "../../core/constant/HompageMockData";
-import { DrawerLayout } from "core-library/components";
+import { ChatBotWidget, DrawerLayout } from "core-library/components";
 import { useWebHeaderStyles } from "@/pages/contents/useWebHeaderStyles";
 import { useConfirmedIntent } from "core-library/contexts/auth/hooks";
 import { usePaymentSuccessRedirect } from "@/core/hooks/usePaymentSuccessRedirect";
 import { HideHeader } from "../../core/constant/HideHeader";
 import { useWebSidebarStyles } from "@/pages/contents/useWebSidebarStyles";
+import { theme } from "core-library/contents/theme/theme";
 
-interface Props { }
+interface Props {}
 
 const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
   const queryClient = new QueryClient();
-  const theme = useTheme();
   const { publishableKey } = useStripeConfig();
   const { isAuthenticated, logout } = useAuthContext();
   const headerMenu = CustomerMenus(isAuthenticated);
@@ -37,7 +37,7 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme()}>
         <CssBaseline />
         <HeaderTitleContextProvider>
           <FormSubmissionContextProvider>
@@ -53,6 +53,8 @@ const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
                 >
                   {children}
                   <Footer info={CompanyInfo} list={list} />
+                  {/* dynamic hideHelp should be implemented here */}
+                  {true && <ChatBotWidget />}
                 </DrawerLayout>
               </LoadablePageContent>
             </StripeContextProvider>
