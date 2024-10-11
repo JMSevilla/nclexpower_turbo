@@ -1,7 +1,6 @@
-import { render, screen, fireEvent } from "../../common";
+import { render, screen } from "../../common";
 import { PhoneField } from "../../../components";
-import { PHONE_CODES } from "../../../types/constant";
-import { Control, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
