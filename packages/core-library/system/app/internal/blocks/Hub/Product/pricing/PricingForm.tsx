@@ -34,6 +34,7 @@ export const PricingForm: React.FC<Props> = ({ onSubmit, submitLoading }) => {
           name='pricing'
           control={control}
           label='Pricing'
+          decimalScale={2}
           onBlur={() => clearErrors()}
         />
       </Grid>
