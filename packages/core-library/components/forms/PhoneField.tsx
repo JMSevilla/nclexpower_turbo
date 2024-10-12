@@ -106,10 +106,8 @@ const PhoneFieldComponent = <T extends object>({
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
-        {fieldState?.error?.message ? (
+        {fieldState?.error?.message && (
           <FieldError messageKey={fieldState.error.message} />
-        ) : (
-          <Typography>{label ?? "[[label_name]]"}</Typography>
         )}
       </Grid>
 

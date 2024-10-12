@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ContactForm } from "./ContactForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,9 @@ export function ContactFormBlock() {
     defaultValues: contactSchema.getDefault(),
   });
 
-  const { handleSubmit, control, reset } = form;
+  const { handleSubmit, control, reset , setValue } = form;
+  
+  const [ countryCode , setCountryCode ] = useState<string>("");
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
@@ -27,11 +29,18 @@ export function ContactFormBlock() {
     reset();
   };
 
+  const handleSetCountryCode = (code: string) => {
+    setValue("countryCode" , code)
+    setCountryCode(code);
+  }
+
   return (
     <ContactForm
       control={control}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      handleSetCountryCode={handleSetCountryCode}
+      countryCode={countryCode}
     />
   );
 }
