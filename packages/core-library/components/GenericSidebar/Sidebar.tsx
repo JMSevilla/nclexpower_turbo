@@ -30,12 +30,7 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
   onLogout,
   isMobile,
   isAuthenticated,
-  sidebarSx,
-  arrowSx,
-  dividerSx,
-  paddingSx,
-  listItemIconSx,
-  hoverSx,
+  listStyles,
 }) => {
   const pathname = usePathname();
   return (
@@ -97,11 +92,7 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
                     navigation={navigation}
                     pathname={pathname}
                     isAuthenticated={isAuthenticated}
-                    sidebarSx={sidebarSx}
-                    showDivider={false}
-                    listItemIconSx={listItemIconSx}
-                    paddingSx={paddingSx}
-                    hoverSx={hoverSx}
+                    listStyles={listStyles}
                   />
                 ) : (
                   <SidebarButton

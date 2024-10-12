@@ -82,7 +82,7 @@ export const AuthorizedHeader: MenuItems[] = [
             {
                 id: '3',
                 label: 'Body Systems',
-                path: '/',
+                path: '/hub/programs',
                 icon: 'DotsIcon',
                 menuId: 'menu3',
                 parentId: '',
