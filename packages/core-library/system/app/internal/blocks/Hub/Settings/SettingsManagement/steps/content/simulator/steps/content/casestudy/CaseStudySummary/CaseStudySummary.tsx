@@ -1,12 +1,17 @@
 import { Box, Grid, Typography, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import ConfirmationModal from "../../../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
-import { BackgroundInfoContent } from "./component/BackgroundInfo/BackgroundInfoContent";
-import { ItemContent } from "./component/Items/ItemContent";
+
 import { TableView } from "./component/TableView";
 import TableViewIcon from "@mui/icons-material/TableView";
 import DefaultViewIcon from "@mui/icons-material/ViewList";
 import { ContainedCaseStudyQuestionType } from "../../../../types";
+import { useAtom } from "jotai";
+import { CreateCaseStudyAtom } from "../../../../useAtomic";
+import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
+import { Button } from "../../../../../../../../../../../../../../components";
+import { ItemContent } from "./component/Items/ItemContent";
+import { BackgroundInfoContent } from "./component/BackgroundInfo/BackgroundInfoContent";
 
 interface CaseStudySummaryProps {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -57,6 +62,7 @@ export const CaseStudySummary: React.FC<CaseStudySummaryProps> = ({
   reset,
 }) => {
   const [isTableView, setIsTableView] = useState<boolean>(false);
+  const [caseStudyAtom] = useAtom(CreateCaseStudyAtom);
 
   const handleClick = () => {
     setIsTableView((prev) => !prev);
@@ -70,7 +76,6 @@ export const CaseStudySummary: React.FC<CaseStudySummaryProps> = ({
   const handlePrevious = () => {
     previousStep();
     previous();
-    reset();
   };
 
   return (
@@ -91,9 +96,9 @@ export const CaseStudySummary: React.FC<CaseStudySummaryProps> = ({
         </IconButton>
       </Box>
       {isTableView ? (
-        <TableView data={values} />
+        <TableView data={caseStudyAtom ?? {}} />
       ) : (
-        <DefaultView data={values} />
+        <DefaultView data={caseStudyAtom ?? {}} />
       )}
       <Box
         sx={{
@@ -104,13 +109,10 @@ export const CaseStudySummary: React.FC<CaseStudySummaryProps> = ({
           marginTop: 5,
         }}
       >
-        <ConfirmationModal
-          dialogContent="This action will reset all forms."
-          confirmButtonText="Confirm"
-          isLoading={false}
-          customButton="Confirm"
-          handleSubmit={handlePrevious}
-        />
+        <Button onClick={handlePrevious} sx={{ zIndex: 1 }}>
+          <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
+          <Typography>Previous</Typography>
+        </Button>
         <ConfirmationModal
           dialogContent="Are you sure you want to continue?"
           customButton="Continue"

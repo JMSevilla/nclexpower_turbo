@@ -2,6 +2,8 @@ import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import React, { useCallback } from "react";
 import { useSanitizedInputs } from "../../../../../../../../../../../../../../../../hooks/useSanitizeInputs";
 import { DDCAnswerOptionType } from "../../../../../../types";
+import { wordWrapStyles } from "./items";
+import { PlainSelectField } from "../../../../../../../../../../../../../../../../components/Textfield/SelectField/PlainSelectField";
 
 export interface DDCQuestionProps {
   ddcData: {
@@ -26,23 +28,23 @@ export const DDCquestion: React.FC<DDCQuestionProps> = ({ ddcData }) => {
         (option) => option.answerKey === true
       )?.answer;
 
+      const mappedOptions = answer.options?.map((option) => ({
+        value: option.answer,
+        label: option.answer,
+      }));
+
       return (
         <FormControl
           variant="standard"
           key={optionName}
-          sx={{ marginTop: "-4px", minWidth: "150px" }}
+          sx={{ marginTop: "-10px", marginLeft: "10px", minWidth: "100px" }}
         >
-          <Select
+          <PlainSelectField
+            options={mappedOptions || []}
             defaultValue={defaultSelectedOption || ""}
             displayEmpty
-            style={{ marginLeft: "10px" }}
-          >
-            {answer.options?.map((option, idx) => (
-              <MenuItem key={idx} value={option.answer} disabled>
-                {option.answer}
-              </MenuItem>
-            ))}
-          </Select>
+            disabledOptions
+          />
         </FormControl>
       );
     },
@@ -51,6 +53,9 @@ export const DDCquestion: React.FC<DDCQuestionProps> = ({ ddcData }) => {
 
   const renderContentWithDropdowns = useCallback(
     (itemStem: string, answers: DDCAnswerOptionType[]) => {
+      if (!itemStem) {
+        return <Typography>No content available</Typography>;
+      }
       const parts = itemStem.split(/\[\[(.*?)\]\]/);
 
       return parts.map((part, index) => {
@@ -62,16 +67,7 @@ export const DDCquestion: React.FC<DDCQuestionProps> = ({ ddcData }) => {
         return (
           <Typography
             key={index}
-            sx={{
-              "& *": {
-                margin: 0,
-                padding: 0,
-                wordWrap: "break-word",
-                overflowWrap: "break-word",
-                whiteSpace: "normal",
-                wordBreak: "break-word",
-              },
-            }}
+            sx={wordWrapStyles}
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
         );

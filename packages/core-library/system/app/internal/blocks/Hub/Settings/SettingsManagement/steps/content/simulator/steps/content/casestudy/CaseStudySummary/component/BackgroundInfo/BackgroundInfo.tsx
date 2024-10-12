@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useSanitizedInputs } from "../../../../../../../../../../../../../../../../hooks/useSanitizeInputs";
+import { wordWrapStyles } from "../Items/items";
 import { SectionContent } from "../../../../../../../../../../../../../types";
 
 export const BackgroundInfo: React.FC<{ content: SectionContent[] }> = ({
@@ -26,6 +27,7 @@ export const BackgroundInfo: React.FC<{ content: SectionContent[] }> = ({
               {`SEQUENCE NO. ${data.seqNum}`}
             </Typography>
             <Typography
+              sx={wordWrapStyles}
               dangerouslySetInnerHTML={{
                 __html: purifyInputs(data.seqContent) as TrustedHTML,
               }}

@@ -22,14 +22,12 @@ export const ItemContent: React.FC<ItemProps> = ({ values }) => {
     });
   };
 
+  const VALID_QUESTION_TYPES = ["DDC", "SATA", "MRSN"];
+
   const validQuestionnaires =
-    values.questionnaires?.filter((item): item is QuestionnaireItem => {
-      return (
-        item.questionType === "DDC" ||
-        item.questionType === "SATA" ||
-        item.questionType === "MRSN"
-      );
-    }) || [];
+    values.questionnaires?.filter((item): item is QuestionnaireItem =>
+      VALID_QUESTION_TYPES.includes(item.questionType ?? "")
+    ) || [];
 
   return validQuestionnaires.length > 0 ? (
     <Tabs tabsItem={generateTabs(validQuestionnaires)} />

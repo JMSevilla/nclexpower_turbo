@@ -1,11 +1,34 @@
-import { Box, Checkbox, Typography } from "@mui/material";
+import { Box, Checkbox, SxProps, Typography } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import { DDCquestion } from "./DDCQuestion";
 import {
+  AnswerOption,
   DDCAnswerOption,
   QuestionnaireItem,
 } from "../../../../../../../../../../../../../types";
 import { useSanitizedInputs } from "../../../../../../../../../../../../../../../../hooks/useSanitizeInputs";
+
+export const wordWrapStyles: SxProps = {
+  "& *": {
+    margin: 0,
+    padding: 0,
+    lineHeight: 1.5,
+    wordBreak: "break-word",
+  },
+};
+
+const AnswerList: React.FC<{ answers: AnswerOption[] }> = ({ answers }) => {
+  return (
+    <Box marginTop="10px">
+      {answers.map((answer, index) => (
+        <Box display="flex" alignItems="center" paddingX="10px" key={index}>
+          <Checkbox disabled checked={answer.answerKey} />
+          <Typography fontSize="16px">{answer.answer}</Typography>
+        </Box>
+      ))}
+    </Box>
+  );
+};
 
 export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
   content,
@@ -13,6 +36,39 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
   const { purifyInputs } = useSanitizedInputs({
     config: { RETURN_TRUSTED_TYPE: true },
   });
+
+  const renderQuestionType = (data: QuestionnaireItem) => {
+    switch (data.questionType) {
+      case "DDC":
+        return (
+          <DDCquestion
+            ddcData={{
+              answers: data.answers as DDCAnswerOption[],
+              itemStem: data.itemStem,
+            }}
+          />
+        );
+      default:
+        return (
+          <Typography
+            sx={wordWrapStyles}
+            dangerouslySetInnerHTML={{
+              __html: purifyInputs(data.itemStem) as TrustedHTML,
+            }}
+          />
+        );
+    }
+  };
+
+  const renderQuestionTypeLabel = (data: QuestionnaireItem) => {
+    if (data.questionType === "SATA") {
+      return "Select All That Apply";
+    } else if (data.questionType === "MRSN") {
+      return `Select ${data.maxAnswer} That Apply`;
+    }
+    return null;
+  };
+
   return (
     <Box
       display="flex"
@@ -31,11 +87,7 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
               display="flex"
               flexDirection="column"
               gap="4px"
-              sx={{
-                wordWrap: "break-word",
-                overflowWrap: "break-word",
-                whiteSpace: "normal",
-              }}
+              sx={wordWrapStyles}
             >
               {data.transitionHeader && (
                 <Typography
@@ -54,28 +106,7 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
               )}
               <Box display="flex" gap="10px">
                 <NearMeIcon sx={{ color: "#D4AEF2", rotate: "45deg" }} />
-                {data.questionType === "DDC" ? (
-                  <DDCquestion
-                    ddcData={{
-                      answers: data.answers as DDCAnswerOption[],
-                      itemStem: data.itemStem,
-                    }}
-                  />
-                ) : (
-                  <Typography
-                    sx={{
-                      "& *": {
-                        margin: 0,
-                        padding: 0,
-                        lineHeight: 1.5,
-                        wordBreak: "break-word",
-                      },
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: purifyInputs(data.itemStem) as TrustedHTML,
-                    }}
-                  ></Typography>
-                )}
+                {renderQuestionType(data)}
               </Box>
             </Box>
             <Typography
@@ -84,24 +115,10 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
               color="#999999"
               fontWeight="700"
             >
-              {data.questionType === "SATA" && "Select All That Apply"}
-              {data.questionType === "MRSN" &&
-                `Select ${data.maxAnswer} That Apply`}
+              {renderQuestionTypeLabel(data)}
             </Typography>
             {data.questionType !== "DDC" && (
-              <Box marginTop="10px">
-                {data.answers.map((answer, index) => (
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    paddingX="10px"
-                    key={index}
-                  >
-                    <Checkbox disabled checked={answer.answerKey} />
-                    <Typography fontSize="16px">{answer.answer}</Typography>
-                  </Box>
-                ))}
-              </Box>
+              <AnswerList answers={data.answers} />
             )}
           </Box>
         ))
