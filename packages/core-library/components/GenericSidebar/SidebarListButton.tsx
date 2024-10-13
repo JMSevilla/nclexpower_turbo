@@ -3,13 +3,11 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  SxProps,
-  Theme,
   Typography,
+  Divider,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Divider } from "@mui/material";
 import { SidebarButton } from "./SidebarButton";
 import { useRouter } from "../../core";
 import { MenuItems } from "../../api/types";
@@ -20,19 +18,13 @@ export interface SidebarListButtonProps extends Partial<WebSidebarStylesType> {
   pathname: string;
   isAuthenticated: boolean;
   showDivider?: boolean;
-};
+}
 
 export const SidebarListButton: React.FC<SidebarListButtonProps> = ({
   navigation,
   pathname,
   isAuthenticated,
-  sidebarSx,
-  arrowSx,
-  dividerSx,
-  listItemIconSx,
-  paddingSx,
-  activeSx,
-  hoverSx,
+  listStyles,
   showDivider = true,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -51,29 +43,28 @@ export const SidebarListButton: React.FC<SidebarListButtonProps> = ({
 
   return (
     <Box width="100%">
-      <Box sx={isAuthenticated && open ? sidebarSx : {}}>
-        <Box padding={1} sx={isAuthenticated && open ? paddingSx : {}}>
+      <Box sx={isAuthenticated && open ? listStyles?.sidebarSx : {}}>
+        <Box padding={1} sx={isAuthenticated && open ? listStyles?.paddingSx : {}}>
           {!navigation.hide && (
             <Box overflow="hidden" borderRadius={3}>
               <ListItemButton
-                disabled={navigation.path == path}
+                disabled={navigation.path === path}
                 onClick={handleCollapseButton}
               >
-                <ListItemIcon>
-                  {IconComponent(navigation.icon, open)}
-                </ListItemIcon>
+              <ListItemIcon>{IconComponent(navigation.icon, open)}</ListItemIcon>
                 <ListItemText>
-                  <Typography variant="body2" fontWeight={600} fontSize={13}>
-                    {navigation.label}
-                  </Typography>
+                    <Typography variant="body2" fontWeight={600} fontSize={13}>
+                        {navigation.label}
+                    </Typography>
                 </ListItemText>
                 <KeyboardArrowDownIcon
                   fontSize="small"
                   sx={{
-                    mr: -1,
-                    opacity: open ? 1 : 0,
-                    transform: open ? "rotate(-180deg)" : "rotate(0)",
-                    transition: "0.2s",
+                  ...listStyles?.opacitySx,
+                  mr: -1,
+                  opacity: open ? 1 : 0,
+                  transform: open ? "rotate(-180deg)" : "rotate(0)",
+                  transition: "0.2s",
                   }}
                 />
               </ListItemButton>
@@ -87,14 +78,10 @@ export const SidebarListButton: React.FC<SidebarListButtonProps> = ({
               key={idx}
               pathname={pathname}
               isAuthenticated={isAuthenticated}
-              listItemIconSx={listItemIconSx}
-              paddingSx={paddingSx}
-              activeSx={activeSx}
-              hoverSx={hoverSx}
+              listStyles={listStyles}
             />
-          ))
-        )}
-        {showDivider && <Divider sx={dividerSx} />}
+          )))}
+        {open && showDivider && <Divider sx={listStyles?.dividerSx} />}
       </Box>
     </Box>
   );
