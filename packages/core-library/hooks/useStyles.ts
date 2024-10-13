@@ -1,5 +1,5 @@
 import { SxProps } from '@mui/system';
-import { WebSidebarStylesType } from 'core-library/types/web-sidebar-styles';
+import { WebSidebarStylesType } from '../types/web-sidebar-styles';
 import { useMemo } from 'react';
 
 const wordWrapStyles: SxProps = {
