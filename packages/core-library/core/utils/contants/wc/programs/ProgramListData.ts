@@ -1,4 +1,4 @@
-import { StandardProgramListType } from "../../../core/types/programList";
+import { StandardProgramListType } from "../../../../../types/wc/programList";
 import {
   WelcomeProgram,
   CardioVascular,
@@ -29,7 +29,7 @@ import {
   FinalCAT,
   videoPlaceholder,
   authorSample
-} from "core-library/assets";
+} from "../../../../../assets";
 
 export const standardProgramList: StandardProgramListType[] = [
     {
