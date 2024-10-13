@@ -429,6 +429,7 @@ export type MenuItemsChildren = {
   icon: string;
   menuId: string;
   parentId: string;
+  hide?: boolean;
   children: MenuItemsChildren[];
 };
 

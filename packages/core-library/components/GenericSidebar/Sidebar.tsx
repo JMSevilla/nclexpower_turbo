@@ -11,6 +11,7 @@ import Image from "next/image";
 import { MenuItems } from "../../api/types";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { WebSidebarStylesType } from "../../types/web-sidebar-styles";
+import useGetProgramList from "../../hooks/useGetProgramList";
 
 interface SideBarPropsType extends Partial<WebSidebarStylesType> {
   menu: Array<MenuItems>;
@@ -33,6 +34,22 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
   listStyles,
 }) => {
   const pathname = usePathname();
+  const { programList } = useGetProgramList();
+
+  const updatedMenu = menu
+  .filter(
+    (menus, index, self) =>
+      self.findIndex((m) => m.id === menus.id) === index
+  )
+  .map((navigation, index) => {
+    if (programList && programList.length === 10 && index === 1) {
+      return { ...navigation, hide: true };
+    } else if (programList && programList.length > 10 && index === 2) {
+      return { ...navigation, hide: true };
+    }
+    return navigation;
+  });
+
   return (
     <Drawer
       open={open}
@@ -78,13 +95,10 @@ export const Sidebar: React.FC<SideBarPropsType> = ({
             </IconButton>
           </Box>
         </Box>
-        {menu &&
-          menu.length > 0 &&
-          menu
-            .filter(
-              (menus, index, self) =>
-                self.findIndex((m) => m.id === menus.id) === index
-            )
+        {updatedMenu &&
+          updatedMenu.length > 0 &&
+          updatedMenu
+            .filter((navigation) => !navigation.hide)
             .map((navigation, index) => (
               <React.Fragment key={index}>
                 {navigation.children && navigation.children.length > 0 ? (

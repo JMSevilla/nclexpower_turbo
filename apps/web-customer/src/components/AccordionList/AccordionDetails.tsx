@@ -2,7 +2,7 @@ import React from "react";
 import { AccordionDetails, Box } from "@mui/material";
 import Image from "next/image";
 import { getSectionTypeIcons, getSectionStatusIcons } from "../../utils";
-import { SectionListType, SectionVideosType } from "../../core/types/programList";
+import { SectionListType, SectionVideosType } from "core-library/types/wc/programList";
 import { useRouter } from "core-library";
 
 interface CustomAccordionDetailsProps {
