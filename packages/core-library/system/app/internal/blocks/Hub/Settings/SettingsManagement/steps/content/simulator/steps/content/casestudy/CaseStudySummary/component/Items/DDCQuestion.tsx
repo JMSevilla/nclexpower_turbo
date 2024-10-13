@@ -2,7 +2,7 @@ import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import React, { useCallback } from "react";
 import { useSanitizedInputs } from "../../../../../../../../../../../../../../../../hooks/useSanitizeInputs";
 import { DDCAnswerOptionType } from "../../../../../../types";
-import { wordWrapStyles } from "./items";
+import { useStyle } from "../../../../../../../../../../../../../../../../hooks";
 import { PlainSelectField } from "../../../../../../../../../../../../../../../../components/Textfield/SelectField/PlainSelectField";
 
 export interface DDCQuestionProps {
@@ -16,6 +16,8 @@ export const DDCquestion: React.FC<DDCQuestionProps> = ({ ddcData }) => {
   const { purifyInputs } = useSanitizedInputs({
     config: { RETURN_TRUSTED_TYPE: true },
   });
+
+  const { wordWrap } = useStyle();
 
   const renderDropdown = useCallback(
     (optionName: string, answers: DDCAnswerOptionType[]) => {
@@ -67,7 +69,7 @@ export const DDCquestion: React.FC<DDCQuestionProps> = ({ ddcData }) => {
         return (
           <Typography
             key={index}
-            sx={wordWrapStyles}
+            sx={wordWrap}
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
         );

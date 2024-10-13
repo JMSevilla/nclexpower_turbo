@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useSanitizedInputs } from "../../../../../../../../../../../../../../../../hooks/useSanitizeInputs";
-import { wordWrapStyles } from "../Items/items";
 import { SectionContent } from "../../../../../../../../../../../../../types";
+import { useStyle } from "../../../../../../../../../../../../../../../../hooks";
 
 export const BackgroundInfo: React.FC<{ content: SectionContent[] }> = ({
   content,
@@ -9,6 +9,9 @@ export const BackgroundInfo: React.FC<{ content: SectionContent[] }> = ({
   const { purifyInputs } = useSanitizedInputs({
     config: { RETURN_TRUSTED_TYPE: true },
   });
+
+  const { wordWrap } = useStyle();
+
   return (
     <Box
       display="flex"
@@ -27,7 +30,7 @@ export const BackgroundInfo: React.FC<{ content: SectionContent[] }> = ({
               {`SEQUENCE NO. ${data.seqNum}`}
             </Typography>
             <Typography
-              sx={wordWrapStyles}
+              sx={wordWrap}
               dangerouslySetInnerHTML={{
                 __html: purifyInputs(data.seqContent) as TrustedHTML,
               }}

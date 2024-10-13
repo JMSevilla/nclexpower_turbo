@@ -7,15 +7,7 @@ import {
   QuestionnaireItem,
 } from "../../../../../../../../../../../../../types";
 import { useSanitizedInputs } from "../../../../../../../../../../../../../../../../hooks/useSanitizeInputs";
-
-export const wordWrapStyles: SxProps = {
-  "& *": {
-    margin: 0,
-    padding: 0,
-    lineHeight: 1.5,
-    wordBreak: "break-word",
-  },
-};
+import { useStyle } from "../../../../../../../../../../../../../../../../hooks";
 
 const AnswerList: React.FC<{ answers: AnswerOption[] }> = ({ answers }) => {
   return (
@@ -37,6 +29,8 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
     config: { RETURN_TRUSTED_TYPE: true },
   });
 
+  const { wordWrap } = useStyle();
+
   const renderQuestionType = (data: QuestionnaireItem) => {
     switch (data.questionType) {
       case "DDC":
@@ -51,7 +45,7 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
       default:
         return (
           <Typography
-            sx={wordWrapStyles}
+            sx={wordWrap}
             dangerouslySetInnerHTML={{
               __html: purifyInputs(data.itemStem) as TrustedHTML,
             }}
@@ -83,12 +77,7 @@ export const Items: React.FC<{ content: QuestionnaireItem[] }> = ({
       {content.length > 0 ? (
         content.map((data, index) => (
           <Box paddingBottom="14px" key={index}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap="4px"
-              sx={wordWrapStyles}
-            >
+            <Box display="flex" flexDirection="column" gap="4px" sx={wordWrap}>
               {data.transitionHeader && (
                 <Typography
                   sx={{
