@@ -14,9 +14,9 @@ export function ContactFormBlock() {
     defaultValues: contactSchema.getDefault(),
   });
 
-  const { handleSubmit, control, reset , setValue } = form;
+  const { handleSubmit, control, reset , setValue , getValues} = form;
   
-  const [ countryCode , setCountryCode ] = useState<string>("");
+  const { countryCode } = getValues(); 
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
@@ -31,7 +31,6 @@ export function ContactFormBlock() {
 
   const handleSetCountryCode = (code: string) => {
     setValue("countryCode" , code)
-    setCountryCode(code);
   }
 
   return (

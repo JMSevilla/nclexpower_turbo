@@ -15,8 +15,8 @@ interface FormValues {
   control: Control<ContactFormType>;
   handleSubmit: UseFormHandleSubmit<ContactFormType>;
   onSubmit: (data: ContactFormType) => void;
-  handleSetCountryCode: any;
-  countryCode: string;
+  handleSetCountryCode: (data: string) => void;
+  countryCode:string;
 }
 
 export const ContactForm: React.FC<FormValues> = ({
@@ -24,7 +24,7 @@ export const ContactForm: React.FC<FormValues> = ({
   handleSubmit,
   onSubmit,
   handleSetCountryCode,
-  countryCode,
+  countryCode
 }) => {
   return (
     <section className="relative flex justify-center mt-0 lg:mt-[-180px] mb-0 lg:mb-20">

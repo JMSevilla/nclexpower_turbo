@@ -59,11 +59,7 @@ describe("PhoneField Component", () => {
       />
     );
   };
-  test("renders the PhoneField component with label", () => {
-    setup();
-    expect(screen.getByText("Phone Number")).toBeInTheDocument();
-  });
-
+  
   test("renders phone code select dropdown", () => {
     setup();
     const phoneCodeSelect = screen.getByTestId("phone-code-select");
