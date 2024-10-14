@@ -8,6 +8,10 @@ export const contactSchema = yup.object({
     .matches(/^\d*$/, "Phone number must be a valid number")
     .required("Phone number is required")
     .default(""),
+  countryCode: yup  
+    .string()
+    .required("Country Code is required")
+    .default("PH"),
   email: yup
     .string()
     .email("Invalid email")

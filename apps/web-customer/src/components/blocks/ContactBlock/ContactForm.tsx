@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { TextField, Button } from "core-library/components";
+import { TextField, Button, PhoneField } from "core-library/components";
 import { ContactFormType } from "./validation";
 import { Control, UseFormHandleSubmit } from "react-hook-form";
 import { ContactMock, SocialMediaMock } from "../../../core/constant/ContactPageMock";
@@ -12,12 +12,16 @@ interface FormValues {
   control: Control<ContactFormType>;
   handleSubmit: UseFormHandleSubmit<ContactFormType>;
   onSubmit: (data: ContactFormType) => void;
+  handleSetCountryCode: (data: string) => void;
+  countryCode:string;
 }
 
 export const ContactForm: React.FC<FormValues> = ({
   control,
   handleSubmit,
   onSubmit,
+  handleSetCountryCode,
+  countryCode
 }) => {
   return (
       <section className="relative flex justify-center mt-0 lg:mt-[-180px] mb-0 lg:mb-20">
@@ -71,21 +75,14 @@ export const ContactForm: React.FC<FormValues> = ({
                 />
               </Grid>
               <Grid item xs={12} sx={{ marginY: 1, display: "flex", gap: 1 }}>
-                <TextField
-                  name="phone"
-                  control={control}
-                  placeholder="Phone"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "5px",
-                    },
-                    "& .MuiInputBase-input": {
-                      borderRadius: "5px",
-                      padding: "16px",
-                    },
-                  }}
-                  data-testid="phone-input"
-                />
+              <PhoneField
+                name="phone"
+                control={control}
+                countryCode={countryCode}
+                placeholder="Phone"
+                onCountryCodeChanged={(code) => handleSetCountryCode(code)}
+                data-testid="phone-input"
+              />
               </Grid>
               <Grid item xs={12} sx={{ marginY: 2 }}>
                 <TextField

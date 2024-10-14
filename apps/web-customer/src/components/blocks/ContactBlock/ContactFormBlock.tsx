@@ -1,7 +1,7 @@
 import React from "react";
 import { ContactForm } from "./ContactForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { ContactFormType, contactSchema } from "./validation";
 import { useExecuteToast } from "core-library/contexts";
 
@@ -14,7 +14,7 @@ export function ContactFormBlock() {
     defaultValues: contactSchema.getDefault(),
   });
 
-  const { handleSubmit, control, reset } = form;
+  const { handleSubmit, control, reset, setValue } = form;
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
@@ -27,11 +27,22 @@ export function ContactFormBlock() {
     reset();
   };
 
+  const handleSetCountryCode = (code: string) => {
+    setValue("countryCode", code);
+  };
+
+  const countryCode = useWatch({
+    control,
+    name: "countryCode",
+  });
+
   return (
     <ContactForm
       control={control}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      handleSetCountryCode={handleSetCountryCode}
+      countryCode={countryCode}
     />
   );
 }
