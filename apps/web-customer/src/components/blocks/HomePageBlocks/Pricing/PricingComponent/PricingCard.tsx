@@ -1,4 +1,4 @@
-import { FastTrackList, StandardList } from '@/core/constant/HompageMockData';
+import { FastTrackList, StandardList } from 'core-library/core/utils/contants/wc/HomePageData';
 import { ProductCardType, SelectedProductType } from 'core-library/types/global'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import React from 'react'
