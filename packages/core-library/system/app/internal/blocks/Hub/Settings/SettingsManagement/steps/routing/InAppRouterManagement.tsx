@@ -31,7 +31,7 @@ export const InAppRouterManagement: React.FC<Props> = ({
   reset,
 }) => {
   const [view, setView] = useState<boolean>(false);
-  const [createNewMenu, setCreateNewMenu] = useState<boolean>(false);
+  const [IsNewMenuCreated, setIsNewMenuCreated] = useState<boolean>(false);
   const { isAuthenticated } = useAuthContext();
   const { tokenValidated } = useValidateToken();
 
@@ -60,10 +60,10 @@ export const InAppRouterManagement: React.FC<Props> = ({
         }}
       >
         <Box display="flex" gap="10px">
-          {createNewMenu ? (
+          {IsNewMenuCreated ? (
             <Button
               sx={{ borderRadius: "10px", marginBottom: "10px" }}
-              onClick={() => setCreateNewMenu(false)}
+              onClick={() => setIsNewMenuCreated(false)}
             >
               Back
             </Button>
@@ -77,14 +77,14 @@ export const InAppRouterManagement: React.FC<Props> = ({
               </Button>
               <Button
                 sx={{ borderRadius: "10px" }}
-                onClick={() => setCreateNewMenu(true)}
+                onClick={() => setIsNewMenuCreated(true)}
               >
                 Add New Menus
               </Button>
             </>
           )}
         </Box>
-        {createNewMenu ? (
+        {IsNewMenuCreated ? (
           <Box
             sx={{
               width: "100%",

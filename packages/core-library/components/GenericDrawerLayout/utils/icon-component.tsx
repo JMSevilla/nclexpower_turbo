@@ -86,3 +86,62 @@ export const IconComponent = (
       return <FeedIcon color="primary" fontSize="small" />; // Default icon
   }
 };
+
+export const IconList = [
+  {
+    label: "DashboardIcon",
+    icon: DashboardIcon,
+  },
+  {
+    label: "FeedIcon",
+    icon: FeedIcon,
+  },
+  {
+    label: "PersonIcon",
+    icon: PersonIcon,
+  },
+  {
+    label: "QuestionManagementIcon",
+    icon: QuestionAnswerIcon,
+  },
+  {
+    label: "ResultsIcon",
+    icon: ReportIcon,
+  },
+  {
+    label: "SettingsIcon",
+    icon: SettingsIcon,
+  },
+  {
+    label: "SourceIcon",
+    icon: SourceIcon,
+  },
+  {
+    label: "AccountCircleIcon",
+    icon: AccountCircleIcon,
+  },
+  {
+    label: "DeleteOutlineIcon",
+    icon: DeleteOutlineIcon,
+  },
+  {
+    label: "keySquare",
+    icon: (
+      <Image src={keySquare} alt="Key-Square Icon" data-testid="keySquare" />
+    ),
+  },
+  {
+    label: "TRDSquare",
+    icon: (
+      <Image
+        src={TRDSqaureWhite}
+        alt="TRD-Square Icon"
+        data-testid="TRDSquare"
+      />
+    ),
+  },
+  {
+    label: "FiberManualRecord",
+    icon: FiberManualRecord,
+  },
+];

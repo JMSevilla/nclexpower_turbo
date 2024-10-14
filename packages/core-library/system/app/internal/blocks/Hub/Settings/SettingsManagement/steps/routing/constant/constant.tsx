@@ -5,6 +5,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Row, Table } from "@tanstack/react-table";
 import { MenuItems } from "../../../../../../../../../../api/types";
+import { SelectOption } from "../../../../../../../../../../components/Textfield/SelectMultipleField";
 
 export const addMainMenuItem = {
   label: "",
@@ -75,34 +76,16 @@ export const columns = [
   },
 ];
 
-export const userRoleList = [
+const SystemMenu: SelectOption[] = [
   {
-    id: 1,
-    label: "Admin",
-    value: "admin",
-  },
-  {
-    id: 2,
-    label: "Encoder",
-    value: "encoder",
-  },
-  {
-    id: 3,
-    label: "Developer",
-    value: "developer",
-  },
-];
-
-const SystemMenu = [
-  {
-    id: 1,
     label: "Web Backoffice",
-    value: "0",
+    value: 0,
+    xvalue: 0,
   },
   {
-    id: 2,
     label: "Web Customer",
-    value: "1",
+    value: 1,
+    xvalue: 1,
   },
 ];
 
@@ -110,17 +93,17 @@ const AccountLevel = [
   {
     id: 1,
     label: "Developer",
-    value: "0",
+    value: 0,
   },
   {
     id: 2,
     label: "Admin",
-    value: "1",
+    value: 1,
   },
   {
     id: 3,
     label: "Encoder",
-    value: "2",
+    value: 2,
   },
 ];
 
@@ -128,26 +111,26 @@ const MenuEnvironments = [
   {
     id: 1,
     label: "Dev",
-    value: "0",
+    value: 0,
   },
   {
     id: 2,
     label: "Stage",
-    value: "1",
+    value: 1,
   },
   {
     id: 3,
     label: "Preprod",
-    value: "2",
+    value: 2,
   },
   {
     id: 4,
     label: "Prod",
-    value: "3",
+    value: 3,
   },
 ];
 
-export const SysReq = [
+export const SystemRequirements = [
   {
     id: 1,
     label: "System Menus",

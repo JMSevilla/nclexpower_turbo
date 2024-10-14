@@ -12,9 +12,9 @@ import {
   MultipleSelectField,
   Card,
 } from "core-library/components";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import KeyIcon from '@mui/icons-material/Key';
-import SettingsIcon from '@mui/icons-material/Settings';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import KeyIcon from "@mui/icons-material/Key";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 type Props = {
   onSubmit: (value: AccountSetupType) => void;
@@ -65,22 +65,49 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
         gap={2}
         sx={{ height: "auto" }}
       >
-        <Card sx={{ marginTop: 4, height: "auto", backgroundColor: 'rgba(59, 0, 134, 0.05)', gap: 3, paddingX: 4 }}>
+        <Card
+          sx={{
+            marginTop: 4,
+            height: "auto",
+            backgroundColor: "rgba(59, 0, 134, 0.05)",
+            gap: 3,
+            paddingX: 4,
+          }}
+        >
           <div className="flex items-center gap-2 ">
-            <Typography sx={{ color: '#3B0086', fontWeight: 'bold' }}>Basic Information</Typography>
-            <AccountBoxIcon sx={{ color: '#3B0086' }} />
+            <Typography sx={{ color: "#3B0086", fontWeight: "bold" }}>
+              Basic Information
+            </Typography>
+            <AccountBoxIcon sx={{ color: "#3B0086" }} />
           </div>
-          <Typography sx={{ color: '#606060', fontSize: '15px', marginBottom: 3 }}>Enter the user's basic details</Typography>
+          <Typography
+            sx={{ color: "#606060", fontSize: "15px", marginBottom: 3 }}
+          >
+            Enter the user's basic details
+          </Typography>
           <hr className="my-2" />
-          <Box sx={{ gap: 4, display: 'flex', alignItems: 'center', justifyContent: "center", marginTop: 3 }}>
+          <Box
+            sx={{
+              gap: 4,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 3,
+            }}
+          >
             <Grid item md={6} lg={12}>
               <TextField<AccountSetupType>
                 control={control}
                 placeholder="Enter first name"
                 name="firstname"
-                sx={{ borderRadius: "5px", width: "100%", backgroundColor: '#FFFFFF', border: '1px solid #3B0086' }}
+                sx={{
+                  borderRadius: "5px",
+                  width: "100%",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid #3B0086",
+                }}
                 inputProps={{
-                  style: { padding: 20, borderRadius: "3px", },
+                  style: { padding: 20, borderRadius: "3px" },
                 }}
                 onBlur={() => clearErrors()}
               />
@@ -90,9 +117,14 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 control={control}
                 placeholder="Enter middle name"
                 name="middlename"
-                sx={{ borderRadius: "5px", width: "100%", backgroundColor: '#FFF', border: '1px solid #3B0086' }}
+                sx={{
+                  borderRadius: "5px",
+                  width: "100%",
+                  backgroundColor: "#FFF",
+                  border: "1px solid #3B0086",
+                }}
                 inputProps={{
-                  style: { padding: 20, borderRadius: "3px", },
+                  style: { padding: 20, borderRadius: "3px" },
                 }}
                 onBlur={() => clearErrors()}
               />
@@ -102,9 +134,14 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 control={control}
                 placeholder="Enter last name"
                 name="lastname"
-                sx={{ borderRadius: "5px", width: "100%", backgroundColor: '#FFF', border: '1px solid #3B0086' }}
+                sx={{
+                  borderRadius: "5px",
+                  width: "100%",
+                  backgroundColor: "#FFF",
+                  border: "1px solid #3B0086",
+                }}
                 inputProps={{
-                  style: { padding: 20, borderRadius: "3px", },
+                  style: { padding: 20, borderRadius: "3px" },
                 }}
                 onBlur={() => clearErrors()}
               />
@@ -115,25 +152,60 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
             name="accessLevel"
             options={AccountLevel ?? []}
             label="Select Access Level"
-            sx={{ borderRadius: "5px", width: "100%", backgroundColor: '#FFF', border: '1px solid #3B0086', marginTop: 3 }}
+            sx={{
+              borderRadius: "5px",
+              width: "100%",
+              backgroundColor: "#FFF",
+              border: "1px solid #3B0086",
+              marginTop: 3,
+            }}
           />
         </Card>
-        <Card sx={{ marginTop: 4, height: "auto", backgroundColor: 'rgba(59, 0, 134, 0.05)', gap: 3, paddingX: 4 }}>
+        <Card
+          sx={{
+            marginTop: 4,
+            height: "auto",
+            backgroundColor: "rgba(59, 0, 134, 0.05)",
+            gap: 3,
+            paddingX: 4,
+          }}
+        >
           <div className="flex items-center gap-2 ">
-            <Typography sx={{ color: '#3B0086', fontWeight: 'bold' }}>Account Credentials</Typography>
-            <KeyIcon sx={{ color: '#3B0086' }} />
+            <Typography sx={{ color: "#3B0086", fontWeight: "bold" }}>
+              Account Credentials
+            </Typography>
+            <KeyIcon sx={{ color: "#3B0086" }} />
           </div>
-          <Typography sx={{ color: '#606060', fontSize: '15px', marginBottom: 3 }}>Set up password and email address</Typography>
+          <Typography
+            sx={{ color: "#606060", fontSize: "15px", marginBottom: 3 }}
+          >
+            Set up password and email address
+          </Typography>
           <hr />
-          <Box sx={{ width: '100%', gap: 4, display: 'flex', alignItems: 'start', justifyContent: "start", flexDirection: 'column', marginTop: 3 }}>
+          <Box
+            sx={{
+              width: "100%",
+              gap: 4,
+              display: "flex",
+              alignItems: "start",
+              justifyContent: "start",
+              flexDirection: "column",
+              marginTop: 3,
+            }}
+          >
             <Grid item md={6} lg={12}>
               <TextField<AccountSetupType>
                 control={control}
                 placeholder="Enter email address"
                 name="email"
-                sx={{ borderRadius: "5px", width: 600, backgroundColor: '#Fff', border: '1px solid #3B0086' }}
+                sx={{
+                  borderRadius: "5px",
+                  width: 600,
+                  backgroundColor: "#Fff",
+                  border: "1px solid #3B0086",
+                }}
                 inputProps={{
-                  style: { padding: 20, borderRadius: "3px", },
+                  style: { padding: 20, borderRadius: "3px" },
                 }}
                 onBlur={() => clearErrors()}
               />
@@ -144,9 +216,14 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 placeholder="Enter password"
                 name="password"
                 type="password"
-                sx={{ borderRadius: "5px", width: 600, backgroundColor: '#Fff', border: '1px solid #3B0086' }}
+                sx={{
+                  borderRadius: "5px",
+                  width: 600,
+                  backgroundColor: "#Fff",
+                  border: "1px solid #3B0086",
+                }}
                 inputProps={{
-                  style: { padding: 20, borderRadius: "3px", },
+                  style: { padding: 20, borderRadius: "3px" },
                 }}
                 onBlur={() => clearErrors()}
               />
@@ -157,21 +234,40 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
                 placeholder="Confirm Password"
                 name="confirmPassword"
                 type="password"
-                sx={{ borderRadius: "5px", width: 600, backgroundColor: '#Fff', border: '1px solid #3B0086' }}
+                sx={{
+                  borderRadius: "5px",
+                  width: 600,
+                  backgroundColor: "#Fff",
+                  border: "1px solid #3B0086",
+                }}
                 inputProps={{
-                  style: { padding: 20, borderRadius: "3px", },
+                  style: { padding: 20, borderRadius: "3px" },
                 }}
                 onBlur={() => clearErrors()}
               />
             </Grid>
           </Box>
         </Card>
-        <Card sx={{ marginTop: 4, height: "auto", backgroundColor: 'rgba(59, 0, 134, 0.05)', gap: 3, paddingX: 4 }}>
+        <Card
+          sx={{
+            marginTop: 4,
+            height: "auto",
+            backgroundColor: "rgba(59, 0, 134, 0.05)",
+            gap: 3,
+            paddingX: 4,
+          }}
+        >
           <div className="flex items-center gap-2 ">
-            <Typography sx={{ color: '#3B0086', fontWeight: 'bold' }}>Permission Routes</Typography>
-            <SettingsIcon sx={{ color: '#3B0086', }} />
+            <Typography sx={{ color: "#3B0086", fontWeight: "bold" }}>
+              Permission Routes
+            </Typography>
+            <SettingsIcon sx={{ color: "#3B0086" }} />
           </div>
-          <Typography sx={{ color: '#606060', fontSize: '15px', marginBottom: 3 }}>Select all available routes for the user</Typography>
+          <Typography
+            sx={{ color: "#606060", fontSize: "15px", marginBottom: 3 }}
+          >
+            Select all available routes for the user
+          </Typography>
           <hr />
           <MultipleSelectField
             control={control}
@@ -179,11 +275,24 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
             label="Set Access Routes"
             options={internalRoutes ?? []}
             multiple
-            sx={{ borderRadius: "5px", width: "100%", backgroundColor: '#FFF', border: '1px solid #3B0086', marginTop: 3 }}
+            sx={{
+              borderRadius: "5px",
+              width: "100%",
+              backgroundColor: "#FFF",
+              border: "1px solid #3B0086",
+              marginTop: 3,
+            }}
             onChange={handleOnChange}
           />
         </Card>
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'start', justifyContent: 'start' }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "start",
+            justifyContent: "start",
+          }}
+        >
           <Button
             fullWidth
             onClick={handleSubmit(onSubmit)}
@@ -196,13 +305,13 @@ export default function InternalUsersForm({ onSubmit, isLoading }: Props) {
               py: 2,
               backgroundColor: "#3B0086",
               borderRadius: "6px",
-              color: '#F3F3F3',
-              '&:hover': {
-                backgroundColor: 'rgba(59, 0, 134, 0.95)',
+              color: "#F3F3F3",
+              "&:hover": {
+                backgroundColor: "rgba(59, 0, 134, 0.95)",
               },
             }}
           >
-            <Typography sx={{ color: '#FFF' }}>Submit</Typography>
+            <Typography sx={{ color: "#FFF" }}>Submit</Typography>
           </Button>
         </Box>
       </Grid>

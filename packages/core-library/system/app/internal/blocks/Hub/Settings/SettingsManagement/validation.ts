@@ -37,12 +37,13 @@ export const subMenu = yup.object({
 });
 
 export const RouteMenuCreation = yup.object({
-  systemMenus: yup.string().required("System Menus is required"),
-  accountLevel: yup.string().required("Account Level is required"),
-  menuEnvironments: yup.string().required("Menu Environments is required"),
+  systemMenus: yup.number().required("System Menus is required"),
+  accountLevel: yup.number().required("Account Level is required"),
+  menuEnvironments: yup.number().required("Menu Environments is required"),
   MenuItems: yup.array().of(
     yup.object().shape({
       type: yup.string().oneOf(["Main", "SubMenu"]),
+      icon: yup.string(),
       label: yup.string().when("type", {
         is: (val: string) => val === "Main" || val === "SubMenu",
         then: (schema) => schema.required("Menu Label is required"),
