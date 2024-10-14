@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { MenuType, SettingsSelectionType } from "../../types";
+import { SettingsSelectionType } from "../../types";
 import {
   Button,
   Card,
@@ -13,7 +13,6 @@ import React, { useState } from "react";
 import { RouteCreationForm } from "./components/RouteCreationForm";
 import { RouteCreationSidebar } from "./components/RouteCreationSidebar";
 import { columns } from "./constant/constant";
-import { TypeCreationSelection } from "./components/TypeCreationSelection";
 import { FormProvider, useForm } from "react-hook-form";
 import { RouteManagementSchema, RouteMenuCreation } from "../../validation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,7 +31,7 @@ export const InAppRouterManagement: React.FC<Props> = ({
   reset,
 }) => {
   const [view, setView] = useState<boolean>(false);
-  const [createMainType, setCreateMainType] = useState<MenuType>();
+  const [createNewMenu, setCreateNewMenu] = useState<boolean>(false);
   const { isAuthenticated } = useAuthContext();
   const { tokenValidated } = useValidateToken();
 
@@ -60,12 +59,41 @@ export const InAppRouterManagement: React.FC<Props> = ({
           gap: 5,
         }}
       >
-        <Box>
-          <Button sx={{ borderRadius: "10px" }} onClick={() => setView(!view)}>
-            View
-          </Button>
+        <Box display="flex" gap="10px">
+          {createNewMenu ? (
+            <Button
+              sx={{ borderRadius: "10px", marginBottom: "10px" }}
+              onClick={() => setCreateNewMenu(false)}
+            >
+              Back
+            </Button>
+          ) : (
+            <>
+              <Button
+                sx={{ borderRadius: "10px" }}
+                onClick={() => setView(!view)}
+              >
+                View
+              </Button>
+              <Button
+                sx={{ borderRadius: "10px" }}
+                onClick={() => setCreateNewMenu(true)}
+              >
+                Add New Menus
+              </Button>
+            </>
+          )}
         </Box>
-        {view ? (
+        {createNewMenu ? (
+          <Box
+            sx={{
+              width: "100%",
+              gap: "10px",
+            }}
+          >
+            <RouteCreationForm />
+          </Box>
+        ) : view ? (
           <Box sx={{ display: "flex", gap: "10px" }}>
             <Card
               elevation={5}
@@ -77,25 +105,6 @@ export const InAppRouterManagement: React.FC<Props> = ({
             >
               {menuLoading ? "Loading" : <RouteCreationSidebar menus={menus} />}
             </Card>
-            {!createMainType && (
-              <TypeCreationSelection setCreateMainType={setCreateMainType} />
-            )}
-            {createMainType && (
-              <Box
-                sx={{
-                  width: "100%",
-                  gap: "10px",
-                }}
-              >
-                <Button
-                  sx={{ borderRadius: "10px", marginBottom: "10px" }}
-                  onClick={() => setCreateMainType(null)}
-                >
-                  Back
-                </Button>
-                <RouteCreationForm type={createMainType} />
-              </Box>
-            )}
           </Box>
         ) : (
           <Card>

@@ -9,12 +9,16 @@ import {
   Settings as SettingsIcon,
   Source as SourceIcon,
   AccountCircle as AccountCircleIcon,
+  DeleteOutline as DeleteOutlineIcon,
   FiberManualRecord,
 } from "@mui/icons-material";
 
 import { keySquare, TRDSqaureWhite, TRDSquare } from "../../../assets";
 
-export const IconComponent = (iconName: string, open: boolean): React.ReactNode => {
+export const IconComponent = (
+  iconName: string,
+  open?: boolean
+): React.ReactNode => {
   switch (iconName) {
     case "DashboardIcon":
       return <DashboardIcon color="primary" fontSize="small" />;
@@ -32,10 +36,14 @@ export const IconComponent = (iconName: string, open: boolean): React.ReactNode 
       return <SourceIcon color="primary" fontSize="small" />;
     case "ApprovalIcon":
       return <AccountCircleIcon color="primary" fontSize="small" />;
+    case "DeleteIcon":
+      return <DeleteOutlineIcon color="primary" fontSize="small" />;
     case "keySquare":
       return <Image src={keySquare} alt="Key-Square Icon" />;
     case "TRDSquare":
-      return <Image src={open ? TRDSqaureWhite : TRDSquare} alt="TRD-Square Icon" />;
+      return (
+        <Image src={open ? TRDSqaureWhite : TRDSquare} alt="TRD-Square Icon" />
+      );
     case "DotsIcon":
       return <FiberManualRecord sx={{ color: "white", fontSize: "13px" }} />;
 

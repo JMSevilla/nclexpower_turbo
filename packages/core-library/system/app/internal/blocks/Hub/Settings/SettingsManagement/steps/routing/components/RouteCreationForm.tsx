@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, ListItemIcon } from "@mui/material";
 import {
   Button,
   Card,
@@ -7,18 +7,32 @@ import {
 } from "../../../../../../../../../../components";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { RouteManagementSchema } from "../../../validation";
-import { userRoleList } from "../constant/constant";
+import { addMainMenuItem, addSubMenuItem, SysReq } from "../constant/constant";
+import { SubMenu } from "../../ImageManagement/components/SubMenu";
+import { IconComponent } from "../../../../../../../../../../components/GenericDrawerLayout/utils/icon-component";
+import {
+  cardStyle,
+  deleteIconStyle,
+  menuFieldStyle,
+  menuOptionStyle,
+} from "../style";
 
-interface Props {
-  type: string;
-}
-
-export const RouteCreationForm = ({ type }: Props) => {
+export const RouteCreationForm = () => {
   const { control: formControl, handleSubmit } =
     useFormContext<RouteManagementSchema>();
-  const { append, fields } = useFieldArray<RouteManagementSchema>({
-    name: "children",
+
+  const { append, fields, remove } = useFieldArray<RouteManagementSchema>({
+    control: formControl,
+    name: "MenuItems",
   });
+
+  const handleOptionSelect = (type: string) => {
+    type == "Main"
+      ? append(addMainMenuItem)
+      : type == "SubMenu"
+        ? append(addSubMenuItem)
+        : null;
+  };
 
   const onSubmit = (values: RouteManagementSchema) => {
     console.log("values : ", values);
@@ -33,76 +47,120 @@ export const RouteCreationForm = ({ type }: Props) => {
         gap: "10px",
       }}
     >
-      {type == "Main" ? (
-        <Card
-          sx={{
-            bgcolor: "white",
-            height: "fit-content",
-            borderRadius: "10px",
-          }}
-        >
-          <MultipleSelectField
-            control={formControl}
-            name="userRole"
-            label="User Role/s"
-            options={userRoleList ?? []}
-            multiple
-            sx={{ mt: 3, width: "100%" }}
-          />
-          <TextField name="label" control={formControl} label="Label" />
-          <TextField name="path" control={formControl} label="Path" />
-        </Card>
-      ) : (
-        <Card
-          sx={{
-            bgcolor: "white",
-            height: "fit-content",
-            borderRadius: "10px",
-          }}
-        >
-          <MultipleSelectField
-            control={formControl}
-            name="userRole"
-            label="User Role/s"
-            options={userRoleList ?? []}
-            multiple
-            sx={{ mt: 3, width: "100%" }}
-          />
-          <TextField name="label" control={formControl} label="Label" />
-          <Card sx={{ marginTop: "10px", width: "100%", borderRadius: "10px" }}>
-            {fields.map((menuItem, index) => (
-              <Box
-                key={menuItem.id}
-                sx={{
-                  marginTop: "10px",
-                  display: "flex",
-                  width: "100%",
-                  gap: "25px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <TextField
-                  control={formControl}
-                  name={`children.${index}.label`}
-                  label="Sub menu Label"
-                />
-                <TextField
-                  control={formControl}
-                  name={`children.${index}.path`}
-                  label="Sub menu Path"
-                />
+      <Box
+        sx={{
+          display: "flex",
+          gap: "10px",
+          width: "100%",
+        }}
+      >
+        {SysReq.length > 0 &&
+          SysReq.map((item) => (
+            <Box sx={{ width: "33%" }}>
+              <MultipleSelectField
+                control={formControl}
+                name={item.value}
+                label={item.label}
+                options={item.options ?? []}
+                sx={{ width: "100%" }}
+              />
+            </Box>
+          ))}
+      </Box>
+      <Box sx={menuFieldStyle}>
+        {fields.length > 0 &&
+          fields.map((menuItem, index) => {
+            return (
+              <Box sx={{ width: "70%" }} key={menuItem.id}>
+                {menuItem.type === "Main" ? (
+                  <Box display="flex" gap={5}>
+                    <Card
+                      sx={{
+                        bgcolor: "white",
+                        height: "fit-content",
+                        borderRadius: "10px",
+                        padding: "10px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: "10px",
+                          width: "100%",
+                          bgcolor: "#fefefe",
+                          marginTop: "15px",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginBottom: "15px",
+                        }}
+                      >
+                        <TextField
+                          name={`MenuItems.${index}.label`}
+                          control={formControl}
+                          label="Label"
+                        />
+                        <TextField
+                          name={`MenuItems.${index}.path`}
+                          control={formControl}
+                          label="Path"
+                        />
+                      </Box>
+                    </Card>
+                    <ListItemIcon
+                      sx={deleteIconStyle}
+                      onClick={() => remove(index)}
+                    >
+                      {IconComponent("DeleteIcon")}
+                    </ListItemIcon>
+                  </Box>
+                ) : menuItem.type === "SubMenu" ? (
+                  <Box display="flex" gap={5}>
+                    <Card
+                      sx={{
+                        bgcolor: "white",
+                        height: "fit-content",
+                        borderRadius: "10px",
+                        padding: "10px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <TextField
+                        name={`MenuItems.${index}.label`}
+                        control={formControl}
+                        label="Menu with Sub Menu Label"
+                      />
+                      <Card
+                        sx={{
+                          marginTop: "10px",
+                          width: "100%",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        <SubMenu nestIndex={index} />
+                      </Card>
+                    </Card>
+                    <ListItemIcon
+                      sx={deleteIconStyle}
+                      onClick={() => remove(index)}
+                    >
+                      {IconComponent("DeleteIcon")}
+                    </ListItemIcon>
+                  </Box>
+                ) : null}
               </Box>
-            ))}
-            <Button
-              sx={{ borderRadius: "10px", marginTop: "10px" }}
-              onClick={() => append({ label: "", path: "" })}
-            >
-              Add Sub Menu
-            </Button>
+            );
+          })}
+        <Box sx={menuOptionStyle}>
+          <Card onClick={() => handleOptionSelect("Main")} sx={cardStyle}>
+            Menu
           </Card>
-        </Card>
-      )}
+          <Card onClick={() => handleOptionSelect("SubMenu")} sx={cardStyle}>
+            Menu with Sub Menu
+          </Card>
+        </Box>
+      </Box>
+
       <Button
         buttonActionType="submit"
         onClick={handleSubmit(onSubmit)}

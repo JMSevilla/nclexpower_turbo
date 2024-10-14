@@ -36,33 +36,38 @@ export const subMenu = yup.object({
   path: yup.string().required("Path is required"),
 });
 
-export const routeManagementSchema = yup.object({
-  userRole: yup
-    .array()
-    .min(1, "You can't leave this blank.")
-    .required("User Role is required"),
-  label: yup.string().when("type", {
-    is: (val: string) => val === "Main" || val === "SubMenu",
-    then: (schema) => schema.required("Menu Label is required"),
-    otherwise: (schema) => schema.notRequired(),
-  }),
-  path: yup.string().when("type", {
-    is: "Main",
-    then: (schema) => schema.required("Path is required"),
-    otherwise: (schema) => schema.notRequired(),
-  }),
-  children: yup.array().when("type", {
-    is: "SubMenu",
-    then: (schema) =>
-      schema.of(subMenu).min(1, "At least one submenu is required"),
-    otherwise: (schema) => schema.notRequired(),
-  }),
+export const RouteMenuCreation = yup.object({
+  systemMenus: yup.string().required("System Menus is required"),
+  accountLevel: yup.string().required("Account Level is required"),
+  menuEnvironments: yup.string().required("Menu Environments is required"),
+  MenuItems: yup.array().of(
+    yup.object().shape({
+      type: yup.string().oneOf(["Main", "SubMenu"]),
+      label: yup.string().when("type", {
+        is: (val: string) => val === "Main" || val === "SubMenu",
+        then: (schema) => schema.required("Menu Label is required"),
+        otherwise: (schema) => schema.notRequired(),
+      }),
+      path: yup.string().when("type", {
+        is: "Main",
+        then: (schema) => schema.required("Path is required"),
+        otherwise: (schema) => schema.notRequired(),
+      }),
+      children: yup.array().when("type", {
+        is: "SubMenu",
+        then: (schema) =>
+          schema
+            .of(
+              yup.object().shape({
+                label: yup.string().required("Sub menu label is required"),
+                path: yup.string().required("Sub menu path is required"),
+              })
+            )
+            .min(1, "At least one submenu is required"),
+        otherwise: (schema) => schema.notRequired(),
+      }),
+    })
+  ),
 });
-
-export const RouteMenuCreation = yup
-  .object({
-    type: yup.string().required("Type is required").oneOf(["Main", "SubMenu"]),
-  })
-  .concat(routeManagementSchema);
 
 export type RouteManagementSchema = yup.InferType<typeof RouteMenuCreation>;

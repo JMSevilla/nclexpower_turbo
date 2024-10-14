@@ -151,7 +151,7 @@ const UnauthencatedMenu: NavigationType[] = [
   },
 ];
 
-type PrepareMenu = {
+export type PrepareMenu = {
   isAuthenticated: boolean;
   menus: MenuItems[];
   loading: boolean;
