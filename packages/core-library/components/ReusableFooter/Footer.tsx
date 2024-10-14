@@ -24,10 +24,11 @@ export const Footer: React.FC<FooterProps> = (props) => {
       <Box
         width={1}
         sx={{
+          height: { xs: 'auto', md: '300px' },
           padding: ' 2.5rem',
           color: 'white',
           backgroundColor: '#040814',
-          paddingY: 5,
+          paddingY: 10,
           fontFamily: 'PT Sans',
           flexGrow: 1,
         }}
@@ -35,7 +36,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
         <Grid
           container
           spacing={{ xs: 2, md: 1 }}
-          columns={{ xs: 2, sm: 2, md: 13 }}
+          columns={{ xs: 2, sm: 2, md: 12 }}
           sx={{
             display: 'flex',
             width: '100%',
@@ -53,6 +54,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 justifyContent: 'center',
                 width: '25%',
                 gap: 5,
+                marginBottom: { xs: 3, md: 0 },
               }}
             >
               <Image
@@ -72,13 +74,14 @@ export const Footer: React.FC<FooterProps> = (props) => {
               flexDirection: { xs: 'column', sm: 'row' },
               alignItems: 'start',
               width: '100%',
+              gap: { xs: 2, md: 4 },
             }}
           >
             <Grid
               item
               xs={12}
               sm={7}
-              md={5}
+              md={6}
               sx={{
                 width: '100%',
                 display: 'flex',
@@ -87,22 +90,27 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 textAlign: { xs: 'center', sm: 'start' },
               }}
             >
-              <Typography sx={{ marginBottom: 2 }}>
+              <Typography
+                sx={{
+                  marginBottom: 5,
+                  fontSize: { xs: '14px', sm: '16px', md: '18px' },
+                }}
+              >
                 {props.info.address}
               </Typography>
               <Grid
                 sx={{
                   marginBottom: { xs: 2, md: 6 },
                   gap: 2,
-                  width: '70%',
+                  width: '100%',
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: { xs: 'space-evenly', sm: 'space-between' },
                   flexDirection: { xs: 'row', sm: 'column' },
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: '12px',
+                    fontSize: { xs: '12px', sm: '14px' },
                     width: 'fit-content',
                     borderBottom: 2,
                     borderBlockColor: '#f5c206',
@@ -112,7 +120,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: '12px',
+                    fontSize: { xs: '12px', sm: '14px' },
                     width: 'fit-content',
                     borderBottom: 2,
                     borderBlockColor: '#f5c206',
@@ -142,7 +150,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
                       {props.list.length > 0 &&
                         list.items.map((item, index) => (
                           <li key={index}>
-                            <a href={item.path} className='text-white'>
+                            <a
+                              href={item.path}
+                              className='text-white text-sm md:text-base lg:text-lg'
+                            >
                               {item.label}
                             </a>
                           </li>
@@ -153,7 +164,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
             </Grid>
           </Grid>
         </Grid>
-        <div className='text-xs'>
+        <div className='text-xs '>
           <p className='w-full text-center pt-4'>
             NCLEX-RN® and NCLEX-PN® are registered trademarks of the National
             Council of State Boards of Nursing, Inc (NCSBN®)
