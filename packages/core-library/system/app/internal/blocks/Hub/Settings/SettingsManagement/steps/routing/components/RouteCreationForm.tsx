@@ -71,14 +71,15 @@ export const RouteCreationForm = () => {
         {fields.length > 0 &&
           fields.map((menuItem, index) => {
             return (
-              <Box sx={{ width: "70%" }} key={menuItem.id}>
+              <Box sx={{ width: "100%" }} key={menuItem.id}>
                 {menuItem.type === "Main" ? (
-                  <Box display="flex" gap={5}>
+                  <Box display="flex" gap={5} width="100%">
                     <Card
                       sx={{
                         bgcolor: "white",
                         height: "fit-content",
                         borderRadius: "10px",
+                        width: "100%",
                         padding: "10px",
                         marginBottom: "10px",
                       }}
@@ -115,13 +116,14 @@ export const RouteCreationForm = () => {
                     </ListItemIcon>
                   </Box>
                 ) : menuItem.type === "SubMenu" ? (
-                  <Box display="flex" gap={5}>
+                  <Box display="flex" gap={5} width="100%">
                     <Card
                       sx={{
                         bgcolor: "white",
                         height: "fit-content",
                         borderRadius: "10px",
                         padding: "10px",
+                        width: "100%",
                         marginBottom: "10px",
                       }}
                     >
