@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Accordion, AccordionSlots, Fade } from "@mui/material";
-import { StandardProgramListType } from "../../core/types/programList";
+import { StandardProgramListType } from "core-library/types/wc/programList";
 import useCalculateProgramProgress from "../../core/hooks/useCalculateProgramProgress";
 import { CustomAccordionSummary } from "./AccordionSummary";
 import { CustomAccordionDetails } from "./AccordionDetails";

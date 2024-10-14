@@ -1,3 +1,8 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import React, { useState } from "react";
 import Image from "next/image";
 import { Box } from "@mui/material";
@@ -6,7 +11,7 @@ import {
   InProgressWhiteIcon,
   CompletedWhiteIcon,
 } from "core-library/assets";
-import { StandardProgramListType } from "../../../../core/types/programList";
+import { StandardProgramListType } from "core-library/types/wc/programList";
 import useCalculateProgramProgress from "../../../../core/hooks/useCalculateProgramProgress";
 import { ProgressCircle } from "../../../../components/ProgressCircle/ProgressCircle";
 import { DialogBox } from "core-library/components/Dialog/DialogBox";
