@@ -10,7 +10,6 @@ import {
   Settings as SettingsIcon,
 } from "@mui/icons-material";
 
-
 jest.mock("../../config", () => ({
   config: { value: jest.fn() },
 }));
@@ -45,6 +44,12 @@ describe("IconComponent", () => {
   it("should render SettingsIcon when 'SettingsIcon' is passed", () => {
     renderIcon("SettingsIcon");
     const icon = screen.getByTestId("SettingsIcon");
+    expect(icon).toBeInTheDocument();
+  });
+
+  it("should render SourceIcon when 'SourceIcon' is passed", () => {
+    renderIcon("SourceIcon");
+    const icon = screen.getByTestId("SourceIcon");
     expect(icon).toBeInTheDocument();
   });
 });
