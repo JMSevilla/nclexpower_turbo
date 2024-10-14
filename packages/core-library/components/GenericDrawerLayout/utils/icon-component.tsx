@@ -27,25 +27,60 @@ export const IconComponent = (
     case "PersonIcon":
       return <PersonIcon color="primary" fontSize="small" />;
     case "QuestionManagementIcon":
-      return <QuestionAnswerIcon color="primary" fontSize="small" />;
+      return (
+        <QuestionAnswerIcon
+          color="primary"
+          fontSize="small"
+          data-testid="QuestionManagementIcon"
+        />
+      );
     case "ResultsIcon":
-      return <ReportIcon color="primary" fontSize="small" />;
+      return (
+        <ReportIcon
+          color="primary"
+          fontSize="small"
+          data-testid="ResultsIcon"
+        />
+      );
     case "SettingsIcon":
       return <SettingsIcon color="primary" fontSize="small" />;
     case "SourceIcon":
       return <SourceIcon color="primary" fontSize="small" />;
     case "ApprovalIcon":
-      return <AccountCircleIcon color="primary" fontSize="small" />;
+      return (
+        <AccountCircleIcon
+          color="primary"
+          fontSize="small"
+          data-testid="ApprovalIcon"
+        />
+      );
     case "DeleteIcon":
-      return <DeleteOutlineIcon color="primary" fontSize="small" />;
+      return (
+        <DeleteOutlineIcon
+          color="primary"
+          fontSize="small"
+          data-testid="DeleteIcon"
+        />
+      );
     case "keySquare":
-      return <Image src={keySquare} alt="Key-Square Icon" />;
+      return (
+        <Image src={keySquare} alt="Key-Square Icon" data-testid="keySquare" />
+      );
     case "TRDSquare":
       return (
-        <Image src={open ? TRDSqaureWhite : TRDSquare} alt="TRD-Square Icon" />
+        <Image
+          src={open ? TRDSqaureWhite : TRDSquare}
+          alt="TRD-Square Icon"
+          data-testid="TRDSquare"
+        />
       );
     case "DotsIcon":
-      return <FiberManualRecord sx={{ color: "white", fontSize: "13px" }} />;
+      return (
+        <FiberManualRecord
+          sx={{ color: "white", fontSize: "13px" }}
+          data-testid="DotsIcon"
+        />
+      );
 
     default:
       return <FeedIcon color="primary" fontSize="small" />; // Default icon
