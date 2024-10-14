@@ -12,21 +12,6 @@ import {
 } from "../../../../../../../../../../components/GenericDrawerLayout/utils/icon-component";
 import { deleteIconStyle } from "../../routing/style";
 
-interface MenuItem {
-  type?: string;
-  icon?: string;
-  path?: string;
-  label?: string;
-  children?: MenuItem[];
-}
-
-interface FormData {
-  MenuItems?: MenuItem[];
-  systemMenus?: number;
-  accountLevel?: number;
-  menuEnvironments?: number;
-}
-
 export const SubMenu = ({ nestIndex }: { nestIndex: number }) => {
   const { control: formControl, setValue } =
     useFormContext<RouteManagementSchema>();

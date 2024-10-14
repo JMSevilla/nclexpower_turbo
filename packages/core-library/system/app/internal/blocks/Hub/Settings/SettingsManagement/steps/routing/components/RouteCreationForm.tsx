@@ -75,7 +75,6 @@ export const RouteCreationForm = () => {
               <Box sx={{ width: "100%" }} key={index}>
                 <MenuSelector
                   key={index}
-                  menuItem={menuItem}
                   index={index}
                   type={type}
                   MainMenuRemove={MainMenuRemove}
