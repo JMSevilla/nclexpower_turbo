@@ -1,5 +1,10 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import { Box, Typography, Chip } from '@mui/material';
-import { ControlledCheckbox, TextField, Card, ComponentLoader } from '../../../../../../../../../../components';
+import { ControlledCheckbox, TextAreaField, Card, ComponentLoader } from '../../../../../../../../../../components';
 import { Control, FormProvider, useForm, UseFormClearErrors, UseFormHandleSubmit, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -8,6 +13,7 @@ import { author, mainContent, RadioData } from "./ContentReviewerData";
 import { CustomPopover } from '../../../../../../../../../../components/Popover/Popover';
 import ContentReviewerDialog from './ContentReviewerDialog';
 import ConfirmationModal from '../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog';
+import React from 'react';
 
 interface ContentViewerFormProps {
   control: Control<crbType>;
@@ -15,9 +21,9 @@ interface ContentViewerFormProps {
   setValue: UseFormSetValue<crbType>;
   watch: UseFormWatch<crbType>;
   clearErrors: UseFormClearErrors<crbType>;
-  isLoading?: boolean;
   isApproved?: boolean;
   showModal?: boolean;
+  contentLoader?: boolean;
   onSubmit: (values: crbType) => void;
 };
 
@@ -68,10 +74,10 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
   setValue,
   watch,
   clearErrors,
-  isLoading,
   isApproved,
   showModal,
   onSubmit,
+  contentLoader
 }) => {
 
   const form = useForm<crbType>({
@@ -81,12 +87,95 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
 
   const selectedOption = watch("option");
 
+  if (contentLoader) {
+    return <ComponentLoader/>
+  };
+
+  const modalContent = showModal ? (
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "end",
+        zIndex: 1,
+      }}
+    >
+      <ContentReviewerDialog />
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "end",
+        zIndex: 1,
+      }}
+    >
+      <CustomPopover
+        icon={<ArrowDropDownIcon />}
+        open={true}
+        label="Review Changes"
+        sx={{
+          px: 4,
+          py: 2,
+          backgroundColor: "#343a40",
+          borderRadius: "10px",
+          color: "#F3F3F3",
+          "&:hover": {
+            backgroundColor: "#212529",
+          },
+          zIndex: 1,
+        }}
+      >
+        <Card
+          sx={{
+            width: "100%",
+            padding: 6,
+            border: "1px solid #80ed99",
+            zIndex: 1,
+          }}
+        >
+          <Typography sx={{ fontSize: "1.4rem", color: "#560bad" }}>
+            Write your review
+          </Typography>
+          <hr className="my-4" />
+          <div className="flex flex-col z-0">
+            <TextAreaField
+              name="comment"
+              control={control}
+              style={{ width: 400 }}
+            />
+            {RadioData.map((item, index) => (
+              <ControlledCheckbox
+                key={index}
+                name="option"
+                control={control}
+                label={item.title}
+                value={item.value}
+                checked={selectedOption === item.value}
+                onChange={() => setValue("option", item.value)}
+              />
+            ))}
+          </div>
+          <Box sx={{ zIndex: 4 }}>
+            <ConfirmationModal
+              customButton="Continue"
+              dialogContent="Are you sure you want to proceed with the selected action"
+              confirmButtonText="Confirm"
+              isLoading={contentLoader ?? false}
+              handleSubmit={handleSubmit(onSubmit)}
+            />
+          </Box>
+        </Card>
+      </CustomPopover>
+    </Box>
+  );
+
   return (
     <Box className="relative">
       <FormProvider {...form}>
-        {isLoading && (
-          <ComponentLoader size={60} color="info" position="absolute" />
-        )}
         <Box
           sx={{
             display: "flex",
@@ -100,19 +189,29 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
             >
               Content Details:
             </Typography>
-            {author.map((item, index) => (
-              <Box key={index}>
+            {author ? (
+              <React.Fragment>
+                {author.map((item, index) => (
+                  <Box key={index}>
+                    <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                      Author Details:{" "}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                      {item.author}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                      {item.createdDate}
+                    </Typography>
+                  </Box>
+                ))}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
                 <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
-                  Author Details:{" "}
+                  Author details unavailable...
                 </Typography>
-                <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
-                  {item.author}
-                </Typography>
-                <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
-                  {item.createdDate}
-                </Typography>
-              </Box>
-            ))}
+              </React.Fragment>
+            )}
           </Box>
           {isApproved ? (
             <Chip
@@ -130,91 +229,7 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
             />
           )}
         </Box>
-        {showModal ? (
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
-              zIndex: 1,
-            }}
-          >
-            <ContentReviewerDialog />
-          </Box>
-        ) : (
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
-              zIndex: 1,
-            }}
-          >
-            <CustomPopover
-              icon={<ArrowDropDownIcon />}
-              open={true}
-              label="Review Changes"
-              sx={{
-                px: 4,
-                py: 2,
-                backgroundColor: "#343a40",
-                borderRadius: "10px",
-                color: "#F3F3F3",
-                "&:hover": {
-                  backgroundColor: "#212529",
-                },
-                zIndex: 1,
-              }}
-            >
-              <Card
-                sx={{
-                  width: "100%",
-                  padding: 6,
-                  border: "1px solid #80ed99",
-                  zIndex: 1,
-                }}
-              >
-                <Typography sx={{ fontSize: "1.4rem", color: "#560bad" }}>
-                  Write your review
-                </Typography>
-                <hr className="my-4" />
-                <div className="flex flex-col z-0">
-                  <TextField
-                    control={control}
-                    multiline
-                    rows={4}
-                    name="comment"
-                    placeholder="Leave a comment..."
-                    sx={{ width: 500 }}
-                    onBlur={() => clearErrors()}
-                  />
-                  {RadioData.map((item, index) => (
-                    <ControlledCheckbox
-                      key={index}
-                      name="option"
-                      control={control}
-                      label={item.title}
-                      value={item.value}
-                      checked={selectedOption === item.value}
-                      onChange={() => setValue("option", item.value)}
-                    />
-                  ))}
-                </div>
-                <Box sx={{ zIndex: 4 }}>
-                  <ConfirmationModal
-                    customButton="Continue"
-                    dialogContent="Are you sure you want to proceed with the selected action"
-                    confirmButtonText="Confirm"
-                    isLoading={false}
-                    handleSubmit={handleSubmit(onSubmit)}
-                  />
-                </Box>
-              </Card>
-            </CustomPopover>
-          </Box>
-        )}
+        {modalContent}
         <MainContent />
       </FormProvider>
     </Box>

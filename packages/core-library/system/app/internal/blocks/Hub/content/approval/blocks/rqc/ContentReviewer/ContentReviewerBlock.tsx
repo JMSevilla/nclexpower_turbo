@@ -1,12 +1,18 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import ContentApproverForm from './ContentApproverForm';
 import { ContentReviewerForm } from './ContentReviewerForm';
 import { Button, Card } from '../../../../../../../../../../components';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useExecuteToast } from '../../../../../../../../../../contexts';
 import { crbSchema, crbType } from './validation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { usePageLoaderContext } from '../../../../../../../../../../contexts/PageLoaderContext';
 
 type Props = {
   nextStep(values: {}): void;
@@ -15,9 +21,10 @@ type Props = {
 }
 
 export default function ContentReviewerBlock({ nextStep, previousStep }: Props) {
-  const [isLoading , setIsLoading] = useState<boolean>(false);
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const { contentLoader, setContentLoader } = usePageLoaderContext();
 
   const toast = useExecuteToast();
 
@@ -33,12 +40,11 @@ export default function ContentReviewerBlock({ nextStep, previousStep }: Props) 
 
   const { control, handleSubmit, setValue, watch, clearErrors, reset } = form;
   
-  const onSubmit = async (values: crbType) => {
-    console.log("Selected Option:", values);
+  async function onSubmit(values: crbType){
     if (values.option === 0) {
       try {
         setShowModal(true);
-        setIsLoading(true);
+        setContentLoader(true);
         // add api here for submitting content review
         await new Promise((resolve) => setTimeout(resolve, 3000));
         setIsApproved(true);
@@ -52,10 +58,10 @@ export default function ContentReviewerBlock({ nextStep, previousStep }: Props) 
           type: "error",
         });
       } finally {
-        setIsLoading(false);
+        setContentLoader(false);
+        reset();
       }
     }
-    reset();
   };
 
   return (
@@ -83,7 +89,7 @@ export default function ContentReviewerBlock({ nextStep, previousStep }: Props) 
           setValue={setValue}
           watch={watch}
           clearErrors={clearErrors}
-          isLoading={isLoading}
+          contentLoader={contentLoader}
           isApproved={isApproved}
           onSubmit={onSubmit}
           showModal={showModal}
