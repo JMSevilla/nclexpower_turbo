@@ -1,3 +1,9 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
+
 import Image from 'next/image';
 import { NCLEXYellowLogo } from '../../assets';
 import { FooterProps } from '../../types/global';
