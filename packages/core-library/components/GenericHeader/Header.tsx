@@ -137,13 +137,17 @@ export const Header: React.FC<Props> = ({
             {isMobile && <Grid item></Grid>}
           </Grid>
           <Grid item xs={12} position="relative"></Grid>
-          {isInWebcHub && (
+          {isInWebcHub && !isMobile && (
             <Grid
               item
               xs={5}
+              sm
+              md
+              lg
+              xl
               sx={{
                 alignSelf: "center",
-                marginRight: 20,
+                display: { md: "none", lg: "block", xl: "block" },
               }}
             >
               <BreadCrumbs />
@@ -152,11 +156,16 @@ export const Header: React.FC<Props> = ({
           {isInWebcHub && (
             <Grid
               item
+              xs
+              sm={5}
+              md={4}
+              lg={3}
+              xl={3}
               sx={{
+                display: { xs: "none", sm: "block" },
                 alignSelf: "center",
                 marginRight: 20,
               }}
-              xs={3}
             >
               <InputBase
                 placeholder="Search"
@@ -180,10 +189,10 @@ export const Header: React.FC<Props> = ({
           )}
 
           {isAuthenticated && (
-            <Grid item>
+            <Grid item xs={3.5} sm={1.5} md={2} lg={2} xl={1}>
               <AccountMenu
                 icon={<Avatar src="/path-to-user-image.jpg" />}
-                label="User"
+                label={isMobile ? "" : "User"}
                 accountItem={AccountMenuItem}
                 onLogout={handleLogout}
               />

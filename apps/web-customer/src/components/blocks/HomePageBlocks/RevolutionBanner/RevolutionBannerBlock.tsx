@@ -1,5 +1,5 @@
 import { ImageCarousel } from '@/components/ImageCarousel/ImageCarousel'
-import { settings } from '@/core/constant/HompageMockData'
+import { settings } from 'core-library/core/utils/contants/wc/HomePageData'
 import { CarouselOne, CarouselTwo, CarouselThree } from 'core-library/assets'
 import Image from 'next/image'
 
