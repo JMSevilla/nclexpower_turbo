@@ -22,7 +22,7 @@ export const ComponentLoader: React.FC<Props> = ({
       alignItems="center"
       justifyContent="center"
     >
-      <CircularProgress/>
+      <CircularProgress size={60}/>
     </Box>
   );
 };
