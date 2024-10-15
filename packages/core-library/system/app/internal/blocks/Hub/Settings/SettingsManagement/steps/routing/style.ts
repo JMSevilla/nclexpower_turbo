@@ -45,4 +45,5 @@ export const deleteIconStyle = {
   justifyContent: "center",
   alignItems: "center",
   boxShadow: 2,
+  bgcolor: "#bdbdbd",
 };

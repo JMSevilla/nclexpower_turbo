@@ -117,11 +117,11 @@ export const IconList = [
     icon: SourceIcon,
   },
   {
-    label: "AccountCircleIcon",
+    label: "ApprovalIcon",
     icon: AccountCircleIcon,
   },
   {
-    label: "DeleteOutlineIcon",
+    label: "DeleteIcon",
     icon: DeleteOutlineIcon,
   },
   {
@@ -141,7 +141,7 @@ export const IconList = [
     ),
   },
   {
-    label: "FiberManualRecord",
+    label: "DotsIcon",
     icon: FiberManualRecord,
   },
 ];
