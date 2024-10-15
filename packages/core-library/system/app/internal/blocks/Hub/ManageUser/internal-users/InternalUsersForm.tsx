@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { useEffect } from "react";
 import { useForm, FormProvider, useWatch } from "react-hook-form";
 import { Grid, Box, Typography } from "@mui/material";
@@ -12,9 +17,11 @@ import {
   MultipleSelectField,
   Card,
 } from "core-library/components";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import KeyIcon from "@mui/icons-material/Key";
-import SettingsIcon from "@mui/icons-material/Settings";
+import {
+  Settings as SettingsIcon,
+  Key as KeyIcon,
+  AccountBox as AccountBoxIcon,
+} from "@mui/icons-material";
 
 type Props = {
   onSubmit: (value: AccountSetupType) => void;
