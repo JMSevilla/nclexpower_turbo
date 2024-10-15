@@ -59,7 +59,6 @@ export default function ContentReviewerBlock({ nextStep, previousStep }: Props) 
         });
       } finally {
         setContentLoader(false);
-        setShowModal(false);
         reset();
       }
     }

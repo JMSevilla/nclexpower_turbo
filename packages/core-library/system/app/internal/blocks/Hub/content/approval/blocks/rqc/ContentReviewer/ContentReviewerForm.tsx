@@ -91,22 +91,6 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
     return <ComponentLoader/>
   };
 
-  if(showModal) {
-    return (
-      <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "end",
-        zIndex: 1,
-      }}
-    >
-      <ContentReviewerDialog />
-    </Box>
-    )
-  };
-
   return (
     <Box className="relative">
       <FormProvider {...form}>
@@ -163,73 +147,89 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
             />
           )}
         </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "end",
-            zIndex: 1,
-          }}
-        >
-          <CustomPopover
-            icon={<ArrowDropDownIcon />}
-            open={true}
-            label="Review Changes"
-            sx={{
-              px: 4,
-              py: 2,
-              backgroundColor: "#343a40",
-              borderRadius: "10px",
-              color: "#F3F3F3",
-              "&:hover": {
-                backgroundColor: "#212529",
-              },
-              zIndex: 1,
-            }}
-          >
-            <Card
+        {showModal ? (
+          <>
+            <Box
               sx={{
                 width: "100%",
-                padding: 6,
-                border: "1px solid #80ed99",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "end",
                 zIndex: 1,
               }}
             >
-              <Typography sx={{ fontSize: "1.4rem", color: "#560bad" }}>
-                Write your review
-              </Typography>
-              <hr className="my-4" />
-              <div className="flex flex-col z-0">
-                <TextAreaField
-                  name="comment"
-                  control={control}
-                  style={{ width: 400 }}
-                />
-                {RadioData.map((item, index) => (
-                  <ControlledCheckbox
-                    key={index}
-                    name="option"
+              <ContentReviewerDialog />
+            </Box>
+          </>
+        ) : (
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+              zIndex: 1,
+            }}
+          >
+            <CustomPopover
+              icon={<ArrowDropDownIcon />}
+              open={true}
+              label="Review Changes"
+              sx={{
+                px: 4,
+                py: 2,
+                backgroundColor: "#343a40",
+                borderRadius: "10px",
+                color: "#F3F3F3",
+                "&:hover": {
+                  backgroundColor: "#212529",
+                },
+                zIndex: 1,
+              }}
+            >
+              <Card
+                sx={{
+                  width: "100%",
+                  padding: 6,
+                  border: "1px solid #80ed99",
+                  zIndex: 1,
+                }}
+              >
+                <Typography sx={{ fontSize: "1.4rem", color: "#560bad" }}>
+                  Write your review
+                </Typography>
+                <hr className="my-4" />
+                <div className="flex flex-col z-0">
+                  <TextAreaField
+                    name="comment"
                     control={control}
-                    label={item.title}
-                    value={item.value}
-                    checked={selectedOption === item.value}
-                    onChange={() => setValue("option", item.value)}
+                    style={{ width: 400 }}
                   />
-                ))}
-              </div>
-              <Box sx={{ zIndex: 4 }}>
-                <ConfirmationModal
-                  customButton="Continue"
-                  dialogContent="Are you sure you want to proceed with the selected action"
-                  confirmButtonText="Confirm"
-                  isLoading={contentLoader ?? false}
-                  handleSubmit={handleSubmit(onSubmit)}
-                />
-              </Box>
-            </Card>
-          </CustomPopover>
-        </Box>
+                  {RadioData.map((item, index) => (
+                    <ControlledCheckbox
+                      key={index}
+                      name="option"
+                      control={control}
+                      label={item.title}
+                      value={item.value}
+                      checked={selectedOption === item.value}
+                      onChange={() => setValue("option", item.value)}
+                    />
+                  ))}
+                </div>
+                <Box sx={{ zIndex: 4 }}>
+                  <ConfirmationModal
+                    customButton="Continue"
+                    dialogContent="Are you sure you want to proceed with the selected action"
+                    confirmButtonText="Confirm"
+                    isLoading={contentLoader ?? false}
+                    handleSubmit={handleSubmit(onSubmit)}
+                  />
+                </Box>
+              </Card>
+            </CustomPopover>
+          </Box>
+        )}
         <MainContent />
       </FormProvider>
     </Box>
