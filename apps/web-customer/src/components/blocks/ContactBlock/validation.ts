@@ -1,4 +1,5 @@
 import { STRING_REGEX } from "core-library";
+import { DEFAULT_PHONE_COUNTRY_CODE } from "core-library/types/constant";
 import * as yup from "yup";
 
 export const contactSchema = yup.object({
@@ -11,7 +12,7 @@ export const contactSchema = yup.object({
   countryCode: yup  
     .string()
     .required("Country Code is required")
-    .default("PH"),
+    .default(DEFAULT_PHONE_COUNTRY_CODE),
   email: yup
     .string()
     .email("Invalid email")

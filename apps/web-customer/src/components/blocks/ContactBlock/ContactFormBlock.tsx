@@ -14,7 +14,7 @@ export function ContactFormBlock() {
     defaultValues: contactSchema.getDefault(),
   });
 
-  const { handleSubmit, control, reset, setValue } = form;
+  const { handleSubmit, control, reset, setValue , watch } = form;
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
@@ -31,18 +31,13 @@ export function ContactFormBlock() {
     setValue("countryCode", code);
   };
 
-  const countryCode = useWatch({
-    control,
-    name: "countryCode",
-  });
-
   return (
     <ContactForm
       control={control}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       handleSetCountryCode={handleSetCountryCode}
-      countryCode={countryCode}
+      countryCode={watch("countryCode")}
     />
   );
 }
