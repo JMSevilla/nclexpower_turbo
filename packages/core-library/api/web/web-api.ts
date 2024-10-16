@@ -19,9 +19,11 @@ import {
   ValidateResetLinkTokenParams,
   VerificationResponse,
   VerifyCodeParams,
+  GetContactFormType,
 } from "../types";
 import { Encryption } from "../../utils";
 import { ChatBotOptionResponse } from "../../types/chatbot";
+import { status } from "nprogress";
 export class WebApi {
   constructor(
     private readonly axios: AxiosInstance,
@@ -164,5 +166,12 @@ export class WebApi {
     } catch (err: any) {
       throw err;
     }
+  }
+
+  public web_create_contact_us(params: GetContactFormType) {
+    return this.axios.post<number>(
+      `/api/v1/Customer/create-contact-us`,
+      params
+    );
   }
 }

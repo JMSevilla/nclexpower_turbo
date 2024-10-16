@@ -34,6 +34,7 @@ import {
   useGetAllInternalAccounts,
   useCreateRegularQuestion,
   useGetContents,
+  useCreateContactUs,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -58,6 +59,7 @@ import {
   CreateRegularType,
   AuthorizedContentsResponseType,
   WebGetContentsParams,
+  GetContactFormType,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -226,6 +228,15 @@ interface BusinessQueryContextValue {
     queryKey: string[],
     args: WebGetContentsParams
   ) => UseQueryResult<AuthorizedContentsResponseType[] | undefined, any>;
+
+  businessQueryCreateContactUs: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<
+    AxiosResponse<number, AxiosError<unknown, any>>,
+    any,
+    GetContactFormType,
+    unknown
+  >;
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -266,6 +277,7 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetAllInternalAccount = useGetAllInternalAccounts;
   const businessQueryCreateRegularQuestion = useCreateRegularQuestion;
   const businessQueryGetContents = useGetContents;
+  const businessQueryCreateContactUs = useCreateContactUs;
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -297,6 +309,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetAllInternalAccount,
         businessQueryCreateRegularQuestion,
         businessQueryGetContents,
+        businessQueryCreateContactUs,
       }}
     >
       {children}

@@ -465,9 +465,9 @@ export interface ContentApprover {
   approver: Approver;
 }
 
-export interface Approver extends User { }
+export interface Approver extends User {}
 
-export interface Author extends User { }
+export interface Author extends User {}
 
 export interface User {
   id: string;
@@ -543,4 +543,11 @@ export type DefaultReviewerParams = {
 
 export type DefaultReviewerDto = {
   accountId: string;
+};
+
+export type GetContactFormType = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
 };
