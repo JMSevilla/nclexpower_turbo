@@ -1,3 +1,10 @@
+/**
+
+Property of the NCLEX Power.
+Reuse as a whole or in part is prohibited without permission.
+Created by the Software Strategy & Development Division
+*/
+
 import React, { useEffect } from "react";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";

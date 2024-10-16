@@ -1,3 +1,10 @@
+/**
+
+Property of the NCLEX Power.
+Reuse as a whole or in part is prohibited without permission.
+Created by the Software Strategy & Development Division
+*/
+
 import { FastTrackList, StandardList } from 'core-library/core/utils/contants/wc/HomePageData';
 import { ProductCardType, SelectedProductType } from 'core-library/types/global'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';

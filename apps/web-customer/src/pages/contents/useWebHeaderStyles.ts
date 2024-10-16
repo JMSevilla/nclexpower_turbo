@@ -1,3 +1,10 @@
+/**
+
+Property of the NCLEX Power.
+Reuse as a whole or in part is prohibited without permission.
+Created by the Software Strategy & Development Division
+*/
+
 import { SxProps, Theme } from "@mui/material/styles";
 import { useScroll } from "core-library";
 import { useRouter } from "next/router";

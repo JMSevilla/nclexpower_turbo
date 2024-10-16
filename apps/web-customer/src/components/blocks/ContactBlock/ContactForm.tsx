@@ -5,7 +5,7 @@
 */
 import React from "react";
 import { Grid } from "@mui/material";
-import { TextField, Button, PhoneField } from "core-library/components";
+import { TextField, Button, PhoneField, TextAreaField } from "core-library/components";
 import { ContactFormType } from "./validation";
 import { Control, UseFormHandleSubmit } from "react-hook-form";
 import { ContactMock, SocialMediaMock } from "../../../core/constant/ContactPageMock";
@@ -93,13 +93,10 @@ export const ContactForm: React.FC<FormValues> = ({
               />
             </Grid>
             <Grid item xs={12} sx={{ marginY: 2 }}>
-              <TextField
-                multiline
-                rows={5}
+              <TextAreaField
                 control={control}
                 name="message"
                 placeholder="Message..."
-                sx={{ borderRadius: "5px" }}
                 data-testid="message-input"
               />
             </Grid>
