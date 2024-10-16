@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { CreateRegularAtom } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/steps/content/simulator/useAtomic";
 import { QuestionSelectionOptions } from "../system/app/internal/blocks/Hub/Settings/SettingsManagement/types";
 
@@ -545,7 +550,7 @@ export type DefaultReviewerDto = {
   accountId: string;
 };
 
-export type GetContactFormType = {
+export type ContactFormType = {
   name: string;
   email: string;
   phone: string;

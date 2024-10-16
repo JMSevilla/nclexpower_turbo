@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { MutOpt, ApiServiceErr } from "./types";
 import { useApi, useApiCallback } from "../../hooks";
@@ -27,7 +32,7 @@ import {
   CreateRegularType,
   AuthorizedContentsResponseType,
   WebGetContentsParams,
-  GetContactFormType,
+  ContactFormType,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -507,10 +512,10 @@ export const useCreateContactUs = (
   opt?: MutOpt<AxiosResponse<number, AxiosError>>
 ) => {
   const contactUsSubmission = useApiCallback(
-    async (api, args: GetContactFormType) =>
+    async (api, args: ContactFormType) =>
       await api.web.web_create_contact_us(args)
   );
-  return useAppMutation<AxiosResponse<number, AxiosError>, GetContactFormType>(
+  return useAppMutation<AxiosResponse<number, AxiosError>, ContactFormType>(
     async (data) => {
       const result = await contactUsSubmission.execute({ ...data });
       return result;

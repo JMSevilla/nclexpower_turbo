@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import React from "react";
 import { ContactForm } from "./ContactForm";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,7 +33,8 @@ export function ContactFormBlock() {
       toast.executeToast(
         "Your message has been received. Thank you",
         "top-right",
-        false
+        false,
+        { type: "success" }
       );
       reset();
     } catch (error) {
@@ -36,7 +42,8 @@ export function ContactFormBlock() {
       toast.executeToast(
         `There was an error submitting your message: ${(error as Error).message}`,
         "top-right",
-        true
+        true,
+        { type: "error" }
       );
     }
   }
