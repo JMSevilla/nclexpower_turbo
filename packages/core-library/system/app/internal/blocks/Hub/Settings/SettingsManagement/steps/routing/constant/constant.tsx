@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { GridMoreVertIcon } from "@mui/x-data-grid";
 import { CustomPopover } from "../../../../../../../../../../components/Popover/Popover";
 import { ListItemButton } from "@mui/material";
@@ -5,6 +10,20 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Row, Table } from "@tanstack/react-table";
 import { MenuItems } from "../../../../../../../../../../api/types";
+import { SelectOption } from "../../../../../../../../../../components/Textfield/SelectMultipleField";
+
+export const addMainMenuItem = {
+  label: "",
+  path: "",
+  type: "Main",
+  children: [],
+};
+
+export const addSubMenuItem = {
+  label: "",
+  type: "SubMenu",
+  children: [{ label: "", path: "" }],
+};
 
 export const columns = [
   {
@@ -62,20 +81,77 @@ export const columns = [
   },
 ];
 
-export const userRoleList = [
+const SystemMenu: SelectOption[] = [
+  {
+    label: "Web Backoffice",
+    value: 0,
+    xvalue: 0,
+  },
+  {
+    label: "Web Customer",
+    value: 1,
+    xvalue: 1,
+  },
+];
+
+const AccountLevel = [
   {
     id: 1,
-    label: "Admin",
-    value: "admin",
+    label: "Developer",
+    value: 0,
   },
   {
     id: 2,
-    label: "Encoder",
-    value: "encoder",
+    label: "Admin",
+    value: 1,
   },
   {
     id: 3,
-    label: "Developer",
-    value: "developer",
+    label: "Encoder",
+    value: 2,
+  },
+];
+
+const MenuEnvironments = [
+  {
+    id: 1,
+    label: "Dev",
+    value: 0,
+  },
+  {
+    id: 2,
+    label: "Stage",
+    value: 1,
+  },
+  {
+    id: 3,
+    label: "Preprod",
+    value: 2,
+  },
+  {
+    id: 4,
+    label: "Prod",
+    value: 3,
+  },
+];
+
+export const SystemRequirements = [
+  {
+    id: 1,
+    label: "System Menus",
+    value: "systemMenus",
+    options: SystemMenu,
+  },
+  {
+    id: 2,
+    label: "Account Level",
+    value: "accountLevel",
+    options: AccountLevel,
+  },
+  {
+    id: 3,
+    label: "Menu Environments",
+    value: "menuEnvironments",
+    options: MenuEnvironments,
   },
 ];
