@@ -5,6 +5,7 @@ import {
   useCreatePaymentIntent,
   useGetContents,
   useCreateContactUs,
+  useCreateReportIssue,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -15,6 +16,7 @@ import {
   ContactFormType,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
+  ReportIssueType,
   WebGetContentsParams,
 } from "../../../api/types";
 
@@ -345,6 +347,53 @@ describe("useGetContents", () => {
 
     expect(result.current.error).toEqual(mockError);
     expect(result.current.data).toBeUndefined();
+  });
+});
+
+describe("useCreateReportIssue", () => {
+  const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
+  });
+
+  it("should create a report issue request successfully", async () => {
+    const mockData: ReportIssueType = {
+      email: "john.doe@example.com",
+      categoryId: "12345",
+      description: "There is a critical bug in the system.",
+      systemProduct: 1,
+    };
+
+    const opt = { onSuccess: jest.fn() };
+    mockExecute.mockResolvedValue({ data: mockData });
+
+    const { result } = renderHook(() => useCreateReportIssue(opt));
+
+    await act(async () => {
+      await result.current.mutateAsync({
+        email: "john.doe@example.com",
+        categoryId: "12345",
+        description: "There is a critical bug in the system.",
+        systemProduct: 1,
+      });
+    });
+
+    expect(mockMutate).toHaveBeenCalledWith({
+      email: "john.doe@example.com",
+      categoryId: "12345",
+      description: "There is a critical bug in the system.",
+      systemProduct: 1,
+    });
+    expect(result.current.isLoading).toBe(false);
   });
 });
 
