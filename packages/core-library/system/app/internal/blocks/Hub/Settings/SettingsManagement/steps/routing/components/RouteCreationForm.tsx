@@ -32,7 +32,7 @@ import {
   IconComponent,
   IconList,
 } from "../../../../../../../../../../components/GenericDrawerLayout/utils/icon-component";
-import { SubMenu } from "../../ImageManagement/components/SubMenu";
+import { SubMenu } from "./SubMenu";
 
 export const RouteCreationForm = () => {
   const { control: formControl, handleSubmit } =
@@ -119,6 +119,10 @@ export const RouteCreationForm = () => {
           </Card>
         </Box>
       </Box>
+
+      <Card onClick={() => handleOptionSelect("SubMenu")} sx={cardStyle}>
+        Menu with Sub Menu
+      </Card>
 
       <Button
         buttonActionType="submit"
