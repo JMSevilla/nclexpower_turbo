@@ -14,14 +14,12 @@ const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     <React.Fragment>
       <BusinessQueryContextProvider>
         <AuthProvider>
-          <PageLoaderContextProvider loading={false}>
-            <ToastProvider>
-              <ClientSecretKeyContextProvider>
-                <ControlledToast autoClose={5000} hideProgressBar={false} />
-                <Layout children={children} />
-              </ClientSecretKeyContextProvider>
-            </ToastProvider>
-          </PageLoaderContextProvider>
+          <ToastProvider>
+            <ClientSecretKeyContextProvider>
+              <ControlledToast autoClose={5000} hideProgressBar={false} />
+              <Layout children={children} />
+            </ClientSecretKeyContextProvider>
+          </ToastProvider>
         </AuthProvider>
       </BusinessQueryContextProvider>
     </React.Fragment>
