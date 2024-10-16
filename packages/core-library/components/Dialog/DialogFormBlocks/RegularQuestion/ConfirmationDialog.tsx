@@ -90,7 +90,7 @@ interface ConfirmationModalProps {
   dialogContent: string;
   confirmButtonText?: string;
   isLoading: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export default function ConfirmationModal({
