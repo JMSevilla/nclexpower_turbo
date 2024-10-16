@@ -90,6 +90,7 @@ interface ConfirmationModalProps {
   dialogContent: string;
   confirmButtonText?: string;
   isLoading: boolean;
+  disabled: boolean;
 }
 
 export default function ConfirmationModal({
@@ -98,6 +99,7 @@ export default function ConfirmationModal({
   customButton,
   confirmButtonText,
   isLoading,
+  disabled
 }: ConfirmationModalProps) {
   const [open, setOpen] = useState(false);
 
@@ -108,7 +110,7 @@ export default function ConfirmationModal({
     <>
       <Box data-testid="confirm-modal" onClick={handleClickOpen} role="button">
         {customButton == "Continue" ? (
-          <Button>Continue</Button>
+          <Button disabled={disabled}>Continue</Button>
         ) : (
           <Button sx={{ zIndex: 2 }}>
             <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
