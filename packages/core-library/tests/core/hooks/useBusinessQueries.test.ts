@@ -4,6 +4,7 @@ import {
   useAppMutation,
   useCreatePaymentIntent,
   useGetContents,
+  useCreateContactUs,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -11,6 +12,7 @@ import { useMutation, useQuery } from "react-query";
 import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
   AuthorizedContentsResponseType,
+  ContactFormType,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   WebGetContentsParams,
@@ -297,7 +299,7 @@ describe("useGetContents", () => {
     const { result } = renderHook(() =>
       useGetContents(["contents"], {
         AccountId: "accountId",
-        MainType: "Regular"
+        MainType: "Regular",
       })
     );
 
@@ -314,7 +316,7 @@ describe("useGetContents", () => {
     const { result } = renderHook(() =>
       useGetContents(["contents"], {
         AccountId: "Acount-id",
-        MainType: "Regular"
+        MainType: "Regular",
       })
     );
     expect(result.current.isLoading).toBe(true);
@@ -343,5 +345,52 @@ describe("useGetContents", () => {
 
     expect(result.current.error).toEqual(mockError);
     expect(result.current.data).toBeUndefined();
+  });
+});
+
+describe("useCreateContactUs", () => {
+  const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
+  });
+
+  it("should create a contact us request successfully", async () => {
+    const mockData: ContactFormType = {
+      name: "John Doe",
+      email: "john.doe@example.com",
+      phone: "123-456-7890",
+      message: "This is a test message",
+    };
+
+    const opt = { onSuccess: jest.fn() };
+    mockExecute.mockResolvedValue({ data: mockData });
+
+    const { result } = renderHook(() => useCreateContactUs(opt));
+
+    await act(async () => {
+      await result.current.mutateAsync({
+        name: "John Doe",
+        email: "john.doe@example.com",
+        phone: "123-456-7890",
+        message: "This is a test message",
+      });
+    });
+
+    expect(mockMutate).toHaveBeenCalledWith({
+      name: "John Doe",
+      email: "john.doe@example.com",
+      phone: "123-456-7890",
+      message: "This is a test message",
+    });
+    expect(result.current.isLoading).toBe(false);
   });
 });
