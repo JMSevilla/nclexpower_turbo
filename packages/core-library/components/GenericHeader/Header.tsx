@@ -69,9 +69,6 @@ export const Header: React.FC<Props> = ({
         bgcolor="background.default"
         sx={{
           ...drawerHeader,
-          borderBottomWidth: 1,
-          borderBottomStyle: "solid",
-          borderBottomColor: "divider",
         }}
       >
         {menu && menu.length > 0 && drawerButton && (
@@ -109,7 +106,7 @@ export const Header: React.FC<Props> = ({
 
               <Grid item display="flex" alignItems="center">
                 {!isMobile && !isAuthenticated ? (
-                  <Grid container gap={4} direction="row">
+                  <Grid container gap={6} direction="row" alignItems="center">
                     {menu &&
                       menu.length > 0 &&
                       menu.map((navigation, index) => (

@@ -36,11 +36,11 @@ const PricingCard: React.FC<CardProps> = ({ cardData, handleSelectProduct }) => 
                     <p className="text-4xl font-semibold">{cardData.pricing.price} <span className='text-sm'>{cardData.pricing.currency}</span></p>
                 </div>
             </div>
-            <div className="w-full flex gap-5 justify-start items-center py-5">
-                <div className="text-xs flex flex-col gap-2">{InclusionsList.length > 0 && InclusionsList.map((list, index) => (
-                    <div key={index} className='flex gap-2'>
+            <div className="w-full flex  justify-start items-center py-5">
+                <div className="text-xs flex flex-col ">{InclusionsList.length > 0 && InclusionsList.map((list, index) => (
+                    <div key={index} className='flex items-center gap-2'>
                         <span><CheckCircleOutlineIcon sx={{ fontSize: 20 }} /></span>
-                        <p>{list}</p>
+                        <p className='m-2'>{list}</p>
                     </div>
                 ))}</div>
             </div>

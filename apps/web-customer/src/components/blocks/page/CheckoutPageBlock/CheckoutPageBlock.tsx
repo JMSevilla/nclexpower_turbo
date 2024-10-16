@@ -152,13 +152,13 @@ export const CheckoutPageBlock: React.FC<Props> = ({
             placeholder="Middle Name"
             disabled={hasNoMiddleName}
             className="shadow-sm shadow-zinc-200"
-            sx={{fontFamily: 'PT Sans'}}
+            sx={{ fontFamily: 'PT Sans' }}
           />
           <ControlledCheckbox
             control={control}
             name="hasNoMiddleName"
             label="I do not have a middlename"
-            sx={{fontSize: 12, lineHeight:1.2}}
+            sx={{ fontSize: 12, lineHeight: 1.2 }}
           />
         </div>
         <div className="w-1/2">
@@ -175,9 +175,20 @@ export const CheckoutPageBlock: React.FC<Props> = ({
       <PaymentElement />
       <Button
         onClick={handleSubmit(confirmPayment)}
-        sx={{background:'#0F2A71', borderRadius: 1, marginTop:2}}
+        sx={{
+          background: '#0F2A71',
+          borderRadius: "4px",
+          marginTop: 2,
+          p: 2,
+          fontSize: "14px",
+          minHeight: "fit-content",
+          ":focus": {
+            outline: "0 !important"
+          },
+          fontWeight: 600
+        }}
       >
-        Confirm Payment
+        CONFIRM PAYMENT
       </Button>
     </div>
   );

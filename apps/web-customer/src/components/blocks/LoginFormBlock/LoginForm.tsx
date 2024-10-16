@@ -206,7 +206,7 @@ export const LoginForm: React.FC<Props> = ({
               </div>
               <div className="flex items-center justify-center w-full">
                 <Button
-                  sx={{ paddingY: 1.5, borderRadius: 2, boxShadow: 2 }}
+                  sx={{ paddingY: 1.5, borderRadius: "10px", boxShadow: 2, borderColor: "#1976D2" }}
                   fullWidth
                   variant="outlined"
                   onClick={signInWithGoogle}

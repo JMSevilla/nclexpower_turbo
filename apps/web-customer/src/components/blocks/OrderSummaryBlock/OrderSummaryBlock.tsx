@@ -79,13 +79,19 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
             disabled={false}
             sx={{
               mb: 2,
-              p: 1,
+              p: 2,
+              minHeight: "fit-content",
               width: "100%",
+              fontSize: "14px",
               background: "#0F2A71",
-              borderRadius: 1,
+              borderRadius: "4px",
+              fontWeight: 600,
+              ":focus": {
+                outline: "0 !important"
+              }
             }}
           >
-            Proceed to payment
+            PROCEED TO PAYMENT
           </Button>
           <p className="pt-sans-regular text-center text-sm">
             By proceeding, you accept our terms and conditions.
