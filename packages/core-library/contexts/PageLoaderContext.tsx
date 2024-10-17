@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { createContext, useContext, useEffect, useState } from "react";
 import { PageLoader } from "../components";
 import React from "react";

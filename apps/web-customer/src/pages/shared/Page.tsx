@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import React from "react";
 import {
   AuthProvider,
@@ -7,7 +12,6 @@ import {
 import Layout from "./Layout";
 import { ControlledToast } from "core-library/components";
 import { ClientSecretKeyContextProvider } from "core-library/contexts";
-import { PageLoaderContextProvider } from "core-library/contexts/PageLoaderContext";
 
 const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
