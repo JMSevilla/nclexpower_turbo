@@ -9,6 +9,8 @@ import {
   useCreateRegularQuestion,
   useLoadPreProcessQuery,
   useGetAllReportedIssues,
+  useGetCategoryByType,
+  useGetRegularQuestionDDCategory,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -537,6 +539,85 @@ describe("useCreateRegularQuestion", () => {
       },
     });
     expect(result.current.isLoading).toBe(false);
+  });
+});
+
+describe("useGetCategoryByType", () => {
+  const mockExecute = jest.fn();
+  const mockQueryKey = ["test-query-key"];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApi as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+  });
+
+  it("should fetch and return category data successfully", async () => {
+    const mockData = { data: { id: 1, name: "Category 1" } };
+
+    mockExecute.mockResolvedValueOnce(mockData);
+
+    (useQuery as jest.Mock).mockImplementation((key, fetchFn) => {
+      return {
+        data: mockData.data,
+        isLoading: false,
+        isError: false,
+      };
+    });
+
+    const { result } = renderHook(() => useGetCategoryByType(mockQueryKey, 1));
+
+    expect(useApi).toHaveBeenCalledWith(expect.any(Function));
+    expect(useQuery).toHaveBeenCalledWith(mockQueryKey, expect.any(Function), {
+      staleTime: Infinity,
+    });
+
+    expect(result.current.data).toEqual(mockData.data);
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isError).toBe(false);
+  });
+
+  it("should handle error when fetching category data fails", async () => {
+    const mockError = new Error("Failed to fetch category");
+
+    mockExecute.mockRejectedValueOnce(mockError);
+
+    (useQuery as jest.Mock).mockImplementation((key, fetchFn) => {
+      return {
+        data: undefined,
+        isLoading: false,
+        isError: true,
+        error: mockError,
+      };
+    });
+
+    const { result } = renderHook(() => useGetCategoryByType(mockQueryKey, 1));
+
+    expect(useApi).toHaveBeenCalledWith(expect.any(Function));
+    expect(useQuery).toHaveBeenCalledWith(mockQueryKey, expect.any(Function), {
+      staleTime: Infinity,
+    });
+
+    expect(result.current.data).toBeUndefined();
+    expect(result.current.isError).toBe(true);
+    expect(result.current.error).toEqual(mockError);
+  });
+
+  it("should pass queryKey and staleTime to useQuery", () => {
+    const mockData = { data: { id: 1, name: "Category 1" } };
+
+    (useQuery as jest.Mock).mockImplementation(() => ({
+      data: mockData.data,
+      isLoading: false,
+      isError: false,
+    }));
+
+    renderHook(() => useGetCategoryByType(mockQueryKey, 1));
+
+    expect(useQuery).toHaveBeenCalledWith(mockQueryKey, expect.any(Function), {
+      staleTime: Infinity,
+    });
   });
 });
 
