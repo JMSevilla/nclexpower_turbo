@@ -445,8 +445,18 @@ describe("useCreateAuthorizeMenus", () => {
     expect(result.current.data).toBeUndefined();
   });
 
-})
+  it('should pass options to useMutation', () => {
+    const mockOptions = {
+      onSuccess: jest.fn(),
+      onError: jest.fn(),
+    };
 
+    renderHook(() => useCreateAuthorizedMenus(mockOptions));
+
+    expect(useMutation).toHaveBeenCalledWith(expect.any(Function), mockOptions);
+  });
+
+})
 
 describe("useCreateReportIssueType", () => {
   const mockExecute = jest.fn();
