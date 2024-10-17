@@ -240,8 +240,6 @@ describe("useGetAllReportedIssues", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    // Mock useApi to return the mock execute function
     (useApi as jest.Mock).mockImplementation(() => ({
       execute: mockExecuteGetAllReportedIssues,
     }));
@@ -453,6 +451,92 @@ describe("useGetContents", () => {
 
     expect(result.current.error).toEqual(mockError);
     expect(result.current.data).toBeUndefined();
+  });
+});
+
+describe("useCreateRegularQuestion", () => {
+  const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
+  });
+
+  it("should call createRegularQuestion with the correct arguments", async () => {
+    const mockData = {
+      email: "test@example.com",
+      contentDto: {
+        type: "text",
+        mainType: "question",
+        mainContentCollectionsDtos: [
+          {
+            cognitiveLevel: "high",
+            clientNeeds: "basic understanding",
+            contentArea: "science",
+            question: "What is the boiling point of water?",
+            mainContentAnswerCollectionDtos: [
+              { answer: "100°C", answerKey: true },
+              { answer: "90°C", answerKey: false },
+            ],
+          },
+        ],
+      },
+    };
+
+    const opt = { onSuccess: jest.fn() };
+    mockExecute.mockResolvedValue({ data: mockData });
+
+    const { result } = renderHook(() => useCreateRegularQuestion(opt));
+
+    await act(async () => {
+      await result.current.mutateAsync({
+        email: "test@example.com",
+        contentDto: {
+          type: "text",
+          mainType: "question",
+          mainContentCollectionsDtos: [
+            {
+              cognitiveLevel: "high",
+              clientNeeds: "basic understanding",
+              contentArea: "science",
+              question: "What is the boiling point of water?",
+              mainContentAnswerCollectionDtos: [
+                { answer: "100°C", answerKey: true },
+                { answer: "90°C", answerKey: false },
+              ],
+            },
+          ],
+        },
+      });
+    });
+
+    expect(mockMutate).toHaveBeenCalledWith({
+      email: "test@example.com",
+      contentDto: {
+        type: "text",
+        mainType: "question",
+        mainContentCollectionsDtos: [
+          {
+            cognitiveLevel: "high",
+            clientNeeds: "basic understanding",
+            contentArea: "science",
+            question: "What is the boiling point of water?",
+            mainContentAnswerCollectionDtos: [
+              { answer: "100°C", answerKey: true },
+              { answer: "90°C", answerKey: false },
+            ],
+          },
+        ],
+      },
+    });
+    expect(result.current.isLoading).toBe(false);
   });
 });
 
