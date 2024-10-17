@@ -34,6 +34,7 @@ import {
   useGetAllInternalAccounts,
   useCreateRegularQuestion,
   useGetContents,
+  useCreateAuthorizedMenus,
 } from "../core/hooks/useBusinessQueries";
 import { MutOpt } from "../core/hooks/types";
 import { AxiosError, AxiosResponse } from "axios";
@@ -58,6 +59,7 @@ import {
   CreateRegularType,
   AuthorizedContentsResponseType,
   WebGetContentsParams,
+  CreateAuthorizedMenusParams,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -175,7 +177,6 @@ interface BusinessQueryContextValue {
   businessQueryGetAllReportedIssues: (
     queryKey: string[]
   ) => UseQueryResult<ReportedIssuesResponse[] | undefined, any>;
-
   businessQueryCreateCustomer: (
     opt?: MutOpt<AxiosResponse<number, AxiosError>>
   ) => UseMutationResult<
@@ -184,7 +185,6 @@ interface BusinessQueryContextValue {
     CreateCustomerParams,
     unknown
   >;
-
   businessQueryCreateRegularQuestion: (
     opt?: MutOpt<AxiosResponse<number, AxiosError>>
   ) => UseMutationResult<
@@ -193,17 +193,14 @@ interface BusinessQueryContextValue {
     CreateRegularType,
     unknown
   >;
-
   businessQueryGetThetaCalcScratch: (
     queryKey: string[],
     accountId: string
   ) => UseQueryResult<ThetaCalcScratchResponse[] | undefined, any>;
-
   businessQueryGetRegularQuestionDDCategory: (
     queryKey: string[],
     type: number
   ) => UseQueryResult<any | undefined, any>;
-
   businessQueryCreateReportIssue: (
     opt?: MutOpt<AxiosResponse<number, AxiosError>>
   ) => UseMutationResult<
@@ -212,20 +209,22 @@ interface BusinessQueryContextValue {
     ReportIssueType,
     unknown
   >;
-
   businessQueryGetReportCategories: (
     queryKey: string[],
     type: number
   ) => UseQueryResult<any | undefined, any>;
-
   businessQueryGetAllInternalAccount: (
     queryKey: string[]
   ) => UseQueryResult<GetAllInternalAccount[] | undefined, any>;
-
   businessQueryGetContents: (
     queryKey: string[],
     args: WebGetContentsParams
   ) => UseQueryResult<AuthorizedContentsResponseType[] | undefined, any>;
+  businessQueryCreateAuthorizedMenus: (
+    opt?: MutOpt<AxiosResponse<number, AxiosError>>
+  ) => UseMutationResult<AxiosResponse<number, AxiosError<unknown, any>>,
+    any, CreateAuthorizedMenusParams,
+    unknown>
 }
 
 const BusinessQueryContext = createContext<BusinessQueryContextValue>(
@@ -266,6 +265,8 @@ export const BusinessQueryContextProvider: React.FC<
   const businessQueryGetAllInternalAccount = useGetAllInternalAccounts;
   const businessQueryCreateRegularQuestion = useCreateRegularQuestion;
   const businessQueryGetContents = useGetContents;
+  const businessQueryCreateAuthorizedMenus = useCreateAuthorizedMenus
+
   return (
     <BusinessQueryContext.Provider
       value={{
@@ -297,6 +298,7 @@ export const BusinessQueryContextProvider: React.FC<
         businessQueryGetAllInternalAccount,
         businessQueryCreateRegularQuestion,
         businessQueryGetContents,
+        businessQueryCreateAuthorizedMenus
       }}
     >
       {children}

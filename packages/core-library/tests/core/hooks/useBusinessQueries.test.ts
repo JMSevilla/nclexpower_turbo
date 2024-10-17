@@ -4,6 +4,8 @@ import {
   useAppMutation,
   useCreatePaymentIntent,
   useGetContents,
+  useCreateAuthorizedMenus,
+  useCreateReportIssue,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -11,8 +13,10 @@ import { useMutation, useQuery } from "react-query";
 import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
   AuthorizedContentsResponseType,
+  CreateAuthorizedMenusParams,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
+  ReportIssueType,
   WebGetContentsParams,
 } from "../../../api/types";
 
@@ -187,6 +191,14 @@ describe("useCreatePaymentIntent", () => {
 
 describe("useGetContents", () => {
   const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+  const mockData: AxiosResponse<number, AxiosError> = {
+    data: 200,
+    status: 200,
+    statusText: "OK",
+    headers: new AxiosHeaders(),
+    config: { headers: new AxiosHeaders() },
+  };
 
   it("should fetch and return authorized contents", async () => {
     const mockData: AuthorizedContentsResponseType[] = [
@@ -345,3 +357,144 @@ describe("useGetContents", () => {
     expect(result.current.data).toBeUndefined();
   });
 });
+
+describe("useCreateAuthorizeMenus", () => {
+  const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+  const mockData: AxiosResponse<number, AxiosError> = {
+    data: 200,
+    status: 200,
+    statusText: "OK",
+    headers: new AxiosHeaders(),
+    config: { headers: new AxiosHeaders() },
+  };
+  const mockAuthorizedMenus: CreateAuthorizedMenusParams = {
+    accountLevel: 0,
+    menuEnvironments: 0,
+    systemMenus: 0,
+    MenuItems: [
+      {
+        children: [],
+        icon: 'test-icon',
+        label: 'test-label',
+        path: '/test-path'
+      }],
+
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
+  });
+
+  it("should create a new menus successfully", async () => {
+    const opt = { onSuccess: jest.fn() };
+    mockExecute.mockResolvedValue({ data: mockData });
+    const { result } = renderHook(() => useCreateAuthorizedMenus(opt));
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockAuthorizedMenus);
+    });
+
+    expect(mockMutate).toHaveBeenCalled();
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should handle loading state", async () => {
+    (useMutation as jest.Mock).mockReturnValue({
+      isLoading: true,
+    });
+
+    const { result } = renderHook(() =>
+      useCreateAuthorizedMenus()
+    );
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockAuthorizedMenus);
+    });
+
+    expect(result.current.isLoading).toBe(true);
+    expect(result.current.data).toBeUndefined();
+  });
+
+  it("should handle error state", async () => {
+    const mockError = new Error("Failed to fetch data");
+    mockExecute.mockRejectedValue(mockError);
+
+    (useMutation as jest.Mock).mockImplementation(() => {
+      return {
+        data: undefined,
+        isLoading: false,
+        error: mockError,
+      };
+    });
+
+    const { result } = renderHook(() => useCreateAuthorizedMenus());
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockAuthorizedMenus);
+    });
+
+    expect(result.current.error).toEqual(mockError);
+    expect(result.current.data).toBeUndefined();
+  });
+
+  it('should pass options to useMutation', () => {
+    const mockOptions = {
+      onSuccess: jest.fn(),
+      onError: jest.fn(),
+    };
+
+    renderHook(() => useCreateAuthorizedMenus(mockOptions));
+
+    expect(useMutation).toHaveBeenCalledWith(expect.any(Function), mockOptions);
+  });
+
+})
+
+describe("useCreateReportIssueType", () => {
+  const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+  const mockData: AxiosResponse<number, AxiosError> = {
+    data: 200,
+    status: 200,
+    statusText: "OK",
+    headers: new AxiosHeaders(),
+    config: { headers: new AxiosHeaders() },
+  };
+  const mockReportIssueType: ReportIssueType = {
+    email: "test-email",
+    categoryId: "test-id",
+    description: "test-desc",
+    systemProduct: 0,
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
+  });
+
+  it("should create report issue successfully", async () => {
+    const opt = { onSuccess: jest.fn() };
+    mockExecute.mockResolvedValue({ data: mockData });
+    const { result } = renderHook(() => useCreateReportIssue(opt));
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockReportIssueType);
+    });
+    expect(mockMutate).toHaveBeenCalled();
+    expect(result.current.isLoading).toBe(false);
+  });
+})

@@ -27,7 +27,8 @@ import {
   GetAllInternalAccount,
   CreateRegularType,
   AuthorizedContentsResponseType,
-  WebGetContentsParams
+  WebGetContentsParams,
+  CreateAuthorizedMenusParams
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -405,7 +406,7 @@ export const useGetIrtThetaCalcScratch = (
 export const useCreateReportIssue = (
   opt?: MutOpt<AxiosResponse<number, AxiosError>>
 ) => {
-  const submissionCreateReportIssueCb = useApiCallback(
+  const submitReportCb = useApiCallback(
     async (api, args: ReportIssueType) =>
       await api.web.web_create_report_issue(args)
   );
@@ -413,7 +414,7 @@ export const useCreateReportIssue = (
     AxiosResponse<number, AxiosError>,
     ReportIssueType
   >(async (data) => {
-    const result = await submissionCreateReportIssueCb.execute({ ...data });
+    const result = await submitReportCb.execute({ ...data });
     return result;
   }, opt);
 };
@@ -501,4 +502,20 @@ export const useGetContents = (
     },
     { staleTime: Infinity }
   );
+}
+
+export const useCreateAuthorizedMenus = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const CreateAuthorizedMenusCb = useApiCallback(
+    async (api, args: CreateAuthorizedMenusParams) =>
+      await api.webbackoffice.createAuthorizedMenus(args)
+  );
+  return useAppMutation<
+    AxiosResponse<number, AxiosError>,
+    CreateAuthorizedMenusParams
+  >(async (data) => {
+    const result = await CreateAuthorizedMenusCb.execute({ ...data });
+    return result;
+  }, opt);
 }
