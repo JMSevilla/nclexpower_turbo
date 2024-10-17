@@ -1,8 +1,8 @@
 /**
-* Property of the NCLEX Power.
-* Reuse as a whole or in part is prohibited without permission.
-* Created by the Software Strategy & Development Division
-*/
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 export * from "./Alert/AlertMessage";
 export * from "./ComponentLoader";
 export * from "./Textfield/SelectTextfield";
@@ -38,7 +38,7 @@ export * from "./GenericSidebar/Sidebar";
 export * from "./table/DataTable";
 export * from "./ReactTable/ReactTable";
 export * from "./SelectField/SingleSelectField";
-export * from "./Textfield/SelectField/PlainSelectField"
+export * from "./Textfield/SelectField/PlainSelectField";
 export * from "./Textfield/OtpField";
 export * from "./Button/CheckoutButton";
 export * from "./GenericDropDown/AccountMenu";
@@ -74,3 +74,5 @@ export * from "./Breadcrumbs/Breadcrumbs";
 export * from "./ErrorMap/ErrorMap";
 export * from "./EvaIcon";
 export * from "./chatbot";
+export * from "./Dialog/DialogBox";
+export * from "./GenericSidebar/BaseSidebar/BaseSidebar";

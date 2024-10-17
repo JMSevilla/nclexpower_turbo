@@ -28,31 +28,7 @@ import {
   TransparentCoreZigma,
   WatchVideos,
 } from "../../../../../../../../../../assets";
-
-type CardDataType = {
-  title: string;
-  bgColor: string;
-  imgSrc: string | StaticImport;
-  imgAlt: string;
-  imgStyle?: React.CSSProperties; // Optional, as imgStyle might not be present in all objects
-};
-
-export interface imageCollectionType {
-  id: number;
-  title: string;
-  content: Content[];
-}
-
-interface Content {
-  category: string;
-  fixedCount: number;
-  list: List[];
-}
-
-export interface List {
-  title: string;
-  image: string;
-}
+import { CardDataType, ImageCollectionType } from "../types/types";
 
 export const LogoData: CardDataType[] = [
   {
@@ -79,76 +55,76 @@ export const LogoData: CardDataType[] = [
 export const cardItems = [
   { title: "Image Gallery", content: "Images" },
   { title: "Web Customer", content: "Web Customer" },
-  // { title: "Web Backoffice", content: "Web Backoffice" }, // This is for preparation if Backoffice will also have an Image
 ];
 
-export const WCGenericRouteWithImages: imageCollectionType[] = [
+export const WCGenericRouteWithImages: ImageCollectionType[] = [
   {
     id: 1,
-    title: "Homepage",
-    content: [
+    label: "Homepage",
+    icon: "",
+    children: [
       {
         category: "Revo Banner",
-        fixedCount: 0,
-        list: [
+        fixedCount: false,
+        children: [
           {
-            title: "Carousel 1",
+            label: "Carousel 1",
             image: CarouselOne,
           },
           {
-            title: "Carousel 2",
+            label: "Carousel 2",
             image: CarouselTwo,
           },
           {
-            title: "Carousel 3",
+            label: "Carousel 3",
             image: CarouselThree,
           },
         ],
       },
       {
         category: "Core Zigma Flippable Cards",
-        fixedCount: 0,
-        list: [
+        fixedCount: false,
+        children: [
           {
-            title: "Flip Card Front 1",
+            label: "Flip Card Front 1",
             image: FlipCardOne,
           },
           {
-            title: "Flip Card Back 1",
+            label: "Flip Card Back 1",
             image: FlipCardOneBack,
           },
           {
-            title: "Flip Card Front 2",
+            label: "Flip Card Front 2",
             image: FlipCardTwo,
           },
           {
-            title: "Flip Card Back 2",
+            label: "Flip Card Back 2",
             image: FlipCardTwoBack,
           },
           {
-            title: "Flip Card Front 3",
+            label: "Flip Card Front 3",
             image: FlipCardThree,
           },
           {
-            title: "Flip Card Back 3",
+            label: "Flip Card Back 3",
             image: FlipCardThreeBack,
           },
         ],
       },
       {
         category: "How It Works Card",
-        fixedCount: 0,
-        list: [
+        fixedCount: false,
+        children: [
           {
-            title: "Card 1",
+            label: "Card 1",
             image: WatchVideos,
           },
           {
-            title: "Card 2",
+            label: "Card 2",
             image: StudyCards,
           },
           {
-            title: "Card 3",
+            label: "Card 3",
             image: PracticeTest,
           },
         ],
@@ -157,28 +133,29 @@ export const WCGenericRouteWithImages: imageCollectionType[] = [
   },
   {
     id: 2,
-    title: "About Us",
-    content: [
+    label: "About Us",
+    icon: "",
+    children: [
       {
         category: "Hero Banner",
-        fixedCount: 1,
-        list: [
+        fixedCount: true,
+        children: [
           {
-            title: "About Us Banner",
+            label: "About Us Banner",
             image: AboutUsBanner,
           },
         ],
       },
       {
         category: "FAQ Background Image",
-        fixedCount: 1,
-        list: [
+        fixedCount: true,
+        children: [
           {
-            title: "Background One",
+            label: "Background One",
             image: CroppedCoreZigma,
           },
           {
-            title: "Background Two",
+            label: "Background Two",
             image: TransparentCoreZigma,
           },
         ],
@@ -187,14 +164,15 @@ export const WCGenericRouteWithImages: imageCollectionType[] = [
   },
   {
     id: 3,
-    title: "Contact",
-    content: [
+    label: "Contact",
+    icon: "",
+    children: [
       {
         category: "Hero Banner",
-        fixedCount: 1,
-        list: [
+        fixedCount: true,
+        children: [
           {
-            title: "Contact Us Banner",
+            label: "Contact Us Banner",
             image: ContactUsBanner,
           },
         ],
@@ -203,14 +181,15 @@ export const WCGenericRouteWithImages: imageCollectionType[] = [
   },
   {
     id: 4,
-    title: "Login",
-    content: [
+    label: "Login",
+    icon: "",
+    children: [
       {
         category: "Left Panel Image",
-        fixedCount: 1,
-        list: [
+        fixedCount: true,
+        children: [
           {
-            title: "Login Image",
+            label: "Login Image",
             image: LoginBG,
           },
         ],
@@ -219,18 +198,19 @@ export const WCGenericRouteWithImages: imageCollectionType[] = [
   },
   {
     id: 5,
-    title: "Payment Checkout",
-    content: [
+    label: "Payment Checkout",
+    icon: "",
+    children: [
       {
         category: "Background Image",
-        fixedCount: 1,
-        list: [
+        fixedCount: true,
+        children: [
           {
-            title: "PN Background",
+            label: "PN Background",
             image: RNBackground,
           },
           {
-            title: "RN Background",
+            label: "RN Background",
             image: PNBackground,
           },
         ],

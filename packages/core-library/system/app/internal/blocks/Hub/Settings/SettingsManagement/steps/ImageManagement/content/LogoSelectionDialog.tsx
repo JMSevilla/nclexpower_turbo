@@ -4,12 +4,14 @@
  * Created by the Software Strategy & Development Division
  */
 import { Box } from "@mui/material";
-import { Button } from "../../../../../../../../../../components";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
+import {
+  Button,
+  DialogBox,
+  EvaIcon,
+} from "../../../../../../../../../../components";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { CSSProperties, useState } from "react";
-import { DialogBox } from "../../../../../../../../../../components/Dialog/DialogBox";
 import { ImageGallery } from "./ImageGallery";
 
 interface Props {
@@ -26,7 +28,14 @@ export const LogoSelectionDialog = ({ image, bgColor, imgStyle }: Props) => {
         onClick={() => setShowGallery(true)}
         sx={{ width: "80px", height: "80px", borderRadius: "10px" }}
       >
-        <PermMediaIcon />
+        <EvaIcon
+          id="folder-outline"
+          name="folder-outline"
+          width={30}
+          height={30}
+          fill="white"
+          ariaHidden
+        />
       </Button>
       <Box
         sx={{
@@ -51,10 +60,11 @@ export const LogoSelectionDialog = ({ image, bgColor, imgStyle }: Props) => {
         header="Image Gallery"
         open={showGallery}
         borderRadius="16px"
-        children={<ImageGallery />}
         maxWidth="md"
         ContentHeight="650px"
-      />
+      >
+        <ImageGallery />
+      </DialogBox>
     </Box>
   );
 };
