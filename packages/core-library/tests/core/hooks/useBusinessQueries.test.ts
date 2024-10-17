@@ -356,7 +356,7 @@ describe("useGetContents", () => {
   });
 });
 
-describe("useGetContents", () => {
+describe("useCreateAuthorizeMenus", () => {
   const mockExecute = jest.fn();
   const mockMutate = jest.fn();
   const mockData: AxiosResponse<number, AxiosError> = {
@@ -421,6 +421,26 @@ describe("useGetContents", () => {
     expect(result.current.data).toBeUndefined();
   });
 
+  it("should handle error state", async () => {
+    const mockError = new Error("Failed to fetch data");
+    mockExecute.mockRejectedValue(mockError);
 
+    (useMutation as jest.Mock).mockImplementation(() => {
+      return {
+        data: undefined,
+        isLoading: false,
+        error: mockError,
+      };
+    });
+
+    const { result } = renderHook(() => useCreateAuthorizedMenus());
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockAuthorizedMenus);
+    });
+
+    expect(result.current.error).toEqual(mockError);
+    expect(result.current.data).toBeUndefined();
+  });
 
 })
