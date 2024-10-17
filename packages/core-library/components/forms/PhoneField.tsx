@@ -1,3 +1,8 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import { KeyboardArrowDown } from "@mui/icons-material";
 import {
   Grid,
@@ -106,10 +111,8 @@ const PhoneFieldComponent = <T extends object>({
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
-        {fieldState?.error?.message ? (
+        {fieldState?.error?.message && (
           <FieldError messageKey={fieldState.error.message} />
-        ) : (
-          <Typography>{label ?? "[[label_name]]"}</Typography>
         )}
       </Grid>
 
