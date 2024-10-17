@@ -6,6 +6,9 @@ import {
   useGetContents,
   useCreateContactUs,
   useCreateReportIssue,
+  useCreateRegularQuestion,
+  useLoadPreProcessQuery,
+  useGetAllReportedIssues,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -15,10 +18,12 @@ import {
   AuthorizedContentsResponseType,
   ContactFormType,
   CreatePaymentIntentParams,
+  CreateRegularType,
   PaymentIntentResponse,
   ReportIssueType,
   WebGetContentsParams,
 } from "../../../api/types";
+import { useAccessToken } from "../../../contexts/auth/hooks";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -50,6 +55,46 @@ jest.mock("react-query", () => ({
   useQuery: jest.fn(),
   useMutation: jest.fn(),
 }));
+
+// Mock the hooks and functions
+jest.mock("../../../contexts/auth/hooks", () => ({
+  useAccessToken: jest.fn(),
+}));
+
+describe("useLoadPreProcessQuery", () => {
+  const mockExecutePTestHimem = jest.fn();
+  const mockExecutePreTrackItem = jest.fn();
+  const mockQueryKey = ["test-query-key"];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    (useAccessToken as jest.Mock).mockReturnValue([
+      "test-access-token",
+      jest.fn(),
+    ]);
+
+    (useApiCallback as jest.Mock).mockImplementation(() => ({
+      execute: jest.fn(),
+    }));
+
+    (useApiCallback as jest.Mock).mockImplementation((callback) => {
+      if (callback.toString().includes("initializeLoadPTestHimem")) {
+        return { execute: mockExecutePTestHimem };
+      }
+      if (callback.toString().includes("initializeLoadPrepareTrackItem")) {
+        return { execute: mockExecutePreTrackItem };
+      }
+    });
+  });
+
+  it("should not call APIs if accessToken is not present", async () => {
+    (useAccessToken as jest.Mock).mockReturnValue([null, jest.fn()]);
+    renderHook(() => useLoadPreProcessQuery(mockQueryKey));
+    expect(mockExecutePTestHimem).not.toHaveBeenCalled();
+    expect(mockExecutePreTrackItem).not.toHaveBeenCalled();
+  });
+});
 
 describe("useSelectQuestionsQuery", () => {
   const mockExecute = jest.fn();
@@ -186,6 +231,67 @@ describe("useCreatePaymentIntent", () => {
 
     expect(mockMutate).toHaveBeenCalled();
     expect(result.current.isLoading).toBe(false);
+  });
+});
+
+describe("useGetAllReportedIssues", () => {
+  const mockExecuteGetAllReportedIssues = jest.fn();
+  const mockQueryKey = ["reportedIssues"];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    // Mock useApi to return the mock execute function
+    (useApi as jest.Mock).mockImplementation(() => ({
+      execute: mockExecuteGetAllReportedIssues,
+    }));
+  });
+
+  it("should fetch and return reported issues data", async () => {
+    const mockData = [
+      {
+        id: "1",
+        ticketNumber: "T12345",
+        email: "user@example.com",
+        categoryId: "C1",
+        category: {
+          id: "C1",
+          name: "Bug",
+        },
+        systemProduct: 1,
+        description: "Issue description",
+        dateReported: "2024-10-17",
+      },
+    ];
+
+    mockExecuteGetAllReportedIssues.mockResolvedValue({ data: mockData });
+
+    (useQuery as jest.Mock).mockImplementation((_key, fetcher) => {
+      fetcher();
+      return {
+        data: mockData,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() => useGetAllReportedIssues(mockQueryKey));
+
+    expect(result.current.data).toEqual(mockData);
+    expect(mockExecuteGetAllReportedIssues).toHaveBeenCalled();
+  });
+
+  it("should pass queryKey and staleTime to useQuery", async () => {
+    (useQuery as jest.Mock).mockImplementation((_key, fetcher, options) => {
+      fetcher();
+      return { data: undefined, isLoading: false, error: null };
+    });
+
+    renderHook(() => useGetAllReportedIssues(mockQueryKey));
+
+    expect(useQuery).toHaveBeenCalledWith(mockQueryKey, expect.any(Function), {
+      staleTime: Infinity,
+    });
   });
 });
 

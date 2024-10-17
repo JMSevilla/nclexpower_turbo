@@ -26,16 +26,26 @@ export function ContactFormBlock() {
 
   const { handleSubmit, control, reset, setValue, watch } = form;
 
-  const onSubmit = (values: ContactFormType) => {
-    console.log(values);
-    toast.executeToast(
-      "Your message have been received. Thank you",
-      "top-right",
-      false
-    );
-
-    reset();
-  };
+  async function onSubmit(params: ContactFormType) {
+    try {
+      await mutateAsync({ ...params });
+      toast.executeToast(
+        "Your message has been received. Thank you",
+        "top-right",
+        false,
+        { type: "success" }
+      );
+      reset();
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      toast.executeToast(
+        `There was an error submitting your message: ${(error as Error).message}`,
+        "top-right",
+        true,
+        { type: "error" }
+      );
+    }
+  }
 
   const handleSetCountryCode = (code: string) => {
     setValue("countryCode", code);
