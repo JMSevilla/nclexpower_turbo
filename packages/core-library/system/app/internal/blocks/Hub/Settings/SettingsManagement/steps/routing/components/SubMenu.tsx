@@ -15,7 +15,7 @@ import {
   IconComponent,
   IconList,
 } from "../../../../../../../../../../components/GenericDrawerLayout/utils/icon-component";
-import { deleteIconStyle } from "../../routing/style";
+import { deleteIconStyle } from "../style";
 
 export const SubMenu = ({ nestIndex }: { nestIndex: number }) => {
   const { control: formControl, setValue } =
