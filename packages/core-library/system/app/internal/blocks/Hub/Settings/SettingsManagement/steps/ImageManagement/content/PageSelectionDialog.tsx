@@ -17,11 +17,7 @@ import {
 } from "../../../../../../../../../../components";
 import { useEffect, useState } from "react";
 import { ImageGallery } from "./ImageGallery";
-import {
-  DynamicImagesTypes,
-  ImageCollectionType,
-  SidebarType,
-} from "../types/types";
+import { DynamicImagesTypes, ImageCollectionType } from "../types/types";
 import { CategoryCardItem } from "./CategoryCardItem";
 import { NCLEXBlueLogo } from "../../../../../../../../../../assets";
 
