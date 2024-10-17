@@ -4,14 +4,13 @@
 * Created by the Software Strategy & Development Division
 */
 import { Box, Typography, Chip } from '@mui/material';
-import { ControlledCheckbox, TextAreaField, Card, ComponentLoader } from '../../../../../../../../../../components';
+import { ControlledCheckbox, TextAreaField, Card, ComponentLoader, DateField } from '../../../../../../../../../../components';
 import { Control, FormProvider, useForm, UseFormClearErrors, UseFormHandleSubmit, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { crbSchema, crbType } from './validation';
 import { author, mainContent, RadioData } from "./ContentReviewerData";
 import { CustomPopover } from '../../../../../../../../../../components/Popover/Popover';
-import ContentReviewerDialog from './ContentReviewerDialog';
 import ConfirmationModal from '../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog';
 import React from 'react';
 
@@ -73,9 +72,7 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
   handleSubmit,
   setValue,
   watch,
-  clearErrors,
   isApproved,
-  showModal,
   onSubmit,
   contentLoader
 }) => {
@@ -88,8 +85,14 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
   const selectedOption = watch("option");
 
   if (contentLoader) {
-    return <ComponentLoader/>
+    return <ComponentLoader />
   };
+
+  const selectedDate = watch('date');
+
+  const isDateBeforeToday = selectedDate &&
+    new Date(selectedDate).setHours(0, 0, 0, 0)
+    < new Date().setHours(0, 0, 0, 0);
 
   return (
     <Box className="relative">
@@ -147,89 +150,81 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
             />
           )}
         </Box>
-        {showModal ? (
-          <>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "end",
-                zIndex: 1,
-              }}
-            >
-              <ContentReviewerDialog />
-            </Box>
-          </>
-        ) : (
-          <Box
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "end",
+            zIndex: 1,
+          }}
+        >
+          <CustomPopover
+            icon={<ArrowDropDownIcon />}
+            open={true}
+            label="Review Changes"
             sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
+              px: 4,
+              py: 2,
+              backgroundColor: "#343a40",
+              borderRadius: "10px",
+              color: "#F3F3F3",
+              "&:hover": {
+                backgroundColor: "#212529",
+              },
               zIndex: 1,
             }}
           >
-            <CustomPopover
-              icon={<ArrowDropDownIcon />}
-              open={true}
-              label="Review Changes"
+            <Card
               sx={{
-                px: 4,
-                py: 2,
-                backgroundColor: "#343a40",
-                borderRadius: "10px",
-                color: "#F3F3F3",
-                "&:hover": {
-                  backgroundColor: "#212529",
-                },
+                width: "100%",
+                padding: 6,
+                border: "1px solid #80ed99",
                 zIndex: 1,
               }}
             >
-              <Card
-                sx={{
-                  width: "100%",
-                  padding: 6,
-                  border: "1px solid #80ed99",
-                  zIndex: 1,
-                }}
-              >
-                <Typography sx={{ fontSize: "1.4rem", color: "#560bad" }}>
-                  Write your review
-                </Typography>
-                <hr className="my-4" />
-                <div className="flex flex-col z-0">
-                  <TextAreaField
-                    name="comment"
+              <Typography sx={{ fontSize: "1.4rem", color: "#560bad", marginBottom: 4 }}>
+                Write your review
+              </Typography>
+              <hr />
+              <Typography sx={{ marginTop: 4 }}>Select a date for this content to take effect in simulator.</Typography>
+              <DateField<crbType>
+                name='date'
+                control={control}
+                placeholder="DD - MM - YYYY"
+              />
+              <div className="flex flex-col z-0 mt-4">
+                <TextAreaField
+                  name="comment"
+                  control={control}
+                  style={{ width: '100%' }}
+                  placeholder='Comment here...'
+                />
+                {RadioData.map((item, index) => (
+                  <ControlledCheckbox
+                    key={index}
+                    name="option"
                     control={control}
-                    style={{ width: 400 }}
+                    label={item.title}
+                    value={item.value}
+                    checked={selectedOption === item.value}
+                    onChange={() => setValue("option", item.value)}
                   />
-                  {RadioData.map((item, index) => (
-                    <ControlledCheckbox
-                      key={index}
-                      name="option"
-                      control={control}
-                      label={item.title}
-                      value={item.value}
-                      checked={selectedOption === item.value}
-                      onChange={() => setValue("option", item.value)}
-                    />
-                  ))}
-                </div>
-                <Box sx={{ zIndex: 4 }}>
-                  <ConfirmationModal
-                    customButton="Continue"
-                    dialogContent="Are you sure you want to proceed with the selected action"
-                    confirmButtonText="Confirm"
-                    isLoading={contentLoader ?? false}
-                    handleSubmit={handleSubmit(onSubmit)}
-                  />
-                </Box>
-              </Card>
-            </CustomPopover>
-          </Box>
-        )}
+                ))}
+              </div>
+              <Box sx={{ zIndex: 4 }}>
+                <ConfirmationModal
+                  disabled={isDateBeforeToday}
+                  customButton="Continue"
+                  dialogContent="Are you sure you want to proceed with the selected action"
+                  confirmButtonText="Confirm"
+                  isLoading={contentLoader ?? false}
+                  handleSubmit={handleSubmit(onSubmit)}
+                />
+              </Box>
+            </Card>
+          </CustomPopover>
+        </Box>
         <MainContent />
       </FormProvider>
     </Box>
