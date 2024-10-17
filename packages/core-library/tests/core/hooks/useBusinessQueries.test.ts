@@ -404,4 +404,23 @@ describe("useGetContents", () => {
     expect(result.current.isLoading).toBe(false);
   });
 
+  it("should handle loading state", async () => {
+    (useMutation as jest.Mock).mockReturnValue({
+      isLoading: true,
+    });
+
+    const { result } = renderHook(() =>
+      useCreateAuthorizedMenus()
+    );
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockAuthorizedMenus);
+    });
+
+    expect(result.current.isLoading).toBe(true);
+    expect(result.current.data).toBeUndefined();
+  });
+
+
+
 })
