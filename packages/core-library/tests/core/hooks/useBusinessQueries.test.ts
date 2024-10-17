@@ -1,7 +1,6 @@
 import { renderHook, act } from "../../common";
 import {
   useSelectQuestionsQuery,
-  useAppMutation,
   useCreatePaymentIntent,
   useGetContents,
   useCreateContactUs,
@@ -20,10 +19,8 @@ import {
   AuthorizedContentsResponseType,
   ContactFormType,
   CreatePaymentIntentParams,
-  CreateRegularType,
   PaymentIntentResponse,
   ReportIssueType,
-  WebGetContentsParams,
 } from "../../../api/types";
 import { useAccessToken } from "../../../contexts/auth/hooks";
 
@@ -614,6 +611,32 @@ describe("useGetCategoryByType", () => {
     }));
 
     renderHook(() => useGetCategoryByType(mockQueryKey, 1));
+
+    expect(useQuery).toHaveBeenCalledWith(mockQueryKey, expect.any(Function), {
+      staleTime: Infinity,
+    });
+  });
+});
+
+describe("useGetRegularQuestionDDCategory", () => {
+  const mockQueryKey = ["test-query-key"];
+  const mockType = 1;
+  const mockData = { id: "1", name: "Category 1" };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApi as jest.Mock).mockReturnValue({
+      execute: jest.fn().mockResolvedValue({ data: mockData }),
+    });
+    (useQuery as jest.Mock).mockImplementation((queryKey, fn, options) => ({
+      data: fn(),
+      isLoading: false,
+      error: null,
+      ...options,
+    }));
+  });
+  it("should pass queryKey and staleTime to useQuery", () => {
+    renderHook(() => useGetRegularQuestionDDCategory(mockQueryKey, mockType));
 
     expect(useQuery).toHaveBeenCalledWith(mockQueryKey, expect.any(Function), {
       staleTime: Infinity,
