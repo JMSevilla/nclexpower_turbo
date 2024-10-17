@@ -504,7 +504,6 @@ export const useGetContents = (
   );
 }
 
-
 export const useCreateAuthorizedMenus = (
   opt?: MutOpt<AxiosResponse<number, AxiosError>>
 ) => {

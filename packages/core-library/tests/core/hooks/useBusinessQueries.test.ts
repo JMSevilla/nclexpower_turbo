@@ -4,6 +4,7 @@ import {
   useAppMutation,
   useCreatePaymentIntent,
   useGetContents,
+  useCreateAuthorizedMenus,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -11,6 +12,7 @@ import { useMutation, useQuery } from "react-query";
 import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
   AuthorizedContentsResponseType,
+  CreateAuthorizedMenusParams,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   WebGetContentsParams,
@@ -187,6 +189,14 @@ describe("useCreatePaymentIntent", () => {
 
 describe("useGetContents", () => {
   const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+  const mockData: AxiosResponse<number, AxiosError> = {
+    data: 200,
+    status: 200,
+    statusText: "OK",
+    headers: new AxiosHeaders(),
+    config: { headers: new AxiosHeaders() },
+  };
 
   it("should fetch and return authorized contents", async () => {
     const mockData: AuthorizedContentsResponseType[] = [
@@ -345,3 +355,53 @@ describe("useGetContents", () => {
     expect(result.current.data).toBeUndefined();
   });
 });
+
+describe("useGetContents", () => {
+  const mockExecute = jest.fn();
+  const mockMutate = jest.fn();
+  const mockData: AxiosResponse<number, AxiosError> = {
+    data: 200,
+    status: 200,
+    statusText: "OK",
+    headers: new AxiosHeaders(),
+    config: { headers: new AxiosHeaders() },
+  };
+  const mockAuthorizedMenus: CreateAuthorizedMenusParams = {
+    accountLevel: 0,
+    menuEnvironments: 0,
+    systemMenus: 0,
+    MenuItems: [
+      {
+        children: [],
+        icon: 'test-icon',
+        label: 'test-label',
+        path: '/test-path'
+      }],
+
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
+  });
+
+  it("should create a new menus successfully", async () => {
+    const opt = { onSuccess: jest.fn() };
+    mockExecute.mockResolvedValue({ data: mockData });
+    const { result } = renderHook(() => useCreateAuthorizedMenus(opt));
+
+    await act(async () => {
+      await result.current?.mutateAsync?.(mockAuthorizedMenus);
+    });
+
+    expect(mockMutate).toHaveBeenCalled();
+    expect(result.current.isLoading).toBe(false);
+  });
+
+})
