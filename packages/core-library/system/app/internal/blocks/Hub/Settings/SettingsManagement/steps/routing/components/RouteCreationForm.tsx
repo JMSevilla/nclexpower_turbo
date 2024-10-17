@@ -32,7 +32,7 @@ import {
   IconComponent,
   IconList,
 } from "../../../../../../../../../../components/GenericDrawerLayout/utils/icon-component";
-import { SubMenu } from "../../ImageManagement/components/SubMenu";
+import { SubMenu } from "./SubMenu";
 
 type RouteCreationFormPropsType = {
   onSubmit: (value: RouteManagementSchema) => void;
@@ -120,6 +120,10 @@ export const RouteCreationForm: React.FC<RouteCreationFormPropsType> = ({ onSubm
           </Card>
         </Box>
       </Box>
+
+      <Card onClick={() => handleOptionSelect("SubMenu")} sx={cardStyle}>
+        Menu with Sub Menu
+      </Card>
 
       <Button
         buttonActionType="submit"

@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import React from "react";
 import Image from "next/image";
 import {
@@ -10,26 +15,29 @@ import {
   Source as SourceIcon,
   AccountCircle as AccountCircleIcon,
   DeleteOutline as DeleteOutlineIcon,
+  FindReplace as FindReplaceIcon,
   FiberManualRecord,
 } from "@mui/icons-material";
 
 import { keySquare, TRDSqaureWhite, TRDSquare } from "../../../assets";
+import { SvgIconProps } from "@mui/material";
 
 export const IconComponent = (
   iconName: string,
-  open?: boolean
+  open?: boolean,
+  IconColor: SvgIconProps["color"] = "primary"
 ): React.ReactNode => {
   switch (iconName) {
     case "DashboardIcon":
-      return <DashboardIcon color="primary" fontSize="small" />;
+      return <DashboardIcon color={IconColor} fontSize="small" />;
     case "FeedIcon":
-      return <FeedIcon color="primary" fontSize="small" />;
+      return <FeedIcon color={IconColor} fontSize="small" />;
     case "PersonIcon":
-      return <PersonIcon color="primary" fontSize="small" />;
+      return <PersonIcon color={IconColor} fontSize="small" />;
     case "QuestionManagementIcon":
       return (
         <QuestionAnswerIcon
-          color="primary"
+          color={IconColor}
           fontSize="small"
           data-testid="QuestionManagementIcon"
         />
@@ -37,19 +45,19 @@ export const IconComponent = (
     case "ResultsIcon":
       return (
         <ReportIcon
-          color="primary"
+          color={IconColor}
           fontSize="small"
           data-testid="ResultsIcon"
         />
       );
     case "SettingsIcon":
-      return <SettingsIcon color="primary" fontSize="small" />;
+      return <SettingsIcon color={IconColor} fontSize="small" />;
     case "SourceIcon":
-      return <SourceIcon color="primary" fontSize="small" />;
+      return <SourceIcon color={IconColor} fontSize="small" />;
     case "ApprovalIcon":
       return (
         <AccountCircleIcon
-          color="primary"
+          color={IconColor}
           fontSize="small"
           data-testid="ApprovalIcon"
         />
@@ -57,7 +65,7 @@ export const IconComponent = (
     case "DeleteIcon":
       return (
         <DeleteOutlineIcon
-          color="primary"
+          color={IconColor}
           fontSize="small"
           data-testid="DeleteIcon"
         />
@@ -81,9 +89,17 @@ export const IconComponent = (
           data-testid="DotsIcon"
         />
       );
+    case "FindReplaceIcon":
+      return (
+        <FindReplaceIcon
+          color={IconColor}
+          fontSize="small"
+          data-testid="FindReplaceIcon"
+        />
+      );
 
     default:
-      return <FeedIcon color="primary" fontSize="small" />; // Default icon
+      return <FeedIcon color={IconColor} fontSize="small" />; // Default icon
   }
 };
 
@@ -143,5 +159,9 @@ export const IconList = [
   {
     label: "DotsIcon",
     icon: FiberManualRecord,
+  },
+  {
+    label: "FindReplaceIcon",
+    icon: FindReplaceIcon,
   },
 ];
