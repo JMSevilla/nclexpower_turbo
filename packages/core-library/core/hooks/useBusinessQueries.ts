@@ -27,7 +27,8 @@ import {
   GetAllInternalAccount,
   CreateRegularType,
   AuthorizedContentsResponseType,
-  WebGetContentsParams
+  WebGetContentsParams,
+  CreateAuthorizedMenusParams
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -501,4 +502,21 @@ export const useGetContents = (
     },
     { staleTime: Infinity }
   );
+}
+
+
+export const useCreateAuthorizedMenus = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const CreateAuthorizedMenusCb = useApiCallback(
+    async (api, args: CreateAuthorizedMenusParams) =>
+      await api.webbackoffice.createAuthorizedMenus(args)
+  );
+  return useAppMutation<
+    AxiosResponse<number, AxiosError>,
+    CreateAuthorizedMenusParams
+  >(async (data) => {
+    const result = await CreateAuthorizedMenusCb.execute({ ...data });
+    return result;
+  }, opt);
 }

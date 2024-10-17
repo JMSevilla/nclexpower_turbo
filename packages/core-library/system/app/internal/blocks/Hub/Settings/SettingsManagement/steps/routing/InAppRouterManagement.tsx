@@ -12,7 +12,7 @@ import {
 } from "../../../../../../../../../components";
 import { useMenu } from "../../../../../../../../../components/GenericDrawerLayout/hooks/useMenu";
 import { prepareMenus } from "../../../../../../../../../components/GenericDrawerLayout/MockMenus";
-import { useAuthContext } from "../../../../../../../../../contexts";
+import { useAuthContext, useBusinessQueryContext, useExecuteToast } from "../../../../../../../../../contexts";
 import { useValidateToken } from "../../../../../../../../../hooks";
 import React, { useState } from "react";
 import { RouteCreationForm } from "./components/RouteCreationForm";
@@ -21,6 +21,7 @@ import { columns } from "./constant/constant";
 import { FormProvider, useForm } from "react-hook-form";
 import { RouteManagementSchema, RouteMenuCreation } from "../../validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CreateAuthorizedMenusParams } from '../../../../../../../../../api/types';
 
 interface Props {
   nextStep(values: Partial<SettingsSelectionType>): void;
@@ -39,11 +40,14 @@ export const InAppRouterManagement: React.FC<Props> = ({
   const [IsNewMenuCreated, setIsNewMenuCreated] = useState<boolean>(false);
   const { isAuthenticated } = useAuthContext();
   const { tokenValidated } = useValidateToken();
-
+  const { businessQueryCreateAuthorizedMenus } = useBusinessQueryContext()
+  const { mutateAsync } = businessQueryCreateAuthorizedMenus()
+  const { executeToast } = useExecuteToast()
   const form = useForm<RouteManagementSchema>({
     mode: "all",
     resolver: yupResolver(RouteMenuCreation),
   });
+  const { reset: resetForm } = form
 
   const { menus, loading: menuLoading } = useMenu();
   const mockMenu = prepareMenus({
@@ -51,6 +55,21 @@ export const InAppRouterManagement: React.FC<Props> = ({
     loading: menuLoading,
     menus: menus,
   });
+
+  async function onSubmit(values: RouteManagementSchema) {
+    try {
+      await mutateAsync(values as CreateAuthorizedMenusParams)
+      resetForm({ MenuItems: [] })
+    } catch {
+      executeToast(
+        "Sorry! Please try again later",
+        "top-right",
+        false,
+        { type: "error" }
+      );
+    }
+
+  };
 
   return (
     <FormProvider {...form}>
@@ -96,7 +115,7 @@ export const InAppRouterManagement: React.FC<Props> = ({
               gap: "10px",
             }}
           >
-            <RouteCreationForm />
+            <RouteCreationForm onSubmit={onSubmit} />
           </Box>
         ) : view ? (
           <Box sx={{ display: "flex", gap: "10px" }}>

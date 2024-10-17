@@ -34,7 +34,11 @@ import {
 } from "../../../../../../../../../../components/GenericDrawerLayout/utils/icon-component";
 import { SubMenu } from "../../ImageManagement/components/SubMenu";
 
-export const RouteCreationForm = () => {
+type RouteCreationFormPropsType = {
+  onSubmit: (value: RouteManagementSchema) => void;
+}
+
+export const RouteCreationForm: React.FC<RouteCreationFormPropsType> = ({ onSubmit }) => {
   const { control: formControl, handleSubmit } =
     useFormContext<RouteManagementSchema>();
 
@@ -62,9 +66,6 @@ export const RouteCreationForm = () => {
         : null;
   };
 
-  const onSubmit = (values: RouteManagementSchema) => {
-    console.log("values : ", values);
-  };
 
   return (
     <Box

@@ -49,11 +49,7 @@ export const RouteMenuCreation = yup.object({
         then: (schema) => schema.required("Menu Label is required"),
         otherwise: (schema) => schema.notRequired(),
       }),
-      path: yup.string().when("type", {
-        is: "Main",
-        then: (schema) => schema.required("Path is required"),
-        otherwise: (schema) => schema.notRequired(),
-      }),
+      path: yup.string().default(''),
       children: yup.array().when("type", {
         is: "SubMenu",
         then: (schema) =>

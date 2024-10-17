@@ -439,6 +439,17 @@ export type AuthorizedRoutes = {
   value: string;
 };
 
+export type CreateMenuItems = {
+  label: string;
+  path: string;
+  icon: string;
+  children: CreateMenuItems[];
+}
+
+export type CreateAuthorizedMenusParams = AuthorizedMenuParams & {
+  MenuItems: CreateMenuItems[]
+}
+
 export interface AuthorizedContentsResponseType {
   id: string;
   contentApprovers: ContentApprover[];
@@ -544,3 +555,4 @@ export type DefaultReviewerParams = {
 export type DefaultReviewerDto = {
   accountId: string;
 };
+
