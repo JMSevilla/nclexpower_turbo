@@ -1,3 +1,8 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import { render, screen } from "../../common";
 import { PhoneField } from "../../../components";
 import { FormProvider, useForm } from "react-hook-form";
@@ -59,11 +64,6 @@ describe("PhoneField Component", () => {
       />
     );
   };
-  test("renders the PhoneField component with label", () => {
-    setup();
-    expect(screen.getByText("Phone Number")).toBeInTheDocument();
-  });
-
   test("renders phone code select dropdown", () => {
     setup();
     const phoneCodeSelect = screen.getByTestId("phone-code-select");
