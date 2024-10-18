@@ -693,7 +693,7 @@ describe("useCreateReportIssue", () => {
 
 describe("useCreateContactUs", () => {
   const mockExecute = jest.fn();
-  const mockMutate = jest.fn();
+  const mockMutateAsync = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -701,7 +701,7 @@ describe("useCreateContactUs", () => {
       execute: mockExecute,
     });
     (useMutation as jest.Mock).mockReturnValue({
-      mutateAsync: mockMutate,
+      mutateAsync: mockMutateAsync,
       isLoading: false,
     });
   });
@@ -713,27 +713,15 @@ describe("useCreateContactUs", () => {
       phone: "123-456-7890",
       message: "This is a test message",
     };
-
-    const opt = { onSuccess: jest.fn() };
     mockExecute.mockResolvedValue({ data: mockData });
-
+    const opt = { onSuccess: jest.fn() };
     const { result } = renderHook(() => useCreateContactUs(opt));
 
     await act(async () => {
-      await result.current.mutateAsync({
-        name: "John Doe",
-        email: "john.doe@example.com",
-        phone: "123-456-7890",
-        message: "This is a test message",
-      });
+      await result.current.mutateAsync(mockData);
     });
 
-    expect(mockMutate).toHaveBeenCalledWith({
-      name: "John Doe",
-      email: "john.doe@example.com",
-      phone: "123-456-7890",
-      message: "This is a test message",
-    });
+    expect(mockMutateAsync).toHaveBeenCalledWith(mockData);
     expect(result.current.isLoading).toBe(false);
   });
 });
