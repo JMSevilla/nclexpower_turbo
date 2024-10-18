@@ -1,3 +1,8 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { useMutation, useQuery, UseQueryResult } from "react-query";
 import { MutOpt, ApiServiceErr } from "./types";
 import { useApi, useApiCallback } from "../../hooks";
@@ -5,7 +10,6 @@ import {
   CalcItemSelectResponseItem,
   ItemSelectTypes,
   RegularAnswer,
-
 } from "../../types";
 import { AxiosError, AxiosResponse } from "axios";
 import { CategoryListResponse } from "../../types/category-response";
@@ -27,7 +31,8 @@ import {
   GetAllInternalAccount,
   CreateRegularType,
   AuthorizedContentsResponseType,
-  WebGetContentsParams
+  WebGetContentsParams,
+  ContactFormType,
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -409,21 +414,20 @@ export const useCreateReportIssue = (
     async (api, args: ReportIssueType) =>
       await api.web.web_create_report_issue(args)
   );
-  return useAppMutation<
-    AxiosResponse<number, AxiosError>,
-    ReportIssueType
-  >(async (data) => {
-    const result = await submissionCreateReportIssueCb.execute({ ...data });
-    return result;
-  }, opt);
+  return useAppMutation<AxiosResponse<number, AxiosError>, ReportIssueType>(
+    async (data) => {
+      const result = await submissionCreateReportIssueCb.execute({ ...data });
+      return result;
+    },
+    opt
+  );
 };
 
 export const useGetCategoryByType = (
-  queryKey: string[], type: number
+  queryKey: string[],
+  type: number
 ): UseQueryResult<any | undefined, any> => {
-  const getCategoryByType = useApi((api) =>
-    api.web.get_category_by_type(type)
-  );
+  const getCategoryByType = useApi((api) => api.web.get_category_by_type(type));
 
   return useQuery<ApiServiceErr>(
     queryKey,
@@ -435,9 +439,9 @@ export const useGetCategoryByType = (
   );
 };
 
-
 export const useGetRegularQuestionDDCategory = (
-  queryKey: string[], type: number
+  queryKey: string[],
+  type: number
 ): UseQueryResult<any | undefined, any> => {
   const getClientNeeds = useApi((api) =>
     api.webbackoffice.getRegularQuestionDDCategory(type)
@@ -468,7 +472,7 @@ export const useGetAllInternalAccounts = (
     },
     { staleTime: Infinity }
   );
-}
+};
 
 export const useCreateRegularQuestion = (
   opt?: MutOpt<AxiosResponse<number, AxiosError>>
@@ -477,17 +481,18 @@ export const useCreateRegularQuestion = (
     async (api, args: CreateRegularType) =>
       await api.webbackoffice.createRegularQuestion(args)
   );
-  return useAppMutation<
-    AxiosResponse<number, AxiosError>,
-    CreateRegularType
-  >(async (data) => {
-    const result = await CreateRegularQuestionCb.execute({ ...data });
-    return result;
-  }, opt);
-}
+  return useAppMutation<AxiosResponse<number, AxiosError>, CreateRegularType>(
+    async (data) => {
+      const result = await CreateRegularQuestionCb.execute({ ...data });
+      return result;
+    },
+    opt
+  );
+};
 
 export const useGetContents = (
-  queryKey: string[], args: WebGetContentsParams
+  queryKey: string[],
+  args: WebGetContentsParams
 ): UseQueryResult<AuthorizedContentsResponseType[] | undefined, any> => {
   const getRegularQuestions = useApi((api) =>
     api.webbackoffice.web_get_regular_question(args)
@@ -501,4 +506,20 @@ export const useGetContents = (
     },
     { staleTime: Infinity }
   );
-}
+};
+
+export const useCreateContactUs = (
+  opt?: MutOpt<AxiosResponse<number, AxiosError>>
+) => {
+  const contactUsSubmission = useApiCallback(
+    async (api, args: ContactFormType) =>
+      await api.web.web_create_contact_us(args)
+  );
+  return useAppMutation<AxiosResponse<number, AxiosError>, ContactFormType>(
+    async (data) => {
+      const result = await contactUsSubmission.execute({ ...data });
+      return result;
+    },
+    opt
+  );
+};
