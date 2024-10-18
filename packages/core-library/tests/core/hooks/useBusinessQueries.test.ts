@@ -693,15 +693,19 @@ describe("useCreateReportIssue", () => {
 
 describe("useCreateContactUs", () => {
   const mockExecute = jest.fn();
-  const mockMutateAsync = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
+
     (useApiCallback as jest.Mock).mockReturnValue({
       execute: mockExecute,
     });
+
     (useMutation as jest.Mock).mockReturnValue({
-      mutateAsync: mockMutateAsync,
+      mutateAsync: jest.fn(async (data) => {
+        const result = await mockExecute(data);
+        return result;
+      }),
       isLoading: false,
     });
   });
@@ -713,15 +717,19 @@ describe("useCreateContactUs", () => {
       phone: "123-456-7890",
       message: "This is a test message",
     };
-    mockExecute.mockResolvedValue({ data: mockData });
+
+    const mockResult = { data: 200 };
+    mockExecute.mockResolvedValue(mockResult);
+
     const opt = { onSuccess: jest.fn() };
     const { result } = renderHook(() => useCreateContactUs(opt));
 
     await act(async () => {
-      await result.current.mutateAsync(mockData);
+      const response = await result.current.mutateAsync(mockData);
+      expect(response).toEqual(mockResult);
     });
 
-    expect(mockMutateAsync).toHaveBeenCalledWith(mockData);
+    expect(mockExecute).toHaveBeenCalledWith(mockData);
     expect(result.current.isLoading).toBe(false);
   });
 });
