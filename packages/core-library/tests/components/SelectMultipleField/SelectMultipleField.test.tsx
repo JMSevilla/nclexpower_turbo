@@ -50,9 +50,9 @@ describe("MultipleSelect", () => {
   });
 
   it("allows multiple selections", () => {
-    render(<SelectWithForm />);
+    const { getByLabelText } = render(<SelectWithForm />);
 
-    fireEvent.mouseDown(screen.getByLabelText("My Field"));
+    fireEvent.mouseDown(getByLabelText("My Field"));
     fireEvent.click(screen.getByText("Option 1"));
     fireEvent.click(screen.getByText("Option 2"));
 
@@ -78,6 +78,36 @@ describe("MultipleSelect", () => {
     fireEvent.click(getByLabelText("delete"));
 
     expect(handleDelete).toHaveBeenCalledWith(val, expect.any(Object));
+    expect(handleDelete).toHaveBeenCalledTimes(1);
+  });
+
+  it("Icon should not propagate the click event", () => {
+    const onClick = jest.fn();
+    const onOuterClick = jest.fn();
+
+    render(
+      <div onClick={onOuterClick}>
+        <CancelIcon aria-label="delete" />{" "}
+      </div>
+    );
+    const icon = screen.getByLabelText("delete");
+    fireEvent.click(icon);
+
+    expect(onClick).toHaveBeenCalledTimes(0);
+    expect(onOuterClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls handleDelete when the delete icon is clicked", () => {
+    const initialValues = ["testValue"];
+    const options = [{ value: "testValue", label: "Test Label" }];
+
+    const { getByLabelText } = render(<SelectWithForm />);
+
+    const deleteIcon = getByLabelText("My Field");
+
+    fireEvent.click(deleteIcon);
+
+    expect(handleDelete).toHaveBeenCalledWith("testValue", expect.any(Object));
     expect(handleDelete).toHaveBeenCalledTimes(1);
   });
 });
