@@ -8,4 +8,5 @@ export const HideHeader = [
   "/maintenance",
   "/account/reset-password",
   "/customer/payment/checkout",
+  "/account/registration"
 ];

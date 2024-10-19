@@ -8,4 +8,5 @@ export const HideFooter = [
   "/account/reset-password",
   "/customer/payment/checkout",
   "/hub",
+  "/account/registration"
 ];
