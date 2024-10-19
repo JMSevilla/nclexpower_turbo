@@ -22,5 +22,8 @@ export * from "./useEmotionCache";
 export * from "./useSensitiveInformation";
 export * from "./useGoogleSignIn";
 export * from "./usePreventDuplicateSession";
-export * from './useMappedErrors'
-export *from "./useStyles"
+export * from "./useMappedErrors";
+export * from "./useStyles";
+export * from "./useWebHeaderStyles";
+export * from "./usePaymentSuccessRedirect";
+export * from "./useShowPassword";

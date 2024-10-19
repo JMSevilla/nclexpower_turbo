@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import "./mui.css";
 import "../styles/password-strength-meter.css";
-import Page from "./shared/Page";
+import { ParseContents } from "core-library/system";
 import Head from "next/head";
 import { default as Router } from "next/router";
 import NProgress from "nprogress";
@@ -18,6 +18,7 @@ import "core-library/styles/nprogress.css";
 import { useEmotionCache } from "core-library/hooks";
 import { CacheProvider } from "@emotion/react";
 import { SessionProvider } from "next-auth/react";
+import { config } from "core-library/config";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -38,11 +39,11 @@ export default function App({
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
         </Head>
-        <Page>
+        <ParseContents appName={config.value.BASEAPP}>
           <Suspense>
             <Component {...pageProps} />
           </Suspense>
-        </Page>
+        </ParseContents>
       </SessionProvider>
     </CacheProvider>
   );

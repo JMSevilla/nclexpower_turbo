@@ -1,22 +1,6 @@
-import { AboutUsBlock } from '@/components/blocks/AboutUsBlock/AboutUsBlock'
-import { withCSP } from 'core-library';
-import CSPHead from 'core-library/components/CSPHead';
-import { GetServerSideProps } from 'next';
-import React from 'react'
+import { CustomerParseBlocks } from "core-library/system";
+import React from "react";
 
-interface Props {
-  generatedNonce: string;
+export default function AboutUs() {
+  return <CustomerParseBlocks blocks="CustomerAboutUsPage" />;
 }
-
-const AboutUs:React.FC<Props> = ({generatedNonce}) => {
-  return (
-  <>
-    <CSPHead nonce={generatedNonce} />
-    <AboutUsBlock/>
-  </>
-)
-}
-
-export const getServerSideProps: GetServerSideProps = withCSP();
-
-export default AboutUs;
