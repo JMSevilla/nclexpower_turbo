@@ -111,25 +111,6 @@ export const DeviceDetectionDialog = () =>
           </Grid>
         </Grid>
       </div>
-      {/* <Grid
-          lg={6}
-          md={12}
-          sm={0}
-          item
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            height: "100%",
-            alignItems: "start",
-            justifyContent: "center",
-            paddingX: "25px",
-            width: "100%"
-          }}
-        >
-        
-        </Grid> */}
     </div>
-
   );
 };
