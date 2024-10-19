@@ -9,7 +9,7 @@ export const DEFAULT_LOGO = {
 };
 
 const themeConfigFromTenant = (tenant?: CmsTenant | null) => ({
-  primaryColor: tenant?.primaryColor.value ?? "#8E2ADD",
+  primaryColor: tenant?.primaryColor.value ?? "#0c225c",
 });
 
 export const appColorsFromPrimary = (primaryColor: string) => {
@@ -239,10 +239,10 @@ export const theme = (tenant?: CmsTenant | null) => {
           "& a": {
             color: appColors.primary,
             "&:focus:not(.MuiButton-root, .MuiListItem-root &, .MuiListItemButton-root &)":
-            {
-              backgroundColor: appColors.ui_rag["Amber.400"],
-              outline: "none!important",
-            },
+              {
+                backgroundColor: appColors.ui_rag["Amber.400"],
+                outline: "none!important",
+              },
           },
           "& button:focus, a.MuiButton-root:focus": {
             border: "none",

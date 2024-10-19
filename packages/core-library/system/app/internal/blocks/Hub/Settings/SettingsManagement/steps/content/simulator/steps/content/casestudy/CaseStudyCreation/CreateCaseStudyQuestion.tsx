@@ -13,8 +13,9 @@ import { containedCaseStudyQuestionSchema } from "../../../../validation";
 import ConfirmationModal from "../../../../../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import { BackgroundInfoTab } from "./components/BackgroundInfoTab";
 import { caseStudyQuestionnaires } from "../../../../../../../constants/constants";
-import { atom } from "jotai";
-import { ErrorMapping } from '../../../../../../../../../../../../../../components';
+import { atom, useAtom } from "jotai";
+import { ErrorMapping } from "../../../../../../../../../../../../../../components";
+import { CreateCaseStudyAtom } from "../../../../useAtomic";
 
 interface Props {
   nextStep(values: Partial<ContainedCaseStudyQuestionType>): void;
@@ -40,6 +41,7 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
   previous,
   reset,
 }) => {
+  const [caseStudyAtom, setCaseStudyAtom] = useAtom(CreateCaseStudyAtom);
   const form = useForm<ContainedCaseStudyQuestionType>({
     mode: "all",
     resolver: yupResolver(containedCaseStudyQuestionSchema),
@@ -66,10 +68,13 @@ export const CreateCaseStudyQuestion: React.FC<Props> = ({
       ...getValues(),
     });
   };
-  const { errors } = formState
+  const { errors } = formState;
 
   const onSubmit = async (values: ContainedCaseStudyQuestionType) => {
     console.log(values);
+    setCaseStudyAtom(values);
+    nextStep({ ...values });
+    next();
   };
 
   const handlePrevious = () => {
