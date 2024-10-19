@@ -84,23 +84,23 @@ export const CheckoutPageBlock: React.FC<Props> = ({
     try {
       const values = getValues();
       if (!stripe || !elements) return;
-      // const confirmPaymentParams = {
-      //   email: values.email,
-      //   firstname: values.firstname,
-      //   middlename: values.middlename,
-      //   lastname: values.lastname,
-      //   orderNumber: orderNumber,
-      //   productId: productId,
-      //   paymentIntentId: paymentIntentId,
-      //   totalAmount: amount,
-      // } as CreateCustomerDumpParams;
-      // await createCustomerDumpCb.execute({ ...confirmPaymentParams });
-      // setIntent(intentContainer);
+      const confirmPaymentParams = {
+        email: values.email,
+        firstname: values.firstname,
+        middlename: values.middlename,
+        lastname: values.lastname,
+        orderNumber: orderNumber,
+        productId: productId,
+        paymentIntentId: paymentIntentId,
+        totalAmount: amount,
+      } as CreateCustomerDumpParams;
+      await createCustomerDumpCb.execute({ ...confirmPaymentParams });
+      setIntent(intentContainer);
 
       const { error } = await stripe?.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}`,
+          return_url: `${window.location.origin}/payment-success?paymentIntentId=${paymentIntentId}`,
           payment_method_data: {
             billing_details: {
               email: values.email,
