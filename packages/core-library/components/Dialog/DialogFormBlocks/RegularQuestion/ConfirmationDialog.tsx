@@ -16,6 +16,7 @@ type Props = {
   dialogContent: string;
   confirmButtonText?: string;
   isLoading: boolean;
+  disabled?: boolean;
 };
 
 const ContinueModalContent: React.FC<Props> = ({
@@ -113,17 +114,18 @@ export default function ConfirmationModal({
 
   return (
     <>
-      <Box data-testid="confirm-modal" onClick={handleClickOpen} role="button">
+      <Box data-testid="confirm-modal">
         {customButton == "Continue" ? (
-          <Button disabled={disabled}>Continue</Button>
+          <Button disabled={disabled} onClick={handleClickOpen}>Continue</Button>
         ) : (
-          <Button sx={{ zIndex: 2 }}>
+          <Button sx={{ zIndex: 2 }} onClick={handleClickOpen}>
             <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
             <Typography>Previous</Typography>
           </Button>
         )}
-      </Box>
+      </Box >
       <DialogBox
+
         handleClose={handleClose}
         loading={false}
         maxWidth="sm"
