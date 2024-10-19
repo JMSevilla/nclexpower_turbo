@@ -1,31 +1,26 @@
-import * as Icon from '@mui/icons-material';
-import { SvgIconComponent } from '@mui/icons-material';
-
-interface ContactInfoType {
+import { StaticImageData } from "next/image";
+interface Props {
+  icon: StaticImageData;
   title: string;
   subTitle: string;
-  icon: SvgIconComponent;
 }
 
-export const ContactMock: ContactInfoType[] = [
+import { ContactLocation, ContactMail, ContactPhone } from "core-library/assets";
+
+export const ContactMock: Props[] = [
   {
-    icon: Icon.Business,
-    title: 'Business Address',
-    subTitle: 'Example Address 48120, Philippines',
+    icon: ContactLocation,
+    title: "Location",
+    subTitle: "1700 Eureka Rd Ste 155 <br/> Roseville, California 95661"
   },
   {
-    icon: Icon.AccessTime,
-    title: 'Operating Hours',
-    subTitle: '8:00 am ~ 12:00pm',
+    icon: ContactPhone,
+    title: "Contact Number",
+    subTitle: "1-866-800-3030",
   },
   {
-    icon: Icon.Phone,
-    title: 'Phone Number',
-    subTitle: '09571234921',
+    icon: ContactMail,
+    title: "Email Address",
+    subTitle: "info@nclexpower.com",
   },
-  {
-    icon: Icon.Email,
-    title: 'Email Address',
-    subTitle: 'nclexpowerexample@gmail.com',
-  }
-];
+]

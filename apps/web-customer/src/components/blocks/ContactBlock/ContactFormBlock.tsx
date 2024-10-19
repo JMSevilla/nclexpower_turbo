@@ -1,7 +1,12 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import React from "react";
 import { ContactForm } from "./ContactForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { ContactFormType, contactSchema } from "./validation";
 import { useExecuteToast } from "core-library/contexts";
 
@@ -14,7 +19,7 @@ export function ContactFormBlock() {
     defaultValues: contactSchema.getDefault(),
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit, control, reset, setValue , watch } = form;
 
   const onSubmit = (values: ContactFormType) => {
     console.log(values);
@@ -23,6 +28,12 @@ export function ContactFormBlock() {
       "top-right",
       false
     );
+
+    reset();
+  };
+
+  const handleSetCountryCode = (code: string) => {
+    setValue("countryCode", code);
   };
 
   return (
@@ -30,6 +41,8 @@ export function ContactFormBlock() {
       control={control}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      handleSetCountryCode={handleSetCountryCode}
+      countryCode={watch("countryCode")}
     />
   );
 }

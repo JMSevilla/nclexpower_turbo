@@ -3,7 +3,6 @@ import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, TextField } from "core-library/components";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useShowPassword } from "./useShowPassword";
 import { ValidationIndicators } from "./ValidationIndicator";
 import {
@@ -11,20 +10,24 @@ import {
   ChangePasswordType,
   validatePassword,
 } from "@/core/Schema";
+import Image from "next/image";
+import { ChangePasswordBG, NCLEXBlueLogo } from 'core-library/assets'
+import { ChangePasswordLock } from '../../../icons/ChangePasswordLock'
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 interface ChangePasswordFormProps {
   submitLoading?: boolean;
   onSubmit: (values: ChangePasswordType) => void;
+  handleBack: () => void;
 }
 
 export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
   onSubmit,
   submitLoading,
+  handleBack,
 }) => {
   const {
     showPassword,
-    handleClickShowPassword,
-    handleClickShowconfirmPassword,
     showconfirmPassword,
   } = useShowPassword();
 
@@ -73,148 +76,90 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
   );
 
   return (
-    <>
-      <section className="w-full h-screen flex items-center justify-center">
-        <div className="absolute w-full h-screen z-0 bg-pricing "></div>
-        <Grid
-          container
-          sx={{
-            width: { xs: "90%", sm: "80%", md: "70%", lg: "60%" },
-            zIndex: 1,
-            mt: 5,
-          }}
+    <section className="w-full h-screen flex items-center justify-center">
+      <div className="w-full h-screen p-6 mt-10 lg:mt-0 flex items-center lg:p-12 justify-center flex-col bg-white rounded-md lg:w-[39rem] lg:h-[44.625rem]" >
+        <div
+          className="w-full flex items-center justify-end text-darkBlue text-xl cursor-pointer  z-10"
+          onClick={handleBack}
         >
-          <Grid item xs={12} sx={{ p: { xs: 2, sm: 4, lg: 6, xl: 8 } }}>
-            <div className="flex items-center p-12 justify-center flex-col bg-white border rounded-md">
-              <div className="text-center mb-5">
-                <Typography
-                  variant="h4"
-                  component="span"
-                  sx={{
-                    color: "#0F2A71",
-                    fontFamily: "pt-sans-narrow-bold",
-                  }}
-                >
-                  CHANGE PASSWORD
-                </Typography>
-              </div>
-              <div className="text-center mb-5 text-darkGray">
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontSize: {
-                      xs: "14px",
-                      sm: "16px",
-                      md: "18px",
-                      lg: "20px",
-                      xl: "22px",
-                    },
-                    lineHeight: {
-                      xs: "1.4",
-                      sm: "1.5",
-                      md: "1.6",
-                      lg: "1.7",
-                      xl: "1.4",
-                    },
-                    textAlign: "left",
-                    mb: 4,
-                    maxWidth: "400px",
-                    mx: "auto",
-                    fontFamily: "pt-sans-narrow-regular",
-                  }}
-                >
-                  Please enter a new password. Ensure that your new password is
-                  different from the previous one for better security.
-                </Typography>
-              </div>
-              <FormProvider {...form}>
-                <Stack className="w-full">
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ marginY: 3, display: "flex", gap: 2 }}
-                  >
-                    <TextField
-                      control={control}
-                      name="newPassword"
-                      label="New Password"
-                      type={showPassword ? "text" : "password"}
-                    />
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="start"
-                      sx={{ mt: 4 }}
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </Grid>
+          <ArrowBackIosNewIcon fontSize="small" />
+          <span className="pt-sans-narrow-regular ml-1 underline">Back to login</span>
+        </div>
+        <div className="text-center mb-5 flex items-center justify-center flex-col">
+          <ChangePasswordLock />
+          <h1 className="pt-sans-bold text-3xl font-bold text-[#0F2A71] leading-3 mt-4">Set new password</h1>
+        </div>
+        <div className="text-center mb-5 text-darkGray">
+          <p className="text-[#606060] pt-sans-narrow-regular text-xl">
+            Please enter a new password. Ensure that your new password is
+            different from the previous one for better security.
+          </p>
 
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ marginY: 3, display: "flex", gap: 2 }}
-                  >
-                    <TextField
-                      control={control}
-                      name="confirmPassword"
-                      label="Confirm Password"
-                      type={showconfirmPassword ? "text" : "password"}
-                    />
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowconfirmPassword}
-                      edge="start"
-                      sx={{ mt: 4 }}
-                    >
-                      {showconfirmPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </Grid>
-                  <Grid item xs={12} sx={{ marginY: 2 }}>
-                    <Typography
-                      sx={{
-                        marginY: 2,
-                        fontFamily: "Poppins",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Must contain at least
-                    </Typography>
-                    <ValidationIndicators
-                      criteria={passwordCriteria}
-                      iconSize="medium"
-                      invalidColor="red"
-                      validColor="green"
-                    />
-                  </Grid>
-
-                  <Box
-                    sx={{
-                      gridColumn: "span 10",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 4,
-                      mt: 2,
-                      flexDirection: { xs: "column", md: "row" },
-                    }}
-                  >
-                    <Button
-                      disabled={!isValid || submitLoading}
-                      variant="contained"
-                      fullWidth
-                      sx={{ px: 4, py: 2, mt: 3, backgroundColor: "#0F2A71" }}
-                      className="hover:bg-hoverBlue"
-                      onClick={handleSubmit(onSubmit)}
-                    >
-                      Change Password
-                    </Button>
-                  </Box>
-                </Stack>
-              </FormProvider>
-            </div>
-          </Grid>
-        </Grid>
-      </section>
-    </>
+        </div>
+        <FormProvider {...form}>
+          <Image
+            src={ChangePasswordBG}
+            alt="ChangePassword BG..."
+            style={{ position: "absolute", zIndex: 0 }}
+          />
+          <div className="hidden lg:block">
+            <Image
+              src={NCLEXBlueLogo}
+              alt="ChangePassword BG..."
+              style={{ position: "absolute", zIndex: 0, bottom: 40, right: 60 }}
+            />
+          </div>
+          <Stack className="w-full gap-2">
+            <span className="pt-sans-narrow-bold text-[#0F2A71] text-xl">New Password</span>
+            <TextField
+              control={control}
+              name="newPassword"
+              placeholder="Password"
+              type={showPassword ? "text" : "password"}
+              sx={{ borderRadius: "10px", border: '1px solid #0F2A71' }}
+              inputProps={{ style: { padding: 20, borderRadius: "10px" } }}
+            />
+            <span className="pt-sans-narrow-bold text-[#0F2A71] text-xl mt-4">Confirm Password</span>
+            <TextField
+              control={control}
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              type={showconfirmPassword ? "text" : "password"}
+              sx={{ borderRadius: "10px", border: '1px solid #0F2A71' }}
+              inputProps={{ style: { padding: 20, borderRadius: "10px" } }}
+            />
+            <Grid item xs={12} sx={{ marginY: 2 }}>
+              <p className="text-[#E92828] pt-sans-narrow-bold text-xl mb-2">Must contain at least</p>
+              <ValidationIndicators
+                criteria={passwordCriteria}
+                iconSize="medium"
+                invalidColor="red"
+                validColor="green"
+              />
+            </Grid>
+            <Box
+              sx={{
+                gridColumn: "span 10",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
+              <Button
+                disabled={!isValid || submitLoading}
+                variant="contained"
+                fullWidth
+                sx={{ px: 4, py: 2, backgroundColor: "#0F2A71", borderRadius: "0.625rem" }}
+                className="hover:bg-hoverBlue"
+                onClick={handleSubmit(onSubmit)}
+              >
+                Change Password
+              </Button>
+            </Box>
+          </Stack>
+        </FormProvider>
+      </div>
+    </section>
   );
 };

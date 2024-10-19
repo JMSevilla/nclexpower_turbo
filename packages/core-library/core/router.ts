@@ -1,7 +1,6 @@
 import { NextRouter, useRouter as useNextRouter } from "next/router";
 import qs, { ParsedQuery } from "query-string";
 import { useEffect, useMemo, useState } from "react";
-
 type StaticRoutes = Record<
   | "home"
   | "hub"
@@ -11,7 +10,9 @@ type StaticRoutes = Record<
   | "login"
   | "account_verification_otp"
   | "account_forgot_password"
-  | "reset_link_success", //we can register all our static routes here.
+  | "reset_link_success" //we can register all our static routes here.
+  | "about"
+  | "second_tab_redirect",
   string
 >;
 type TransitionOptions = ArgumentTypes<NextRouter["push"]>[2];
@@ -22,7 +23,7 @@ type PathParameters = {
   query?: ParsedQuery<any>;
 };
 
-const STATIC_ROUTES: StaticRoutes = {
+export const STATIC_ROUTES: StaticRoutes = {
   home: "/",
   hub: "/hub",
   logout: "/logout",
@@ -32,6 +33,8 @@ const STATIC_ROUTES: StaticRoutes = {
   account_verification_otp: "/account/verification/otp",
   account_forgot_password: "/account/forgot-password",
   reset_link_success: "/account/reset-link",
+  about: "/about",
+  second_tab_redirect: "/duplicate-session", //duplicate session page currently does not exist. remove this comment once created.
 };
 
 const routeTitles: Record<string, string> = {
@@ -44,12 +47,14 @@ const routeTitles: Record<string, string> = {
   "/account/verification/otp": "Account Verification OTP",
   "/account/forgot-password": "Forgot Password",
   "/account/reset-link": "Reset Link Success",
+  "/about": "About",
 };
 
 export const useRouter = () => {
   const router = useNextRouter();
   const [loading, setLoading] = useState(false);
   const staticRoutes = {} as StaticRoutes;
+  // const { validate } = useMenu();
 
   useEffect(() => {
     const start = () => {
@@ -164,15 +169,15 @@ export const useRouter = () => {
       }
     };
   }
-
-  function routeUrl(path: string) {
-    return path === STATIC_ROUTES.home ||
-      path.includes("http://") ||
-      path.includes("https://")
-      ? path
-      : path;
-  }
 };
 
-const configuredRouteOptions = (options?: TransitionOptions) =>
-  options ? { scroll: false, ...options } : { scroll: false };
+export function routeUrl(path: string) {
+  return path === STATIC_ROUTES.home ||
+    path.includes("http://") ||
+    path.includes("https://")
+    ? path
+    : path;
+}
+
+export const configuredRouteOptions = (options?: TransitionOptions) =>
+  options ? { scroll: true, ...options } : { scroll: true };

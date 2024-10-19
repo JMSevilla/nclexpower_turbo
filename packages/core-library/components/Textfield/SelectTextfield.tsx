@@ -9,8 +9,8 @@ import {
 
 type SelectOption = {
   label: string;
-  value: string;
-  xvalue: number;
+  value: string | number;
+  xvalue?: number;
 };
 
 type BaseSelectFieldProps = {
@@ -26,6 +26,7 @@ type BaseSelectFieldProps = {
   size?: TextFieldProps["size"];
   variant?: TextFieldProps["variant"];
   placeholder?: TextFieldProps["placeholder"];
+  disabled?: boolean;
 };
 
 export function SelectField({

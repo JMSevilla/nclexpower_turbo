@@ -10,7 +10,15 @@ import {
   AccountCircle as AccountCircleIcon,
 } from "@mui/icons-material";
 import { NavigationType } from "../../types/navigation";
+import { useAuthNavigation } from "../../core/hooks/useAuthNavigation";
+import { useMenu } from "./hooks/useMenu";
+import { useRouter } from "../../core";
+import { AuthorizedRoutes, MenuItems } from "../../api/types";
 
+/**
+ * @deprecated menus should be consumed dynamically. This utilization will be deprecated.
+ * Effective Date : Today 9/9/2024
+ */
 const AuthenticatedMenu: NavigationType[] = [
   {
     id: 1,
@@ -71,6 +79,18 @@ const AuthenticatedMenu: NavigationType[] = [
     ],
   },
   {
+    id: 3,
+    label: "Content Management",
+    icon: <FeedIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 4,
+        label: "Content Approval",
+        path: "/acam/question-approval",
+      },
+    ],
+  },
+  {
     id: 5,
     label: "Results",
     path: "/",
@@ -79,18 +99,29 @@ const AuthenticatedMenu: NavigationType[] = [
   {
     id: 6,
     label: "Manage Users",
-    path: "/",
     icon: <PersonIcon color="primary" fontSize="small" />,
+    children: [
+      {
+        id: 7,
+        label: "Create Internal User",
+        path: "/mu/manage-users",
+      },
+      {
+        id: 8,
+        label: "Manage Internal User",
+        path: "/mu/view-users",
+      },
+    ],
   },
   {
-    id: 7,
+    id: 9,
     label: "Settings",
     path: "/settings/internal-application-settings",
     icon: <SettingsIcon color="primary" />,
   },
 
   {
-    id: 8,
+    id: 10,
     label: "Reports",
     path: "/reports/reported-issues",
     icon: <ReportIcon color="primary" />,
@@ -120,10 +151,39 @@ const UnauthencatedMenu: NavigationType[] = [
   },
 ];
 
-export const mockMenus = (isAuthenticated: boolean) => {
-  if (isAuthenticated) {
-    return AuthenticatedMenu;
-  }
+export type PrepareMenu = {
+  isAuthenticated: boolean;
+  menus: MenuItems[];
+  loading: boolean;
+};
 
+export const normalizePath = (path: string) =>
+  path.replace(/\/+$/, "").toLowerCase();
+
+export const pathExists = (
+  routes: AuthorizedRoutes[],
+  path: string
+): boolean => {
+  const basePath = "/hub";
+
+  const findPath = (items: AuthorizedRoutes[]): boolean => {
+    for (const item of items) {
+      const fullPath = normalizePath(`${basePath}${item.value}`);
+      if (fullPath === normalizePath(path)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  return findPath(routes);
+};
+
+export const prepareMenus = (props: PrepareMenu) => {
+  const { isAuthenticated, loading, menus } = props;
+
+  if (isAuthenticated && !loading) {
+    return useAuthNavigation(menus);
+  }
   return [];
 };

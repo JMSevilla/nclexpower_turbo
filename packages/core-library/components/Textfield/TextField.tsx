@@ -65,7 +65,7 @@ export const FormHelperText: React.FC<FormHelperTextProps> = ({
   );
 };
 
-export const TextField: React.FC<Props> = ({
+export const InputField: React.FC<Props> = ({
   label,
   sx = {},
   containerProps,
@@ -134,7 +134,7 @@ export function ControlledTextField<T extends FieldValues>({
         field: { onChange, onBlur, value },
         fieldState: { error },
       }) => (
-        <TextField
+        <InputField
           onChange={onChange}
           onBlur={onBlur}
           value={value ?? ""}

@@ -1,11 +1,15 @@
+/**
+
+Property of the NCLEX Power.
+Reuse as a whole or in part is prohibited without permission.
+Created by the Software Strategy & Development Division
+*/
+
 import React, { useEffect } from "react";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import {
-  loginSchema,
-  LoginFormType,
-} from "core-library/components/blocks/LoginFormBlock/validation";
+import { LoginFormType, loginSchema } from "core-library/system";
 import { Checkbox } from "core-library/components/Checkbox/Checkbox";
 import { GoogleIcon } from "../../icons/GoogleIcon";
 import { TextField } from "core-library/components";
@@ -18,6 +22,8 @@ import CoreZigma from "../../images/CoreZigma.png";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Link from "next/link";
 import Image from "next/image";
+import { LoginBG } from "core-library/assets";
+import { useKeyDown } from "core-library/hooks/useKeyDown";
 
 type Props = {
   onSubmit: (values: LoginFormType) => void;
@@ -26,6 +32,7 @@ type Props = {
   handleChangeRememberMe: (event: React.ChangeEvent<HTMLInputElement>) => void;
   savedData: SavedDataProps | null;
   handleBack: () => void;
+  signInWithGoogle: () => void;
 };
 
 export const LoginForm: React.FC<Props> = ({
@@ -35,6 +42,7 @@ export const LoginForm: React.FC<Props> = ({
   handleChangeRememberMe,
   savedData,
   handleBack,
+  signInWithGoogle,
 }) => {
   const form = useForm({
     mode: "onSubmit",
@@ -53,53 +61,58 @@ export const LoginForm: React.FC<Props> = ({
     }
   }, [savedData, setValue]);
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+  };
+
+  useKeyDown("Enter", () => handleSubmit(onSubmit)());
+
   return (
-    <Grid
-      container
-      sx={{
-        minHeight: { lg: "screen", md: "full" },
-        display: "flex",
-        flexDirection: "row-reverse",
-      }}
-    >
-      <Grid
-        item
-        xs={0}
-        sm={0}
-        md={0}
-        lg={0}
-        xl={5}
-        sx={{
-          order: { lg: 2 },
-          display: {
-            xl: "block",
-            lg: "none",
-            md: "none",
-            sm: "none",
-            xs: "none",
-          },
-        }}
-      >
-        <Box className="none xl:w-full xl:h-screen xl:bg-login xl:bg-no-repeat xl:border-white xl:rounded-3xl xl:border-8">
-          <div className="flex items-center justify-center h-screen flex-col">
-            <h4 className="pt-sans-caption-bold text-white text-5xl mb-2">
+    <div className="flex items-center justify-between w-full h-screen">
+      <div className="hidden xl:flex lg:flex">
+        <Box
+          component={Image}
+          src={LoginBG}
+          alt="CoreZigma"
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            border: "8px solid white",
+            borderRadius: "24px",
+            zIndex: -1,
+            "@media (max-width: 1600px)": {
+              width: "650px",
+            },
+            "@media (min-width: 1550px)": {
+              width: "825px",
+            },
+          }}
+        />
+        <Box className="flex z-0 items-center justify-center">
+          <div className="flex items-center justify-center h-screen flex-col lg:px-24">
+            <h4 className="pt-sans-caption-bold text-[3rem] text-white mb-2 z-1">
               Welcome to <span className="text-yellow">NCLEX Power</span>
             </h4>
-            <h5 className="pt-sans-regular text-white text-2xl">
+            <h5 className="pt-sans-regular text-white text-[1.5rem]">
               Pass the NCLEX with our CORE Zigma Review System.
             </h5>
           </div>
         </Box>
-      </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12} xl={7} sx={{ paddingY: 4 }}>
+      </div>
+      <div className="w-full lg:w-[40rem] xl:w-[68rem] px-12 xl:px-60 lg:px-24">
         <div
-          className="flex items-center justify-end xl:px-60 px-40 cursor-pointer text-darkBlue"
+          className="flex items-center justify-end cursor-pointer text-darkBlue"
           onClick={handleBack}
         >
           <ArrowBackIosNewIcon fontSize="small" />
           <span className="pt-sans-narrow-regular ml-1 underline">Back</span>
         </div>
-        <Box sx={{ maxWidth: { xs: "xl", lg: "3xl" }, marginTop: 8 }}>
+        <div className="w-full">
           <div className="flex items-center justify-center">
             <Image
               src={CoreZigma}
@@ -107,7 +120,7 @@ export const LoginForm: React.FC<Props> = ({
               style={{ width: "150px", height: "150px", objectFit: "cover" }}
             />
           </div>
-          <div className="xl:px-60 px-40">
+          <div className="">
             <h5 className="pt-sans-bold text-4xl pt-sans-regular mb-2">
               Login
             </h5>
@@ -156,20 +169,11 @@ export const LoginForm: React.FC<Props> = ({
                   />
                 </Box>
               </Grid>
-              <Grid
-                item
-                lg={12}
-                sx={{
-                  marginY: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between ",
-                }}
-              >
+              <div className="my-4 flex items-center justify-between">
                 <Checkbox
                   checked={rememberMe}
                   onChange={handleChangeRememberMe}
-                  label="Keep me logged in"
+                  label="Remember me"
                   sx={{ borderRadius: 4 }}
                 />
                 <Typography
@@ -179,26 +183,21 @@ export const LoginForm: React.FC<Props> = ({
                 >
                   Forgot Password?
                 </Typography>
-              </Grid>
-              <Box
-                sx={{
-                  gridColumn: "span 10",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 4,
-                }}
-              >
+              </div>
+              <div className="gap-4 flex items-center">
                 <Button
                   disabled={submitLoading}
                   loading={submitLoading}
                   variant="contained"
                   fullWidth
-                  className="hover:bg-hoverBlue"
                   sx={{
                     px: 4,
                     py: 2,
                     backgroundColor: "#0F2A71",
                     borderRadius: "10px",
+                    "&:hover": {
+                      backgroundColor: "#00173F",
+                    },
                   }}
                   onClick={handleSubmit(onSubmit)}
                 >
@@ -206,7 +205,7 @@ export const LoginForm: React.FC<Props> = ({
                     Sign In
                   </span>
                 </Button>
-              </Box>
+              </div>
               <div className="flex items-center my-4">
                 <span className="h-px flex-1 bg-slate-300"></span>
                 <span className="shrink-0 px-3 pt-sans-narrow-regular">or</span>
@@ -214,8 +213,10 @@ export const LoginForm: React.FC<Props> = ({
               </div>
               <div className="flex items-center justify-center w-full">
                 <Button
-                  className="w-full justify-center rounded-lg py-3 border-slate-300 shadow-md"
+                  sx={{ paddingY: 1.5, borderRadius: "10px", boxShadow: 2, borderColor: "#1976D2" }}
+                  fullWidth
                   variant="outlined"
+                  onClick={signInWithGoogle}
                 >
                   <span className="mr-4 pt-sans-narrow-regular text-lg text-black normal-case ">
                     Sign in with Google
@@ -234,8 +235,8 @@ export const LoginForm: React.FC<Props> = ({
               </div>
             </form>
           </div>
-        </Box>
-      </Grid>
-    </Grid>
+        </div>
+      </div>
+    </div>
   );
 };

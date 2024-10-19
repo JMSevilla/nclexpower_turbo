@@ -1,5 +1,5 @@
 import { AxiosError, AxiosInstance } from "axios";
-import { RegisterParams } from "../../types/types";
+import { internalAccountType, RegisterParams } from "../../types/types";
 import qs from "query-string";
 import { config } from "../../config";
 import {
@@ -7,9 +7,9 @@ import {
   CheckoutSessionResponse,
   ConfirmPaymentParams,
   ConfirmPaymentResponse,
+  CreateCustomerDumpParams,
   CreateCustomerParams,
   CreatePaymentIntentParams,
-  GetCategoryType,
   PaymentIntentResponse,
   ReportIssueType,
   ResendCodeParams,
@@ -21,6 +21,7 @@ import {
   VerifyCodeParams,
 } from "../types";
 import { Encryption } from "../../utils";
+import { ChatBotOptionResponse } from "../../types/chatbot";
 export class WebApi {
   constructor(
     private readonly axios: AxiosInstance,
@@ -126,6 +127,13 @@ export class WebApi {
     return this.ssrAxios.post<number>(`/api/customer/create`, params);
   }
 
+  public web_create_customer_dump(params: CreateCustomerDumpParams) {
+    return this.axios.post<number>(
+      `/api/v1/Customer/create-customer-dump`,
+      params
+    );
+  }
+
   public web_get_client_secretKey(pageRoute: string) {
     return this.axios.get<string>(
       `/api/v2/internal/baseInternal/get-client-key?${qs.stringify({ pageRoute })}`
@@ -142,8 +150,19 @@ export class WebApi {
   public async get_category_by_type(type: number) {
     return await this.axios.get("/api/v1/Category/get-category-by-type", {
       params: {
-        CategoryType: type
-      }
+        CategoryType: type,
+      },
     });
+  }
+
+  public async web_chatbot_question_nodes(optionKey?: string) {
+    //this can be placed as SSR. We can also add content access key for security purposes.
+    try {
+      return await this.axios.get<ChatBotOptionResponse>(
+        `/v1/api/Chatbot/selected-chat-option?${qs.stringify({ optionKey })}`
+      );
+    } catch (err: any) {
+      throw err;
+    }
   }
 }

@@ -12,21 +12,30 @@ import { MenuItem } from "../../types/menu";
 import qs from "query-string";
 import { CategoryListResponse } from "../../types/category-response";
 import {
+  AuthorizedContentsResponseType,
+  AuthorizedMenu,
+  AuthorizedMenuParams,
+  AuthorizedRoutes,
   CategoryFormParams,
+  CreateRegularType,
   CurrenciesResponse,
+  DefaultReviewerParams,
   DiscrepanciesResponse,
   FileUploadParams,
+  GetAllInternalAccount,
+  GetDefaultReviewerResponse,
   PricingListResponse,
   ProductListResponse,
   ProductSetStatusParams,
   RegularQuestionTypeParams,
+  WebGetContentsParams,
 } from "../types";
 
 export class WebApiBackOffice {
   constructor(
     private readonly axios: AxiosInstance,
     private readonly ssrAxios: AxiosInstance
-  ) { }
+  ) {}
   public tokenInformation() {
     /* get tokenize informations */
     return this.axios.get<CmsTokens>("");
@@ -58,6 +67,19 @@ export class WebApiBackOffice {
     }
   }
 
+  public getAuthorizedMenus(params: AuthorizedMenuParams) {
+    return this.axios.post<AuthorizedMenu>(
+      `/api/v2/content/BaseContent/get-authorized-menus`,
+      params
+    );
+  }
+
+  public getContentRoutes(uid: string | undefined) {
+    return this.axios.get<Array<AuthorizedRoutes>>(
+      `/api/v2/internal/baseInternal/internal-auth-routes?accountId=${uid}`
+    );
+  }
+
   public automationUploadDocuments(params: FileUploadParams) {
     const form = new FormData();
     form.append("file", params.file);
@@ -72,13 +94,26 @@ export class WebApiBackOffice {
     );
   }
 
+  public getDefaultReviewer() {
+    return this.axios.get<GetDefaultReviewerResponse[]>(
+      `/api/v2/content/BaseContent/get-default-reviewer`
+    );
+  }
+
+  public createDefaultReviewer(params: DefaultReviewerParams) {
+    return this.axios.post(
+      `/api/v2/content/BaseContent/create-default-reviewer`,
+      params
+    );
+  }
+
   public async globals(tenantUrl: string, contentAccessKey?: string) {
     try {
       return await this.axios.get<CmsGlobals>(
         contentAccessKey
           ? `/api/content-api/api/v2/content/authorized-globals?${qs.stringify({
-            contentAccessKey: "",
-          })}`
+              contentAccessKey: "",
+            })}`
           : `/api/v2/content/BaseContent/unauthorized-globals?${qs.stringify({ tenantUrl })}`,
         { headers: { ENV: "dev2" } }
       );
@@ -188,6 +223,13 @@ export class WebApiBackOffice {
     );
   }
 
+  public async createRegularQuestion(params: CreateRegularType) {
+    return await this.axios.post<number>(
+      `/api/v2/content/baseContent/create-content`,
+      params
+    );
+  }
+
   public async getAllProducts() {
     return await this.axios.get<ProductListResponse[]>(
       `/api/v1/Product/internal-products-list`
@@ -208,8 +250,20 @@ export class WebApiBackOffice {
   public async getRegularQuestionDDCategory(type: number) {
     return await this.axios.get("/api/v1/Category/get-category-by-type", {
       params: {
-        CategoryType: type
-      }
+        CategoryType: type,
+      },
     });
+  }
+
+  public async getAllInternalAccount() {
+    return await this.axios.get<GetAllInternalAccount[]>(
+      `/api/v2/internal/baseInternal/internal-all-accounts`
+    );
+  }
+
+  public async web_get_regular_question(params: WebGetContentsParams) {
+    return await this.axios.post<AuthorizedContentsResponseType[]>(
+      `/api/v2/content/BaseContent/authorized-contents?${qs.stringify({ ...params })}`
+    );
   }
 }

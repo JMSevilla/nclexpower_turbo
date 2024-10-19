@@ -5,34 +5,48 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/router";
-import { NavigationItemType } from "../../types/global";
-import { config } from "../../config";
+import { useRouter } from "../../core";
+import { MenuItems } from "../../api/types";
+import { IconComponent } from "../GenericDrawerLayout/utils/icon-component";
+import { WebSidebarStylesType } from "../../types/web-sidebar-styles";
 
-type SidebarButtonProps = {
-  navigation: NavigationItemType;
+export interface SidebarButtonProps extends Partial<WebSidebarStylesType> {
+  navigation: MenuItems;
   pathname: string;
+  isAuthenticated: boolean;
 };
 
-export const SidebarButton = ({ navigation, pathname }: SidebarButtonProps) => {
+export const SidebarButton: React.FC<SidebarButtonProps> = ({
+  navigation,
+  pathname,
+  isAuthenticated,
+  listStyles,
+}) => {
   const router = useRouter();
+  const path = router?.pathname;
+
+  const isActive = navigation.path === path;
 
   const handleNavigate = () => {
-    const fullPath = navigation.path
-      ? `${config.value.BASEHUB}${navigation.path}`
-      : `${config.value.BASEHUB}`;
     router.push({
-      pathname: fullPath,
+      pathname: navigation.path ?? "/",
     });
   };
 
   return (
-    <Box width="100%" p={1}>
-      <Box overflow="hidden" borderRadius={3}>
-        <ListItemButton component="a" onClick={handleNavigate}>
-          <ListItemIcon> {navigation.icon && navigation.icon}</ListItemIcon>
+    <Box width="100%" p={1} sx={isAuthenticated ? listStyles?.paddingSx : null}>
+      <Box overflow="hidden" borderRadius={3} sx={listStyles?.hovericonSx}>
+        <ListItemButton
+          disabled={navigation.path === path}
+          component="a"
+          onClick={handleNavigate}
+          sx={isAuthenticated && isActive ? listStyles?.activeSx : {}}
+        >
+          <ListItemIcon sx={isAuthenticated ? listStyles?.listItemIconSx : null} >
+            {IconComponent(navigation.icon, false)}
+          </ListItemIcon>
           <ListItemText>
-            <Typography variant="body2" fontSize={13}>
+            <Typography variant="body2" fontSize={13} >
               {navigation.label}
             </Typography>
           </ListItemText>

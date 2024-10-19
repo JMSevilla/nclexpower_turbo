@@ -3,10 +3,12 @@ import { BaseSelectFieldProps, SelectOption } from "../GenericSelectField";
 
 export type PlainSelectFieldProps = BaseSelectFieldProps & {
   options: SelectOption[];
+  disabledOptions?: boolean;
 };
 
 export const PlainSelectField: React.FC<PlainSelectFieldProps> = ({
   options,
+  disabledOptions,
   ...rest
 }) => {
   return (
@@ -38,7 +40,13 @@ export const PlainSelectField: React.FC<PlainSelectFieldProps> = ({
           return (
             <option
               key={i}
-              value={option.value ?? option.branch_id ?? option.id}
+              disabled={disabledOptions}
+              value={
+                option.value ??
+                option.branch_id ??
+                option.id ??
+                option.categoryName
+              }
             >
               {option.name ??
                 option.branchName ??

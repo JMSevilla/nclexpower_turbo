@@ -1,6 +1,6 @@
-import { SelectIssueOption } from 'core-library/components';
+import { SelectOption } from 'core-library/components';
 
-export const IssueMockData: SelectIssueOption[] = [
+export const IssueMockData: SelectOption[] = [
   { label: 'Bug Problems', value: 'Bug Problems' },
   { label: 'Simulator Not Working', value: 'Simulator Not Working' },
   { label: 'Question does not load', value: 'Question does not load' },

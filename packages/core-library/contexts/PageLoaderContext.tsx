@@ -1,17 +1,25 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import { createContext, useContext, useEffect, useState } from "react";
 import { PageLoader } from "../components";
 import React from "react";
-import { useRouter } from "../core";
+import { usePageLoader } from "../hooks";
 
 const context = createContext<{
   isLoading: boolean;
   isCalculationsLoaded: boolean;
   setIsLoading(status: boolean): void;
   setIsCalculationsLoaded(status: boolean): void;
+  contentLoader: boolean;
+  setContentLoader(status: boolean): void;
 }>(undefined as any);
 
 interface Props {
   loading?: boolean;
+  isAuthenticated?: boolean;
 }
 
 export const usePageLoaderContext = () => {
@@ -23,17 +31,20 @@ export const usePageLoaderContext = () => {
 
 export const PageLoaderContextProvider: React.FC<
   React.PropsWithChildren<Props>
-> = ({ children, loading }) => {
+> = ({ children, loading, isAuthenticated }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isCalculationsLoaded, setIsCalculationsLoaded] = useState(true);
-
+  const [contentLoader, setContentLoader] = useState(true);
+  const { isPageLoading } = usePageLoader();
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsCalculationsLoaded(false);
-    }, 2000);
-  }, [isLoading, isCalculationsLoaded]);
-
+    const timeout = setTimeout(() => {
+      setContentLoader(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timeout);
+      setContentLoader(true);
+    };
+  }, []);
   return (
     <context.Provider
       value={{
@@ -41,9 +52,11 @@ export const PageLoaderContextProvider: React.FC<
         setIsLoading,
         isCalculationsLoaded,
         setIsCalculationsLoaded,
+        contentLoader,
+        setContentLoader,
       }}
     >
-      {isLoading || isCalculationsLoaded ? <PageLoader /> : <>{children}</>}
+      {!isAuthenticated && isPageLoading ? <PageLoader /> : <>{children}</>}
     </context.Provider>
   );
 };
