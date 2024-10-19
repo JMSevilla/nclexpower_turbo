@@ -134,7 +134,7 @@ export const LoginForm: React.FC<Props> = ({
                   control={control}
                   placeholder="Email"
                   sx={{ borderRadius: "10px" }}
-                  inputProps={{ style: { padding: 20, borderRadius: "10px" } }}
+                  inputProps={{style: { padding: 15, borderRadius: "10px" },}}
                 />
               </Grid>
               <Grid
@@ -154,7 +154,7 @@ export const LoginForm: React.FC<Props> = ({
                     placeholder="Password"
                     sx={{ borderRadius: "10px", width: "100%" }}
                     inputProps={{
-                      style: { padding: 20, borderRadius: "10px" },
+                      style: { padding: 15, borderRadius: "10px" },
                     }}
                     type={showPassword ? "text" : "password"}
                     endAdornment={
