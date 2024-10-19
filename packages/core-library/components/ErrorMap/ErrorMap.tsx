@@ -58,13 +58,11 @@ export const ErrorMapping: React.FC<ErrorMappingPropsType> = ({ errors, parentPa
                                     }} >
                                         {errorMap[key]}
                                     </Typography>
-                                </Box></Grow>)
-                        )}
+                                </Box>
+                            </Grow>))}
                     </Box>
                 </Box>
-            )
-            }
-
+            )}
         </Box >
     )
 }
