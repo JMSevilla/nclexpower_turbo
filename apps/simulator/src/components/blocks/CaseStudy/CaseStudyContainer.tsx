@@ -1,6 +1,6 @@
 import React from 'react';
 import { QuestionaireProps, CaseStudyProps } from '@/core/types/ssrData';
-import { useAlertMessageV2 } from '@repo/core-library/contexts/AlertMessageContext';
+import { useAlertMessageV2 } from 'core-library/contexts/AlertMessageContext';
 import {
   HCPBlock,
   DDClozeBlock,
@@ -8,8 +8,8 @@ import {
   MCQCSBlock,
   DNDBlock,
   MRSNBlock,
-  SATABlock,
-  DNDBowtieBlock
+  CSSATABlock,
+  DNDBowtieBlock,
 } from './CaseStudyQuestions';
 
 export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) => {
@@ -41,7 +41,7 @@ export const CaseStudyContainer: React.FC<CaseStudyProps> = ({ questionaire }) =
 function renderSwitch(QuestionType: string, deserializeContents: any, answer: any) {
   switch (QuestionType) {
     case 'SATA':
-      return <SATABlock questionaire={deserializeContents} />;
+      return <CSSATABlock questionaire={deserializeContents} />;
     case 'MCQGroup':
     case 'MCQNoGroup':
       return <MCQCSBlock questionaire={deserializeContents} answer={answer} />;

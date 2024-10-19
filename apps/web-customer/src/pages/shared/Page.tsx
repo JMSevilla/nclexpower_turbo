@@ -1,24 +1,31 @@
-import dynamic from "next/dynamic";
-import { Layout as LayoutComponent } from "./Layout";
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import React from "react";
-import { NextPage } from "next";
+import {
+  AuthProvider,
+  BusinessQueryContextProvider,
+  ToastProvider,
+} from "core-library/contexts";
+import Layout from "./Layout";
+import { ControlledToast } from "core-library/components";
+import { ClientSecretKeyContextProvider } from "core-library/contexts";
 
-interface Props {
-  children: React.ReactNode | React.ReactElement;
-}
-
-const Page: NextPage<Props> = ({ children }) => {
-  const Layout = dynamic<React.ComponentProps<typeof LayoutComponent>>(
-    () => import("./Layout").then((c) => c.Layout),
-    {
-      ssr: false,
-    }
-  );
-
+const Page: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <React.Fragment>
-      {/* Higher-level of code */}
-      <Layout children={children} />
+      <BusinessQueryContextProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <ClientSecretKeyContextProvider>
+              <ControlledToast autoClose={5000} hideProgressBar={false} />
+              <Layout children={children} />
+            </ClientSecretKeyContextProvider>
+          </ToastProvider>
+        </AuthProvider>
+      </BusinessQueryContextProvider>
     </React.Fragment>
   );
 };

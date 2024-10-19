@@ -2,8 +2,19 @@ import { ThemeProvider } from "@mui/material";
 import { RenderOptions, render as rtlRender } from "@testing-library/react";
 import rtlEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
-import { TenantContextProvider, GlobalsProvider } from "../contexts";
+import {
+  BusinessQueryContextProvider,
+  FormSubmissionContextProvider,
+  HeaderTitleContextProvider,
+  StripeContextProvider,
+} from "../contexts";
 import { theme } from "../contents/theme/theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import "@testing-library/jest-dom";
 
 export * from "@testing-library/react";
 
@@ -24,11 +35,23 @@ export const render = (
 ) =>
   rtlRender(ui, {
     wrapper: ({ children }) => (
-      <TenantContextProvider tenant={null as any}>
-        <GlobalsProvider tenant={null} globals={null} preloadedGlobals={{}}>
-          {children}
-        </GlobalsProvider>
-      </TenantContextProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <BusinessQueryContextProvider>
+          <DndProvider backend={HTML5Backend}>
+            <QueryClientProvider client={new QueryClient()}>
+              <StripeContextProvider publishableKey="">
+                <ThemeProvider theme={theme()}>
+                  <HeaderTitleContextProvider>
+                    <FormSubmissionContextProvider>
+                      {children}
+                    </FormSubmissionContextProvider>
+                  </HeaderTitleContextProvider>
+                </ThemeProvider>
+              </StripeContextProvider>
+            </QueryClientProvider>
+          </DndProvider>
+        </BusinessQueryContextProvider>
+      </LocalizationProvider>
     ),
     ...options,
   });

@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     "tailwind.config.ts",
-    "./jest-setup"
+    "./jest-setup",
+    "../../packages/core-library/global.d.ts"
   ],
   "exclude": [
     "node_modules"

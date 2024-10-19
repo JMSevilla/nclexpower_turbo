@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
+import React from "react";
+import { NotFoundBlock } from "../components/blocks/NotFoundBlock/NotFoundBlock";
 
 export default function Custom404() {
-  return <Typography>404 - Page Not Found</Typography>;
+  return <NotFoundBlock />;
 }

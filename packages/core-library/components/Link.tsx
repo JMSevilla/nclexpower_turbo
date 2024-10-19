@@ -72,8 +72,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   ref
 ) {
   const router = useRouter();
-  const { tenant } = useTenantContext();
-  const tenantUrl = tenant?.tenantUrl.value.split("/")?.[1];
 
   const pathname = typeof href === "string" ? href : href?.pathname;
   const className = clsx(classNameProps, {
@@ -130,9 +128,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   );
 
   function addTenantSlug(path?: string | NextLinkProps["href"]): string {
-    if (tenantUrl) {
-      return tenantUrl + path;
-    }
     return path?.toString() || "";
   }
 });

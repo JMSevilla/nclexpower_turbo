@@ -50,11 +50,7 @@ export const Layout: React.FC<Props> = ({ preloadedGlobals }) => {
                 menu={contentData.menu}
                 pageKey={contentData.page?.pageKey?.value}
               />
-              <PageContainer
-                stickOut={contentData.page?.showAsStickOut?.value}
-                loading={contentData.loading}
-                page={contentData.page}
-              >
+              <PageContainer stickOut={contentData.page?.showAsStickOut?.value}>
                 <LoadablePageContent
                   page={contentData.page}
                   loading={contentData.loading}

@@ -101,6 +101,7 @@ declare module "@mui/material/styles" {
     secondLevelValue: React.CSSProperties;
     badge: React.CSSProperties;
     sublabel: React.CSSProperties;
+    accessibleText: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
@@ -108,6 +109,7 @@ declare module "@mui/material/styles" {
     secondLevelValue?: React.CSSProperties;
     badge?: React.CSSProperties;
     sublabel?: React.CSSProperties;
+    accessibleText?: React.CSSProperties;
   }
 }
 
@@ -117,5 +119,6 @@ declare module "@mui/material/Typography" {
     secondLevelValue: true;
     badge: true;
     sublabel: true;
+    accessibleText?: React.CSSProperties;
   }
 }

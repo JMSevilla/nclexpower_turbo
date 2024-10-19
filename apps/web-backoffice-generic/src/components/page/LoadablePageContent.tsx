@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect } from "react";
-import { ComponentLoader } from "@repo/core-library/components";
+import { ComponentLoader } from "core-library/components";
 import React from "react";
 
 interface Props {
@@ -11,12 +10,11 @@ export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   loading,
 }) => {
-  // context for loading..
   const isPageLoading = loading;
 
   return (
     <React.Fragment>
-      {isPageLoading && (
+      {isPageLoading ? (
         <Box
           flex={1}
           height="100%"
@@ -26,9 +24,8 @@ export const LoadablePageContent: React.FC<React.PropsWithChildren<Props>> = ({
         >
           <ComponentLoader disableMarginBottom />
         </Box>
-      )}
-      {!isPageLoading && (
-        <Box display="flex" flexDirection="column" height="100%">
+      ) : (
+        <Box display="flex" flexDirection="column" height="100%" className={'animate-fadeIn'}>
           {children}
         </Box>
       )}

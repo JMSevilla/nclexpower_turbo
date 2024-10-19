@@ -1,4 +1,9 @@
-import { Grid, OutlinedInputProps, Typography } from "@mui/material";
+import {
+  FormHelperText,
+  Grid,
+  OutlinedInputProps,
+  Typography,
+} from "@mui/material";
 import { FocusEvent, useState } from "react";
 import {
   Control,
@@ -16,7 +21,10 @@ import { Tooltip } from "../Tooltip";
 import { CmsTooltip } from "../../types/common";
 import { Input } from "../Input";
 import { InputLoader } from "../InputLoader";
-import { FieldError } from "./FieldError";
+import { zxcvbn } from "@zxcvbn-ts/core";
+import React from "react";
+import { PasswordStrengthMeter } from "../Textfield/PasswordStrengthMeter";
+import { DialogProps } from "@mui/material/Dialog";
 
 interface Props<T extends object> {
   name: Path<T>;
@@ -38,7 +46,12 @@ interface Props<T extends object> {
   disabled?: boolean;
   multiline?: boolean;
   rows?: number;
+  IsRegister?: boolean;
+  sx?: DialogProps["sx"];
+  inputProps?: OutlinedInputProps["inputProps"];
+  endAdornment?: OutlinedInputProps["endAdornment"];
 }
+
 export const TextField = <T extends FieldValues>({
   name,
   control,
@@ -81,15 +94,19 @@ export const TextFieldComponent = <T extends object>({
     fieldState?.error?.types &&
     Object.keys(fieldState.error.types).length > 1;
 
+  const result = props.IsRegister
+    ? zxcvbn(field.value == undefined ? "" : field.value)
+    : zxcvbn("");
+
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
         {fieldState?.error?.message ? (
-          <FieldError messageKey={fieldState.error.message} />
+          <FormHelperText error>{fieldState?.error?.message}</FormHelperText>
         ) : (
           label !== null && (
             <Typography component="label" htmlFor={field?.name} display="flex">
-              {label ?? "[[label_name]]"}
+              {label ?? ""}
             </Typography>
           )
         )}
@@ -99,17 +116,20 @@ export const TextFieldComponent = <T extends object>({
           {isLoading ? (
             <InputLoader />
           ) : (
-            <Input
-              {...props}
-              {...field}
-              id={field?.name}
-              data-testid={props["data-testid"] || `${field.name}-field`}
-              error={!!fieldState?.error?.message}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              value={field?.value ?? ""}
-              onKeyDown={(e) => e.key === "Enter" && onEnter && onEnter()}
-            />
+            <React.Fragment>
+              <Input
+                {...props}
+                {...field}
+                id={field?.name}
+                data-testid={props["data-testid"] || `${field.name}-field`}
+                error={!!fieldState?.error?.message}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                value={field?.value ?? ""}
+                onKeyDown={(e) => e.key === "Enter" && onEnter && onEnter()}
+              />
+              {props.IsRegister && <PasswordStrengthMeter result={result} />}
+            </React.Fragment>
           )}
         </ErrorTooltip>
       </Grid>

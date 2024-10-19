@@ -5,10 +5,12 @@ export const useCalculator = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState<number | string>('');
   const [pressedEqual, setPressedEqual] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const isOperator = (value: string) => ['/', '*', '-', '+'].includes(value);
 
   const handleClick = (value: string) => {
+    if (!modalOpen) return;
     if (value === "Enter" || value === "=") { 
       handleEquals();
     } else if (pressedEqual && (value === "." || !isNaN(Number(value)))) {
@@ -25,16 +27,19 @@ export const useCalculator = () => {
   };
 
   const handleClear = () => {
+    if (!modalOpen) return;
     setInput('');
     setResult('');
     setPressedEqual(false);
   };
 
   const handleBack = () => {
+    if (!modalOpen) return;
     setInput(prevInput => prevInput.slice(0, -1));
   };
 
   const handleEquals = () => {
+    if (!modalOpen) return;
     try {
       const sanitizedInput = input.replace(/[^0-9+\-*/().]/g, ''); 
       const result = eval(sanitizedInput); 
@@ -54,6 +59,7 @@ export const useCalculator = () => {
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
+      if (!modalOpen) return;
       if (allowedKeys.includes(event.key) || event.key === 'Enter') {
         event.preventDefault(); 
         if (event.key === 'Delete') {
@@ -70,7 +76,7 @@ export const useCalculator = () => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [handleClick, handleClear, handleBack, handleEquals]); 
+  }, [handleClick, handleClear, handleBack, handleEquals, modalOpen]); 
 
   return {
     input,
@@ -78,6 +84,7 @@ export const useCalculator = () => {
     handleClick,
     handleClear,
     handleBack,
-    setInput
+    setInput,
+    setModalOpen
   };
 };

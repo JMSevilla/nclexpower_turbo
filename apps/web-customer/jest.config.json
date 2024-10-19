@@ -1,0 +1,27 @@
+{
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@babel|react-dnd|dnd-core|react-dnd-html5-backend|@react-dnd|swiper|dom7|ssr-window)/)"
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "jest-transform-stub"
+    },
+    "testPathIgnorePatterns": [],
+    "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
+    "testMatch": ["<rootDir>/src/tests/**/*.test.ts", "<rootDir>/src/tests/**/*.test.tsx"],
+    "testTimeout": 20000,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/tests/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/*interfaces.ts",
+      "!src/**/*types.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["html", "text"]
+  }
+  
