@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from "../../common";
 import { MultipleSelectField, SelectOption } from "../../../components";
 import { useForm } from "react-hook-form";
+import Chip from "@mui/material/Chip";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -20,6 +22,13 @@ const options: SelectOption[] = [
     value: "option2",
   },
 ];
+
+const handleDelete = jest.fn((valueToRemove, event) => {
+  event.stopPropagation();
+  event.preventDefault();
+});
+
+const val = "testValue";
 
 const SelectWithForm = () => {
   const { control } = useForm();
@@ -49,5 +58,26 @@ describe("MultipleSelect", () => {
 
     expect(screen.getByText("Option 1")).toBeInTheDocument();
     expect(screen.getByText("Option 2")).toBeInTheDocument();
+  });
+
+  it("calls handleDelete when the delete icon is clicked", () => {
+    const { getByLabelText } = render(
+      <Chip
+        key={val}
+        label={options.find((opt) => opt.value === val)?.label || val}
+        variant="filled"
+        size="medium"
+        color="info"
+        onDelete={(event) => handleDelete(val, event)}
+        onMouseDown={(e) => e.stopPropagation()}
+        deleteIcon={<CancelIcon aria-label="delete" />}
+        sx={{ borderRadius: 0, border: "1px solid #ccc" }}
+      />
+    );
+
+    fireEvent.click(getByLabelText("delete"));
+
+    expect(handleDelete).toHaveBeenCalledWith(val, expect.any(Object));
+    expect(handleDelete).toHaveBeenCalledTimes(1);
   });
 });

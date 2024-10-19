@@ -85,19 +85,19 @@ export function MultipleSelect({
             return (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                 {selected.map((val) => (
-                  <Box key={val} onMouseDown={(e) => e.stopPropagation()}>
-                    <Chip
-                      label={
-                        options.find((opt) => opt.value === val)?.label || val
-                      }
-                      variant="filled"
-                      size="medium"
-                      color="info"
-                      onDelete={(event) => handleDelete(val, event)}
-                      deleteIcon={<CancelIcon />}
-                      sx={{ borderRadius: 0, border: "1px solid #ccc" }}
-                    />
-                  </Box>
+                  <Chip
+                    key={val}
+                    label={
+                      options.find((opt) => opt.value === val)?.label || val
+                    }
+                    variant="filled"
+                    size="medium"
+                    color="info"
+                    onDelete={(event) => handleDelete(val, event)}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    deleteIcon={<CancelIcon aria-label="delete" />}
+                    sx={{ borderRadius: 0, border: "1px solid #ccc" }}
+                  />
                 ))}
               </Box>
             );
