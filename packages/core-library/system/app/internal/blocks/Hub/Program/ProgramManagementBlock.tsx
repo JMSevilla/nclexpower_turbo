@@ -1,97 +1,41 @@
- /**
-* Property of the NCLEX Power.
-* Reuse as a whole or in part is prohibited without permission.
-* Created by the Software Strategy & Development Division
-*/
-import React from "react";
-import { Alert, DataGrid } from "core-library/components";
-import { Box, Card, Container } from "@mui/material";
-import { useColumns } from "core-library/hooks";
-import { useDateFormat } from "../core/hooks";
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
+import { Box, Container, Typography } from "@mui/material";
+import { standardProgramList } from "./constant/ProgramConstants";
+import { Button } from "../../../../../../components";
+import { AccordionList } from "../../../../../../components/AccordionList/AccordionList";
 
 export function ProgramManagementBlock() {
-  const { getFormattedDate } = useDateFormat();
-
-  const { columns } = useColumns({
-    columns: [
-      {
-        field: "tokenizeInformation.email",
-        headerName: "Email",
-        minWidth: 250,
-        flex: 1,
-        renderCell: (rows) => {
-          const { tokenizeInformation } = rows.row;
-          return tokenizeInformation.email;
-        },
-      },
-      {
-        field: "tokenizeInformation.firstname",
-        headerName: "First Name",
-        flex: 1,
-        renderCell: (rows) => {
-          const { tokenizeInformation } = rows.row;
-          return tokenizeInformation.firstname;
-        },
-      },
-      {
-        field: "tokenizeInformation.middlename",
-        headerName: "Middle Name",
-        flex: 1,
-        renderCell: (rows) => {
-          const { tokenizeInformation } = rows.row;
-          return tokenizeInformation.middlename;
-        },
-      },
-      {
-        field: "tokenizeInformation.lastname",
-        headerName: "Last Name",
-        flex: 1,
-        renderCell: (rows) => {
-          const { tokenizeInformation } = rows.row;
-          return tokenizeInformation.lastname;
-        },
-      },
-      {
-        field: "accessGroup.accessLevel",
-        headerName: "Access Level",
-        flex: 1,
-        renderCell: (params) => {
-          const { accessGroup } = params.row;
-          return (
-            <span className="flex justify-center">
-              {accessGroup.accessLevel}
-            </span>
-          );
-        },
-      },
-      {
-        field: "createdAt",
-        headerName: "Created At",
-        flex: 1,
-        sortable: true,
-        minWidth: 200,
-        valueGetter: (date) => getFormattedDate(date),
-      },
-    ],
-  });
+  const buttonStyle = {
+    color: "white",
+    borderRadius: "10px",
+    backgroundColor: "#560bad",
+    fontSize: "1rem",
+    boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.3)",
+  };
 
   return (
     <Box>
       <Container>
-        <Alert
-          severity="info"
-          title="Manage Programs"
-          description="View and manage all internal programs, including detailed information about each user, for efficient tracking and oversight."
-        />
-        <Card sx={{ mt: 5, width: "100%", padding: 4 }} elevation={5}>
-          <DataGrid
-            columns={columns}
-            initPageSize={10}
-            rows={[]}
-            isLoading={false}
-            data-testid="data-grid"
-          />
-        </Card>
+        <Box
+          sx={{
+            padding:'10px',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography
+            sx={{ fontSize: "1.5rem", fontWeight: "bold", color: "#560bad" }}
+          >
+            Program Management List
+          </Typography>
+          <Button sx={buttonStyle}>Create</Button>
+        </Box>
+        <AccordionList program={standardProgramList} isOptions={true}/>
       </Container>
     </Box>
   );

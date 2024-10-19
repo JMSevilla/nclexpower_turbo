@@ -7,8 +7,8 @@ import React from "react";
 import withAuth from "core-library/core/utils/withAuth";
 import { ParseBlocks } from "core-library/system";
 
-const ViewProgramContactUsMainPage: React.FC = () => {
+const ProgramManagementMainPage: React.FC = () => {
   return <ParseBlocks blocks="ProgramManagementBlock" />;
 };
 
-export default withAuth(ViewProgramContactUsMainPage);
+export default withAuth(ProgramManagementMainPage);
