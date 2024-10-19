@@ -114,7 +114,7 @@ export default function ConfirmationModal({
 
   return (
     <>
-      <Box data-testid="confirm-modal">
+      <Box data-testid="confirm-modal" role="button">
         {customButton == "Continue" ? (
           <Button disabled={disabled} onClick={handleClickOpen}>Continue</Button>
         ) : (
