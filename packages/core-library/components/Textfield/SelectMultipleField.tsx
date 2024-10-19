@@ -9,6 +9,7 @@ import {
   Chip,
   InputAdornment,
 } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 export type SelectOption = {
   label: string;
@@ -84,18 +85,19 @@ export function MultipleSelect({
             return (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                 {selected.map((val) => (
-                  <Chip
-                    key={val}
-                    label={
-                      options.find((opt) => opt.value === val)?.label || val
-                    }
-                    variant="filled"
-                    size="medium"
-                    color="info"
-                    // onDelete={(event) => handleDelete(val, event)} //has bug please fix.
-                    // deleteIcon={<CancelIcon />}
-                    sx={{ borderRadius: 0, border: "1px solid #ccc" }}
-                  />
+                  <Box key={val} onMouseDown={(e) => e.stopPropagation()}>
+                    <Chip
+                      label={
+                        options.find((opt) => opt.value === val)?.label || val
+                      }
+                      variant="filled"
+                      size="medium"
+                      color="info"
+                      onDelete={(event) => handleDelete(val, event)}
+                      deleteIcon={<CancelIcon />}
+                      sx={{ borderRadius: 0, border: "1px solid #ccc" }}
+                    />
+                  </Box>
                 ))}
               </Box>
             );
