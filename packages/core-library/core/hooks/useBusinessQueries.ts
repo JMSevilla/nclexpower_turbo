@@ -28,7 +28,8 @@ import {
   CreateRegularType,
   AuthorizedContentsResponseType,
   WebGetContentsParams,
-  GetDefaultReviewerResponse
+  GetDefaultReviewerResponse,
+  DefaultReviewerDto
 } from "../../api/types";
 import { PricingParams, ProductParams } from "../../types/types";
 import { useAccessToken } from "../../contexts/auth/hooks";
@@ -506,7 +507,7 @@ export const useGetContents = (
 
 export const useGetSelectedApprovers = (
   queryKey: string[]
-): UseQueryResult<GetDefaultReviewerResponse[] | undefined, any> => {
+): UseQueryResult<DefaultReviewerDto[] | undefined, any> => {
   const getSelectedApprover = useApi((api) =>
     api.webbackoffice.getSelectedApprover()
   );

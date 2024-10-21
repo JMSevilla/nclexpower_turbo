@@ -59,7 +59,7 @@ import {
   CreateRegularType,
   AuthorizedContentsResponseType,
   WebGetContentsParams,
-  GetDefaultReviewerResponse,
+  DefaultReviewerDto,
 } from "../api/types";
 import { PricingParams, ProductParams } from "../types/types";
 
@@ -232,7 +232,7 @@ interface BusinessQueryContextValue {
   businessQuerySelectedApprovers
   : (
     queryKey: string[],
-  ) => UseQueryResult<GetDefaultReviewerResponse[] | undefined, any>;
+  ) => UseQueryResult<DefaultReviewerDto[] | undefined, any>;
 
 }
 
