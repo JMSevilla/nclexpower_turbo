@@ -84,7 +84,7 @@ const DeleteContent: React.FC<Props> = ({
             },
           }}
         >
-          Delete
+          Confirm
         </Button>
       </Box>
     </Box>
