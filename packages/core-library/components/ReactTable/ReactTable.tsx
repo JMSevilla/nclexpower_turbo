@@ -1,3 +1,9 @@
+/**
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
+
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import {
   Table,
@@ -10,6 +16,7 @@ import {
   TablePagination,
   Box,
   Checkbox,
+  Switch,
 } from '@mui/material';
 import {
   getCoreRowModel,
@@ -61,6 +68,7 @@ export const ReactTable = <T extends { children?: T[] }>({
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [rowSelection, setRowSelection] = useState({});
   const [expanded, setExpanded] = useState({});
+  const [showSearchInput, setShowSearchInput] = useState(false);
   const combinedColumns = [...CheckBoxColumn<T>(), ...columns];
   const dataColumns = useMemo(
     () => (!checkBoxSelection ? columns : combinedColumns),
@@ -107,23 +115,41 @@ export const ReactTable = <T extends { children?: T[] }>({
     <Box data-testid='react-table' sx={{ position: 'relative' }}>
       <Box
         sx={{
-          position: 'absolute',
-          top: -65,
-          left: '60%',
-          transform: 'translateX(-50%)',
+          display: 'flex',
+          alignItems: 'center',
           mb: 2,
         }}
       >
-        <input
-          value={globalFilter}
-          onChange={(e) => {
-            setGlobalFilter(e.target.value);
-            table.setGlobalFilter(e.target.value);
-          }}
-          placeholder='Search...'
-          style={{ padding: '8px', width: '300px' }}
+        <Switch
+          checked={showSearchInput}
+          onChange={(e) => setShowSearchInput(e.target.checked)}
+          inputProps={{ 'aria-label': 'toggle search' }}
         />
+        <span>{showSearchInput ? 'Hide Search' : 'Show Search'}</span>
       </Box>
+
+      {showSearchInput && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -65,
+            left: '60%',
+            transform: 'translateX(-50%)',
+            mb: 2,
+          }}
+        >
+          <input
+            value={globalFilter}
+            onChange={(e) => {
+              setGlobalFilter(e.target.value);
+              table.setGlobalFilter(e.target.value);
+            }}
+            placeholder='Search...'
+            style={{ padding: '8px', width: '300px' }}
+          />
+        </Box>
+      )}
+
       <TableContainer>
         <Table sx={{ minWidth: 650, width: '100%', overflow: 'auto' }}>
           <TableHead>
