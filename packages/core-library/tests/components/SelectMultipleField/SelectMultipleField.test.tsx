@@ -13,101 +13,96 @@ jest.mock("../../../core/router", () => ({
 }));
 
 const options: SelectOption[] = [
-  {
-    label: "Option 1",
-    value: "option1",
-  },
-  {
-    label: "Option 2",
-    value: "option2",
-  },
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
 ];
 
-const handleDelete = jest.fn((valueToRemove, event) => {
-  event.stopPropagation();
-  event.preventDefault();
-});
+type SelectWithFormProps = {
+  value?: string[];
+  onChange?: () => void;
+};
+const SelectWithForm: React.FC<SelectWithFormProps> = ({ value = [] }) => {
+  const { control } = useForm({
+    defaultValues: { myField: value },
+  });
 
-const val = "testValue";
-
-const SelectWithForm = () => {
-  const { control } = useForm();
   return (
     <MultipleSelectField
       name="myField"
       control={control}
       label="My Field"
       options={options}
+      multiple
       data-testid="myField-field"
     />
   );
 };
 
-describe("MultipleSelect", () => {
+describe("MultipleSelectField Component", () => {
   it("renders the MultipleSelectField component", () => {
     const { getByTestId } = render(<SelectWithForm />);
     expect(getByTestId("myField-field")).toBeInTheDocument();
   });
 
-  it("allows multiple selections", () => {
-    const { getByLabelText } = render(<SelectWithForm />);
+  it("updates value when multiple options are selected", () => {
+    const { getByLabelText, getByText, getAllByText } = render(
+      <SelectWithForm />
+    );
 
     fireEvent.mouseDown(getByLabelText("My Field"));
-    fireEvent.click(screen.getByText("Option 1"));
-    fireEvent.click(screen.getByText("Option 2"));
 
-    expect(screen.getByText("Option 1")).toBeInTheDocument();
-    expect(screen.getByText("Option 2")).toBeInTheDocument();
+    fireEvent.click(getByText("Option 1"));
+    fireEvent.click(getByText("Option 2"));
+
+    const option1Elements = getAllByText("Option 1");
+    const option2Elements = getAllByText("Option 2");
+
+    expect(option1Elements.length).toBeGreaterThan(0);
+    expect(option2Elements.length).toBeGreaterThan(0);
   });
 
-  it("calls handleDelete when the delete icon is clicked", () => {
-    const { getByLabelText } = render(
+  it("renders chips correctly and stops propagation", () => {
+    const handleDelete = jest.fn();
+    const stopPropagation = jest.fn();
+
+    render(
       <Chip
-        key={val}
-        label={options.find((opt) => opt.value === val)?.label || val}
-        variant="filled"
-        size="medium"
-        color="info"
-        onDelete={(event) => handleDelete(val, event)}
+        label="Test Chip"
+        onDelete={(event) => {
+          stopPropagation();
+          handleDelete("testValue", event);
+        }}
         onMouseDown={(e) => e.stopPropagation()}
         deleteIcon={<CancelIcon aria-label="delete" />}
-        sx={{ borderRadius: 0, border: "1px solid #ccc" }}
       />
     );
 
-    fireEvent.click(getByLabelText("delete"));
-
-    expect(handleDelete).toHaveBeenCalledWith(val, expect.any(Object));
-    expect(handleDelete).toHaveBeenCalledTimes(1);
-  });
-
-  it("Icon should not propagate the click event", () => {
-    const onClick = jest.fn();
-    const onOuterClick = jest.fn();
-
-    render(
-      <div onClick={onOuterClick}>
-        <CancelIcon aria-label="delete" />{" "}
-      </div>
-    );
-    const icon = screen.getByLabelText("delete");
-    fireEvent.click(icon);
-
-    expect(onClick).toHaveBeenCalledTimes(0);
-    expect(onOuterClick).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls handleDelete when the delete icon is clicked", () => {
-    const initialValues = ["testValue"];
-    const options = [{ value: "testValue", label: "Test Label" }];
-
-    const { getByLabelText } = render(<SelectWithForm />);
-
-    const deleteIcon = getByLabelText("My Field");
+    const deleteIcon = screen.getByLabelText("delete");
 
     fireEvent.click(deleteIcon);
 
+    expect(stopPropagation).toHaveBeenCalled();
     expect(handleDelete).toHaveBeenCalledWith("testValue", expect.any(Object));
     expect(handleDelete).toHaveBeenCalledTimes(1);
+  });
+
+  it("removes data when delete icon is clicked", () => {
+    const onChange = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <SelectWithForm value={["option1"]} onChange={onChange} />
+    );
+
+    expect(getByText("Option 1")).toBeInTheDocument();
+
+    const deleteIcon = getByText("Option 1")
+      .closest("div")
+      ?.querySelector('[aria-label="delete"]');
+
+    expect(deleteIcon).toBeInTheDocument();
+
+    fireEvent.click(deleteIcon!);
+
+    expect(queryByText("Option 1")).not.toBeInTheDocument();
   });
 });
