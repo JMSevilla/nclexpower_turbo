@@ -1,3 +1,8 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import {
   Button,
   ControlledTextField,
@@ -118,7 +123,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         <ControlledCheckbox
                           control={control}
                           name="hasNoMiddleName"
-                          label="I do not have a middlename"
+                          label="I do not have a middle initial"
                           sx={{ fontSize: 12, lineHeight: 1.2 }}
                         />
                       </Box>

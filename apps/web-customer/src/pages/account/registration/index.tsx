@@ -1,3 +1,8 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import CSPHead from "core-library/components/CSPHead";
 import { GetServerSideProps } from "next";
 import { withCSP } from "core-library";
