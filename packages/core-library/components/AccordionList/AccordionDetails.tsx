@@ -1,9 +1,13 @@
+ /**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import React from "react";
 import { AccordionDetails, Box } from "@mui/material";
 import Image from "next/image";
-import { getSectionTypeIcons, getSectionStatusIcons } from "../../utils";
 import { SectionListType, SectionVideosType } from "core-library/types/wc/programList";
-import { useRouter } from "core-library";
+import { getSectionStatusIcons, getSectionTypeIcons, useRouter } from "core-library";
 
 interface CustomAccordionDetailsProps {
   sections: SectionListType[];

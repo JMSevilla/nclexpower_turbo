@@ -5,11 +5,10 @@
 */
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { AccordionList } from "../../../AccordionList/AccordionList";
 import { ProgramHeader } from "./ProgramHeader";
 import { ProgramGridView } from "./ProgramGridView";
 import { StandardProgramListType } from "core-library/types/wc/programList";
-
+import { AccordionList } from "core-library/components/AccordionList/AccordionList";
 interface ProgramListBlockProps {
   program: StandardProgramListType[];
   programTitle: string;
