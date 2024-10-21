@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
   Card,
   InformationTitle,
 } from "../../../../../../../../../components";
 import { Box, Stack } from "@mui/material";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { SetDefaultReviewerType } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setDefaultReviewerSchema } from "../../validation";
 import {
   MultipleSelectField,
-  DateFieldComponent,
 } from "../../../../../../../../../components";
 import { useApi, useApiCallback } from "../../../../../../../../../hooks";
 import { DefaultReviewerParams } from "../../../../../../../../../api/types";
