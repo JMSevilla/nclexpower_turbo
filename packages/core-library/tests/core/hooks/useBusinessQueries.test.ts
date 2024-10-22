@@ -349,11 +349,6 @@ describe("useGetContents", () => {
 
 describe("useDeleteRoute", () => {
   const mockDeleteRoute = jest.fn();
-  const mockApi = {
-    webbackoffice: {
-      delete_route: mockDeleteRoute,
-    },
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -374,6 +369,28 @@ describe("useDeleteRoute", () => {
 
     const { result } = renderHook(() => useDeleteRoute());
 
+    expect(result.current.data).toBeUndefined();
+  });
+
+  it("should not call delete_route and return undefined when the operation fails", async () => {
+    const mockResponse: AxiosResponse<number, AxiosError> = {
+      data: 1,
+      status: 404,
+      statusText: "undefined",
+      headers: new AxiosHeaders(),
+      config: { headers: new AxiosHeaders() },
+    };
+
+    mockDeleteRoute.mockResolvedValue(mockResponse);
+
+    const { result } = renderHook(() => useDeleteRoute());
+
+    await act(async () => {
+      await result.current.mutateAsync("12345");
+    });
+
+    expect(mockDeleteRoute).toHaveBeenCalledTimes(0);
+    expect(result.current.status).toBeUndefined();
     expect(result.current.data).toBeUndefined();
   });
 });
