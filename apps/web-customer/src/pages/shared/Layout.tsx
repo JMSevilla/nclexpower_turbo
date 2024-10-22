@@ -29,9 +29,7 @@ import { theme } from "core-library/contents/theme/theme";
 import { useStyle } from "core-library/hooks";
 import { PageLoaderContextProvider } from "core-library/contexts/PageLoaderContext";
 
-interface Props {}
-
-const Layout: React.FC<React.PropsWithChildren<Props>> = ({ children }) => {
+const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const queryClient = new QueryClient();
   const { publishableKey } = useStripeConfig();
   const { isAuthenticated, logout } = useAuthContext();
