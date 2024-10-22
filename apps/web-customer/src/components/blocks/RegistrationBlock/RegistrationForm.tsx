@@ -7,7 +7,7 @@ import {
   Button,
   ControlledTextField,
   ControlledCheckbox,
-  EvaIcon
+  EvaIconButton
 } from "core-library/components";
 import React, { useEffect } from "react";
 import { RegistrationFormType, registrationSchema } from "core-library/system";
@@ -38,28 +38,12 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
     defaultValues: registrationSchema.getDefault(),
   });
 
-  const { control, watch, resetField, handleSubmit } = form;
+  const { control, watch, resetField, handleSubmit, formState } = form;
+  const { isDirty, isValid } = formState;
 
   const hasNoMiddleName = watch("hasNoMiddleName");
   const hasNoMiddleNamePrevValue = usePreviousValue(hasNoMiddleName);
 
-  const firstname = watch("firstname");
-  const lastname = watch("lastname");
-  const email = watch("email");
-  const password = watch("password");
-  const confirmPassword = watch("confirmpassword");
-  const termsofservice = watch("termsofservice");
-  const consent = watch("consent");
-
-  const isFormComplete =
-  firstname &&
-  lastname &&
-  email &&
-  password &&
-  confirmPassword &&
-  termsofservice &&
-  consent;
-  
   useEffect(() => {
     resetField("middlename");
   }, [hasNoMiddleName, hasNoMiddleNamePrevValue, resetField]);
@@ -76,14 +60,14 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       <Box className="w-full h-auto flex justify-around">
         <Box className="w-full lg:w-1/2 flex flex-col gap-8 px-12 py-8 justify-between h-screen">
           <Box className="w-full flex justify-between items-center">
-            <EvaIcon
+            <EvaIconButton
               id="back-icon"
               name="arrow-ios-back-outline"
               width={30}
               height={30}
-              className="cursor-pointer"
               ariaHidden
               onClick={handleBack}
+              size="small"
             />
             <h4 className="text-[18px] font-regular font-ptSans">
               Already have an account?{" "}
@@ -259,7 +243,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 </Box>
 
                 <Button
-                  disabled={!isFormComplete || submitLoading}
+                  disabled={!isDirty || !isValid || submitLoading}
                   loading={submitLoading}
                   variant="contained"
                   fullWidth

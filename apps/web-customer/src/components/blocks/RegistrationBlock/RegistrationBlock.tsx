@@ -29,17 +29,18 @@ export const RegistrationBlock = () => {
 
     async function handleSubmit(values: RegistrationFormType) {
         
+      if(orderNumber) {
         const filteredValues: AccountCreationData = {
-            firstname: values.firstname,
-            middlename: values.middlename,
-            lastname: values.lastname,
-            email: values.email,
-            password: values.password,
-            orderNumber: orderNumber || "",
-            productId,
-            totalAmount: amount,
+          firstname: values.firstname,
+          middlename: values.middlename,
+          lastname: values.lastname,
+          email: values.email,
+          password: values.password,
+          orderNumber: orderNumber,
+          productId,
+          totalAmount: amount,
         };
-        
+      }
     }
 
     const handleBack = () => {

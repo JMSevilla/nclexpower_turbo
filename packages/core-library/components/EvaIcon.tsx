@@ -1,4 +1,9 @@
-import { Box, useTheme } from "@mui/material";
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
+import { useTheme } from "@mui/material";
 import * as eva from "eva-icons";
 import { useEffect } from "react";
 
@@ -10,7 +15,6 @@ interface Props {
   height?: number;
   className?: string;
   ariaHidden?: boolean;
-  onClick?: () => void;
 }
 
 export const EvaIcon: React.FC<Props> = ({
@@ -20,8 +24,7 @@ export const EvaIcon: React.FC<Props> = ({
   width,
   height,
   className,
-  ariaHidden = false,
-  onClick
+  ariaHidden = false
 }) => {
   const theme = useTheme();
 
@@ -33,7 +36,6 @@ export const EvaIcon: React.FC<Props> = ({
   const fillColor = fill === "#FF0000" ? theme.palette.primary.main : fill;
 
   return (
-    <Box onClick={onClick}>
       <i
       id={id}
       data-eva={sanitizedName}
@@ -43,6 +45,5 @@ export const EvaIcon: React.FC<Props> = ({
       className={className}
       aria-hidden={ariaHidden}
       />
-    </Box>
   );
 };
