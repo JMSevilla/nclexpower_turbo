@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import * as eva from "eva-icons";
 import { useEffect } from "react";
 
@@ -10,6 +10,7 @@ interface Props {
   height?: number;
   className?: string;
   ariaHidden?: boolean;
+  onClick?: () => void;
 }
 
 export const EvaIcon: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const EvaIcon: React.FC<Props> = ({
   height,
   className,
   ariaHidden = false,
+  onClick
 }) => {
   const theme = useTheme();
 
@@ -31,7 +33,8 @@ export const EvaIcon: React.FC<Props> = ({
   const fillColor = fill === "#FF0000" ? theme.palette.primary.main : fill;
 
   return (
-    <i
+    <Box onClick={onClick}>
+      <i
       id={id}
       data-eva={sanitizedName}
       data-eva-fill={fillColor}
@@ -39,6 +42,7 @@ export const EvaIcon: React.FC<Props> = ({
       data-eva-width={width}
       className={className}
       aria-hidden={ariaHidden}
-    />
+      />
+    </Box>
   );
 };

@@ -33,6 +33,14 @@ export const registrationSchema = yup.object({
     .oneOf([yup.ref("password")], "Password does not match")
     .required("Confirm your password")
     .default(""),
+  termsofservice: yup
+    .boolean()
+    .oneOf([true], "You must accept the Terms of Service")
+    .required(),
+  consent: yup
+    .boolean()
+    .oneOf([true], "You must consent to the Privacy Policy")
+    .required(),
 });
 
 export type RegistrationFormType = yup.InferType<typeof registrationSchema>;
