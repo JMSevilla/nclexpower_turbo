@@ -46,11 +46,13 @@ interface Props<T> {
   initPageSize?: number;
   isLoading?: boolean;
   expandable?: boolean;
+  searchFilter?: boolean;
 }
 
 export const ReactTable = <T extends { children?: T[] }>({
   columns,
   data,
+  searchFilter = false,
   ...rest
 }: Props<T>) => {
   const {
@@ -113,22 +115,7 @@ export const ReactTable = <T extends { children?: T[] }>({
 
   return (
     <Box data-testid='react-table' sx={{ position: 'relative' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          mb: 2,
-        }}
-      >
-        <Switch
-          checked={showSearchInput}
-          onChange={(e) => setShowSearchInput(e.target.checked)}
-          inputProps={{ 'aria-label': 'toggle search' }}
-        />
-        <span>{showSearchInput ? 'Hide Search' : 'Show Search'}</span>
-      </Box>
-
-      {showSearchInput && (
+      {searchFilter && (
         <Box
           sx={{
             position: 'absolute',
