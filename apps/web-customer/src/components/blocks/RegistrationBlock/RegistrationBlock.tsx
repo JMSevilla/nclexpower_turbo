@@ -36,7 +36,7 @@ export const RegistrationBlock = () => {
           lastname: values.lastname,
           email: values.email,
           password: values.password,
-          orderNumber: orderNumber,
+          orderNumber,
           productId,
           totalAmount: amount,
         };
