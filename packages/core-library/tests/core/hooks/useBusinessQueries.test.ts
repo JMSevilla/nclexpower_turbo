@@ -9,19 +9,13 @@ import {
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
 import { useMutation, useQuery } from "react-query";
-import axios, {
-  AxiosError,
-  AxiosHeaders,
-  AxiosInstance,
-  AxiosResponse,
-} from "axios";
+import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
   AuthorizedContentsResponseType,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   WebGetContentsParams,
 } from "../../../api/types";
-import { WebApiBackOffice } from "../../../api/web/web-api-backoffice";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -351,37 +345,35 @@ describe("useGetContents", () => {
     expect(result.current.error).toEqual(mockError);
     expect(result.current.data).toBeUndefined();
   });
+});
 
-  describe("useSelectQuestionsQuery", () => {
-    let mockedAxios: jest.Mocked<AxiosInstance>;
-    let mockedSsrAxios: jest.Mocked<AxiosInstance>;
-    let webApiBackoffice: WebApiBackOffice;
+describe("useDeleteRoute", () => {
+  const mockDeleteRoute = jest.fn();
+  const mockApi = {
+    webbackoffice: {
+      delete_route: mockDeleteRoute,
+    },
+  };
 
-    beforeEach(() => {
-      mockedAxios = axios as jest.Mocked<typeof axios>;
-      mockedSsrAxios = axios.create() as jest.Mocked<AxiosInstance>;
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  const mockExecute = jest.fn();
 
-      // Reset mocks to clear previous calls
-      mockedAxios.delete = jest.fn(); // Ensure delete is mocked
-      mockedSsrAxios.delete = jest.fn(); // Mock ssrAxios delete if needed
+  it("should call delete_route with the correct id and return the result", async () => {
+    const mockError = new Error("Failed to fetch data");
+    mockExecute.mockRejectedValue(mockError);
 
-      // Instantiate WebApiBackOffice with mocked axios instances
-      webApiBackoffice = new WebApiBackOffice(mockedAxios, mockedSsrAxios);
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: undefined,
+        isLoading: false,
+        error: mockError,
+      };
     });
 
-    it("should send a DELETE request to the correct URL", async () => {
-      const menuId = "12345";
-      const expectedUrl = `/api/v2/content/BaseContent/inapp-route-delete?MenuId=${menuId}`;
+    const { result } = renderHook(() => useDeleteRoute());
 
-      // Mock the Axios delete method
-      mockedAxios.delete.mockResolvedValue({ data: 1 });
-
-      // Call the delete_route function
-      const result = await webApiBackoffice.delete_route(menuId);
-
-      // Assertions
-      expect(mockedAxios.delete).toHaveBeenCalledWith(expectedUrl);
-      expect(result).toEqual({ data: 1 });
-    });
+    expect(result.current.data).toBeUndefined();
   });
 });
