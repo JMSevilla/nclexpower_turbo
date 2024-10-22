@@ -4,17 +4,24 @@ import {
   useAppMutation,
   useCreatePaymentIntent,
   useGetContents,
+  useDeleteRoute,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApi, useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
 import { useMutation, useQuery } from "react-query";
-import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
+import axios, {
+  AxiosError,
+  AxiosHeaders,
+  AxiosInstance,
+  AxiosResponse,
+} from "axios";
 import {
   AuthorizedContentsResponseType,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
   WebGetContentsParams,
 } from "../../../api/types";
+import { WebApiBackOffice } from "../../../api/web/web-api-backoffice";
 
 jest.mock("../../../config", () => ({
   config: { value: jest.fn() },
@@ -297,7 +304,7 @@ describe("useGetContents", () => {
     const { result } = renderHook(() =>
       useGetContents(["contents"], {
         AccountId: "accountId",
-        MainType: "Regular"
+        MainType: "Regular",
       })
     );
 
@@ -314,7 +321,7 @@ describe("useGetContents", () => {
     const { result } = renderHook(() =>
       useGetContents(["contents"], {
         AccountId: "Acount-id",
-        MainType: "Regular"
+        MainType: "Regular",
       })
     );
     expect(result.current.isLoading).toBe(true);
@@ -343,5 +350,38 @@ describe("useGetContents", () => {
 
     expect(result.current.error).toEqual(mockError);
     expect(result.current.data).toBeUndefined();
+  });
+
+  describe("useSelectQuestionsQuery", () => {
+    let mockedAxios: jest.Mocked<AxiosInstance>;
+    let mockedSsrAxios: jest.Mocked<AxiosInstance>;
+    let webApiBackoffice: WebApiBackOffice;
+
+    beforeEach(() => {
+      mockedAxios = axios as jest.Mocked<typeof axios>;
+      mockedSsrAxios = axios.create() as jest.Mocked<AxiosInstance>;
+
+      // Reset mocks to clear previous calls
+      mockedAxios.delete = jest.fn(); // Ensure delete is mocked
+      mockedSsrAxios.delete = jest.fn(); // Mock ssrAxios delete if needed
+
+      // Instantiate WebApiBackOffice with mocked axios instances
+      webApiBackoffice = new WebApiBackOffice(mockedAxios, mockedSsrAxios);
+    });
+
+    it("should send a DELETE request to the correct URL", async () => {
+      const menuId = "12345";
+      const expectedUrl = `/api/v2/content/BaseContent/inapp-route-delete?MenuId=${menuId}`;
+
+      // Mock the Axios delete method
+      mockedAxios.delete.mockResolvedValue({ data: 1 });
+
+      // Call the delete_route function
+      const result = await webApiBackoffice.delete_route(menuId);
+
+      // Assertions
+      expect(mockedAxios.delete).toHaveBeenCalledWith(expectedUrl);
+      expect(result).toEqual({ data: 1 });
+    });
   });
 });
