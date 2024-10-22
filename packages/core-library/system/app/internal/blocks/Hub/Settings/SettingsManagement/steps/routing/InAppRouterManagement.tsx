@@ -3,24 +3,32 @@
  * Reuse as a whole or in part is prohibited without permission.
  * Created by the Software Strategy & Development Division
  */
-import { Box } from "@mui/material";
+import { Box, ListItemButton } from "@mui/material";
 import { SettingsSelectionType } from "../../types";
 import {
   Button,
   Card,
+  ConfirmationModal,
+  EvaIcon,
   ReactTable,
 } from "../../../../../../../../../components";
 import { useMenu } from "../../../../../../../../../components/GenericDrawerLayout/hooks/useMenu";
 import { prepareMenus } from "../../../../../../../../../components/GenericDrawerLayout/MockMenus";
-import { useAuthContext } from "../../../../../../../../../contexts";
+import {
+  useAuthContext,
+  useBusinessQueryContext,
+} from "../../../../../../../../../contexts";
 import { useValidateToken } from "../../../../../../../../../hooks";
 import React, { useState } from "react";
 import { RouteCreationForm } from "./components/RouteCreationForm";
 import { RouteCreationSidebar } from "./components/RouteCreationSidebar";
-import { columns } from "./constant/constant";
 import { FormProvider, useForm } from "react-hook-form";
 import { RouteManagementSchema, RouteMenuCreation } from "../../validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CustomPopover } from "../../../../../../../../../components/Popover/Popover";
+// import { GridMoreVertIcon } from "@mui/x-data-grid";
+import { MenuItems } from "../../../../../../../../../api/types";
+import { ColumnDef, Row, Table } from "@tanstack/react-table";
 
 interface Props {
   nextStep(values: Partial<SettingsSelectionType>): void;
@@ -35,10 +43,114 @@ export const InAppRouterManagement: React.FC<Props> = ({
   previous,
   reset,
 }) => {
+  const { businessQueryDeleteRoute } = useBusinessQueryContext();
+  const { mutateAsync } = businessQueryDeleteRoute();
   const [view, setView] = useState<boolean>(false);
   const [IsNewMenuCreated, setIsNewMenuCreated] = useState<boolean>(false);
   const { isAuthenticated } = useAuthContext();
   const { tokenValidated } = useValidateToken();
+
+  const columns: ColumnDef<MenuItems>[] = [
+    {
+      accessorKey: "label",
+      header: ({ table }: { table: Table<MenuItems> }) => (
+        <>
+          <button
+            onClick={table.getToggleAllRowsExpandedHandler()}
+            style={{ cursor: "pointer" }}
+          >
+            <Box
+              sx={{
+                transform: table.getIsAllRowsExpanded()
+                  ? "rotate(90deg)"
+                  : "rotate(0deg)",
+                transition: "transform 0.3s ease",
+                display: "inline-block",
+              }}
+            >
+              <EvaIcon
+                name="chevron-right-outline"
+                width={22}
+                height={22}
+                aria-hidden
+              />
+            </Box>
+          </button>
+          Label
+        </>
+      ),
+      cell: ({ row }: { row: Row<MenuItems> }) => (
+        <div style={{ paddingLeft: `${row.depth * 2}rem` }}>
+          <div>
+            {row.getCanExpand() ? (
+              <button
+                onClick={row.getToggleExpandedHandler()}
+                style={{ cursor: "pointer" }}
+              >
+                <Box
+                  sx={{
+                    transform: row.getIsExpanded()
+                      ? "rotate(0deg)"
+                      : "rotate(-90deg)",
+                    transition: "transform 0.3s ease",
+                  }}
+                >
+                  <EvaIcon
+                    name="chevron-down-outline"
+                    width={22}
+                    height={22}
+                    aria-hidden
+                  />
+                </Box>
+              </button>
+            ) : (
+              " "
+            )}
+            {row.original.label}
+          </div>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "path",
+      header: "Path",
+    },
+    {
+      header: "Actions",
+      cell: ({ row }: { row: Row<MenuItems> }) => (
+        <CustomPopover
+          open={true}
+          label="Actions"
+          withIcon
+          iconButton={
+            <EvaIcon
+              name="more-horizontal-outline"
+              width={22}
+              height={22}
+              aria-hidden
+            />
+          }
+        >
+          <ListItemButton>Add</ListItemButton>
+          <ListItemButton>Edit</ListItemButton>
+          {row.original.children.length == 0 && (
+            <ConfirmationModal
+              customButton="Delete"
+              dialogContent={
+                <>
+                  Are you sure you want to delete{" "}
+                  <b> "{row.original.label}" Menu</b>?
+                </>
+              }
+              confirmButtonText="Delete"
+              isLoading={false}
+              handleSubmit={() => deleteCategory(row.original.menuId)}
+            />
+          )}
+        </CustomPopover>
+      ),
+    },
+  ];
 
   const form = useForm<RouteManagementSchema>({
     mode: "all",
@@ -119,4 +231,8 @@ export const InAppRouterManagement: React.FC<Props> = ({
       </Box>
     </FormProvider>
   );
+
+  async function deleteCategory(MenuId: string) {
+    await mutateAsync(MenuId);
+  }
 };

@@ -1,9 +1,9 @@
 /**
-* Property of the NCLEX Power.
-* Reuse as a whole or in part is prohibited without permission.
-* Created by the Software Strategy & Development Division
-*/
-import React, { useState } from "react";
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
+import React, { ReactElement, ReactNode, useState } from "react";
 import { Button } from "../../../Button/Button";
 import { DialogBox } from "../../DialogBox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -13,7 +13,7 @@ import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 type Props = {
   onClick: () => void;
   handleSubmit: () => void;
-  dialogContent: string;
+  dialogContent: string | ReactElement | ReactNode;
   confirmButtonText?: string;
   isLoading: boolean;
 };
@@ -92,20 +92,20 @@ const ContinueModalContent: React.FC<Props> = ({
 interface ConfirmationModalProps {
   handleSubmit: () => void;
   customButton: React.ReactElement | React.ReactNode;
-  dialogContent: string;
+  dialogContent: string | ReactElement | ReactNode;
   confirmButtonText?: string;
   isLoading: boolean;
   disabled?: boolean;
 }
 
-export default function ConfirmationModal({
+const ConfirmationModal = ({
   handleSubmit,
   dialogContent,
   customButton,
   confirmButtonText,
   isLoading,
-  disabled
-}: ConfirmationModalProps) {
+  disabled,
+}: ConfirmationModalProps) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
@@ -116,6 +116,18 @@ export default function ConfirmationModal({
       <Box data-testid="confirm-modal" onClick={handleClickOpen} role="button">
         {customButton == "Continue" ? (
           <Button disabled={disabled}>Continue</Button>
+        ) : customButton == "Delete" ? (
+          <Button
+            disabled={disabled}
+            sx={{
+              bgcolor: "red",
+              "&:hover": {
+                bgcolor: "#aa0000",
+              },
+            }}
+          >
+            Delete
+          </Button>
         ) : (
           <Button sx={{ zIndex: 2 }}>
             <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
@@ -141,4 +153,6 @@ export default function ConfirmationModal({
       </DialogBox>
     </>
   );
-}
+};
+
+export default ConfirmationModal;
