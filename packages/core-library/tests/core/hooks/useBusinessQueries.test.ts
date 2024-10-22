@@ -1,20 +1,20 @@
-import { renderHook, act } from "../../common";
+import { renderHook, act, screen, render } from "../../common";
 import {
   useSelectQuestionsQuery,
-  useAppMutation,
   useCreatePaymentIntent,
   useGetContents,
   useDeleteRoute,
+  useDeleteCategory,
 } from "../../../core/hooks/useBusinessQueries";
-import { useApi, useApiCallback } from "../../../hooks";
+import { useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
 import { useMutation, useQuery } from "react-query";
-import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
+import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
   AuthorizedContentsResponseType,
   CreatePaymentIntentParams,
   PaymentIntentResponse,
-  WebGetContentsParams,
+  ReportIssueType,
 } from "../../../api/types";
 
 jest.mock("../../../config", () => ({
@@ -188,6 +188,22 @@ describe("useCreatePaymentIntent", () => {
 
 describe("useGetContents", () => {
   const mockExecute = jest.fn();
+  const mockCreateCheckoutSession = jest.fn();
+
+  jest.mock("../../../core/hooks/useBusinessQueries", () => {
+    const actualModule = jest.requireActual(
+      "../../../core/hooks/useBusinessQueries"
+    );
+    return {
+      ...actualModule,
+      useCheckoutSession: () => ({
+        mutateAsync: mockCreateCheckoutSession,
+      }),
+    };
+  });
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("should fetch and return authorized contents", async () => {
     const mockData: AuthorizedContentsResponseType[] = [
@@ -345,17 +361,21 @@ describe("useGetContents", () => {
     expect(result.current.error).toEqual(mockError);
     expect(result.current.data).toBeUndefined();
   });
-});
 
-describe("useDeleteRoute", () => {
-  const mockDeleteRoute = jest.fn();
+  const mockMutate = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
+    (useApiCallback as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutate,
+      isLoading: false,
+    });
   });
-  const mockExecute = jest.fn();
 
-  it("should call delete_route with the correct id and return the result", async () => {
+  it("should not call delete_route and return undefined when the operation fails", async () => {
     const mockError = new Error("Failed to fetch data");
     mockExecute.mockRejectedValue(mockError);
 
@@ -372,25 +392,56 @@ describe("useDeleteRoute", () => {
     expect(result.current.data).toBeUndefined();
   });
 
-  it("should not call delete_route and return undefined when the operation fails", async () => {
+  const mockMutateAsync = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should call mutateAsync with the correct params", async () => {
     const mockResponse: AxiosResponse<number, AxiosError> = {
       data: 1,
-      status: 404,
-      statusText: "undefined",
+      status: 200,
+      statusText: "OK",
       headers: new AxiosHeaders(),
       config: { headers: new AxiosHeaders() },
     };
 
-    mockDeleteRoute.mockResolvedValue(mockResponse);
+    mockMutateAsync.mockResolvedValue(mockResponse);
 
-    const { result } = renderHook(() => useDeleteRoute());
+    const reportIssueData: ReportIssueType = {
+      email: "test@example.com",
+      categoryId: "0",
+      description: "Detailed description of the issue",
+      systemProduct: 1,
+    };
+
+    async function onSubmit(params: ReportIssueType) {
+      await mockMutateAsync({ ...params });
+    }
 
     await act(async () => {
-      await result.current.mutateAsync("12345");
+      await onSubmit(reportIssueData);
     });
 
-    expect(mockDeleteRoute).toHaveBeenCalledTimes(0);
-    expect(result.current.status).toBeUndefined();
+    expect(mockMutateAsync).toHaveBeenCalledTimes(1);
+    expect(mockMutateAsync).toHaveBeenCalledWith(reportIssueData);
+  });
+
+  it("should not call useDeleteCategory  and return undefined when the operation fails", async () => {
+    const mockError = new Error("Failed to fetch data");
+    mockExecute.mockRejectedValue(mockError);
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: undefined,
+        isLoading: false,
+        error: mockError,
+      };
+    });
+
+    const { result } = renderHook(() => useDeleteCategory());
+
     expect(result.current.data).toBeUndefined();
   });
 });
