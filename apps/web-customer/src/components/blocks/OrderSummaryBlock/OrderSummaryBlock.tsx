@@ -120,6 +120,6 @@ export const OrderSummaryBlock: React.FC<Props> = () => {
       productId: orderDetail.productId,
       pricingId: orderDetail.pricingId,
     });
-    await router.push({ pathname: "/account/registration" });
+    await router.push((route) => route.account_registration);
   }
 };

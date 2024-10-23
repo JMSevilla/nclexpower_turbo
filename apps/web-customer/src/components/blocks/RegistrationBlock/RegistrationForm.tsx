@@ -1,19 +1,20 @@
 /**
-* Property of the NCLEX Power.
-* Reuse as a whole or in part is prohibited without permission.
-* Created by the Software Strategy & Development Division
-*/
+ * Property of the NCLEX Power.
+ * Reuse as a whole or in part is prohibited without permission.
+ * Created by the Software Strategy & Development Division
+ */
 import {
   Button,
-  ControlledTextField,
   ControlledCheckbox,
-  EvaIconButton
+  EvaIcon,
+  IconButton,
+  TextField,
 } from "core-library/components";
 import React, { useEffect } from "react";
 import { RegistrationFormType, registrationSchema } from "core-library/system";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useShowPassword } from "../ForgotPasswordBlock/ChangePasswordBlock/useShowPassword";
@@ -60,15 +61,15 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       <Box className="w-full h-auto flex justify-around">
         <Box className="w-full lg:w-1/2 flex flex-col gap-8 px-12 py-8 justify-between h-screen">
           <Box className="w-full flex justify-between items-center">
-            <EvaIconButton
-              id="back-icon"
-              name="arrow-ios-back-outline"
-              width={30}
-              height={30}
-              ariaHidden
-              onClick={handleBack}
-              size="small"
-            />
+            <IconButton onClick={handleBack} size="small">
+              <EvaIcon
+                id="back-icon"
+                name="arrow-ios-back-outline"
+                width={30}
+                height={30}
+                ariaHidden
+              />
+            </IconButton>
             <h4 className="text-[18px] font-regular font-ptSans">
               Already have an account?{" "}
               <span className="text-[18px] font-bold underline font-mainBlue">
@@ -94,11 +95,10 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                   <Box className="w-full flex flex-col lg:flex-row gap-2">
                     <Box className="flex flex-col lg:flex-row w-full gap-2">
                       <Box className="w-full">
-                        <ControlledTextField
-                          control={control}
+                        <TextField
                           label="First Name"
+                          control={control}
                           name="firstname"
-                          required
                           sx={{
                             borderRadius: "10px",
                             width: "100%",
@@ -109,14 +109,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         />
                       </Box>
                       <Box className="flex flex-col w-full">
-                        <ControlledTextField
+                        <TextField
+                          label="Middle Initial (optional)"
                           control={control}
-                          required={!hasNoMiddleName}
-                          shouldUnregister
                           name="middlename"
-                          label="Middle Initial"
                           disabled={hasNoMiddleName}
-                          className="shadow-sm shadow-zinc-200"
                           sx={{
                             borderRadius: "10px",
                             width: "100%",
@@ -137,11 +134,10 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
                   <Box className="flex flex-col lg:flex-row w-full gap-2">
                     <Box className="w-full">
-                      <ControlledTextField
-                        control={control}
+                      <TextField
                         label="Last Name"
+                        control={control}
                         name="lastname"
-                        required
                         sx={{
                           borderRadius: "10px",
                           width: "100%",
@@ -153,11 +149,10 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     </Box>
 
                     <Box className="w-full">
-                      <ControlledTextField
-                        control={control}
+                      <TextField
                         label="Email Address"
+                        control={control}
                         name="email"
-                        required
                         sx={{
                           borderRadius: "10px",
                           width: "100%",
@@ -171,12 +166,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
                   <Box className="flex flex-col lg:flex-row gap-2 w-full">
                     <Box className="w-full">
-                      <ControlledTextField
-                        control={control}
-                        required
-                        type={showPassword ? "text" : "password"}
+                      <TextField
                         label="Password"
+                        control={control}
                         name="password"
+                        type={showPassword ? "text" : "password"}
                         sx={{
                           borderRadius: "10px",
                           width: "100%",
@@ -197,12 +191,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     </Box>
 
                     <Box className="w-full">
-                      <ControlledTextField
-                        control={control}
-                        required
-                        type={showconfirmPassword ? "text" : "password"}
+                      <TextField
                         label="Confirm Password"
+                        control={control}
                         name="confirmpassword"
+                        type={showconfirmPassword ? "text" : "password"}
                         sx={{
                           borderRadius: "10px",
                           width: "100%",
