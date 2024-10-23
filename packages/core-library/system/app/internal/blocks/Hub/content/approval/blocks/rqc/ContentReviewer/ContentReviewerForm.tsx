@@ -10,6 +10,8 @@ import {
   Card,
   ComponentLoader,
   DateField,
+  CustomPopover,
+  ConfirmationModal,
 } from "../../../../../../../../../../components";
 import {
   Control,
@@ -24,8 +26,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { crbSchema, crbType } from "./validation";
 import { author, mainContent, RadioData } from "./ContentReviewerData";
-import { CustomPopover } from "../../../../../../../../../../components/Popover/Popover";
-import ConfirmationModal from "../../../../../../../../../../components/Dialog/DialogFormBlocks/RegularQuestion/ConfirmationDialog";
 import React from "react";
 
 interface ContentViewerFormProps {
@@ -42,9 +42,9 @@ interface ContentViewerFormProps {
 
 function MainContent() {
   return (
-    <div className="">
-      {mainContent.map((item, index) => (
-        <Box key={index} sx={{ marginBottom: 4 }}>
+    <Box>
+      {mainContent.map((item) => (
+        <Box key={item.id} sx={{ marginBottom: 4 }}>
           <Box
             sx={{
               display: "flex",
@@ -55,14 +55,17 @@ function MainContent() {
             }}
           >
             <Chip
-              sx={{ backgroundColor: "#560bad", color: "#F3F3F3" }}
+              sx={{
+                backgroundColor: "appColors.purple",
+                color: "#F3F3F3",
+              }}
               label={item.type}
             />
             <Chip
               sx={{
                 backgroundColor: "transparent",
-                color: "#560bad",
-                border: "1px solid #560bad",
+                color: "appColors.purple",
+                border: "1px solid appColors.purple",
               }}
               label={item.mainType}
             />
@@ -72,26 +75,26 @@ function MainContent() {
               fontSize: "1.2rem",
               fontWeight: "bold",
               marginBottom: 4,
-              color: "#560bad",
+              color: "appColors.purple",
             }}
           >
             {item.question}
           </Typography>
           <div className="flex flex-col">
-            <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+            <Typography sx={{ fontSize: "1rem", color: "darkgrey" }}>
               Cognitive Level: {item.cognitiveLevel}
             </Typography>
-            <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+            <Typography sx={{ fontSize: "1rem", color: "darkgrey" }}>
               Content Area: {item.contentArea}
             </Typography>
-            <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+            <Typography sx={{ fontSize: "1rem", color: "darkgrey" }}>
               Client Needs: {item.clientNeeds}
             </Typography>
             <Typography
               sx={{
                 fontSize: "1.2rem",
                 fontWeight: "bold",
-                color: "#560bad",
+                color: "appColors.purple",
                 marginTop: 4,
               }}
             >
@@ -103,7 +106,11 @@ function MainContent() {
               </ol>
             ))}
             <Box
-              sx={{ backgroundColor: "#560bad", padding: 4, color: "#F3F3F3" }}
+              sx={{
+                backgroundColor: "appColors.purple",
+                padding: 4,
+                color: "#F3F3F3",
+              }}
             >
               Correct Answer: {item.answerKey}
             </Box>
@@ -111,7 +118,7 @@ function MainContent() {
           </div>
         </Box>
       ))}
-    </div>
+    </Box>
   );
 }
 
@@ -154,7 +161,11 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
         >
           <Box>
             <Typography
-              sx={{ fontSize: "2rem", fontWeight: "bold", color: "#560bad" }}
+              sx={{
+                fontSize: "2rem",
+                fontWeight: "bold",
+                color: "appColors.purple",
+              }}
             >
               Content Details:
             </Typography>
@@ -162,13 +173,13 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
               <React.Fragment>
                 {author.map((item, index) => (
                   <Box key={index}>
-                    <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                    <Typography sx={{ fontSize: "1rem" }}>
                       Author Details:{" "}
                     </Typography>
-                    <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                    <Typography sx={{ fontSize: "1rem" }}>
                       {item.author}
                     </Typography>
-                    <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                    <Typography sx={{ fontSize: "1rem" }}>
                       {item.createdDate}
                     </Typography>
                   </Box>
@@ -176,7 +187,7 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Typography sx={{ fontSize: "1rem", color: "#606060" }}>
+                <Typography sx={{ fontSize: "1rem" }}>
                   Author details unavailable...
                 </Typography>
               </React.Fragment>
@@ -191,8 +202,8 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
             <Chip
               sx={{
                 backgroundColor: "transparent",
-                color: "#560bad",
-                border: "1px solid #560bad",
+                color: "appColors.purple",
+                border: "1px solid appColors.purple",
               }}
               label="Pending"
             />
@@ -232,7 +243,11 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
               }}
             >
               <Typography
-                sx={{ fontSize: "1.4rem", color: "#560bad", marginBottom: 4 }}
+                sx={{
+                  fontSize: "1.4rem",
+                  color: "appColors.purple",
+                  marginBottom: 4,
+                }}
               >
                 Write your review
               </Typography>
@@ -252,17 +267,18 @@ export const ContentReviewerForm: React.FC<ContentViewerFormProps> = ({
                   style={{ width: "100%" }}
                   placeholder="Comment here..."
                 />
-                {RadioData.map((item, index) => (
-                  <ControlledCheckbox
-                    key={index}
-                    name="option"
-                    control={control}
-                    label={item.title}
-                    value={item.value}
-                    checked={selectedOption === item.value}
-                    onChange={() => setValue("option", item.value)}
-                  />
-                ))}
+                {RadioData.length > 0 &&
+                  RadioData.map((item, index) => (
+                    <ControlledCheckbox
+                      key={index}
+                      name="option"
+                      control={control}
+                      label={item.title}
+                      value={item.value}
+                      checked={selectedOption === item.value}
+                      onChange={() => setValue("option", item.value)}
+                    />
+                  ))}
               </div>
               <Box sx={{ zIndex: 4 }}>
                 <ConfirmationModal

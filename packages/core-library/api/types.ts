@@ -467,9 +467,8 @@ export interface ContentApprover {
   approver: Approver;
 }
 
-export interface Approver extends User {}
-
-export interface Author extends User {}
+export type Approver = User;
+export type Author = User;
 
 export interface User {
   id: string;

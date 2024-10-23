@@ -6,14 +6,13 @@
 import React, { ReactElement, ReactNode, useState } from "react";
 import { Button } from "../../../Button/Button";
 import { DialogBox } from "../../DialogBox";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box, Typography } from "@mui/material";
 import { EvaIcon } from "../../../EvaIcon";
 
 type Props = {
   onClick: () => void;
   handleSubmit: () => void;
-  dialogContent: string | ReactElement | ReactNode;
+  dialogContent: ReactNode;
   confirmButtonText?: string;
   isLoading: boolean;
 };
@@ -97,6 +96,7 @@ interface ConfirmationModalProps {
   confirmButtonText?: string;
   isLoading: boolean;
   disabled?: boolean;
+  onClickFn?: () => void;
 }
 
 const ConfirmationModal = ({
@@ -106,6 +106,7 @@ const ConfirmationModal = ({
   confirmButtonText,
   isLoading,
   disabled,
+  onClickFn,
 }: ConfirmationModalProps) => {
   const [open, setOpen] = useState(false);
 
@@ -115,32 +116,11 @@ const ConfirmationModal = ({
   return (
     <>
       <Box data-testid="confirm-modal" onClick={handleClickOpen} role="button">
-        {customButton == "Continue" ? (
-          <Button disabled={disabled}>Continue</Button>
-        ) : customButton == "Delete" ? (
-          <Button
-            disabled={disabled}
-            sx={{
-              bgcolor: "red",
-              "&:hover": {
-                bgcolor: "#aa0000",
-              },
-            }}
-          >
-            Delete
-          </Button>
-        ) : (
-          <Button sx={{ zIndex: 2 }}>
-            <EvaIcon
-              name="arrow-back-outline"
-              width={22}
-              height={22}
-              fill="#37BEC7"
-              aria-hidden
-            />
-            <Typography>Previous</Typography>
-          </Button>
-        )}
+        <ButtonSelector
+          type={customButton}
+          disabled={disabled}
+          onClickFn={onClickFn}
+        />
       </Box>
       <DialogBox
         handleClose={handleClose}
@@ -160,6 +140,51 @@ const ConfirmationModal = ({
       </DialogBox>
     </>
   );
+};
+
+interface ButtonSelectorProps {
+  type: ReactNode;
+  disabled?: boolean;
+  onClickFn?: () => void;
+}
+
+const ButtonSelector = ({ type, disabled, onClickFn }: ButtonSelectorProps) => {
+  switch (type) {
+    case "Continue":
+      return (
+        <Button disabled={disabled} onClick={onClickFn}>
+          Continue
+        </Button>
+      );
+    case "Delete":
+      return (
+        <Button
+          disabled={disabled}
+          onClick={onClickFn}
+          sx={{
+            bgcolor: "red",
+            "&:hover": {
+              bgcolor: "#aa0000",
+            },
+          }}
+        >
+          Delete
+        </Button>
+      );
+    default:
+      return (
+        <Button sx={{ zIndex: 2 }} onClick={onClickFn}>
+          <EvaIcon
+            name="arrow-back-outline"
+            width={22}
+            height={22}
+            fill="#37BEC7"
+            aria-hidden
+          />
+          <Typography>Previous</Typography>
+        </Button>
+      );
+  }
 };
 
 export default ConfirmationModal;
