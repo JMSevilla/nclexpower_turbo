@@ -3,7 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  * Created by the Software Strategy & Development Division
  */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, InformationTitle } from "core-library/components";
 import { Box, Grid, Divider } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -281,15 +281,48 @@ export const InAppManagement = (props: {
 };
 
 export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
-  return (
-    <Card sx={{ mt: 5, p: 5 }}>
-      <ChooseProductsConfigurations nextStep={nextStep} values={values} />
-      <Divider>Other Configurations</Divider>
-      <OtherConfigurations nextStep={nextStep} values={values} />
-      <Divider>Content Management System</Divider>
-      <ContentManagementSystemSettings nextStep={nextStep} values={values} />
-      <Divider>In App Routing</Divider>
-      <InAppManagement nextStep={nextStep} values={values} />
-    </Card>
-  );
+  const [accessLevel, setAccessLevel] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userAccessLevel = sessionStorage.getItem("al");
+    setAccessLevel(userAccessLevel);
+  }, []);
+
+  const renderConfiguration = () => {
+    switch (accessLevel) {
+      case "0":
+        return (
+          <>
+            <ChooseProductsConfigurations nextStep={nextStep} values={values} />
+            <Divider>Other Configurations</Divider>
+            <OtherConfigurations nextStep={nextStep} values={values} />
+            <Divider>Content Management System</Divider>
+            <ContentManagementSystemSettings
+              nextStep={nextStep}
+              values={values}
+            />
+            <Divider>In App Routing</Divider>
+            <InAppManagement nextStep={nextStep} values={values} />
+          </>
+        );
+      case "1":
+        return (
+          <>
+            <ChooseProductsConfigurations nextStep={nextStep} values={values} />
+          </>
+        );
+      case "2":
+        return (
+          <>
+            <InAppManagement nextStep={nextStep} values={values} />
+            <Divider>Other Configurations</Divider>
+            <OtherConfigurations nextStep={nextStep} values={values} />
+          </>
+        );
+      default:
+        return <Divider>No access to settings</Divider>;
+    }
+  };
+
+  return <Card sx={{ mt: 5, p: 5 }}>{renderConfiguration()}</Card>;
 };
