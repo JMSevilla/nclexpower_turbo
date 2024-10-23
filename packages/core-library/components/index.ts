@@ -76,4 +76,4 @@ export * from "./EvaIcon";
 export * from "./chatbot";
 export * from "./Dialog/DialogBox";
 export * from "./GenericSidebar/BaseSidebar/BaseSidebar";
-export * from "./Button/EvaIconButton";
+export * from "./Button/IconButton";

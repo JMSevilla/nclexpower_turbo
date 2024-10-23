@@ -16,7 +16,7 @@ export const registrationSchema = yup.object({
           yup
             .string()
             .required(
-              "Please provide your middlename or select I do not have a middlename"
+              "Please provide your middle initial"
             ),
         otherwise: () => yup.string().notRequired(),
       })
