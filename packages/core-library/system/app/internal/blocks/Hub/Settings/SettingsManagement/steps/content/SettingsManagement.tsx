@@ -340,7 +340,7 @@ export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
         );
       default:
         return (
-          <ErrorBox label="Page not found. Please try again or contact administrator" />
+          <ErrorBox label="No Access. Please try again or contact administrator" />
         );
     }
   };
