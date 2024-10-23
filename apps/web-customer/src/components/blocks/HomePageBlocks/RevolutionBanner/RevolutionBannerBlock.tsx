@@ -38,7 +38,7 @@ export const RevolutionBannerBlock: React.FC<Props> = () => {
                             <span className='text-[#f4c501]'>8-days </span> Fast Track program, and start<br /> your path to success
                             <span className='text-[#f4c501]'> now!</span></p>
                     </div>
-                    <Image className='h-screen object-cover object-top' loading='lazy' src={CarouselThree} alt="ImageThree" />
+                    <Image className='h-screen object-cover lg:object-top object-[85%]' loading='lazy' src={CarouselThree} alt="ImageThree" />
                 </div>
             </ImageCarousel>
         </div>
