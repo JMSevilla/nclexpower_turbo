@@ -20,6 +20,7 @@ import {
   CreateCategoryBlock,
   CreateRegularQuestionTypeBlock,
   AuthorContentBlock,
+  ContactUsManagementBlock,
 } from "./blocks";
 
 import { ParseBlocksProps } from "./types";
@@ -59,6 +60,8 @@ const ParseBlocks: React.FC<ParseBlocksProps> = (props) => {
       return <CreateCategoryBlock />;
     case "AuthorContentBlock":
       return <AuthorContentBlock />;
+    case "ContactUsManagementBlock":
+      return <ContactUsManagementBlock />;
     default:
       return null;
   }
