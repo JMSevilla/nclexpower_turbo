@@ -19,6 +19,7 @@ import {
   ReportedIssuesBlock,
   CreateCategoryBlock,
   CreateRegularQuestionTypeBlock,
+  ProgramManagementBlock,
   ContactUsManagementBlock,
 } from "./blocks";
 
@@ -57,6 +58,8 @@ const ParseBlocks: React.FC<ParseBlocksProps> = (props) => {
       return <CreateRegularQuestionTypeBlock />;
     case "CreateCategoryBlock":
       return <CreateCategoryBlock />;
+    case "ProgramManagementBlock":
+      return <ProgramManagementBlock />;
     case "ContactUsManagementBlock":
       return <ContactUsManagementBlock />;
     default:

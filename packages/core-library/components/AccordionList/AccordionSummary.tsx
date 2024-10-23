@@ -1,9 +1,14 @@
+ /**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import * as React from "react";
 import { Box, AccordionSummary, styled } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ProgressCircle } from "../ProgressCircle/ProgressCircle";
-import { getStatusIcons } from "../../utils";
+import { getStatusIcons } from "../../core";
 
 interface CustomAccordionSummaryProps {
   panelId: string;
@@ -27,6 +32,7 @@ const StyledAccordionSummary = styled(AccordionSummary, {
   borderTopRightRadius: expanded ? "16px" : "16px",
   borderRadius: expanded ? "16px 16px 0 0" : "16px",
   border: "none",
+  width: "100%",
 }));
 
 export const CustomAccordionSummary: React.FC<

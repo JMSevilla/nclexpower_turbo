@@ -21,6 +21,7 @@ export type Blocks =
   | "ReportedIssuesBlock"
   | "CreateRegularQuestionTypeBlock"
   | "CreateCategoryBlock"
+  | "ProgramManagementBlock";
   | "ContactUsManagementBlock";
 
 type BlockProps = {
@@ -38,6 +39,7 @@ type BlockProps = {
   ReportedIssuesBlock: {};
   CreateRegularQuestionTypeBlock: {};
   CreateCategoryBlock: {};
+  ProgramManagementBlock:{}
   ContactUsManagementBlock: {};
 };
 
