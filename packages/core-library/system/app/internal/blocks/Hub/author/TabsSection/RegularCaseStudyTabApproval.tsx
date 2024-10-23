@@ -8,7 +8,9 @@ import { Box, Container } from "@mui/material";
 import { Card, DataGrid } from "core-library/components";
 import { useColumns } from "core-library/hooks";
 
-export const RegularTabApproval: React.FC = () => {
+interface Props {}
+
+export const RegularCaseStudyTabApproval: React.FC<Props> = () => {
   const { columns } = useColumns({
     columns: [
       {
