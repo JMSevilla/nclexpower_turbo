@@ -87,8 +87,8 @@ export type PricingListResponse = {
   id: string;
   price: number;
   currency: string;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export interface ProductListResponse {
