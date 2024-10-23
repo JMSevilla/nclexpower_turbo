@@ -40,7 +40,7 @@ type ChooseSettingsStepFormType = yup.InferType<
 const ChooseProductsConfigurations = (props: {
   nextStep(values: Partial<SettingsSelectionType>): void;
   values: Partial<SettingsSelectionType>;
-  accessLevel?: string;
+  accessLevel?: Number;
 }) => {
   const { reset, setValue } = useForm<ChooseSettingsStepFormType>({
     resolver: yupResolver(chooseSettingsStepFormSchema),
@@ -77,7 +77,7 @@ const ChooseProductsConfigurations = (props: {
         rowSpacing={1}
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       >
-        {props.accessLevel === "1" ? (
+        {props.accessLevel === 1 ? (
           <Grid item xs={4}>
             <Card
               onClick={() =>
@@ -298,16 +298,16 @@ export const InAppManagement = (props: {
 };
 
 export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
-  const [accessLevel, setAccessLevel] = useState<string | null>(null);
+  const [accessLevel, setAccessLevel] = useState<Number | null>(null);
 
   useEffect(() => {
     const userAccessLevel = sessionStorage.getItem("al");
-    setAccessLevel(userAccessLevel);
+    setAccessLevel(Number(userAccessLevel));
   }, []);
 
   const renderConfiguration = () => {
     switch (accessLevel) {
-      case "0":
+      case 0:
         return (
           <>
             <ChooseProductsConfigurations nextStep={nextStep} values={values} />
@@ -322,15 +322,15 @@ export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
             <InAppManagement nextStep={nextStep} values={values} />
           </>
         );
-      case "1":
+      case 1:
         return (
           <ChooseProductsConfigurations
             nextStep={nextStep}
             values={values}
-            accessLevel={"1"}
+            accessLevel={1}
           />
         );
-      case "2":
+      case 2:
         return (
           <>
             <InAppManagement nextStep={nextStep} values={values} />
