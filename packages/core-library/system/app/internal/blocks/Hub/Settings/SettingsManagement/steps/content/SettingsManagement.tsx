@@ -5,7 +5,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Card, ErrorBox, InformationTitle } from "core-library/components";
-import { Box, Grid, Divider } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,7 @@ import {
   SettingsSelectionType,
   ChooseSettingsOptions,
 } from "../../types";
+import Divider from "../../../../../../../../../components/Divider/Divider";
 
 interface Props {
   nextStep(values: Partial<SettingsSelectionType>): void;
