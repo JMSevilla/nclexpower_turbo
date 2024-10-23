@@ -8,7 +8,7 @@ import { Button } from "../../../Button/Button";
 import { DialogBox } from "../../DialogBox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box, Typography } from "@mui/material";
-import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
+import { EvaIcon } from "../../../EvaIcon";
 
 type Props = {
   onClick: () => void;
@@ -34,11 +34,12 @@ const ContinueModalContent: React.FC<Props> = ({
       justifyContent="center"
       alignItems="center"
     >
-      <ErrorOutlineIcon
-        style={{
-          fontSize: "75px",
-          color: "#FCC019",
-        }}
+      <EvaIcon
+        name="alert-triangle-outline"
+        width={82}
+        height={82}
+        fill="#FCC019"
+        aria-hidden
       />
       <Box
         height="80px"
@@ -130,7 +131,13 @@ const ConfirmationModal = ({
           </Button>
         ) : (
           <Button sx={{ zIndex: 2 }}>
-            <TrendingFlatIcon sx={{ rotate: "180deg", color: "#37BEC7" }} />
+            <EvaIcon
+              name="arrow-back-outline"
+              width={22}
+              height={22}
+              fill="#37BEC7"
+              aria-hidden
+            />
             <Typography>Previous</Typography>
           </Button>
         )}
