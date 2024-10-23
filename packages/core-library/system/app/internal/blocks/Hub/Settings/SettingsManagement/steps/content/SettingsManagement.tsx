@@ -4,7 +4,7 @@
  * Created by the Software Strategy & Development Division
  */
 import React, { useEffect, useState } from "react";
-import { Card, InformationTitle } from "core-library/components";
+import { Card, ErrorBox, InformationTitle } from "core-library/components";
 import { Box, Grid, Divider } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -39,6 +39,7 @@ type ChooseSettingsStepFormType = yup.InferType<
 const ChooseProductsConfigurations = (props: {
   nextStep(values: Partial<SettingsSelectionType>): void;
   values: Partial<SettingsSelectionType>;
+  accessLevel?: string;
 }) => {
   const { reset, setValue } = useForm<ChooseSettingsStepFormType>({
     resolver: yupResolver(chooseSettingsStepFormSchema),
@@ -75,22 +76,37 @@ const ChooseProductsConfigurations = (props: {
         rowSpacing={1}
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       >
-        <Grid item xs={4}>
-          <Card hoverEffect elevation={5} text="Web Customer" />
-        </Grid>
-        <Grid item xs={4}>
-          <Card hoverEffect elevation={5} text="Web BackOffice" />
-        </Grid>
-        <Grid item xs={4}>
-          <Card
-            onClick={() =>
-              handleSelection({ chosen: "CONFIG", selection: "QM" })
-            }
-            hoverEffect
-            elevation={5}
-            text="Web Simulator"
-          />
-        </Grid>
+        {props.accessLevel === "1" ? (
+          <Grid item xs={4}>
+            <Card
+              onClick={() =>
+                handleSelection({ chosen: "CONFIG", selection: "QM" })
+              }
+              hoverEffect
+              elevation={5}
+              text="Web Simulator"
+            />
+          </Grid>
+        ) : (
+          <>
+            <Grid item xs={4}>
+              <Card hoverEffect elevation={5} text="Web Customer" />
+            </Grid>
+            <Grid item xs={4}>
+              <Card hoverEffect elevation={5} text="Web BackOffice" />
+            </Grid>
+            <Grid item xs={4}>
+              <Card
+                onClick={() =>
+                  handleSelection({ chosen: "CONFIG", selection: "QM" })
+                }
+                hoverEffect
+                elevation={5}
+                text="Web Simulator"
+              />
+            </Grid>
+          </>
+        )}
       </Grid>
     </Box>
   );
@@ -307,9 +323,11 @@ export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
         );
       case "1":
         return (
-          <>
-            <ChooseProductsConfigurations nextStep={nextStep} values={values} />
-          </>
+          <ChooseProductsConfigurations
+            nextStep={nextStep}
+            values={values}
+            accessLevel={"1"}
+          />
         );
       case "2":
         return (
@@ -320,7 +338,9 @@ export const SettingsManagement: React.FC<Props> = ({ nextStep, values }) => {
           </>
         );
       default:
-        return <Divider>No access to settings</Divider>;
+        return (
+          <ErrorBox label="Page not found. Please try again or contact administrator" />
+        );
     }
   };
 
