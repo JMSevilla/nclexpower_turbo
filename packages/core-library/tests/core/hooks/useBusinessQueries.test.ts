@@ -7,6 +7,10 @@ import {
   useDeleteCategory,
   useGetAllInternalAccounts,
   useGetRegularQuestionDDCategory,
+  useGetCategoryByType,
+  useGetAllCurrencies,
+  useGetAllPricing,
+  useGetOrderNumber,
 } from "../../../core/hooks/useBusinessQueries";
 import { useApiCallback } from "../../../hooks";
 import { CalcItemSelectResponseItem } from "../../../types";
@@ -15,9 +19,11 @@ import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import {
   AuthorizedContentsResponseType,
   CreatePaymentIntentParams,
+  CurrenciesResponse,
   GetAllInternalAccount,
   GetCategoryType,
   PaymentIntentResponse,
+  PricingListResponse,
   ReportIssueType,
 } from "../../../api/types";
 
@@ -914,6 +920,260 @@ describe("useGetContents", () => {
     );
 
     expect(result.current.data).toEqual(mockDataClientNeeds);
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should fetch client needs data for dropdown", async () => {
+    const mockDataClientNeeds: GetCategoryType[] = [
+      {
+        id: "4a6f1f4c-99f6-4bc3-9007-08dcbac828b2",
+        categoryName: "Client Needs Category",
+        categoryDescription: "Client Needs Dropdown Category Description",
+        categoryType: 2,
+        createdAt: "2024-08-12T12:13:21.8774182",
+        updatedAt: "2024-08-12T12:13:21.8774322",
+      },
+      {
+        id: "1aa54e3b-fcec-4504-9008-08dcbac828b2",
+        categoryName: "Client Needs 1",
+        categoryDescription: "Client Needs 1 Description",
+        categoryType: 2,
+        createdAt: "2024-08-12T16:57:41.6011985",
+        updatedAt: "2024-08-12T16:57:41.6011993",
+      },
+    ];
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: mockDataClientNeeds,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useGetRegularQuestionDDCategory(["getClientNeeds"], 2)
+    );
+
+    expect(useQuery).toHaveBeenCalledWith(
+      ["getClientNeeds"],
+      expect.any(Function),
+      {
+        staleTime: Infinity,
+      }
+    );
+
+    expect(result.current.data).toEqual(mockDataClientNeeds);
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should fetch get category by type", async () => {
+    const mockDataReportCategories: GetCategoryType[] = [
+      {
+        id: "3a638144-3577-4ec0-fc1a-08dca6823764",
+        categoryName: "Simulator Does Not Load",
+        categoryDescription: "Simulator Does Not Load test",
+        categoryType: 1,
+        createdAt: "2024-07-17T17:02:18.4980667",
+        updatedAt: "2024-07-17T17:02:18.4980833",
+      },
+      {
+        id: "468a7caf-f9cc-433a-e3eb-08dcbc166982",
+        categoryName: "Button Does Not Work",
+        categoryDescription: "Button Does Not Work",
+        categoryType: 1,
+        createdAt: "2024-08-14T04:06:02.512754",
+        updatedAt: "2024-08-14T04:06:02.5127682",
+      },
+    ];
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: mockDataReportCategories,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useGetCategoryByType(["CategoryList"], 1)
+    );
+
+    expect(useQuery).toHaveBeenCalledWith(
+      ["CategoryList"],
+      expect.any(Function),
+      {
+        staleTime: Infinity,
+      }
+    );
+
+    expect(result.current.data).toEqual(mockDataReportCategories);
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should fetch get all currencies", async () => {
+    const mockDataCurrencies: CurrenciesResponse[] = [
+      {
+        id: "d4f90b79-3a39-4cdf-b882-07fbcfc0007d",
+        symbol: "MDL",
+        name: "Moldovan Leu",
+        symbol_native: "MDL",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "MDL",
+        name_plural: "Moldovan lei",
+      },
+      {
+        id: "7bbdd3b9-3bfa-4341-9b99-08d10eb9c92c",
+        symbol: "KHR",
+        name: "Cambodian Riel",
+        symbol_native: "៛",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "KHR",
+        name_plural: "Cambodian riels",
+      },
+      {
+        id: "b9badf38-3aef-441d-8061-1518b7511355",
+        symbol: "SR",
+        name: "Saudi Riyal",
+        symbol_native: "ر.س.‏",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "SAR",
+        name_plural: "Saudi riyals",
+      },
+      {
+        id: "199c934e-85ac-4508-879d-17f807b2016e",
+        symbol: "J$",
+        name: "Jamaican Dollar",
+        symbol_native: "$",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "JMD",
+        name_plural: "Jamaican dollars",
+      },
+      {
+        id: "9d277982-000f-4ec4-a11d-1896cf139bef",
+        symbol: "$U",
+        name: "Uruguayan Peso",
+        symbol_native: "$",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "UYU",
+        name_plural: "Uruguayan pesos",
+      },
+      {
+        id: "5cfbc673-598d-41e8-8131-1978d79344a0",
+        symbol: "MX$",
+        name: "Mexican Peso",
+        symbol_native: "$",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "MXN",
+        name_plural: "Mexican pesos",
+      },
+    ];
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: mockDataCurrencies,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useGetAllCurrencies(["getAllCurrencies"])
+    );
+
+    expect(useQuery).toHaveBeenCalledWith(
+      ["getAllCurrencies"],
+      expect.any(Function),
+      {
+        staleTime: Infinity,
+      }
+    );
+
+    expect(result.current.data).toEqual(mockDataCurrencies);
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should fetch get all NCLEX product pricing", async () => {
+    const mockDataPricing: PricingListResponse[] = [
+      {
+        id: "ec975d56-8ab7-4124-f99b-08dcc0533c5f",
+        price: 123.0,
+        currency: "USD",
+        createdAt: "2024-08-19T21:31:30.7384496",
+        updatedAt: "2024-08-19T21:31:30.7384842",
+      },
+      {
+        id: "139aebca-0713-43cc-6c76-08dcc5cef65a",
+        price: 145.0,
+        currency: "USD",
+        createdAt: "2024-08-26T12:59:46.6803994",
+        updatedAt: "2024-08-26T12:59:46.6804197",
+      },
+      {
+        id: "650c2434-e6d3-4e17-c263-08dcea8efa0d",
+        price: 900.99,
+        currency: "USD",
+        createdAt: "2024-10-12T07:24:58.1209433",
+        updatedAt: "2024-10-12T07:24:58.1209623",
+      },
+      {
+        id: "0023e348-8bc3-47bd-032c-08dceebc0709",
+        price: 230.0,
+        currency: "USD",
+        createdAt: "2024-10-17T14:57:31.9047683",
+        updatedAt: "2024-10-17T14:57:31.9047809",
+      },
+    ];
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: mockDataPricing,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() => useGetAllPricing(["selectAllPricing"]));
+
+    expect(useQuery).toHaveBeenCalledWith(
+      ["selectAllPricing"],
+      expect.any(Function),
+      {
+        staleTime: Infinity,
+      }
+    );
+
+    expect(result.current.data).toEqual(mockDataPricing);
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it("should fetch get order number", async () => {
+    const mockOrderNumber: string = "NLXPWR-194130714961";
+
+    (useQuery as jest.Mock).mockImplementation(() => {
+      return {
+        data: mockOrderNumber,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    const { result } = renderHook(() => useGetOrderNumber(["getOrderNumber"]));
+
+    expect(useQuery).toHaveBeenCalledWith(
+      ["getOrderNumber"],
+      expect.any(Function),
+      { enabled: false, staleTime: Infinity }
+    );
+
+    expect(useQuery).toHaveBeenCalledTimes(1);
+    expect(result.current.data).toEqual(mockOrderNumber);
     expect(result.current.isLoading).toBe(false);
   });
 });
