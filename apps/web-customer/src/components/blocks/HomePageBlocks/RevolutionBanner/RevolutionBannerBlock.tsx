@@ -1,3 +1,8 @@
+/**
+* Property of the NCLEX Power.
+* Reuse as a whole or in part is prohibited without permission.
+* Created by the Software Strategy & Development Division
+*/
 import { ImageCarousel } from '@/components/ImageCarousel/ImageCarousel'
 import { settings } from 'core-library/core/utils/contants/wc/HomePageData'
 import { CarouselOne, CarouselTwo, CarouselThree } from 'core-library/assets'
